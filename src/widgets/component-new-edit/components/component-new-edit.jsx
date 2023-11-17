@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { formValueSelector, formPropTypes, Field } from 'redux-form';
+import { formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
@@ -53,13 +52,23 @@ export const propTypes = {
   componentsStore: PropTypes.object,
   addSubformValidationErrors: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  deleteComponent: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  activeQuestionnaire: PropTypes.object.isRequired,
+  updateComponent: PropTypes.func.isRequired,
+  externalLoopsStore: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export const defaultProps = {
   errorsIntegrityByTab: {},
-  submitErrors: {},
   componentsStore: {},
-  codesListsStoreStore: {},
+  deleteComponent: undefined,
 };
 
 const ComponentNewEdit = props => {
@@ -80,6 +89,7 @@ const ComponentNewEdit = props => {
     clearSubformValidationErrors,
     externalLoopsStore,
     InitialMember,
+    updateComponent,
   } = props;
   const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -425,26 +435,13 @@ const ComponentNewEdit = props => {
   };
 
   const scopes = [
-    getQuestionnaireScope(componentsStore).map(questionnaireIteration => {
-      return (
-        <GenericOption
-          key={`scope-${questionnaireIteration.id}`}
-          value={questionnaireIteration.id}
-        >
-          {questionnaireIteration.nameLoop}
+    getQuestionnaireScope(componentsStore, externalLoopsStore).map(
+      iteration => (
+        <GenericOption key={`scope-${iteration.id}`} value={iteration.id}>
+          {iteration.name}
         </GenericOption>
-      );
-    }),
-    externalLoopsStore.map(externalIteration => {
-      return (
-        <GenericOption
-          key={`scope-${externalIteration.id}`}
-          value={externalIteration.id}
-        >
-          {externalIteration.Name}
-        </GenericOption>
-      );
-    }),
+      ),
+    ),
   ];
 
   const associatedFieldsProps = {
@@ -640,7 +637,7 @@ const ComponentNewEdit = props => {
               handleCloseNestedFilter1={handleCloseNestedFilter}
               componentType={NESTEDFILTRE}
               handleDeleteNestedFilter={handleDeleteNestedFilter}
-              updateComponent={props.updateComponent}
+              updateComponent={updateComponent}
               initialMemberFilter={InitialMember}
             />
           </div>
@@ -685,11 +682,8 @@ const ComponentNewEdit = props => {
     </div>
   );
 };
-const mapStateToProps = state => {
-  const selector = formValueSelector('component');
-  return {
-    InitialMember: selector(state, 'initialMember'),
-    filterImbriquer: selector(state, 'filterImbriquer'),
-  };
-};
-export default connect(mapStateToProps)(ComponentNewEdit);
+
+ComponentNewEdit.propTypes = propTypes;
+ComponentNewEdit.defaultProps = defaultProps;
+
+export default ComponentNewEdit;
