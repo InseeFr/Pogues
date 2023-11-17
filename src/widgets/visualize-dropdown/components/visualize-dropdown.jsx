@@ -178,7 +178,7 @@ VisualizeDropdown.defaultProps = {
   collectedVariableByQuestion: {},
   questionnaire: {},
   externalQuestionnairesVariables: {},
-  token: '',
+  token: undefined,
 };
 
 export default VisualizeDropdown;
