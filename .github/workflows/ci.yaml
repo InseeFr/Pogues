@@ -1,0 +1,82 @@
+name: ci
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.head_commit.author.name != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: yarn
+      - run: yarn build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pogues
+          path: pogues/build
+
+  check_if_version_upgraded:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    outputs:
+      version: ${{ steps.check.outputs.to_version }}
+      is_upgraded_version: ${{ steps.check.outputs.is_upgraded_version }}
+      is_pre_release: ${{steps.check.outputs.is_pre_release }}
+    steps:
+      - uses: garronej/ts-ci@v2.1.0
+        id: check
+        with:
+          action_name: is_package_json_version_upgraded
+          branch: ${{ github.head_ref || github.ref }}
+
+  docker_pogues:
+    needs: check_if_version_upgraded
+    if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-qemu-action@v2
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/download-artifact@v3
+        with:
+          name: pogues
+          path: pogues/build
+      - uses: docker/build-push-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            inseefr/pogues:latest,
+            inseefr/pogues:${{ needs.check_if_version_upgraded.outputs.version }}
+
+  release:
+    runs-on: ubuntu-latest
+    needs: check_if_version_upgraded
+    if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+      - uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ needs.check_if_version_upgraded.outputs.version }}
+          tag_name: ${{ needs.check_if_version_upgraded.outputs.version }}
+          target_commitish: ${{ github.head_ref || github.ref }}
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ needs.check_if_version_upgraded.outputs.is_pre_release == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
