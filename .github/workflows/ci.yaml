@@ -37,6 +37,8 @@ jobs:
       - name: Check if container version has been updated
         id: check
         uses: EndBug/version-check@v2
+        with:
+          diff-search: true
 
   docker_pogues:
     needs: check_if_version_upgraded
