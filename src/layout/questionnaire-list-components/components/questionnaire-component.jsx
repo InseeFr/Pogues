@@ -133,7 +133,7 @@ const QuestionnaireComponent = props => {
           })}
           ref={myRef}
         >
-          {/* eslint-disable jsx-a11y/no-static-element-interactions */}
+          {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
           <div
             role="presentation"
             onClick={handleSelectComponent}
