@@ -108,7 +108,7 @@
   "scripts": {
     "test": "react-scripts test --coverage -i",
     "testw": "react-scripts test --watch",
-    "start": "react-scripts --max-old-space-size=4096 start",
+    "start": "react-scripts start",
     "start-insee": "cross-env REACT_APP_INSEE=true react-scripts start",
     "dev:server": "concurrently \"npm run server\" \"npm run start\"",
     "server": "node ./fake-server/server.js",
