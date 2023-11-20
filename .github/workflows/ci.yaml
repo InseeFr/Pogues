@@ -29,7 +29,7 @@ jobs:
       github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login
     outputs:
       version: ${{ steps.check.outputs.version }}
-      is_upgraded_version: ${{ steps.check.outputs.is_upgraded_version }}
+      is_upgraded_version: ${{ steps.check.outputs.changed }}
       is_pre_release: ${{ contains(steps.check.outputs.version, '-rc' ) }}
     steps:
       - uses: actions/checkout@v3
@@ -68,9 +68,8 @@ jobs:
     # We create release only if the version in the package.json have been upgraded and this CI is running against the main branch.
     # We allow branches with a PR open on main to publish pre-release (x.y.z-rc.u) but not actual releases.
     if: |
-      (github.event_name == 'push'
-      || needs.check_if_version_upgraded.outputs.is_pre_release == 'true')
-      && needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
+      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.is_pre_release == 'true') && 
+      needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
