@@ -356,8 +356,8 @@ const dictionary = {
     fr: 'Aide',
   },
   helpUrl: {
-    en: 'https://inseefr.github.io/Pogues/en/user-guide/user-guide.html',
-    fr: 'https://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html',
+    en: 'https://inseefr-github-io.translate.goog/Bowie/pogues/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=fr&_x_tr_pto=wapp',
+    fr: 'https://inseefr.github.io/Bowie/pogues/guide/',
   },
   WARNING: {
     en: 'Warning',
