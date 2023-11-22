@@ -357,7 +357,7 @@ const dictionary = {
   },
   helpUrl: {
     en: 'https://inseefr-github-io.translate.goog/Bowie/pogues/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=fr&_x_tr_pto=wapp',
-    fr: 'https://inseefr.github.io/Bowie/pogues/guide/',
+    fr: 'https://inseefr.github.io/Bowie/pogues/',
   },
   WARNING: {
     en: 'Warning',
