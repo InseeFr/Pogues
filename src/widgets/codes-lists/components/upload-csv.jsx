@@ -26,8 +26,8 @@ const UploadCSV = props => {
     if (data.length > 0) {
       data.forEach(element => {
         if (
-          !element.label ||
-          !element.value ||
+          element.label === null ||
+          element.value === null ||
           'label' in element === false ||
           'value' in element === false ||
           'parent' in element === false
