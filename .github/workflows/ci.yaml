@@ -7,23 +7,23 @@ on:
     branches: ['main']
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   if: github.event.head_commit.author.name != 'github-actions[bot]'
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "16"
-  #     - run: yarn
-  #     - run: yarn build
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: pogues
-  #         path: build
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.head_commit.author.name != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: yarn
+      - run: yarn build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pogues
+          path: build
 
   check_if_version_upgraded:
-    #needs: build
+    needs: build
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'push' || 
