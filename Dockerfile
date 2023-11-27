@@ -1,5 +1,5 @@
-FROM nginx
-COPY build /usr/share/nginx/html
+FROM nginx:1.25.3
+ADD build /usr/share/nginx/html
 RUN rm etc/nginx/conf.d/default.conf
 COPY nginx.conf etc/nginx/conf.d/
 
