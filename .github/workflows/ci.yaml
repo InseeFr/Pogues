@@ -29,35 +29,27 @@ jobs:
       github.event_name == 'push' || 
       github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login
     outputs:
-      version: ${{ steps.new_version.outputs.prop }}
-      is_upgraded_version: ${{ steps.check.outputs.changed }}
-      is_pre_release: ${{ contains(steps.new_version.outputs.prop, '-rc' ) }}
+      version: ${{ steps.version.outputs.prop }}
+      is_version_changed: ${{ steps.check.outputs.exists == 'false' }}
+      is_pre_release: ${{ contains(steps.version.outputs.prop, '-rc' ) }}
     steps:
       - uses: actions/checkout@v3
-      - id: new_version
+      - id: version
         uses: notiz-dev/github-action-json-property@release
         with:
           path: 'package.json'
           prop_path: 'version'
-      - uses: actions/checkout@v3
+      ## we check if repo contains already this tag, if not version, has changed
+      - uses: mukunku/tag-exists-action@v1.4.0
+        id: check
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
-      - id: old_version
-        uses: notiz-dev/github-action-json-property@release
-        with:
-          path: 'package.json'
-          prop_path: 'version'
-      - id: check
-        run: |
-          if [[ "${{steps.old_version.outputs.prop}}" == "${{steps.new_version.outputs.prop}}" ]]; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
+          tag: ${{ steps.version.outputs.prop }}
 
   docker_pogues:
     needs: check_if_version_upgraded
-    if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
+    if: |
+      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.is_pre_release == 'true') && 
+      needs.check_if_version_upgraded.outputs.is_version_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -86,7 +78,7 @@ jobs:
     # We allow branches with a PR open on main to publish pre-release (x.y.z-rc.u) but not actual releases.
     if: |
       (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.is_pre_release == 'true') && 
-      needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
+      needs.check_if_version_upgraded.outputs.is_version_changed == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
