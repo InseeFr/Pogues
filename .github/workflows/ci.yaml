@@ -41,7 +41,7 @@ jobs:
           prop_path: 'version'
       - uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.target_branch }}
+          ref: ${{ github.event.pull_request.base.ref }}
       - id: old_version
         uses: notiz-dev/github-action-json-property@release
         with:
@@ -51,7 +51,6 @@ jobs:
         run: |
           if [[ "${{steps.old_version.outputs.prop}}" == "${{steps.new_version.outputs.prop}}" ]]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 1
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
