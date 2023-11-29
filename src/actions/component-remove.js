@@ -7,11 +7,14 @@ import {
   isNestedFilter,
   toId,
 } from 'utils/component/component-utils';
-import { resetWeight } from './component-update';
 import sortBy from 'lodash.sortby';
 import find from 'lodash.find';
 import takeWhile from 'lodash.takewhile';
 import takeRight from 'lodash.takeright';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { resetWeight } from './component-update';
+
+const { SEQUENCE } = COMPONENT_TYPE;
 
 /**
  * This is method will return the new active components without the one we want
@@ -67,7 +70,7 @@ export function removeLeafComponent(activesComponents, deletedComponent) {
 }
 
 /**
- * This function will be executed when we wan to remove a SUBSEQUENCE with children
+ * This function will be executed when we want to remove a SUBSEQUENCE with children
  *
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} deletedComponent The component we want to remove
@@ -159,7 +162,7 @@ export function removeSubSequence(activesComponents, deletedComponent) {
 }
 
 /**
- * This function will be executed when we wan to remove a SEQUENCE with children
+ * This function will be executed when we want to remove a SEQUENCE with children
  * @param {object} activesComponents The list of components currently displayed
  * @param {object} deletedComponent The component we want to remove
  */
@@ -174,10 +177,23 @@ export function removeSequence(activesComponents, deletedComponent) {
   );
   const parent = activesComponents[deletedComponent.parent];
 
-  // We will find the sibling SEQUENCE
+  const previousSequenceWeight = Object.values(activesComponents).reduce(
+    (acc, component) => {
+      if (
+        component.type === SEQUENCE &&
+        component.weight < deletedComponent.weight &&
+        component.weight > acc
+      )
+        return component.weight;
+      return acc;
+    },
+    0,
+  );
+
+  // We will find the previous sibling SEQUENCE
   const previousSequence = find(
     toComponents(parent.children, activesComponents),
-    c => c.weight === deletedComponent.weight - 1,
+    c => c.weight === previousSequenceWeight,
   );
 
   // From the previous SEQUENCE, we will get the last component
