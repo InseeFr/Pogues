@@ -18,12 +18,12 @@ const { LIST } = DIMENSION_FORMATS;
  */
 export function getQuestionnaireScope(components, externalLoops) {
   return [
-    Object.values(components)
+    ...Object.values(components)
       .filter(component => component.type === LOOP && !component.basedOn)
       .map(loop => {
         return { id: loop.id, name: loop.nameLoop };
       }),
-    Object.values(components)
+    ...Object.values(components)
       .filter(
         component =>
           component.type === QUESTION &&
@@ -32,6 +32,6 @@ export function getQuestionnaireScope(components, externalLoops) {
               component.responseFormat.TABLE.PRIMARY.type === LIST)),
       )
       .map(question => ({ id: question.id, name: question.name })),
-    externalLoops,
-  ].flat();
+    ...externalLoops,
+  ];
 }

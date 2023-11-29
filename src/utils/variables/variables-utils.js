@@ -57,8 +57,8 @@ export function getAllVariables(
       .reduce((acc, quest) => {
         return [
           ...acc,
-          Object.values(quest.variables).map(variable => variable.Name),
-        ].flat();
+          ...Object.values(quest.variables).map(variable => variable.Name),
+        ];
       }, []);
   return collectedVariables.concat(
     externalVariables,
