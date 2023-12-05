@@ -50,10 +50,6 @@ export function maxLength(max) {
   };
 }
 
-export function maxLength15() {
-  return maxLength(15);
-}
-
 export function number(value) {
   return value && isNaN(Number(value))
     ? Dictionary.validationNumber

@@ -3,7 +3,7 @@ import uniq from 'lodash.uniq';
 import { INTEGRITY_TYPES, COMPONENT_TYPE } from 'constants/pogues-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 
-const { FILTER } = COMPONENT_TYPE;
+const { FILTER, LOOP } = COMPONENT_TYPE;
 
 function checkerUniqueComponentName({
   appState: {
@@ -14,7 +14,7 @@ function checkerUniqueComponentName({
   const errors = [];
   const componentNames = Object.values(activeComponentsById)
     .filter(component => component.type !== FILTER)
-    .map(element => element.name);
+    .map(element => (element.type === LOOP ? element.nameLoop : element.name));
 
   const duplicatedComponentNames = uniq(
     componentNames.filter(name => {

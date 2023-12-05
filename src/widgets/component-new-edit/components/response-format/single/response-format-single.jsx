@@ -72,29 +72,31 @@ function ResponseFormatSingle({
     .flat();
 
   // reduces from each question and from each question's variable the pairing structure including the id and the name of the RosterVariablesId
-  const pairingSourceVariable = Object.values(collectedVariablesStore).reduce(
-    (acc, questionVariable) => [
-      ...acc,
-      Object.values(questionVariable)
-        .reduce(
-          (acc2, collectedVariable) =>
-            RosterVariablesId.includes(collectedVariable.id)
-              ? [
-                  ...acc2,
-                  <GenericOption
-                    key={collectedVariable.id}
-                    value={collectedVariable.id}
-                  >
-                    {collectedVariable.name}
-                  </GenericOption>,
-                ]
-              : acc2,
-          [],
-        )
-        .flat(),
-    ],
-    [],
-  );
+  const pairingSourceVariable = Object.values(collectedVariablesStore)
+    .filter(question => typeof question === 'object')
+    .reduce(
+      (acc, questionVariable) => [
+        ...acc,
+        Object.values(questionVariable)
+          .reduce(
+            (acc2, collectedVariable) =>
+              RosterVariablesId.includes(collectedVariable.id)
+                ? [
+                    ...acc2,
+                    <GenericOption
+                      key={collectedVariable.id}
+                      value={collectedVariable.id}
+                    >
+                      {collectedVariable.name}
+                    </GenericOption>,
+                  ]
+                : acc2,
+            [],
+          )
+          .flat(),
+      ],
+      [],
+    );
 
   return (
     <FormSection name={selectorPath} className="response-format__single">

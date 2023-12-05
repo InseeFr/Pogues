@@ -2,58 +2,55 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { GENERIC_INPUT } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
+import { ExternalQuestionnaireDropdown } from 'widgets/external-questionnaire-dropdown';
 import { ComponentNew } from 'layout/component-new';
 import Loader from 'layout/loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
-const { VISUALIZATION } = DROPDOWN_TYPE;
 
 // PropTypes and defaultProps
 
 export const propTypes = {
+  activeQuestionnaire: PropTypes.object,
   placeholders: PropTypes.object.isRequired,
-
+  isLoadingVisualization: PropTypes.bool,
   saveActiveQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func,
-  isQuestionnaireModified: PropTypes.bool.isRequired,
+  isQuestionnaireHaveError: PropTypes.bool,
+  isQuestionnaireModified: PropTypes.bool,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
+  token: PropTypes.string,
+  selectedComponent: PropTypes.object,
+  removeVisualizationError: PropTypes.func,
+  showVisualizationErrorPopup: PropTypes.func,
 };
 
 export const defaultProps = {
+  activeQuestionnaire: {},
+  isLoadingVisualization: false,
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
   visualizeActiveQuestionnaire: undefined,
+  token: undefined,
+  selectedComponent: undefined,
+  removeVisualizationError: undefined,
+  showVisualizationErrorPopup: undefined,
 };
 
 // Components
 
-export const customModalStyles = {
-  content: {
-    display: 'absolute',
-    textAlign: 'center',
-    verticAlalign: 'middle',
-    top: '40%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    width: '400px',
-    alignItems: 'center',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 export const customLoopModalStyles = {
   content: {
     display: 'absolute',
     textAlign: 'center',
-    verticAlalign: 'middle',
+    verticalAlign: 'middle',
     top: '25%',
     left: '50%',
     right: 'auto',
@@ -153,13 +150,13 @@ function GenericInput(props) {
                 isOpen
                 ariaHideApp={false}
                 shouldCloseOnOverlayClick={false}
-                style={customModalStyles}
+                className="custom-modal"
               >
                 <p>{Dictionary.modification}</p>
-                <button onClick={onCancel} style={customModalbuttonStyles}>
+                <button onClick={onCancel} className="modal-button">
                   {Dictionary.no}
                 </button>
-                <button onClick={onConfirm} style={customModalbuttonStyles}>
+                <button onClick={onConfirm} className="modal-button">
                   {Dictionary.yes}
                 </button>
               </ReactModal>
@@ -223,14 +220,13 @@ function GenericInput(props) {
             {Dictionary.filtre}
           </button>
         )}
-        <VisualizeDropdown
+        <ExternalQuestionnaireDropdown
           disabled={
             selectedComponent &&
             selectedComponent.type !== SEQUENCE &&
             selectedComponent.type !== EXTERNAL_ELEMENT
           }
           top
-          typeDropDown={EXTERNAL_ELEMENT}
         />
         <button
           className="btn-yellow"
@@ -243,17 +239,16 @@ function GenericInput(props) {
         </button>
         <VisualizeDropdown
           top
-          typeDropDown={VISUALIZATION}
           disabled={!isQuestionnaireValid}
           visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
           token={token}
+          questionnaireId={activeQuestionnaire.id}
         />
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
           <span className="glyphicon glyphicon-share-alt" />
         </button>
       </div>
-
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
@@ -288,38 +283,38 @@ function GenericInput(props) {
       <ReactModal
         isOpen={showNewUnsavedModal}
         ariaHideApp={false}
-        style={customModalStyles}
+        className="custom-modal"
       >
         <p>{Dictionary.notSaved}</p>
-        <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+        <button onClick={handleCloseModal} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>
       <ReactModal
         isOpen={showVisualizationErrorPopup}
         ariaHideApp={false}
-        style={customModalStyles}
+        className="custom-modal"
       >
         <p>{Dictionary.visualizationError}</p>
-        <button
-          onClick={removeVisualizationError}
-          style={customModalbuttonStyles}
-        >
+        <button onClick={removeVisualizationError} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>
       <ReactModal
         isOpen={showNewLoopModal}
         ariaHideApp={false}
-        style={customLoopModalStyles}
+        className="custom-modal"
       >
         <p>{Dictionary.loopNotSaved}</p>
-        <button onClick={handleCloseModal} style={customModalbuttonStyles}>
+        <button onClick={handleCloseModal} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>
     </div>
   );
 }
+
+GenericInput.propTypes = propTypes;
+GenericInput.defaultProps = defaultProps;
 
 export default GenericInput;

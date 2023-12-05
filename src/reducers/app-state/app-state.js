@@ -6,7 +6,6 @@ import activeExternalVariablesById from 'reducers/app-state/active-external-vari
 import invalidItemsByActiveQuestion from 'reducers/app-state/invalid-items-by-active-question';
 import errorsByQuestionTab from 'reducers/app-state/errors-by-question-tab';
 import formUtilsReducers from 'reducers/app-state/form-utils';
-import { setActiveExternalQuestionnaires } from 'reducers/app-state/active-external-questionnaires-by-id';
 
 import {
   SET_ACTIVE_QUESTIONNAIRE,
@@ -30,7 +29,10 @@ import {
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
 } from 'actions/component';
-import { CREATE_QUESTIONNAIRE_REF } from 'actions/external-questionnaire';
+import {
+  CREATE_QUESTIONNAIRE_REF,
+  REMOVE_QUESTIONNAIRE_REF,
+} from 'actions/external-questionnaire';
 
 const actionHandlers = {
   ...formUtilsReducers,
@@ -97,6 +99,42 @@ export function loadStatisticalContext(state, { serie, operation }) {
       serie,
       operation,
     },
+  };
+}
+
+export function setActiveExternalQuestionnaires(state, { id }) {
+  const newChildQuestionnaireRef = [
+    ...Object.values(state.activeQuestionnaire.childQuestionnaireRef).filter(
+      extQR => extQR !== id,
+    ),
+    id,
+  ];
+  return {
+    ...state,
+    activeQuestionnaire: {
+      ...state.activeQuestionnaire,
+      childQuestionnaireRef: newChildQuestionnaireRef,
+    },
+  };
+}
+
+export function setRemoveExternalQuestionnaires(state, { id }) {
+  const newChildQuestionnaireRef = [
+    ...Object.values(state.activeQuestionnaire.childQuestionnaireRef).filter(
+      extQR => extQR !== id,
+    ),
+  ];
+  return {
+    ...setSelectedComponentId(
+      {
+        ...state,
+        activeQuestionnaire: {
+          ...state.activeQuestionnaire,
+          childQuestionnaireRef: newChildQuestionnaireRef,
+        },
+      },
+      '',
+    ),
   };
 }
 
@@ -185,6 +223,7 @@ actionHandlers[LOADING_VISUALIZATION_SUCCESS] = loadingVisualizationSuccess;
 actionHandlers[LOADING_VISUALIZATION_FAILURE] = loadingVisualizationFailure;
 actionHandlers[DELETE_APPSTATE] = deleteAppState;
 actionHandlers[CREATE_QUESTIONNAIRE_REF] = setActiveExternalQuestionnaires;
+actionHandlers[REMOVE_QUESTIONNAIRE_REF] = setRemoveExternalQuestionnaires;
 
 // @TODO: Add the combine functionality to the generic createActionHandler method
 export default function (state = defaultState, action) {

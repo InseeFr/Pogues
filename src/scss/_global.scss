@@ -257,6 +257,34 @@ a {
   }
 }
 
+.custom-modal {
+  @extend .container;
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  top: 40%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  width: 400px;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 4px;
+}
+
+.modal-button {
+  background-color: #15417a;
+  color: white;
+  box-shadow: none;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
 .alert-triangle {
   position: relative;
   background-color: red;

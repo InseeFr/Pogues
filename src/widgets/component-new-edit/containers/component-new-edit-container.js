@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { formPropTypes } from 'redux-form';
+import { formValueSelector, formPropTypes } from 'redux-form';
 
 import ComponentNewEdit from '../components/component-new-edit';
 import {
@@ -58,7 +58,10 @@ const mapStateToProps = (state, { componentId }) => {
   const externalLoopsWanted = Object.keys(externalLoopsAvailable)
     .filter(key => externalQuestionnnairesId.includes(key))
     .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
+  const selector = formValueSelector('component');
   return {
+    InitialMember: selector(state, 'initialMember'),
+    filterImbriquer: selector(state, 'filterImbriquer'),
     errorsIntegrityByTab: getErrorsIntegrityByTab(errorsIntegrity),
     componentsStore: state.appState.activeComponentsById,
     externalLoopsStore: externalLoopsWanted,

@@ -1,0 +1,75 @@
+.duplicate-variables {
+  @include make-xs-column(10);
+  margin-top: 20px;
+  margin-bottom: 80px;
+  padding-top: 20px;
+  border: 1px solid $color-grey_02;
+  border-radius: 5px;
+  background-color: white;
+  h3 {
+    text-align: center;
+    padding: 2ex;
+    color: $color-blue_01;
+  }
+}
+
+.duplicate-variables_body {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.duplicate-variables_header {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  margin-bottom: 10px;
+  > div:nth-child(1) {
+    @include make-xs-column(4);
+  }
+  > div:nth-child(2) {
+    @include make-xs-column(8);
+    > div:nth-child(1) {
+      @include make-xs-column(6);
+    }
+    > div:nth-child(2) {
+      @include make-xs-column(2);
+    }
+    > div:nth-child(3) {
+      @include make-xs-column(2);
+    }
+  }
+}
+.duplicate-variables_row {
+  display: flex;
+  text-align: left;
+  padding: 10px 0;
+  border-top: 1px solid $color-grey_02;
+  &:nth-of-type(even) {
+    background: $color-grey_03;
+  }
+
+  > div:nth-child(1) {
+    @include make-xs-column(4);
+  }
+  > div:nth-child(2) {
+    @include make-xs-column(8);
+  }
+  .duplicate-variables_questionnaire {
+    display: flex;
+    flex-direction: column;
+  }
+  .duplicate-variables_use {
+    display: flex;
+    flex-direction: row;
+    > div:nth-child(1) {
+      @include make-xs-column(6);
+    }
+    > div:nth-child(2) {
+      @include make-xs-column(2);
+    }
+    > div:nth-child(3) {
+      @include make-xs-column(2);
+    }
+  }
+}

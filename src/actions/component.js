@@ -62,9 +62,11 @@ export const createComponent =
             activeComponentsById: activeComponentsStore,
             activeCalculatedVariablesById: calculatedVariablesStore,
             activeExternalVariablesById: externalVariablesStore,
-            activeCollectedVariablesById: {
-              [componentState.id]: collectedVariablesStore,
-            },
+            activeCollectedVariablesById: collectedVariablesStore
+              ? {
+                  [componentState.id]: collectedVariablesStore,
+                }
+              : {},
             activeCodeListsById: codesListsStore,
           },
         },

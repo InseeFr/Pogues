@@ -204,6 +204,17 @@ export const loadExternalQuestionnairesVariables =
 
 // Metadata : loops from external elements
 
+const isQuestionLoop = component => {
+  return (
+    component.type === 'QuestionType' &&
+    ((component.questionType === 'TABLE' &&
+      component.ResponseStructure.Dimension.some(
+        dim => dim.dimensionType === 'PRIMARY' && dim.dynamic !== '0',
+      )) ||
+      component.questionType === 'PAIRING')
+  );
+};
+
 export const loadExternalQuestionnairesLoops =
   (idExternalQuestionnaire, token) => async dispatch => {
     dispatch({
@@ -216,10 +227,49 @@ export const loadExternalQuestionnairesLoops =
         idExternalQuestionnaire,
         token,
       );
+      const externalQuestionnaireQuestionLoops =
+        externalQuestionnaire.Child.reduce((accQuest, sequence) => {
+          const sequenceContent = Object.values(sequence.Child).reduce(
+            (acc, component) => {
+              if (isQuestionLoop(component))
+                return [...acc, { id: component.id, name: component.Name }];
+              if (
+                component.type === 'sequenceType' &&
+                component.genericName === 'SUBMODULE'
+              ) {
+                return Object.values(component.Child).reduce(
+                  (subacc, subcomponent) => {
+                    if (isQuestionLoop(subcomponent))
+                      return [
+                        ...subacc,
+                        {
+                          id: subcomponent.id,
+                          name: subcomponent.Name,
+                        },
+                      ];
+                    return subacc;
+                  },
+                  [],
+                );
+              }
+              return acc;
+            },
+            [],
+          );
+          return [...accQuest, ...sequenceContent];
+        }, []);
+      const externalQuestionnaireLoops =
+        externalQuestionnaire.Iterations?.Iteration.filter(
+          loop => !loop.IterableReference,
+        ).map(loop => ({ id: loop.id, name: loop.Name }));
+
       const externalQuestionnairesMetadata = [
         {
           id: idExternalQuestionnaire,
-          loops: externalQuestionnaire.Iterations?.Iteration || [],
+          loops: [
+            ...externalQuestionnaireQuestionLoops,
+            ...externalQuestionnaireLoops,
+          ],
         },
       ];
       return dispatch(

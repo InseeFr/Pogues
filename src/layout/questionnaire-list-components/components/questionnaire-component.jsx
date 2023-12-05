@@ -8,7 +8,7 @@ import { compose } from 'redux';
 import DropZone from './drop-zone/drop-zone';
 
 import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
-import { COMPONENT_TYPE, DROPDOWN_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
 import { VisualizeDropdown } from 'widgets/visualize-dropdown';
 import { markdownVtlToString } from 'forms/controls/rich-textarea';
@@ -31,7 +31,6 @@ import { getIntegrityErrors } from 'utils/integrity/utils';
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
-const { VISUALIZATION } = DROPDOWN_TYPE;
 
 const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
@@ -51,6 +50,12 @@ const QuestionnaireComponent = props => {
     visualizeActiveQuestionnaire,
     componentFiltersInitial,
     componentFiltersFinal,
+    setSelectedComponentId,
+    setEditingComponentId,
+    actions,
+    duplicateComponentAndVariables,
+    removeComponent,
+    removeQuestionnaireRef,
   } = props;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -67,32 +72,34 @@ const QuestionnaireComponent = props => {
     }
   }, [selected, ensureSelected]);
 
-  const handleSelectComponent = () => {
-    props.setSelectedComponentId(component.id);
-  };
-
+  const handleSelectComponent = () => setSelectedComponentId(component.id);
   const handleEditComponent = () => {
-    props.setEditingComponentId(component.id);
-    props.actions.handleOpenComponentDetail();
+    setEditingComponentId(component.id);
+    actions.handleOpenComponentDetail();
   };
   const handleEditFilterComponent = id => {
-    props.setEditingComponentId(id);
+    setEditingComponentId(id);
     handleOpenComponentDetail();
   };
 
-  const handleCloseComponentDetail = () => {
-    setShowComponentModal(false);
+  const handleCloseComponentDetail = () => setShowComponentModal(false);
+  const handleDuplicateComponent = () =>
+    duplicateComponentAndVariables(component.id);
+  const handleDeleteComponent = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    removeComponent(component.id);
+  };
+  const handleDeleteQuestionnaireRef = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const deletedComponent = component.id;
+    removeQuestionnaireRef(deletedComponent);
+    removeComponent(deletedComponent);
   };
 
-  const handleDuplicateComponent = () => {
-    props.duplicateComponentAndVariables(component.id);
-  };
-
-  const handleDeleteComponent = () => {
-    props.removeComponent(component.id);
-  };
   const handleDeleteComponent1 = id => {
-    props.removeComponent(id);
+    removeComponent(id);
     setShowComponentModal(false);
   };
   const handleOpenComponentDetail = () => {
@@ -126,7 +133,7 @@ const QuestionnaireComponent = props => {
           })}
           ref={myRef}
         >
-          {/* eslint-disable jsx-a11y/no-static-element-interactions */}
+          {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
           <div
             role="presentation"
             onClick={handleSelectComponent}
@@ -185,44 +192,48 @@ const QuestionnaireComponent = props => {
                       </div>
                     );
                   })}
-                {selected && (
+                {selected && component.type === EXTERNAL_ELEMENT && (
                   <div className="questionnaire-element-actions">
-                    {component.type === EXTERNAL_ELEMENT && (
-                      <Link
+                    <Link
+                      className="btn-yellow"
+                      to={`/questionnaire/${component.id}`}
+                      target="_blank"
+                    >
+                      {Dictionary.openQuestionnaire}
+                    </Link>
+                    <button
+                      className="btn-yellow"
+                      onClick={handleDeleteQuestionnaireRef}
+                    >
+                      {Dictionary.remove}
+                      <span className="glyphicon glyphicon-trash" />
+                    </button>
+                  </div>
+                )}
+                {selected && component.type !== EXTERNAL_ELEMENT && (
+                  <div className="questionnaire-element-actions">
+                    <button
+                      className="btn-yellow"
+                      onClick={handleEditComponent}
+                    >
+                      {Dictionary.showDetail}
+                    </button>
+                    {component.type === QUESTION && (
+                      <button
                         className="btn-yellow"
-                        to={`/questionnaire/${component.id}`}
-                        target="_blank"
+                        onClick={handleDuplicateComponent}
                       >
-                        {Dictionary.openQuestionnaire}
-                      </Link>
+                        {Dictionary.duplicate}
+                        <span className="glyphicon glyphicon-duplicate" />
+                      </button>
                     )}
-                    {component.type !== EXTERNAL_ELEMENT && (
-                      <>
-                        <button
-                          className="btn-yellow"
-                          onClick={handleEditComponent}
-                        >
-                          {Dictionary.showDetail}
-                        </button>
-                        {component.type === QUESTION && (
-                          <button
-                            className="btn-yellow"
-                            onClick={handleDuplicateComponent}
-                          >
-                            {Dictionary.duplicate}
-                            <span className="glyphicon glyphicon-duplicate" />
-                          </button>
-                        )}
-                        <VisualizeDropdown
-                          typeDropDown={VISUALIZATION}
-                          componentId={component.id}
-                          visualizeActiveQuestionnaire={
-                            visualizeActiveQuestionnaire
-                          }
-                          token={token}
-                        />
-                      </>
-                    )}
+                    <VisualizeDropdown
+                      componentId={component.id}
+                      visualizeActiveQuestionnaire={
+                        visualizeActiveQuestionnaire
+                      }
+                      token={token}
+                    />
                     <button
                       className="btn-yellow"
                       disabled={
@@ -291,6 +302,7 @@ QuestionnaireComponent.propTypes = {
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
+  removeQuestionnaireRef: PropTypes.func.isRequired,
 
   children: PropTypes.array,
 

@@ -72,7 +72,9 @@ const QuestionnaireList = props => {
     );
     const componentState = {
       id: checkedQuestionnaire,
-      name: externalQuestionnaire.name,
+      name:
+        externalQuestionnaire.name ||
+        externalQuestionnaire.label.replace(' ', ''),
       parent: activeQuestionnaire.id,
       weight: weight,
       children: [],
@@ -284,7 +286,19 @@ QuestionnaireList.propTypes = {
   isFusion: PropTypes.bool,
   isComposition: PropTypes.bool,
   isTcm: PropTypes.bool,
-  handleNewChildQuestionnaireRef: PropTypes.func.isRequired,
+  handleNewChildQuestionnaireRef: PropTypes.func,
+  handleCloseNewQuestionnaire: PropTypes.func,
+  mergeQuestionnaires: PropTypes.func,
+  deleteQuestionnaireList: PropTypes.func,
+  setSelectedStamp: PropTypes.func,
+  createComponent: PropTypes.func,
+  updateParentChildren: PropTypes.func,
+  orderComponents: PropTypes.func,
+  componentsStore: PropTypes.object,
+  codesListsStore: PropTypes.object,
+  calculatedVariablesStore: PropTypes.object,
+  externalVariablesStore: PropTypes.object,
+  collectedVariablesStore: PropTypes.object,
 };
 
 QuestionnaireList.defaultProps = {
@@ -296,5 +310,18 @@ QuestionnaireList.defaultProps = {
   isFusion: false,
   isComposition: false,
   isTcm: false,
+  handleNewChildQuestionnaireRef: undefined,
+  handleCloseNewQuestionnaire: undefined,
+  mergeQuestionnaires: undefined,
+  deleteQuestionnaireList: undefined,
+  setSelectedStamp: undefined,
+  createComponent: undefined,
+  updateParentChildren: undefined,
+  orderComponents: undefined,
+  componentsStore: {},
+  codesListsStore: {},
+  calculatedVariablesStore: {},
+  externalVariablesStore: {},
+  collectedVariablesStore: {},
 };
 export default QuestionnaireList;

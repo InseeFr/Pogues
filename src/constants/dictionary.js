@@ -244,8 +244,8 @@ const dictionary = {
   },
 
   date_format: {
-    en: 'format',
-    fr: 'format',
+    en: 'Format',
+    fr: 'Format',
   },
   createQuestionnaire: {
     en: 'Create a questionnaire',
@@ -323,12 +323,10 @@ const dictionary = {
     en: 'Date',
     fr: 'Date',
   },
-
   DURATION: {
     en: 'Duration',
     fr: 'Durée',
   },
-
   NUMERIC: {
     en: 'Number',
     fr: 'Nombre',
@@ -358,8 +356,8 @@ const dictionary = {
     fr: 'Aide',
   },
   helpUrl: {
-    en: 'https://inseefr.github.io/Pogues/en/user-guide/user-guide.html',
-    fr: 'https://inseefr.github.io/Pogues/fr/guide-utilisateur/guide-utilisateur.html',
+    en: 'https://inseefr-github-io.translate.goog/Bowie/pogues/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=fr&_x_tr_pto=wapp',
+    fr: 'https://inseefr.github.io/Bowie/pogues/',
   },
   WARNING: {
     en: 'Warning',
@@ -426,52 +424,42 @@ const dictionary = {
     en: 'Excepted',
     fr: 'Sauf',
   },
-
   InitialMembre: {
     en: 'Start',
     fr: 'Début',
   },
-
   FinalMembre: {
     en: 'End',
     fr: 'Fin',
   },
-
   AddButton: {
     en: 'Add button label',
     fr: "Libellé du bouton d'ajout",
   },
-
   selectBasedOn: {
     fr: 'Spécifier Basé sur',
     en: 'Specify Based on',
   },
-
   selectInitialMembre: {
     fr: 'Spécifier Membre initial',
     en: 'Specify Initial member',
   },
-
   selectFinalMembre: {
     fr: 'Spécifier Membre final',
     en: 'Specify Final member',
   },
-
   selectScope: {
     fr: 'Portée Questionnaire',
     en: 'Scope Questionnaire',
   },
-
   selectNestedFilter: {
     fr: 'Spécifier Filtre imbriqué',
     en: 'Specify Nested filter',
   },
-
   QGoTo: {
     fr: 'Redirections',
     en: 'GoTo',
   },
-
   QFilter: {
     fr: 'Filtres',
     en: 'Filter',
@@ -492,42 +480,34 @@ const dictionary = {
     en: 'hours',
     fr: 'heures',
   },
-
   minutes: {
     en: 'minutes',
     fr: 'minutes',
   },
-
   hundredths: {
     en: 'hundredths',
     fr: 'centièmes',
   },
-
   years: {
     en: 'years',
     fr: 'années',
   },
-
   months: {
     en: 'months',
     fr: 'mois',
   },
-
   dateinitial: {
     en: 'Date format',
     fr: 'Format de la date',
   },
-
   durationinitial: {
     en: 'Duration format',
     fr: 'Format de la durée',
   },
-
   formatDate: {
-    en: 'please respect the date format',
-    fr: 'merci de respecter le format de la date',
+    en: 'Please respect the date format',
+    fr: 'Merci de respecter le format de la date',
   },
-
   unit: {
     en: 'Unit of measure',
     fr: 'Unité de mesure',
@@ -536,12 +516,10 @@ const dictionary = {
     en: 'Select an unit of measure',
     fr: 'Sélectionnez une unité de mesure',
   },
-
   dateEmptySelect: {
     en: 'Select a date format',
     fr: 'Sélectionnez un format de date',
   },
-
   edit_config: {
     en: 'Edit config',
     fr: 'Éditer les paramètres',
@@ -728,6 +706,42 @@ const dictionary = {
     fr: "Le mode de collecte d'un composant (séquence sous-séquence ou question) doit être inclus dans les modes de collecte du questionnaire",
     en: 'The component collection mode (sequence, subsequence or question) must be included in the questionnaire collection mode',
   },
+  duplicateVariablesComment: {
+    fr: 'Certaines variables de votre questionnaire sont présentes plusieurs fois.',
+    en: 'Some variables in your questionnaire appear more than once.',
+  },
+  showErrorDuplicateVariables: {
+    fr: 'Voir les variables en doublon',
+    en: 'Show duplicate variables',
+  },
+  duplicateVariables: {
+    fr: 'Variables en doublon',
+    en: 'Duplicate variables',
+  },
+  duplicateVariablesHeader: {
+    fr: 'Variables',
+    en: 'Variables',
+  },
+  duplicateVariablesSource: {
+    fr: 'Origine',
+    en: 'Origin',
+  },
+  currentQuestionnaire: {
+    fr: 'Questionnaire courant',
+    en: 'Current questionnaire',
+  },
+  CollectedVariableType: {
+    fr: 'Collectée',
+    en: 'Collected',
+  },
+  CalculatedVariableType: {
+    fr: 'Calculée',
+    en: 'Calculated',
+  },
+  ExternalVariableType: {
+    fr: 'Externe',
+    en: 'External',
+  },
   failMessage: {
     en: 'Error message',
     fr: "Message d'erreur",
@@ -872,16 +886,14 @@ const dictionary = {
     en: 'Validate as it is',
     fr: "Valider en l'état",
   },
-
   saveLowerTitle: {
     en: 'Modifications not validated',
     fr: 'Modifications non validées',
   },
   notSaved: {
-    en: 'an error occurs, your modification can not be saved',
-    fr: "une erreur s'est produite, votre modification ne peut pas être sauvegardée",
+    en: 'An error occurs, your modification can not be saved',
+    fr: "Une erreur s'est produite, votre modification ne peut pas être sauvegardée",
   },
-
   loopNotSaved: {
     en: 'Your questionnaire has at least one loop, the last change made may generate inconsistencies (addition or change of order of a sequence or sub-sequence, modification of a question within a loop), please consult the loops concerned of your questionnaire, modify them if necessary and revalidate them.',
     fr: "Votre questionnaire comporte au moins une boucle, le dernier changement opéré peut générer des incohérences (ajout ou changement d'ordre d'une séquence ou sous-séquence, modification d'une question au sein d'une boucle), merci de consulter les boucles concernées de votre questionnaire, les modifier si nécessaire et les revalider.",
@@ -890,10 +902,9 @@ const dictionary = {
     en: 'An error occurred while visualizing the questionnaire',
     fr: 'Une erreur a été rencontrée lors de la visualisation du questionnaire',
   },
-
   close: {
-    fr: 'fermer',
-    en: 'close',
+    fr: 'Fermer',
+    en: 'Close',
   },
   yes: {
     fr: 'Oui',
@@ -991,7 +1002,6 @@ const dictionary = {
     fr: 'Code de la modalité',
     en: 'Code',
   },
-
   precisionId: {
     fr: 'Identifiant',
     en: 'Identifiant',
@@ -1000,17 +1010,14 @@ const dictionary = {
     fr: 'Tous les codes doivent être uniques',
     en: 'All codes should be unique',
   },
-
   clarificationUnicity: {
     fr: 'Toutes les clarifications doivent être uniques',
     en: 'All clarifications should be unique',
   },
-
   dupliquate: {
     fr: 'dupliquer un questionnaire',
     en: 'duplicate a question',
   },
-
   codePh: {
     fr: 'Code',
     en: 'Code',
@@ -1035,7 +1042,6 @@ const dictionary = {
     fr: 'Obligatoire',
     en: 'Mandatory',
   },
-
   durationformat1: {
     fr: 'heures/minutes',
     en: 'hours/minutes',
@@ -1048,12 +1054,10 @@ const dictionary = {
     fr: 'heures/centièmes',
     en: 'hours/hundredths',
   },
-
   dateyyyy: {
     fr: 'AAAA',
     en: 'YYYY',
   },
-
   datemmyyyy: {
     fr: 'AAAA-MM',
     en: 'YYYY-MM',
@@ -1062,7 +1066,6 @@ const dictionary = {
     fr: 'AAAA-MM-JJ',
     en: 'YYYY-MM-DD',
   },
-
   dclPosAfterQuestion: {
     fr: 'Après le libellé de question',
     en: 'After question label',
@@ -1511,7 +1514,6 @@ const dictionary = {
     en: 'Reset',
     fr: 'Réinitialiser',
   },
-
   searchResultVersion: {
     fr: 'Version',
     en: 'Version',

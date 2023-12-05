@@ -261,11 +261,6 @@ export const FORMULA_LANGUAGE = {
   VTL: 'VTL',
 };
 
-export const DROPDOWN_TYPE = {
-  VISUALIZATION: 'VISUALIZATION',
-  EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
-};
-
 export const CODELISTS_ACTIONS = {
   EDIT: {
     name: 'edit',

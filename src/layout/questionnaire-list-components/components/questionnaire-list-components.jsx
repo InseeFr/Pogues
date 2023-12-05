@@ -119,6 +119,7 @@ const QuestionnaireListComponents = props => {
               }
               moveComponent={props.dragComponent}
               removeComponent={props.removeComponent}
+              removeQuestionnaireRef={props.removeQuestionnaireRef}
               integrityErrorsByType={props.errorsIntegrity[key]}
               parentType={props.componentsStore[component.parent].type}
               actions={actions}
@@ -297,17 +298,22 @@ QuestionnaireListComponents.propTypes = {
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  removeQuestionnaireRef: PropTypes.func.isRequired,
   dragComponent: PropTypes.func.isRequired,
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,
   visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
+  activeCalculatedVariables: PropTypes.object,
+  calculatedVariables: PropTypes.object,
 };
 
 QuestionnaireListComponents.defaultProps = {
   token: '',
   componentsStore: {},
   errorsIntegrity: {},
+  activeCalculatedVariables: {},
+  calculatedVariables: {},
 };
 
 export default DragDropContext(HTML5Backend)(QuestionnaireListComponents);

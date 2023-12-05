@@ -8,6 +8,7 @@ import {
   removeComponent,
   duplicateComponentAndVariables,
 } from 'actions/component';
+import { removeQuestionnaireRef } from 'actions/external-questionnaire';
 import {
   setSelectedComponentId,
   setEditingComponentId,
@@ -39,6 +40,7 @@ const mapDispatchToProps = {
   setSelectedComponentId,
   setEditingComponentId,
   removeComponent,
+  removeQuestionnaireRef,
   duplicateComponentAndVariables,
   removeQuestionnaire,
   visualizeActiveQuestionnaire,

@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 import { Link } from 'react-router-dom';
-
+import ReactModal from 'react-modal';
 import Dictionary from 'utils/dictionary/dictionary';
+import { hasDuplicateVariables } from 'utils/variables/variables-utils';
 
 /**
  * Component used in the actions toolbar and on each
@@ -12,15 +13,24 @@ import Dictionary from 'utils/dictionary/dictionary';
  * visualizations of the PDF : WEB, PDF or ODT
  */
 function VisualizeDropdown({
-  questionnaireId,
   componentId,
   token,
   disabled,
   top,
   visualizeActiveQuestionnaire,
-  typeDropDown,
+  externalVariables,
+  calculatedVariables,
+  collectedVariableByQuestion,
+  questionnaire,
+  externalQuestionnairesVariables,
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [
+    hasQuestionnaireDuplicateVariables,
+    setHasQuestionnaireDuplicateVariables,
+  ] = useState(undefined);
+  const [allowDuplicateVariablesModal, setAllowDuplicateVariablesModal] =
+    useState(false);
   const wrapperRef = useRef(null);
 
   const handleClickOutside = useCallback(event => {
@@ -42,6 +52,16 @@ function VisualizeDropdown({
   const openDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
+    setHasQuestionnaireDuplicateVariables(
+      hasDuplicateVariables(
+        externalVariables,
+        calculatedVariables,
+        collectedVariableByQuestion,
+        questionnaire,
+        externalQuestionnairesVariables,
+      ),
+    );
+    setAllowDuplicateVariablesModal(true);
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -55,23 +75,8 @@ function VisualizeDropdown({
     setDropdownOpen(false);
   };
 
-  const classDropDown = classSet({
-    'btn-group': true,
-    dropup: top,
-    'flex-column': !top,
-    'flex-column-reverse': top,
-    open: dropdownOpen,
-  });
-  const classDropDownTrigger = classSet({
-    btn: true,
-    'dropdown-toggle': true,
-    'btn-yellow': typeDropDown === 'VISUALIZATION',
-    'btn-white': typeDropDown !== 'VISUALIZATION',
-    disabled: disabled,
-  });
-  const classDropDownList = classSet({
-    'dropdown-menu': true,
-  });
+  const handleCloseModal = () => setAllowDuplicateVariablesModal(false);
+
   const links = [
     { actionType: 'html', actionLabel: Dictionary.VISUALIZE_WEB },
     {
@@ -84,59 +89,67 @@ function VisualizeDropdown({
     { actionType: 'spec', actionLabel: Dictionary.VISUALIZE_SPECIFICATION },
     { actionType: 'ddi', actionLabel: Dictionary.VISUALIZE_DDI },
   ];
-  const linksQuestionnaire = [
-    {
-      actionType: 'tcmRef',
-      actionLabel: Dictionary.tcmReference,
-      page: 'tcm-composition',
-    },
-    {
-      actionType: 'questRef',
-      actionLabel: Dictionary.questionnaireReference,
-      page: 'composition',
-    },
-    {
-      actionType: 'questMerge',
-      actionLabel: Dictionary.questionnaireMerge,
-      page: 'merge',
-    },
-  ];
   return (
-    <div className={classDropDown} ref={wrapperRef}>
+    <div
+      className={classSet({
+        'btn-group': true,
+        dropup: top,
+        'flex-column': !top,
+        'flex-column-reverse': top,
+        open: dropdownOpen,
+      })}
+      ref={wrapperRef}
+    >
       <button
-        className={classDropDownTrigger}
+        id="visualize"
+        className={classSet({
+          btn: true,
+          'dropdown-toggle': true,
+          'btn-yellow': true,
+          'btn-white': false,
+          disabled: disabled,
+        })}
         disabled={disabled}
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded={dropdownOpen}
         onClick={e => openDropDown(e)}
       >
-        {typeDropDown === 'VISUALIZATION' && Dictionary.visualise}
-        {typeDropDown !== 'VISUALIZATION' && Dictionary.externalElement}
+        {Dictionary.visualise}
         <span className="caret" />
       </button>
-
-      <ul className={classDropDownList}>
-        {typeDropDown === 'VISUALIZATION'
-          ? links.map(link => {
-              return (
-                <li key={link.actionLabel}>
-                  <a href="#" onClick={e => visualize(e, link.actionType)}>
-                    {link.actionLabel}
-                  </a>
-                </li>
-              );
-            })
-          : linksQuestionnaire.map(link => {
-              return (
-                <li key={link.actionLabel}>
-                  <Link to={`/questionnaire/${questionnaireId}/${link.page}`}>
-                    {link.actionLabel}
-                  </Link>
-                </li>
-              );
-            })}
-      </ul>
+      {!(
+        allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
+      ) && (
+        <ul className="dropdown-menu">
+          {links.map(link => {
+            return (
+              <li key={link.actionLabel}>
+                <a href="#" onClick={e => visualize(e, link.actionType)}>
+                  {link.actionLabel}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <ReactModal
+        isOpen={
+          allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
+        }
+        className="custom-modal"
+        ariaHideApp={false}
+      >
+        <p>{Dictionary.duplicateVariablesComment}</p>
+        <Link to={`/questionnaire/${questionnaire?.id}/duplicate-variables`}>
+          <button className="modal-button">
+            {Dictionary.showErrorDuplicateVariables}
+          </button>
+        </Link>
+        <button className="modal-button" onClick={handleCloseModal}>
+          {Dictionary.close}
+        </button>
+      </ReactModal>
     </div>
   );
 }
@@ -145,15 +158,27 @@ function VisualizeDropdown({
 
 VisualizeDropdown.propTypes = {
   visualizeActiveQuestionnaire: PropTypes.func,
-  disabled: PropTypes.bool.isRequired,
-  top: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+  top: PropTypes.bool,
   componentId: PropTypes.string,
+  externalVariables: PropTypes.object,
+  calculatedVariables: PropTypes.object,
+  collectedVariableByQuestion: PropTypes.object,
+  questionnaire: PropTypes.object,
+  externalQuestionnairesVariables: PropTypes.object,
+  token: PropTypes.string,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
   componentId: '',
+  externalVariables: {},
+  calculatedVariables: {},
+  collectedVariableByQuestion: {},
+  questionnaire: {},
+  externalQuestionnairesVariables: {},
+  token: undefined,
 };
 
 export default VisualizeDropdown;

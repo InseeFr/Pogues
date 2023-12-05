@@ -10,6 +10,7 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
     className="btn dropdown-toggle btn-yellow disabled"
     data-toggle="dropdown"
     disabled={true}
+    id="visualize"
     onClick={[Function]}
   >
     Visualise
@@ -90,6 +91,7 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
     className="btn dropdown-toggle btn-yellow"
     data-toggle="dropdown"
     disabled={false}
+    id="visualize"
     onClick={[Function]}
   >
     Visualise
@@ -170,6 +172,7 @@ exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
     className="btn dropdown-toggle btn-yellow"
     data-toggle="dropdown"
     disabled={false}
+    id="visualize"
     onClick={[Function]}
   >
     Visualise
