@@ -1,15 +1,14 @@
-import React from 'react';
-import { Route, Redirect, useLocation, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
-import { App } from 'layout/app';
-import { PageHome } from 'layout/page-home';
-import { PageSearchQuestionnaire } from 'layout/page-search-questionnaire';
-import { PageQuestionnaire } from 'layout/page-questionnaire';
-import { QuestionnaireComposition } from 'layout/questionnaire-composition';
-import { QuestionnaireTcmComposition } from 'layout/questionnaire-tcm-composition';
-import { QuestionnaireMerge } from 'layout/questionnaire-merge';
-import { DuplicateVariables } from 'layout/duplicate-variables';
 import { secure } from 'auth';
+import { App } from './layout/app';
+import { DuplicateVariables } from './layout/duplicate-variables';
+import { PageHome } from './layout/page-home';
+import { PageQuestionnaire } from './layout/page-questionnaire';
+import { PageSearchQuestionnaire } from './layout/page-search-questionnaire';
+import { QuestionnaireComposition } from './layout/questionnaire-composition';
+import { QuestionnaireMerge } from './layout/questionnaire-merge';
+import { QuestionnaireTcmComposition } from './layout/questionnaire-tcm-composition';
 
 function Router() {
   const { pathname } = useLocation();
