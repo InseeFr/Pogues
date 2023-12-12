@@ -1,15 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { AuthProvider } from './auth';
-import { getInit } from './utils/remote-api';
+import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'store/configure-store';
-import Router from 'router';
+import { AuthProvider } from './auth';
+import Router from './router';
+import { getInit } from './utils/remote-api';
+
+const container = document.getElementById('root');
 
 const renderApp = (Component, init) => {
   const store = configureStore(init);
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <Provider store={store}>
       <AuthProvider store={store}>
         <BrowserRouter>
@@ -17,7 +19,6 @@ const renderApp = (Component, init) => {
         </BrowserRouter>
       </AuthProvider>
     </Provider>,
-    document.getElementById('root'),
   );
 };
 
