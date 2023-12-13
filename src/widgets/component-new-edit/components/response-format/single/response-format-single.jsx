@@ -8,12 +8,12 @@ import {
   QUESTION_TYPE_ENUM,
   COMPONENT_TYPE,
   DIMENSION_FORMATS,
-} from 'constants/pogues-constants';
-import { CodesLists } from 'widgets/codes-lists';
-import Dictionary from 'utils/dictionary/dictionary';
-import GenericOption from 'forms/controls/generic-option';
-import ListRadios from 'forms/controls/list-radios';
-import Select from 'forms/controls/select';
+} from '../../../../../constants/pogues-constants';
+import { CodesLists } from '../../../../codes-lists';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import GenericOption from '../../../../../forms/controls/generic-option';
+import ListRadios from '../../../../../forms/controls/list-radios';
+import Select from '../../../../../forms/controls/select';
 
 const { SINGLE_CHOICE, PAIRING, TABLE } = QUESTION_TYPE_ENUM;
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;

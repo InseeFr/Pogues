@@ -6,8 +6,8 @@ import ComponentNewEdit from '../components/component-new-edit';
 import {
   addSubformValidationErrors,
   clearSubformValidationErrors,
-} from 'actions/errors';
-import { TABS_PATHS } from 'constants/pogues-constants';
+} from '../../../actions/errors';
+import { TABS_PATHS } from '../../../constants/pogues-constants';
 
 // Utils
 

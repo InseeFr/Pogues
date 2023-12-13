@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../utils/dictionary/dictionary';
 
 const ConfirmDialog = props => {
   const cancelButtonRef = useRef(null);

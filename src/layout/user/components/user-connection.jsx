@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import defaultPicture from 'layout/user/components/user-picture-default.png';
+import defaultPicture from './user-picture-default.png';
 
 function UserConnection({ user }) {
   const hasName = user?.name;

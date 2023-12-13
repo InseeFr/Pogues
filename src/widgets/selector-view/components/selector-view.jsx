@@ -2,9 +2,9 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import Select from 'forms/controls/select';
-import ListRadios from 'forms/controls/list-radios';
-import GenericOption from 'forms/controls/generic-option';
+import Select from '../../../forms/controls/select';
+import ListRadios from '../../../forms/controls/list-radios';
+import GenericOption from '../../../forms/controls/generic-option';
 
 // Utils
 

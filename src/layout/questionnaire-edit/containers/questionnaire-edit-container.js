@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { updateActiveQuestionnaire } from 'actions/app-state';
-import { updateComponent } from 'actions/component';
+import { updateActiveQuestionnaire } from '../../../actions/app-state';
+import { updateComponent } from '../../../actions/component';
 import QuestionnaireEdit from '../components/questionnaire-edit';
 
 // PropTypes and defaultProps

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SearchResults from '../components/search-results';
 
-import { storeToArray } from 'utils/utils';
+import { storeToArray } from '../../../utils/utils';
 
 // PropTypes and defaultProps
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ComponentNewEdit } from 'widgets/component-new-edit';
-import { Component } from 'model';
+import { ComponentNewEdit } from '../../../widgets/component-new-edit';
+import { Component } from '../../../model';
 import {
   validateQuestionForm,
   validateSequenceForm,
   validateLoopForm,
   validateFilterForm,
-} from 'utils/validation/validate';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+} from '../../../utils/validation/validate';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
 const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 

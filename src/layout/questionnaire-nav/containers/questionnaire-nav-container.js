@@ -5,9 +5,9 @@ import QuestionnaireNav from '../components/questionnaire-nav';
 import {
   setSelectedComponentId,
   setEditingComponentId,
-} from 'actions/app-state';
+} from '../../../actions/app-state';
 
-import { removeComponent } from 'actions/component';
+import { removeComponent } from '../../../actions/component';
 // Container
 
 const mapStateToProps = state => ({

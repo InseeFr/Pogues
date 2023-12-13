@@ -6,7 +6,7 @@ import {
   isLoop,
   isFilter,
   isNestedFilter,
-} from 'utils/component/component-utils';
+} from '../../../utils/component/component-utils';
 
 function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
   const [expanded, setExpanded] = useState([]);

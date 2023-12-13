@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
-import { setSelectedComponentId } from 'actions/app-state';
-import { createComponent } from 'actions/component';
+import { setSelectedComponentId } from '../../../actions/app-state';
+import { createComponent } from '../../../actions/component';
 
 import PropTypes from 'prop-types';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { uuid } from 'utils/utils';
-import * as rules from 'forms/validation-rules';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { uuid } from '../../../utils/utils';
+import * as rules from '../../../forms/validation-rules';
+import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 
 const {
   COMPONENT_CLASS,

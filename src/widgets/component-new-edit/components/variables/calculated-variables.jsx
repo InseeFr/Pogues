@@ -5,22 +5,22 @@ import {
   DATATYPE_NAME,
   TABS_PATHS,
   DEFAULT_FORM_NAME,
-} from 'constants/pogues-constants';
+} from '../../../../constants/pogues-constants';
 
-import { defaultState } from 'model/formToState/component-new-edit/calculated-variable';
+import { defaultState } from '../../../../model/formToState/component-new-edit/calculated-variable';
 
-import Input from 'forms/controls/input';
-import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
-import { ListWithInputPanel } from 'widgets/list-with-input-panel';
-import { validateCalculatedVariableForm } from 'utils/validation/validate';
-import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
-import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
-import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
-import Dictionary from 'utils/dictionary/dictionary';
+import Input from '../../../../forms/controls/input';
+import { SimpleEditorWithVariable } from '../../../../forms/controls/control-with-suggestions';
+import { ListWithInputPanel } from '../../../list-with-input-panel';
+import { validateCalculatedVariableForm } from '../../../../utils/validation/validate';
+import ResponseFormatDatatypeNumeric from '../../components/response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from '../../components/response-format/simple/simple-text';
+import ResponseFormatDatatypeDate from '../../components/response-format/simple/simple-date';
+import Dictionary from '../../../../utils/dictionary/dictionary';
 
-import { SelectorView, View } from 'widgets/selector-view';
-import GenericOption from 'forms/controls/generic-option';
-import Select from 'forms/controls/select';
+import { SelectorView, View } from '../../../selector-view';
+import GenericOption from '../../../../forms/controls/generic-option';
+import Select from '../../../../forms/controls/select';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 // Utils

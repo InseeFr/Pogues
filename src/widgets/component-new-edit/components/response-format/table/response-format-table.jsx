@@ -3,12 +3,12 @@ import { FormSection, formValueSelector } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
 import {
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
-} from 'constants/pogues-constants';
+} from '../../../../../constants/pogues-constants';
 import ResponseFormatTablePrimary from './table-primary';
 import ResponseFormatTableSecondary from './table-secondary';
 import ResponseFormatTableMeasure from './table-measure';

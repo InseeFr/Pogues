@@ -1,4 +1,4 @@
-import { uuid } from 'utils/utils';
+import { uuid } from '../../../utils/utils';
 
 export const defaultState = {
   owner: '',

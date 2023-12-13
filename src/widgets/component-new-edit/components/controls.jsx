@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from 'model/formToState/component-new-edit/control';
+import { defaultState } from '../../../model/formToState/component-new-edit/control';
 
-import Select from 'forms/controls/select';
-import GenericOption from 'forms/controls/generic-option';
-import Textarea from 'forms/controls/textarea';
-import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import Select from '../../../forms/controls/select';
+import GenericOption from '../../../forms/controls/generic-option';
+import Textarea from '../../../forms/controls/textarea';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 
-import { validateControlForm } from 'utils/validation/validate';
-import Dictionary from 'utils/dictionary/dictionary';
+import { validateControlForm } from '../../../utils/validation/validate';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
-import { ListWithInputPanel } from 'widgets/list-with-input-panel';
-import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import { ListWithInputPanel } from '../../list-with-input-panel';
+import {
+  TABS_PATHS,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
 
 // Utils
 

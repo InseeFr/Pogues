@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { TABS_PATHS } from 'constants/pogues-constants';
+import { TABS_PATHS } from '../../../constants/pogues-constants';
 
 import Tabs from '../components/tabs';
 

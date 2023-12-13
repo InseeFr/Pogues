@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import debounce from 'lodash.debounce';
 
-import { CONTROL_TREE_SELECT } from 'constants/dom-constants';
+import { CONTROL_TREE_SELECT } from '../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_TREE_SELECT;
 

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { setValidationErrors } from 'actions/errors';
-import { createQuestionnaire } from 'actions/questionnaire';
+import { setValidationErrors } from '../../../actions/errors';
+import { createQuestionnaire } from '../../../actions/questionnaire';
 import QuestionnaireNew from '../components/questionnaire-new';
 
 // PropTypes and defaultProps

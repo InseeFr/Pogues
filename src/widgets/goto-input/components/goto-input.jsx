@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import { InputAutocomplete } from 'forms/controls/input-autocomplete';
-import GenericOption from 'forms/controls/generic-option';
+import { InputAutocomplete } from '../../../forms/controls/input-autocomplete';
+import GenericOption from '../../../forms/controls/generic-option';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import { WIDGET_GOTO_INPUT } from 'constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { WIDGET_GOTO_INPUT } from '../../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = WIDGET_GOTO_INPUT;
 

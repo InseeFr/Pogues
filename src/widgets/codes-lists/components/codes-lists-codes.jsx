@@ -13,11 +13,14 @@ import { getNewCodeWeight, resetListCodes } from '../utils/utils';
 import { getDisabledActions } from '../utils/actions';
 import { moveUp, moveDown, moveLeft, moveRight } from '../utils/movement';
 
-import { fieldArrayFields, fieldArrayMeta } from 'utils/proptypes-utils';
-import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { getIndexItemsByAttrs } from 'utils/widget-utils';
-import { markdownVtlToHtml } from 'forms/controls/rich-textarea';
+import {
+  fieldArrayFields,
+  fieldArrayMeta,
+} from '../../../utils/proptypes-utils';
+import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
+import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
 
 const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
 

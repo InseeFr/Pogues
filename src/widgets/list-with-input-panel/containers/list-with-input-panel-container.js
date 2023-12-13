@@ -11,7 +11,7 @@ import {
 import {
   clearSubformValidationErrors,
   removeIntegrityError,
-} from 'actions/errors';
+} from '../../../actions/errors';
 import ListWithInputPanel from '../components/list-with-input-panel';
 
 // Proptypes and defaultProps

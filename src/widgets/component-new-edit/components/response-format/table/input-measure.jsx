@@ -2,11 +2,11 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
-import { toolbarConfigTooltip } from 'forms/controls/rich-textarea';
-import { SelectorView, View } from 'widgets/selector-view';
-import Dictionary from 'utils/dictionary/dictionary';
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
+import { toolbarConfigTooltip } from '../../../../../forms/controls/rich-textarea';
+import { SelectorView, View } from '../../../../selector-view';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { QUESTION_TYPE_ENUM } from '../../../../../constants/pogues-constants';
 import ResponseFormatSimple from '../simple/response-format-simple';
 import ResponseFormatSingle from '../single/response-format-single';
 

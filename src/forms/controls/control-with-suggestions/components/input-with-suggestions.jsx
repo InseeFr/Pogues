@@ -2,8 +2,8 @@ import React from 'react';
 
 import ControlWithSuggestion from './control-with-suggestions';
 
-import { getControlId } from 'utils/widget-utils';
-import { CONTROL_INPUT } from 'constants/dom-constants';
+import { getControlId } from '../../../../utils/widget-utils';
+import { CONTROL_INPUT } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_INPUT;
 

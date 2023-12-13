@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import {
   QuestionnaireNewEdit,
   Questionnaire,
-} from 'widgets/questionnaire-new-edit';
-import { validateQuestionnaireForm } from 'utils/validation/validate';
-import { Component as ComponentFactory } from 'model';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+} from '../../../widgets/questionnaire-new-edit';
+import { validateQuestionnaireForm } from '../../../utils/validation/validate';
+import { Component as ComponentFactory } from '../../../model';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 

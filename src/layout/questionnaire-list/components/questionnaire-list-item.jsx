@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
-import { TargetMode } from 'constants/pogues-constants';
-import { formatDate } from 'utils/component/component-utils';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
+import { TargetMode } from '../../../constants/pogues-constants';
+import { formatDate } from '../../../utils/component/component-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { BUTTON_DUPLICATE_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 function QuestionnaireListItem({

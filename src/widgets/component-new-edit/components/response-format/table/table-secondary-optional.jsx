@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CodesLists } from 'widgets/codes-lists';
+import { CodesLists } from '../../../../codes-lists';
 
 function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (

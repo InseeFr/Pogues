@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, formValueSelector } from 'redux-form';
 
-import { ComponentWithValidation } from 'widgets/component-with-validation';
-import Input from 'forms/controls/input';
-import { fieldArrayMeta } from 'utils/proptypes-utils';
-import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import { ComponentWithValidation } from '../../component-with-validation';
+import Input from '../../../forms/controls/input';
+import { fieldArrayMeta } from '../../../utils/proptypes-utils';
+import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 
 const {
   CODE_INPUT_CLASS,

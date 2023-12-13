@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 import { Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
-import Dictionary from 'utils/dictionary/dictionary';
-import { hasDuplicateVariables } from 'utils/variables/variables-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
 /**
  * Component used in the actions toolbar and on each

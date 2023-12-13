@@ -2,20 +2,23 @@ import React from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from 'model/formToState/component-new-edit/collected-variable';
-import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { defaultState } from '../../../../model/formToState/component-new-edit/collected-variable';
+import {
+  DATATYPE_NAME,
+  QUESTION_TYPE_ENUM,
+} from '../../../../constants/pogues-constants';
 
-import Input from 'forms/controls/input';
-import { ListWithInputPanel } from 'widgets/list-with-input-panel';
-import { validateCollectedVariableForm } from 'utils/validation/validate';
-import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
-import Dictionary from 'utils/dictionary/dictionary';
-import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
-import { SelectorView, View } from 'widgets/selector-view';
-import ResponseFormatDatatypeNumeric from 'widgets/component-new-edit/components/response-format/simple/simple-numeric';
-import ResponseFormatDatatypeText from 'widgets/component-new-edit/components/response-format/simple/simple-text';
-import ResponseFormatDatatypeDuree from 'widgets/component-new-edit/components/response-format/simple/simple-duree';
-import ResponseFormatDatatypeDate from 'widgets/component-new-edit/components/response-format/simple/simple-date';
+import Input from '../../../../forms/controls/input';
+import { ListWithInputPanel } from '../../../list-with-input-panel';
+import { validateCollectedVariableForm } from '../../../../utils/validation/validate';
+import { generateCollectedVariables } from '../../../../utils/variables/collected-variables-utils';
+import Dictionary from '../../../../utils/dictionary/dictionary';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../../constants/dom-constants';
+import { SelectorView, View } from '../../../selector-view';
+import ResponseFormatDatatypeNumeric from '../response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from '../response-format/simple/simple-text';
+import ResponseFormatDatatypeDuree from '../response-format/simple/simple-duree';
+import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
