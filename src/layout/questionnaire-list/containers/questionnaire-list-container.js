@@ -6,17 +6,17 @@ import {
   createComponent,
   orderComponents,
   updateParentChildren,
-} from 'actions/component';
-import { handleNewChildQuestionnaireRef } from 'actions/external-questionnaire';
-import { setSelectedStamp } from 'actions/general';
+} from '../../../actions/component';
+import { handleNewChildQuestionnaireRef } from '../../../actions/external-questionnaire';
+import { setSelectedStamp } from '../../../actions/general';
 import {
   duplicateQuestionnaire,
   mergeQuestionnaires,
-} from 'actions/questionnaire';
+} from '../../../actions/questionnaire';
 import {
   deleteQuestionnaireList,
   loadQuestionnaireList,
-} from 'actions/questionnaire-list';
+} from '../../../actions/questionnaire-list';
 
 // Contanier
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CSVReader from 'react-csv-reader';
-import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { COMPONENT_CLASS, CANCEL, VALIDATE, FOOTERLOOP } =
   WIDGET_COMPONENT_NEW_EDIT;

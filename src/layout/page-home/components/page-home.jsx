@@ -3,10 +3,10 @@ import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { QuestionnaireNew } from 'layout/questionnaire-new';
-import { QuestionnaireList } from 'layout/questionnaire-list';
+import { QuestionnaireNew } from '../../questionnaire-new';
+import { QuestionnaireList } from '../../questionnaire-list';
 
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const PageHome = ({ history, deleteAppState }) => {
   const [showModal, setShowModal] = useState(false);

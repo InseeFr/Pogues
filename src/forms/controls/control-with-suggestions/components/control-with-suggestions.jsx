@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import ClassSet from 'react-classset';
-import {
-  getValueWithSuggestion,
-  getPattern,
-} from 'forms/controls/control-with-suggestions/components/utils';
+import { getValueWithSuggestion, getPattern } from './utils';
 
 import {
   updateSuggestions,
   initialize,
   getNewIndex,
 } from './input-with-suggestions-utils';
-import { HighLighter } from 'widgets/highlighter';
-import { getKey } from 'utils/widget-utils';
+import { HighLighter } from '../../../../widgets/highlighter';
+import { getKey } from '../../../../utils/widget-utils';
 
-import { CONTROL_WITH_SUGGESTIONS } from 'constants/dom-constants';
+import { CONTROL_WITH_SUGGESTIONS } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, LIST_CLASS, ITEM_CLASS, ITEM_SELECTED_CLASS } =
   CONTROL_WITH_SUGGESTIONS;

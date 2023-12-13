@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { clearSearchResult } from 'actions/search';
+import { clearSearchResult } from '../../../actions/search';
 
 import PageSearchQuestionnaire from '../components/page-search-questionnaire';
 

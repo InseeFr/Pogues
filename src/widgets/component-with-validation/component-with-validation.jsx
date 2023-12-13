@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { WIDGET_VALIDATION_ERRORS } from 'constants/dom-constants';
-import { getKey } from 'utils/widget-utils';
+import { WIDGET_VALIDATION_ERRORS } from '../../constants/dom-constants';
+import { getKey } from '../../utils/widget-utils';
 
 const { COMPONENT_CLASS } = WIDGET_VALIDATION_ERRORS;
 

@@ -5,17 +5,17 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import QuestionnaireComponent from './questionnaire-component';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
-import { getEnvVar } from 'utils/env';
-import { ComponentEdit } from 'layout/component-edit';
-import { ConfirmDialog } from 'layout/confirm-dialog';
-import { QuestionnaireEdit } from 'layout/questionnaire-edit';
-import { ErrorsIntegrity as ErrorsIntegrityPanel } from 'layout/errors-integrity';
+import { getEnvVar } from '../../../utils/env';
+import { ComponentEdit } from '../../component-edit';
+import { ConfirmDialog } from '../../confirm-dialog';
+import { QuestionnaireEdit } from '../../questionnaire-edit';
+import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import { getSortedChildren } from 'utils/component/component-utils';
-import { ERRORS_INTEGRITY } from 'constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { getSortedChildren } from '../../../utils/component/component-utils';
+import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
 
 const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 

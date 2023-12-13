@@ -6,9 +6,9 @@ import {
   getControlId,
   getValuesFromGenericOptions,
   toggleValueInList,
-} from 'utils/widget-utils';
+} from '../../utils/widget-utils';
 
-import { CONTROL_LIST_CHECKBOXES } from 'constants/dom-constants';
+import { CONTROL_LIST_CHECKBOXES } from '../../constants/dom-constants';
 import ClassSet from 'react-classset';
 
 const { COMPONENT_CLASS, INLINE_MODE } = CONTROL_LIST_CHECKBOXES;

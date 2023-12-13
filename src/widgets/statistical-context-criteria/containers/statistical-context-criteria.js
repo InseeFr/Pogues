@@ -5,13 +5,16 @@ import {
   loadSeriesIfNeeded,
   loadOperationsIfNeeded,
   loadCampaignsIfNeeded,
-} from 'actions/metadata';
-import { STATISTICAL_CONTEXT_FORM_NAME, TCM } from 'constants/pogues-constants';
-import { filterStoreByProp } from 'utils/widget-utils';
-import { storeToArray } from 'utils/utils';
+} from '../../../actions/metadata';
+import {
+  STATISTICAL_CONTEXT_FORM_NAME,
+  TCM,
+} from '../../../constants/pogues-constants';
+import { filterStoreByProp } from '../../../utils/widget-utils';
+import { storeToArray } from '../../../utils/utils';
 
 import StatisticalContextCriteria from '../components/statistical-context-criteria';
-import { getToken, getUser } from 'reducers/selectors';
+import { getToken, getUser } from '../../../reducers/selectors';
 
 // PropTypes and defaultProps
 

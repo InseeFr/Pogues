@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import OptionalView from '../components/optional-view';
 
-import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 
 // PropTypes and defaultProps
 

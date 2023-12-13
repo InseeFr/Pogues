@@ -5,7 +5,7 @@ import { formValueSelector, change } from 'redux-form';
 import CodesListsInputCode from '../components/codes-lists-input-code';
 import { validateCode, validationSchema } from '../utils/validation';
 
-import withErrorValidation from 'hoc/with-error-validation';
+import withErrorValidation from '../../../hoc/with-error-validation';
 
 // PropTypes and defaultProps
 

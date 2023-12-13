@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import ArboSimplified from './arbo-simplifield';
 import NavLoop from './nav-loop';
 
-import { QUESTIONNAIRE_NAV } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 

@@ -4,21 +4,21 @@ import { Field, FieldArray, FormSection } from 'redux-form';
 
 import CodesListsCodesContainer from '../containers/codes-lists-codes-container';
 
-import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
+import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import {
   CODES_LIST_INPUT_ENUM,
   CODES_LISTS_PANELS,
   CODES_LISTS_PANELS_SEARCH_DISABLE,
-} from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import ListRadios from 'forms/controls/list-radios';
-import Select from 'forms/controls/select';
-import GenericOption from 'forms/controls/generic-option';
-import { storeToArray, uuid } from 'utils/utils';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+} from '../../../constants/pogues-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import ListRadios from '../../../forms/controls/list-radios';
+import Select from '../../../forms/controls/select';
+import GenericOption from '../../../forms/controls/generic-option';
+import { storeToArray, uuid } from '../../../utils/utils';
+import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 
-import { SearchCodesLists } from 'widgets/search-codes-lists';
-import { ErrorsPanel } from 'widgets/errors-panel';
+import { SearchCodesLists } from '../../search-codes-lists';
+import { ErrorsPanel } from '../../errors-panel';
 
 const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } =
   WIDGET_CODES_LISTS;

@@ -1,6 +1,6 @@
-import Loader from 'layout/loader';
-import { createOidcProvider } from 'oidc-spa/react';
 import { useEffect, useState } from 'react';
+import Loader from '../../layout/loader';
+import { createOidcProvider } from 'oidc-spa/react';
 
 const AuthProviderOIDC = ({ children }) => {
   const [conf, setConf] = useState({});

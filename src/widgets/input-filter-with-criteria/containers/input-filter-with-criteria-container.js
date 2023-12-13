@@ -4,9 +4,9 @@ import { formValueSelector } from 'redux-form';
 
 import InputFilterWithCriteria from '../components/input-filter-with-criteria';
 
-import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
-import { loadSearchResult } from 'actions/search';
-import { getToken } from 'reducers/selectors';
+import { STATISTICAL_CONTEXT_FORM_NAME } from '../../../constants/pogues-constants';
+import { loadSearchResult } from '../../../actions/search';
+import { getToken } from '../../../reducers/selectors';
 
 // PropTypes and defaultProps
 

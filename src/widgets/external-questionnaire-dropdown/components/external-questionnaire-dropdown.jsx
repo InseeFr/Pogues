@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { Link } from 'react-router-dom';
 
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 /**
  * Component used in the actions toolbar and on each

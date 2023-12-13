@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { BUTTON_WRAP } from 'constants/dom-constants';
+import { BUTTON_WRAP } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = BUTTON_WRAP;
 

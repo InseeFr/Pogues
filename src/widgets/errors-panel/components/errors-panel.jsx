@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { WIDGET_ERRORS_PANEL } from 'constants/dom-constants';
+import { WIDGET_ERRORS_PANEL } from '../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, INNER } = WIDGET_ERRORS_PANEL;
 

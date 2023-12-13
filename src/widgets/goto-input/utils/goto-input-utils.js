@@ -1,7 +1,7 @@
 import {
   getComponentsTargetsByComponent,
   getComponentsTargetsByPosition,
-} from 'utils/model/redirections-utils';
+} from '../../../utils/model/redirections-utils';
 
 export function getTargets(
   componentsStore,

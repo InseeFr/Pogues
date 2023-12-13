@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import ListRadios from 'forms/controls/list-radios';
-import GenericOption from 'forms/controls/generic-option';
-import Input from 'forms/controls/input';
-import Dictionary from 'utils/dictionary/dictionary';
+import ListRadios from '../../../forms/controls/list-radios';
+import GenericOption from '../../../forms/controls/generic-option';
+import Input from '../../../forms/controls/input';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 function OptionalView({ name, label, children, active, checkbox }) {
   return (

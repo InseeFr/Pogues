@@ -7,14 +7,14 @@ import {
   dragComponent,
   removeComponent,
   duplicateComponentAndVariables,
-} from 'actions/component';
-import { removeQuestionnaireRef } from 'actions/external-questionnaire';
+} from '../../../actions/component';
+import { removeQuestionnaireRef } from '../../../actions/external-questionnaire';
 import {
   setSelectedComponentId,
   setEditingComponentId,
-} from 'actions/app-state';
-import { removeQuestionnaire } from 'actions/questionnaire';
-import { getToken } from 'reducers/selectors';
+} from '../../../actions/app-state';
+import { removeQuestionnaire } from '../../../actions/questionnaire';
+import { getToken } from '../../../reducers/selectors';
 
 const mapStateToProps = state => ({
   token: getToken(state),

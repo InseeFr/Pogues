@@ -2,9 +2,12 @@ import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { SelectorView, View } from 'widgets/selector-view';
-import Dictionary from 'utils/dictionary/dictionary';
-import { QUESTION_TYPE_ENUM, TABS_PATHS } from 'constants/pogues-constants';
+import { SelectorView, View } from '../../../selector-view';
+import Dictionary from '../../../../utils/dictionary/dictionary';
+import {
+  QUESTION_TYPE_ENUM,
+  TABS_PATHS,
+} from '../../../../constants/pogues-constants';
 import ResponseFormatSimple from './simple/response-format-simple';
 import ResponseFormatSingle from './single/response-format-single';
 import ResponseFormatMultiple from './multiple/response-format-multiple';

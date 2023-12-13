@@ -6,10 +6,10 @@ import ReactModal from 'react-modal';
 
 import ListWithInputPanelList from './list-with-input-panel-list';
 
-import { ErrorsPanel } from 'widgets/errors-panel';
-import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { getCurrentSelectorPath } from 'utils/widget-utils';
+import { ErrorsPanel } from '../../errors-panel';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 
 const {
   WRAPPER_CLASS,

@@ -2,13 +2,13 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { GENERIC_INPUT } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { VisualizeDropdown } from 'widgets/visualize-dropdown';
-import { ExternalQuestionnaireDropdown } from 'widgets/external-questionnaire-dropdown';
-import { ComponentNew } from 'layout/component-new';
-import Loader from 'layout/loader';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { GENERIC_INPUT } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
+import { ComponentNew } from '../../component-new';
+import Loader from '../../loader';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;

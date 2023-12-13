@@ -5,10 +5,7 @@ import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
 
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions } from './input-with-suggestions-utils';
-import {
-  getPattern,
-  getStartValueWithSuggestion,
-} from 'forms/controls/control-with-suggestions/components/utils';
+import { getPattern, getStartValueWithSuggestion } from './utils';
 
 import {
   getEditorValue,
@@ -17,10 +14,10 @@ import {
   toolbarConfig,
   toolbarConfigQuestion,
   rootStyle,
-} from 'forms/controls/rich-textarea';
+} from '../../rich-textarea';
 
-import { getControlId } from 'utils/widget-utils';
-import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
+import { getControlId } from '../../../../utils/widget-utils';
+import { CONTROL_RICH_TEXTAREA } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 
-import { WIDGET_SEARCH_RESULTS } from 'constants/dom-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_SEARCH_RESULTS } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const {
   COMPONENT_CLASS,

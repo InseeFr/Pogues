@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {
   QuestionnaireNewEdit,
   Questionnaire,
-} from 'widgets/questionnaire-new-edit';
-import { validateQuestionnaireForm } from 'utils/validation/validate';
+} from '../../../widgets/questionnaire-new-edit';
+import { validateQuestionnaireForm } from '../../../utils/validation/validate';
 
 // Utils
 

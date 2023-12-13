@@ -2,7 +2,7 @@ import React, { useState, Children } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
-import { WIDGET_TABS } from 'constants/dom-constants';
+import { WIDGET_TABS } from '../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, INVALID, ITEM } = WIDGET_TABS;
 

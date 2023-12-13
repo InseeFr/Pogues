@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteAppState } from 'actions/app-state';
+import { deleteAppState } from '../../../actions/app-state';
 import PageHome from '../components/page-home';
 
 const mapDispatchToProps = {
