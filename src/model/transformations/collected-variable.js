@@ -9,7 +9,8 @@ import {
 } from 'constants/pogues-constants';
 
 const { COLLECTED } = VARIABLES_TYPES;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
 
@@ -185,7 +186,10 @@ function findQuestionInLoop(componentsStore) {
     .forEach(component => {
       let LoopQuestions = [];
       if (componentsStore[component.initialMember]) {
-        if (componentsStore[component.initialMember].type === SEQUENCE) {
+        if (
+          componentsStore[component.initialMember].type === SEQUENCE ||
+          componentsStore[component.initialMember].type === EXTERNAL_ELEMENT
+        ) {
           if (
             componentsStore[component.initialMember].weight !==
             componentsStore[component.finalMember].weight
