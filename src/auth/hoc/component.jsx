@@ -1,12 +1,18 @@
-import React from 'react';
-import { OidcSecure } from '@axa-fr/react-oidc-redux';
+import { useAuth } from 'utils/oidc/useAuth';
+
+// export default secure;
 
 const Comp = ({ Component, ...props }) => {
-  const { authType, ...otherProps } = props;
-  const ReturnedComponent = <Component {...otherProps} />;
-  if (authType === 'NONE') return ReturnedComponent;
-  if (authType === 'OIDC') return <OidcSecure>{ReturnedComponent}</OidcSecure>;
-  return <div>{`Auth type ${authType} is nor recognized`}</div>;
+  const { oidc } = useAuth();
+  const { isUserLoggedIn, login } = oidc;
+  const ReturnedComponent = <Component {...props} />;
+  if (isUserLoggedIn) {
+    return ReturnedComponent;
+  }
+  login({
+    doesCurrentHrefRequiresAuth: true,
+  });
+  return null;
 };
 
 export default Comp;

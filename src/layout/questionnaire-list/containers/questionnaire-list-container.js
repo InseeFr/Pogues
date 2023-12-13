@@ -3,21 +3,20 @@ import { connect } from 'react-redux';
 import QuestionnaireList from '../components/questionnaire-list';
 
 import {
-  loadQuestionnaireList,
-  deleteQuestionnaireList,
-} from 'actions/questionnaire-list';
+  createComponent,
+  orderComponents,
+  updateParentChildren,
+} from 'actions/component';
+import { handleNewChildQuestionnaireRef } from 'actions/external-questionnaire';
+import { setSelectedStamp } from 'actions/general';
 import {
   duplicateQuestionnaire,
   mergeQuestionnaires,
 } from 'actions/questionnaire';
 import {
-  createComponent,
-  updateParentChildren,
-  orderComponents,
-} from 'actions/component';
-import { handleNewChildQuestionnaireRef } from 'actions/external-questionnaire';
-import { setSelectedStamp } from 'actions/general';
-import { getToken, getUser } from 'reducers/selectors';
+  deleteQuestionnaireList,
+  loadQuestionnaireList,
+} from 'actions/questionnaire-list';
 
 // Contanier
 
@@ -28,8 +27,6 @@ const mapStateToProps = state => {
   return {
     activeQuestionnaire: state.appState.activeQuestionnaire,
     questionnaires,
-    stamp: getUser(state).stamp,
-    token: getToken(state),
     selectedComponentId: state.appState.selectedComponentId,
     selectedStamp: state.general.selectedStamp,
     componentsStore: state.appState.activeComponentsById,
