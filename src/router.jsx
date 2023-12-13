@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
-import { secure } from 'auth';
+import { secure } from './auth';
 import { App } from './layout/app';
 import { DuplicateVariables } from './layout/duplicate-variables';
 import { PageHome } from './layout/page-home';

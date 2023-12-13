@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import configureStore from 'store/configure-store';
 import { AuthProvider } from './auth';
 import Router from './router';
+import configureStore from './store/configure-store';
 import { getInit } from './utils/remote-api';
 
 const container = document.getElementById('root');
