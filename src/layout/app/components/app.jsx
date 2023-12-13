@@ -5,7 +5,6 @@ import Header from '../../header/header';
 import Footer from '../../footer/footer';
 import { useAuth } from '../../../utils/oidc/useAuth';
 import '../../../scss/pogues.scss';
-
 import { APP } from '../../../constants/dom-constants';
 
 const { COMPONENT_ID } = APP;
