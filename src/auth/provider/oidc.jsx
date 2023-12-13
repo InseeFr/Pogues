@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Oidc, InMemoryWebStorage } from '@axa-fr/react-oidc-redux';
 import Loader from 'layout/loader';
-import { buildOidcConfiguration } from 'utils/oidc/build-configuration';
+import { createOidcProvider } from 'oidc-spa/react';
+import { useEffect, useState } from 'react';
 
-const AuthProviderOIDC = ({ store, children }) => {
+const AuthProviderOIDC = ({ children }) => {
   const [conf, setConf] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -16,21 +15,15 @@ const AuthProviderOIDC = ({ store, children }) => {
       });
   }, []);
 
-  if (loading) return <Loader />;
-  return (
-    <Oidc
-      store={store}
-      configuration={buildOidcConfiguration(conf).config}
-      isEnabled={conf.isEnabled}
-      UserStore={InMemoryWebStorage}
-      callbackComponentOverride={Loader}
-      // authenticating props unavailable for now in axa redux package
-      authenticating={Loader}
-      sessionLostComponent={Loader}
-    >
-      {children}
-    </Oidc>
-  );
+  if (!loading && conf.config) {
+    const { OidcProvider } = createOidcProvider({
+      issuerUri: `${conf.config.authority}`,
+      clientId: conf.config.client_id,
+      // See above for other parameters
+    });
+    return <OidcProvider fallback={<Loader />}>{children}</OidcProvider>;
+  }
+  return <Loader />;
 };
 
 export default AuthProviderOIDC;
