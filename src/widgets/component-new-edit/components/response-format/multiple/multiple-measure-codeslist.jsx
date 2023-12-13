@@ -2,14 +2,14 @@ import React from 'react';
 import { FormSection, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import { CodesLists } from 'widgets/codes-lists';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { CodesLists } from '../../../../codes-lists';
 import {
   DATATYPE_VIS_HINT,
   DIMENSION_FORMATS,
-} from 'constants/pogues-constants';
-import Select from 'forms/controls/select';
-import GenericOption from 'forms/controls/generic-option';
+} from '../../../../../constants/pogues-constants';
+import Select from '../../../../../forms/controls/select';
+import GenericOption from '../../../../../forms/controls/generic-option';
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'layout/loader';
+import Loader from '../../loader';
 
-import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
-import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
-import { QuestionnaireNav } from 'layout/questionnaire-nav';
-import { GenericInput } from 'layout/generic-input';
+import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
+import { QuestionnaireListComponents } from '../../questionnaire-list-components';
+import { QuestionnaireNav } from '../../questionnaire-nav';
+import { GenericInput } from '../../generic-input';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 

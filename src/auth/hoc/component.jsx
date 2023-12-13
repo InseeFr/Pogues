@@ -1,4 +1,4 @@
-import { useAuth } from 'utils/oidc/useAuth';
+import { useAuth } from '../../utils/oidc/useAuth';
 
 // export default secure;
 

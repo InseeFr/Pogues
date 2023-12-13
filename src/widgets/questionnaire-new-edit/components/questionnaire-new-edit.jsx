@@ -1,21 +1,21 @@
 import React from 'react';
 import { formPropTypes, Field } from 'redux-form';
 
-import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';
-import { AssociatedFields } from 'widgets/associated-fields';
-import Dictionary from 'utils/dictionary/dictionary';
-import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from 'constants/dom-constants';
+import { StatisticalContextCriteria } from '../../statistical-context-criteria';
+import { AssociatedFields } from '../../associated-fields';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from '../../../constants/dom-constants';
 
-import ListCheckboxes from 'forms/controls/list-checkboxes';
-import GenericOption from 'forms/controls/generic-option';
-import ListRadios from 'forms/controls/list-radios';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import GenericOption from '../../../forms/controls/generic-option';
+import ListRadios from '../../../forms/controls/list-radios';
 import {
   TargetMode,
   QUESTIONNAIRE_TYPE,
   FORMULA_LANGUAGE,
-} from 'constants/pogues-constants';
+} from '../../../constants/pogues-constants';
 
-import { updateNameField } from 'utils/utils';
+import { updateNameField } from '../../../utils/utils';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } =
   WIDGET_QUESTIONNAIRE_NEW_EDIT;

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 import AssociatedFields from '../components/associated-fields';
 
-import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
-import { getCurrentSelectorPath } from 'utils/widget-utils';
+import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
+import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 
 // PropTypes and defaultProps
 

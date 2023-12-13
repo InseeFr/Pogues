@@ -1,7 +1,7 @@
 import { reduxForm } from 'redux-form';
 
-import { STATISTICAL_CONTEXT_FORM_NAME } from 'constants/pogues-constants';
-import { StatisticalContextCriteria } from 'widgets/statistical-context-criteria';
+import { STATISTICAL_CONTEXT_FORM_NAME } from '../../../constants/pogues-constants';
+import { StatisticalContextCriteria } from '../../../widgets/statistical-context-criteria';
 
 function CriteriaContainer() {
   return (

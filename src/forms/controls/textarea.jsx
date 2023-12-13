@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { getControlId } from 'utils/widget-utils';
-import { CONTROL_TEXTAREA } from 'constants/dom-constants';
+import { getControlId } from '../../utils/widget-utils';
+import { CONTROL_TEXTAREA } from '../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 

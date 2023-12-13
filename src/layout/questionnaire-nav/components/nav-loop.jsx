@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import Dictionary from 'utils/dictionary/dictionary';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { ComponentEdit } from 'layout/component-edit';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { ComponentEdit } from '../../component-edit';
 
 const { LOOP } = COMPONENT_TYPE;
 
