@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
-import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
-import { CONTROL_LIST_RADIOS } from 'constants/dom-constants';
+import {
+  getControlId,
+  getValuesFromGenericOptions,
+} from '../../utils/widget-utils';
+import { CONTROL_LIST_RADIOS } from '../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_LIST_RADIOS;
 

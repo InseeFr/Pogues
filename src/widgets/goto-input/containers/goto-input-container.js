@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import GotoInput from '../components/goto-input';
 import { getTargets } from '../utils/goto-input-utils';
-import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 
 // Prop types and default props
 

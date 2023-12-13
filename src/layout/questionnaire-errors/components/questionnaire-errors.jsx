@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 

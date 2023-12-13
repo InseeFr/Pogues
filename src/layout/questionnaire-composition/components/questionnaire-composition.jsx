@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { QuestionnaireNav } from 'layout/questionnaire-nav';
-import { QuestionnaireList } from 'layout/questionnaire-list';
+import { QuestionnaireNav } from '../../questionnaire-nav';
+import { QuestionnaireList } from '../../questionnaire-list';
 
 // Prop types and default props
 

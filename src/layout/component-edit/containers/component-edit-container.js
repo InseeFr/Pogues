@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import ComponentEdit from '../components/component-edit';
 
-import { setValidationErrors } from 'actions/errors';
-import { updateComponent } from 'actions/actionComponent';
+import { setValidationErrors } from '../../../actions/errors';
+import { updateComponent } from '../../../actions/actionComponent';
 // PropTypes and defaultProps
 
 export const propTypes = {

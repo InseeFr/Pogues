@@ -2,14 +2,14 @@ import React, { useCallback } from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Input from 'forms/controls/input';
-import { markdownVtlToString } from 'forms/controls/rich-textarea';
+import Input from '../../../forms/controls/input';
+import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 import {
   RichEditorWithVariable,
   InputWithVariableAutoCompletion,
-} from 'forms/controls/control-with-suggestions';
+} from '../../../forms/controls/control-with-suggestions';
 
-import { WIDGET_ASSOCIATED_FIELDS } from 'constants/dom-constants';
+import { WIDGET_ASSOCIATED_FIELDS } from '../../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = WIDGET_ASSOCIATED_FIELDS;
 

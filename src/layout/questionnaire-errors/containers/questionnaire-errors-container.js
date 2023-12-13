@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import QuestionnaireErrors from '../components/questionnaire-errors';
 
-import { setSelectedComponentId } from 'actions/app-state';
+import { setSelectedComponentId } from '../../../actions/app-state';
 
 // Prop types and default props
 

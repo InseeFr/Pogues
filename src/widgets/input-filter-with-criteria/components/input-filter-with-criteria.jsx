@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
-import { getControlId } from 'utils/widget-utils';
-import { uuid } from 'utils/utils';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
+import { getControlId } from '../../../utils/widget-utils';
+import { uuid } from '../../../utils/utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const {
   COMPONENT_CLASS,

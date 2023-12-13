@@ -1,7 +1,7 @@
 import React from 'react';
 
-import dictionary from 'constants/dictionary';
-import { DEFAULT_LANG } from 'constants/pogues-constants';
+import dictionary from '../../constants/dictionary';
+import { DEFAULT_LANG } from '../../constants/pogues-constants';
 import { reduxForm, reducer as form } from 'redux-form';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';

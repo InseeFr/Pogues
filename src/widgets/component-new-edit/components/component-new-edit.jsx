@@ -3,7 +3,7 @@ import { formPropTypes, Field } from 'redux-form';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
-import { getQuestionnaireScope } from 'widgets/component-new-edit/components/variables/utils-loops';
+import { getQuestionnaireScope } from './variables/utils-loops';
 import ResponseFormat from './response-format/response-format';
 import Declaration from './declarations';
 import Controls from './controls';
@@ -12,22 +12,22 @@ import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
 import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
 
-import { Tabs, Tab } from 'widgets/tabs';
-import { AssociatedFields } from 'widgets/associated-fields';
+import { Tabs, Tab } from '../../tabs';
+import { AssociatedFields } from '../../associated-fields';
 
-import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
+import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
 import {
   COMPONENT_TYPE,
   TABS_PATHS,
   TargetMode,
-} from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { updateNameField } from 'utils/utils';
-import ListCheckboxes from 'forms/controls/list-checkboxes';
-import GenericOption from 'forms/controls/generic-option';
-import Input from 'forms/controls/input';
-import Select from 'forms/controls/select';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
+} from '../../../constants/pogues-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { updateNameField } from '../../../utils/utils';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import GenericOption from '../../../forms/controls/generic-option';
+import Input from '../../../forms/controls/input';
+import Select from '../../../forms/controls/select';
+import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 import NestedFilter from './nestedFilter';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 

@@ -5,7 +5,7 @@ import { Button } from 'gillespie59-react-rte/lib/RichTextEditor';
 
 import ButtonWrap from './button-wrap';
 
-import { ICON_BUTTON } from 'constants/dom-constants';
+import { ICON_BUTTON } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, IS_ACTIVE, ICON } = ICON_BUTTON;
 

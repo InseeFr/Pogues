@@ -2,7 +2,7 @@ import {
   COMPONENT_TYPE,
   QUESTION_TYPE_ENUM,
   DIMENSION_FORMATS,
-} from 'constants/pogues-constants';
+} from '../../../../constants/pogues-constants';
 
 const { LOOP, QUESTION } = COMPONENT_TYPE;
 const { TABLE, PAIRING } = QUESTION_TYPE_ENUM;

@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 
 import ComponentNew from '../components/component-new';
 
-import { setValidationErrors } from 'actions/errors';
+import { setValidationErrors } from '../../../actions/errors';
 import {
   createComponent,
   orderComponents,
   updateParentChildren,
-} from 'actions/component';
-import { setSelectedComponentId } from 'actions/app-state';
-import { updateComponent, removeComponent } from 'actions/actionComponent';
+} from '../../../actions/component';
+import { setSelectedComponentId } from '../../../actions/app-state';
+import {
+  updateComponent,
+  removeComponent,
+} from '../../../actions/actionComponent';
 // PropTypes and defaultProps
 
 export const propTypes = {

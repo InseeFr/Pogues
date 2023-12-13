@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import { questionnaireDuplicateVariables } from '../utils/duplicate-variables-utils';
 
 export function DuplicateVariables({

@@ -7,12 +7,12 @@ import { compose } from 'redux';
 
 import DropZone from './drop-zone/drop-zone';
 
-import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { QUESTIONNAIRE_COMPONENT } from '../../../constants/dom-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
-import { VisualizeDropdown } from 'widgets/visualize-dropdown';
-import { markdownVtlToString } from 'forms/controls/rich-textarea';
-import { ComponentEdit } from 'layout/component-edit';
+import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
+import { ComponentEdit } from '../../component-edit';
 import ReactModal from 'react-modal';
 
 import {
@@ -20,13 +20,13 @@ import {
   componentSource,
   cardTarget,
   collect,
-} from 'utils/component/component-dragndrop';
+} from '../../../utils/component/component-dragndrop';
 import {
   getDragnDropLevel,
   calculateMargin,
-} from 'utils/component/component-dragndrop-utils';
-import Dictionary from 'utils/dictionary/dictionary';
-import { getIntegrityErrors } from 'utils/integrity/utils';
+} from '../../../utils/component/component-dragndrop-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { getIntegrityErrors } from '../../../utils/integrity/utils';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER, EXTERNAL_ELEMENT } =

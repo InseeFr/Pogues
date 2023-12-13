@@ -1,11 +1,11 @@
 import uniq from 'lodash.uniq';
 
-import { INTEGRITY_TYPES } from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
+import Dictionary from '../dictionary/dictionary';
 import {
   removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
-} from 'utils/variables/variables-utils';
+} from '../variables/variables-utils';
 
 function checkerUniqueCollectedVariableName({
   appState: {

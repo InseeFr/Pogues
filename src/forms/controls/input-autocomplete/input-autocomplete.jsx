@@ -13,9 +13,12 @@ import {
   init,
 } from './input-autocomplete-utils';
 
-import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
-import { HighLighter } from 'widgets/highlighter';
-import { CONTROL_INPUT_AUTOCOMPLETE } from 'constants/dom-constants';
+import {
+  getControlId,
+  getValuesFromGenericOptions,
+} from '../../../utils/widget-utils';
+import { HighLighter } from '../../../widgets/highlighter';
+import { CONTROL_INPUT_AUTOCOMPLETE } from '../../../constants/dom-constants';
 
 const {
   COMPONENT_CLASS,

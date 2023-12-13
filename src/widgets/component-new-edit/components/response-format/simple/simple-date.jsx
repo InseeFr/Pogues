@@ -2,11 +2,11 @@ import React from 'react';
 import { FormSection, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { date } from 'redux-form-validators';
-import Input from 'forms/controls/input';
-import Select from 'forms/controls/select';
-import Dictionary from 'utils/dictionary/dictionary';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
-import GenericOption from 'forms/controls/generic-option';
+import Input from '../../../../../forms/controls/input';
+import Select from '../../../../../forms/controls/select';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
+import GenericOption from '../../../../../forms/controls/generic-option';
 
 const { DATE } = DATATYPE_NAME;
 
