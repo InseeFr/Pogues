@@ -190,36 +190,21 @@ function findQuestionInLoop(componentsStore) {
           componentsStore[component.initialMember].type === SEQUENCE ||
           componentsStore[component.initialMember].type === EXTERNAL_ELEMENT
         ) {
-          if (
-            componentsStore[component.initialMember].weight !==
-            componentsStore[component.finalMember].weight
+          for (
+            let i = componentsStore[component.initialMember].weight;
+            i <= componentsStore[component.finalMember].weight;
+            i++
           ) {
-            for (
-              let i = componentsStore[component.initialMember].weight;
-              i <= componentsStore[component.finalMember].weight;
-              i++
-            ) {
-              const sequence = Object.values(componentsStore).find(
-                element => element.type === SEQUENCE && element.weight === i,
-              );
-              if (sequence) {
-                LoopQuestions = LoopQuestions.concat(
-                  getQuestionFromSequence(componentsStore, sequence.id),
-                );
-              }
-            }
-          } else {
-            LoopQuestions = LoopQuestions.concat(
-              getQuestionFromSequence(
-                componentsStore,
-                componentsStore[component.initialMember].id,
-              ),
+            const sequence = Object.values(componentsStore).find(
+              element => element.type === SEQUENCE && element.weight === i,
             );
+            if (sequence) {
+              LoopQuestions = LoopQuestions.concat(
+                getQuestionFromSequence(componentsStore, sequence.id),
+              );
+            }
           }
-        } else if (
-          componentsStore[component.initialMember].weight !==
-          componentsStore[component.finalMember].weight
-        ) {
+        } else {
           for (
             let i = componentsStore[component.initialMember].weight;
             i <= componentsStore[component.finalMember].weight;
@@ -238,13 +223,6 @@ function findQuestionInLoop(componentsStore) {
               );
             }
           }
-        } else {
-          LoopQuestions = LoopQuestions.concat(
-            getQuestionFromSubSequence(
-              componentsStore,
-              componentsStore[component.initialMember].id,
-            ),
-          );
         }
       }
 
@@ -334,6 +312,10 @@ export function storeToRemote(store, componentsStore) {
       id,
       componentsStore,
     );
+    console.log('QuestionsInLoop');
+    console.log(questionsInLoop);
+    console.log('collectedScop');
+    console.log(collectedScop);
     if (collectedScop.component) {
       if (
         collectedScop.component.type === QUESTION &&
@@ -351,6 +333,7 @@ export function storeToRemote(store, componentsStore) {
         model.Scope = collectedScop.loop.id;
       }
     }
+    console.log('model ', model);
     const dynamique = getTableDynamique(componentsStore, id);
     if (dynamique) {
       model.Scope = dynamique;
