@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
