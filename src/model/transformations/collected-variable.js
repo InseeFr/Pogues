@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { uuid } from 'utils/utils';
 import {
   VARIABLES_TYPES,
@@ -313,10 +312,6 @@ export function storeToRemote(store, componentsStore) {
       id,
       componentsStore,
     );
-    console.log('QuestionsInLoop');
-    console.log(questionsInLoop);
-    console.log('collectedScop');
-    console.log(collectedScop);
     if (collectedScop.component) {
       if (
         collectedScop.component.type === QUESTION &&
@@ -334,7 +329,6 @@ export function storeToRemote(store, componentsStore) {
         model.Scope = collectedScop.loop.id;
       }
     }
-    console.log('model ', model);
     const dynamique = getTableDynamique(componentsStore, id);
     if (dynamique) {
       model.Scope = dynamique;
