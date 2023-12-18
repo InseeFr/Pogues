@@ -16,7 +16,6 @@ import {
   setActiveVariables,
   loadStatisticalContext,
 } from '../../../actions/app-state';
-import { getToken } from '../../../reducers/selectors';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -67,7 +66,7 @@ const mapStateToProps = (
   },
 ) => ({
   id,
-  token: getToken(state),
+  authType: state.authType,
   appState: state.appState,
   questionnaire: state.questionnaireById[id],
   activeQuestionnaire: state.appState.activeQuestionnaire,

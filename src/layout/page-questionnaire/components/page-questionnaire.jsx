@@ -6,6 +6,7 @@ import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { QuestionnaireListComponents } from '../../questionnaire-list-components';
 import { QuestionnaireNav } from '../../questionnaire-nav';
 import { GenericInput } from '../../generic-input';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -13,7 +14,7 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 export const propTypes = {
   id: PropTypes.string.isRequired,
-  token: PropTypes.string,
+  authType: PropTypes.string,
   loadQuestionnaire: PropTypes.func.isRequired,
   loadStatisticalContext: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
@@ -32,7 +33,7 @@ export const propTypes = {
 };
 
 export const defaultProps = {
-  token: '',
+  authType: '',
   questionnaire: {},
   activeQuestionnaire: {},
   components: {},
@@ -45,7 +46,7 @@ export const defaultProps = {
 const PageQuestionnaire = props => {
   const {
     id,
-    token,
+    authType,
     questionnaire,
     components,
     codeLists,
@@ -60,9 +61,12 @@ const PageQuestionnaire = props => {
     setActiveCodeLists,
     setActiveVariables,
     loadExternalQuestionnairesIfNeeded,
+    history,
     appState,
   } = props;
 
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
   const [toInitialize, setToInitialize] = useState(false);
 
   useEffect(() => {
@@ -117,7 +121,7 @@ const PageQuestionnaire = props => {
       ) : (
         <div>
           <QuestionnaireNav />
-          <QuestionnaireListComponents navigate={props.history.push} />
+          <QuestionnaireListComponents navigate={history.push} />
           <GenericInput />
         </div>
       )}

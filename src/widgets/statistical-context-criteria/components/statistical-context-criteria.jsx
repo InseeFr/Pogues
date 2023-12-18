@@ -10,13 +10,14 @@ import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import GenericOption from '../../../forms/controls/generic-option';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { requiredSelect } from '../../../forms/validation-rules';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
   const {
-    token,
+    authType,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -31,6 +32,8 @@ const StatisticalContextCriteria = props => {
     loadCampaignsIfNeeded,
   } = props;
 
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
 
@@ -138,7 +141,7 @@ const StatisticalContextCriteria = props => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
-  token: PropTypes.string,
+  authType: PropTypes.string,
   series: PropTypes.array.isRequired,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -153,7 +156,7 @@ StatisticalContextCriteria.propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
-  token: '',
+  authType: '',
   multipleCampaign: false,
   required: false,
   focusOnInit: false,

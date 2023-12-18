@@ -6,7 +6,6 @@ import InputFilterWithCriteria from '../components/input-filter-with-criteria';
 
 import { STATISTICAL_CONTEXT_FORM_NAME } from '../../../constants/pogues-constants';
 import { loadSearchResult } from '../../../actions/search';
-import { getToken } from '../../../reducers/selectors';
 
 // PropTypes and defaultProps
 
@@ -32,11 +31,14 @@ export const defaultProps = {
 
 // Container
 
-export const mapStateToProps = (state, { formName, path, criterias }) => {
+export const mapStateToProps = (
+  state,
+  { authType, formName, path, criterias },
+) => {
   const selector = formValueSelector(formName);
 
   return {
-    token: getToken(state),
+    authType,
     criteriaValues: criterias.reduce((acc, cr) => {
       return {
         ...acc,

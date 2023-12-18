@@ -12,10 +12,10 @@ import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { QuestionnaireEdit } from '../../questionnaire-edit';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
-
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
@@ -23,7 +23,7 @@ const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
 const QuestionnaireListComponents = props => {
   const {
-    token,
+    authType,
     questionnaire,
     componentsStore,
     editingComponentId,
@@ -36,6 +36,8 @@ const QuestionnaireListComponents = props => {
   } = props;
 
   const publicEnemyBaseUri = getEnvVar('PUBLIC_ENEMY_URL');
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
 
   useEffect(() => {
     setSelectedComponentId('');
@@ -82,7 +84,7 @@ const QuestionnaireListComponents = props => {
         ) {
           return (
             <QuestionnaireComponent
-              token={props.token}
+              authType={authType}
               key={component.id}
               selected={props.selectedComponentId === key}
               component={component}
@@ -280,7 +282,7 @@ const QuestionnaireListComponents = props => {
 
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {
-  token: PropTypes.string,
+  authType: PropTypes.string,
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
   errorsIntegrity: PropTypes.object,
@@ -301,7 +303,7 @@ QuestionnaireListComponents.propTypes = {
 };
 
 QuestionnaireListComponents.defaultProps = {
-  token: '',
+  authType: '',
   componentsStore: {},
   errorsIntegrity: {},
   activeCalculatedVariables: {},
