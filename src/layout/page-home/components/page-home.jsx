@@ -1,15 +1,20 @@
+import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { QuestionnaireNew } from '../../questionnaire-new';
 import { QuestionnaireList } from '../../questionnaire-list';
+import { QuestionnaireNew } from '../../questionnaire-new';
 
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { useUser } from '../../../utils/oidc/useAuth';
 
-const PageHome = ({ history, deleteAppState }) => {
+const PageHome = ({ history, deleteAppState, authType }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const {
+    user: { stamp },
+  } = useUser(authType);
 
   useEffect(() => deleteAppState(), [deleteAppState]);
 
@@ -85,6 +90,7 @@ const PageHome = ({ history, deleteAppState }) => {
           </div>
           <div className="popup-body">
             <QuestionnaireNew
+              stamp={stamp}
               onCancel={handleCloseModal}
               onSuccess={handleQuestionnaryCreated}
             />

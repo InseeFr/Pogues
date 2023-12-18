@@ -1,16 +1,12 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
 
+import { Factory as CodesListFactory } from '../..';
 import {
-  defaultState as CodesListDefaultState,
-  defaultForm as CodesListDefaultForm,
-  Factory as CodesListFactory,
-} from '../../../model';
-import {
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
 } from '../../../constants/pogues-constants';
 
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
@@ -19,13 +15,13 @@ const { CHECKBOX } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
   [PRIMARY]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
   },
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+      // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
       visHint: CHECKBOX,
     },
   },
@@ -33,13 +29,13 @@ export const defaultState = {
 
 export const defaultForm = {
   [PRIMARY]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
+    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
   },
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
+      // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
       visHint: CHECKBOX,
     },
   },

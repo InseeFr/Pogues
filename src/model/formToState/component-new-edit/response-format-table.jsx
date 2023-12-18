@@ -1,19 +1,15 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
-import { uuid, verifyVariable } from '../../../utils/utils';
+import merge from 'lodash.merge';
+import { verifyVariable } from '../../../utils/utils';
 
+import { Factory as CodesListFactory } from '../..';
 import {
-  defaultState as CodesListDefaultState,
-  defaultForm as CodesListDefaultForm,
-  Factory as CodesListFactory,
-} from '../..';
-import {
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
   UI_BEHAVIOUR,
 } from '../../../constants/pogues-constants';
 
@@ -64,13 +60,13 @@ export const defaultMeasureState = {
   label: '',
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
-  [SINGLE_CHOICE]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
-      cloneDeep(CodesListDefaultState),
-      { id: uuid() },
-    ),
-    visHint: RADIO,
-  },
+  // [SINGLE_CHOICE]: {
+  //   [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
+  //     cloneDeep(CodesListDefaultState),
+  //     { id: uuid() },
+  //   ),
+  //   visHint: RADIO,
+  // },
 };
 
 export const defaultMeasureForm = {
@@ -83,7 +79,7 @@ export const defaultMeasureForm = {
     specialCode: '',
     specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: '',
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
+    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
     visHint: RADIO,
   },
 };
@@ -98,11 +94,11 @@ export const defaultState = {
       numLinesMax: 0,
     },
     [CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+      // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     },
   },
   [SECONDARY]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     showSecondaryAxis: false,
     showTotalLabel: '0',
     totalLabel: '',
