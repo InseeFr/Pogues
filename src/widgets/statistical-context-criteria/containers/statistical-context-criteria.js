@@ -1,20 +1,19 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, change } from 'redux-form';
+import { change, formValueSelector } from 'redux-form';
 import {
-  loadSeriesIfNeeded,
-  loadOperationsIfNeeded,
   loadCampaignsIfNeeded,
+  loadOperationsIfNeeded,
+  loadSeriesIfNeeded,
 } from '../../../actions/metadata';
 import {
   STATISTICAL_CONTEXT_FORM_NAME,
   TCM,
 } from '../../../constants/pogues-constants';
-import { filterStoreByProp } from '../../../utils/widget-utils';
 import { storeToArray } from '../../../utils/utils';
+import { filterStoreByProp } from '../../../utils/widget-utils';
 
 import StatisticalContextCriteria from '../components/statistical-context-criteria';
-import { getToken, getUser } from '../../../reducers/selectors';
 
 // PropTypes and defaultProps
 
@@ -43,10 +42,9 @@ export const defaultProps = {
 // @TODO: Tests
 export const mapStateToProps = (
   state,
-  { showCampaigns, showOperations, formName, path },
+  { showCampaigns, showOperations, formName, path, stamp },
 ) => {
   const selector = formValueSelector(formName);
-  const { stamp } = getUser(state);
   const conditionalProps = {};
 
   // Selected serie and operation in the form
@@ -81,7 +79,6 @@ export const mapStateToProps = (
 
   return {
     ...conditionalProps,
-    token: getToken(state),
     series:
       stamp === TCM.owner || stamp === 'FAKEPERMISSION'
         ? [

@@ -1,19 +1,19 @@
 import React from 'react';
-import { formPropTypes, Field } from 'redux-form';
+import { Field, formPropTypes } from 'redux-form';
 
-import { StatisticalContextCriteria } from '../../statistical-context-criteria';
-import { AssociatedFields } from '../../associated-fields';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { AssociatedFields } from '../../associated-fields';
+import { StatisticalContextCriteria } from '../../statistical-context-criteria';
 
-import ListCheckboxes from '../../../forms/controls/list-checkboxes';
-import GenericOption from '../../../forms/controls/generic-option';
-import ListRadios from '../../../forms/controls/list-radios';
 import {
-  TargetMode,
-  QUESTIONNAIRE_TYPE,
   FORMULA_LANGUAGE,
+  QUESTIONNAIRE_TYPE,
+  TargetMode,
 } from '../../../constants/pogues-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import ListRadios from '../../../forms/controls/list-radios';
 
 import { updateNameField } from '../../../utils/utils';
 
@@ -24,11 +24,18 @@ const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 
 // Component
-function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
+function QuestionnaireNewEdit({
+  handleSubmit,
+  submitting,
+  form,
+  onCancel,
+  stamp,
+}) {
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit}>
         <StatisticalContextCriteria
+          stamp={stamp}
           formName={form}
           multipleCampaign
           focusOnInit

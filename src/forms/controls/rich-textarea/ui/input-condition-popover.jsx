@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { ButtonGroup } from 'gillespie59-react-rte/lib/RichTextEditor';
 
 import { INPUT_CONDITION_POPOVER } from '../../../../constants/dom-constants';
-import IconButton from './icon-button';
 
 const { COMPONENT_CLASS, INNER, BUTTONGROUP, CONDITION, INPUT } =
   INPUT_CONDITION_POPOVER;
@@ -174,7 +172,11 @@ class InputConditionPopover extends Component {
           {this.state.conditions.map((c, index) =>
             this.renderCondition(c, index),
           )}
-          <ButtonGroup className={BUTTONGROUP}>
+
+          <div style={{ color: 'red' }}>
+            <b>ToDo</b>ButtonGroup
+          </div>
+          {/* <ButtonGroup className={BUTTONGROUP}>
             <IconButton
               label="Add condition"
               iconName="new-condition"
@@ -190,7 +192,7 @@ class InputConditionPopover extends Component {
               iconName="cancel"
               onClick={this.props.onCancel}
             />
-          </ButtonGroup>
+          </ButtonGroup> */}
         </div>
       </div>
     );

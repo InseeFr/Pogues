@@ -1,23 +1,19 @@
-import React from 'react';
+// import { EditorState, Modifier, getDefaultKeyBinding } from 'draft-js';
 import PropTypes from 'prop-types';
-import RichTextEditor from 'gillespie59-react-rte/dist/react-rte';
-import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
+import React from 'react';
 
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions } from './input-with-suggestions-utils';
 import { getPattern, getStartValueWithSuggestion } from './utils';
 
 import {
-  getEditorValue,
   contentStateToString,
-  formatURL,
+  getEditorValue,
   toolbarConfig,
-  toolbarConfigQuestion,
-  rootStyle,
 } from '../../rich-textarea';
 
-import { getControlId } from '../../../../utils/widget-utils';
 import { CONTROL_RICH_TEXTAREA } from '../../../../constants/dom-constants';
+import { getControlId } from '../../../../utils/widget-utils';
 
 const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 
@@ -196,7 +192,10 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
           {required && <span className="ctrl-required">*</span>}
         </label>
         <div>
-          <RichTextEditor
+          <div style={{ color: 'red' }}>
+            <b>ToDo</b>RichTextEditor
+          </div>
+          {/* <RichTextEditor
             blockStyleFn={() => 'singleline'}
             value={editorValue}
             onChange={this.handleChange}
@@ -214,7 +213,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
             }}
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={myKeyBindingFn}
-          />
+          /> */}
           {touched && error && <span className="form-error">{error}</span>}
           {super.render()}
         </div>

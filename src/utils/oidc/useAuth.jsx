@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { AuthContext } from '../../auth/provider/component';
 import { decodeJwt } from 'oidc-spa';
 import { useOidc } from 'oidc-spa/react';
 import { useContext, useMemo } from 'react';
+import { AuthContext } from '../../auth/provider/none';
 import { getEnvVar } from '../env';
 
 export const useAuth = authType => {

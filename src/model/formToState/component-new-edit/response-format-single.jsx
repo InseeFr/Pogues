@@ -1,15 +1,11 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
 
+import { Factory as CodesListFactory } from '../..';
 import {
-  defaultState as CodesListDefaultState,
-  defaultForm as CodesListDefaultForm,
-  Factory as CodesListFactory,
-} from '../../../model';
-import {
-  UI_BEHAVIOUR,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  UI_BEHAVIOUR,
 } from '../../../constants/pogues-constants';
 
 const { RADIO } = DATATYPE_VIS_HINT;
@@ -22,7 +18,7 @@ export const defaultState = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: RADIO,
-  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+  // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
 export const defaultForm = {
@@ -33,7 +29,7 @@ export const defaultForm = {
   specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
   specialFollowUpMessage: '',
   visHint: RADIO,
-  [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
+  // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
 };
 
 export function formToState(form, transformers) {
