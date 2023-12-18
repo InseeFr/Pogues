@@ -22,11 +22,3 @@ export const getUser = state => {
     stamp: getEnvVar('DEFAULT_USER_STAMP') || 'FAKEPERMISSION',
   };
 };
-
-export const getToken = state => {
-  const { authType } = state;
-  if (authType === 'OIDC') {
-    return state.oidc.user?.access_token || '';
-  }
-  return '';
-};

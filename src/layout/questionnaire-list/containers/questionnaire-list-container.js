@@ -25,6 +25,7 @@ const mapStateToProps = state => {
     key => state.questionnaireListById[key],
   );
   return {
+    authType: state.authType,
     activeQuestionnaire: state.appState.activeQuestionnaire,
     questionnaires,
     selectedComponentId: state.appState.selectedComponentId,

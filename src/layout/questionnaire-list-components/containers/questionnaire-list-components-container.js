@@ -14,10 +14,9 @@ import {
   setEditingComponentId,
 } from '../../../actions/app-state';
 import { removeQuestionnaire } from '../../../actions/questionnaire';
-import { getToken } from '../../../reducers/selectors';
 
 const mapStateToProps = state => ({
-  token: getToken(state),
+  authType: state.authType,
   questionnaire: state.appState.activeQuestionnaire,
   componentsStore: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,

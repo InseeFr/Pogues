@@ -11,7 +11,6 @@ import {
   getNewLoopPlaceholder,
 } from '../../../utils/component/generic-input-utils';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import { getToken } from '../../../reducers/selectors';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -108,7 +107,7 @@ const mapStateToProps = state => {
       externalQuestionnairesLoops,
     ),
     activeQuestionnaire: activeQuestionnaire,
-    token: getToken(state),
+    authType: state.authType,
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,

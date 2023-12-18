@@ -9,6 +9,7 @@ import { formatDate, getState } from '../../../utils/component/component-utils';
 import { getStampsList } from '../../../utils/remote-api';
 import { getWeight } from '../../../utils/component/generic-input-utils';
 import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 
@@ -18,7 +19,7 @@ const QuestionnaireList = props => {
     selectedComponentId,
     questionnaires,
     stamp,
-    token,
+    authType,
     duplicateQuestionnaire,
     isFusion,
     isComposition,
@@ -40,6 +41,8 @@ const QuestionnaireList = props => {
     handleNewChildQuestionnaireRef,
   } = props;
 
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
   let actionLabel = Dictionary.duplicate;
   if (isComposition) actionLabel = Dictionary.add;
   if (isFusion) actionLabel = Dictionary.merge;
@@ -141,7 +144,7 @@ const QuestionnaireList = props => {
 
   const handleSubmit = () => {
     duplicateQuestionnaire(questionId, token);
-    props.loadQuestionnaireList(stamp, token);
+    loadQuestionnaireList(stamp, token);
     setShowPopup(false);
   };
 
@@ -281,7 +284,7 @@ QuestionnaireList.propTypes = {
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
-  token: PropTypes.string,
+  authType: PropTypes.string,
   selectedStamp: PropTypes.string,
   isFusion: PropTypes.bool,
   isComposition: PropTypes.bool,
@@ -305,7 +308,7 @@ QuestionnaireList.defaultProps = {
   selectedComponentId: undefined,
   questionnaires: [],
   stamp: '',
-  token: '',
+  authType: '',
   selectedStamp: 'FAKEPERMISSION',
   isFusion: false,
   isComposition: false,
