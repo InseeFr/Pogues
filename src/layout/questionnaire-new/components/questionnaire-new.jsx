@@ -5,6 +5,7 @@ import {
   Questionnaire,
 } from '../../../widgets/questionnaire-new-edit';
 import { validateQuestionnaireForm } from '../../../utils/validation/validate';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 // Utils
 
@@ -27,10 +28,12 @@ function QuestionnaireNew({
   onCancel,
   onSuccess,
   stamp,
-  token,
+  authType,
   createQuestionnaire,
   setErrors,
 }) {
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
 

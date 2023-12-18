@@ -42,7 +42,7 @@ export const defaultProps = {
 // @TODO: Tests
 export const mapStateToProps = (
   state,
-  { showCampaigns, showOperations, formName, path, stamp },
+  { authType, showCampaigns, showOperations, formName, path, stamp },
 ) => {
   const selector = formValueSelector(formName);
   const conditionalProps = {};
@@ -88,6 +88,7 @@ export const mapStateToProps = (
         : storeToArray(state.metadataByType.series),
     selectedSerie,
     path,
+    authType,
   };
 };
 

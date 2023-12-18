@@ -36,7 +36,6 @@ const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const QuestionnaireComponent = props => {
   const {
-    // token,
     component,
     connectDragSource,
     integrityErrorsByType,
@@ -307,6 +306,7 @@ QuestionnaireComponent.propTypes = {
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
   }).isRequired,
+  authType: PropTypes.string,
 };
 
 QuestionnaireComponent.defaultProps = {
@@ -314,6 +314,7 @@ QuestionnaireComponent.defaultProps = {
   draggedItem: {},
   integrityErrorsByType: {},
   canDrop: true,
+  authType: '',
 };
 
 export default compose(
