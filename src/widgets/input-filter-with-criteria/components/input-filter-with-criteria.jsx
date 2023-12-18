@@ -5,6 +5,7 @@ import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-consta
 import { getControlId } from '../../../utils/widget-utils';
 import { uuid } from '../../../utils/utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 const {
   COMPONENT_CLASS,
@@ -18,11 +19,13 @@ const InputFilterWithCriteria = props => {
     typeItem,
     criteriaValues,
     label,
-    token,
+    authType,
     loadOnInit,
     loadSearchResult,
   } = props;
   const inputSearchRef = useRef(null);
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
 
   useEffect(() => {
     if (loadOnInit) loadSearchResult(token, typeItem);
@@ -74,7 +77,7 @@ const InputFilterWithCriteria = props => {
 // PropTypes and defaultProps
 
 InputFilterWithCriteria.propTypes = {
-  token: PropTypes.string,
+  authType: PropTypes.string,
   typeItem: PropTypes.string.isRequired,
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
@@ -83,7 +86,7 @@ InputFilterWithCriteria.propTypes = {
 };
 
 InputFilterWithCriteria.defaultProps = {
-  token: '',
+  authType: '',
   criteriaValues: {},
 };
 
