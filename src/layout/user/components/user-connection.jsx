@@ -1,9 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useUser } from '../../../utils/oidc/useAuth';
 import defaultPicture from './user-picture-default.png';
 
-function UserConnection({ user }) {
+function UserConnection({ authType }) {
+  const { user } = useUser(authType);
+
   const hasName = user?.name;
   if (!hasName) return null;
   return (
@@ -39,16 +41,11 @@ function UserConnection({ user }) {
 }
 
 UserConnection.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    stamp: PropTypes.string,
-    id: PropTypes.string,
-    picture: PropTypes.string,
-  }),
+  authType: PropTypes.string,
 };
 
 UserConnection.defaultProps = {
-  user: {},
+  authType: undefined,
 };
 
 export default UserConnection;
