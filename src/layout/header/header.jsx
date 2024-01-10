@@ -21,7 +21,14 @@ function Header() {
           </h2>
           <h6>
             {Dictionary.headerSubtitle}
-            <span className="pogues-version">{poguesFrontVersion}</span>
+            <span className="pogues-version">
+              <a
+                href={`https://github.com/InseeFr/Pogues/releases/tag/${poguesFrontVersion}`}
+                target="blank"
+              >
+                {poguesFrontVersion}
+              </a>
+            </span>
           </h6>
         </div>
         <div className="header-help">
