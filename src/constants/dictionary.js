@@ -1566,6 +1566,10 @@ const dictionary = {
     fr: 'Web V2',
     en: 'Web V2',
   },
+  VISUALIZE_WEB_STROMAE_V3: {
+    fr: 'Web V3',
+    en: 'Web V3',
+  },
   VISUALIZE_QUEEN_CAPI: {
     fr: 'Enquêteur face à face',
     en: 'Interviewer face to face',

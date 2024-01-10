@@ -162,6 +162,20 @@ export const visualizeWebStromaeV2 = async (qr, ref, token) => {
 };
 
 /**
+ * This method will send a request in order to get the URL
+ * of the generated Stromae v2 page for the active questionnaire.
+ * @param {*} qr The active questionnaire
+ */
+export const visualizeWebStromaeV3 = async (qr, ref, token) => {
+  await getVizualisationUrl(
+    `${pathVisualisation}-stromae-v3/${qr.Name}`,
+    qr,
+    ref,
+    token,
+  );
+};
+
+/**
  * This method will call the back in order to get a documpent for
  * the visualization of the questionnaire in DDI, PDF and ODT (Spec)
  */

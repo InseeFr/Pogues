@@ -8,6 +8,7 @@ import {
   visualizeQueenCapi,
   visualizeQueenCati,
   visualizeWebStromaeV2,
+  visualizeWebStromaeV3,
 } from 'utils/remote-api';
 import { addVisualizationError } from './errors';
 import { TCM } from 'constants/pogues-constants';
@@ -399,6 +400,8 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         return visualizeHtml;
       } else if (type === 'stromae-v2') {
         return visualizeWebStromaeV2;
+      } else if (type === 'stromae-v3') {
+        return visualizeWebStromaeV3;
       } else if (type === 'queen-capi') {
         return visualizeQueenCapi;
       } else if (type === 'queen-cati') {
