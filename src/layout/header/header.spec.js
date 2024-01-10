@@ -12,11 +12,11 @@ describe('<Header />', () => {
   });
 
   test('should render a link to homepage', () => {
-    expect(wrapper.find('Link[to="/"]').length).toBe(2);
+    expect(wrapper.find('Link[to="/"]').length).toBe(1);
   });
 
   test('should render a link to the help page', () => {
-    expect(wrapper.find('a').length).toBe(1);
+    expect(wrapper.find('a').length).toBe(2);
   });
 
   test('should render a <UserConnection /> component', () => {
