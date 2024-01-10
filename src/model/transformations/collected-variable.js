@@ -9,7 +9,8 @@ import {
 } from 'constants/pogues-constants';
 
 const { COLLECTED } = VARIABLES_TYPES;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
 
@@ -185,37 +186,25 @@ function findQuestionInLoop(componentsStore) {
     .forEach(component => {
       let LoopQuestions = [];
       if (componentsStore[component.initialMember]) {
-        if (componentsStore[component.initialMember].type === SEQUENCE) {
-          if (
-            componentsStore[component.initialMember].weight !==
-            componentsStore[component.finalMember].weight
-          ) {
-            for (
-              let i = componentsStore[component.initialMember].weight;
-              i <= componentsStore[component.finalMember].weight;
-              i++
-            ) {
-              const sequence = Object.values(componentsStore).find(
-                element => element.type === SEQUENCE && element.weight === i,
-              );
-              if (sequence) {
-                LoopQuestions = LoopQuestions.concat(
-                  getQuestionFromSequence(componentsStore, sequence.id),
-                );
-              }
-            }
-          } else {
-            LoopQuestions = LoopQuestions.concat(
-              getQuestionFromSequence(
-                componentsStore,
-                componentsStore[component.initialMember].id,
-              ),
-            );
-          }
-        } else if (
-          componentsStore[component.initialMember].weight !==
-          componentsStore[component.finalMember].weight
+        if (
+          componentsStore[component.initialMember].type === SEQUENCE ||
+          componentsStore[component.initialMember].type === EXTERNAL_ELEMENT
         ) {
+          for (
+            let i = componentsStore[component.initialMember].weight;
+            i <= componentsStore[component.finalMember].weight;
+            i++
+          ) {
+            const sequence = Object.values(componentsStore).find(
+              element => element.type === SEQUENCE && element.weight === i,
+            );
+            if (sequence) {
+              LoopQuestions = LoopQuestions.concat(
+                getQuestionFromSequence(componentsStore, sequence.id),
+              );
+            }
+          }
+        } else {
           for (
             let i = componentsStore[component.initialMember].weight;
             i <= componentsStore[component.finalMember].weight;
@@ -234,13 +223,6 @@ function findQuestionInLoop(componentsStore) {
               );
             }
           }
-        } else {
-          LoopQuestions = LoopQuestions.concat(
-            getQuestionFromSubSequence(
-              componentsStore,
-              componentsStore[component.initialMember].id,
-            ),
-          );
         }
       }
 
