@@ -46,5 +46,11 @@
     .header-user {
       @include make-xs-column(3);
     }
+
+    .pogues-version {
+      margin-left: 5px;
+      color: $color-grey_01;
+      font-style: italic;
+    }
   }
 }

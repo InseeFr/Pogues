@@ -16,7 +16,7 @@ describe('<Header />', () => {
   });
 
   test('should render a link to the help page', () => {
-    expect(wrapper.find('a').length).toBe(1);
+    expect(wrapper.find('a').length).toBe(2);
   });
 
   test('should render a <UserConnection /> component', () => {

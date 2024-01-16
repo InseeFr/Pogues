@@ -83,6 +83,11 @@ function VisualizeDropdown({
       actionType: 'stromae-v2',
       actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V2,
     },
+    {
+      actionType: 'stromae-v3',
+      actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V3,
+      tag: 'beta',
+    },
     { actionType: 'queen-capi', actionLabel: Dictionary.VISUALIZE_QUEEN_CAPI },
     { actionType: 'queen-cati', actionLabel: Dictionary.VISUALIZE_QUEEN_CATI },
     { actionType: 'pdf', actionLabel: Dictionary.VISUALIZE_PDF },
@@ -127,6 +132,11 @@ function VisualizeDropdown({
               <li key={link.actionLabel}>
                 <a href="#" onClick={e => visualize(e, link.actionType)}>
                   {link.actionLabel}
+                  {link.tag && (
+                    <span className="link-tag">
+                      <i>{link.tag}</i>
+                    </span>
+                  )}
                 </a>
               </li>
             );
