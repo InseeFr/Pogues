@@ -10,7 +10,7 @@ const actionHandlers = {};
 export function addVisualizationError(state, { error }) {
   return {
     ...state,
-    showErrorVisualizationPopup: error.message,
+    showErrorVisualizationPopup: error?.message,
   };
 }
 
