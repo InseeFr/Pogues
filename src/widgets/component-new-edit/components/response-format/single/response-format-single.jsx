@@ -113,6 +113,12 @@ function ResponseFormatSingle({
     }
   }, [formName, path, visHint]);
 
+  useEffect(() => {
+    if (visHint === SUGGESTER) {
+      change(formName, `${path}${DEFAULT_CODES_LIST_SELECTOR_PATH}.panel`, REF);
+    }
+  }, [formName, path, visHint]);
+
   return (
     <FormSection name={selectorPath} className="response-format__single">
       <div className="ctrl-checkbox" style={styleMandatory}>
