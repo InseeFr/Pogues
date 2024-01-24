@@ -79,9 +79,10 @@ export const removeIntegrityError = (componentId, typeError, itemListId) => {
   };
 };
 
-export const addVisualizationError = () => {
+export const addVisualizationError = error => {
   return {
     type: ADD_VISUALIZATION_ERROR,
+    payload: { error },
   };
 };
 

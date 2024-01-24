@@ -7,17 +7,17 @@ import {
 
 const actionHandlers = {};
 
-export function addVisualizationError(state) {
+export function addVisualizationError(state, { error }) {
   return {
     ...state,
-    showErrorVisualizationPopup: true,
+    showErrorVisualizationPopup: error.message,
   };
 }
 
 export function removeVisualizationError(state) {
   return {
     ...state,
-    showErrorVisualizationPopup: false,
+    showErrorVisualizationPopup: '',
   };
 }
 

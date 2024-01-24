@@ -365,11 +365,8 @@ export const loadingVisualizationSuccess = () => ({
   type: LOADING_VISUALIZATION_SUCCESS,
 });
 
-export const loadingVisualizationFailure = error => ({
+export const loadingVisualizationFailure = () => ({
   type: LOADING_VISUALIZATION_FAILURE,
-  payload: {
-    error,
-  },
 });
 
 /**
@@ -421,8 +418,8 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
       getVisualization()(questionnaireModel, containsRef, token)
         .then(() => dispatch(loadingVisualizationSuccess()))
         .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
+          dispatch(loadingVisualizationFailure());
+          dispatch(addVisualizationError(error));
         });
     };
     visualize();
