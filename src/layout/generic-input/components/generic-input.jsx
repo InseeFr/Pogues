@@ -296,7 +296,7 @@ function GenericInput(props) {
         className="custom-modal"
       >
         <p>{Dictionary.visualizationError}</p>
-        <p>{showVisualizationErrorPopup}</p>
+        <p className="api-error-message">{showVisualizationErrorPopup}</p>
         <button onClick={removeVisualizationError} className="modal-button">
           {Dictionary.close}
         </button>
