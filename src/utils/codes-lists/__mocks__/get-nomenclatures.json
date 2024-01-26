@@ -1,14 +1,334 @@
 {
   "nomenclatures": {
-    "naf-rev2": { "id": "naf-rev2", "label": "nomenclature naf-rev2" },
-    "naf-rev2-stop": {
-      "id": "naf-rev2-stop",
-      "label": "nomenclature naf-rev2-stop"
+    "L_ACTIVITES-1-0-0": {
+      "id": "L_ACTIVITES-1-0-0",
+      "name": "L_ACTIVITES-1-0-0",
+      "label": "activité",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "accueil": [
+                "ACCEUIL",
+                "ACCUEILLIR",
+                "ACCUEILLANTE",
+                "ACCUEILLANT",
+                "ACCUEILLE"
+              ],
+              "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
+              "plaquisterie": ["PLACO", "PLACOPLATRE"],
+              "pneumatique": ["PNEU", "PNEUS"],
+              "prestation": ["PRESTATAIRE"],
+              "echafaudage": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
+              "conseil": ["CONSULTING"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingenierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "fabrication": ["FABRICANT"],
+              "abattage": [
+                "ABATOIR",
+                "ABBATOIR",
+                "ABATTOIRS",
+                "ABATOIRE",
+                "ABATTOIRE",
+                "ABBATTAGE"
+              ],
+              "ascenseur": ["ASCENCEUR", "ASCENCEURS"],
+              "briqueterie": ["BRIQUETTERIE"],
+              "joaillerie": ["JOAILLIER"],
+              "agroalimentaire": [
+                "AGGRO",
+                "AGGROALIMANTAIRE",
+                "AGRO",
+                "AGROALIMENTAIRE"
+              ],
+              "alimentaire": ["ALIMANTAIRE"],
+              "recherche-développement": ["R &amp D", "R&ampD"]
+            }
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "er",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_activites-1-0-0:1",
+      "codes": []
     },
-    "cog-communes": {
-      "id": "cog-communes",
-      "label": "nomenclature cog-communes"
+    "L_COMMUNEPASSEE-1-2-0": {
+      "id": "L_COMMUNEPASSEE-1-2-0",
+      "name": "L_COMMUNEPASSEE-1-2-0",
+      "label": "commune passée",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_communepassee-1-2-0:1",
+      "codes": []
     },
-    "in-error": { "id": "in-error", "label": "nomenclature in-error" }
+    "L_DEPNAIS-1-1-0": {
+      "id": "L_DEPNAIS-1-1-0",
+      "name": "L_DEPNAIS-1-1-0",
+      "label": "département de naissance",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": "soft"
+          },
+          {
+            "name": "id",
+            "rules": "soft"
+          }
+        ],
+        "order": {
+          "field": "label",
+          "type": "ascending"
+        },
+        "queryParser": { "type": "soft" }
+      },
+      "urn": "urn:ddi:fr.insee:l_depnais-1-1-0:1",
+      "codes": []
+    },
+    "L_PAYS-1-2-0": {
+      "id": "L_PAYS-1-2-0",
+      "name": "L_PAYS-1-2-0",
+      "label": "pays",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_pays-1-2-0:1",
+      "codes": []
+    },
+    "L_NATIONALITE-1-2-0": {
+      "id": "L_NATIONALITE-1-2-0",
+      "name": "L_NATIONALITE-1-2-0",
+      "label": "nationalité",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_nationalite-1-2-0:1",
+      "codes": []
+    },
+    "L_PCS_HOMMES-1-5-0": {
+      "id": "L_PCS_HOMMES-1-5-0",
+      "name": "L_PCS_HOMMES-1-5-0",
+      "label": "PCS hommes",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "meloto": true,
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "er",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_pcs_hommes-1-5-0:1",
+      "codes": []
+    },
+    "L_PCS_FEMMES-1-5-0": {
+      "id": "L_PCS_FEMMES-1-5-0",
+      "name": "L_PCS_FEMMES-1-5-0",
+      "label": "PCS femmes",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "meloto": true,
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "er",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_pcs_femmes-1-5-0:1",
+      "codes": []
+    },
+    "L_DIPLOMES-1-0-0": {
+      "id": "L_DIPLOMES-1-0-0",
+      "name": "L_DIPLOMES-1-0-0",
+      "label": "diplomes",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          { "name": "id" }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_diplomes-1-0-0:1",
+      "codes": []
+    }
   }
 }
