@@ -2,10 +2,6 @@ import fetch from 'isomorphic-fetch';
 import { getUrlFromCriterias } from 'utils/utils';
 import { getEnvVar } from 'utils/env';
 import getNomenclaturesContent from 'utils/codes-lists/__mocks__/get-nomenclatures.json';
-import getNomenclatureCogCommunes from 'utils/codes-lists/__mocks__/cog-communes.json';
-import getNomenclatureInError from 'utils/codes-lists/__mocks__/in-error.json';
-import getNomenclatureNafRef2Stop from 'utils/codes-lists/__mocks__/naf-rev2-stop.json';
-import getNomenclatureNafRef2 from 'utils/codes-lists/__mocks__/naf-rev2.json';
 
 const configurationURL = `${window.location.origin}/configuration.json`;
 
@@ -265,9 +261,5 @@ export const getNomenclatures = async () => {
 };
 
 export const getNomenclature = async id => {
-  if (id === 'cog-communes') return getNomenclatureCogCommunes;
-  if (id === 'in-error') return getNomenclatureInError;
-  if (id === 'naf-rev2-stop') return getNomenclatureNafRef2Stop;
-  if (id === 'naf-rev2') return getNomenclatureNafRef2;
-  return {};
+  return getNomenclaturesContent.nomenclatures[id];
 };
