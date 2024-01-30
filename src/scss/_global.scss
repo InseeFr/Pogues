@@ -296,6 +296,7 @@ a {
   position: relative;
   background-color: red;
   text-align: left;
+  transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
 }
 .alert-triangle:before,
 .alert-triangle:after {
@@ -311,9 +312,6 @@ a {
   border-top-right-radius: 30%;
 }
 
-.alert-triangle {
-  transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
-}
 .alert-triangle:before {
   transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
     translate(0, -50%);
@@ -378,14 +376,6 @@ a {
 .response-format-datatype-duree-label-minimum {
   width: 25%;
   font-weight: 700;
-}
-
-.response-format-datatype-duree-minimum {
-  display: flex;
-}
-
-.response-format-datatype-duree-maximum {
-  display: flex;
 }
 
 .response-format-datatype-duree-label-maximum {
