@@ -171,7 +171,8 @@ function GenericInput(props) {
           id="add-question"
           className="btn-white"
           disabled={
-            placeholders[QUESTION].parent === ('' || 'idendquest') ||
+            placeholders[QUESTION].parent === '' ||
+            placeholders[QUESTION].parent === 'idendquest' ||
             (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
           }
           onClick={() => handleOpenNewComponent(QUESTION)}
@@ -183,7 +184,8 @@ function GenericInput(props) {
           id="add-subsequence"
           className="btn-white"
           disabled={
-            placeholders[SUBSEQUENCE].parent === ('' || 'idendquest') ||
+            placeholders[SUBSEQUENCE].parent === '' ||
+            placeholders[SUBSEQUENCE].parent === 'idendquest' ||
             (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
           }
           onClick={() => handleOpenNewComponent(SUBSEQUENCE)}
