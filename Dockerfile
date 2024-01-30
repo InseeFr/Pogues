@@ -1,4 +1,4 @@
-FROM nginx:1.25.3
+FROM nginx:stable-alpine
 ADD build /usr/share/nginx/html
 RUN rm etc/nginx/conf.d/default.conf
 COPY nginx.conf etc/nginx/conf.d/
