@@ -114,7 +114,6 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
         };
       }
     }
-    idSubSequenceSibling = undefined;
   });
 
   return moves;
