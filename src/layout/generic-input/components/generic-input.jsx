@@ -29,7 +29,7 @@ export const propTypes = {
   token: PropTypes.string,
   selectedComponent: PropTypes.object,
   removeVisualizationError: PropTypes.func,
-  showVisualizationErrorPopup: PropTypes.func,
+  showVisualizationErrorPopup: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -41,7 +41,7 @@ export const defaultProps = {
   token: undefined,
   selectedComponent: undefined,
   removeVisualizationError: undefined,
-  showVisualizationErrorPopup: undefined,
+  showVisualizationErrorPopup: '',
 };
 
 // Components
@@ -291,11 +291,12 @@ function GenericInput(props) {
         </button>
       </ReactModal>
       <ReactModal
-        isOpen={showVisualizationErrorPopup}
+        isOpen={showVisualizationErrorPopup !== ''}
         ariaHideApp={false}
         className="custom-modal"
       >
         <p>{Dictionary.visualizationError}</p>
+        <p className="api-error-message">{showVisualizationErrorPopup}</p>
         <button onClick={removeVisualizationError} className="modal-button">
           {Dictionary.close}
         </button>

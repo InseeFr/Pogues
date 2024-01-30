@@ -16,8 +16,7 @@ import {
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   START_LOADING_VISUALIZATION,
-  LOADING_VISUALIZATION_SUCCESS,
-  LOADING_VISUALIZATION_FAILURE,
+  END_LOADING_VISUALIZATION,
   DELETE_APPSTATE,
 } from 'actions/app-state';
 import {
@@ -174,14 +173,7 @@ export function startLoadingVisualization(state) {
   };
 }
 
-export function loadingVisualizationSuccess(state) {
-  return {
-    ...state,
-    isLoadingVisualization: false,
-  };
-}
-
-export function loadingVisualizationFailure(state) {
+export function endLoadingVisualization(state) {
   return {
     ...state,
     isLoadingVisualization: false,
@@ -219,8 +211,7 @@ actionHandlers[UPDATE_COMPONENT_PARENT] = setQuestionModified;
 actionHandlers[UPDATE_COMPONENT_ORDER] = setQuestionModified;
 actionHandlers[MOVE_COMPONENT] = setQuestionModified;
 actionHandlers[START_LOADING_VISUALIZATION] = startLoadingVisualization;
-actionHandlers[LOADING_VISUALIZATION_SUCCESS] = loadingVisualizationSuccess;
-actionHandlers[LOADING_VISUALIZATION_FAILURE] = loadingVisualizationFailure;
+actionHandlers[END_LOADING_VISUALIZATION] = endLoadingVisualization;
 actionHandlers[DELETE_APPSTATE] = deleteAppState;
 actionHandlers[CREATE_QUESTIONNAIRE_REF] = setActiveExternalQuestionnaires;
 actionHandlers[REMOVE_QUESTIONNAIRE_REF] = setRemoveExternalQuestionnaires;
