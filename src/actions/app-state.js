@@ -42,8 +42,7 @@ export const ADD_LIST_INVALID_ITEMS = 'ADD_LIST_INVALID_ITEMS';
 export const DELETE_APPSTATE = 'DELETE_APPSTATE';
 
 export const START_LOADING_VISUALIZATION = 'START_LOADING_VISUALIZATION';
-export const LOADING_VISUALIZATION_SUCCESS = 'LOADING_VISUALIZATION_SUCCESS';
-export const LOADING_VISUALIZATION_FAILURE = 'LOADING_VISUALIZATION_FAILURE';
+export const END_LOADING_VISUALIZATION = 'END_LOADING_VISUALIZATION';
 
 /**
  * Set active questionnaire
@@ -361,15 +360,8 @@ export const startLoadingVisualization = () => ({
   type: START_LOADING_VISUALIZATION,
 });
 
-export const loadingVisualizationSuccess = () => ({
-  type: LOADING_VISUALIZATION_SUCCESS,
-});
-
-export const loadingVisualizationFailure = error => ({
-  type: LOADING_VISUALIZATION_FAILURE,
-  payload: {
-    error,
-  },
+export const endLoadingVisualization = () => ({
+  type: END_LOADING_VISUALIZATION,
 });
 
 /**
@@ -419,10 +411,10 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
     const containsRef = refs.length !== 0;
     const visualize = () => {
       getVisualization()(questionnaireModel, containsRef, token)
-        .then(() => dispatch(loadingVisualizationSuccess()))
+        .then(() => dispatch(endLoadingVisualization()))
         .catch(error => {
-          dispatch(loadingVisualizationFailure(error));
-          dispatch(addVisualizationError());
+          dispatch(endLoadingVisualization());
+          dispatch(addVisualizationError(error));
         });
     };
     visualize();
