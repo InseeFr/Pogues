@@ -89,11 +89,15 @@ export const getVizualisationUrl = async (path, qr, ref, token) => {
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   })
-    .then(response => {
+    .then(async response => {
       if (response.ok) {
         return response;
       }
-      throw new Error('Something went wrong');
+      if (response.status === 500) {
+        const { message } = await response.json();
+        throw new Error(message);
+      }
+      throw new Error('erreur non renvoyée par Eno');
     })
     .then(response => response.text())
     .then(url => {
