@@ -97,7 +97,7 @@ export const getVizualisationUrl = async (path, qr, ref, token) => {
         const { message } = await response.json();
         throw new Error(message);
       }
-      throw new Error('erreur non renvoyée par Eno');
+      throw new Error('The error did not directly come from Eno');
     })
     .then(response => response.text())
     .then(url => {
@@ -190,11 +190,15 @@ export const getVizualisationDocument = async (path, qr, ref, token) => {
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
   })
-    .then(response => {
+    .then(async response => {
       if (response.ok) {
         return response;
       }
-      throw new Error('Something went wrong');
+      if (response.status === 500) {
+        const { message } = await response.json();
+        throw new Error(message);
+      }
+      throw new Error('The error did not directly come from Eno');
     })
     .then(openDocument);
 };
