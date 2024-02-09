@@ -35,7 +35,7 @@ const pathVisualisation = 'transform/visualize';
  * @param {*} token : the token
  * @returns the json data
  */
-export const mutualizedGet = async (address, token) => {
+const mutualizedGet = async (address, token) => {
   const b = await getBaseURI();
   return fetch(`${b}/${address}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
@@ -43,8 +43,13 @@ export const mutualizedGet = async (address, token) => {
 };
 
 /**
- * This method will call the back in order to get a documpent for
- * the visualization of the questionnaire in DDI, PDF and ODT (Spec)
+ * This method will call the endpoint of visualization
+ * and render an url or a document
+ * depending on the type of visualization called
+ * @param {*} type : the type of visualisation called (cf. visualiseType underneath)
+ * @param {*} qr : the questionnaire to visualize
+ * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
+ * @param {*} token : the token
  */
 export const getVisualization = async (type, qr, ref, token) => {
   const visualiseType = {
@@ -80,6 +85,14 @@ export const getVisualization = async (type, qr, ref, token) => {
   return null;
 };
 
+/**
+ * mutualised call of the visualization endpoints
+ * @param {*} path : the personalized part of the endpoint address
+ * @param {*} qr : the questionnaire to visualize
+ * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
+ * @param {*} token : the token
+ * @returns a data to interpret
+ */
 const postVisualization = async (path, qr, ref, token) => {
   const b = await getBaseURI();
   return fetch(`${b}/${pathVisualisation}${path}?references=${ref}`, {
