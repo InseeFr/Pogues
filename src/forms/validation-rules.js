@@ -170,20 +170,22 @@ function collectedVariableCompare(object1, object2) {
   let equal = true;
   if (object2) {
     Object.keys(object1).forEach(p => {
-      if (object1[p] === '' && object2[p] !== undefined && object2[p] !== '') {
+      if (
+        (object1[p] === '' && object2[p] !== undefined && object2[p] !== '') ||
+        (object1[p] !== '' && object2[p] === undefined)
+      ) {
         equal = false;
-      } else if (object1[p] !== '' && object2[p] === undefined) {
+      }
+      // id is regenerated ; name and label can be personalized
+      if (
+        object1[p] !== '' &&
+        object2[p] !== undefined &&
+        p !== 'id' &&
+        p !== 'name' &&
+        p !== 'label' &&
+        !collectedVariableCompare(object1[p], object2[p])
+      ) {
         equal = false;
-      } else if (object1[p] !== '' && object2[p] !== undefined) {
-        // id is regenerated ; name and label can be personalized
-        if (
-          p !== 'id' &&
-          p !== 'name' &&
-          p !== 'label' &&
-          !collectedVariableCompare(object1[p], object2[p])
-        ) {
-          equal = false;
-        }
       }
     });
   }
