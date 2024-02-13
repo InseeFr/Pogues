@@ -6,7 +6,7 @@ import {
 } from 'constants/pogues-constants';
 
 import {
-  sortByYAndX,
+  sortByYXAndZ,
   getCollecteVariable,
   getCollectedVariablesMultiple,
   getCollectedVariablesTable,
@@ -15,7 +15,7 @@ import {
 } from './collected-variables-utils';
 
 const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
-const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
+const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 
 describe('generateCollectedVariables', () => {
@@ -143,6 +143,7 @@ describe('getCollectedVariablesSingle', () => {
           pattern: '',
         },
         id: result[1].id,
+        isCollected: true,
         name: 'precision',
         label: 'precision label',
         z: 1,
@@ -499,7 +500,7 @@ describe('getCollectedVariablesTable', () => {
 });
 
 describe('collected variables utils: ', () => {
-  describe('sortByYAndX', () => {
+  describe('sortByYXAndZ', () => {
     const targets = [
       { id: '1', x: 1, y: 1 },
       { id: '2', x: 2, y: 4 },
@@ -522,7 +523,7 @@ describe('collected variables utils: ', () => {
       8: { id: '8', x: 2, y: 2 },
     };
     test('should sort the targetMapping, without the store', () => {
-      expect(targets.sort(sortByYAndX())).toEqual([
+      expect(targets.sort(sortByYXAndZ())).toEqual([
         { id: '1', x: 1, y: 1 },
         { id: '7', x: 1, y: 2 },
         { id: '8', x: 2, y: 2 },
@@ -534,7 +535,7 @@ describe('collected variables utils: ', () => {
       ]);
     });
     test('should sort the targetMapping, with the store', () => {
-      expect(targets.map(t => t.id).sort(sortByYAndX(store))).toEqual([
+      expect(targets.map(t => t.id).sort(sortByYXAndZ(store))).toEqual([
         '1',
         '7',
         '8',

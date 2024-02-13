@@ -154,19 +154,46 @@ export function validCodesList(codesList) {
   return errors;
 }
 
+function checkIfCodesListTheSame(expected, values) {
+  if (!expected[0]) {
+    return true;
+  }
+  return (
+    expected.filter(e => e !== undefined && e !== '' && !values.includes(e))
+      .length === 0
+  );
+}
+
+function collectedVariableCompare(object1, object2) {
+  if (typeof object1 !== 'object' && typeof object2 !== 'object')
+    return object1 === object2;
+  let equal = true;
+  if (object2) {
+    Object.keys(object1).forEach(p => {
+      if (object1[p] === '' && object2[p] !== undefined && object2[p] !== '') {
+        equal = false;
+      } else if (object1[p] !== '' && object2[p] === undefined) {
+        equal = false;
+      } else if (object1[p] !== '' && object2[p] !== undefined) {
+        // id is regenerated ; name and label can be personalized
+        if (
+          p !== 'id' &&
+          p !== 'name' &&
+          p !== 'label' &&
+          !collectedVariableCompare(object1[p], object2[p])
+        ) {
+          equal = false;
+        }
+      }
+    });
+  }
+  return equal;
+}
+
 export function validCollectedVariables(
   value,
   { form, stores: { codesListsStore } },
 ) {
-  function checkIfCodesListTheSame(expected, values) {
-    if (!expected[0]) {
-      return true;
-    }
-    return (
-      expected.filter(e => e !== undefined && e !== '' && !values.includes(e))
-        .length === 0
-    );
-  }
   // @TODO: Improve this validation testing the coordinates of the variables
   const {
     name: nameComponent,
@@ -192,79 +219,21 @@ export function validCollectedVariables(
     value.map(e => e.codeListReference),
   );
 
-  /**
-   * For a SINGLE_CHOICE question with a codelist, the codeListReference should be the same
-   * It solves this issue : https://trello.com/c/bZo4vAei/397-255-questionnaire-non-r%C3%A9cup%C3%A9r%C3%A9-par-lapplication
-   */
-
-  function objectCompare(object1, object2) {
-    let equal = true;
-    if (object2) {
-      Object.keys(object1).forEach(p => {
-        if (
-          object1[p] === '' &&
-          object2[p] !== undefined &&
-          object2[p] !== ''
-        ) {
-          equal = false;
-        } else if (object1[p] !== '' && object2[p] === undefined) {
-          equal = false;
-        } else if (object1[p] !== '' && object2[p] !== undefined) {
-          if (object1[p] !== object2[p]) {
-            equal = false;
-          }
-        }
-      });
-    }
-    return equal;
-  }
-
-  let codeListPrecision = false;
-  if (
-    expectedVariables.length !== value.length &&
-    (type === SINGLE_CHOICE || type === PAIRING)
-  ) {
-    codeListPrecision = true;
-  }
-  if (expectedVariables.length !== value.length && type === MULTIPLE_CHOICE) {
-    codeListPrecision = true;
+  if (value[0] && expectedVariables.length !== value.length) {
+    return Dictionary.validation_collectedvariable_need_reset;
   }
   if (
-    (type === SINGLE_CHOICE || type === PAIRING) &&
+    (type === SINGLE_CHOICE || type === PAIRING || type === MULTIPLE_CHOICE) &&
     value[0] &&
     (value[0].codeListReference !== expectedVariables[0].codeListReference ||
       value[0].codeListReferenceLabel !==
-        expectedVariables[0].codeListReferenceLabel ||
-      codeListPrecision)
+        expectedVariables[0].codeListReferenceLabel)
   ) {
     return Dictionary.validation_collectedvariable_need_reset;
   }
 
-  if (
-    (type === MULTIPLE_CHOICE &&
-      value[0] &&
-      value[0].codeListReference &&
-      value[0].codeListReference !== expectedVariables[0].codeListReference) ||
-    (type === MULTIPLE_CHOICE && value[0] && codeListPrecision)
-  ) {
-    return Dictionary.validation_collectedvariable_need_reset;
-  }
-
-  if ((type === TABLE && value[0]) || (type === SIMPLE && value[0])) {
-    const typevalue = value[0].type;
-    const typeexpectedVariables = expectedVariables[0].type;
-    if (
-      (value[0].codeListReference &&
-        expectedVariables[0].codeListReference &&
-        value[0].codeListReference !==
-          expectedVariables[0].codeListReference) ||
-      typevalue !== typeexpectedVariables ||
-      !objectCompare(
-        expectedVariables[0][typeexpectedVariables],
-        value[0][typevalue],
-      ) ||
-      expectedVariables.length !== value.length
-    ) {
+  if ((type === TABLE || type === SIMPLE) && value[0]) {
+    if (!collectedVariableCompare(expectedVariables, value)) {
       return Dictionary.validation_collectedvariable_need_reset;
     }
   }
