@@ -57,7 +57,7 @@ export const defaultProps = {
   currentCodesListsStore: {},
 };
 
-const CodesList = props => {
+const CodesLists = props => {
   const {
     change,
     arrayRemoveAll,
@@ -205,4 +205,4 @@ const CodesList = props => {
   );
 };
 
-export default CodesList;
+export default CodesLists;

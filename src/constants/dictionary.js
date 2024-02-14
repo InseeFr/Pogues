@@ -1251,8 +1251,8 @@ const dictionary = {
     en: 'Must be a number',
   },
   validationRequired: {
-    fr: 'Obligatoire',
-    en: 'Required',
+    fr: 'Champ obligatoire',
+    en: 'Mandatory field',
   },
   validationRequiredMultiple: {
     fr: 'Sélectionner au moins une option',
