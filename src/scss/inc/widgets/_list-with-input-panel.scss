@@ -73,6 +73,10 @@
           &.widget-list-with-input-panel__item-invalid button {
             color: lighten(red, 20%);
           }
+
+          .widget-list-with-input-panel__variable-name {
+            font-family: 'Courier New', Courier, monospace;
+          }
         }
       }
     }

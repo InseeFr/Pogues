@@ -7,59 +7,72 @@ import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 import Dictionary from 'utils/dictionary/dictionary';
 import { markdownVtlToString } from 'forms/controls/rich-textarea/utils/rich-textarea-utils';
 
-const { LIST_CLASS, LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
+const { LIST_CLASS, LIST_EMPTY_CLASS, VARIABLE_NAME_CLASS } =
+  WIDGET_LIST_WITH_INPUT_PANEL;
 
-// PropTypes and defaultProps
+function ListWithInputPanelList({ fields, select, errors }) {
+  const fieldsName = fields.name.split('.')[1];
+  const items = fields.map((key, index, listFields) => {
+    const item = listFields.get(index);
+    let prefix = '';
+    if (item.x || item.y) {
+      prefix += `(${item.x}`;
+      if (item.y) prefix += `,${item.y}`;
+      prefix += ') ';
+    }
+    return {
+      key: key,
+      hasError:
+        item.id && errors.filter(e => e.itemListId === item.id).length > 0,
+      index: index,
+      x: item.x,
+      y: item.y,
+      prefix: prefix,
+      name: item.name,
+      label: markdownVtlToString(item.label),
+    };
+  });
 
-export const propTypes = {
+  return (
+    <ul className={LIST_CLASS}>
+      {items.length === 0 && (
+        <li className={LIST_EMPTY_CLASS}>{Dictionary[`no_${fieldsName}`]}</li>
+      )}
+      {items
+        .sort(
+          (item1, item2) =>
+            item1.y > item2.y ||
+            (item1.x > item2.x && item1.y === item2.y) ||
+            (item1.x === item2.x &&
+              item1.y === item2.y &&
+              item1.name > item2.name),
+        )
+        .map(item => {
+          return (
+            <ListWithInputPanelItem
+              key={item.key}
+              select={() => select(item.index)}
+              invalid={item.hasError}
+            >
+              <>
+                {`${item.prefix} ${item.label}`}
+                <span className={VARIABLE_NAME_CLASS}>{` [${item.name}]`}</span>
+              </>
+            </ListWithInputPanelItem>
+          );
+        })}
+    </ul>
+  );
+}
+
+ListWithInputPanelList.propTypes = {
   fields: PropTypes.object.isRequired,
   select: PropTypes.func.isRequired,
   errors: PropTypes.array,
 };
 
-export const defaultProps = {
+ListWithInputPanelList.defaultProps = {
   errors: [],
 };
-
-// Component
-
-function ListWithInputPanelList({ fields, select, errors }) {
-  const name = fields.name.split('.')[1];
-
-  return (
-    <ul className={LIST_CLASS}>
-      {fields.length === 0 && (
-        <li className={LIST_EMPTY_CLASS}>{Dictionary[`no_${name}`]}</li>
-      )}
-      {fields.map((key, index, listFields) => {
-        const item = listFields.get(index);
-        let errorsItem = [];
-
-        if (item.id) {
-          errorsItem = errors.filter(e => e.itemListId === item.id);
-        }
-        let prefix = '';
-        if (item.x || item.y) {
-          prefix += `(${item.x}`;
-          if (item.y) prefix += `,${item.y}`;
-          prefix += ') ';
-        }
-        return (
-          <ListWithInputPanelItem
-            key={key}
-            select={() => select(index)}
-            invalid={errorsItem.length > 0}
-          >
-            {prefix}
-            {markdownVtlToString(item.label)}
-          </ListWithInputPanelItem>
-        );
-      })}
-    </ul>
-  );
-}
-
-ListWithInputPanelList.propTypes = propTypes;
-ListWithInputPanelList.defaultProps = defaultProps;
 
 export default ListWithInputPanelList;
