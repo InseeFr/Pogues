@@ -59,17 +59,10 @@ a {
 
 .btn-blue {
   @extend .btn;
-  font-size: $font-xs;
-  text-align: left;
+  color: white;
   background-color: $color-blue_02;
-  padding: 18px 25px;
   border-radius: 0;
   position: relative;
-
-  &:visited,
-  &:focus {
-    color: white;
-  }
 
   &:hover,
   &:active {
@@ -135,6 +128,13 @@ a {
   font-size: $font-s;
   padding-left: 50px;
   line-height: 1.8em;
+}
+
+.btn-blue-search {
+  @extend .btn-blue;
+  font-size: $font-xs;
+  text-align: left;
+  padding: 18px 25px;
 }
 
 // Modal/Pop-up styles

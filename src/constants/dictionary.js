@@ -1490,6 +1490,10 @@ const dictionary = {
     fr: 'Réutiliser',
     en: 'Reuse',
   },
+  customize: {
+    fr: 'Personnaliser',
+    en: 'Customize',
+  },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',

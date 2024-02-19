@@ -17,14 +17,6 @@ import {
 import { removeQuestionnaire } from 'actions/questionnaire';
 import { getToken } from 'reducers/selectors';
 
-// Prop types and default props
-
-const propTypes = {
-  navigate: PropTypes.func.isRequired,
-};
-
-// Container
-
 const mapStateToProps = state => ({
   token: getToken(state),
   questionnaire: state.appState.activeQuestionnaire,
@@ -52,6 +44,8 @@ const QuestionnaireListComponentsContainer = connect(
   mapDispatchToProps,
 )(QuestionnaireListComponents);
 
-QuestionnaireListComponentsContainer.propTypes = propTypes;
+QuestionnaireListComponentsContainer.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};
 
 export default QuestionnaireListComponentsContainer;

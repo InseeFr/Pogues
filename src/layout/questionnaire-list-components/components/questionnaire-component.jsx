@@ -72,14 +72,13 @@ const QuestionnaireComponent = props => {
     }
   }, [selected, ensureSelected]);
 
-  const handleSelectComponent = () => setSelectedComponentId(component.id);
   const handleEditComponent = () => {
     setEditingComponentId(component.id);
     actions.handleOpenComponentDetail();
   };
   const handleEditFilterComponent = id => {
     setEditingComponentId(id);
-    handleOpenComponentDetail();
+    setShowComponentModal(true);
   };
 
   const handleCloseComponentDetail = () => setShowComponentModal(false);
@@ -101,9 +100,6 @@ const QuestionnaireComponent = props => {
   const handleDeleteComponent1 = id => {
     removeComponent(id);
     setShowComponentModal(false);
-  };
-  const handleOpenComponentDetail = () => {
-    setShowComponentModal(true);
   };
 
   const dragndropLevel = getDragnDropLevel(props, draggedItem);
@@ -136,7 +132,7 @@ const QuestionnaireComponent = props => {
           {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
           <div
             role="presentation"
-            onClick={handleSelectComponent}
+            onClick={() => setSelectedComponentId(component.id)}
             className={ClassSet({
               'questionnaire-element-info': true,
               over: isOver,
