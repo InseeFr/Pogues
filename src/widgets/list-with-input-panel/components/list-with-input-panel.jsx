@@ -306,6 +306,7 @@ ListWithInputPanel.propTypes = {
   validateForm: PropTypes.func.isRequired,
   clearSubformValidationErrors: PropTypes.func.isRequired,
   removeIntegrityError: PropTypes.func.isRequired,
+  disableValidation: PropTypes.bool,
 };
 
 ListWithInputPanel.defaultProps = {
@@ -314,6 +315,7 @@ ListWithInputPanel.defaultProps = {
   canRemove: true,
   canDuplicate: true,
   componentsStore: {},
+  disableValidation: false,
 };
 
 export default ListWithInputPanel;
