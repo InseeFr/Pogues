@@ -1,8 +1,8 @@
 import { uuid } from 'utils/utils';
 import { DATATYPE_NAME } from 'constants/pogues-constants';
-import { sortByYAndX } from 'utils/variables/collected-variables-utils';
+import { sortByYXAndZ } from 'utils/variables/collected-variables-utils';
 
-const { TEXT, BOOLEAN, NUMERIC, DATE, DURATION } = DATATYPE_NAME;
+const { TEXT } = DATATYPE_NAME;
 
 export const defaultState = {
   name: '',
@@ -33,11 +33,8 @@ export const defaultForm = {
 function getTypings(object) {
   return {
     type: object.type,
-    [TEXT]: object[TEXT],
-    [NUMERIC]: object[NUMERIC],
-    [DATE]: object[DATE],
-    [BOOLEAN]: object[BOOLEAN],
-    [DURATION]: object[DURATION],
+    // ex: [BOOLEAN]: object[BOOLEAN] or [TEXT]: object[TEXT] ; restricted to the expected type
+    [object.type]: object[object.type],
   };
 }
 export function formToState(form) {
@@ -84,7 +81,7 @@ export function formToStore(form) {
 
 export function storeToForm(currentStore) {
   const collectedVariables = Object.keys(currentStore)
-    .sort(sortByYAndX(currentStore))
+    .sort(sortByYXAndZ(currentStore))
     .map(key => {
       const {
         id,
@@ -93,7 +90,7 @@ export function storeToForm(currentStore) {
         x,
         y,
         z,
-        isCollected,
+        isCollected = true,
         mesureLevel,
         codeListReference,
         codeListReferenceLabel,

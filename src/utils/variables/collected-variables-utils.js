@@ -14,7 +14,51 @@ const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 const { TEXT, BOOLEAN } = DATATYPE_NAME;
 
-export function sortByYAndX(store) {
+/**
+ * This method will recursively sort an array of code.
+ * A code has a depth, a weight and maybe a parent.
+ * We will first sort codes with the depth=1, and recursively for each code, sort its direct children.
+ */
+function sortCodes(codes = [], depth = 1, parent = '') {
+  const filtered = codes.filter(
+    code => code.depth === depth && code.parent === parent,
+  );
+  if (filtered.length === 0) {
+    return [];
+  }
+  return filtered
+    .sort((code1, code2) => code1.weight - code2.weight)
+    .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
+    .reduce((acc, res) => [...acc, ...res], []);
+}
+
+function getReponsesValues(measure) {
+  let reponseFormatValues = {};
+
+  if (measure.type === SIMPLE) {
+    reponseFormatValues = {
+      codeListReference: '',
+      codeListReferenceLabel: '',
+      type: measure[SIMPLE].type,
+      // measure[SIMPLE].type is BOOLEAN or TEXT or NUMERIC or DATE or DURATION ; for BOOLEAN, this means : BOOLEAN: measure[SIMPLE].BOOLEAN
+      [measure[SIMPLE].type]: measure[SIMPLE][measure[SIMPLE].type],
+    };
+  }
+  if (measure.type === SINGLE_CHOICE) {
+    reponseFormatValues = {
+      codeListReference: measure[SINGLE_CHOICE].CodesList.id,
+      codeListReferenceLabel: measure[SINGLE_CHOICE].CodesList.label,
+      type: TEXT,
+      [TEXT]: {
+        maxLength: 1,
+        pattern: '',
+      },
+    };
+  }
+  return reponseFormatValues;
+}
+
+export function sortByYXAndZ(store) {
   return (id1, id2) => {
     let c1 = id1;
     let c2 = id2;
@@ -22,9 +66,14 @@ export function sortByYAndX(store) {
       c1 = store[id1];
       c2 = store[id2];
     }
-
-    if (!c1.y) return c1.x - c2.x;
-    return c1.y * 100 + c1.x - (c2.y * 100 + c2.x);
+    return (
+      (c1.y || 99) * 10000 -
+      (c2.y || 99) * 10000 +
+      (c1.x || 99) * 100 -
+      (c2.x || 99) * 100 +
+      (c1.z || 0) -
+      (c2.z || 0)
+    );
   };
 }
 
@@ -50,31 +99,6 @@ export function getCollectedVariablesMultiple(
   form,
   codesListStore,
 ) {
-  /**
-   * This method will recursively sort an array of code.
-   * A code have a depth, a weight and maybe a parent.
-   * We will first sort codes with the depth=1, and recurively for each code,
-   * sort its direct children.
-   */
-  function sortCodes(codes = [], depth = 1, parent = '') {
-    const filtered = codes.filter(
-      code => code.depth === depth && code.parent === parent,
-    );
-    if (filtered.length === 0) {
-      return [];
-    }
-    return filtered
-      .sort((code1, code2) => {
-        const weight1 = code1.weight;
-        const weight2 = code2.weight;
-        if (weight1 < weight2) return -1;
-        if (weight1 > weight2) return 1;
-        return 0;
-      })
-      .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
-      .reduce((acc, res) => [...acc, ...res], []);
-  }
-
   const {
     [PRIMARY]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id },
@@ -153,7 +177,7 @@ export function getCollectedVariablesSingle(questionName, form) {
         getCollecteVariable(
           code.precisionid,
           `${code.precisionid} label`,
-          { z: code.weight },
+          { z: code.weight, isCollected: true },
           {
             type: TEXT,
             codeListReference: undefined,
@@ -170,68 +194,8 @@ export function getCollectedVariablesSingle(questionName, form) {
   return collectedVariables;
 }
 
-export function getCollectedVariablesTable(questionName, form, codesListStore) {
-  /**
-   * This method will recursively sort an array of code.
-   * A code have a depth, a weight and maybe a parent.
-   * We will first sort codes with the depth=1, and recurively for each code,
-   * sort its direct children.
-   */
-
-  function sortCodes(codes = [], depth = 1, parent = '') {
-    const filtered = codes.filter(
-      code => code.depth === depth && code.parent === parent,
-    );
-    if (filtered.length === 0) {
-      return [];
-    }
-    return filtered
-      .sort((code1, code2) => {
-        const weight1 = code1.weight;
-        const weight2 = code2.weight;
-        if (weight1 < weight2) return -1;
-        if (weight1 > weight2) return 1;
-        return 0;
-      })
-      .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
-      .reduce((acc, res) => [...acc, ...res], []);
-  }
-
-  function getReponsesValues(measure) {
-    let reponseFormatValues = {};
-
-    if (measure.type === SIMPLE) {
-      reponseFormatValues = {
-        codeListReference: '',
-        codeListReferenceLabel: '',
-        type: measure[SIMPLE].type,
-        BOOLEAN: measure[SIMPLE].BOOLEAN,
-        DATE: measure[SIMPLE].DATE,
-        NUMERIC: measure[SIMPLE].NUMERIC,
-        DURATION: measure[SIMPLE].DURATION,
-        TEXT: measure[SIMPLE].TEXT,
-      };
-    } else if (measure.type === SINGLE_CHOICE) {
-      reponseFormatValues = {
-        codeListReference: measure[SINGLE_CHOICE].CodesList.id,
-        codeListReferenceLabel: measure[SINGLE_CHOICE].CodesList.label,
-        type: TEXT,
-        [TEXT]: {
-          maxLength: 1,
-          pattern: '',
-        },
-      };
-    }
-    return reponseFormatValues;
-  }
+export function getCollectedVariablesTable(questionName, form) {
   const collectedVariables = [];
-  let codesListState;
-  let codesStore;
-  let codesStatePrimary;
-  let codesStateSecondary;
-  let codePrimary;
-  let codeSecondary;
-  let measure;
   const {
     [PRIMARY]: primaryState,
     [SECONDARY]: secondaryState,
@@ -244,84 +208,67 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
       [CODES_LIST]: {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
           codes: componentCodesStatePrimary,
-          id: codesListIdPrimary,
         },
       },
     } = primaryState;
 
-    codesListState = codesListStore[codesListIdPrimary] || {};
-    codesStore = codesListState.codes || {};
-    codesStatePrimary = Object.keys(codesStore).map(key => codesStore[key]);
+    const codesStatePrimary = sortCodes(componentCodesStatePrimary);
 
-    codesStatePrimary = componentCodesStatePrimary;
-    codesStatePrimary = sortCodes(codesStatePrimary);
+    // 2 dimensions with a codelist each
     if (secondaryState?.showSecondaryAxis) {
       const {
         [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
           codes: componentCodesStateSecondary,
-          id: codesListIdSecondary,
         },
       } = secondaryState;
 
-      codesListState = codesListStore[codesListIdSecondary] || {};
-      codesStore = codesListState.codes || {};
-      codesStateSecondary = Object.keys(codesStore).map(key => codesStore[key]);
-
-      codesStateSecondary = componentCodesStateSecondary;
-      codesStateSecondary = sortCodes(codesStateSecondary);
-      // First case
-      const codesStatePrimaryFiltered = codesStatePrimary.filter(
-        code => !hasChild(code, codesStatePrimary),
-      );
-      const codesStateSecondaryFiltered = codesStateSecondary.filter(
-        code => !hasChild(code, codesStateSecondary),
-      );
-      for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
-        codePrimary = codesStatePrimaryFiltered[i];
-        for (let j = 0; j < codesStateSecondaryFiltered.length; j += 1) {
-          codeSecondary = codesStateSecondaryFiltered[j];
-          collectedVariables.push(
-            getCollecteVariable(
-              `${questionName}${i + 1}${j + 1}`,
-              `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
-              {
-                x: i + 1,
-                y: j + 1,
-                isCollected: true,
-              },
-              getReponsesValues(measureState),
+      const codesStateSecondary = sortCodes(componentCodesStateSecondary);
+      codesStatePrimary
+        .filter(code => !hasChild(code, codesStatePrimary))
+        .map((codePrimary, i) =>
+          codesStateSecondary
+            .filter(code => !hasChild(code, codesStateSecondary))
+            .map((codeSecondary, j) =>
+              collectedVariables.push(
+                getCollecteVariable(
+                  `${questionName}${i + 1}${j + 1}`,
+                  `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
+                  {
+                    x: i + 1,
+                    y: j + 1,
+                    isCollected: true,
+                  },
+                  getReponsesValues(measureState),
+                ),
+              ),
             ),
-          );
-        }
-      }
-    } else {
-      // Second case
-      const codesStatePrimaryFiltered = codesStatePrimary.filter(
-        code => !hasChild(code, codesStatePrimary),
-      );
-      for (let i = 0; i < codesStatePrimaryFiltered.length; i += 1) {
-        codePrimary = codesStatePrimaryFiltered[i];
-        for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
-          measure = listMeasuresState.measures[j];
-          collectedVariables.push(
-            getCollecteVariable(
-              `${questionName}${i + 1}${j + 1}`,
-              `${codePrimary.label}-${measure.label}`,
-              {
-                x: i + 1,
-                y: j + 1,
-                isCollected: true,
-              },
-              getReponsesValues(measure),
-            ),
-          );
-        }
-      }
+        );
     }
-  } else {
-    for (let j = 0; j < listMeasuresState.measures.length; j += 1) {
-      measure = listMeasuresState.measures[j];
-
+    // 1 dimension from a codelist ; 1 or several measures ; if several, it becomes a second dimension
+    if (!secondaryState?.showSecondaryAxis) {
+      codesStatePrimary
+        .filter(code => !hasChild(code, codesStatePrimary))
+        .map((codePrimary, i) =>
+          listMeasuresState.measures.map((measure, j) =>
+            collectedVariables.push(
+              getCollecteVariable(
+                `${questionName}${i + 1}${j + 1}`,
+                `${codePrimary.label}-${measure.label}`,
+                {
+                  x: i + 1,
+                  y: j + 1,
+                  isCollected: true,
+                },
+                getReponsesValues(measure),
+              ),
+            ),
+          ),
+        );
+    }
+  }
+  // dynamic array
+  if (primaryState.type !== CODES_LIST) {
+    listMeasuresState.measures.map((measure, j) =>
       collectedVariables.push(
         getCollecteVariable(
           `${questionName}${j + 1}`,
@@ -333,48 +280,44 @@ export function getCollectedVariablesTable(questionName, form, codesListStore) {
           },
           getReponsesValues(measure),
         ),
-      );
-    }
+      ),
+    );
   }
 
-  if (form.LIST_MEASURE?.measures) {
-    form.LIST_MEASURE.measures.forEach(mesure => {
-      if (mesure.SINGLE_CHOICE?.CodesList?.codes) {
-        mesure.SINGLE_CHOICE.CodesList.codes.forEach(code => {
-          if (code.precisionid && code.precisionid !== '') {
-            collectedVariables
-              .filter(
-                variable =>
-                  variable.codeListReference &&
-                  variable.codeListReference ===
-                    mesure.SINGLE_CHOICE.CodesList.id,
-              )
-              .forEach(variable => {
-                collectedVariables.push(
-                  getCollecteVariable(
-                    `${variable.name}${code.value}CL`,
-                    `${variable.name}${code.value}CL label`,
-                    {
-                      z: code.weight,
-                      mesureLevel: variable.x,
-                      isCollected: true,
+  // In all cases : add additional variables due to precision
+  form.LIST_MEASURE?.measures.SINGLE_CHOICE?.CodesList?.codes.map(
+    ({ id, codes }) =>
+      codes
+        .filter(code => code.precisionid && code.precisionid !== '')
+        .map(code =>
+          collectedVariables
+            .filter(
+              variable =>
+                variable.codeListReference && variable.codeListReference === id,
+            )
+            .map(variable =>
+              collectedVariables.push(
+                getCollecteVariable(
+                  `${variable.name}${code.value}CL`,
+                  `${variable.name}${code.value}CL label`,
+                  {
+                    z: code.weight,
+                    mesureLevel: variable.x,
+                    isCollected: true,
+                  },
+                  {
+                    type: 'TEXT',
+                    TEXT: {
+                      maxLength: code.precisionsize,
+                      pattern: '',
                     },
-                    {
-                      type: 'TEXT',
-                      TEXT: {
-                        maxLength: code.precisionsize,
-                        pattern: '',
-                      },
-                    },
-                  ),
-                );
-              });
-          }
-        });
-      }
-    });
-  }
-  return collectedVariables.sort(sortByYAndX());
+                  },
+                ),
+              ),
+            ),
+        ),
+  );
+  return collectedVariables.sort(sortByYXAndZ());
 }
 
 export function generateCollectedVariables(
@@ -409,7 +352,6 @@ export function generateCollectedVariables(
     generatedCollectedVariables = getCollectedVariablesTable(
       questionName,
       form,
-      codesListStore,
     );
   }
 

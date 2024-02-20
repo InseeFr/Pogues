@@ -1,4 +1,4 @@
-import { sortByYAndX } from 'utils/variables/collected-variables-utils';
+import { sortByYXAndZ } from 'utils/variables/collected-variables-utils';
 import maxBy from 'lodash.maxby';
 
 import * as ResponseFormatSimple from './response-format-simple';
@@ -426,7 +426,7 @@ export function stateToRemote(
 
   for (let i = 0; i < numDataTypes; i += 1) {
     const collectedVariablesByDatatype = collectedVariables
-      .sort(sortByYAndX(collectedVariablesStore))
+      .sort(sortByYXAndZ(collectedVariablesStore))
       .map(key => collectedVariablesStore[key])
       .filter(variable => !variable.y || variable.y === i + 1)
       .map(variable => variable.id);
