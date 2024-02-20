@@ -48,16 +48,15 @@ const PageHome = ({ history, deleteAppState }) => {
         </div>
         <ul className="menu-navigation">
           <li>
-            <button id="questionnaires-search" className="btn-search">
+            <button id="questionnaires-search" className="btn-search" disabled>
               {Dictionary.searchQuestionnaire}
             </button>
           </li>
-
           <li>
             <Link
               to="/search/questionnaires"
               id="questionnaires-insee"
-              className="btn-blue"
+              className="btn-blue-search"
             >
               <span className="glyphicon glyphicon-chevron-right" />
               <strong>{Dictionary.fromRepository}</strong>
