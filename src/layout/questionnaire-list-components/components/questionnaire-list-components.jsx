@@ -130,7 +130,7 @@ const QuestionnaireListComponents = props => {
           <div id="questionnaire-head">
             <h4>{questionnaire.label}</h4>
             <div>
-              {publicEnemyBaseUri !== '' && (
+              {publicEnemyBaseUri && (
                 <a
                   className="btn-blue"
                   target="_blank"
