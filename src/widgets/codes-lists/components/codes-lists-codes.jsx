@@ -54,7 +54,7 @@ function CodesListsCodes(props) {
 
   const getFileCodes = useCallback(
     codes => {
-      const allCodes = getAll();
+      const allCodes = getAll() || [];
       if (codes && codes.length > 0) {
         removeAll();
         codes.forEach((code, index) => {
