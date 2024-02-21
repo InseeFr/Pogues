@@ -66,8 +66,9 @@ a {
 
   &:hover,
   &:active {
-    background-color: $color-yellow_01;
-    color: $color-grey_01;
+    color: $color-blue_02;
+    background-color: white;
+    border-color: $color-blue_02;
   }
 
   strong {
@@ -135,6 +136,12 @@ a {
   font-size: $font-xs;
   text-align: left;
   padding: 18px 25px;
+
+  &:hover,
+  &:active {
+    background-color: $color-yellow_01;
+    color: $color-grey_01;
+  }
 }
 
 // Modal/Pop-up styles
