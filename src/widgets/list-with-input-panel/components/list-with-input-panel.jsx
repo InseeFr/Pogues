@@ -75,11 +75,29 @@ const ListWithInputPanel = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValues[name]]);
 
+  useEffect(() => {
+    if (selectedItemIndex) {
+      const path = getCurrentSelectorPath(selectorPath);
+      const item = currentValues[name][selectedItemIndex];
+      const formValuesToValidate = getFormValuesToValidate(
+        formValues,
+        item,
+        selectorPath,
+        name,
+      );
+      validate(formValuesToValidate);
+      Object.keys(item).forEach(key =>
+        change(formName, `${path}${key}`, item[key]),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItemIndex]);
+
   const handleClosePopup = () => setShowPopup(false);
 
   const validate = values => {
     clearAllErrors();
-    return validateForm(values, selectedItemIndex);
+    return validateForm(values, { selectedItemIndex: selectedItemIndex });
   };
 
   const submit = () => {
@@ -136,25 +154,9 @@ const ListWithInputPanel = ({
     );
   };
 
-  const select = index => {
-    const path = getCurrentSelectorPath(selectorPath);
-    setSelectedItemIndex(index);
-    const item = currentValues[name][index];
-    const formValuesToValidate = getFormValuesToValidate(
-      formValues,
-      item,
-      selectorPath,
-      name,
-    );
-    validate(formValuesToValidate);
-    Object.keys(item).forEach(key =>
-      change(formName, `${path}${key}`, item[key]),
-    );
-  };
+  const select = index => setSelectedItemIndex(index);
 
-  const clearAllErrors = () => {
-    clearSubformValidationErrors();
-  };
+  const clearAllErrors = () => clearSubformValidationErrors();
 
   const removeErrorIntegrityIfExists = values => {
     const error = errors.filter(e => e.itemListId === values.id);
