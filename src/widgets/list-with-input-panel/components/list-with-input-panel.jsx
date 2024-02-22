@@ -76,7 +76,7 @@ const ListWithInputPanel = ({
   }, [currentValues[name]]);
 
   useEffect(() => {
-    if (selectedItemIndex) {
+    if (selectedItemIndex !== undefined) {
       const path = getCurrentSelectorPath(selectorPath);
       const item = currentValues[name][selectedItemIndex];
       const formValuesToValidate = getFormValuesToValidate(

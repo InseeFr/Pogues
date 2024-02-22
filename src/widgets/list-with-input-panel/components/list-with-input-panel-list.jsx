@@ -55,7 +55,9 @@ function ListWithInputPanelList({ fields, select, errors }) {
               invalid={item.hasError}
             >
               {`${item.prefix} ${item.label}`}
-              <span className={VARIABLE_NAME_CLASS}>{` [${item.name}]`}</span>
+              {item.name && (
+                <span className={VARIABLE_NAME_CLASS}>{` [${item.name}]`}</span>
+              )}
             </ListWithInputPanelItem>
           );
         })}
