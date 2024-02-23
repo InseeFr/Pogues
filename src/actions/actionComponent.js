@@ -45,7 +45,7 @@ export const updateComponent =
         element => element.type === LOOP && element.basedOn === componentId,
       );
       const loopsCalculated = {};
-      const loopsExternel = {};
+      const loopsExternal = {};
       Object.values(activeCalculatedVariablesById).forEach(element => {
         if (element.scope === componentId) {
           element.scope = componentsStore[componentId].basedOn;
@@ -57,11 +57,11 @@ export const updateComponent =
         if (element.scope === componentId) {
           element.scope = componentsStore[componentId].basedOn;
         }
-        loopsExternel[element.id] = element;
+        loopsExternal[element.id] = element;
       });
       setActiveVariables({
         activeCalculatedVariablesById: loopsCalculated,
-        activeExternalVariablesById: loopsExternel,
+        activeExternalVariablesById: loopsExternal,
         collectedVariableByQuestion: collectedVariableByQuestion,
       });
       if (loops.length > 0) {
@@ -74,8 +74,8 @@ export const updateComponent =
               id,
               update: {
                 activeComponentsById: { [id]: loop },
-                activeCalculatedVariablesById: {},
-                activeExternalVariablesById: {},
+                activeCalculatedVariablesById: loopsCalculated,
+                activeExternalVariablesById: loopsExternal,
                 activeCollectedVariablesById: {
                   [id]: {},
                 },
