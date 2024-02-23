@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.5.7-rc8-restore-external-calculated",
+  "version": "1.5.7-rc9-varCalcExtLost",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
