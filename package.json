@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.5.8-rc.1-visualiseError",
+  "version": "1.5.8-rc11-restore-external-calculated",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",

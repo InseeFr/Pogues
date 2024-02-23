@@ -257,6 +257,10 @@ export const dragComponent =
   (idMovedComponent, idTargetComponent, newWeight) => (dispatch, getState) => {
     const state = getState();
     const activesComponents = state.appState.activeComponentsById;
+    const calculatedVariablesStore =
+      state.appState.activeCalculatedVariablesById;
+    const externalVariablesStore = state.appState.activeExternalVariablesById;
+
     const find_Filters = Object.values(activesComponents).filter(
       element =>
         element.type === FILTER &&
@@ -287,8 +291,8 @@ export const dragComponent =
                 id,
                 update: {
                   activeComponentsById: component,
-                  activeCalculatedVariablesById: {},
-                  activeExternalVariablesById: {},
+                  activeCalculatedVariablesById: calculatedVariablesStore,
+                  activeExternalVariablesById: externalVariablesStore,
                   activeCollectedVariablesById: {
                     [id]: {},
                   },
@@ -318,8 +322,8 @@ export const dragComponent =
                 id,
                 update: {
                   activeComponentsById: component,
-                  activeCalculatedVariablesById: {},
-                  activeExternalVariablesById: {},
+                  activeCalculatedVariablesById: calculatedVariablesStore,
+                  activeExternalVariablesById: externalVariablesStore,
                   activeCollectedVariablesById: {
                     [id]: {},
                   },
