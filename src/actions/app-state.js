@@ -1,14 +1,7 @@
 import {
   putQuestionnaire,
   getContextFromCampaign,
-  visualizeSpec,
-  visualizePdf,
-  visualizeHtml,
-  visualizeDDI,
-  visualizeQueenCapi,
-  visualizeQueenCati,
-  visualizeWebStromaeV2,
-  visualizeWebStromaeV3,
+  getVisualization,
 } from 'utils/remote-api';
 import { addVisualizationError } from './errors';
 import { TCM } from 'constants/pogues-constants';
@@ -383,34 +376,13 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         )
       : state.appState.activeComponentsById;
     const questionnaireModel = getQuestionnaireModel(state, componentsById);
-    const getVisualization = () => {
-      if (type === 'pdf') {
-        return visualizePdf;
-      } else if (type === 'spec') {
-        return visualizeSpec;
-      } else if (type === 'html') {
-        return visualizeHtml;
-      } else if (type === 'stromae-v2') {
-        return visualizeWebStromaeV2;
-      } else if (type === 'stromae-v3') {
-        return visualizeWebStromaeV3;
-      } else if (type === 'queen-capi') {
-        return visualizeQueenCapi;
-      } else if (type === 'queen-cati') {
-        return visualizeQueenCati;
-      } else if (type === 'ddi') {
-        return visualizeDDI;
-      } else {
-        return null;
-      }
-    };
     const refs =
       state.appState.activeQuestionnaire.childQuestionnaireRef !== undefined
         ? state.appState.activeQuestionnaire.childQuestionnaireRef
         : [];
     const containsRef = refs.length !== 0;
     const visualize = () => {
-      getVisualization()(questionnaireModel, containsRef, token)
+      getVisualization(type, questionnaireModel, containsRef, token)
         .then(() => dispatch(endLoadingVisualization()))
         .catch(error => {
           dispatch(endLoadingVisualization());

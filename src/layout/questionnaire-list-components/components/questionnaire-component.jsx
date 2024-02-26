@@ -47,7 +47,6 @@ const QuestionnaireComponent = props => {
     selected,
     children,
     parentType,
-    visualizeActiveQuestionnaire,
     componentFiltersInitial,
     componentFiltersFinal,
     setSelectedComponentId,
@@ -229,9 +228,6 @@ const QuestionnaireComponent = props => {
                     )}
                     <VisualizeDropdown
                       componentId={component.id}
-                      visualizeActiveQuestionnaire={
-                        visualizeActiveQuestionnaire
-                      }
                       token={token}
                     />
                     <button
@@ -296,7 +292,6 @@ QuestionnaireComponent.propTypes = {
 
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
-  visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   duplicateComponentAndVariables: PropTypes.func.isRequired,

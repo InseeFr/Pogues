@@ -2,10 +2,7 @@ import { connect } from 'react-redux';
 
 import GenericInput from '../components/generic-input';
 
-import {
-  saveActiveQuestionnaire,
-  visualizeActiveQuestionnaire,
-} from 'actions/app-state';
+import { saveActiveQuestionnaire } from 'actions/app-state';
 import { removeVisualizationError } from 'actions/errors';
 import {
   getNewSequencePlaceholder,
@@ -121,7 +118,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
-  visualizeActiveQuestionnaire,
   removeVisualizationError,
 };
 

@@ -12,7 +12,6 @@ import { removeQuestionnaireRef } from 'actions/external-questionnaire';
 import {
   setSelectedComponentId,
   setEditingComponentId,
-  visualizeActiveQuestionnaire,
 } from 'actions/app-state';
 import { removeQuestionnaire } from 'actions/questionnaire';
 import { getToken } from 'reducers/selectors';
@@ -43,7 +42,6 @@ const mapDispatchToProps = {
   removeQuestionnaireRef,
   duplicateComponentAndVariables,
   removeQuestionnaire,
-  visualizeActiveQuestionnaire,
   dragComponent,
 };
 

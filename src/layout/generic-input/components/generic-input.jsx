@@ -21,7 +21,6 @@ export const propTypes = {
   placeholders: PropTypes.object.isRequired,
   isLoadingVisualization: PropTypes.bool,
   saveActiveQuestionnaire: PropTypes.func.isRequired,
-  visualizeActiveQuestionnaire: PropTypes.func,
   isQuestionnaireHaveError: PropTypes.bool,
   isQuestionnaireModified: PropTypes.bool,
   isQuestionnaireValid: PropTypes.bool.isRequired,
@@ -37,7 +36,6 @@ export const defaultProps = {
   isLoadingVisualization: false,
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
-  visualizeActiveQuestionnaire: undefined,
   token: undefined,
   selectedComponent: undefined,
   removeVisualizationError: undefined,
@@ -86,7 +84,6 @@ function GenericInput(props) {
     removeVisualizationError,
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
-    visualizeActiveQuestionnaire,
   } = props;
 
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
@@ -240,7 +237,6 @@ function GenericInput(props) {
         <VisualizeDropdown
           top
           disabled={!isQuestionnaireValid}
-          visualizeActiveQuestionnaire={visualizeActiveQuestionnaire}
           token={token}
           questionnaireId={activeQuestionnaire.id}
         />

@@ -27,13 +27,89 @@ const pathSearch = 'search';
 const pathSeriesList = 'search/series';
 const pathOperationsList = 'search/operations';
 const pathMetadata = 'meta-data';
-const pathVisualizePdf = 'transform/visualize-pdf';
-const pathVisualizeSpec = 'transform/visualize-spec';
-const pathVisualizeDDI = 'transform/visualize-ddi';
-const pathVisualizeQueenCapi = 'transform/visualize-queen';
-const pathVisualizeQueenCati = 'transform/visualize-queen-telephone';
+const pathVisualisation = 'transform/visualize';
 
-export const pathVisualisation = 'transform/visualize';
+/**
+ * Mutualised getter
+ * @param {*} address : where to fetch data
+ * @param {*} token : the token
+ * @returns the json data
+ */
+const mutualizedGet = async (address, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${address}`, {
+    headers: getHeaders({ Accept: 'application/json' }, token),
+  }).then(res => res.json());
+};
+
+/**
+ * This method will call the endpoint of visualization
+ * and render an url or a document
+ * depending on the type of visualization called
+ * @param {*} type : the type of visualisation called (cf. visualiseType underneath)
+ * @param {*} qr : the questionnaire to visualize
+ * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
+ * @param {*} token : the token
+ */
+export const getVisualization = async (type, qr, ref, token) => {
+  const visualiseType = {
+    pdf: { response: 'document', path: `-pdf` },
+    spec: { response: 'document', path: `-spec` },
+    ddi: { response: 'document', path: `-ddi` },
+    html: {
+      response: 'url',
+      path: `/${qr.DataCollection[0].id}/${qr.Name}`,
+    },
+    'stromae-v2': { response: 'url', path: `-stromae-v2/${qr.Name}` },
+    'stromae-v3': { response: 'url', path: `-stromae-v3/${qr.Name}` },
+    'queen-capi': { response: 'url', path: `-queen/${qr.Name}` },
+    'queen-cati': { response: 'url', path: `-queen-telephone/${qr.Name}` },
+  };
+
+  if (visualiseType[type].response === 'document') {
+    return postVisualization(visualiseType[type].path, qr, ref, token).then(
+      openDocument,
+    );
+  }
+  if (visualiseType[type].response === 'url') {
+    return postVisualization(visualiseType[type].path, qr, ref, token)
+      .then(response => response.text())
+      .then(url => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.setAttribute('target', '_blank');
+        document.body.appendChild(a);
+        a.click();
+      });
+  }
+  return null;
+};
+
+/**
+ * mutualised call of the visualization endpoints
+ * @param {*} path : the personalized part of the endpoint address
+ * @param {*} qr : the questionnaire to visualize
+ * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
+ * @param {*} token : the token
+ * @returns a data to interpret
+ */
+const postVisualization = async (path, qr, ref, token) => {
+  const b = await getBaseURI();
+  return fetch(`${b}/${pathVisualisation}${path}?references=${ref}`, {
+    method: 'POST',
+    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
+    body: JSON.stringify(qr),
+  }).then(async response => {
+    if (response.ok) {
+      return response;
+    }
+    if (response.status === 500) {
+      const { message } = await response.json();
+      throw new Error(message);
+    }
+    throw new Error('The error did not directly come from Eno');
+  });
+};
 
 /**
  * This method will emulate the download of file, received from a POST request.
@@ -78,159 +154,10 @@ const getHeaders = (base, token) => {
 };
 
 /**
- * This method will call the back in order to get an url for
- * the visualization of the questionnaire in Stromae V1/V2 and
- * Lunatic (Queen) formats
- */
-export const getVizualisationUrl = async (path, qr, ref, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${path}?references=${ref}`, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      }
-      throw new Error('Something went wrong');
-    })
-    .then(response => response.text())
-    .then(url => {
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('target', '_blank');
-      document.body.appendChild(a);
-      a.click();
-    });
-};
-
-/**
- * This method will send a request in order to get the URL
- * of the generated HTML page for the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeHtml = async (qr, ref, token) => {
-  await getVizualisationUrl(
-    `${pathVisualisation}/${qr.DataCollection[0].id}/${qr.Name}`,
-    qr,
-    ref,
-    token,
-  );
-};
-
-/**
- * This method will send a request in order to get the URL
- * of the generated Queen page for face to face and the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeQueenCapi = async (qr, ref, token) => {
-  await getVizualisationUrl(
-    `${pathVisualizeQueenCapi}/${qr.Name}`,
-    qr,
-    ref,
-    token,
-  );
-};
-
-/**
- * This method will send a request in order to get the URL
- * of the generated Queen page for telephone and the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeQueenCati = async (qr, ref, token) => {
-  await getVizualisationUrl(
-    `${pathVisualizeQueenCati}/${qr.Name}`,
-    qr,
-    ref,
-    token,
-  );
-};
-
-/**
- * This method will send a request in order to get the URL
- * of the generated Stromae v2 page for the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeWebStromaeV2 = async (qr, ref, token) => {
-  await getVizualisationUrl(
-    `${pathVisualisation}-stromae-v2/${qr.Name}`,
-    qr,
-    ref,
-    token,
-  );
-};
-
-/**
- * This method will send a request in order to get the URL
- * of the generated Stromae v2 page for the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeWebStromaeV3 = async (qr, ref, token) => {
-  await getVizualisationUrl(
-    `${pathVisualisation}-stromae-v3/${qr.Name}`,
-    qr,
-    ref,
-    token,
-  );
-};
-
-/**
- * This method will call the back in order to get a documpent for
- * the visualization of the questionnaire in DDI, PDF and ODT (Spec)
- */
-export const getVizualisationDocument = async (path, qr, ref, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${path}?references=${ref}`, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      }
-      throw new Error('Something went wrong');
-    })
-    .then(openDocument);
-};
-
-/**
- * This method will send a request in order to get the content
- * of the generated DDI document for the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeDDI = async (qr, ref, token) => {
-  await getVizualisationDocument(`${pathVisualizeDDI}`, qr, ref, token);
-};
-
-/**
- * This method will send a request in order to get the content
- * of the generated PDF document for the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizePdf = async (qr, ref, token) => {
-  await getVizualisationDocument(`${pathVisualizePdf}`, qr, ref, token);
-};
-
-/**
- * This method will send a request in order to get the content
- * of the generated ODT document for the active questionnaire.
- * @param {*} qr The active questionnaire
- */
-export const visualizeSpec = async (qr, ref, token) => {
-  await getVizualisationDocument(`${pathVisualizeSpec}`, qr, ref, token);
-};
-
-/**
  * Retrieve all questionnaires
  */
-export const getQuestionnaireList = async (stamp, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathQuestionnaireListSearch}?owner=${stamp}`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getQuestionnaireList = (stamp, token) =>
+  mutualizedGet(`${pathQuestionnaireListSearch}?owner=${stamp}`, token);
 
 /**
  * Create new questionnaire
@@ -265,22 +192,14 @@ export const putQuestionnaire = async (id, qr, token) => {
 /**
  * Retrieve questionnaire by id
  */
-export const getQuestionnaire = async (id, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathQuestionnaire}/${id}`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getQuestionnaire = (id, token) =>
+  mutualizedGet(`${pathQuestionnaire}/${id}`, token);
 
 /**
  * Retrieve the variables of a given questionnaire
  */
-export const getVariablesById = async (id, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathQuestionnaire}/${id}/variables`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getVariablesById = (id, token) =>
+  mutualizedGet(`${pathQuestionnaire}/${id}/variables`, token);
 
 /**
  * Will send a DELETE request in order to remove an existing questionnaire
@@ -302,47 +221,22 @@ export const getInit = async () => {
   }).then(res => res.json());
 };
 
-export const getSeries = async token => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathSeriesList}`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getSeries = token => mutualizedGet(`${pathSeriesList}`, token);
 
-export const getOperations = async (id, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathSeriesList}/${id}/operations`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getOperations = (id, token) =>
+  mutualizedGet(`${pathSeriesList}/${id}/operations`, token);
 
-export const getCampaigns = async (id, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathOperationsList}/${id}/collections`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getCampaigns = (id, token) =>
+  mutualizedGet(`${pathOperationsList}/${id}/collections`, token);
 
-export const getContextFromCampaign = async (id, token) => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathSearch}/context/collection/${id}`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getContextFromCampaign = (id, token) =>
+  mutualizedGet(`${pathSearch}/context/collection/${id}`, token);
 
-export const getUnitsList = async token => {
-  const b = await getBaseURI();
-  return fetch(`${b}/${pathMetadata}/units`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getUnitsList = token =>
+  mutualizedGet(`${pathMetadata}/units`, token);
 
-export const getStampsList = async token => {
-  const b = await getBaseURI();
-  return fetch(`${b}/persistence/questionnaires/stamps`, {
-    headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
-};
+export const getStampsList = async token =>
+  mutualizedGet(`persistence/questionnaires/stamps`, token);
 
 export const getSearchResults = async (
   token,

@@ -111,7 +111,6 @@ const QuestionnaireListComponents = props => {
               key={component.id}
               selected={props.selectedComponentId === key}
               component={component}
-              visualizeActiveQuestionnaire={props.visualizeActiveQuestionnaire}
               setSelectedComponentId={props.setSelectedComponentId}
               setEditingComponentId={props.setEditingComponentId}
               duplicateComponentAndVariables={
@@ -302,7 +301,6 @@ QuestionnaireListComponents.propTypes = {
   dragComponent: PropTypes.func.isRequired,
   duplicateComponentAndVariables: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,
-  visualizeActiveQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
   activeCalculatedVariables: PropTypes.object,
   calculatedVariables: PropTypes.object,

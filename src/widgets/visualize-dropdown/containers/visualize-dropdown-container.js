@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import VisualizeDropdown from '../components/visualize-dropdown';
+import { visualizeActiveQuestionnaire } from '../../../actions/app-state';
 
 const mapStateToProps = state => {
   return {
@@ -14,7 +15,13 @@ const mapStateToProps = state => {
   };
 };
 
-const VisualizeDropdownContainer = connect(mapStateToProps)(VisualizeDropdown);
+const mapDispatchToProps = {
+  visualizeActiveQuestionnaire,
+};
+const VisualizeDropdownContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(VisualizeDropdown);
 
 VisualizeDropdownContainer.propTypes = {
   questionnaireId: PropTypes.string,
