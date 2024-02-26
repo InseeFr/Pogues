@@ -7,6 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import QuestionnaireComponent from './questionnaire-component';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
+import { getEnvVar } from 'utils/env';
 import { ComponentEdit } from 'layout/component-edit';
 import { ConfirmDialog } from 'layout/confirm-dialog';
 import { QuestionnaireEdit } from 'layout/questionnaire-edit';
@@ -30,7 +31,11 @@ const QuestionnaireListComponents = props => {
     setSelectedComponentId,
     activeCalculatedVariables,
     calculatedVariables,
+    removeQuestionnaire,
+    navigate,
   } = props;
+
+  const publicEnemyBaseUri = getEnvVar('PUBLIC_ENEMY_URL');
 
   useEffect(() => {
     setSelectedComponentId('');
@@ -52,47 +57,17 @@ const QuestionnaireListComponents = props => {
     }
   }, [activeCalculatedVariables, calculatedVariables, questionnaire]);
 
-  const handleOpenQuestionnaireDetail = () => {
-    setShowQuestionnaireModal(true);
-  };
-
-  const handleCloseQuestionnaireDetail = () => {
-    setShowQuestionnaireModal(false);
-  };
-
-  const handleOpenComponentDetail = () => {
-    setShowComponentModal(true);
-  };
-
-  const handleCloseComponentDetail = () => {
-    setShowComponentModal(false);
-  };
-
-  const handleOpenRemoveQuestionnaireDialog = () => {
-    setShowRemoveQuestionnaireDialog(true);
-  };
-
-  const handleCloseRemoveQuestionnaireDialog = () => {
-    setShowRemoveQuestionnaireDialog(false);
-  };
-
-  const handleQuestionnaireDelete = () => {
-    props.removeQuestionnaire(props.questionnaire.id, token).then(() => {
-      props.navigate('/');
-    });
-  };
+  const handleOpenComponentDetail = () => setShowComponentModal(true);
 
   const componentFilterConditionInitial = id => {
-    const filters = Object.values(props.componentsStore).filter(
+    return Object.values(componentsStore).filter(
       component => component.type === FILTER && component.initialMember === id,
     );
-    return filters;
   };
   const componentFilterConditionFinal = id => {
-    const filters = Object.values(props.componentsStore).filter(
+    return Object.values(componentsStore).filter(
       component => component.type === FILTER && component.finalMember === id,
     );
-    return filters;
   };
 
   const renderComponentsByParent = (parent, props, actions) => {
@@ -153,17 +128,26 @@ const QuestionnaireListComponents = props => {
 
           <div id="questionnaire-head">
             <h4>{questionnaire.label}</h4>
-
             <div>
+              {publicEnemyBaseUri && (
+                <a
+                  className="btn-blue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://${publicEnemyBaseUri}/questionnaires/check/${questionnaire.id}`}
+                >
+                  {Dictionary.customize}
+                </a>
+              )}
               <button
                 className="btn-yellow"
-                onClick={handleOpenQuestionnaireDetail}
+                onClick={() => setShowQuestionnaireModal(true)}
               >
                 {Dictionary.showDetail}
               </button>
               <button
                 className="btn-yellow"
-                onClick={handleOpenRemoveQuestionnaireDialog}
+                onClick={() => setShowRemoveQuestionnaireDialog(true)}
               >
                 {Dictionary.remove}
                 <span className="glyphicon glyphicon-trash" />
@@ -190,7 +174,7 @@ const QuestionnaireListComponents = props => {
                       </strong>
                       , il s'agit probablement d'une erreur de l'application.
                       Dans ce cas, veuillez contacter au plus vite{' '}
-                      <a href="mailto:romain.tailhurat@insee.fr;anne.husseini-skalitz@insee.fr;ophelie.bibonne@insee.fr;francois.bulot@insee.fr">
+                      <a href="mailto:atelier-conception-enquetes@insee.fr;service-numerique-atelier-conception-enquetes@insee.fr">
                         l'équipe de l'atelier de conception
                       </a>{' '}
                       pour que nous corrigions ce problème.
@@ -226,21 +210,24 @@ const QuestionnaireListComponents = props => {
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showQuestionnaireModal}
-            onRequestClose={handleCloseQuestionnaireDetail}
+            onRequestClose={() => setShowQuestionnaireModal(false)}
             contentLabel={Dictionary.questionnaireDetail}
           >
             <div className="popup">
               <div className="popup-header">
                 <h3>{Dictionary.questionnaireDetail}</h3>
 
-                <button type="button" onClick={handleCloseQuestionnaireDetail}>
+                <button
+                  type="button"
+                  onClick={() => setShowQuestionnaireModal(false)}
+                >
                   <span>X</span>
                 </button>
               </div>
               <div className="popup-body">
                 <QuestionnaireEdit
-                  onCancel={handleCloseQuestionnaireDetail}
-                  onSuccess={handleCloseQuestionnaireDetail}
+                  onCancel={() => setShowQuestionnaireModal(false)}
+                  onSuccess={() => setShowQuestionnaireModal(false)}
                 />
               </div>
             </div>
@@ -252,20 +239,23 @@ const QuestionnaireListComponents = props => {
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showComponentModal}
-            onRequestClose={handleCloseComponentDetail}
+            onRequestClose={() => setShowComponentModal(false)}
             contentLabel={componentHeader}
           >
             <div className="popup">
               <div className="popup-header">
                 <h3>{componentHeader}</h3>
-                <button type="button" onClick={handleCloseComponentDetail}>
+                <button
+                  type="button"
+                  onClick={() => setShowComponentModal(false)}
+                >
                   <span>X</span>
                 </button>
               </div>
               <div className="popup-body">
                 <ComponentEdit
-                  onCancel={handleCloseComponentDetail}
-                  onSuccess={handleCloseComponentDetail}
+                  onCancel={() => setShowComponentModal(false)}
+                  onSuccess={() => setShowComponentModal(false)}
                 />
               </div>
             </div>
@@ -275,8 +265,12 @@ const QuestionnaireListComponents = props => {
 
           <ConfirmDialog
             showConfirmModal={showRemoveQuestionnaireDialog}
-            confirm={handleQuestionnaireDelete}
-            closePopup={handleCloseRemoveQuestionnaireDialog}
+            confirm={() =>
+              removeQuestionnaire(questionnaire.id, token).then(() =>
+                navigate('/'),
+              )
+            }
+            closePopup={() => setShowRemoveQuestionnaireDialog(false)}
           />
         </div>
       )}

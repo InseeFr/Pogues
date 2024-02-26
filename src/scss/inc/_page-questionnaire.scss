@@ -22,6 +22,7 @@
         @include make-xs-column(5);
         text-align: right;
         float: right;
+        a,
         button {
           margin: 5px 5px 0 0;
         }
