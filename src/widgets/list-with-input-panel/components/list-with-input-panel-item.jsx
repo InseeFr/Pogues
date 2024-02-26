@@ -6,20 +6,6 @@ import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
 
 const { ITEM_CLASS, ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
-// PropTypes and defaultProps
-
-export const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  select: PropTypes.func.isRequired,
-  invalid: PropTypes.bool,
-};
-
-export const defaultProps = {
-  invalid: false,
-};
-
-// Component
-
 function ListWithInputPanelItem({ children, invalid, select }) {
   return (
     <li
@@ -45,7 +31,14 @@ function ListWithInputPanelItem({ children, invalid, select }) {
   );
 }
 
-ListWithInputPanelItem.propTypes = propTypes;
-ListWithInputPanelItem.defaultProps = defaultProps;
+ListWithInputPanelItem.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+  select: PropTypes.func.isRequired,
+  invalid: PropTypes.bool,
+};
+
+ListWithInputPanelItem.defaultProps = {
+  invalid: false,
+};
 
 export default ListWithInputPanelItem;

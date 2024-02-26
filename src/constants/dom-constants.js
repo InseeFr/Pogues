@@ -62,6 +62,7 @@ export const WIDGET_LIST_WITH_INPUT_PANEL = {
   BUTTON_DUPLICATE_CLASS: 'widget-list-with-input-panel__duplicate',
   BUTTON_RESET_CLASS: 'widget-list-with-input-panel__reset',
   BUTTON_NEW_CLASS: 'widget-list-with-input-panel__new',
+  VARIABLE_NAME_CLASS: 'widget-list-with-input-panel__variable-name',
 };
 
 export const WIDGET_STATISTICAL_CONTEXT_CRITERIA = {

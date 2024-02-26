@@ -54,7 +54,7 @@ function CodesListsCodes(props) {
 
   const getFileCodes = useCallback(
     codes => {
-      const allCodes = getAll();
+      const allCodes = getAll() || [];
       if (codes && codes.length > 0) {
         removeAll();
         codes.forEach((code, index) => {
@@ -165,7 +165,7 @@ function CodesListsCodes(props) {
 
   function renderInputCode() {
     const code = get(activeCodeIndex);
-    const allCodes = getAll();
+    const allCodes = getAll() || [];
 
     return (
       <CodesListsInputCodeContainer
@@ -243,14 +243,12 @@ function CodesListsCodes(props) {
             {/* Code data */}
             <div>{code.depth}</div>
             <div>{code.value}</div>
-            {code.label ? (
+            {code.label && (
               <div
                 dangerouslySetInnerHTML={{
                   __html: markdownVtlToHtml(code.label),
                 }}
               />
-            ) : (
-              false
             )}
             {/* Code Actions */}
             <CodesListsActions
@@ -262,9 +260,10 @@ function CodesListsCodes(props) {
               )}
               actions={actions}
             />
-            {showPrecision && editing && activeCodeIndex === indexCode
-              ? renderInputCode()
-              : false}
+            {showPrecision &&
+              editing &&
+              activeCodeIndex === indexCode &&
+              renderInputCode()}
           </div>
         )}
 
@@ -289,7 +288,7 @@ function CodesListsCodes(props) {
   return (
     <div className={CODES_CLASS}>
       {/* Show input code button */}
-      {!showInputCode ? (
+      {!showInputCode && (
         <button
           type="button"
           onClick={e => {
@@ -303,8 +302,6 @@ function CodesListsCodes(props) {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.addCode}
         </button>
-      ) : (
-        false
       )}
 
       <button
