@@ -1,10 +1,11 @@
 {
   "nomenclatures": {
-    "L_ACTIVITES-1-0-0": {
-      "id": "L_ACTIVITES-1-0-0",
-      "name": "L_ACTIVITES-1-0-0",
-      "label": "activité",
+    "L_ACTIVITES-2-0-0": {
+      "id": "L_ACTIVITES-2-0-0",
+      "name": "L_ACTIVITES-2-0-0",
+      "label": "Activités",
       "parameters": {
+        "version": 1,
         "fields": [
           {
             "name": "label",
@@ -13,43 +14,19 @@
             "min": 3,
             "stemmer": false,
             "synonyms": {
-              "accueil": [
-                "ACCEUIL",
-                "ACCUEILLIR",
-                "ACCUEILLANTE",
-                "ACCUEILLANT",
-                "ACCUEILLE"
-              ],
               "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
               "plaquisterie": ["PLACO", "PLACOPLATRE"],
-              "pneumatique": ["PNEU", "PNEUS"],
-              "prestation": ["PRESTATAIRE"],
-              "echafaudage": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
-              "conseil": ["CONSULTING"],
+              "pneumatiques": ["PNEUS"],
+              "prestations": ["PRESTATAIRE"],
+              "echafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
               "URSSAF": ["URSAF", "URSAFF"],
-              "ingenierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
-              "construction": ["CONSTRUCTEUR"],
-              "distribution": ["DISTRIBUTEUR"],
-              "fabrication": ["FABRICANT"],
-              "abattage": [
-                "ABATOIR",
-                "ABBATOIR",
-                "ABATTOIRS",
-                "ABATOIRE",
-                "ABATTOIRE",
-                "ABBATTAGE"
-              ],
-              "ascenseur": ["ASCENCEUR", "ASCENCEURS"],
+              "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
               "briqueterie": ["BRIQUETTERIE"],
               "joaillerie": ["JOAILLIER"],
-              "agroalimentaire": [
-                "AGGRO",
-                "AGGROALIMANTAIRE",
-                "AGRO",
-                "AGROALIMENTAIRE"
-              ],
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
               "alimentaire": ["ALIMANTAIRE"],
-              "recherche-développement": ["R &amp D", "R&ampD"]
+              "alimentaires": ["ALIMANTAIRES"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMENTAIRES"]
             }
           }
         ],
@@ -88,14 +65,15 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_activites-1-0-0:1",
+      "urn": "urn:ddi:fr.insee:l_activites-2-0-0:1",
       "codes": []
     },
     "L_COMMUNEPASSEE-1-2-0": {
       "id": "L_COMMUNEPASSEE-1-2-0",
       "name": "L_COMMUNEPASSEE-1-2-0",
-      "label": "commune passée",
+      "label": "Communes (historique sur 5 ans)",
       "parameters": {
+        "version": 1,
         "fields": [
           {
             "name": "label",
@@ -118,10 +96,10 @@
       "urn": "urn:ddi:fr.insee:l_communepassee-1-2-0:1",
       "codes": []
     },
-    "L_DEPNAIS-1-1-0": {
-      "id": "L_DEPNAIS-1-1-0",
-      "name": "L_DEPNAIS-1-1-0",
-      "label": "département de naissance",
+    "L_DEP-1-1-0": {
+      "id": "L_DEP-1-1-0",
+      "name": "L_DEP-1-1-0",
+      "label": "Départements",
       "parameters": {
         "fields": [
           {
@@ -137,16 +115,18 @@
           "field": "label",
           "type": "ascending"
         },
-        "queryParser": { "type": "soft" }
+        "queryParser": { "type": "soft" },
+        "version": 1
       },
-      "urn": "urn:ddi:fr.insee:l_depnais-1-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_dep-1-1-0:1",
       "codes": []
     },
     "L_PAYS-1-2-0": {
       "id": "L_PAYS-1-2-0",
       "name": "L_PAYS-1-2-0",
-      "label": "pays",
+      "label": "Pays",
       "parameters": {
+        "version": 1,
         "fields": [
           {
             "name": "label",
@@ -174,6 +154,7 @@
       "name": "L_NATIONALITE-1-2-0",
       "label": "nationalité",
       "parameters": {
+        "version": 1,
         "fields": [
           {
             "name": "label",
@@ -196,10 +177,10 @@
       "urn": "urn:ddi:fr.insee:l_nationalite-1-2-0:1",
       "codes": []
     },
-    "L_PCS_HOMMES-1-5-0": {
-      "id": "L_PCS_HOMMES-1-5-0",
-      "name": "L_PCS_HOMMES-1-5-0",
-      "label": "PCS hommes",
+    "L_PCS_HOMMES-2-0-0": {
+      "id": "L_PCS_HOMMES-2-0-0",
+      "name": "L_PCS_HOMMES-2-0-0",
+      "label": "Professions masculin",
       "parameters": {
         "fields": [
           {
@@ -207,7 +188,92 @@
             "rules": ["[\\w]+"],
             "language": "French",
             "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "accueil": ["ACCEUIL"],
+              "échafaudage": ["ECHAFFAUDAGE"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "fabrication": ["FABRICANT"],
+              "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
+              "ascenseur": ["ASCENCEUR", "ASSENCEUR"],
+              "ascenseurs": ["ASCENCEURS", "ASSENCEURS"],
+              "alimentaires": ["ALIMANTAIRE"],
+              "agroalimentaire": ["AGROALIMANTAIRE", "AGGROALIMANTAIRE"],
+              "agroalimentaires": ["AGROALIMANTAIRE", "AGGROALIMANTAIRES"]
+            }
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
             "stemmer": false
+          }
+        },
+        "version": 1,
+        "meloto": true,
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "er",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-0-0:1",
+      "codes": []
+    },
+    "L_PCS_FEMMES-2-0-0": {
+      "id": "L_PCS_FEMMES-2-0-0",
+      "name": "L_PCS_FEMMES-2-0-0",
+      "label": "Professions féminin",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "accueil": ["ACCEUIL"],
+              "échafaudage": ["ECHAFFAUDAGE"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "fabrication": ["FABRICANT"],
+              "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
+              "ascenseur": ["ASCENCEUR", "ASSENCEUR"],
+              "ascenseurs": ["ASCENCEURS", "ASSENCEURS"],
+              "alimentaires": ["ALIMANTAIRE"],
+              "agroalimentaire": ["AGROALIMANTAIRE", "AGGROALIMANTAIRE"],
+              "agroalimentaires": ["AGROALIMANTAIRE", "AGGROALIMANTAIRES"]
+            }
           }
         ],
         "queryParser": {
@@ -246,67 +312,15 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_pcs_hommes-1-5-0:1",
+      "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-0-0:1",
       "codes": []
     },
-    "L_PCS_FEMMES-1-5-0": {
-      "id": "L_PCS_FEMMES-1-5-0",
-      "name": "L_PCS_FEMMES-1-5-0",
-      "label": "PCS femmes",
+    "L_DIPLOMES-2-0-0": {
+      "id": "L_DIPLOMES-2-0-0",
+      "name": "L_DIPLOMES-2-0-0",
+      "label": "Diplomes",
       "parameters": {
-        "fields": [
-          {
-            "name": "label",
-            "rules": ["[\\w]+"],
-            "language": "French",
-            "min": 3,
-            "stemmer": false
-          }
-        ],
-        "queryParser": {
-          "type": "tokenized",
-          "params": {
-            "language": "French",
-            "pattern": "[\\w.]+",
-            "min": 3,
-            "stemmer": false
-          }
-        },
-        "meloto": true,
-        "stopWords": [
-          "a",
-          "au",
-          "dans",
-          "de",
-          "des",
-          "du",
-          "en",
-          "er",
-          "la",
-          "le",
-          "ou",
-          "sur",
-          "d",
-          "l",
-          "aux",
-          "dans",
-          "un",
-          "une",
-          "pour",
-          "avec",
-          "chez",
-          "par",
-          "les"
-        ]
-      },
-      "urn": "urn:ddi:fr.insee:l_pcs_femmes-1-5-0:1",
-      "codes": []
-    },
-    "L_DIPLOMES-1-0-0": {
-      "id": "L_DIPLOMES-1-0-0",
-      "name": "L_DIPLOMES-1-0-0",
-      "label": "diplomes",
-      "parameters": {
+        "version": 1,
         "fields": [
           {
             "name": "label",
@@ -327,7 +341,36 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_diplomes-1-0-0:1",
+      "urn": "urn:ddi:fr.insee:l_diplomes-2-0-0:1",
+      "codes": []
+    },
+    "L_SPECIALITES-1-0-0": {
+      "id": "L_SPECIALITES-1-0-0",
+      "name": "L_SPECIALITES-1-0-0",
+      "label": "Spécialités (dans les diplomes)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          { "name": "id" }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_specialites-1-0-0:1",
       "codes": []
     }
   }
