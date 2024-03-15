@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.5.9",
+  "version": "1.5.10-rc1-restore-MCQ-CL-check",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",

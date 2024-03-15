@@ -12,7 +12,8 @@ import { generateCollectedVariables } from 'utils/variables/collected-variables-
 const { NEW } = CODES_LIST_INPUT_ENUM;
 const { NUMERIC } = DATATYPE_NAME;
 
-const { SINGLE_CHOICE, SIMPLE, TABLE, PAIRING } = QUESTION_TYPE_ENUM;
+const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE, PAIRING } =
+  QUESTION_TYPE_ENUM;
 export function required(value = '') {
   const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
 
@@ -225,11 +226,15 @@ export function validCollectedVariables(
     return Dictionary.validation_collectedvariable_need_reset;
   }
   if (
-    (type === SINGLE_CHOICE || type === PAIRING) &&
+    (type === SINGLE_CHOICE || type === PAIRING || type === MULTIPLE_CHOICE) &&
     value[0] &&
-    (value[0].codeListReference !== expectedVariables[0].codeListReference ||
-      value[0].codeListReferenceLabel !==
-        expectedVariables[0].codeListReferenceLabel)
+    ((value[0].codeListReference !== expectedVariables[0].codeListReference &&
+      (!!value[0].codeListReference ||
+        !!expectedVariables[0].codeListReference)) ||
+      (value[0].codeListReferenceLabel !==
+        expectedVariables[0].codeListReferenceLabel &&
+        (!!value[0].codeListReferenceLabel ||
+          !!expectedVariables[0].codeListReferenceLabel)))
   ) {
     return Dictionary.validation_collectedvariable_need_reset;
   }
