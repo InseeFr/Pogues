@@ -400,6 +400,48 @@
       },
       "urn": "urn:ddi:fr.insee:l_langues-1-0-0:1",
       "codes": []
+    },
+    "EAP_PRODUCTS": {
+      "id": "EAP_PRODUCTS",
+      "name": "EAP_PRODUCTS",
+      "label": "EAP - Produits",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:eap_products:1",
+      "codes": []
     }
   }
 }
