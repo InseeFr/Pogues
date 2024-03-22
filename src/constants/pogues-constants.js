@@ -45,6 +45,7 @@ export const DATATYPE_VIS_HINT = {
   CHECKBOX: 'CHECKBOX',
   RADIO: 'RADIO',
   DROPDOWN: 'DROPDOWN',
+  SUGGESTER: 'SUGGESTER',
 };
 
 export const DIMENSION_TYPE = {

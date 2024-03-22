@@ -66,15 +66,30 @@ export function remoteToStore(remote, variableclarification) {
     variableclarification,
   );
   return remotecode.reduce((acc, codesList) => {
-    const { id, Label: label, Code: codes } = codesList;
+    const {
+      id,
+      Label: label,
+      Code: codes,
+      Name: name,
+      Urn: urn,
+      SuggesterParameters: suggesterParameters,
+    } = codesList;
     return {
       ...acc,
-      [id]: {
-        id,
-        label,
-        codes: remoteToCodesState(codes),
-        name: '',
-      },
+      [id]: urn
+        ? {
+            id,
+            label,
+            name,
+            urn,
+            suggesterParameters,
+          }
+        : {
+            id,
+            label,
+            codes: remoteToCodesState(codes),
+            name: name || '',
+          },
     };
   }, {});
 }
@@ -102,20 +117,35 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
 }
 export function storeToRemote(store) {
   return Object.keys(store).reduce((acc, key) => {
-    const { id, label, codes } = store[key];
-    const code = {
+    const {
       id,
-      Label: label,
-      Name: '',
-      Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
-        const { label: labelCode, value, parent } = codes[keyCode];
-        return {
-          Label: labelCode,
-          Value: value,
-          Parent: parent,
-        };
-      }),
-    };
+      label,
+      name = '',
+      codes = [],
+      urn = '',
+      suggesterParameters = {},
+    } = store[key];
+    const code =
+      urn === ''
+        ? {
+            id,
+            Label: label,
+            Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
+              const { label: labelCode, value, parent } = codes[keyCode];
+              return {
+                Label: labelCode,
+                Value: value,
+                Parent: parent,
+              };
+            }),
+          }
+        : {
+            id,
+            Urn: urn,
+            Name: name,
+            Label: label,
+            SuggesterParameters: suggesterParameters,
+          };
     return [...acc, code];
   }, []);
 }
