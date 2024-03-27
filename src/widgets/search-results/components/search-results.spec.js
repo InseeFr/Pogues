@@ -3,15 +3,11 @@ import { shallow } from 'enzyme';
 
 import SearchResult from './search-results';
 
-import { WIDGET_SEARCH_RESULTS } from 'constants/dom-constants';
-import { noop } from 'utils/test/test-utils';
+import { WIDGET_SEARCH_RESULTS } from '../../../constants/dom-constants';
+import { noop } from '../../../utils/test/test-utils';
 
-const {
-  HEADER_CLASS,
-  COLUMN_CLASS,
-  ROW_CLASS,
-  ROW_EMPTY_CLASS,
-} = WIDGET_SEARCH_RESULTS;
+const { HEADER_CLASS, COLUMN_CLASS, ROW_CLASS, ROW_EMPTY_CLASS } =
+  WIDGET_SEARCH_RESULTS;
 
 describe('<SearchResults /', () => {
   const columns = [

@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import {
   getNewSubsequencePlaceholder,
   getNewQuestionPlaceholder,

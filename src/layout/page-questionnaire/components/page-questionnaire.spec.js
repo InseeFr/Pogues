@@ -4,14 +4,14 @@ import { shallow } from 'enzyme';
 // Not connected to store
 import PageQuestionnaire from './page-questionnaire';
 
-import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
-import { noop } from 'utils/test/test-utils';
+import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
+import { noop } from '../../../utils/test/test-utils';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 
-jest.mock('layout/questionnaire-list-components', () => {
+jest.mock('../questionnaire-list-components', () => {
   return {
     __esModule: true,
     default: () => {
@@ -25,7 +25,7 @@ jest.mock('layout/questionnaire-list-components', () => {
   };
 });
 
-jest.mock('layout/component-edit', () => {
+jest.mock('../component-edit', () => {
   return {
     __esModule: true,
     default: () => {
@@ -37,7 +37,7 @@ jest.mock('layout/component-edit', () => {
   };
 });
 
-jest.mock('layout/component-new', () => {
+jest.mock('../component-new', () => {
   return {
     __esModule: true,
     default: () => {

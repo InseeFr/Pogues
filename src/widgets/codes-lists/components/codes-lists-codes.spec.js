@@ -8,7 +8,7 @@ import {
   fakeFieldArrayFields,
   noop,
   fakeEnterEvent,
-} from 'utils/test/test-utils';
+} from '../../../utils/test/test-utils';
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 

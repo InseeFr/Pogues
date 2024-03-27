@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 
 import ListWithInputPanel from './list-with-input-panel';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
-import { fakeEvent, noop } from 'utils/test/test-utils';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
+import { fakeEvent, noop } from '../../../utils/test/test-utils';
 
 const {
   BUTTON_SUBMIT_CLASS,

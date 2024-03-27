@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { fakeFieldProps } from 'utils/test/test-utils';
+import { fakeFieldProps } from '../../../../utils/test/test-utils';
 
 import TextareaWithSuggestions from './textarea-with-suggestions';
 import ControlWithSuggestions from './control-with-suggestions';

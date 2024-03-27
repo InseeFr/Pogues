@@ -3,31 +3,31 @@ import { shallow } from 'enzyme';
 
 import SearchCodesLists from './search-codes-lists';
 
-import { WIDGET_SEARCH_CODES_LISTS } from 'constants/dom-constants';
+import { WIDGET_SEARCH_CODES_LISTS } from '../../constants/dom-constants';
 
 const { SEARCH_RESULTS_CLASS } = WIDGET_SEARCH_CODES_LISTS;
 
 import {
   StatisticalContextCriteria,
   defaultProps as StatisticalContextCriteriaDefaultProps,
-} from 'widgets/statistical-context-criteria';
+} from '../statistical-context-criteria';
 
 import {
   InputFilterWithCriteria,
   defaultProps as InputFilterWithCriteriaDefaultProps,
-} from 'widgets/input-filter-with-criteria';
+} from '../input-filter-with-criteria';
 
-import { SearchResults } from 'widgets/search-results';
+import { SearchResults } from '../search-results';
 
 import {
   DEFAULT_FORM_NAME,
   TYPES_ITEMS,
   SEARCH_CRITERIAS,
   SEARCH_RESULTS_COLUMNS,
-} from 'constants/pogues-constants';
+} from '../../constants/pogues-constants';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import { noop } from 'utils/test/test-utils';
+import Dictionary from '../../utils/dictionary/dictionary';
+import { noop } from '../../utils/test/test-utils';
 
 describe('<SearchCodesLists />', () => {
   const path = 'FAKE_SELECTOR_PATH';

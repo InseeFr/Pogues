@@ -1,4 +1,4 @@
-jest.dontMock('./declaration.js');
+jest.dontMock('./declaration.jsx');
 
 import DeclarationTransformerFactory from './declaration';
 import {
@@ -13,9 +13,8 @@ describe.skip('Transformation entities - Declaration', () => {
     const declarationTransformer = DeclarationTransformerFactory();
 
     // The id is random in creation, so it's not take it into account for testing.
-    const state = declarationTransformer.formToComponentState(
-      declarationsFormNew,
-    );
+    const state =
+      declarationTransformer.formToComponentState(declarationsFormNew);
     const currentState = Object.keys(state).map(key => {
       const { id, ...stateItem } = state[key];
       return stateItem;

@@ -1,6 +1,9 @@
 import { remoteToStore, storeToRemote } from './calculated-variable';
 
-import { DATATYPE_NAME, VARIABLES_TYPES } from 'constants/pogues-constants';
+import {
+  DATATYPE_NAME,
+  VARIABLES_TYPES,
+} from '../../constants/pogues-constants';
 
 const { TEXT } = DATATYPE_NAME;
 

@@ -3,7 +3,7 @@ import {
   getCollectedVariablesIdsFromComponents,
 } from './variables-utils';
 
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 const { QUESTION, SUBSEQUENCE, SEQUENCE } = COMPONENT_TYPE;
 

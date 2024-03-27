@@ -3,7 +3,7 @@ jest.dontMock('./questionnaire-list');
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { noop } from 'utils/test/test-utils';
+import { noop } from '../../../utils/test/test-utils';
 
 import QuestionnaireList from './questionnaire-list';
 

@@ -7,7 +7,7 @@ import {
   SET_INVALID_ITEMS,
   REMOVE_INVALID_ITEM,
   ADD_LIST_INVALID_ITEMS,
-} from 'actions/app-state';
+} from '../../actions/app-state';
 
 describe('setActiveExternalVariables', () => {
   test('when called directly', () => {

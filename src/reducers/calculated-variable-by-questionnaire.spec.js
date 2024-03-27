@@ -2,12 +2,12 @@ import actionsHandlers, {
   loadQuestionnaireSuccess,
   loadQuestionnaireListSuccess,
 } from './calculated-variable-by-questionnaire';
-import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
+import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
-} from 'actions/questionnaire';
-import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
+} from '../actions/questionnaire';
+import { LOAD_QLIST_SUCCESS } from '../actions/questionnaire-list';
 
 describe('loadQuestionnaireSuccess', () => {
   test('when called directly', () => {

@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 
 import InputAutocomplete from './input-autocomplete';
 
-import GenericOption from 'forms/controls/generic-option';
-import { fakeFieldProps, fakeEvent } from 'utils/test/test-utils';
+import GenericOption from '../generic-option';
+import { fakeFieldProps, fakeEvent } from '../../../utils/test/test-utils';
 
 describe('Form controls - Input autocomplete', () => {
   describe('Props and render behaviour', () => {

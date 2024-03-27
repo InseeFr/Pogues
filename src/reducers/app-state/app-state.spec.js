@@ -6,7 +6,7 @@ import actionsHandlers, {
 import {
   START_LOADING_VISUALIZATION,
   END_LOADING_VISUALIZATION,
-} from 'actions/app-state';
+} from '../../actions/app-state';
 
 const state = {
   activeCalculatedVariablesById: {},
