@@ -2,7 +2,7 @@ import React from 'react';
 
 import ArboSimplified from './arbo-simplifield';
 import { shallow } from 'enzyme';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 

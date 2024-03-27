@@ -3,7 +3,7 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DATATYPE_NAME,
   QUESTION_TYPE_ENUM,
-} from 'constants/pogues-constants';
+} from '../../constants/pogues-constants';
 
 import {
   sortByYXAndZ,

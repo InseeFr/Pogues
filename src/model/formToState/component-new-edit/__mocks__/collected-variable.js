@@ -1,4 +1,4 @@
-import { VARIABLES_TYPES } from 'constants/pogues-constants';
+import { VARIABLES_TYPES } from '../../../../constants/pogues-constants';
 
 const { COLLECTED } = VARIABLES_TYPES;
 

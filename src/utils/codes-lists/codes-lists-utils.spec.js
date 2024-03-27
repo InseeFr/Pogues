@@ -1,4 +1,4 @@
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 import {
   removeOrphansCodesLists,
   getSingleCodesLists,

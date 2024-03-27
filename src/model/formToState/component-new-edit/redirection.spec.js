@@ -1,4 +1,4 @@
-jest.dontMock('./redirection.js');
+jest.dontMock('./redirection.jsx');
 
 import RedirectionTransformerFactory from './redirection';
 import {

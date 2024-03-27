@@ -2,8 +2,8 @@ import actionsHandlers, {
   setActiveExternalVariables,
   updateActiveExternalVariables,
 } from './active-external-variables-by-id';
-import { SET_ACTIVE_VARIABLES } from 'actions/app-state';
-import { CREATE_COMPONENT, UPDATE_COMPONENT } from 'actions/component';
+import { SET_ACTIVE_VARIABLES } from '../../actions/app-state';
+import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../actions/component';
 
 describe('setActiveExternalVariables', () => {
   test('when called directly', () => {

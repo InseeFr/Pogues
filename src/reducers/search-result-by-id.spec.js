@@ -5,7 +5,7 @@ import actionsHandlers, {
 import {
   LOAD_SEARCH_RESULT_SUCCESS,
   CLEAR_SEARCH_RESULTS,
-} from 'actions/search';
+} from '../actions/search';
 
 describe('clearSearchResult', () => {
   test('when called directly', () => {

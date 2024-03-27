@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import Select from './select';
 import GenericOption from './generic-option';
 
-import { fakeFieldProps } from 'utils/test/test-utils';
+import { fakeFieldProps } from '../../utils/test/test-utils';
 
 describe('Form controls - Select', () => {
   const props = {

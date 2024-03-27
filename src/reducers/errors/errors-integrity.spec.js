@@ -1,5 +1,5 @@
 import actionsHandlers, { removeError } from './errors-integrity';
-import { REMOVE_INTEGRITY_ERROR } from 'actions/errors';
+import { REMOVE_INTEGRITY_ERROR } from '../../actions/errors';
 
 describe('removeError', () => {
   test('when called directly', () => {

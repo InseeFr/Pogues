@@ -4,7 +4,7 @@ import * as ResponseFormatSingle from './response-format-single';
 import * as ResponseFormatMultiple from './response-format-multiple';
 import * as ResponseFormatTable from './response-format-table';
 
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
