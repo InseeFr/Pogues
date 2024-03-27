@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 
 import StatisticalContextCriteria from './statistical-context-criteria';
 
-import Select from 'forms/controls/select';
-import ListCheckboxes from 'forms/controls/list-checkboxes';
-import { noop } from 'utils/test/test-utils';
+import Select from '../../../forms/controls/select';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import { noop } from '../../../utils/test/test-utils';
 
 describe('<StatisticalContextCriteria />', () => {
   let props;

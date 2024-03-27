@@ -1,4 +1,4 @@
-jest.dontMock('./external-variable.js');
+jest.dontMock('./external-variable.jsx');
 
 import ExternalVariableTransformerFactory from './external-variable';
 import {

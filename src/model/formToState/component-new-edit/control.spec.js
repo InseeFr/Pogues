@@ -1,4 +1,4 @@
-jest.dontMock('./control.js');
+jest.dontMock('./control.jsx');
 
 import ControlTransformerFactory from './control';
 import {

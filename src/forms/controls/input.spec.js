@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Input from './input';
 
-import { fakeFieldProps } from 'utils/test/test-utils';
+import { fakeFieldProps } from '../../utils/test/test-utils';
 
 describe('Form controls - Input', () => {
   let props;

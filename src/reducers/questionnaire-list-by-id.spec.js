@@ -1,6 +1,6 @@
 import reducer from './questionnaire-list-by-id';
-import { DELETE_QLIST_SUCCESS } from 'actions/questionnaire';
-import { LOAD_QLIST_SUCCESS } from 'actions/questionnaire-list';
+import { DELETE_QLIST_SUCCESS } from '../actions/questionnaire';
+import { LOAD_QLIST_SUCCESS } from '../actions/questionnaire-list';
 
 describe('questionnaire-list-by-id reducer', () => {
   test('should handle LOAD_QLIST_SUCCESS', () => {

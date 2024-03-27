@@ -1,4 +1,4 @@
-import { INTEGRITY_TYPES } from 'constants/pogues-constants';
+import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
 import checkerTargetMode from './checker-declaration-mode';
 
 describe('checkerDeclarationMode', () => {

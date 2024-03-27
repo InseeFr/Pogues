@@ -2,7 +2,7 @@ import {
   getDragnDropLevel,
   calculateMargin,
 } from './component-dragndrop-utils';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 

@@ -1,5 +1,5 @@
 import * as component from './component-insert';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../constants/pogues-constants';
 
 const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
 

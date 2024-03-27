@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Textarea from './textarea';
 
-import { fakeFieldProps } from 'utils/test/test-utils';
+import { fakeFieldProps } from '../../utils/test/test-utils';
 
 describe('Form controls - Textarea', () => {
   const props = {

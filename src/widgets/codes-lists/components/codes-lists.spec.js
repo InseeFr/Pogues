@@ -4,15 +4,15 @@ import { shallow } from 'enzyme';
 import CodesLists from './codes-lists';
 import CodesListsCodes from './codes-lists-codes';
 
-import { WIDGET_CODES_LISTS } from 'constants/dom-constants';
-import { CODES_LIST_INPUT_ENUM } from 'constants/pogues-constants';
+import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import { CODES_LIST_INPUT_ENUM } from '../../../constants/pogues-constants';
 
 const { PANEL_CLASS } = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 
-jest.mock('forms/controls/control-with-suggestions', () => {
+jest.mock('../../../forms/controls/control-with-suggestions', () => {
   return {
     __esModule: true,
     default: () => {

@@ -1,5 +1,5 @@
 import { stateToModel } from './responses';
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const collectedVariablesStore = {
   jbdxtl1d: {
