@@ -2,7 +2,7 @@ import { stateToRemote } from './dimension';
 import {
   DIMENSION_TYPE,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from 'constants/pogues-constants';
+} from '../../constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
 describe('dimension tranformations', () => {

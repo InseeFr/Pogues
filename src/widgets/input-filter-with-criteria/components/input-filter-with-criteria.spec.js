@@ -3,13 +3,11 @@ import { shallow } from 'enzyme';
 
 import InputFilterWithCriteria from './input-filter-with-criteria';
 
-import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
-import { fakeEvent, noop } from 'utils/test/test-utils';
+import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
+import { fakeEvent, noop } from '../../../utils/test/test-utils';
 
-const {
-  SEARCH_INPUT_CLASS,
-  BUTTON_SEARCH_CLASS,
-} = WIDGET_INPUT_FILTER_WITH_CRITERIA;
+const { SEARCH_INPUT_CLASS, BUTTON_SEARCH_CLASS } =
+  WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 describe('<InputFilterWithCriteria />', () => {
   let props;

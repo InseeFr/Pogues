@@ -2,8 +2,8 @@ import { stateToRemote } from './response';
 import {
   DATATYPE_TYPE_FROM_NAME,
   UI_BEHAVIOUR,
-} from 'constants/pogues-constants';
-import { format } from 'url';
+} from '../../constants/pogues-constants';
+import { format } from '../../url';
 
 describe('response tranformations', () => {
   test('should return the default object with a generated id', () => {

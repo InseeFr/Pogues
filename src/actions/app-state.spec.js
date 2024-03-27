@@ -16,7 +16,7 @@ import {
   UPDATE_ACTIVE_QUESTIONNAIRE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
-} from 'actions/app-state';
+} from './app-state';
 
 describe('removeControlsAndRedirections', () => {
   test('should reset redirections and controls properties of all components', () => {

@@ -4,8 +4,8 @@ import {
   CREATE_QUESTIONNAIRE_SUCCESS,
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_FAILURE,
-} from 'actions/questionnaire';
-import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
+} from '../actions/questionnaire';
+import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
 
 describe('questionnaire-by-id reducer', () => {
   test('should handle LOAD_QUESTIONNAIRE_SUCCESS', () => {

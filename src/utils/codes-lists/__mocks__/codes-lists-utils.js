@@ -4,7 +4,7 @@ import {
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from 'constants/pogues-constants';
+} from '../../../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;

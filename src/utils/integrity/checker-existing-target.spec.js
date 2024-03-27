@@ -1,5 +1,5 @@
 import checkerExistingTarget from './checker-existing-target';
-import { INTEGRITY_TYPES } from 'constants/pogues-constants';
+import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
 
 describe('checkerExistingTarget', () => {
   it('should return an empty array', () => {

@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import ListCheckboxes from './list-checkboxes';
 import GenericOption from './generic-option';
 
-import { fakeFieldProps, fakeEvent } from 'utils/test/test-utils';
+import { fakeFieldProps, fakeEvent } from '../../utils/test/test-utils';
 
 describe('Form controls - List checkboxes', () => {
   test('Should render as many checkboxes as options passed', () => {

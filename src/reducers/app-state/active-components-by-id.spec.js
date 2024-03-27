@@ -10,8 +10,8 @@ import {
   UPDATE_COMPONENT_PARENT,
   UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
-} from 'actions/component';
-import { SET_ACTIVE_COMPONENTS } from 'actions/app-state';
+} from '../../actions/component';
+import { SET_ACTIVE_COMPONENTS } from '../../actions/app-state';
 
 describe('setActiveComponents', () => {
   test('when called directly', () => {

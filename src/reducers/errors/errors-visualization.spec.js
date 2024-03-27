@@ -6,7 +6,7 @@ import actionsHandlers, {
 import {
   ADD_VISUALIZATION_ERROR,
   REMOVE_VISUALIZATION_ERROR,
-} from 'actions/errors';
+} from '../../actions/errors';
 
 describe('addVisualizationError', () => {
   test('when called directly', () => {

@@ -3,7 +3,7 @@ import {
   getComponentsTargetsByComponent,
   getComponentsTargetsByPosition,
 } from './redirections-utils';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 import { componentsStore, listGotos } from './__mocks__/redirections-utils';
 

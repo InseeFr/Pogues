@@ -1,5 +1,5 @@
 import checkerUniqueComponentName from './checker-unique-component-name';
-import { INTEGRITY_TYPES } from 'constants/pogues-constants';
+import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
 
 describe('checkerUniqueComponentName', () => {
   it('should return an empty array', () => {

@@ -18,7 +18,7 @@ import {
   maximumRequired,
   cartCodeModeCollecte,
 } from './validation-rules';
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../utils/dictionary/dictionary';
 
 describe('maxLength', () => {
   const max = 5;

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { decoreFormField } from 'utils/test/test-utils.jsx';
+import { decoreFormField } from '../../../../../utils/test/test-utils.jsx';
 
 import SimpleText from './simple-text.jsx';
 

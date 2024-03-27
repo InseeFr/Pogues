@@ -1,6 +1,6 @@
 import { remoteToState, stateToRemote } from './response-format-simple';
 import * as Response from './response';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
+import { DATATYPE_NAME } from '../../constants/pogues-constants';
 
 describe('redirection transformation', () => {
   describe('remoteToState', () => {

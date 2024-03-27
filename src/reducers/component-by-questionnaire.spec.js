@@ -4,8 +4,8 @@ import actionsHandlers, {
 import {
   LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
-} from 'actions/questionnaire';
-import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from 'actions/app-state';
+} from '../actions/questionnaire';
+import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
 
 describe('loadQuestionnaireSuccess', () => {
   test('when called directly', () => {
