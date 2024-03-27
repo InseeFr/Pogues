@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './auth';
+import { OidcProvider } from './auth/provider/newOIDCSPA';
 import Router from './router';
 import configureStore from './store/configure-store';
 import { getInit } from './utils/remote-api';
@@ -13,11 +13,11 @@ const renderApp = (Component, init) => {
   const root = createRoot(container);
   root.render(
     <Provider store={store}>
-      <AuthProvider store={store}>
+      <OidcProvider>
         <BrowserRouter>
           <Component />
         </BrowserRouter>
-      </AuthProvider>
+      </OidcProvider>
     </Provider>,
   );
 };

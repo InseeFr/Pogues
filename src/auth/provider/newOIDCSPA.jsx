@@ -25,35 +25,31 @@ const dummyOidcClient = {
   },
 };
 
+const dummyUseOidc = () => dummyOidcClient;
+
 const { authUrl, realm, client_id } = oidcConf;
 
 export const AuthContext = React.createContext(dummyOidcClient);
 
-export function AuthProvider({ children }) {
+const createAuth = () => {
   if (authType === 'oidc') {
     const { OidcProvider, useOidc } = createReactOidc({
       issuerUri: `${authUrl}/realms/${realm}`,
       clientId: client_id,
-      /**
-       * - `your-app.com/${publicUrl}silent-sso.html` must serve the file
-       *   that you have created in the setup process.
-       * - `your-app.com/${publicUrl}` must be the homepage of your webapp.
-       *
-       * Vite:  `publicUrl: import.meta.env.BASE_URL`
-       * CRA:   `publicUrl: process.env.PUBLIC_URL`
-       * Other: `publicUrl: "/"` (Usually)
-       */
       publicUrl: `${window.location.origin}`,
     });
+
     return {
       useOidc,
       OidcProvider,
     };
   }
+  return {
+    useOidc: dummyUseOidc,
+    OidcProvider: ({ children }) => (
+      <AuthContext.Provider>{children}</AuthContext.Provider>
+    ),
+  };
+};
 
-  return (
-    <AuthContext.Provider value={dummyOidcClient}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+export const { OidcProvider, useOidc } = createAuth();
