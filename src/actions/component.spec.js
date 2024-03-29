@@ -1,12 +1,13 @@
+import { vi } from 'vitest';
 import * as component from './component';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 
 const { QUESTION, SUBSEQUENCE, SEQUENCE } = COMPONENT_TYPE;
 
-jest.mock('./component-move');
-jest.mock('./component-update');
-jest.mock('./component-remove');
-jest.mock('./component-insert');
+vi.mock('./component-move');
+vi.mock('./component-update');
+vi.mock('./component-remove');
+vi.mock('./component-insert');
 
 describe('updateParentChildren', () => {
   function getState() {

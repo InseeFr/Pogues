@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { remoteToState, stateToRemote } from './response-format';
 import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
@@ -10,10 +11,10 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 describe('response transformation', () => {
   describe('remoteToState', () => {
-    ResponseFormatSimple.remoteToState = jest.fn();
-    ResponseFormatSingle.remoteToState = jest.fn();
-    ResponseFormatMultiple.remoteToState = jest.fn();
-    ResponseFormatTable.remoteToState = jest.fn();
+    ResponseFormatSimple.remoteToState = vi.fn();
+    ResponseFormatSingle.remoteToState = vi.fn();
+    ResponseFormatMultiple.remoteToState = vi.fn();
+    ResponseFormatTable.remoteToState = vi.fn();
 
     const mockResponses = {
       [SIMPLE]: {
@@ -84,10 +85,10 @@ describe('response transformation', () => {
   });
 
   describe('remoteToState', () => {
-    ResponseFormatSimple.stateToRemote = jest.fn();
-    ResponseFormatSingle.stateToRemote = jest.fn();
-    ResponseFormatMultiple.stateToRemote = jest.fn();
-    ResponseFormatTable.stateToRemote = jest.fn();
+    ResponseFormatSimple.stateToRemote = vi.fn();
+    ResponseFormatSingle.stateToRemote = vi.fn();
+    ResponseFormatMultiple.stateToRemote = vi.fn();
+    ResponseFormatTable.stateToRemote = vi.fn();
 
     const mockResponses = {
       [SIMPLE]: {

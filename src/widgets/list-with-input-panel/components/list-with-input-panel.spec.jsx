@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import ListWithInputPanel from './list-with-input-panel';
 
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
@@ -104,7 +104,7 @@ describe('<ListWithInputPanel', () => {
       ];
 
       buttons.forEach(btn => {
-        const spy = jest.fn();
+        const spy = vi.fn();
         wrapper = buildFakeListWithPanel({ ...props, [btn.action]: spy });
         wrapper.find(`.${btn.className}`).simulate('click', fakeEvent);
         expect(spy).toHaveBeenCalled();

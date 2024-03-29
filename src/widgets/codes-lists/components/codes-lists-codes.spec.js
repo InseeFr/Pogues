@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import CodesListCodes from './codes-lists-codes';
 
 import {
@@ -12,7 +12,7 @@ import {
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 
-jest.mock('../containers/codes-lists-input-code-container', () => {
+vi.mock('../containers/codes-lists-input-code-container', () => {
   return {
     __esModule: true,
     default: () => {
@@ -54,7 +54,7 @@ describe('<CodesListCodes />', () => {
   });
 
   test.skip('Should insert in the list of codes a new code with the form values when enter is tapped in the code field', () => {
-    const spyPushFromCodeEnter = jest.fn();
+    const spyPushFromCodeEnter = vi.fn();
 
     // Enter in the code field
     customProps.fields.push = spyPushFromCodeEnter;

@@ -1,8 +1,10 @@
-jest.mock('../../../utils/dictionary/dictionary', () => {
-  return {
+import { vi } from 'vitest';
+
+vi.mock('../../../utils/dictionary/dictionary', () => ({
+  default: {
     no_FAKE_NAME: 'This is a no items message fake',
-  };
-});
+  },
+}));
 
 import React from 'react';
 import { shallow } from 'enzyme';

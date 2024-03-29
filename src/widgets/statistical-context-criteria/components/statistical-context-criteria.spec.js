@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import StatisticalContextCriteria from './statistical-context-criteria';
 
 import Select from '../../../forms/controls/select';
@@ -104,7 +104,7 @@ describe('<StatisticalContextCriteria />', () => {
 
   describe('Actions', () => {
     test('Should call "loadSeriesIfNeeded" at the beginning', () => {
-      const spyLoadSeriesIfNeeded = jest.fn();
+      const spyLoadSeriesIfNeeded = vi.fn();
       props.loadSeriesIfNeeded = spyLoadSeriesIfNeeded;
       shallow(<StatisticalContextCriteria {...props} />);
 
@@ -115,7 +115,7 @@ describe('<StatisticalContextCriteria />', () => {
       'Should call "loadOperationsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
         'selected serie changes using the new value',
       () => {
-        const spyLoadOperationsIfNeeded = jest.fn();
+        const spyLoadOperationsIfNeeded = vi.fn();
         const selectedSerieFirst = 'FAKE_ID_01';
         const selectedSerieSecond = 'FAKE_ID_02';
 
@@ -143,7 +143,7 @@ describe('<StatisticalContextCriteria />', () => {
       'Should call "loadCampaignsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
         'selected serie changes using the new value only if the prop campaigns exists',
       () => {
-        const spyLoadCampaignsIfNeeded = jest.fn();
+        const spyLoadCampaignsIfNeeded = vi.fn();
         const selectedOperationFirst = 'FAKE_ID_01';
         const selectedOperationSecond = 'FAKE_ID_02';
 
@@ -185,8 +185,8 @@ describe('<StatisticalContextCriteria />', () => {
       'Should call "change" one time with the corresponding parameters when the selected serie changes and the prop ' +
         'campaign exists',
       () => {
-        const spyChangeFirst = jest.fn();
-        const spyChangeSecond = jest.fn();
+        const spyChangeFirst = vi.fn();
+        const spyChangeSecond = vi.fn();
         const selectedSerie = 'FAKE_ID_01';
 
         props.change = spyChangeFirst;
@@ -215,8 +215,8 @@ describe('<StatisticalContextCriteria />', () => {
       'Should call "change" one time with the corresponding parameters whent the selected operation changes and ' +
         'the prop campaign exists',
       () => {
-        const spyChangeFirst = jest.fn();
-        const spyChangeSecond = jest.fn();
+        const spyChangeFirst = vi.fn();
+        const spyChangeSecond = vi.fn();
         const selectedOperation = 'FAKE_ID_01';
 
         props.change = spyChangeFirst;

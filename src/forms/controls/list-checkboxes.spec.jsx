@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { vi } from 'vitest';
 
 import ListCheckboxes from './list-checkboxes';
 import GenericOption from './generic-option';
@@ -31,7 +32,7 @@ describe('Form controls - List checkboxes', () => {
     let props;
 
     beforeEach(() => {
-      onChangeSpy = jest.fn();
+      onChangeSpy = vi.fn();
       props = {
         ...fakeFieldProps,
         input: {

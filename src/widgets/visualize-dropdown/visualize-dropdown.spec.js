@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import VisualizeDropdown from './components/visualize-dropdown';
 
 describe('Visualize Dropdown Component: ', () => {
@@ -59,7 +59,7 @@ describe('Visualize Dropdown Component: ', () => {
 
   test('Should call the visualizeActiveQuestionnaire method and hide the dropdown', () => {
     const props = {
-      visualizeActiveQuestionnaire: jest.fn(),
+      visualizeActiveQuestionnaire: vi.fn(),
       disabled: true,
       top: false,
       componentId: 'component-id',

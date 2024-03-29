@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tab > Should exists with the corresponding template 1`] = `
+<div
+  className="nav-content"
+>
+  <div>
+    Fake Children
+  </div>
+</div>
+`;

@@ -1,4 +1,6 @@
-jest.dontMock('./header');
+import { vi } from 'vitest';
+
+vi.unMock('./header');
 
 import React from 'react';
 import { shallow } from 'enzyme';

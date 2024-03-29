@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { loadUnitsIfNeeded } from './metadata';
 
 describe('loadUnitsIfNeeded', () => {
@@ -5,7 +6,7 @@ describe('loadUnitsIfNeeded', () => {
     const getState = function () {
       return { metadataByType: { units: 'units' } };
     };
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     loadUnitsIfNeeded()(dispatch, getState);
     expect(dispatch).toHaveBeenCalledTimes(0);
   });
@@ -14,7 +15,7 @@ describe('loadUnitsIfNeeded', () => {
     const getState = function () {
       return { metadataByType: {} };
     };
-    const dispatch = jest.fn();
+    const dispatch = vi.fn();
     loadUnitsIfNeeded()(dispatch, getState);
     expect(dispatch).toHaveBeenCalled();
   });
