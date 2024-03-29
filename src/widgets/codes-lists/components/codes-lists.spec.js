@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import CodesLists from './codes-lists';
 import CodesListsCodes from './codes-lists-codes';
 
@@ -12,7 +12,7 @@ const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 
-jest.mock('../../../forms/controls/control-with-suggestions', () => {
+vi.mock('../../../forms/controls/control-with-suggestions', () => {
   return {
     __esModule: true,
     default: () => {

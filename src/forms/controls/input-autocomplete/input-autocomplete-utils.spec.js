@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import {
   clearSuggestions,
   setSuggestions,
@@ -69,7 +70,7 @@ describe('Form controls - Input autocomplete - Utils', () => {
   });
 
   test('updateSelectedOption', () => {
-    const spyOnChange = jest.fn();
+    const spyOnChange = vi.fn();
 
     updateSelectedOption(options, spyOnChange);
     expect(spyOnChange).not.toHaveBeenCalled();

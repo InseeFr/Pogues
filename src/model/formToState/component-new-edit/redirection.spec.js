@@ -1,4 +1,6 @@
-jest.dontMock('./redirection.jsx');
+import { vi } from 'vitest';
+
+vi.unmock('./redirection.jsx');
 
 import RedirectionTransformerFactory from './redirection';
 import {

@@ -1,5 +1,6 @@
+import { vi } from 'vitest';
 import { remoteToState, stateToRemote } from './response-format-simple';
-import * as Response from './response';
+import { stateToRemote as ResponseStateToRemote } from './response';
 import { DATATYPE_NAME } from '../../constants/pogues-constants';
 
 describe('redirection transformation', () => {
@@ -195,12 +196,12 @@ describe('redirection transformation', () => {
   });
   describe('stateToRemote', () => {
     beforeEach(() => {
-      Response.stateToRemote = jest.fn();
-      Response.stateToRemote.mockReturnValueOnce({ id: '2' });
+      ResponseStateToRemote = vi.fn();
+      ResponseStateToRemote.mockReturnValueOnce({ id: '2' });
     });
 
     afterEach(() => {
-      Response.stateToRemote.mockClear();
+      ResponseStateToRemote.mockReset();
     });
 
     it('should return the remote representation of a simple response', () => {
@@ -214,7 +215,7 @@ describe('redirection transformation', () => {
         [{ id: '1' }],
       );
       expect(result).toEqual({ Response: [{ id: '2' }] });
-      expect(Response.stateToRemote).toHaveBeenCalledWith({
+      expect(ResponseStateToRemote).toHaveBeenCalledWith({
         minimum: 1,
         maximum: 2,
         id: '2',
@@ -243,7 +244,7 @@ describe('redirection transformation', () => {
           [{ id: '1' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
+        expect(ResponseStateToRemote).toHaveBeenCalledWith({
           maximum: 'P3Y4M',
           minimum: 'P1Y0M',
           format: 'PnYnM',
@@ -271,7 +272,7 @@ describe('redirection transformation', () => {
           [{ id: '1' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
+        expect(ResponseStateToRemote).toHaveBeenCalledWith({
           maximum: 'PT3H4M',
           minimum: 'PT1H2M',
           format: 'PTnHnM',
@@ -300,7 +301,7 @@ describe('redirection transformation', () => {
           [{ id: '1' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
+        expect(ResponseStateToRemote).toHaveBeenCalledWith({
           maximum: '03:04',
           minimum: '00:02',
           format: 'HH:CH',
@@ -329,7 +330,7 @@ describe('redirection transformation', () => {
           [{ id: '3' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
+        expect(ResponseStateToRemote).toHaveBeenCalledWith({
           format: 'PTnHnM',
           id: '2',
           mandatory: true,
@@ -357,7 +358,7 @@ describe('redirection transformation', () => {
         [{ id: '3' }],
       );
       expect(result).toEqual({ Response: [{ id: '2' }] });
-      expect(Response.stateToRemote).toHaveBeenCalledWith({
+      expect(ResponseStateToRemote).toHaveBeenCalledWith({
         format: 'HH:CH',
         id: '2',
         mandatory: true,
@@ -379,7 +380,7 @@ describe('redirection transformation', () => {
           [{ id: '1' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
+        expect(ResponseStateToRemote).toHaveBeenCalledWith({
           format: '2000',
           id: '2',
           mandatory: true,
@@ -399,7 +400,7 @@ describe('redirection transformation', () => {
           [{ id: '1' }],
         );
         expect(result).toEqual({ Response: [{ id: '2' }] });
-        expect(Response.stateToRemote).toHaveBeenCalledWith({
+        expect(ResponseStateToRemote).toHaveBeenCalledWith({
           minimum: 1,
           maximum: 2,
           format: '2000',

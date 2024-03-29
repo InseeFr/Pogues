@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import QuestionnaireNav from './questionnaire-nav';
 
 import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
@@ -10,7 +10,7 @@ const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 
 // We need to mock this import, otherwise the import of VTL-Editor crashes the test
 
-jest.mock('../component-edit', () => {
+vi.mock('../component-edit', () => {
   return {
     __esModule: true,
     default: () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { vi } from 'vitest';
 import ArboSimplified from './arbo-simplifield';
 import { shallow } from 'enzyme';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
@@ -11,7 +11,7 @@ const mockEvent = {
 };
 
 describe('<ArboSimplified />', () => {
-  const spysetSelectedComponentId = jest.fn();
+  const spysetSelectedComponentId = vi.fn();
   const props = {
     questionnaire: { id: '0' },
     components: {

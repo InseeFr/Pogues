@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import { componentSource, cardTarget, collect } from './component-dragndrop';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 
-jest.mock('./component-utils');
+vi.mock('./component-utils');
 
 describe('componentSource', () => {
   describe('beginDrag', () => {

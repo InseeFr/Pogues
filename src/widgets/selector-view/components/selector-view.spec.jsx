@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { decoreFormField } from '../../../utils/test/test-utils.jsx';
 
-import SelectorView from './selector-view';
+import SelectorView from './selector-view.jsx';
 
 describe('Tab', () => {
   test('Should exists with the corresponding template with select', () => {

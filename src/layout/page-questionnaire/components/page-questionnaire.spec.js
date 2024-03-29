@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { vi } from 'vitest';
 
 // Not connected to store
 import PageQuestionnaire from './page-questionnaire';
@@ -11,7 +12,7 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 
-jest.mock('../questionnaire-list-components', () => {
+vi.mock('../questionnaire-list-components', () => {
   return {
     __esModule: true,
     default: () => {
@@ -25,7 +26,7 @@ jest.mock('../questionnaire-list-components', () => {
   };
 });
 
-jest.mock('../component-edit', () => {
+vi.mock('../component-edit', () => {
   return {
     __esModule: true,
     default: () => {
@@ -37,7 +38,7 @@ jest.mock('../component-edit', () => {
   };
 });
 
-jest.mock('../component-new', () => {
+vi.mock('../component-new', () => {
   return {
     __esModule: true,
     default: () => {
@@ -57,10 +58,10 @@ describe('<PageQuestionnaire />', () => {
     useEffect.mockImplementation(f => f());
   };
 
-  const spySetActiveQuestionnaire = jest.fn();
-  const spySetActiveComponents = jest.fn();
-  const spySetActiveCodeLists = jest.fn();
-  const spySetActiveVariables = jest.fn();
+  const spySetActiveQuestionnaire = vi.fn();
+  const spySetActiveComponents = vi.fn();
+  const spySetActiveCodeLists = vi.fn();
+  const spySetActiveVariables = vi.fn();
 
   const props = {
     id: 'FAKE_ID',
@@ -83,7 +84,7 @@ describe('<PageQuestionnaire />', () => {
   };
 
   beforeEach(() => {
-    useEffect = jest.spyOn(React, 'useEffect');
+    useEffect = vi.spyOn(React, 'useEffect');
     mockUseEffect();
     mockUseEffect();
     wrapper = shallow(<PageQuestionnaire {...props} />);

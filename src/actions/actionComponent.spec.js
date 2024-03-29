@@ -1,7 +1,8 @@
+import { vi } from 'vitest';
 import * as actionComponent from './actionComponent';
 
-jest.mock('./component-update');
-jest.mock('./component-remove');
+vi.mock('./component-update');
+vi.mock('./component-remove');
 describe('updateComponent', () => {
   test('should trigger the UPDATE_COMPONENT action', () => {
     function getState() {

@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
 import * as component from './component-move';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 
 const { SEQUENCE, QUESTION, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
-jest.mock('./component-remove');
+vi.mock('./component-remove');
 
 describe('getWeightAndParentId', () => {
   test('if dragndropLevel = -2', () => {

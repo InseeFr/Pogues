@@ -1,4 +1,17 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DropZone > Should have this default template 1`] = `
+<div
+  className="questionnaire-element-drop-zone"
+  style={{}}
+>
+  <div
+    className="questionnaire-element-label"
+  >
+    Drop here !
+  </div>
+</div>
+`;
 
 exports[`DropZone Should have this default template 1`] = `
 <div

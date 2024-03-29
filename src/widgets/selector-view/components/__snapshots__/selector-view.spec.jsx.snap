@@ -1,0 +1,99 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tab > Should exists with the corresponding template with radio 1`] = `
+<div>
+  <div
+    className="ctrl-list-radios"
+  >
+    <label
+      htmlFor="radios-type-value1"
+    >
+      fake label
+      <span
+        className="ctrl-required"
+      >
+        *
+      </span>
+    </label>
+    <div>
+      <label
+        className="radio-inline"
+        htmlFor="radios-type-value1"
+      >
+        <input
+          checked={false}
+          disabled={false}
+          id="radios-type-value1"
+          name="type"
+          onChange={[Function]}
+          type="radio"
+          value="value1"
+        />
+        label1
+      </label>
+      <label
+        className="radio-inline"
+        htmlFor="radios-type-value2"
+      >
+        <input
+          checked={false}
+          disabled={false}
+          id="radios-type-value2"
+          name="type"
+          onChange={[Function]}
+          type="radio"
+          value="value2"
+        />
+        label2
+      </label>
+    </div>
+  </div>
+  Fake Children2
+</div>
+`;
+
+exports[`Tab > Should exists with the corresponding template with select 1`] = `
+<div>
+  <div
+    className="ctrl-select"
+  >
+    <label
+      htmlFor="select-type"
+    >
+      fake label
+      <span
+        className="ctrl-required"
+      >
+        *
+      </span>
+    </label>
+    <div>
+      <select
+        disabled={false}
+        id="select-type"
+        multiple={false}
+        name="type"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="fake label"
+        value=""
+      >
+        <option
+          value="value1"
+        >
+          label1
+        </option>
+        <option
+          value="value2"
+        >
+          label2
+        </option>
+      </select>
+    </div>
+  </div>
+  Fake Children2
+</div>
+`;

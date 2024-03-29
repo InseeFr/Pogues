@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import { vi } from 'vitest';
 import InputFilterWithCriteria from './input-filter-with-criteria';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
@@ -35,8 +35,8 @@ describe('<InputFilterWithCriteria />', () => {
   });
 
   test('Should call "search" at the beggining only if the prop "loadOnInit" is true', () => {
-    const spySearchFirst = jest.fn();
-    const spySearchSecond = jest.fn();
+    const spySearchFirst = vi.fn();
+    const spySearchSecond = vi.fn();
 
     props.loadSearchResult = spySearchFirst;
     shallow(<InputFilterWithCriteria {...props} />);
@@ -52,7 +52,7 @@ describe('<InputFilterWithCriteria />', () => {
   test.skip('Should call "search" with the text existing in the "input" action when the "button" is clicked', () => {
     // @TODO: Find a way to test refs
 
-    const spySearch = jest.fn();
+    const spySearch = vi.fn();
     const text = 'This is a fake test';
 
     props.loadSearchResult = spySearch;

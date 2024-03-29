@@ -1,4 +1,6 @@
-jest.dontMock('./declaration.jsx');
+import { vi } from 'vitest';
+
+vi.unmock('./declaration.jsx');
 
 import DeclarationTransformerFactory from './declaration';
 import {

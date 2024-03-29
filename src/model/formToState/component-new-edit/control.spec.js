@@ -1,4 +1,6 @@
-jest.dontMock('./control.jsx');
+import { vi } from 'vitest';
+
+vi.unmock('./control.jsx');
 
 import ControlTransformerFactory from './control';
 import {

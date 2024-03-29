@@ -1,4 +1,6 @@
-jest.dontMock('./questionnaire-list');
+import { vi } from 'vitest';
+
+vi.unmock('./questionnaire-list');
 
 import React from 'react';
 import { shallow } from 'enzyme';

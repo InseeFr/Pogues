@@ -1,4 +1,6 @@
-jest.dontMock('./user-connection-container');
+import { vi } from 'vitest';
+
+vi.unmock('./user-connection-container');
 
 import React from 'react';
 import { shallow } from 'enzyme';
