@@ -5,6 +5,8 @@ import {
   getCampaigns,
   getVariablesById,
   getQuestionnaire,
+  getNomenclatures,
+  getNomenclature,
 } from 'utils/remote-api';
 
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';
@@ -15,6 +17,7 @@ const LOAD_OPERATIONS = 'LOAD_OPERATIONS';
 const LOAD_CAMPAIGNS = 'LOAD_CAMPAIGNS';
 const LOAD_EXTERNAL_ELEMENTS_VARIABLES = 'LOAD_EXTERNAL_ELEMENTS_VARIABLES';
 const LOAD_EXTERNAL_ELEMENTS_LOOPS = 'LOAD_EXTERNAL_ELEMENTS_LOOPS';
+const LOAD_NOMENCLATURES = 'LOAD_NOMENCLATURES';
 
 export const loadMetadataSuccess = (type, metadata) => {
   const metadataByTypeStore = metadata.reduce((acc, m) => {
@@ -297,4 +300,62 @@ export const loadExternalQuestionnairesIfNeeded =
       !state.metadataByType.externalQuestionnairesLoops?.idExternalQuestionnaire
     )
       dispatch(loadExternalQuestionnairesLoops(idExternalQuestionnaire, token));
+  };
+
+// Metadata : Nomenclatures
+
+export const loadNomenclatures = token => async dispatch => {
+  dispatch({
+    type: LOAD_NOMENCLATURES,
+    payload: null,
+  });
+
+  try {
+    const nomenclatures = await getNomenclatures(token);
+    const nomenclaturesMetadata = Object.values(
+      nomenclatures.nomenclatures,
+    ).map(nomenclature => ({
+      id: nomenclature.id,
+      label: nomenclature.label,
+    }));
+    return dispatch(
+      loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
+    );
+  } catch (err) {
+    return dispatch(loadMetadataFailure(err));
+  }
+};
+
+export const loadNomenclaturesIfNeeded = token => (dispatch, getState) => {
+  const state = getState();
+  const { nomenclatures } = state.metadataByType;
+  if (!nomenclatures) dispatch(loadNomenclatures(token));
+};
+
+export const loadNomenclature =
+  (token, id, nomenclatures) => async dispatch => {
+    dispatch({
+      type: LOAD_NOMENCLATURES,
+      payload: null,
+    });
+
+    try {
+      const nomenclature = await getNomenclature(id, token);
+      const nomenclaturesMetadata = Object.values({
+        ...nomenclatures,
+        [id]: {
+          id,
+          name: nomenclature.name,
+          label: nomenclature.label,
+          urn: nomenclature.urn,
+          suggesterParameters: nomenclature.parameters,
+          codes: nomenclature.codes,
+        },
+      });
+      return dispatch(
+        loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
+      );
+    } catch (err) {
+      return dispatch(loadMetadataFailure(err));
+    }
   };

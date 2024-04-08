@@ -367,9 +367,11 @@ function getClarificationresponseSingleChoiseQuestion(
     }
   });
   collectedvariablequestion.forEach(collected => {
-    const code = Object.values(
-      codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
-    ).find(code => code.weight === collected.z);
+    const code = codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].urn
+      ? false
+      : Object.values(
+          codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
+        ).find(code => code.weight === collected.z);
     if (code) {
       const findResponse = responsesClarification
         ? responsesClarification.find(
@@ -536,7 +538,10 @@ function getClarificationResponseTableQuestion(
 
   if (responseFormat.TABLE.LIST_MEASURE) {
     responseFormat.TABLE.LIST_MEASURE.forEach(mesure => {
-      if (mesure.SINGLE_CHOICE?.CodesList.id) {
+      if (
+        mesure.SINGLE_CHOICE?.CodesList.id &&
+        !codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].urn
+      ) {
         Object.values(
           codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
         ).forEach(code => {
