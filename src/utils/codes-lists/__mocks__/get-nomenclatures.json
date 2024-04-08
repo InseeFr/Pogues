@@ -401,10 +401,10 @@
       "urn": "urn:ddi:fr.insee:l_langues-1-0-0:1",
       "codes": []
     },
-    "EAP_PRODUCTS": {
-      "id": "EAP_PRODUCTS",
-      "name": "EAP_PRODUCTS",
-      "label": "EAP - Produits",
+    "L_PRODEAP_VPI_2022": {
+      "id": "L_PRODEAP_VPI_2022",
+      "name": "L_PRODEAP_VPI_2022",
+      "label": "EAP - Produits - vente de produits industriels",
       "parameters": {
         "version": 1,
         "fields": [
@@ -440,7 +440,217 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:eap_products:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpi_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_VNPI_2022": {
+      "id": "L_PRODEAP_VNPI_2022",
+      "name": "L_PRODEAP_VNPI_2022",
+      "label": "EAP - Produits - vente de produits non industriels",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_vnpi_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_DECHETS_2022": {
+      "id": "L_PRODEAP_DECHETS_2022",
+      "name": "L_PRODEAP_DECHETS_2022",
+      "label": "EAP - Produits - déchets",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_dechets_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_EAU_2022": {
+      "id": "L_PRODEAP_EAU_2022",
+      "name": "L_PRODEAP_EAU_2022",
+      "label": "EAP - Produits - eau",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_eau_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_ENERGIE_2022": {
+      "id": "L_PRODEAP_ENERGIE_2022",
+      "name": "L_PRODEAP_ENERGIE_2022",
+      "label": "EAP - Produits - énergie",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_energie_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_INSTAL_REPAR_2022": {
+      "id": "L_PRODEAP_INSTAL_REPAR_2022",
+      "name": "L_PRODEAP_INSTAL_REPAR_2022",
+      "label": "EAP - Produits - installation - réparation",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2022:1",
       "codes": []
     }
   }
