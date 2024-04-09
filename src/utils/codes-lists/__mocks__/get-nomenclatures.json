@@ -444,8 +444,8 @@
       "codes": []
     },
     "L_PRODEAP_VNPI_2022": {
-      "id": "L_PRODEAP_VNPI_2022",
-      "name": "L_PRODEAP_VNPI_2022",
+      "id": "L_PRODEAP_VPNI_2022",
+      "name": "L_PRODEAP_VPNI_2022",
       "label": "EAP - Produits - vente de produits non industriels",
       "parameters": {
         "version": 1,
@@ -482,7 +482,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_vnpi_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpni_2022:1",
       "codes": []
     },
     "L_PRODEAP_DECHETS_2022": {
