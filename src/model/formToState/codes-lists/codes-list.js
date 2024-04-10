@@ -20,27 +20,56 @@ export const defaultForm = {
 };
 
 export function formToState(form) {
-  const { id, label, codes } = form;
-  const codesStore = (codes || []).reduce((acc, c) => {
+  const {
+    id,
+    label,
+    codes = [],
+    name = '',
+    urn = '',
+    suggesterParameters = {},
+  } = form;
+  const codesStore = codes.reduce((acc, c) => {
     return {
       ...acc,
       [c.value]: { ...c },
     };
   }, {});
-  return {
-    id: id || uuid(),
-    label: label || '',
-    codes: codesStore,
-  };
+  return urn === ''
+    ? {
+        id: id || uuid(),
+        label: label || '',
+        codes: codesStore,
+      }
+    : {
+        id,
+        name,
+        label,
+        urn,
+        suggesterParameters,
+      };
 }
 
-export function stateComponentToForm({ id, label, codes }) {
-  const codesList = Object.keys(codes || {}).map(key => codes[key]);
-  return merge(cloneDeep(defaultForm), {
-    id: id || '',
-    label: label || '',
-    codes: codesList,
-  });
+export function stateComponentToForm({
+  id = '',
+  name = '',
+  label = '',
+  codes = {},
+  urn = '',
+  suggesterParameters = {},
+}) {
+  return urn !== ''
+    ? {
+        id,
+        name,
+        label,
+        urn,
+        suggesterParameters,
+      }
+    : merge(cloneDeep(defaultForm), {
+        id,
+        label,
+        codes: Object.keys(codes).map(key => codes[key]),
+      });
 }
 
 export const Factory = (currentState = {}, codesListsStore) => {

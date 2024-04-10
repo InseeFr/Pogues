@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { getUrlFromCriterias } from 'utils/utils';
 import { getEnvVar } from 'utils/env';
+import getNomenclaturesContent from 'utils/codes-lists/__mocks__/get-nomenclatures.json';
 
 const configurationURL = `${window.location.origin}/configuration.json`;
 
@@ -253,4 +254,12 @@ export const getSearchResults = async (
       filter,
     }),
   }).then(res => res.json());
+};
+
+export const getNomenclatures = async () => {
+  return getNomenclaturesContent;
+};
+
+export const getNomenclature = async id => {
+  return getNomenclaturesContent.nomenclatures[id];
 };

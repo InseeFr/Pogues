@@ -1,0 +1,657 @@
+{
+  "nomenclatures": {
+    "L_ACTIVITES-2-0-0": {
+      "id": "L_ACTIVITES-2-0-0",
+      "name": "L_ACTIVITES-2-0-0",
+      "label": "Activités",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
+              "plaquisterie": ["PLACO", "PLACOPLATRE"],
+              "pneumatiques": ["PNEUS"],
+              "prestations": ["PRESTATAIRE"],
+              "echafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
+              "briqueterie": ["BRIQUETTERIE"],
+              "joaillerie": ["JOAILLIER"],
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
+              "alimentaire": ["ALIMANTAIRE"],
+              "alimentaires": ["ALIMANTAIRES"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMENTAIRES"]
+            }
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "et",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_activites-2-0-0:1",
+      "codes": []
+    },
+    "L_COMMUNEPASSEE-1-2-0": {
+      "id": "L_COMMUNEPASSEE-1-2-0",
+      "name": "L_COMMUNEPASSEE-1-2-0",
+      "label": "Communes (historique sur 5 ans)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_communepassee-1-2-0:1",
+      "codes": []
+    },
+    "L_DEP-1-1-0": {
+      "id": "L_DEP-1-1-0",
+      "name": "L_DEP-1-1-0",
+      "label": "Départements",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": "soft"
+          },
+          {
+            "name": "id",
+            "rules": "soft"
+          }
+        ],
+        "order": {
+          "field": "label",
+          "type": "ascending"
+        },
+        "queryParser": { "type": "soft" },
+        "version": 1
+      },
+      "urn": "urn:ddi:fr.insee:l_dep-1-1-0:1",
+      "codes": []
+    },
+    "L_PAYS-1-2-0": {
+      "id": "L_PAYS-1-2-0",
+      "name": "L_PAYS-1-2-0",
+      "label": "Pays",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_pays-1-2-0:1",
+      "codes": []
+    },
+    "L_NATIONALITE-1-2-0": {
+      "id": "L_NATIONALITE-1-2-0",
+      "name": "L_NATIONALITE-1-2-0",
+      "label": "Nationalités",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_nationalite-1-2-0:1",
+      "codes": []
+    },
+    "L_PCS_HOMMES-2-1-0": {
+      "id": "L_PCS_HOMMES-2-1-0",
+      "name": "L_PCS_HOMMES-2-1-0",
+      "label": "Professions masculin",
+      "parameters": {
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "accueil": ["ACCEUIL"],
+              "échafaudage": ["ECHAFFAUDAGE"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "fabrication": ["FABRICANT"],
+              "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
+              "ascenseur": ["ASCENCEUR", "ASSENCEUR"],
+              "ascenseurs": ["ASCENCEURS", "ASSENCEURS"],
+              "alimentaires": ["ALIMANTAIRE"],
+              "agroalimentaire": ["AGROALIMANTAIRE", "AGGROALIMANTAIRE"],
+              "agroalimentaires": ["AGROALIMANTAIRE", "AGGROALIMANTAIRES"]
+            }
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "version": 1,
+        "meloto": true,
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "et",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-1-0:1",
+      "codes": []
+    },
+    "L_PCS_FEMMES-2-1-0": {
+      "id": "L_PCS_FEMMES-2-1-0",
+      "name": "L_PCS_FEMMES-2-1-0",
+      "label": "Professions féminin",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "accueil": ["ACCEUIL"],
+              "échafaudage": ["ECHAFFAUDAGE"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "fabrication": ["FABRICANT"],
+              "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
+              "ascenseur": ["ASCENCEUR", "ASSENCEUR"],
+              "ascenseurs": ["ASCENCEURS", "ASSENCEURS"],
+              "alimentaires": ["ALIMANTAIRE"],
+              "agroalimentaire": ["AGROALIMANTAIRE", "AGGROALIMANTAIRE"],
+              "agroalimentaires": ["AGROALIMANTAIRE", "AGGROALIMANTAIRES"]
+            }
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "meloto": true,
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "et",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-1-0:1",
+      "codes": []
+    },
+    "L_DIPLOMES-2-0-0": {
+      "id": "L_DIPLOMES-2-0-0",
+      "name": "L_DIPLOMES-2-0-0",
+      "label": "Diplomes",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          { "name": "id" }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_diplomes-2-0-0:1",
+      "codes": []
+    },
+    "L_SPECIALITES-1-0-0": {
+      "id": "L_SPECIALITES-1-0-0",
+      "name": "L_SPECIALITES-1-0-0",
+      "label": "Spécialités (dans les diplomes)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          { "name": "id" }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_specialites-1-0-0:1",
+      "codes": []
+    },
+    "L_LANGUES-1-0-0": {
+      "id": "L_LANGUES-1-0-0",
+      "name": "L_LANGUES-1-0-0",
+      "label": "Langues",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_langues-1-0-0:1",
+      "codes": []
+    },
+    "L_PRODEAP_VPI_2022": {
+      "id": "L_PRODEAP_VPI_2022",
+      "name": "L_PRODEAP_VPI_2022",
+      "label": "EAP - Produits - vente de produits industriels",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpi_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_VPNI_2022": {
+      "id": "L_PRODEAP_VPNI_2022",
+      "name": "L_PRODEAP_VPNI_2022",
+      "label": "EAP - Produits - vente de produits non industriels",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpni_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_DECHETS_2022": {
+      "id": "L_PRODEAP_DECHETS_2022",
+      "name": "L_PRODEAP_DECHETS_2022",
+      "label": "EAP - Produits - déchets",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_dechets_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_EAU_2022": {
+      "id": "L_PRODEAP_EAU_2022",
+      "name": "L_PRODEAP_EAU_2022",
+      "label": "EAP - Produits - eau",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_eau_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_ENERGIE_2022": {
+      "id": "L_PRODEAP_ENERGIE_2022",
+      "name": "L_PRODEAP_ENERGIE_2022",
+      "label": "EAP - Produits - énergie",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_energie_2022:1",
+      "codes": []
+    },
+    "L_PRODEAP_INSTAL_REPAR_2022": {
+      "id": "L_PRODEAP_INSTAL_REPAR_2022",
+      "name": "L_PRODEAP_INSTAL_REPAR_2022",
+      "label": "EAP - Produits - installation - réparation",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2022:1",
+      "codes": []
+    }
+  }
+}

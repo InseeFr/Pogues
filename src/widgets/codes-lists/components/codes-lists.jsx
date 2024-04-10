@@ -38,16 +38,16 @@ function getSelectorOptions(panels) {
 export const propTypes = {
   selectorPath: PropTypes.string.isRequired,
   selectorPathParent: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
-  activePanel: PropTypes.string,
+  path: PropTypes.string.isRequired,
   currentId: PropTypes.string,
-  codesListsStore: PropTypes.object,
   currentCodesListsStore: PropTypes.object,
-  change: PropTypes.func.isRequired,
-  arrayPush: PropTypes.func.isRequired,
-  arrayRemoveAll: PropTypes.func.isRequired,
+  codesListsStore: PropTypes.object,
+  isSearchDisable: PropTypes.bool.isRequired,
+  activePanel: PropTypes.string,
   clearSearchResult: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired,
+  arrayRemoveAll: PropTypes.func.isRequired,
 };
 
 export const defaultProps = {
@@ -57,22 +57,20 @@ export const defaultProps = {
   currentCodesListsStore: {},
 };
 
-const CodesLists = props => {
-  const {
-    change,
-    arrayRemoveAll,
-    formName,
-    path,
-    currentId,
-    codesListsStore,
-    clearSearchResult,
-    selectorPathParent,
-    selectorPath,
-    activePanel,
-    currentCodesListsStore,
-    isSearchDisable,
-  } = props;
-
+const CodesLists = ({
+  selectorPath,
+  selectorPathParent,
+  formName,
+  path,
+  currentId,
+  currentCodesListsStore,
+  codesListsStore,
+  isSearchDisable,
+  activePanel,
+  clearSearchResult,
+  change,
+  arrayRemoveAll,
+}) => {
   const refDiv = useRef(null);
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
@@ -161,6 +159,7 @@ const CodesLists = props => {
               </GenericOption>
               {storeToArray(currentCodesListsStore)
                 .sort((cl1, cl2) => cl1.label.localeCompare(cl2.label))
+                .filter(cl => cl.codes)
                 .map(cl => (
                   <GenericOption key={cl.id} value={cl.id}>
                     {cl.label}
@@ -204,5 +203,8 @@ const CodesLists = props => {
     </FormSection>
   );
 };
+
+CodesLists.propTypes = propTypes;
+CodesLists.defaultProps = defaultProps;
 
 export default CodesLists;

@@ -3,7 +3,6 @@ import {
   remoteToStore,
   remoteToState,
   storeToRemote,
-  getcodelistwithclarification,
 } from './codes-list';
 
 describe('codes list tranformations', () => {
@@ -310,8 +309,6 @@ describe('codes list tranformations', () => {
           type: 'SINGLE_CHOICE',
         },
       ];
-
-      const result = getcodelistwithclarification(input, clarification);
 
       const output = {
         j334iumu: {
@@ -1435,7 +1432,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j334iumu',
           Label: 'TOWN',
-          Name: '',
           Code: [
             { Label: 'Springfield', Value: '00001', Parent: '' },
             { Label: 'Shelbyville', Value: '00002', Parent: '' },
@@ -1445,7 +1441,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j6qdqoen',
           Label: 'MAYOR',
-          Name: '',
           Code: [
             { Label: 'Constance Harm', Value: '1', Parent: '' },
             { Label: 'Timothy Lovejoy', Value: '2', Parent: '' },
@@ -1456,7 +1451,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j4nwo00f',
           Label: 'State',
-          Name: '',
           Code: [
             { Label: 'Washington', Value: '1', Parent: '' },
             { Label: 'Kentucky', Value: '2', Parent: '' },
@@ -1476,7 +1470,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j335cu3c',
           Label: 'ANIMALS',
-          Name: '',
           Code: [
             { Label: "Santa's Little Helper", Value: '1', Parent: '' },
             { Label: 'Snowball I', Value: '2', Parent: '' },
@@ -1487,7 +1480,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j6p2mvca',
           Label: 'Flavours',
-          Name: '',
           Code: [
             { Label: 'Vanilla', Value: '1', Parent: '' },
             { Label: 'Strawberry', Value: '2', Parent: '' },
@@ -1498,7 +1490,6 @@ describe('codes list tranformations', () => {
         {
           id: 'jbdxh138',
           Label: 'YESNO',
-          Name: '',
           Code: [
             { Label: 'Yes', Value: '1', Parent: '' },
             { Label: 'No', Value: '0', Parent: '' },
@@ -1507,7 +1498,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j6qeytgc',
           Label: 'NUCLEAR_CHARACTERS',
-          Name: '',
           Code: [
             { Label: 'Charles Montgomery Burns', Value: '1', Parent: '' },
             { Label: 'Carl Carlson', Value: '2', Parent: '' },
@@ -1518,7 +1508,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j6z087mq',
           Label: 'BIRTH_CHARACTER',
-          Name: '',
           Code: [
             { Label: 'Selma Bouvier', Value: '1', Parent: '' },
             { Label: 'Kent Brockman', Value: '2', Parent: '' },
@@ -1530,7 +1519,6 @@ describe('codes list tranformations', () => {
         {
           id: 'jbdxricm',
           Label: 'CITY_BIRTH',
-          Name: '',
           Code: [
             { Label: 'Albuquerque', Value: '1', Parent: '' },
             { Label: 'Springfield', Value: '2', Parent: '' },
@@ -1542,7 +1530,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j4nwh16i',
           Label: 'Products',
-          Name: '',
           Code: [
             { Label: 'Frozen products', Value: 'A', Parent: '' },
             { Label: 'Ice creams', Value: 'A1', Parent: 'A' },
@@ -1559,7 +1546,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j77dav9b',
           Label: 'Clownings',
-          Name: '',
           Code: [
             {
               Label: '***Break the windows of the whole city***',
@@ -1583,7 +1569,6 @@ describe('codes list tranformations', () => {
         {
           id: 'jbdyh6b5',
           Label: 'Clowning_Characters',
-          Name: '',
           Code: [
             { Label: 'Jay', Value: '1', Parent: '' },
             { Label: 'Bart', Value: '2', Parent: '' },
@@ -1594,7 +1579,6 @@ describe('codes list tranformations', () => {
         {
           id: 'j6p2kivg',
           Label: 'Means of transport',
-          Name: '',
           Code: [
             { Label: 'Car', Value: '1', Parent: '' },
             { Label: 'Bike', Value: '2', Parent: '' },
@@ -1605,7 +1589,6 @@ describe('codes list tranformations', () => {
         {
           id: 'jbdye1wa',
           Label: 'Country',
-          Name: '',
           Code: [
             { Label: 'Brazil', Value: '1', Parent: '' },
             { Label: 'Canada', Value: '2', Parent: '' },

@@ -257,7 +257,6 @@ describe('questionnaire', () => {
             {
               Code: [{ Label: 'c1', Parent: '', Value: 'c1' }],
               Label: 'code list 1',
-              Name: '',
               id: 'jf0w3fab',
             },
           ],

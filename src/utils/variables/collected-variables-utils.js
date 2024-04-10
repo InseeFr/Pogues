@@ -171,7 +171,7 @@ export function getCollectedVariablesSingle(questionName, form) {
     }),
   );
 
-  form.CodesList.codes.forEach(code => {
+  form.CodesList.codes?.forEach(code => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollecteVariable(
