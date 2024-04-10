@@ -762,6 +762,18 @@ const dictionary = {
     en: 'Error',
     fr: 'Erreur',
   },
+  control_scope: {
+    en: 'Level',
+    fr: 'Niveau',
+  },
+  LINE: {
+    en: 'Line',
+    fr: 'Ligne',
+  },
+  DYNAMIC_ARRAY: {
+    en: 'Array',
+    fr: 'Tableau',
+  },
   responseFormatSimple: {
     fr: 'Réponse simple',
     en: 'Simple response',
