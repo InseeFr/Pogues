@@ -9,6 +9,7 @@ export function remoteToState(remote = []) {
       criticity,
       during_collect,
       post_collect,
+      scope,
     } = control;
     const id = control.id || uuid();
 
@@ -22,6 +23,7 @@ export function remoteToState(remote = []) {
         criticity,
         during_collect,
         post_collect,
+        scope: scope === 'line' ? 'LINE' : 'DYNAMIC_ARRAY',
       },
     };
   }, {});
@@ -37,6 +39,7 @@ export function stateToRemote(state) {
       criticity,
       during_collect,
       post_collect,
+      scope,
     } = state[key];
 
     return {
@@ -47,6 +50,7 @@ export function stateToRemote(state) {
       criticity,
       during_collect,
       post_collect,
+      scope: scope === 'LINE' && 'line',
     };
   });
 }
