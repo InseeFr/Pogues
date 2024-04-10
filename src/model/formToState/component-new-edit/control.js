@@ -8,6 +8,7 @@ export const defaultState = {
   during_collect: false,
   post_collect: false,
   id: null,
+  scope: 'DYNAMIC_ARRAY',
 };
 
 export const defaultForm = {
@@ -18,11 +19,19 @@ export const defaultForm = {
   during_collect: false,
   post_collect: false,
   controls: [],
+  scope: 'DYNAMIC_ARRAY',
 };
 
 export function formToState(form) {
-  const { label, condition, message, criticity, during_collect, post_collect } =
-    form;
+  const {
+    label,
+    condition,
+    message,
+    criticity,
+    during_collect,
+    post_collect,
+    scope,
+  } = form;
   const id = form.id || uuid();
 
   return {
@@ -33,6 +42,7 @@ export function formToState(form) {
     criticity,
     during_collect,
     post_collect,
+    scope,
   };
 }
 
@@ -61,6 +71,7 @@ export function stateToForm(currentState) {
       criticity,
       during_collect,
       post_collect,
+      scope,
     } = currentState[key];
     controls.push({
       id,
@@ -70,6 +81,7 @@ export function stateToForm(currentState) {
       criticity,
       during_collect,
       post_collect,
+      scope,
     });
   });
 
