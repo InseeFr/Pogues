@@ -2,12 +2,12 @@
 import { decodeJwt } from 'oidc-spa';
 import { useOidc } from 'oidc-spa/react';
 import { useContext, useMemo } from 'react';
-import { AuthContext } from '../../auth/provider/none';
+import { AuthContext } from '../../auth/provider/newOIDCSPA';
 import { getEnvVar } from '../env';
 
 export const useAuth = authType => {
   if (authType === 'OIDC') {
-    return useOidc();
+    return useOidc;
   } else {
     const dummyClient = useContext(AuthContext);
     return { oidc: dummyClient };

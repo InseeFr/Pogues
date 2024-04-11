@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector, arrayRemoveAll, change } from 'redux-form';
 
-import { getToken } from 'reducers/selectors';
-import { loadNomenclaturesIfNeeded, loadNomenclature } from 'actions/metadata';
+import {
+  loadNomenclaturesIfNeeded,
+  loadNomenclature,
+} from '../../../actions/metadata';
 import {
   DEFAULT_FORM_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from 'constants/pogues-constants';
+} from '../../../constants/pogues-constants';
 
-import { getCurrentSelectorPath } from 'utils/widget-utils';
+import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { SuggesterLists } from '../components/suggester-lists';
 
 const propTypes = {
@@ -33,7 +35,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (
   state,
-  { selectorPathParent, selectorPath, formName },
+  { selectorPathParent, selectorPath, formName, authType },
 ) => {
   const codesListsStore = state.appState.activeCodeListsById;
   const selector = formValueSelector(formName);
@@ -62,7 +64,6 @@ const mapStateToProps = (
       : codesListsStore;
 
   return {
-    token: getToken(state),
     nomenclatures: state.metadataByType.nomenclatures,
     path,
     currentId,
@@ -70,6 +71,7 @@ const mapStateToProps = (
     selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
     codesListsStore,
     currentCodesListsStore,
+    authType,
   };
 };
 
