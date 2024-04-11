@@ -1,1 +1,1 @@
-export { default } from './component';
+export { OidcProvider, useOidc } from './newOIDCSPA';
