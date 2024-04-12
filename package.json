@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.5.10",
+  "version": "1.5.11-rc",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
