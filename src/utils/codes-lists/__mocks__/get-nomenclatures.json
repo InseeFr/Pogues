@@ -104,18 +104,26 @@
         "fields": [
           {
             "name": "label",
-            "rules": "soft"
+            "rules": ["[\\w]+"]
           },
           {
             "name": "id",
-            "rules": "soft"
+            "rules": ["[\\w]+"]
           }
         ],
         "order": {
           "field": "label",
           "type": "ascending"
         },
-        "queryParser": { "type": "soft" },
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 2,
+            "stemmer": false
+          }
+        },
         "version": 1
       },
       "urn": "urn:ddi:fr.insee:l_dep-1-1-0:1",
@@ -328,8 +336,7 @@
             "language": "French",
             "min": 3,
             "stemmer": false
-          },
-          { "name": "id" }
+          }
         ],
         "queryParser": {
           "type": "tokenized",
@@ -357,8 +364,7 @@
             "language": "French",
             "min": 3,
             "stemmer": false
-          },
-          { "name": "id" }
+          }
         ],
         "queryParser": {
           "type": "tokenized",
