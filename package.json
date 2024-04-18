@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.5.11-rc1-dynamicArrayLineCheck",
+  "version": "1.5.12-rc1-dynamicArrayLineCheck",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
