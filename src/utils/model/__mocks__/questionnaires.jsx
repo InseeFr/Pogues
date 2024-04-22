@@ -29,8 +29,7 @@ const questionnaires = [
             declarations: [
               {
                 declarationType: 'INSTRUCTION',
-                text:
-                  "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n",
+                text: "Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par page), regroupant les différents types de questions. Dans chaque module, vous trouverez la description des questions de chaque type, ainsi que des exemples tirés de questionnaires Insee.\n\n​\n",
               },
             ],
             redirections: [],
@@ -291,8 +290,7 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      '(par exemple : commerce de fruits et légumes, boulangerie, charcuterie artisanale ou industrielle, commerce de détail de meubles...)\n',
+                    text: '(par exemple : commerce de fruits et légumes, boulangerie, charcuterie artisanale ou industrielle, commerce de détail de meubles...)\n',
                     position: 'AFTER_QUESTION_TEXT',
                   },
                   {
@@ -326,8 +324,7 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      'Soyez très précis sur votre métier : « Caissière » (et non « employée »), « Fleuriste » (et non « Commerçant »), « Professeur des écoles»\n',
+                    text: 'Soyez très précis sur votre métier : « Caissière » (et non « employée »), « Fleuriste » (et non « Commerçant »), « Professeur des écoles»\n',
                     position: 'AFTER_QUESTION_TEXT',
                   },
                   {
@@ -415,8 +412,7 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      "Définition de l'exercice comptable sur lequel porte ce questionnaire :\n\nLes informations à fournir se rapportent à votre exercice comptable 2015.\n\n​\n\nVotre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le 31 mai 2016.\n\n​\n\nSi vous avez clotûré deux exercices sur cette période, prendre celui qui a leplus de mois en 2015.\n\n​\n\nVous devez également répondre à l'énquête si votre entreprise a cessé son activité :\n\nen 2015 et a plus de 6 mois d'activité ;\n\nen 2016.\n",
+                    text: "Définition de l'exercice comptable sur lequel porte ce questionnaire :\n\nLes informations à fournir se rapportent à votre exercice comptable 2015.\n\n​\n\nVotre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le 31 mai 2016.\n\n​\n\nSi vous avez clotûré deux exercices sur cette période, prendre celui qui a leplus de mois en 2015.\n\n​\n\nVous devez également répondre à l'énquête si votre entreprise a cessé son activité :\n\nen 2015 et a plus de 6 mois d'activité ;\n\nen 2016.\n",
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
@@ -475,8 +471,7 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      "Question issue de l'enquête annuelle sur les consommations d'énergie dans l'industrie (EACEI)\n",
+                    text: "Question issue de l'enquête annuelle sur les consommations d'énergie dans l'industrie (EACEI)\n",
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
@@ -641,8 +636,7 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      "Question issue de l'enquête sectorielle annuelle (commerce)\n",
+                    text: "Question issue de l'enquête sectorielle annuelle (commerce)\n",
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
@@ -1427,20 +1421,17 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      'Comptez la totalité des salariés rémunérés directement par l’entreprise et inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et gérants salariés, le personnel saisonnier ou occasionnel.\n\n​\n',
+                    text: 'Comptez la totalité des salariés rémunérés directement par l’entreprise et inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et gérants salariés, le personnel saisonnier ou occasionnel.\n\n​\n',
                     position: 'AFTER_QUESTION_TEXT',
                   },
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      'Ne comptez pas le personnel rémunéré par d’autres entreprises (travail temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non rémunérés.\n',
+                    text: 'Ne comptez pas le personnel rémunéré par d’autres entreprises (travail temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non rémunérés.\n',
                     position: 'AFTER_QUESTION_TEXT',
                   },
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      "Cette question est extraite de l'enquête structurelle auprès des entreprises mahoraises\n",
+                    text: "Cette question est extraite de l'enquête structurelle auprès des entreprises mahoraises\n",
                     position: 'AFTER_RESPONSE',
                   },
                 ],
@@ -1519,8 +1510,7 @@ const questionnaires = [
                 declarations: [
                   {
                     declarationType: 'INSTRUCTION',
-                    text:
-                      "Veuillez inscrire un par un les prénoms des personnes qui habitent ce logement, même une partie de la semaine y compris celles qui sont temporairement absentes au moment de l’enquête (vacances, voyage d'affaires, hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais encore rattachés au logement, conjoints éloignés pour raisons professionnelles, enfants en garde alternée, personnes âgées en institution …)\n",
+                    text: "Veuillez inscrire un par un les prénoms des personnes qui habitent ce logement, même une partie de la semaine y compris celles qui sont temporairement absentes au moment de l’enquête (vacances, voyage d'affaires, hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais encore rattachés au logement, conjoints éloignés pour raisons professionnelles, enfants en garde alternée, personnes âgées en institution …)\n",
                     position: 'AFTER_QUESTION_TEXT',
                   },
                 ],
