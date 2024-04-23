@@ -50,7 +50,7 @@
     "lodash.uniq": "4.5.0",
     "monaco-editor": "^0.26.1",
     "oidc-client": "^1.11.5",
-    "oidc-spa": "^4.4.1",
+    "oidc-spa": "^4.5.0",
     "prop-types": "15.7.2",
     "react": "^18.2.0",
     "react-csv-reader": "^3.1.2",
@@ -127,7 +127,7 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/vitest"
     ]
   },
   "browserslist": {
@@ -147,13 +147,5 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "type": "module",
-  "jest": {
-    "moduleNameMapper": {
-      "monaco-editor": "monaco-editor/esm/vs/editor/editor.api.js"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(monaco-editor)/)"
-    ]
-  }
+  "type": "module"
 }

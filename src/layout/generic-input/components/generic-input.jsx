@@ -9,6 +9,7 @@ import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
 import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
 import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
+import { useOidc } from '../../../utils/oidc';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
@@ -25,7 +26,6 @@ export const propTypes = {
   isQuestionnaireModified: PropTypes.bool,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
-  authType: PropTypes.string,
   selectedComponent: PropTypes.object,
   removeVisualizationError: PropTypes.func,
   showVisualizationErrorPopup: PropTypes.string,
@@ -36,7 +36,6 @@ export const defaultProps = {
   isLoadingVisualization: false,
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
-  authType: undefined,
   selectedComponent: undefined,
   removeVisualizationError: undefined,
   showVisualizationErrorPopup: '',
@@ -79,7 +78,6 @@ function GenericInput(props) {
     isQuestionnaireValid,
     isQuestionnaireHaveError,
     placeholders,
-    token,
     selectedComponent,
     removeVisualizationError,
     saveActiveQuestionnaire,
@@ -90,6 +88,9 @@ function GenericInput(props) {
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   const handleOpenNewComponent = componentType => {
     setShowNewComponentModal(true);
@@ -240,7 +241,6 @@ function GenericInput(props) {
         <VisualizeDropdown
           top
           disabled={!isQuestionnaireValid}
-          authType={authType}
           questionnaireId={activeQuestionnaire.id}
         />
         <button className="btn-yellow disabled" id="publish">

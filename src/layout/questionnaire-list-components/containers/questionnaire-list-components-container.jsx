@@ -1,22 +1,21 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import QuestionnaireListComponents from '../components/questionnaire-list-components';
 
 import {
+  setEditingComponentId,
+  setSelectedComponentId,
+} from '../../../actions/app-state';
+import {
   dragComponent,
-  removeComponent,
   duplicateComponentAndVariables,
+  removeComponent,
 } from '../../../actions/component';
 import { removeQuestionnaireRef } from '../../../actions/external-questionnaire';
-import {
-  setSelectedComponentId,
-  setEditingComponentId,
-} from '../../../actions/app-state';
 import { removeQuestionnaire } from '../../../actions/questionnaire';
 
 const mapStateToProps = state => ({
-  authType: state.authType,
   questionnaire: state.appState.activeQuestionnaire,
   componentsStore: state.appState.activeComponentsById,
   selectedComponentId: state.appState.selectedComponentId,

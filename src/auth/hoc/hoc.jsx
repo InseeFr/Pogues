@@ -1,7 +1,6 @@
 import React from 'react';
-import Container from './container';
+import Comp from './component';
 
-const secure = Component => props =>
-  <Container Component={Component} {...props} />;
+const secure = Component => props => <Comp Component={Component} {...props} />;
 
 export default secure;

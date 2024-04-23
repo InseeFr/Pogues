@@ -11,7 +11,6 @@ import {
   getNewLoopPlaceholder,
 } from '../../../utils/component/generic-input-utils';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -92,8 +91,6 @@ const mapStateToProps = state => {
   const questionnaireErrors =
     errors.errorsIntegrity[activeQuestionnaire.id] || {};
   const selectedComponent = activeComponentsById[selectedComponentId];
-  const { oidc } = useAuth(state.authType);
-  const token = oidc.getTokens().accessToken;
 
   return {
     placeholders: getPlaceholders(
@@ -110,7 +107,6 @@ const mapStateToProps = state => {
       externalQuestionnairesLoops,
     ),
     activeQuestionnaire: activeQuestionnaire,
-    token: token,
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,

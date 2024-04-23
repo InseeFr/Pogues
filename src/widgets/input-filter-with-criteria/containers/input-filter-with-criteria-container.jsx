@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
-import InputFilterWithCriteria from '../components/input-filter-with-criteria';
-import { useAuth } from '../../../utils/oidc/useAuth';
-import { STATISTICAL_CONTEXT_FORM_NAME } from '../../../constants/pogues-constants';
 import { loadSearchResult } from '../../../actions/search';
+import { STATISTICAL_CONTEXT_FORM_NAME } from '../../../constants/pogues-constants';
+import InputFilterWithCriteria from '../components/input-filter-with-criteria';
 
 // PropTypes and defaultProps
 
@@ -31,16 +30,10 @@ export const defaultProps = {
 
 // Container
 
-export const mapStateToProps = (
-  state,
-  { authType, formName, path, criterias },
-) => {
+export const mapStateToProps = (state, { formName, path, criterias }) => {
   const selector = formValueSelector(formName);
-  const { oidc } = useAuth(state.authType);
-  const token = oidc.getTokens().accessToken;
 
   return {
-    token,
     criteriaValues: criterias.reduce((acc, cr) => {
       return {
         ...acc,

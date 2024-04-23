@@ -54,7 +54,6 @@ const QuestionnaireComponent = props => {
     duplicateComponentAndVariables,
     removeComponent,
     removeQuestionnaireRef,
-    authType,
   } = props;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -222,10 +221,7 @@ const QuestionnaireComponent = props => {
                         <span className="glyphicon glyphicon-duplicate" />
                       </button>
                     )}
-                    <VisualizeDropdown
-                      componentId={component.id}
-                      authType={authType}
-                    />
+                    <VisualizeDropdown componentId={component.id} />
                     <button
                       className="btn-yellow"
                       disabled={
@@ -285,7 +281,6 @@ QuestionnaireComponent.propTypes = {
   component: PropTypes.object.isRequired,
   integrityErrorsByType: PropTypes.object,
   draggedItem: PropTypes.object,
-
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
@@ -294,19 +289,14 @@ QuestionnaireComponent.propTypes = {
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
   removeQuestionnaireRef: PropTypes.func.isRequired,
-
   children: PropTypes.array,
-
   selected: PropTypes.bool.isRequired,
   isOver: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool,
-
   parentType: PropTypes.string.isRequired,
-
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
   }).isRequired,
-  authType: PropTypes.string,
 };
 
 QuestionnaireComponent.defaultProps = {
@@ -314,7 +304,6 @@ QuestionnaireComponent.defaultProps = {
   draggedItem: {},
   integrityErrorsByType: {},
   canDrop: true,
-  authType: '',
 };
 
 export default compose(

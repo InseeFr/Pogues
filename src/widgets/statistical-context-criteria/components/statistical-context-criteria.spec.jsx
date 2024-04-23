@@ -1,11 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import { vi } from 'vitest';
-import StatisticalContextCriteria from './statistical-context-criteria';
-
-import Select from '../../../forms/controls/select';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import Select from '../../../forms/controls/select';
+import { OidcProvider } from '../../../utils/oidc';
 import { noop } from '../../../utils/test/test-utils';
+import StatisticalContextCriteria from './statistical-context-criteria';
 
 describe('<StatisticalContextCriteria />', () => {
   let props;
@@ -25,7 +25,11 @@ describe('<StatisticalContextCriteria />', () => {
 
   describe('Props and render behaviour', () => {
     test('Should exist a field of type Select with name "serie" and another with name "operation"', () => {
-      const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      const wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(wrapper.find('Field[name="serie"]').prop('component')).toBe(
         Select,
@@ -36,12 +40,20 @@ describe('<StatisticalContextCriteria />', () => {
     });
 
     test('Should exist a field with name "campaign" only when the prop "campaigns" is defined', () => {
-      let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      let wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(wrapper.find('Field[name="campaigns"]')).toHaveLength(0);
 
       props.campaigns = [];
-      wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(wrapper.find('Field[name="campaigns"]')).toHaveLength(1);
     });
@@ -49,7 +61,11 @@ describe('<StatisticalContextCriteria />', () => {
     test('Should allow to choose more than one campaign when the prop "multipleCampaign" is true', () => {
       props.campaigns = [];
       props.multipleCampaign = true;
-      const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      const wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(wrapper.find('Field[name="campaigns"]').prop('component')).toBe(
         ListCheckboxes,
@@ -67,7 +83,11 @@ describe('<StatisticalContextCriteria />', () => {
         { value: 'FAKE_VALUE_02', label: 'FAKE_LABEL_02' },
         { value: 'FAKE_VALUE_03', label: 'FAKE_LABEL_03' },
       ];
-      const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      const wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(wrapper.find('Field[name="serie"] GenericOption')).toHaveLength(
         props.series.length,
@@ -82,7 +102,11 @@ describe('<StatisticalContextCriteria />', () => {
 
     test('Should prevent operation and campaigns selection when the prop "SelectedSerie" is not defined', () => {
       props.campaigns = [];
-      const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      const wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
       expect(
         wrapper.find('Field[name="operation"]').prop('disabled'),
       ).toBeTruthy();
@@ -94,7 +118,11 @@ describe('<StatisticalContextCriteria />', () => {
     test('Should prevent campaigns selection when the prop "SelectedOperation" is not defined', () => {
       props.campaigns = [];
       props.selectedSerie = 'FAKE_ID';
-      const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+      const wrapper = shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(
         wrapper.find('Field[name="campaigns"]').prop('disabled'),
@@ -106,7 +134,11 @@ describe('<StatisticalContextCriteria />', () => {
     test('Should call "loadSeriesIfNeeded" at the beginning', () => {
       const spyLoadSeriesIfNeeded = vi.fn();
       props.loadSeriesIfNeeded = spyLoadSeriesIfNeeded;
-      shallow(<StatisticalContextCriteria {...props} />);
+      shallow(
+        <OidcProvider>
+          <StatisticalContextCriteria {...props} />
+        </OidcProvider>,
+      );
 
       expect(spyLoadSeriesIfNeeded).not.toHaveBeenCalled();
     });
@@ -125,7 +157,11 @@ describe('<StatisticalContextCriteria />', () => {
           loadOperationsIfNeeded: spyLoadOperationsIfNeeded,
         };
 
-        const wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        const wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
 
         expect(spyLoadOperationsIfNeeded).not.toHaveBeenCalledWith(
           selectedSerieFirst,
@@ -155,7 +191,11 @@ describe('<StatisticalContextCriteria />', () => {
 
         // Campaigns doesn't exist
 
-        let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        let wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
 
         expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalled();
 
@@ -167,7 +207,11 @@ describe('<StatisticalContextCriteria />', () => {
 
         props.campaigns = [];
 
-        wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
 
         expect(spyLoadCampaignsIfNeeded).not.toHaveBeenCalledWith(
           selectedOperationFirst,
@@ -193,7 +237,11 @@ describe('<StatisticalContextCriteria />', () => {
 
         // Campaigns doesn't exist
 
-        let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        let wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
         wrapper.setProps({ selectedSerie });
         expect(spyChangeFirst).not.toHaveBeenCalledTimes(1);
 
@@ -205,7 +253,11 @@ describe('<StatisticalContextCriteria />', () => {
           change: spyChangeSecond,
         };
 
-        wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
         wrapper.setProps({ selectedSerie });
         expect(spyChangeSecond).not.toHaveBeenCalledTimes(1);
       },
@@ -223,7 +275,11 @@ describe('<StatisticalContextCriteria />', () => {
 
         // Campaigns doesn't exist
 
-        let wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        let wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
         wrapper.setProps({ selectedOperation });
         expect(spyChangeFirst).not.toHaveBeenCalled();
 
@@ -235,7 +291,11 @@ describe('<StatisticalContextCriteria />', () => {
           change: spyChangeSecond,
         };
 
-        wrapper = shallow(<StatisticalContextCriteria {...props} />);
+        wrapper = shallow(
+          <OidcProvider>
+            <StatisticalContextCriteria {...props} />
+          </OidcProvider>,
+        );
         wrapper.setProps({ selectedOperation });
         expect(spyChangeSecond).not.toHaveBeenCalledTimes(1);
       },

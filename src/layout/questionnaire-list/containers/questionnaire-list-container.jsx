@@ -17,17 +17,13 @@ import {
   deleteQuestionnaireList,
   loadQuestionnaireList,
 } from '../../../actions/questionnaire-list';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const mapStateToProps = state => {
   const questionnaires = Object.keys(state.questionnaireListById).map(
     key => state.questionnaireListById[key],
   );
-  const { oidc } = useAuth(state.authType);
-  const token = oidc.getTokens().accessToken;
 
   return {
-    token: token,
     activeQuestionnaire: state.appState.activeQuestionnaire,
     questionnaires,
     selectedComponentId: state.appState.selectedComponentId,

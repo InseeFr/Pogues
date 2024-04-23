@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-
-import { useUser } from '../../../utils/oidc/useAuth';
 import defaultPicture from './user-picture-default.png';
+import { useOidc } from '../../../utils/oidc';
 
-function UserConnection({ authType }) {
-  const { user } = useUser(authType);
+function UserConnection() {
+  const oidc = useOidc();
+  const user = oidc.oidcTokens.decodedIdToken.preferred_username;
 
   const hasName = user?.name;
   if (!hasName) return null;
@@ -24,28 +23,10 @@ function UserConnection({ authType }) {
           <div className="user-name">
             <strong>{user.name}</strong>
           </div>
-          {/* <div className="user-stamp">
-              {Dictionary.stamp} {user.stamp}
-            </div> */}
         </div>
-        {/* <div className="user-logout">
-            <a>
-              <span className="glyphicon glyphicon-remove-sign" />
-              {Dictionary.logout}
-            </a>
-          </div>
-        */}
       </div>
     </div>
   );
 }
-
-UserConnection.propTypes = {
-  authType: PropTypes.string,
-};
-
-UserConnection.defaultProps = {
-  authType: undefined,
-};
 
 export default UserConnection;

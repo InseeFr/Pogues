@@ -16,7 +16,6 @@ import {
   setActiveVariables,
   loadStatisticalContext,
 } from '../../../actions/app-state';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -66,11 +65,8 @@ const mapStateToProps = (
     },
   },
 ) => {
-  const { oidc } = useAuth(state.authType);
-  const token = oidc.getTokens().accessToken;
   return {
     id,
-    token: token,
     appState: state.appState,
     questionnaire: state.questionnaireById[id],
     activeQuestionnaire: state.appState.activeQuestionnaire,

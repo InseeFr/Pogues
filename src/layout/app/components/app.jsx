@@ -5,10 +5,13 @@ import Header from '../../header/header';
 import Footer from '../../footer/footer';
 import '../../../scss/pogues.scss';
 import { APP } from '../../../constants/dom-constants';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_ID } = APP;
 
-const App = ({ children, loadUnitsIfNeeded, token }) => {
+const App = ({ children, loadUnitsIfNeeded }) => {
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
   useEffect(() => {
     loadUnitsIfNeeded(token);
   }, [token, loadUnitsIfNeeded]);
@@ -23,13 +26,8 @@ const App = ({ children, loadUnitsIfNeeded, token }) => {
 };
 
 App.propTypes = {
-  token: PropTypes.string,
   children: PropTypes.object.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
-};
-
-App.defaultProps = {
-  token: '',
 };
 
 export default App;

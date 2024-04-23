@@ -1,12 +1,9 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../../utils/oidc/useAuth';
-import VisualizeDropdown from '../components/visualize-dropdown';
+import { connect } from 'react-redux';
 import { visualizeActiveQuestionnaire } from '../../../actions/app-state';
+import VisualizeDropdown from '../components/visualize-dropdown';
 
 const mapStateToProps = state => {
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
   return {
     questionnaire: state.appState.activeQuestionnaire,
     calculatedVariables: state.appState.activeCalculatedVariablesById,
@@ -14,7 +11,6 @@ const mapStateToProps = state => {
     collectedVariableByQuestion: state.appState.collectedVariableByQuestion,
     externalQuestionnairesVariables:
       state.metadataByType.externalQuestionnairesVariables,
-    token,
   };
 };
 

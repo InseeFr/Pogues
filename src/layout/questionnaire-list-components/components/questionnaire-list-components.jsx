@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import ReactModal from 'react-modal';
 
-import QuestionnaireComponent from './questionnaire-component';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import QuestionnaireComponent from './questionnaire-component';
 
+import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
+import { getSortedChildren } from '../../../utils/component/component-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import { getEnvVar } from '../../../utils/env';
 import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
-import { QuestionnaireEdit } from '../../questionnaire-edit';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
-import Dictionary from '../../../utils/dictionary/dictionary';
-import { getSortedChildren } from '../../../utils/component/component-utils';
-import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
+import { QuestionnaireEdit } from '../../questionnaire-edit';
 
 const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
@@ -81,7 +81,6 @@ const QuestionnaireListComponents = props => {
         ) {
           return (
             <QuestionnaireComponent
-              authType={authType}
               key={component.id}
               selected={props.selectedComponentId === key}
               component={component}
@@ -279,14 +278,11 @@ const QuestionnaireListComponents = props => {
 
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {
-  authType: PropTypes.string,
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
   errorsIntegrity: PropTypes.object,
-
   selectedComponentId: PropTypes.string.isRequired,
   editingComponentId: PropTypes.string.isRequired,
-
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
@@ -300,7 +296,6 @@ QuestionnaireListComponents.propTypes = {
 };
 
 QuestionnaireListComponents.defaultProps = {
-  authType: '',
   componentsStore: {},
   errorsIntegrity: {},
   activeCalculatedVariables: {},

@@ -9,6 +9,7 @@ import { formatDate, getState } from '../../../utils/component/component-utils';
 import { getStampsList } from '../../../utils/remote-api';
 import { getWeight } from '../../../utils/component/generic-input-utils';
 import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
+import { useOidc } from '../../../utils/oidc';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 
@@ -18,7 +19,6 @@ const QuestionnaireList = props => {
     selectedComponentId,
     questionnaires,
     stamp,
-    token,
     duplicateQuestionnaire,
     isFusion,
     isComposition,
@@ -39,6 +39,9 @@ const QuestionnaireList = props => {
     collectedVariablesStore,
     handleNewChildQuestionnaireRef,
   } = props;
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   let actionLabel = Dictionary.duplicate;
   if (isComposition) actionLabel = Dictionary.add;
@@ -281,7 +284,6 @@ QuestionnaireList.propTypes = {
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
   stamp: PropTypes.string,
-  authType: PropTypes.string,
   selectedStamp: PropTypes.string,
   isFusion: PropTypes.bool,
   isComposition: PropTypes.bool,
@@ -305,7 +307,6 @@ QuestionnaireList.defaultProps = {
   selectedComponentId: undefined,
   questionnaires: [],
   stamp: '',
-  authType: '',
   selectedStamp: 'FAKEPERMISSION',
   isFusion: false,
   isComposition: false,

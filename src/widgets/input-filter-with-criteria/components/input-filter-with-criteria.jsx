@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
-import { getControlId } from '../../../utils/widget-utils';
-import { uuid } from '../../../utils/utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
+import { uuid } from '../../../utils/utils';
+import { getControlId } from '../../../utils/widget-utils';
 
 const {
   COMPONENT_CLASS,
@@ -14,15 +15,12 @@ const {
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
 const InputFilterWithCriteria = props => {
-  const {
-    typeItem,
-    criteriaValues,
-    label,
-    token,
-    loadOnInit,
-    loadSearchResult,
-  } = props;
+  const { typeItem, criteriaValues, label, loadOnInit, loadSearchResult } =
+    props;
   const inputSearchRef = useRef(null);
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   useEffect(() => {
     if (loadOnInit) loadSearchResult(token, typeItem);
@@ -74,7 +72,6 @@ const InputFilterWithCriteria = props => {
 // PropTypes and defaultProps
 
 InputFilterWithCriteria.propTypes = {
-  authType: PropTypes.string,
   typeItem: PropTypes.string.isRequired,
   loadSearchResult: PropTypes.func.isRequired,
   criteriaValues: PropTypes.object,
@@ -83,7 +80,6 @@ InputFilterWithCriteria.propTypes = {
 };
 
 InputFilterWithCriteria.defaultProps = {
-  authType: '',
   criteriaValues: {},
 };
 

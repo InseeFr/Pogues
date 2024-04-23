@@ -4,6 +4,7 @@ import classSet from 'react-classset';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
 import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
 /**
@@ -14,7 +15,6 @@ import { hasDuplicateVariables } from '../../../utils/variables/variables-utils'
  */
 function VisualizeDropdown({
   componentId,
-  token,
   disabled,
   top,
   visualizeActiveQuestionnaire,
@@ -32,6 +32,9 @@ function VisualizeDropdown({
   const [allowDuplicateVariablesModal, setAllowDuplicateVariablesModal] =
     useState(false);
   const wrapperRef = useRef(null);
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   const handleClickOutside = useCallback(event => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
@@ -176,7 +179,6 @@ VisualizeDropdown.propTypes = {
   collectedVariableByQuestion: PropTypes.object,
   questionnaire: PropTypes.object,
   externalQuestionnairesVariables: PropTypes.object,
-  authType: PropTypes.string,
 };
 VisualizeDropdown.defaultProps = {
   visualizeActiveQuestionnaire: undefined,
@@ -188,7 +190,6 @@ VisualizeDropdown.defaultProps = {
   collectedVariableByQuestion: {},
   questionnaire: {},
   externalQuestionnairesVariables: {},
-  authType: undefined,
 };
 
 export default VisualizeDropdown;

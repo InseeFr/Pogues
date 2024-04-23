@@ -7,14 +7,13 @@ import { QuestionnaireList } from '../../questionnaire-list';
 import { QuestionnaireNew } from '../../questionnaire-new';
 
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { useUser } from '../../../utils/oidc/useAuth';
+import { useOidc } from '../../../utils/oidc';
 
-const PageHome = ({ history, deleteAppState, authType }) => {
+const PageHome = ({ history, deleteAppState }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const {
-    user: { stamp },
-  } = useUser(authType);
+  const oidc = useOidc();
+  const stamp = oidc.oidcTokens.decodedIdToken.timbre;
 
   useEffect(() => deleteAppState(), [deleteAppState]);
 

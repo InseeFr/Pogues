@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
-import Select from '../../../forms/controls/select';
-import GenericOption from '../../../forms/controls/generic-option';
-import Dictionary from '../../../utils/dictionary/dictionary';
+import React, { useEffect, useState } from 'react';
+import { Field, FormSection } from 'redux-form';
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import Select from '../../../forms/controls/select';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS } = WIDGET_CODES_LISTS;
 
@@ -18,9 +19,11 @@ export function SuggesterLists({
   selectorPath,
   currentId,
   codesListsStore,
-  token,
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   useEffect(() => {
     loadNomenclaturesIfNeeded(token);
@@ -113,7 +116,6 @@ SuggesterLists.propTypes = {
   codesListsStore: PropTypes.object,
   loadNomenclaturesIfNeeded: PropTypes.func.isRequired,
   loadNomenclature: PropTypes.func.isRequired,
-  authType: PropTypes.string,
   nomenclatures: PropTypes.object,
   selectorPath: PropTypes.string.isRequired,
   currentId: PropTypes.string,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from './logo-insee.png';
-import UserConnectionContainer from '../user/user-connection-container';
+import UserConnection from '../user/components/user-connection';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { poguesFrontVersion } from '../../utils/version';
 
@@ -43,7 +43,7 @@ function Header() {
           </a>
         </div>
         <div className="header-user">
-          <UserConnectionContainer />
+          <UserConnection />
         </div>
       </div>
     </nav>

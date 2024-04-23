@@ -12,7 +12,6 @@ import {
 } from '../../../constants/pogues-constants';
 import { storeToArray } from '../../../utils/utils';
 import { filterStoreByProp } from '../../../utils/widget-utils';
-import { useAuth } from '../../../utils/oidc/useAuth';
 import StatisticalContextCriteria from '../components/statistical-context-criteria';
 
 // PropTypes and defaultProps
@@ -46,8 +45,6 @@ export const mapStateToProps = (
 ) => {
   const selector = formValueSelector(formName);
   const conditionalProps = {};
-  const { oidc } = useAuth(state.authType);
-  const token = oidc.getTokens().accessToken;
 
   // Selected serie and operation in the form
   const selectedSerie = selector(state, `${path}serie`);
@@ -90,7 +87,6 @@ export const mapStateToProps = (
         : storeToArray(state.metadataByType.series),
     selectedSerie,
     path,
-    token,
   };
 };
 

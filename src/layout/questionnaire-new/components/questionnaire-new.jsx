@@ -1,10 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  QuestionnaireNewEdit,
-  Questionnaire,
-} from '../../../widgets/questionnaire-new-edit';
+import React from 'react';
+import { useOidc } from '../../../utils/oidc';
 import { validateQuestionnaireForm } from '../../../utils/validation/validate';
+import {
+  Questionnaire,
+  QuestionnaireNewEdit,
+} from '../../../widgets/questionnaire-new-edit';
 
 // Utils
 
@@ -27,10 +28,12 @@ function QuestionnaireNew({
   onCancel,
   onSuccess,
   stamp,
-  token,
   createQuestionnaire,
   setErrors,
 }) {
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
+
   const validate = setErrorsAction => values =>
     validateQuestionnaireForm(values, setErrorsAction);
 

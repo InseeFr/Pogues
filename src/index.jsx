@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { OidcProvider } from './auth/provider/newOIDCSPA';
 import Router from './router';
 import configureStore from './store/configure-store';
 import { getInit } from './utils/remote-api';
+import { OidcProvider } from './utils/oidc';
 
 const container = document.getElementById('root');
 

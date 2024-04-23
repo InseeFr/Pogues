@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import React, { useEffect, useState } from 'react';
 import ClassSet from 'react-classset';
+import { Field } from 'redux-form';
 
 import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from '../../../constants/dom-constants';
 import { TCM } from '../../../constants/pogues-constants';
-import Select from '../../../forms/controls/select';
-import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import GenericOption from '../../../forms/controls/generic-option';
-import Dictionary from '../../../utils/dictionary/dictionary';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import Select from '../../../forms/controls/select';
 import { requiredSelect } from '../../../forms/validation-rules';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
   const {
-    token,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -33,6 +33,9 @@ const StatisticalContextCriteria = props => {
 
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   useEffect(() => {
     loadSeriesIfNeeded(token);
@@ -138,7 +141,6 @@ const StatisticalContextCriteria = props => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
-  authType: PropTypes.string,
   series: PropTypes.array.isRequired,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -153,7 +155,6 @@ StatisticalContextCriteria.propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
-  authType: '',
   multipleCampaign: false,
   required: false,
   focusOnInit: false,

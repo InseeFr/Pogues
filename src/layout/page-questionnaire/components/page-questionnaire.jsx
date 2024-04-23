@@ -6,6 +6,7 @@ import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { QuestionnaireListComponents } from '../../questionnaire-list-components';
 import { QuestionnaireNav } from '../../questionnaire-nav';
 import { GenericInput } from '../../generic-input';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -13,7 +14,6 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 export const propTypes = {
   id: PropTypes.string.isRequired,
-  authType: PropTypes.string,
   loadQuestionnaire: PropTypes.func.isRequired,
   loadStatisticalContext: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
@@ -32,7 +32,6 @@ export const propTypes = {
 };
 
 export const defaultProps = {
-  authType: '',
   questionnaire: {},
   activeQuestionnaire: {},
   components: {},
@@ -45,7 +44,6 @@ export const defaultProps = {
 const PageQuestionnaire = props => {
   const {
     id,
-    token,
     questionnaire,
     components,
     codeLists,
@@ -65,6 +63,9 @@ const PageQuestionnaire = props => {
   } = props;
 
   const [toInitialize, setToInitialize] = useState(false);
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   useEffect(() => {
     if (
