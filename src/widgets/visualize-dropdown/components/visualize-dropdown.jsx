@@ -4,7 +4,6 @@ import classSet from 'react-classset';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { useAuth } from '../../../utils/oidc/useAuth';
 import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
 /**
@@ -15,7 +14,7 @@ import { hasDuplicateVariables } from '../../../utils/variables/variables-utils'
  */
 function VisualizeDropdown({
   componentId,
-  authType,
+  token,
   disabled,
   top,
   visualizeActiveQuestionnaire,
@@ -25,7 +24,6 @@ function VisualizeDropdown({
   questionnaire,
   externalQuestionnairesVariables,
 }) {
-  const { oidc } = useAuth(authType);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [
     hasQuestionnaireDuplicateVariables,
@@ -73,7 +71,6 @@ function VisualizeDropdown({
    */
   const visualize = (event, type) => {
     event.preventDefault();
-    const token = oidc.getTokens().accessToken;
     visualizeActiveQuestionnaire(type, componentId, token);
     setDropdownOpen(false);
   };

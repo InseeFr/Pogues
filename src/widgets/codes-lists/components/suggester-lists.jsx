@@ -5,7 +5,6 @@ import Select from '../../../forms/controls/select';
 import GenericOption from '../../../forms/controls/generic-option';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { COMPONENT_CLASS } = WIDGET_CODES_LISTS;
 
@@ -19,12 +18,9 @@ export function SuggesterLists({
   selectorPath,
   currentId,
   codesListsStore,
-  authType,
+  token,
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
-
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
 
   useEffect(() => {
     loadNomenclaturesIfNeeded(token);

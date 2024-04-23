@@ -1,7 +1,3 @@
-import { vi } from 'vitest';
-
-vi.unmock('./control.jsx');
-
 import ControlTransformerFactory from './control';
 import {
   controlsFormNew,

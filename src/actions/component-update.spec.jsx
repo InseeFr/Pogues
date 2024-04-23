@@ -90,23 +90,25 @@ describe('resetWeight', () => {
 });
 
 describe('resetAllWeight', () => {
-  const components = {
-    0: { id: '0', weight: 0, children: ['1', '6'] },
-    1: { id: '1', weight: 7, children: ['3', '5'] },
-    3: { id: '3', weight: 2, children: [] },
-    5: { id: '5', weight: 4, children: [] },
-    6: { id: '6', weight: 5, children: ['7', '8'] },
-    7: { id: '7', weight: 2, children: [] },
-    8: { id: '8', weight: 4, children: [] },
-  };
+  test(`should reset all weights`, () => {
+    const components = {
+      0: { id: '0', weight: 0, children: ['1', '6'] },
+      1: { id: '1', weight: 7, children: ['3', '5'] },
+      3: { id: '3', weight: 2, children: [] },
+      5: { id: '5', weight: 4, children: [] },
+      6: { id: '6', weight: 5, children: ['7', '8'] },
+      7: { id: '7', weight: 2, children: [] },
+      8: { id: '8', weight: 4, children: [] },
+    };
 
-  const result = resetAllWeight(components);
+    const result = resetAllWeight(components);
 
-  expect(result['1'].weight).toEqual(1);
-  expect(result['3'].weight).toEqual(0);
-  expect(result['5'].weight).toEqual(1);
+    expect(result['1'].weight).toEqual(1);
+    expect(result['3'].weight).toEqual(0);
+    expect(result['5'].weight).toEqual(1);
 
-  expect(result['6'].weight).toEqual(0);
-  expect(result['7'].weight).toEqual(0);
-  expect(result['8'].weight).toEqual(1);
+    expect(result['6'].weight).toEqual(0);
+    expect(result['7'].weight).toEqual(0);
+    expect(result['8'].weight).toEqual(1);
+  });
 });

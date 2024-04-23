@@ -6,7 +6,6 @@ import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { QuestionnaireListComponents } from '../../questionnaire-list-components';
 import { QuestionnaireNav } from '../../questionnaire-nav';
 import { GenericInput } from '../../generic-input';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -46,7 +45,7 @@ export const defaultProps = {
 const PageQuestionnaire = props => {
   const {
     id,
-    authType,
+    token,
     questionnaire,
     components,
     codeLists,
@@ -65,8 +64,6 @@ const PageQuestionnaire = props => {
     appState,
   } = props;
 
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
   const [toInitialize, setToInitialize] = useState(false);
 
   useEffect(() => {

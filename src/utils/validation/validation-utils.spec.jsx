@@ -24,8 +24,10 @@ describe('validate', () => {
   });
 });
 describe('getErrorsObject', () => {
-  expect(getErrorsObject(output)).toEqual({
-    path1: { subpath1: 'error2', subpath2: 'error2' },
-    path2: 'error4',
+  test('should fill the Errors object', () => {
+    expect(getErrorsObject(output)).toEqual({
+      path1: { subpath1: 'error2', subpath2: 'error2' },
+      path2: 'error4',
+    });
   });
 });

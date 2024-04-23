@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 
 import Header from '../../header/header';
 import Footer from '../../footer/footer';
-import { useAuth } from '../../../utils/oidc/useAuth';
 import '../../../scss/pogues.scss';
 import { APP } from '../../../constants/dom-constants';
 
 const { COMPONENT_ID } = APP;
 
-const App = ({ children, loadUnitsIfNeeded, authType }) => {
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
-
+const App = ({ children, loadUnitsIfNeeded, token }) => {
   useEffect(() => {
     loadUnitsIfNeeded(token);
   }, [token, loadUnitsIfNeeded]);
@@ -27,13 +23,13 @@ const App = ({ children, loadUnitsIfNeeded, authType }) => {
 };
 
 App.propTypes = {
-  authType: PropTypes.string,
+  token: PropTypes.string,
   children: PropTypes.object.isRequired,
   loadUnitsIfNeeded: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
-  authType: '',
+  token: '',
 };
 
 export default App;

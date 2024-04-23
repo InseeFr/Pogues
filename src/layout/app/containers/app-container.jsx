@@ -1,26 +1,21 @@
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import App from '../components/app';
 import { loadUnitsIfNeeded } from '../../../actions/metadata';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
-// Prop types and default props
+const mapStateToProps = ({ authType }) => {
+  const { oidc } = useAuth(authType);
+  const token = oidc.getTokens().accessToken;
 
-const propTypes = {
-  children: PropTypes.object.isRequired,
+  return {
+    token: token,
+  };
 };
-
-// Container
-
-const mapStateToProps = ({ authType }) => ({
-  authType,
-});
 
 const mapDispatchToProps = {
   loadUnitsIfNeeded,
 };
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
-
-AppContainer.propTypes = propTypes;
 
 export default AppContainer;

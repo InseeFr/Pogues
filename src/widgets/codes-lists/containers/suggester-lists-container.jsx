@@ -10,7 +10,7 @@ import {
   DEFAULT_FORM_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
-
+import { useAuth } from '../../../utils/oidc/useAuth';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { SuggesterLists } from '../components/suggester-lists';
 
@@ -48,6 +48,8 @@ const mapStateToProps = (
     state,
     `${path}suggesterParameters`,
   );
+  const { oidc } = useAuth(state.authType);
+  const token = oidc.getTokens().accessToken;
 
   const currentCodesListsStore =
     currentLabel !== ''
@@ -71,7 +73,7 @@ const mapStateToProps = (
     selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
     codesListsStore,
     currentCodesListsStore,
-    authType,
+    token,
   };
 };
 

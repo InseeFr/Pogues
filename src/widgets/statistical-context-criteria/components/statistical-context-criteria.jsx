@@ -10,14 +10,13 @@ import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import GenericOption from '../../../forms/controls/generic-option';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { requiredSelect } from '../../../forms/validation-rules';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
   const {
-    authType,
+    token,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -32,8 +31,6 @@ const StatisticalContextCriteria = props => {
     loadCampaignsIfNeeded,
   } = props;
 
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
 

@@ -63,7 +63,6 @@ describe('<SearchCodesLists />', () => {
       expectedProps,
     );
   });
-
   test.skip('Should render a SearchResults component with the corresponding props', () => {
     const expectedProps = {
       label: Dictionary.searchInputCodesListsLabel,

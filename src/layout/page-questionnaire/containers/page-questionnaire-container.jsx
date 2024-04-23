@@ -16,6 +16,7 @@ import {
   setActiveVariables,
   loadStatisticalContext,
 } from '../../../actions/app-state';
+import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -64,22 +65,26 @@ const mapStateToProps = (
       params: { id },
     },
   },
-) => ({
-  id,
-  authType: state.authType,
-  appState: state.appState,
-  questionnaire: state.questionnaireById[id],
-  activeQuestionnaire: state.appState.activeQuestionnaire,
-  components: state.componentByQuestionnaire[id],
-  codeLists: state.codeListByQuestionnaire[id],
-  calculatedVariables: state.calculatedVariableByQuestionnaire[id],
-  externalVariables: state.externalVariableByQuestionnaire[id],
-  collectedVariablesByQuestion: getCollectedVariablesByQuestionnaire(
-    state.componentByQuestionnaire[id],
-    state.collectedVariableByQuestionnaire[id],
-  ),
-  loading: state.questionnaireById.loader,
-});
+) => {
+  const { oidc } = useAuth(state.authType);
+  const token = oidc.getTokens().accessToken;
+  return {
+    id,
+    token: token,
+    appState: state.appState,
+    questionnaire: state.questionnaireById[id],
+    activeQuestionnaire: state.appState.activeQuestionnaire,
+    components: state.componentByQuestionnaire[id],
+    codeLists: state.codeListByQuestionnaire[id],
+    calculatedVariables: state.calculatedVariableByQuestionnaire[id],
+    externalVariables: state.externalVariableByQuestionnaire[id],
+    collectedVariablesByQuestion: getCollectedVariablesByQuestionnaire(
+      state.componentByQuestionnaire[id],
+      state.collectedVariableByQuestionnaire[id],
+    ),
+    loading: state.questionnaireById.loader,
+  };
+};
 
 const mapDispatchToProps = {
   loadCampaignsIfNeeded,

@@ -1,7 +1,3 @@
-import { vi } from 'vitest';
-
-vi.unmock('./external-variable.jsx');
-
 import ExternalVariableTransformerFactory from './external-variable';
 import {
   externalVariablesFormNew,

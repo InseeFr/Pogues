@@ -1,7 +1,3 @@
-import { vi } from 'vitest';
-
-vi.unmock('./redirection.jsx');
-
 import RedirectionTransformerFactory from './redirection';
 import {
   redirectionsFormNew,

@@ -15,7 +15,6 @@ import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity'
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
@@ -23,7 +22,7 @@ const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
 const QuestionnaireListComponents = props => {
   const {
-    authType,
+    token,
     questionnaire,
     componentsStore,
     editingComponentId,
@@ -36,8 +35,6 @@ const QuestionnaireListComponents = props => {
   } = props;
 
   const publicEnemyBaseUri = getEnvVar('PUBLIC_ENEMY_URL');
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
 
   useEffect(() => {
     setSelectedComponentId('');

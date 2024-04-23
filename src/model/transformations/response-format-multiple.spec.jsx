@@ -1,7 +1,7 @@
 import { remoteToState, stateToRemote } from './response-format-multiple';
 
 describe('response format multiple', () => {
-  describe('remoteToState', () => {
+  it('remoteToState', () => {
     const remote = {
       responses: [
         {

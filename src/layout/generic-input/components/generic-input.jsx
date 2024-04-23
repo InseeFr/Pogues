@@ -9,7 +9,6 @@ import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
 import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
 import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
-import { useAuth } from '../../../utils/oidc/useAuth';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
@@ -80,15 +79,13 @@ function GenericInput(props) {
     isQuestionnaireValid,
     isQuestionnaireHaveError,
     placeholders,
-    authType,
+    token,
     selectedComponent,
     removeVisualizationError,
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
   } = props;
 
-  const { oidc } = useAuth(authType);
-  const token = oidc.getTokens().accessToken;
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
