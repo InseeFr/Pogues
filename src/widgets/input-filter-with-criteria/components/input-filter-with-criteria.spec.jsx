@@ -1,9 +1,10 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { vi } from 'vitest';
+import React from 'react';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import InputFilterWithCriteria from './input-filter-with-criteria';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
+import { OidcProvider } from '../../../utils/oidc';
 import { fakeEvent, noop } from '../../../utils/test/test-utils';
 
 const { SEARCH_INPUT_CLASS, BUTTON_SEARCH_CLASS } =
@@ -23,13 +24,21 @@ describe('<InputFilterWithCriteria />', () => {
   });
 
   test('Should render the search input', () => {
-    const wrapper = shallow(<InputFilterWithCriteria {...props} />);
+    const wrapper = shallow(
+      <OidcProvider>
+        <InputFilterWithCriteria {...props} />
+      </OidcProvider>,
+    );
 
     expect(wrapper.find(`input.${SEARCH_INPUT_CLASS}`)).toHaveLength(1);
   });
 
   test('Should render the search action button', () => {
-    const wrapper = shallow(<InputFilterWithCriteria {...props} />);
+    const wrapper = shallow(
+      <OidcProvider>
+        <InputFilterWithCriteria {...props} />
+      </OidcProvider>,
+    );
 
     expect(wrapper.find(`button.${BUTTON_SEARCH_CLASS}`)).toHaveLength(1);
   });
@@ -39,12 +48,20 @@ describe('<InputFilterWithCriteria />', () => {
     const spySearchSecond = vi.fn();
 
     props.loadSearchResult = spySearchFirst;
-    shallow(<InputFilterWithCriteria {...props} />);
+    shallow(
+      <OidcProvider>
+        <InputFilterWithCriteria {...props} />
+      </OidcProvider>,
+    );
 
     expect(spySearchFirst).not.toHaveBeenCalled();
 
     props = { ...props, loadOnInit: false, loadSearchResult: spySearchSecond };
-    shallow(<InputFilterWithCriteria {...props} />);
+    shallow(
+      <OidcProvider>
+        <InputFilterWithCriteria {...props} />
+      </OidcProvider>,
+    );
 
     expect(spySearchSecond).not.toHaveBeenCalled();
   });
@@ -56,7 +73,11 @@ describe('<InputFilterWithCriteria />', () => {
     const text = 'This is a fake test';
 
     props.loadSearchResult = spySearch;
-    const wrapper = shallow(<InputFilterWithCriteria {...props} />);
+    const wrapper = shallow(
+      <OidcProvider>
+        <InputFilterWithCriteria {...props} />
+      </OidcProvider>,
+    );
     wrapper
       .find(`input.${SEARCH_INPUT_CLASS}`)
       .get(0)

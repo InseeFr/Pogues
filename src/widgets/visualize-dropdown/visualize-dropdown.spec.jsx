@@ -1,7 +1,8 @@
+import { shallow } from 'enzyme';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import { vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
+import { OidcProvider } from '../../utils/oidc';
 import VisualizeDropdown from './components/visualize-dropdown';
 
 describe('Visualize Dropdown Component: ', () => {
@@ -12,7 +13,13 @@ describe('Visualize Dropdown Component: ', () => {
       top: false,
       componentId: 'component-id',
     };
-    const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
+    const tree = renderer
+      .create(
+        <OidcProvider>
+          <VisualizeDropdown {...props} />
+        </OidcProvider>,
+      )
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
@@ -23,7 +30,13 @@ describe('Visualize Dropdown Component: ', () => {
       top: true,
       componentId: 'component-id',
     };
-    const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
+    const tree = renderer
+      .create(
+        <OidcProvider>
+          <VisualizeDropdown {...props} />
+        </OidcProvider>,
+      )
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
@@ -34,7 +47,13 @@ describe('Visualize Dropdown Component: ', () => {
       top: false,
       componentId: 'component-id',
     };
-    const tree = renderer.create(<VisualizeDropdown {...props} />).toJSON();
+    const tree = renderer
+      .create(
+        <OidcProvider>
+          <VisualizeDropdown {...props} />
+        </OidcProvider>,
+      )
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
@@ -45,7 +64,11 @@ describe('Visualize Dropdown Component: ', () => {
       top: false,
       componentId: 'component-id',
     };
-    const wrapper = shallow(<VisualizeDropdown {...props} />);
+    const wrapper = shallow(
+      <OidcProvider>
+        <VisualizeDropdown {...props} />
+      </OidcProvider>,
+    );
     expect(wrapper.find('div').hasClass('open')).toBeFalsy();
     wrapper
       .find('button[id="visualize"]')
@@ -64,7 +87,11 @@ describe('Visualize Dropdown Component: ', () => {
       top: false,
       componentId: 'component-id',
     };
-    const wrapper = shallow(<VisualizeDropdown {...props} />);
+    const wrapper = shallow(
+      <OidcProvider>
+        <VisualizeDropdown {...props} />
+      </OidcProvider>,
+    );
     wrapper
       .find('a')
       .first()

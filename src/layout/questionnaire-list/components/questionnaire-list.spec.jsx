@@ -1,8 +1,10 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import { noop } from '../../../utils/test/test-utils';
 
+import { describe, expect, test } from 'vitest';
+import { OidcProvider } from '../../../utils/oidc';
 import QuestionnaireList from './questionnaire-list';
 
 describe('<QuestionnaireList />', () => {
@@ -42,12 +44,14 @@ describe('<QuestionnaireList />', () => {
     duplicateQuestionnaire: () => {},
   }; */
   const wrapperWithoutQuestionnaires = shallow(
-    <QuestionnaireList
-      loadQuestionnaireList={noop}
-      duplicateQuestionnaire={() => {}}
-      handleNewChildQuestionnaireRef={() => {}}
-      activeQuestionnaire={{}}
-    />,
+    <OidcProvider>
+      <QuestionnaireList
+        loadQuestionnaireList={noop}
+        duplicateQuestionnaire={() => {}}
+        handleNewChildQuestionnaireRef={() => {}}
+        activeQuestionnaire={{}}
+      />
+    </OidcProvider>,
   );
   /* const wrapperWithQuestionnaires = shallow(
     <QuestionnaireList
