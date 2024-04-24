@@ -1,8 +1,9 @@
+import { describe, expect, test } from 'vitest';
 import {
-  resetChildren,
   increaseWeightOfAll,
-  resetWeight,
   resetAllWeight,
+  resetChildren,
+  resetWeight,
 } from './component-update';
 
 describe('resetChildren', () => {

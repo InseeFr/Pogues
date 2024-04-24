@@ -1,9 +1,10 @@
+import { describe, expect, test } from 'vitest';
+import { DATATYPE_NAME } from '../../constants/pogues-constants';
 import {
-  remoteToStore,
   remoteToComponentState,
+  remoteToStore,
   storeToRemote,
 } from './collected-variable';
-import { DATATYPE_NAME } from '../../constants/pogues-constants';
 
 const { TEXT, DURATION, DATE } = DATATYPE_NAME;
 

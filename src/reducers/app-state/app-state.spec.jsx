@@ -1,11 +1,12 @@
+import { describe, expect, test } from 'vitest';
 import actionsHandlers, {
-  startLoadingVisualization,
   endLoadingVisualization,
+  startLoadingVisualization,
 } from './app-state';
 
 import {
-  START_LOADING_VISUALIZATION,
   END_LOADING_VISUALIZATION,
+  START_LOADING_VISUALIZATION,
 } from '../../actions/app-state';
 
 const state = {

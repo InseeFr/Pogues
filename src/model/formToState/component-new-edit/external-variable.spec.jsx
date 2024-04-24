@@ -1,10 +1,11 @@
-import ExternalVariableTransformerFactory from './external-variable';
+import { describe, expect, test } from 'vitest';
 import {
   externalVariablesFormNew,
   externalVariablesFormUpdate,
-  externalVariablesStore,
   externalVariablesModel,
+  externalVariablesStore,
 } from './__mocks__/external-variable';
+import ExternalVariableTransformerFactory from './external-variable';
 
 describe.skip('Transformation entities - ExternalVariable', () => {
   test('Should produce expected STORE in external variables creation from question FORM', () => {

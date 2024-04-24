@@ -1,11 +1,12 @@
+import { describe, expect, test } from 'vitest';
+import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
+import {
+  CREATE_QUESTIONNAIRE_SUCCESS,
+  LOAD_QUESTIONNAIRE_SUCCESS,
+} from '../actions/questionnaire';
 import actionsHandlers, {
   loadQuestionnaireSuccess,
 } from './component-by-questionnaire';
-import {
-  LOAD_QUESTIONNAIRE_SUCCESS,
-  CREATE_QUESTIONNAIRE_SUCCESS,
-} from '../actions/questionnaire';
-import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
 
 describe('loadQuestionnaireSuccess', () => {
   test('when called directly', () => {

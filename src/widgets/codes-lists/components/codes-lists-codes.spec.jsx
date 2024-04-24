@@ -1,14 +1,13 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { vi } from 'vitest';
-import CodesListCodes from './codes-lists-codes';
-
+import React from 'react';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import {
-  fakeFieldArrayMeta,
-  fakeFieldArrayFields,
-  noop,
   fakeEnterEvent,
+  fakeFieldArrayFields,
+  fakeFieldArrayMeta,
+  noop,
 } from '../../../utils/test/test-utils';
+import CodesListCodes from './codes-lists-codes';
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 

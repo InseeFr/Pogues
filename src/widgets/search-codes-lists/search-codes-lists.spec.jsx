@@ -1,5 +1,6 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
+import { describe, expect, test } from 'vitest';
 
 import SearchCodesLists from './search-codes-lists';
 
@@ -21,9 +22,9 @@ import { SearchResults } from '../search-results';
 
 import {
   DEFAULT_FORM_NAME,
-  TYPES_ITEMS,
   SEARCH_CRITERIAS,
   SEARCH_RESULTS_COLUMNS,
+  TYPES_ITEMS,
 } from '../../constants/pogues-constants';
 
 import Dictionary from '../../utils/dictionary/dictionary';

@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import {
+  getResponseCoordinate,
   remoteToStore,
   storeToRemote,
-  getResponseCoordinate,
 } from './component';
 
 describe('component tranformations', () => {

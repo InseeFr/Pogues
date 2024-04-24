@@ -1,6 +1,6 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { vi } from 'vitest';
+import React from 'react';
+import { describe, expect, test, vi } from 'vitest';
 import ListWithInputPanel from './list-with-input-panel';
 
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';

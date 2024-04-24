@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { remoteToState, stateToRemote } from './control';
 
 describe('control tramsformation', () => {

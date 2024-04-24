@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import {
+  filterStoreByProp,
   getControlId,
   toggleValueInList,
-  filterStoreByProp,
 } from './widget-utils';
 
 describe('Widget utils', () => {

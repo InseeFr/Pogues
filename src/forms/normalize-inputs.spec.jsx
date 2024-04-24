@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import {
+  capitalize,
   componentName,
   stripLeadingUnderscore,
-  capitalize,
 } from './normalize-inputs';
 
 describe('componentName', () => {

@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { getPattern, getValueWithSuggestion } from './utils';
 
 describe('getPattern', () => {

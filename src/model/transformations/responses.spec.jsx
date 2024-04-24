@@ -1,5 +1,6 @@
-import { stateToModel } from './responses';
+import { describe, expect, test } from 'vitest';
 import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
+import { stateToModel } from './responses';
 
 const collectedVariablesStore = {
   jbdxtl1d: {

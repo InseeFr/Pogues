@@ -1,4 +1,4 @@
-import { moveUp, moveDown } from './movement';
+import { describe, expect, test } from 'vitest';
 import {
   code01,
   code02,
@@ -7,6 +7,7 @@ import {
   code05,
   codes,
 } from './__mocks__/codes';
+import { moveDown, moveUp } from './movement';
 
 describe('Codes lists utils - Movement', () => {
   describe('Move up', () => {

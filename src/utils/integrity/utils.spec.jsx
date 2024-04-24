@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { getIntegrityErrors } from './utils';
 
 describe('Utils', () => {

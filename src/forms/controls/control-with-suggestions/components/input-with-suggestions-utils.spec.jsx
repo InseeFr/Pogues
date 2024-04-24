@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import {
-  updateSuggestions,
-  initialize,
   getNewIndex,
+  initialize,
+  updateSuggestions,
 } from './input-with-suggestions-utils';
 
 describe('input-with-suggestions-utils', () => {

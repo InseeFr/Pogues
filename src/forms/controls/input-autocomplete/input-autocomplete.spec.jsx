@@ -1,10 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-
-import InputAutocomplete from './input-autocomplete';
-
+import React from 'react';
+import { beforeEach, describe, expect, test } from 'vitest';
+import { fakeEvent, fakeFieldProps } from '../../../utils/test/test-utils';
 import GenericOption from '../generic-option';
-import { fakeFieldProps, fakeEvent } from '../../../utils/test/test-utils';
+import InputAutocomplete from './input-autocomplete';
 
 describe('Form controls - Input autocomplete', () => {
   describe('Props and render behaviour', () => {

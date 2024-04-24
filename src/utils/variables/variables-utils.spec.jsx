@@ -1,6 +1,7 @@
+import { describe, expect, test } from 'vitest';
 import {
-  removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
+  removeOrphansCollectedVariables,
 } from './variables-utils';
 
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';

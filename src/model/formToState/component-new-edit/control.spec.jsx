@@ -1,10 +1,11 @@
-import ControlTransformerFactory from './control';
+import { describe, expect, test } from 'vitest';
 import {
   controlsFormNew,
   controlsFormUpdate,
-  controlsState,
   controlsModel,
+  controlsState,
 } from './__mocks__/control';
+import ControlTransformerFactory from './control';
 
 describe.skip('Transformation entities - Control', () => {
   test('Should produce expected STATE in controls creation from FORM', () => {

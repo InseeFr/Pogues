@@ -1,20 +1,20 @@
-import { vi } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+
+import { shallow } from 'enzyme';
+import React from 'react';
+
+import ListWithInputPanelItem from './list-with-input-panel-item';
+import ListWithInputPanelList from './list-with-input-panel-list';
+
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
+import { noop } from '../../../utils/test/test-utils';
+import { getFakeFields } from '../utils/test-utils';
 
 vi.mock('../../../utils/dictionary/dictionary', () => ({
   default: {
     no_FAKE_NAME: 'This is a no items message fake',
   },
 }));
-
-import React from 'react';
-import { shallow } from 'enzyme';
-
-import ListWithInputPanelList from './list-with-input-panel-list';
-import ListWithInputPanelItem from './list-with-input-panel-item';
-
-import { getFakeFields } from '../utils/test-utils';
-import { noop } from '../../../utils/test/test-utils';
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 
 const { LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 

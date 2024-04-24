@@ -1,9 +1,10 @@
+import { describe, expect, test } from 'vitest';
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import {
-  getListGotos,
   getComponentsTargetsByComponent,
   getComponentsTargetsByPosition,
+  getListGotos,
 } from './redirections-utils';
-import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 import { componentsStore, listGotos } from './__mocks__/redirections-utils';
 

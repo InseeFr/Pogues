@@ -1,5 +1,6 @@
-import * as component from './component-insert';
+import { describe, expect, test } from 'vitest';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import * as component from './component-insert';
 
 const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
 

@@ -1,17 +1,18 @@
+import { describe, expect, it, test } from 'vitest';
 import {
-  DIMENSION_TYPE,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
   DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
 
 import {
-  sortByYXAndZ,
+  generateCollectedVariables,
   getCollecteVariable,
   getCollectedVariablesMultiple,
-  getCollectedVariablesTable,
-  generateCollectedVariables,
   getCollectedVariablesSingle,
+  getCollectedVariablesTable,
+  sortByYXAndZ,
 } from './collected-variables-utils';
 
 const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;

@@ -1,8 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
+import { describe, expect, test } from 'vitest';
 
-import Select from './select';
 import GenericOption from './generic-option';
+import Select from './select';
 
 import { fakeFieldProps } from '../../utils/test/test-utils';
 

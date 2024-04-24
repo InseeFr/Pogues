@@ -1,5 +1,6 @@
-import * as component from './component-remove';
+import { describe, expect, test } from 'vitest';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import * as component from './component-remove';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 

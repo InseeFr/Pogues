@@ -1,8 +1,8 @@
-import React from 'react';
-import { vi } from 'vitest';
-import ArboSimplified from './arbo-simplifield';
 import { shallow } from 'enzyme';
+import React from 'react';
+import { describe, expect, test, vi } from 'vitest';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import ArboSimplified from './arbo-simplifield';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 

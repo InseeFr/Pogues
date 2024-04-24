@@ -1,5 +1,6 @@
-import checkerUniqueComponentName from './checker-unique-component-name';
+import { describe, expect, it } from 'vitest';
 import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
+import checkerUniqueComponentName from './checker-unique-component-name';
 
 describe('checkerUniqueComponentName', () => {
   it('should return an empty array', () => {

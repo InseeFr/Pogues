@@ -1,6 +1,6 @@
-import { vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
-import { componentSource, cardTarget, collect } from './component-dragndrop';
+import { cardTarget, collect, componentSource } from './component-dragndrop';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 

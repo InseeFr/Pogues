@@ -1,4 +1,5 @@
-import { stateToRemote, remoteToState } from './declaration';
+import { describe, expect, it, test } from 'vitest';
+import { remoteToState, stateToRemote } from './declaration';
 
 describe('declaration tranformations', () => {
   describe('remoteToStore', () => {

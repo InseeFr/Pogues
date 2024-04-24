@@ -1,11 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { vi } from 'vitest';
-
-import ListCheckboxes from './list-checkboxes';
+import React from 'react';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { fakeEvent, fakeFieldProps } from '../../utils/test/test-utils';
 import GenericOption from './generic-option';
-
-import { fakeFieldProps, fakeEvent } from '../../utils/test/test-utils';
+import ListCheckboxes from './list-checkboxes';
 
 describe('Form controls - List checkboxes', () => {
   test('Should render as many checkboxes as options passed', () => {

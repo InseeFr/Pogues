@@ -1,10 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
+import { describe, expect, test } from 'vitest';
 
 import { fakeFieldProps } from '../../../../utils/test/test-utils';
 
-import InputWithSuggestions from './input-with-suggestions';
 import ControlWithSuggestions from './control-with-suggestions';
+import InputWithSuggestions from './input-with-suggestions';
 
 describe('Form controls - InputWithSuggestions', () => {
   const props = {

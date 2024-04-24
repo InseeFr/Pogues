@@ -1,9 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-
-import Input from './input';
-
+import React from 'react';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { fakeFieldProps } from '../../utils/test/test-utils';
+import Input from './input';
 
 describe('Form controls - Input', () => {
   let props;

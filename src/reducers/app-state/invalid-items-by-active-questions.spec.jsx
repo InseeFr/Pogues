@@ -1,13 +1,14 @@
-import actionsHandlers, {
-  setInvalidItems,
-  removeInvalidItem,
-  addListInvalidItem,
-} from './invalid-items-by-active-question';
+import { describe, expect, test } from 'vitest';
 import {
-  SET_INVALID_ITEMS,
-  REMOVE_INVALID_ITEM,
   ADD_LIST_INVALID_ITEMS,
+  REMOVE_INVALID_ITEM,
+  SET_INVALID_ITEMS,
 } from '../../actions/app-state';
+import actionsHandlers, {
+  addListInvalidItem,
+  removeInvalidItem,
+  setInvalidItems,
+} from './invalid-items-by-active-question';
 
 describe('setActiveExternalVariables', () => {
   test('when called directly', () => {

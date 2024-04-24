@@ -1,16 +1,17 @@
+import { describe, expect, test } from 'vitest';
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import {
-  couldInsertToSibling,
   couldInsertAsChild,
-  toComponents,
-  toId,
+  couldInsertToSibling,
+  getSortedChildren,
+  isLoop,
   isQuestion,
   isSequence,
   isSubSequence,
-  isLoop,
-  getSortedChildren,
+  toComponents,
+  toId,
   updateNewComponentParent,
 } from './component-utils';
-import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, QUESTIONNAIRE, LOOP } = COMPONENT_TYPE;
 

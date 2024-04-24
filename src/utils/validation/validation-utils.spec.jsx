@@ -1,4 +1,5 @@
-import { validate, getErrorsObject } from './validation-utils';
+import { describe, expect, test } from 'vitest';
+import { getErrorsObject, validate } from './validation-utils';
 
 const form = {
   'path1.subpath1': 'value1',

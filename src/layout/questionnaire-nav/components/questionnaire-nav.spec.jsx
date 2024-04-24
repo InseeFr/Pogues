@@ -1,6 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { vi } from 'vitest';
+import React from 'react';
+import { describe, expect, test, vi } from 'vitest';
+
 import QuestionnaireNav from './questionnaire-nav';
 
 import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';

@@ -1,24 +1,25 @@
+import { describe, expect, it } from 'vitest';
+import Dictionary from '../utils/dictionary/dictionary';
 import {
-  maxLength,
-  minValue,
-  maxValue,
+  cartCodeModeCollecte,
   email,
-  requiredSelect,
-  requiredSelectMultiple,
-  requiredListCheckboxes,
-  name,
-  nameSize,
   emptyCodes,
   emptyMeasures,
-  validCollectedVariables,
-  validateExistingTarget,
-  validateDuplicates,
   letterStart,
-  minimumRequired,
+  maxLength,
+  maxValue,
   maximumRequired,
-  cartCodeModeCollecte,
+  minValue,
+  minimumRequired,
+  name,
+  nameSize,
+  requiredListCheckboxes,
+  requiredSelect,
+  requiredSelectMultiple,
+  validCollectedVariables,
+  validateDuplicates,
+  validateExistingTarget,
 } from './validation-rules';
-import Dictionary from '../utils/dictionary/dictionary';
 
 describe('maxLength', () => {
   const max = 5;

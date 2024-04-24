@@ -1,11 +1,12 @@
-import { vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
+
 import {
   clearSuggestions,
-  setSuggestions,
+  init,
   moveDown,
   moveUp,
+  setSuggestions,
   updateSelectedOption,
-  init,
 } from './input-autocomplete-utils';
 
 describe('Form controls - Input autocomplete - Utils', () => {

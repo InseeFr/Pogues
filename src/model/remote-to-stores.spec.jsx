@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { questionnaireListRemoteToStores } from './remote-to-stores';
 
 describe('remote to stores', () => {

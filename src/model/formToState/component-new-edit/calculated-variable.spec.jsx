@@ -1,10 +1,11 @@
-import CalculatedVariableTransformerFactory from './calculated-variable';
+import { describe, expect, test } from 'vitest';
 import {
   calculatedVariablesFormNew,
   calculatedVariablesFormUpdate,
-  calculatedVariablesStore,
   calculatedVariablesModel,
+  calculatedVariablesStore,
 } from './__mocks__/calculated-variable';
+import CalculatedVariableTransformerFactory from './calculated-variable';
 
 describe.skip('Transformation entities - CalculatedVariable', () => {
   test('Should produce expected STORE in calculated variables creation from question FORM', () => {

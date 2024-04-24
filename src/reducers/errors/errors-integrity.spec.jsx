@@ -1,5 +1,6 @@
-import actionsHandlers, { removeError } from './errors-integrity';
+import { describe, expect, test } from 'vitest';
 import { REMOVE_INTEGRITY_ERROR } from '../../actions/errors';
+import actionsHandlers, { removeError } from './errors-integrity';
 
 describe('removeError', () => {
   test('when called directly', () => {

@@ -1,6 +1,6 @@
-import { vi } from 'vitest';
-import * as component from './component-move';
+import { describe, expect, test, vi } from 'vitest';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import * as component from './component-move';
 
 const { SEQUENCE, QUESTION, SUBSEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 

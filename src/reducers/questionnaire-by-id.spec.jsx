@@ -1,11 +1,12 @@
-import reducer from './questionnaire-by-id';
-import {
-  LOAD_QUESTIONNAIRE_SUCCESS,
-  CREATE_QUESTIONNAIRE_SUCCESS,
-  LOAD_QUESTIONNAIRE_START,
-  LOAD_QUESTIONNAIRE_FAILURE,
-} from '../actions/questionnaire';
+import { describe, expect, test } from 'vitest';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
+import {
+  CREATE_QUESTIONNAIRE_SUCCESS,
+  LOAD_QUESTIONNAIRE_FAILURE,
+  LOAD_QUESTIONNAIRE_START,
+  LOAD_QUESTIONNAIRE_SUCCESS,
+} from '../actions/questionnaire';
+import reducer from './questionnaire-by-id';
 
 describe('questionnaire-by-id reducer', () => {
   test('should handle LOAD_QUESTIONNAIRE_SUCCESS', () => {

@@ -1,10 +1,11 @@
-import RedirectionTransformerFactory from './redirection';
+import { describe, expect, test } from 'vitest';
 import {
   redirectionsFormNew,
   redirectionsFormUpdate,
-  redirectionsState,
   redirectionsModel,
+  redirectionsState,
 } from './__mocks__/redirection';
+import RedirectionTransformerFactory from './redirection';
 
 describe.skip('Transformation entities - Redirection', () => {
   test('Should produce expected STATE in redirections creation from FORM', () => {

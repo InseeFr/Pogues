@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { checkVariableNumberStart } from './component-new-edit-utils';
 
 describe('checkVariableNumberStart', () => {

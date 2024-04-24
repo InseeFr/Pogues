@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { remoteToState, stateToRemote } from './response-format-multiple';
 
 describe('response format multiple', () => {

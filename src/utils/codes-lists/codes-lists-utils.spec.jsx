@@ -1,20 +1,21 @@
+import { describe, expect, test } from 'vitest';
 import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 import {
-  removeOrphansCodesLists,
-  getSingleCodesLists,
+  codesListsStore,
+  componentsStore,
+  expectedCodesListsStore,
+  listCodes,
+  multipleFormatCodesListsIds,
+  singleFormatCodesListsIds,
+  tableFormatCodesListsIds,
+} from './__mocks__/codes-lists-utils';
+import {
   getMultipleCodesLists,
+  getSingleCodesLists,
   getTableCodesLists,
   hasChild,
+  removeOrphansCodesLists,
 } from './codes-lists-utils';
-import {
-  codesListsStore,
-  expectedCodesListsStore,
-  componentsStore,
-  singleFormatCodesListsIds,
-  multipleFormatCodesListsIds,
-  tableFormatCodesListsIds,
-  listCodes,
-} from './__mocks__/codes-lists-utils';
 
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 

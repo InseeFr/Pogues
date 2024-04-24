@@ -1,12 +1,10 @@
-import { describe, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 import { remoteToState, stateToRemote } from './response-format';
 import * as ResponseFormatMultiple from './response-format-multiple';
 import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
 import * as ResponseFormatTable from './response-format-table';
-
-import { expect } from 'chai';
-import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 

@@ -1,8 +1,9 @@
-import { stateToRemote } from './dimension';
+import { describe, expect, test } from 'vitest';
 import {
-  DIMENSION_TYPE,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_TYPE,
 } from '../../constants/pogues-constants';
+import { stateToRemote } from './dimension';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
 describe('dimension tranformations', () => {

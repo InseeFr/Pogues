@@ -1,12 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { vi } from 'vitest';
-
-// Not connected to store
-import PageQuestionnaire from './page-questionnaire';
-
+import React from 'react';
+import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
+import PageQuestionnaire from './page-questionnaire';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 

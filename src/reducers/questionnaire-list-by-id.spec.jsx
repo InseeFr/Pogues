@@ -1,6 +1,7 @@
-import reducer from './questionnaire-list-by-id';
+import { describe, expect, test } from 'vitest';
 import { DELETE_QLIST_SUCCESS } from '../actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from '../actions/questionnaire-list';
+import reducer from './questionnaire-list-by-id';
 
 describe('questionnaire-list-by-id reducer', () => {
   test('should handle LOAD_QLIST_SUCCESS', () => {

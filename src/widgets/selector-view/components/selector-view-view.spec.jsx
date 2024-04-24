@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { describe, expect, test } from 'vitest';
 
 import SelectorViewView from './selector-view-view';
 

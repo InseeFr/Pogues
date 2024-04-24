@@ -1,9 +1,10 @@
+import { describe, expect, it } from 'vitest';
 import {
   remoteToState,
   remoteToState1,
-  stateToRemote,
   remoteToStore,
   remoteToStore1,
+  stateToRemote,
 } from './questionnaire';
 
 describe('questionnaire', () => {

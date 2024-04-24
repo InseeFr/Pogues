@@ -1,13 +1,14 @@
-import actionsHandlers, {
-  loadQuestionnaireSuccess,
-  loadQuestionnaireListSuccess,
-} from './calculated-variable-by-questionnaire';
+import { describe, expect, test } from 'vitest';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
 import {
-  LOAD_QUESTIONNAIRE_SUCCESS,
   CREATE_QUESTIONNAIRE_SUCCESS,
+  LOAD_QUESTIONNAIRE_SUCCESS,
 } from '../actions/questionnaire';
 import { LOAD_QLIST_SUCCESS } from '../actions/questionnaire-list';
+import actionsHandlers, {
+  loadQuestionnaireListSuccess,
+  loadQuestionnaireSuccess,
+} from './calculated-variable-by-questionnaire';
 
 describe('loadQuestionnaireSuccess', () => {
   test('when called directly', () => {

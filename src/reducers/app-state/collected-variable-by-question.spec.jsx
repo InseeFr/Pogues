@@ -1,13 +1,14 @@
+import { describe, expect, test } from 'vitest';
+import { SET_ACTIVE_VARIABLES } from '../../actions/app-state';
+import {
+  CREATE_COMPONENT,
+  DUPLICATE_COMPONENT,
+  UPDATE_COMPONENT,
+} from '../../actions/component';
 import actionsHandlers, {
   setActiveCollectedVariables,
   updateActiveCollectedVariables,
 } from './collected-variable-by-question';
-import { SET_ACTIVE_VARIABLES } from '../../actions/app-state';
-import {
-  CREATE_COMPONENT,
-  UPDATE_COMPONENT,
-  DUPLICATE_COMPONENT,
-} from '../../actions/component';
 
 describe('setActiveCollectedVariables', () => {
   test('when called directly', () => {

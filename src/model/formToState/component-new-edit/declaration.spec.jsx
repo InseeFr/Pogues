@@ -1,10 +1,11 @@
-import DeclarationTransformerFactory from './declaration';
+import { describe, expect, test } from 'vitest';
 import {
   declarationsFormNew,
   declarationsFormUpdate,
-  declarationsState,
   declarationsModel,
+  declarationsState,
 } from './__mocks__/declaration';
+import DeclarationTransformerFactory from './declaration';
 
 describe.skip('Transformation entities - Declaration', () => {
   test('Should produce expected STATE in declarations creation from FORM', () => {

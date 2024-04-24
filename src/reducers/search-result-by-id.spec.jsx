@@ -1,11 +1,12 @@
-import actionsHandlers, {
-  loadSearchResultSuccess,
-  clearSearchResult,
-} from './search-result-by-id';
+import { describe, expect, test } from 'vitest';
 import {
-  LOAD_SEARCH_RESULT_SUCCESS,
   CLEAR_SEARCH_RESULTS,
+  LOAD_SEARCH_RESULT_SUCCESS,
 } from '../actions/search';
+import actionsHandlers, {
+  clearSearchResult,
+  loadSearchResultSuccess,
+} from './search-result-by-id';
 
 describe('clearSearchResult', () => {
   test('when called directly', () => {

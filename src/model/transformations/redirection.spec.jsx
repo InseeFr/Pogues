@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { remoteToState, stateToRemote } from './redirection-filters';
 
 describe('redirection filters tramsformation', () => {

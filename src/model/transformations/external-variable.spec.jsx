@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { remoteToStore, storeToRemote } from './external-variable';
 
 describe('external variable transformation', () => {
