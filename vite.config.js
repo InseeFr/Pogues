@@ -8,7 +8,7 @@ export default defineConfig({
     include: ['**/*.spec.jsx'],
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['src/setUpTests.ts'],
+    setupFiles: ['./src/setUpTests.ts'],
   },
   resolve: {
     alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
