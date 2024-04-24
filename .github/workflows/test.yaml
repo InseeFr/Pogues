@@ -19,9 +19,6 @@ jobs:
       - run: yarn
       # Run tests & build sonar reports
       - run: yarn test
-        with:
-          name: test
-          path: home/runner/work/Pogues/Pogues
       # Build lib
       - run: yarn build
       - name: Upload deploy artifact
