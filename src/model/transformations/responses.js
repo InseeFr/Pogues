@@ -38,7 +38,7 @@ export function stateToModel(
       attributeModel.push({
         AttributeValue: 'NoDataByDefinition',
         AttributeTarget: MappingTarget,
-        AlternativeLabel: alternativeLabel,
+        Label: alternativeLabel,
       });
     }
     if (isCollected === '2') {
@@ -46,7 +46,7 @@ export function stateToModel(
         MappingSource: r.id,
         MappingTarget,
         AlternativeLabel: alternativeLabel,
-        Condition: condition,
+        Filter: condition,
       };
     }
     return { MappingSource: r.id, MappingTarget };
