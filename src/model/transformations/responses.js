@@ -29,16 +29,25 @@ export function stateToModel(
   );
   const attributeModel = [];
   const mappingModel = responsesModel.map(r => {
-    const { x, y, isCollected } =
+    const { x, y, isCollected, alternativeLabel, condition } =
       collectedVariablesStore[r.CollectedVariableReference];
     // Table : Fix lines and look into columns
     const MappingTarget = type === MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
 
-    if (!isCollected) {
+    if (isCollected === '0') {
       attributeModel.push({
         AttributeValue: 'NoDataByDefinition',
         AttributeTarget: MappingTarget,
+        AlternativeLabel: alternativeLabel,
       });
+    }
+    if (isCollected === '2') {
+      return {
+        MappingSource: r.id,
+        MappingTarget,
+        AlternativeLabel: alternativeLabel,
+        Condition: condition,
+      };
     }
     return { MappingSource: r.id, MappingTarget };
   });
