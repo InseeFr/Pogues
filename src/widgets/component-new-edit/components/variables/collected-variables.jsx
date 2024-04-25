@@ -5,8 +5,15 @@ import PropTypes from 'prop-types';
 import { defaultState } from 'model/formToState/component-new-edit/collected-variable';
 import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
+import {
+  RichEditorWithVariable,
+  SimpleEditorWithVariable,
+} from 'forms/controls/control-with-suggestions';
+import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
+import ListRadios from 'forms/controls/list-radios';
+import { toolbarConfigTooltip } from 'forms/controls/rich-textarea';
 import { validateCollectedVariableForm } from 'utils/validation/validate';
 import { generateCollectedVariables } from 'utils/variables/collected-variables-utils';
 import Dictionary from 'utils/dictionary/dictionary';
@@ -28,7 +35,7 @@ function CollectedVariables({
   componentName,
   responseFormatType,
   reponseFormatValues,
-  codesListsStoreStore,
+  codesListsStore,
   formName,
   arrayRemoveAll,
   arrayPush,
@@ -36,13 +43,15 @@ function CollectedVariables({
   selectorPath,
   errors,
   addErrors,
+  referencedCodeList,
+  isVariableCollected,
 }) {
   function generateVariables() {
     const newVariables = generateCollectedVariables(
       responseFormatType,
       componentName,
       reponseFormatValues,
-      codesListsStoreStore,
+      codesListsStore,
     );
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
@@ -83,67 +92,91 @@ function CollectedVariables({
             {Dictionary.generateCollectedVariables}
           </button>
         </div>
-        <Field
-          name="label"
-          type="text"
-          component={Input}
-          label={Dictionary.label}
-          required
-        />
-        <Field
-          name="name"
-          type="text"
-          component={Input}
-          label={Dictionary.name}
-          required
-        />
-        <Field name="x" type="hidden" component="input" />
-        <Field name="y" type="hidden" component="input" />
-        <SelectorView
-          label={Dictionary.responseType}
-          selectorPath={selectorPath}
-          readOnly
-          required={false}
-        >
-          <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
-            <ResponseFormatDatatypeText readOnly required={false} />
-          </View>
-          <View key={DATE} value={DATE} label={Dictionary.DATE}>
-            <ResponseFormatDatatypeDate
-              readOnly
-              required={false}
-              isCollectedVariables
-            />
-          </View>
-          <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-            <ResponseFormatDatatypeNumeric readOnly required={false} />
-          </View>
-          <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
-          <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>
-            <ResponseFormatDatatypeDuree readOnly required={false} />
-          </View>
-        </SelectorView>
-
-        <Field name="codeListReference" type="hidden" component="input" />
-        <Field
-          name="codeListReferenceLabel"
-          type="text"
-          disabled
-          component={Input}
-          label={Dictionary.cl}
-        />
         <div className="ctrl-checkbox" hidden={hiddenCollected}>
-          <label htmlFor="collected-variables-isCollected">
-            {Dictionary.collected}
-          </label>
-          <div>
+          <Field
+            name="isCollected"
+            label={Dictionary.collected}
+            component={ListRadios}
+            required
+          >
+            <GenericOption key="1" value="1">
+              {Dictionary.yes}
+            </GenericOption>
+            <GenericOption key="0" value="0">
+              {Dictionary.no}
+            </GenericOption>
+            <GenericOption key="2" value="2">
+              {Dictionary.underCondition}
+            </GenericOption>
+          </Field>
+        </div>
+        <div className="ctrl-checkbox" hidden={isVariableCollected !== '2'}>
+          <Field
+            name="condition"
+            required
+            component={SimpleEditorWithVariable}
+            label={Dictionary.expression}
+          />
+        </div>
+        <div className="ctrl-checkbox" hidden={isVariableCollected === '1'}>
+          <Field
+            name="alternativeLabel"
+            component={RichEditorWithVariable}
+            toolbar={toolbarConfigTooltip}
+            label={Dictionary.alternativeLabel}
+          />
+        </div>
+        <div className="ctrl-checkbox" hidden={isVariableCollected === '0'}>
+          <Field
+            name="label"
+            type="text"
+            component={Input}
+            label={Dictionary.label}
+            required
+          />
+          <Field
+            name="name"
+            type="text"
+            component={Input}
+            label={Dictionary.name}
+            required
+          />
+          <Field name="x" type="hidden" component="input" />
+          <Field name="y" type="hidden" component="input" />
+          <SelectorView
+            label={Dictionary.responseType}
+            selectorPath={selectorPath}
+            readOnly
+            required={false}
+          >
+            <View key={TEXT} value={TEXT} label={Dictionary.TEXT}>
+              <ResponseFormatDatatypeText readOnly required={false} />
+            </View>
+            <View key={DATE} value={DATE} label={Dictionary.DATE}>
+              <ResponseFormatDatatypeDate
+                readOnly
+                required={false}
+                isCollectedVariables
+              />
+            </View>
+            <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
+              <ResponseFormatDatatypeNumeric readOnly required={false} />
+            </View>
+            <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
+            <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>
+              <ResponseFormatDatatypeDuree readOnly required={false} />
+            </View>
+          </SelectorView>
+          <Field name="codeListReference" type="hidden" component="input" />
+          {referencedCodeList && (
             <Field
-              name="isCollected"
-              id="collected-variables-isCollected"
-              component="input"
-              type="checkbox"
+              name="codeListReferenceLabel"
+              type="text"
+              disabled
+              component={Input}
+              label={Dictionary.cl}
             />
-          </div>
+          )}
         </div>
       </ListWithInputPanel>
     </FormSection>
@@ -155,21 +188,22 @@ CollectedVariables.propTypes = {
   responseFormatType: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
   selectorPath: PropTypes.string.isRequired,
-
   errors: PropTypes.array.isRequired,
-
   addErrors: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
   arrayPush: PropTypes.func.isRequired,
   removeValidationErrors: PropTypes.func.isRequired,
-
-  codesListsStoreStore: PropTypes.object,
+  codesListsStore: PropTypes.object,
   reponseFormatValues: PropTypes.object,
+  referencedCodeList: PropTypes.string,
+  isVariableCollected: PropTypes.string,
 };
 
 CollectedVariables.defaultProps = {
-  codesListsStoreStore: {},
+  codesListsStore: {},
   reponseFormatValues: {},
+  referencedCodeList: '',
+  isVariableCollected: '1',
 };
 
 export default CollectedVariables;

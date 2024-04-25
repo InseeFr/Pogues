@@ -41,9 +41,9 @@ export const getResponseCoordinate = (
 ) =>
   variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    const find = variablesAttribute
-      ? variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget)
-      : false;
+    const find =
+      variablesAttribute &&
+      variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget);
     const variableRes = {
       ...acc,
       [m.MappingSource]: {
@@ -52,9 +52,16 @@ export const getResponseCoordinate = (
       },
     };
     if (find) {
-      variableRes[m.MappingSource].isCollected = false;
+      variableRes[m.MappingSource].isCollected = '0';
+      variableRes[m.MappingSource].alternativeLabel = variablesAttribute.find(
+        ele => ele.AttributeTarget === m.MappingTarget,
+      ).AlternativeLabel;
+    } else if (m.Condition) {
+      variableRes[m.MappingSource].isCollected = '2';
+      variableRes[m.MappingSource].condition = m.Condition;
+      variableRes[m.MappingSource].alternativeLabel = m.AlternativeLabel;
     } else {
-      variableRes[m.MappingSource].isCollected = true;
+      variableRes[m.MappingSource].isCollected = '1';
     }
     return variableRes;
   }, {});

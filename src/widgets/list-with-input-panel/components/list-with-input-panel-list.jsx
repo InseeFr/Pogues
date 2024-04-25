@@ -29,6 +29,7 @@ function ListWithInputPanelList({ fields, select, errors }) {
       y: item.y,
       prefix: prefix,
       name: item.name,
+      isCollected: item.isCollected,
       label: markdownVtlToString(item.label),
     };
   });
@@ -54,8 +55,10 @@ function ListWithInputPanelList({ fields, select, errors }) {
               select={() => select(item.index)}
               invalid={item.hasError}
             >
-              {`${item.prefix} ${item.label}`}
-              {item.name && (
+              {item.isCollected === '0' &&
+                `${item.prefix} [${Dictionary.unCollected}]`}
+              {item.isCollected !== '0' && `${item.prefix} ${item.label}`}
+              {item.isCollected !== '0' && item.name && (
                 <span className={VARIABLE_NAME_CLASS}>{` [${item.name}]`}</span>
               )}
             </ListWithInputPanelItem>
