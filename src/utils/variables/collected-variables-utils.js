@@ -77,11 +77,13 @@ export function sortByYXAndZ(store) {
   };
 }
 
-export function getCollecteVariable(
+export function getCollectedVariable(
   name,
   label,
   coordinates,
   reponseFormatValues = {},
+  condition,
+  alternativeLabel,
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
@@ -91,6 +93,9 @@ export function getCollecteVariable(
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
+  if (condition) collectedVariable = { ...collectedVariable, ...condition };
+  if (alternativeLabel)
+    collectedVariable = { ...collectedVariable, ...alternativeLabel };
   return collectedVariable;
 }
 
@@ -129,20 +134,23 @@ export function getCollectedVariablesMultiple(
 
   const listFiltered = listCodes.filter(code => !hasChild(code, listCodes));
   const collectedVariables = listFiltered.map((c, index) =>
-    getCollecteVariable(
+    getCollectedVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
-      { x: index + 1, isCollected: true },
+      { x: index + 1, isCollected: '1', condition: '', alternativeLabel: '' },
       reponseFormatValues,
     ),
   );
   form.PRIMARY.CodesList.codes.forEach(code => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
-        getCollecteVariable(
+        getCollectedVariable(
           code.precisionid,
           `${code.precisionid} label`,
-          { z: code.weight, isCollected: true },
+          {
+            z: code.weight,
+            isCollected: '1',
+          },
           {
             type: TEXT,
             [TEXT]: {
@@ -160,7 +168,7 @@ export function getCollectedVariablesMultiple(
 export function getCollectedVariablesSingle(questionName, form) {
   const collectedVariables = [];
   collectedVariables.push(
-    getCollecteVariable(questionName, `${questionName} label`, undefined, {
+    getCollectedVariable(questionName, `${questionName} label`, undefined, {
       codeListReference: form.CodesList.id,
       codeListReferenceLabel: form.CodesList.label,
       type: TEXT,
@@ -174,10 +182,10 @@ export function getCollectedVariablesSingle(questionName, form) {
   form.CodesList.codes?.forEach(code => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
-        getCollecteVariable(
+        getCollectedVariable(
           code.precisionid,
           `${code.precisionid} label`,
-          { z: code.weight, isCollected: true },
+          { z: code.weight, isCollected: '1' },
           {
             type: TEXT,
             codeListReference: undefined,
@@ -230,13 +238,15 @@ export function getCollectedVariablesTable(questionName, form) {
             .filter(code => !hasChild(code, codesStateSecondary))
             .map((codeSecondary, j) =>
               collectedVariables.push(
-                getCollecteVariable(
+                getCollectedVariable(
                   `${questionName}${i + 1}${j + 1}`,
                   `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
                   {
                     x: i + 1,
                     y: j + 1,
-                    isCollected: true,
+                    isCollected: '1',
+                    condition: '',
+                    alternativeLabel: '',
                   },
                   getReponsesValues(measureState),
                 ),
@@ -251,13 +261,13 @@ export function getCollectedVariablesTable(questionName, form) {
         .map((codePrimary, i) =>
           listMeasuresState.measures.map((measure, j) =>
             collectedVariables.push(
-              getCollecteVariable(
+              getCollectedVariable(
                 `${questionName}${i + 1}${j + 1}`,
                 `${codePrimary.label}-${measure.label}`,
                 {
                   x: i + 1,
                   y: j + 1,
-                  isCollected: true,
+                  isCollected: '1',
                 },
                 getReponsesValues(measure),
               ),
@@ -270,13 +280,13 @@ export function getCollectedVariablesTable(questionName, form) {
   if (primaryState.type !== CODES_LIST) {
     listMeasuresState.measures.map((measure, j) =>
       collectedVariables.push(
-        getCollecteVariable(
+        getCollectedVariable(
           `${questionName}${j + 1}`,
           `${measure.label}`,
           {
             x: 1,
             y: j + 1,
-            isCollected: true,
+            isCollected: '1',
           },
           getReponsesValues(measure),
         ),
@@ -297,13 +307,13 @@ export function getCollectedVariablesTable(questionName, form) {
             )
             .map(variable =>
               collectedVariables.push(
-                getCollecteVariable(
+                getCollectedVariable(
                   `${variable.name}${code.value}CL`,
                   `${variable.name}${code.value}CL label`,
                   {
                     z: code.weight,
                     mesureLevel: variable.x,
-                    isCollected: true,
+                    isCollected: '1',
                   },
                   {
                     type: 'TEXT',
@@ -330,7 +340,7 @@ export function generateCollectedVariables(
 
   if (responseFormat === SIMPLE) {
     generatedCollectedVariables = [
-      getCollecteVariable(
+      getCollectedVariable(
         questionName,
         `${questionName} label`,
         undefined,
