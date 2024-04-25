@@ -44,6 +44,7 @@ describe('response format multiple', () => {
           type: 'BOOLEAN',
           BOOLEAN: {},
           codeListReferenceLabel: '',
+          isCollected: '0',
         },
       };
       const response = undefined;
@@ -96,7 +97,7 @@ describe('response format multiple', () => {
           codeListReference: undefined,
           codeListReferenceLabel: '',
           id: 'kgs1cxfn',
-          isCollected: true,
+          isCollected: '1',
           label: '2 - lib2',
           mesureLevel: undefined,
           name: 'QUESTIONTA2',
@@ -114,7 +115,7 @@ describe('response format multiple', () => {
           codeListReference: undefined,
           codeListReferenceLabel: '',
           id: 'kgs1g55j',
-          isCollected: true,
+          isCollected: '1',
           label: '1 - lib1',
           mesureLevel: undefined,
           name: 'QUESTIONTA1',

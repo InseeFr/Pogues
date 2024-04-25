@@ -13,7 +13,9 @@ export const defaultState = {
   mesureLevel: '',
   codeListReference: '',
   codeListReferenceLabel: '',
-  isCollected: true,
+  isCollected: '1',
+  condition: '',
+  alternativeLabel: '',
 };
 
 export const defaultForm = {
@@ -27,7 +29,9 @@ export const defaultForm = {
   collectedVariables: [],
   codeListReference: '',
   codeListReferenceLabel: '',
-  isCollected: true,
+  isCollected: '1',
+  condition: '',
+  alternativeLabel: '',
 };
 
 function getTypings(object) {
@@ -48,6 +52,8 @@ export function formToState(form) {
     codeListReference,
     codeListReferenceLabel,
     isCollected,
+    condition,
+    alternativeLabel,
   } = form;
   const id = form.id || uuid();
 
@@ -59,6 +65,8 @@ export function formToState(form) {
     y,
     z,
     isCollected,
+    condition,
+    alternativeLabel,
     mesureLevel,
     ...getTypings(form),
     codeListReference,
@@ -90,7 +98,9 @@ export function storeToForm(currentStore) {
         x,
         y,
         z,
-        isCollected = true,
+        isCollected = '1',
+        condition,
+        alternativeLabel,
         mesureLevel,
         codeListReference,
         codeListReferenceLabel,
@@ -103,6 +113,8 @@ export function storeToForm(currentStore) {
         y,
         z,
         isCollected,
+        condition,
+        alternativeLabel,
         mesureLevel,
         ...getTypings(currentStore[key]),
         codeListReference,

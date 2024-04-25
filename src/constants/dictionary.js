@@ -926,6 +926,18 @@ const dictionary = {
     fr: 'Non',
     en: 'No',
   },
+  underCondition: {
+    fr: 'Sous condition',
+    en: 'Under condition',
+  },
+  alternativeLabel: {
+    fr: 'Libellé alternatif',
+    en: 'Alternative label',
+  },
+  unCollected: {
+    fr: 'non collecté',
+    en: 'uncollected',
+  },
   infoAxis: {
     fr: "Axe d'information",
     en: 'Information axis',
