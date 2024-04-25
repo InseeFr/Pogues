@@ -14,7 +14,7 @@ import {
   sortByYXAndZ,
 } from './collected-variables-utils';
 
-const { TEXT, BOOLEAN, DATE, NUMERIC } = DATATYPE_NAME;
+const { BOOLEAN } = DATATYPE_NAME;
 const { SIMPLE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 
