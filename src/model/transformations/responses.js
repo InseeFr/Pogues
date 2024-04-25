@@ -1,5 +1,5 @@
-import * as Response from './response';
 import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
+import * as Response from './response';
 
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 
