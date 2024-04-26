@@ -131,7 +131,7 @@ export function stateToRemote(state, collectedVariables) {
       if (mihours || miminutes) {
         durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
       }
-      if (mahours !== '' || maminutes !== '') {
+      if (mahours || maminutes) {
         durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
       }
     }
