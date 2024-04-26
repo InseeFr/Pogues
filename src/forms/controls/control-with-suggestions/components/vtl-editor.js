@@ -70,7 +70,7 @@ const VTLEditor = ({
             theme: 'vs-light',
             hideLines: true,
             style: {
-              height: '200px',
+              height: '100px',
             },
           }}
         />
