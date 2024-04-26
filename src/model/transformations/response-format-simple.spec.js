@@ -106,7 +106,7 @@ describe('redirection transformation', () => {
       });
     });
 
-    it('should return maminutes = "" if type name Duration and format PTnHnM and maminutes = 0', () => {
+    it('should return maminutes = "0" if type name Duration and format PTnHnM and maminutes = 0', () => {
       expect(
         remoteToState({
           responses: [
@@ -130,7 +130,7 @@ describe('redirection transformation', () => {
         DURATION: {
           format: 'PTnHnM',
           mahours: '2',
-          maminutes: '',
+          maminutes: '0',
           maximum: 'PT2H0M',
           mihours: '1',
           miminutes: '1',
