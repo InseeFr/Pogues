@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, CODELISTS_ACTIONS } from 'constants/pogues-constants';
+import { CODELISTS_ACTIONS, COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const {
@@ -931,8 +931,8 @@ const dictionary = {
     en: 'Under condition',
   },
   alternativeLabel: {
-    fr: 'Libellé alternatif',
-    en: 'Alternative label',
+    fr: 'Valeur alternative',
+    en: 'Alternative value',
   },
   unCollected: {
     fr: 'non collecté',
