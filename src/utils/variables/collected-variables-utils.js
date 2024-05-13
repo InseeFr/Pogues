@@ -1,12 +1,12 @@
 import {
-  QUESTION_TYPE_ENUM,
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
   DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
-import { uuid } from 'utils/utils';
 import { hasChild } from 'utils/codes-lists/codes-lists-utils';
+import { uuid } from 'utils/utils';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
@@ -82,8 +82,8 @@ export function getCollectedVariable(
   label,
   coordinates,
   reponseFormatValues = {},
-  condition,
-  alternativeLabel,
+  condition = '',
+  alternativeLabel = '',
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
