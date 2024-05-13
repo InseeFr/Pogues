@@ -41,9 +41,9 @@ export const getResponseCoordinate = (
 ) =>
   variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    const find =
-      variablesAttribute &&
-      variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget);
+    const find = variablesAttribute?.find(
+      ele => ele.AttributeTarget === m.MappingTarget,
+    );
     const variableRes = {
       ...acc,
       [m.MappingSource]: {
