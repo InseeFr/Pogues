@@ -77,6 +77,10 @@
           .widget-list-with-input-panel__variable-name {
             font-family: 'Courier New', Courier, monospace;
           }
+
+          .widget-list-with-input-panel__uncollected-variable {
+            font-style: italic;
+          }
         }
       }
     }

@@ -5,6 +5,7 @@ import {
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
 } from 'constants/pogues-constants';
+import { markdownVtlToString } from 'forms/controls/rich-textarea';
 import { hasChild } from 'utils/codes-lists/codes-lists-utils';
 import { uuid } from 'utils/utils';
 
@@ -240,7 +241,9 @@ export function getCollectedVariablesTable(questionName, form) {
               collectedVariables.push(
                 getCollectedVariable(
                   `${questionName}${i + 1}${j + 1}`,
-                  `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
+                  markdownVtlToString(
+                    `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
+                  ).replace(/"/g, ''),
                   {
                     x: i + 1,
                     y: j + 1,
@@ -263,7 +266,9 @@ export function getCollectedVariablesTable(questionName, form) {
             collectedVariables.push(
               getCollectedVariable(
                 `${questionName}${i + 1}${j + 1}`,
-                `${codePrimary.label}-${measure.label}`,
+                markdownVtlToString(
+                  `${codePrimary.label}-${measure.label}`,
+                ).replace(/"/g, ''),
                 {
                   x: i + 1,
                   y: j + 1,
@@ -282,7 +287,7 @@ export function getCollectedVariablesTable(questionName, form) {
       collectedVariables.push(
         getCollectedVariable(
           `${questionName}${j + 1}`,
-          `${measure.label}`,
+          markdownVtlToString(`${measure.label}`).replace(/"/g, ''),
           {
             x: 1,
             y: j + 1,

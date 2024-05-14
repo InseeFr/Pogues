@@ -935,8 +935,8 @@ const dictionary = {
     en: 'Alternative value',
   },
   unCollected: {
-    fr: 'non collecté',
-    en: 'uncollected',
+    fr: 'Case non collectée',
+    en: 'uncollected cell',
   },
   infoAxis: {
     fr: "Axe d'information",
