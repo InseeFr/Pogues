@@ -1,12 +1,13 @@
-import { uuid } from 'utils/utils';
 import {
-  VARIABLES_TYPES,
-  DATATYPE_TYPE_FROM_NAME,
-  DATATYPE_NAME,
   COMPONENT_TYPE,
-  QUESTION_TYPE_ENUM,
+  DATATYPE_NAME,
+  DATATYPE_TYPE_FROM_NAME,
   DIMENSION_FORMATS,
+  QUESTION_TYPE_ENUM,
+  VARIABLES_TYPES,
 } from 'constants/pogues-constants';
+import { uuid } from 'utils/utils';
+import { remoteToState as remoteToStateFormatSimple } from './response-format-simple';
 
 const { COLLECTED } = VARIABLES_TYPES;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, EXTERNAL_ELEMENT } =
@@ -46,94 +47,30 @@ export function remoteToStore(
     }
   });
   return remote.reduce((acc, ev) => {
-    ev.Datatype = ev.Datatype || {};
-    const {
-      Name: name,
-      Label: label,
-      CodeListReference,
-      Datatype: {
-        typeName,
-        MaxLength: maxLength,
-        Pattern: pattern,
-        Minimum: minimum,
-        Maximum: maximum,
-        Decimals: decimals,
-        Unit: unit,
-        Format: format,
-      },
-      z,
-    } = ev;
-    const { mesureLevel } = ev;
+    const { Name: name, Label: label, CodeListReference } = ev;
     const id = ev.id || uuid();
-    const datatype = {};
-    if (maxLength !== undefined) datatype.maxLength = maxLength;
-    if (pattern !== undefined) datatype.pattern = pattern;
-    if (minimum !== undefined) datatype.minimum = minimum;
-    if (maximum !== undefined) datatype.maximum = maximum;
-    if (decimals !== undefined) datatype.decimals = decimals;
-    if (unit !== undefined) datatype.unit = unit;
-    if (format !== undefined) datatype.format = format;
-    if (typeName === DATATYPE_NAME.DURATION) {
-      if (datatype.minimum !== undefined) {
-        const strminimum = datatype.minimum;
-        const matches_minimum = strminimum.match(/\d+/g);
-        if (format === 'PTnHnM') {
-          [datatype.mihours, datatype.miminutes] = matches_minimum;
-        }
-        if (format === 'PnYnM') {
-          [datatype.miyears, datatype.mimonths] = matches_minimum;
-        }
-        if (format === 'HH:CH') {
-          datatype.mihundhours =
-            matches_minimum[0][0] === 0
-              ? matches_minimum[0].slice(1)
-              : matches_minimum[0];
-          datatype.mihundredths =
-            matches_minimum[1][0] === 0
-              ? matches_minimum[1].slice(1)
-              : matches_minimum[1];
-        }
-      }
-      if (datatype.maximum !== undefined) {
-        const strmaximum = datatype.maximum;
-        const matches_maximum = strmaximum.match(/\d+/g);
-        if (format === 'PTnHnM') {
-          [datatype.mahours, datatype.maminutes] = matches_maximum;
-        }
-        if (format === 'PnYnM') {
-          [datatype.mayears, datatype.mamonths] = matches_maximum;
-        }
-        if (format === 'HH:CH') {
-          datatype.mahundhours =
-            matches_maximum[0][0] === 0
-              ? matches_maximum[0].slice(1)
-              : matches_maximum[0];
-          datatype.mahundredths =
-            matches_maximum[1][0] === 0
-              ? matches_maximum[1].slice(1)
-              : matches_maximum[1];
-        }
-      }
-    }
-    const remote = {
+
+    const formatSingleRemote = remoteToStateFormatSimple({
+      responses: [{ Datatype: ev.Datatype || {}, mandatory: false, id: id }],
+    });
+
+    return {
       ...acc,
       [id]: {
         id,
         name,
         label,
-        type: typeName,
+        type: formatSingleRemote.type,
         codeListReference: CodeListReference,
         codeListReferenceLabel: CodeListReference
           ? codesListsStore[CodeListReference].label
           : '',
-        [typeName]: datatype,
+        [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
         ...responsesByVariable[id],
-        z,
-        mesureLevel,
+        ...ev.z,
+        ...ev.mesureLevel,
       },
     };
-
-    return remote;
   }, {});
 }
 export function remoteToComponentState(remote = []) {
