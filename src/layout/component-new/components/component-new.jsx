@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ComponentNewEdit } from 'widgets/component-new-edit';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { Component } from 'model';
 import {
+  validateFilterForm,
+  validateLoopForm,
   validateQuestionForm,
   validateSequenceForm,
-  validateLoopForm,
-  validateFilterForm,
 } from 'utils/validation/validate';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { ComponentNewEdit } from 'widgets/component-new-edit';
 
 const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -25,8 +25,6 @@ export const propTypes = {
   updateParentChildren: PropTypes.func.isRequired,
   orderComponents: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
-  updateComponent: PropTypes.func.isRequired,
-
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
@@ -108,7 +106,6 @@ function ComponentNew({
   type,
   activeQuestionnaire,
   removeComponent,
-  updateComponent,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -146,7 +143,6 @@ function ComponentNew({
       onCancel={onCancel}
       initialValues={initialValues}
       removeComponent={removeComponent}
-      updateComponent={updateComponent}
       activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,

@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ComponentNewEdit } from 'widgets/component-new-edit';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { Component } from 'model';
 import {
+  validateFilterForm,
+  validateLoopForm,
   validateQuestionForm,
   validateSequenceForm,
-  validateLoopForm,
-  validateFilterForm,
 } from 'utils/validation/validate';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { ComponentNewEdit } from 'widgets/component-new-edit';
 
 const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -131,7 +131,6 @@ function ComponentEdit({
       onCancel={onCancel}
       initialValues={initialValues}
       deleteComponent={deleteComponent}
-      updateComponent={updateComponent}
       activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
