@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 import ComponentNew from '../components/component-new';
 
-import { setValidationErrors } from 'actions/errors';
+import { removeComponent } from 'actions/actionComponent';
+import { setSelectedComponentId } from 'actions/app-state';
 import {
   createComponent,
   orderComponents,
   updateParentChildren,
 } from 'actions/component';
-import { setSelectedComponentId } from 'actions/app-state';
-import { updateComponent, removeComponent } from 'actions/actionComponent';
+import { setValidationErrors } from 'actions/errors';
 // PropTypes and defaultProps
 
 export const propTypes = {
@@ -38,7 +38,6 @@ const mapDispatchToProps = {
   orderComponents,
   updateParentChildren,
   setSelectedComponentId,
-  updateComponent,
   removeComponent,
 };
 

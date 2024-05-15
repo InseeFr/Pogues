@@ -1,19 +1,19 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { formPropTypes, Field } from 'redux-form';
-import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
+import ReactModal from 'react-modal';
+import { Field, formPropTypes } from 'redux-form';
 
 import { getQuestionnaireScope } from 'widgets/component-new-edit/components/variables/utils-loops';
-import ResponseFormat from './response-format/response-format';
-import Declaration from './declarations';
+import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
 import Controls from './controls';
+import Declaration from './declarations';
 import Redirections from './redirections';
+import ResponseFormat from './response-format/response-format';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
-import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
 
-import { Tabs, Tab } from 'widgets/tabs';
 import { AssociatedFields } from 'widgets/associated-fields';
+import { Tab, Tabs } from 'widgets/tabs';
 
 import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
 import {
@@ -21,14 +21,13 @@ import {
   TABS_PATHS,
   TargetMode,
 } from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
-import { updateNameField } from 'utils/utils';
-import ListCheckboxes from 'forms/controls/list-checkboxes';
+import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
 import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
+import ListCheckboxes from 'forms/controls/list-checkboxes';
 import Select from 'forms/controls/select';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
-import NestedFilter from './nestedFilter';
+import Dictionary from 'utils/dictionary/dictionary';
+import { updateNameField } from 'utils/utils';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
@@ -39,7 +38,6 @@ const {
   SEQUENCE,
   SUBSEQUENCE,
   FILTER,
-  NESTEDFILTRE,
   QUESTIONNAIRE,
   EXTERNAL_ELEMENT,
 } = COMPONENT_TYPE;
@@ -84,28 +82,16 @@ const ComponentNewEdit = props => {
     onCancel,
     deleteComponent,
     onSubmit,
-    filterImbriquer,
     activeQuestionnaire,
     clearSubformValidationErrors,
     externalLoopsStore,
     InitialMember,
-    updateComponent,
   } = props;
-  const [showNewNestedFilter, setShowNewNestedFilter] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
   const [formData, setFormData] = useState({});
-  const [filterImbriquers, setFilterImbriquers] = useState(
-    filterImbriquer?.length > 0 ? filterImbriquer : [],
-  );
   const [disableValidation, setDisableValidation] = useState(false);
-  const [filterId, setFilterId] = useState('');
   const buttonRef = useRef(null);
-
-  const handleCloseNestedFilter = () => {
-    setShowNewNestedFilter(false);
-    setFilterId('');
-  };
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -122,7 +108,7 @@ const ComponentNewEdit = props => {
   };
 
   const checkUnsavedChange = data => {
-    setFormData({ ...data, filterImbriquer: filterImbriquers });
+    setFormData(data);
     if (
       componentType === QUESTION &&
       (data.collectedVariables.name ||
@@ -151,23 +137,8 @@ const ComponentNewEdit = props => {
       setShowPopup(true);
       setIntegerVariable(true);
     } else {
-      onSubmit({ ...data, filterImbriquer: filterImbriquers });
+      onSubmit(data);
     }
-  };
-
-  const handleDeleteNestedFilter = index => {
-    let filters = [...filterImbriquers];
-    filters = filters.filter(filt => filt !== index);
-    setFilterImbriquers(filters);
-    setFilterId('');
-    handleCloseNestedFilter();
-  };
-
-  const handleSubmitImbriquer = value => {
-    if (!filterImbriquers.includes(value) && value) {
-      setFilterImbriquers([...filterImbriquers, value]);
-    }
-    handleCloseNestedFilter();
   };
 
   useEffect(() => {
@@ -267,42 +238,24 @@ const ComponentNewEdit = props => {
     return panels;
   };
 
-  const supImbriquer = (store, initial) => {
-    let superieur = initial.weight;
-    if (filterImbriquers.length > 0) {
-      filterImbriquers.forEach(element => {
-        if (
-          store[store[element].finalMember].type === initial.type &&
-          store[store[element].finalMember].weight > initial.weight
-        ) {
-          superieur = store[store[element].finalMember].weight;
-        }
-      });
-    }
-    return superieur;
-  };
-
-  const infImbriquer = (store, initial) => {
-    const filters = Object.values(store).filter(
-      component =>
-        component.type === FILTER &&
-        component.type === initial.type &&
-        store[component.initialMember].weight < initial.weight &&
-        store[component.finalMember].weight > initial.weight,
-    );
-    const inferieurComponent = filters
-      ? filters.reduce(
-          (min, p) =>
-            store[p.initialMember].weight > store[min.initialMember].weight
-              ? p
-              : min,
-          filters[0],
-        )
-      : undefined;
-    const inferieur = inferieurComponent
-      ? store[inferieurComponent.finalMember].weight
-      : undefined;
-    return inferieur;
+  const filterMinimumWeight = (store, initial) => {
+    const firstComponent = Object.values(store)
+      .filter(
+        component =>
+          component.type === FILTER &&
+          component.type === initial.type &&
+          store[component.initialMember].weight < initial.weight &&
+          store[component.finalMember].weight > initial.weight,
+      )
+      .reduce(
+        (min, p) =>
+          store[p.initialMember].weight > store[min.initialMember].weight
+            ? p
+            : min,
+        filters[0],
+      );
+    if (firstComponent) return store[firstComponent.finalMember].weight;
+    return undefined;
   };
 
   const getFinalOptions = store => {
@@ -315,13 +268,14 @@ const ComponentNewEdit = props => {
           empty
         </GenericOption>
       );
-    if (infImbriquer(store, componentinitial[0])) {
+    if (filterMinimumWeight(store, componentinitial[0])) {
       return Object.values(store)
         .filter(
           component =>
             component.type === componentinitial[0].type &&
-            component.weight >= supImbriquer(store, componentinitial[0]) &&
-            component.weight <= infImbriquer(store, componentinitial[0]) &&
+            component.weight >= componentinitial[0].weight &&
+            component.weight <=
+              filterMinimumWeight(store, componentinitial[0]) &&
             component.parent === componentinitial[0].parent &&
             component.id !== 'idendquest',
         )
@@ -341,7 +295,7 @@ const ComponentNewEdit = props => {
               componentinitial[0].type === SEQUENCE) ||
             (component.type === SEQUENCE &&
               componentinitial[0].type === EXTERNAL_ELEMENT)) &&
-          component.weight >= supImbriquer(store, componentinitial[0]) &&
+          component.weight >= componentinitial[0].weight &&
           component.parent === componentinitial[0].parent &&
           component.id !== 'idendquest',
       )
@@ -354,23 +308,6 @@ const ComponentNewEdit = props => {
       });
   };
 
-  const inferieur = () => {
-    let inferieurFilter =
-      componentsStore[componentsStore[filterImbriquers[0]].initialMember]
-        ?.weight;
-
-    filterImbriquers.forEach(filter => {
-      if (
-        inferieurFilter &&
-        componentsStore[componentsStore[filter].initialMember].weight <
-          inferieurFilter
-      ) {
-        inferieurFilter =
-          componentsStore[componentsStore[filter].initialMember].weight;
-      }
-    });
-    return inferieurFilter;
-  };
   const optionsInitial = type => {
     if (type === LOOP) {
       return Object.values(componentsStore)
@@ -389,39 +326,11 @@ const ComponentNewEdit = props => {
           );
         });
     }
-    if (filterImbriquers?.length > 0) {
-      return Object.values(componentsStore)
-        .filter(
-          component =>
-            component.type !== LOOP &&
-            component.type !== FILTER &&
-            component.type !== NESTEDFILTRE &&
-            component.type !== QUESTIONNAIRE &&
-            component.id !== 'idendquest' &&
-            component.type ===
-              componentsStore[
-                componentsStore[filterImbriquers[0]].initialMember
-              ].type &&
-            component.parent ===
-              componentsStore[
-                componentsStore[filterImbriquers[0]].initialMember
-              ].parent &&
-            component.weight <= inferieur(),
-        )
-        .map(element => {
-          return (
-            <GenericOption key={`initial-${element.id}`} value={element.id}>
-              {element.name}
-            </GenericOption>
-          );
-        });
-    }
     return Object.values(componentsStore)
       .filter(
         component =>
           component.type !== LOOP &&
           component.type !== FILTER &&
-          component.type !== NESTEDFILTRE &&
           component.type !== QUESTIONNAIRE &&
           component.id !== 'idendquest',
       )
@@ -611,38 +520,6 @@ const ComponentNewEdit = props => {
           )}
         </div>
       </form>
-      <ReactModal
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={false}
-        isOpen={showNewNestedFilter}
-        onRequestClose={handleCloseNestedFilter}
-        contentLabel="FILTRE IMBRIQUE"
-      >
-        <div className="popup">
-          <div className="popup-header">
-            <h3>
-              {filterId
-                ? Dictionary.editFiltreImbriquer
-                : Dictionary.filtreImbriquer}
-            </h3>
-            <button type="button" onClick={handleCloseNestedFilter}>
-              <span>X</span>
-            </button>
-          </div>
-          <div className="popup-body">
-            <NestedFilter
-              filterId={filterId}
-              componentsStore={componentsStore}
-              handleSubmitImbriquer={value => handleSubmitImbriquer(value)}
-              handleCloseNestedFilter1={handleCloseNestedFilter}
-              componentType={NESTEDFILTRE}
-              handleDeleteNestedFilter={handleDeleteNestedFilter}
-              updateComponent={updateComponent}
-              initialMemberFilter={InitialMember}
-            />
-          </div>
-        </div>
-      </ReactModal>
       <ReactModal
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
