@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactModal from 'react-modal';
 import { Field, formPropTypes } from 'redux-form';
 
@@ -250,13 +250,11 @@ const ComponentNewEdit = props => {
       )
       .reduce(
         (min, p) =>
-          store[p.initialMember].weight > store[min.initialMember].weight
-            ? p
-            : min,
-        filters[0],
+          store[p.finalMember].weight < store[min.finalMember].weight ? p : min,
+        999999999,
       );
-    if (firstComponent) return store[firstComponent.finalMember].weight;
-    return undefined;
+    if (firstComponent === 999999999) return undefined;
+    return firstComponent;
   };
 
   const getFinalOptions = store => {
