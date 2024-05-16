@@ -1,5 +1,4 @@
 import { remoteToState, stateToRemote } from './redirection-filters';
-import { uuid } from 'utils/utils';
 
 describe('redirection filters tramsformation', () => {
   describe('remoteToState', () => {

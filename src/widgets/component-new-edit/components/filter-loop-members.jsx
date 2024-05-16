@@ -1,10 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import GenericOption from 'forms/controls/generic-option';
-import Select from 'forms/controls/select';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import Dictionary from 'utils/dictionary/dictionary';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import Select from '../../../forms/controls/select';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 export const FilterLoopMembers = ({
   componentsStore,
@@ -108,7 +108,7 @@ export const FilterLoopMembers = ({
         label={Dictionary.InitialMembre}
         required
       >
-        <GenericOption key="selectInitialMember" value="">
+        <GenericOption key="selectFirst" value="">
           {Dictionary.selectInitialMembre}
         </GenericOption>
         {optionsInitial(componentType)}
@@ -120,7 +120,7 @@ export const FilterLoopMembers = ({
         disabled={!InitialMember}
         required
       >
-        <GenericOption key="selectFinalMember" value="">
+        <GenericOption key="selectLast" value="">
           {Dictionary.selectFinalMembre}
         </GenericOption>
         {getFinalOptions(componentsStore)}

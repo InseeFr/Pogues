@@ -1,21 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {
-  COMPONENT_TYPE,
-  TABS_PATHS,
-  TargetMode,
-} from 'constants/pogues-constants';
-import GenericOption from 'forms/controls/generic-option';
-import ListCheckboxes from 'forms/controls/list-checkboxes';
 import PropTypes from 'prop-types';
-import { Field, formPropTypes } from 'redux-form';
-import Dictionary from 'utils/dictionary/dictionary';
-import { updateNameField } from 'utils/utils';
-import { AssociatedFields } from 'widgets/associated-fields';
-import { Tab, Tabs } from 'widgets/tabs';
+import { Field } from 'redux-form';
+import { TABS_PATHS, TargetMode } from '../../../constants/pogues-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { updateNameField } from '../../../utils/utils';
+import { AssociatedFields } from '../../associated-fields';
+import { Tab, Tabs } from '../../tabs';
 import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
 import Controls from './controls';
-import Declaration from './declarations';
-import Redirections from './redirections';
+import Declarations from './declarations';
 import ResponseFormat from './response-format/response-format';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
@@ -28,11 +23,7 @@ export const QuestionNewEdit = ({
   buttonRef,
   handleDisableValidation,
   scopes,
-  dynamiqueSpecified,
-  componentsStore,
 }) => {
-  const { QUESTION } = COMPONENT_TYPE;
-
   return (
     <>
       <AssociatedFields
@@ -76,7 +67,7 @@ export const QuestionNewEdit = ({
           path={TABS_PATHS.DECLARATIONS}
           key={TABS_PATHS.DECLARATIONS}
         >
-          <Declaration
+          <Declarations
             showPosition
             errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
             addErrors={addSubformValidationErrors}
@@ -92,7 +83,7 @@ export const QuestionNewEdit = ({
             addErrors={addSubformValidationErrors}
           />
         </Tab>
-        {dynamiqueSpecified !== 'Filtres' && (
+        {/* {dynamiqueSpecified !== 'Filtres' && (
           <Tab
             label={Dictionary.goTo}
             path={TABS_PATHS.REDIRECTIONS}
@@ -106,7 +97,7 @@ export const QuestionNewEdit = ({
               editingComponentId={componentId}
             />
           </Tab>
-        )}
+        )} */}
         <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
@@ -145,13 +136,10 @@ export const QuestionNewEdit = ({
 };
 
 QuestionNewEdit.propTypes = {
-  ...formPropTypes,
   componentId: PropTypes.string.isRequired,
   errorsIntegrityByTab: PropTypes.object,
   addSubformValidationErrors: PropTypes.func.isRequired,
-  buttonRef: PropTypes.func.isRequired,
+  buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
-  scopes: PropTypes.object.isRequired,
-  dynamiqueSpecified: PropTypes.bool.isRequired,
-  componentsStore: PropTypes.object,
+  scopes: PropTypes.array.isRequired,
 };

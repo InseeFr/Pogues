@@ -4,6 +4,7 @@ export const COMPONENT_TYPE = {
   SUBSEQUENCE: 'SUBSEQUENCE',
   QUESTIONNAIRE: 'QUESTIONNAIRE',
   LOOP: 'LOOP',
+  ROUNDABOUT: 'ROUNDABOUT',
   FILTER: 'FILTER',
   NESTEDFILTRE: 'NESTEDFILTRE',
   REDIRECTION: 'REDIRECTION',
@@ -218,6 +219,7 @@ export const TABS_PATHS = {
   EXTERNAL_VARIABLES: 'externalVariables',
   CALCULATED_VARIABLES: 'calculatedVariables',
   COLLECTED_VARIABLES: 'collectedVariables',
+  LOOP: 'loop',
 };
 
 export const ERROR_TYPES = {
