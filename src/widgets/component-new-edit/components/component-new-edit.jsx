@@ -2,23 +2,24 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import ReactModal from 'react-modal';
-import { formPropTypes } from 'redux-form';
 
-import { getQuestionnaireScope } from 'widgets/component-new-edit/components/variables/utils-loops';
+import { getQuestionnaireScope } from './variables/utils-loops';
 
-import { WIDGET_COMPONENT_NEW_EDIT } from 'constants/dom-constants';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import GenericOption from 'forms/controls/generic-option';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 import { FilterNewEdit } from './filter-new-edit';
-import { LoopNewEdit } from './loop-new-edit';
+import LoopNewEdit from './loop-new-edit';
 import { QuestionNewEdit } from './question-new-edit';
+import RoundaboutNewEdit from './roundabout-new-edit';
 import { SequenceNewEdit } from './sequence-new-edit';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
   WIDGET_COMPONENT_NEW_EDIT;
-const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER } = COMPONENT_TYPE;
+const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, ROUNDABOUT } =
+  COMPONENT_TYPE;
 
 const ComponentNewEdit = ({
   componentType,
@@ -32,10 +33,10 @@ const ComponentNewEdit = ({
   onCancel,
   deleteComponent,
   onSubmit,
-  activeQuestionnaire,
   clearSubformValidationErrors,
   externalLoopsStore,
   InitialMember,
+  activeQuestionnaire,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
@@ -108,20 +109,6 @@ const ComponentNewEdit = ({
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit(data => checkUnsavedChange(data))}>
-        {componentType === LOOP && (
-          <LoopNewEdit
-            componentsStore={componentsStore}
-            componentType={componentType}
-            InitialMember={InitialMember}
-            scopes={scopes}
-          />
-        )}
-        {componentType === FILTER && (
-          <FilterNewEdit
-            componentsStore={componentsStore}
-            InitialMember={InitialMember}
-          />
-        )}
         {(componentType === SEQUENCE || componentType === SUBSEQUENCE) && (
           <SequenceNewEdit
             form={form}
@@ -142,9 +129,35 @@ const ComponentNewEdit = ({
             buttonRef={buttonRef}
             handleDisableValidation={handleDisableValidation}
             scopes={scopes}
-            dynamiqueSpecified={activeQuestionnaire.dynamiqueSpecified}
-            componentsStore={componentsStore}
             activeQuestionnaire={activeQuestionnaire}
+          />
+        )}
+        {componentType === FILTER && (
+          <FilterNewEdit
+            componentsStore={componentsStore}
+            InitialMember={InitialMember}
+          />
+        )}
+        {componentType === LOOP && (
+          <LoopNewEdit
+            componentsStore={componentsStore}
+            componentType={LOOP}
+            InitialMember={InitialMember}
+            scopes={scopes}
+            form={form}
+          />
+        )}
+        {componentType === ROUNDABOUT && (
+          <RoundaboutNewEdit
+            form={form}
+            componentId={componentId}
+            errorsIntegrityByTab={errorsIntegrityByTab}
+            addSubformValidationErrors={addSubformValidationErrors}
+            buttonRef={buttonRef}
+            handleDisableValidation={handleDisableValidation}
+            componentsStore={componentsStore}
+            InitialMember={InitialMember}
+            scopes={scopes}
           />
         )}
         <div
@@ -200,7 +213,6 @@ const ComponentNewEdit = ({
             </button>
           </div>
           <div className="popup-body">
-            {' '}
             {integerVariable ? Dictionary.IsNotLetter : Dictionary.saveLower}
             <div className="popup-notSaved-footer">
               <button
@@ -226,7 +238,6 @@ const ComponentNewEdit = ({
 };
 
 ComponentNewEdit.propTypes = {
-  ...formPropTypes,
   componentType: PropTypes.string.isRequired,
   componentId: PropTypes.string.isRequired,
   errorsIntegrityByTab: PropTypes.object,
@@ -236,7 +247,6 @@ ComponentNewEdit.propTypes = {
   onCancel: PropTypes.func.isRequired,
   deleteComponent: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
-  activeQuestionnaire: PropTypes.object.isRequired,
   externalLoopsStore: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -244,8 +254,9 @@ ComponentNewEdit.propTypes = {
     }),
   ).isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
   InitialMember: PropTypes.string,
+  activeQuestionnaire: PropTypes.object.isRequired,
 };
 
 ComponentNewEdit.defaultProps = {

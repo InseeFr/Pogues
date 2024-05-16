@@ -1,10 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { InputWithVariableAutoCompletion } from 'forms/controls/control-with-suggestions';
-import Input from 'forms/controls/input';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import Dictionary from 'utils/dictionary/dictionary';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
+import Input from '../../../forms/controls/input';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import { FilterLoopMembers } from './filter-loop-members';
 
 export const FilterNewEdit = ({ componentsStore, InitialMember }) => {
@@ -20,7 +20,6 @@ export const FilterNewEdit = ({ componentsStore, InitialMember }) => {
       <Field
         name="filter"
         type="text"
-        focusOnInit
         component={InputWithVariableAutoCompletion}
         label={Dictionary.expression}
         required="required"

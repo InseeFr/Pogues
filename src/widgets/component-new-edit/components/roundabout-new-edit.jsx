@@ -1,25 +1,35 @@
 /* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field } from 'redux-form';
-import { TABS_PATHS, TargetMode } from '../../../constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  TABS_PATHS,
+  TargetMode,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { updateNameField } from '../../../utils/utils';
 import { AssociatedFields } from '../../associated-fields';
 import { Tab, Tabs } from '../../tabs';
-import Controls from './controls';
 import Declaration from './declarations';
+import LoopNewEdit from './loop-new-edit';
 
-export const SequenceNewEdit = ({
+const RoundaboutNewEdit = ({
   form,
   componentId,
   errorsIntegrityByTab,
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
-  activeQuestionnaire,
+  componentsStore,
+  InitialMember,
+  scopes,
+  selectedComponentId,
 }) => {
+  const { ROUNDABOUT } = COMPONENT_TYPE;
+
   return (
     <>
       <AssociatedFields
@@ -49,24 +59,26 @@ export const SequenceNewEdit = ({
       </Field>
       <Tabs componentId={componentId}>
         <Tab
+          label={Dictionary.loop}
+          path={TABS_PATHS.LOOP}
+          key={TABS_PATHS.LOOP}
+        >
+          <LoopNewEdit
+            form={form}
+            componentsStore={componentsStore}
+            componentType={ROUNDABOUT}
+            InitialMember={InitialMember || selectedComponentId}
+            scopes={scopes}
+          />
+        </Tab>
+        <Tab
           label={Dictionary.declaration_tabTitle}
           path={TABS_PATHS.DECLARATIONS}
           key={TABS_PATHS.DECLARATIONS}
         >
           <Declaration
-            activeQuestionnaire={activeQuestionnaire}
             showPosition={false}
             errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
-        <Tab
-          label={Dictionary.controls}
-          path={TABS_PATHS.CONTROLS}
-          key={TABS_PATHS.CONTROLS}
-        >
-          <Controls
-            errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
             addErrors={addSubformValidationErrors}
           />
         </Tab>
@@ -75,15 +87,26 @@ export const SequenceNewEdit = ({
   );
 };
 
-SequenceNewEdit.propTypes = {
-  componentId: PropTypes.string,
+RoundaboutNewEdit.propTypes = {
+  componentId: PropTypes.string.isRequired,
   errorsIntegrityByTab: PropTypes.object,
   addSubformValidationErrors: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
-  activeQuestionnaire: PropTypes.object.isRequired,
+  componentsStore: PropTypes.object,
+  InitialMember: PropTypes.string,
+  scopes: PropTypes.array.isRequired,
 };
 
-SequenceNewEdit.defaultProps = {
-  componentId: '',
+RoundaboutNewEdit.defaultProps = {
+  InitialMember: undefined,
 };
+
+// Container
+const mapStateToProps = state => {
+  return {
+    selectedComponentId: state.appState.selectedComponentId,
+  };
+};
+
+export default connect(mapStateToProps)(RoundaboutNewEdit);
