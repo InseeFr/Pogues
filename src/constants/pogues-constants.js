@@ -7,11 +7,7 @@ export const COMPONENT_TYPE = {
   FILTER: 'FILTER',
   NESTEDFILTRE: 'NESTEDFILTRE',
   REDIRECTION: 'REDIRECTION',
-  // used as a placeholder to place the generic input within the questionnaire
-  GENERIC_INPUT: 'GENERIC_INPUT',
   EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
-  XPATH: 'XPATH',
-  VTL: 'VTL',
 };
 
 export const TargetMode = [
