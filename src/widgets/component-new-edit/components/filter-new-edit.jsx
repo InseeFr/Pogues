@@ -22,7 +22,7 @@ export const FilterNewEdit = ({ componentsStore, InitialMember }) => {
         type="text"
         component={InputWithVariableAutoCompletion}
         label={Dictionary.expression}
-        required="required"
+        required
       />
       {componentsStore && (
         <FilterLoopMembers

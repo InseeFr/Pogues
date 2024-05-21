@@ -1,6 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 import {
   COMPONENT_TYPE,
@@ -16,7 +15,7 @@ import { Tab, Tabs } from '../../tabs';
 import Declaration from './declarations';
 import LoopNewEdit from './loop-new-edit';
 
-const RoundaboutNewEdit = ({
+export const RoundaboutNewEdit = ({
   form,
   componentId,
   errorsIntegrityByTab,
@@ -26,7 +25,6 @@ const RoundaboutNewEdit = ({
   componentsStore,
   InitialMember,
   scopes,
-  selectedComponentId,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -67,7 +65,7 @@ const RoundaboutNewEdit = ({
             form={form}
             componentsStore={componentsStore}
             componentType={ROUNDABOUT}
-            InitialMember={InitialMember || selectedComponentId}
+            InitialMember={InitialMember}
             scopes={scopes}
           />
         </Tab>
@@ -101,12 +99,3 @@ RoundaboutNewEdit.propTypes = {
 RoundaboutNewEdit.defaultProps = {
   InitialMember: undefined,
 };
-
-// Container
-const mapStateToProps = state => {
-  return {
-    selectedComponentId: state.appState.selectedComponentId,
-  };
-};
-
-export default connect(mapStateToProps)(RoundaboutNewEdit);

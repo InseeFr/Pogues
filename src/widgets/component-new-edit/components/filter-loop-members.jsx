@@ -11,8 +11,14 @@ export const FilterLoopMembers = ({
   componentType,
   InitialMember,
 }) => {
-  const { SEQUENCE, SUBSEQUENCE, FILTER, QUESTION, EXTERNAL_ELEMENT } =
-    COMPONENT_TYPE;
+  const {
+    SEQUENCE,
+    SUBSEQUENCE,
+    FILTER,
+    QUESTION,
+    ROUNDABOUT,
+    EXTERNAL_ELEMENT,
+  } = COMPONENT_TYPE;
 
   const filterMinimumWeight = (store, initial) => {
     const firstComponent = Object.values(store)
@@ -106,6 +112,7 @@ export const FilterLoopMembers = ({
         name="initialMember"
         component={Select}
         label={Dictionary.InitialMembre}
+        disabled={componentType === ROUNDABOUT}
         required
       >
         <GenericOption key="selectFirst" value="">
