@@ -285,3 +285,22 @@ export function getNewLoopPlaceholder(components) {
       component.type === EXTERNAL_ELEMENT,
   );
 }
+
+/**
+ * Get new roundabout placeholder
+ *
+ * It obtains the gap in the questionnaire hierarchy (parent id and weight) for a new
+ * question, applying the sub-sequence insertion rules.
+ *
+ * @param  {object}           components        List of components
+ * @param  {object|undefined} activeComponent   The selected component
+ * @return {object} Parent and weight
+ */
+export function getNewRoundaboutPlaceholder(activeComponent) {
+  if (activeComponent)
+    return {
+      parent: activeComponent.parent,
+      weight: activeComponent.weight,
+    };
+  return { parent: '', weight: 0 };
+}

@@ -1,15 +1,15 @@
-import ResponseFormat from './response-format';
+import CalculatedVariable from './calculated-variable';
+import CollectedVariable from './collected-variable';
 import Control from './control';
 import Declaration from './declaration';
-import Redirection from './redirection';
-import CollectedVariable from './collected-variable';
-import CalculatedVariable from './calculated-variable';
 import ExternalVariable from './external-variable';
+import Redirection from './redirection';
+import ResponseFormat from './response-format';
 
-import { uuid, nameFromLabel, verifyVariable } from 'utils/utils';
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { nameFromLabel, uuid, verifyVariable } from 'utils/utils';
 
-const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 
 export const defaultState = {
   id: '',
@@ -21,7 +21,7 @@ export const defaultState = {
   nameLoop: '',
   filter: '',
   maximum: '',
-  BasedOn: '',
+  basedOn: '',
   controls: [],
   declarations: [],
   redirections: [],
@@ -52,13 +52,23 @@ export function formToState(form, transformers) {
     addButtonLibel,
     description,
     filterImbriquer,
+    excludedOccurrenceLabel,
+    occurrenceLabel,
+    startedPersonnalizedFormula,
+    endedPersonnalizedFormula,
   } = form;
 
   let newName;
-  if (name && !initialMember) {
+  // roundabout
+  if (name && nameLoop) {
     newName = name;
+    // sequence or question with name
+  } else if (name && !initialMember) {
+    newName = name;
+    // alternative without name
   } else if (label) {
     newName = nameFromLabel(label);
+    // loop or filter
   } else if (initialMember) {
     newName = nameFromLabel(nameLoop);
   }
@@ -85,6 +95,10 @@ export function formToState(form, transformers) {
     addButtonLibel: addButtonLibel,
     description: description,
     filterImbriquer: filterImbriquer,
+    excludedOccurrenceLabel: excludedOccurrenceLabel,
+    occurrenceLabel: occurrenceLabel,
+    startedPersonnalizedFormula: startedPersonnalizedFormula,
+    endedPersonnalizedFormula: endedPersonnalizedFormula,
   };
 }
 
@@ -104,6 +118,11 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     description,
     filterImbriquer,
     minimum,
+    excludedOccurrenceLabel,
+    occurrenceLabel,
+    startedPersonnalizedFormula,
+    endedPersonnalizedFormula,
+    selectedComponent,
   } = currentState;
 
   let target = '';
@@ -114,6 +133,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
       target = activeQuestionnaire.TargetMode.join();
     }
   }
+
   const form = {
     label: label || '',
     name: name || nameLoop || '',
@@ -126,11 +146,16 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     minimum: minimum || '',
     basedOn: basedOn || '',
     filter: filter || '',
-    initialMember: initialMember || '',
+    initialMember:
+      initialMember || (type === ROUNDABOUT && selectedComponent) || '',
     finalMember: finalMember || '',
     addButtonLibel: addButtonLibel || '',
     description: description || '',
     filterImbriquer: filterImbriquer,
+    excludedOccurrenceLabel: excludedOccurrenceLabel || '',
+    occurrenceLabel: occurrenceLabel || '',
+    startedPersonnalizedFormula: startedPersonnalizedFormula || '',
+    endedPersonnalizedFormula: endedPersonnalizedFormula || '',
   };
 
   if (type === QUESTION) {

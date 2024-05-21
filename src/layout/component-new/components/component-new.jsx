@@ -1,15 +1,14 @@
-import React from 'react';
+/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
-
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { Component } from 'model';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { Component } from '../../../model';
 import {
   validateFilterForm,
   validateLoopForm,
   validateQuestionForm,
   validateSequenceForm,
-} from 'utils/validation/validate';
-import { ComponentNewEdit } from 'widgets/component-new-edit';
+} from '../../../utils/validation/validate';
+import { ComponentNewEdit } from '../../../widgets/component-new-edit';
 
 const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
 
@@ -106,6 +105,7 @@ function ComponentNew({
   type,
   activeQuestionnaire,
   removeComponent,
+  selectedComponent,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -124,7 +124,7 @@ function ComponentNew({
 
   // Initial values
 
-  const initialState = { type, parent: parentId, weight };
+  const initialState = { type, parent: parentId, weight, selectedComponent };
   const componentTransformer = Component(
     initialState,
     {

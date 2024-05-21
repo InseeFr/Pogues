@@ -290,6 +290,7 @@ function GenericInput(props) {
               type={typeNewComponent}
               onCancel={handleCloseNewComponent}
               onSuccess={handleCloseNewComponent}
+              selectedComponent={selectedComponent?.id}
             />
           </div>
         </div>

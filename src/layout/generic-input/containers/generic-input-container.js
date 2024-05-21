@@ -6,6 +6,7 @@ import { getToken } from '../../../reducers/selectors';
 import {
   getNewLoopPlaceholder,
   getNewQuestionPlaceholder,
+  getNewRoundaboutPlaceholder,
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
 } from '../../../utils/component/generic-input-utils';
@@ -34,7 +35,7 @@ function getPlaceholders(
     ),
     [QUESTION]: getNewQuestionPlaceholder(componentsStore, selectedComponent),
     [LOOP]: getNewLoopPlaceholder(componentsStore),
-    [ROUNDABOUT]: getNewLoopPlaceholder(componentsStore),
+    [ROUNDABOUT]: getNewRoundaboutPlaceholder(selectedComponent),
     [FILTER]: getNewLoopPlaceholder(componentsStore),
   };
 }
