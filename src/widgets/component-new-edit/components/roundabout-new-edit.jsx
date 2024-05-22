@@ -94,8 +94,10 @@ RoundaboutNewEdit.propTypes = {
   componentsStore: PropTypes.object,
   InitialMember: PropTypes.string,
   scopes: PropTypes.array.isRequired,
+  form: PropTypes.string,
 };
 
 RoundaboutNewEdit.defaultProps = {
   InitialMember: undefined,
+  form: undefined,
 };

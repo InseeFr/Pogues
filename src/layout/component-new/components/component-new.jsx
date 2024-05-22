@@ -28,6 +28,7 @@ export const propTypes = {
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
   activeQuestionnaire: PropTypes.object.isRequired,
+  selectedComponent: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -35,6 +36,7 @@ export const defaultProps = {
   calculatedVariablesStore: {},
   externalVariablesStore: {},
   activeQuestionnaire: {},
+  selectedComponent: undefined,
 };
 
 // Utils

@@ -79,8 +79,10 @@ SequenceNewEdit.propTypes = {
   addSubformValidationErrors: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
+  form: PropTypes.string,
 };
 
 SequenceNewEdit.defaultProps = {
   componentId: '',
+  form: undefined,
 };

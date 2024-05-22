@@ -253,6 +253,7 @@ ComponentNewEdit.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   InitialMember: PropTypes.string,
+  form: PropTypes.string,
 };
 
 ComponentNewEdit.defaultProps = {
@@ -260,6 +261,7 @@ ComponentNewEdit.defaultProps = {
   componentsStore: {},
   deleteComponent: undefined,
   InitialMember: undefined,
+  form: undefined,
 };
 
 export default ComponentNewEdit;

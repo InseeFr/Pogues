@@ -115,10 +115,14 @@ LoopNewEdit.propTypes = {
   componentType: PropTypes.string.isRequired,
   InitialMember: PropTypes.string,
   scopes: PropTypes.array.isRequired,
+  loopBasedOn: PropTypes.string,
+  loopFilter: PropTypes.string,
 };
 
 LoopNewEdit.defaultProps = {
   InitialMember: undefined,
+  loopBasedOn: undefined,
+  loopFilter: undefined,
 };
 
 // Container

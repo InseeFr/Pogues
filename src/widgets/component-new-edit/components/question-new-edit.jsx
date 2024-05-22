@@ -142,4 +142,9 @@ QuestionNewEdit.propTypes = {
   buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
   scopes: PropTypes.array.isRequired,
+  form: PropTypes.string,
+};
+
+QuestionNewEdit.defaultProps = {
+  form: undefined,
 };
