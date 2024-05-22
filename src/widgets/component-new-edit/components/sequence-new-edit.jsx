@@ -82,8 +82,10 @@ SequenceNewEdit.propTypes = {
   buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
   activeQuestionnaire: PropTypes.object.isRequired,
+  form: PropTypes.string,
 };
 
 SequenceNewEdit.defaultProps = {
   componentId: '',
+  form: undefined,
 };

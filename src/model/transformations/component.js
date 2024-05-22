@@ -5,6 +5,7 @@ import * as Redirection from './redirection';
 import * as Filters from './redirection-filters';
 import * as Response from './response';
 import * as ResponseFormat from './response-format';
+import * as Roundabout from './roundabout';
 
 import { uuid } from 'utils/utils';
 import * as CollectedVariable from './collected-variable';
@@ -25,6 +26,7 @@ const {
   QUESTIONNAIRE,
   LOOP,
   FILTER,
+  ROUNDABOUT,
   EXTERNAL_ELEMENT,
 } = COMPONENT_TYPE;
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
@@ -211,9 +213,10 @@ export function remoteToVariableResponse(remote) {
   return remoteToVariableResponseNested(remote.Child);
 }
 
-function remoteToState(remote, componentGroup, codesListsStore) {
+function remoteToState(remote, componentGroup, codesListsStore, iterations) {
   const {
     id,
+    type: remoteType,
     questionType,
     genericName,
     Name: name,
@@ -233,6 +236,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     FlowControl: flowControl,
     flowLogic,
     Scope: scope,
+    OccurrenceLabel: occurrenceLabel,
+    Loop: loop,
   } = remote;
   const redirectionClar =
     redirections !== undefined && Array.isArray(redirections) && questionType
@@ -244,7 +249,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       responseFinal = responseFinal.concat(clar.Response);
     });
   }
-  const state = {
+  let state = {
     id,
     name,
     parent: parent || '',
@@ -274,6 +279,18 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     } else if (genericName === 'EXTERNAL_ELEMENT') {
       state.type = EXTERNAL_ELEMENT;
     }
+  } else if (remoteType === 'RoundaboutType') {
+    state.type = ROUNDABOUT;
+    state.label = label;
+    if (occurrenceLabel) state.occurrenceLabel = occurrenceLabel;
+    if (loop.ExcludedOccurrenceLabel)
+      state.excludedOccurrenceLabel = loop.ExcludedOccurrenceLabel;
+    if (loop.Complete) state.endedPersonnalizedFormula = loop.Complete;
+    if (loop.Partial) state.startedPersonnalizedFormula = loop.Partial;
+    state = {
+      ...state,
+      ...Loop.remoteToState(iterations[`${name}-${loop.IterationReference}`]),
+    };
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 
@@ -318,6 +335,7 @@ function remoteToStoreNested(
       { ...child, weight, parent },
       componentGroup,
       codesListsStore,
+      iterations,
     );
     weight += 1;
     if (child.Child)
@@ -332,9 +350,7 @@ function remoteToStoreNested(
       );
     return acc;
   });
-  iterations.forEach(iteration => {
-    acc[iteration.id] = Loop.remoteToState(iteration, parent);
-  });
+
   let acc1 = acc;
   filters.forEach(filter => {
     acc1 = Filters.remoteToState(filter, parent, acc1);
@@ -639,66 +655,48 @@ function storeToRemoteNested(
     responsesClarification,
     flowControl,
   } = state;
-  if (type !== LOOP && type !== FILTER) {
-    let remote = {
-      id,
-      depth,
-      Name,
-      Label: [label.replace(/\n\n/gi, '&#xd;')],
-      Declaration: Declaration.stateToRemote(declarations),
-      Control: Control.stateToRemote(controls),
-      // Trello #196 : ouput : GoTo --> FlowControl
-      FlowControl: [],
-      TargetMode,
-    };
-    if (dynamiqueSpecified !== Filtres) {
-      remote.FlowControl = Redirection.stateToRemote(redirections);
-    }
 
-    if (type === QUESTION) {
-      if (
-        responseFormat.type === SINGLE_CHOICE &&
-        collectedVariablesStore !== undefined
-      ) {
-        const remoteclarification =
-          getClarificationresponseSingleChoiseQuestion(
-            collectedVariablesStore,
-            collectedVariables,
-            codesListsStore,
-            responseFormat,
-            remote.FlowControl,
-            TargetMode,
-            responsesClarification,
-            flowControl,
-          );
-        remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion =
-          remoteclarification.ClarificationQuestion;
-      }
-      if (
-        responseFormat.type === MULTIPLE_CHOICE &&
-        collectedVariablesStore !== undefined
-      ) {
-        const remoteclarification =
-          getClarificationResponseMultipleChoiceQuestion(
-            collectedVariablesStore,
-            collectedVariables,
-            codesListsStore,
-            responseFormat,
-            remote.FlowControl,
-            TargetMode,
-            responsesClarification,
-            flowControl,
-          );
-        remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion =
-          remoteclarification.ClarificationQuestion;
-      }
-      if (
-        responseFormat.type === TABLE &&
-        collectedVariablesStore !== undefined
-      ) {
-        const remoteclarification = getClarificationResponseTableQuestion(
+  if (type === LOOP || type === FILTER) return {};
+
+  let remote = {
+    id,
+    depth,
+    Name,
+    Label: [label.replace(/\n\n/gi, '&#xd;')],
+    Declaration: Declaration.stateToRemote(declarations),
+    Control: Control.stateToRemote(controls),
+    // Trello #196 : ouput : GoTo --> FlowControl
+    FlowControl: [],
+    TargetMode,
+  };
+  if (dynamiqueSpecified !== Filtres) {
+    remote.FlowControl = Redirection.stateToRemote(redirections);
+  }
+
+  if (type === QUESTION) {
+    if (
+      responseFormat.type === SINGLE_CHOICE &&
+      collectedVariablesStore !== undefined
+    ) {
+      const remoteclarification = getClarificationresponseSingleChoiseQuestion(
+        collectedVariablesStore,
+        collectedVariables,
+        codesListsStore,
+        responseFormat,
+        remote.FlowControl,
+        TargetMode,
+        responsesClarification,
+        flowControl,
+      );
+      remote.FlowControl = remoteclarification.flowcontrolefinal;
+      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
+    }
+    if (
+      responseFormat.type === MULTIPLE_CHOICE &&
+      collectedVariablesStore !== undefined
+    ) {
+      const remoteclarification =
+        getClarificationResponseMultipleChoiceQuestion(
           collectedVariablesStore,
           collectedVariables,
           codesListsStore,
@@ -708,49 +706,70 @@ function storeToRemoteNested(
           responsesClarification,
           flowControl,
         );
-        remote.FlowControl = remoteclarification.flowcontrolefinal;
-        remote.ClarificationQuestion =
-          remoteclarification.ClarificationQuestion;
-      }
-      if (responseFormat.type === PAIRING) {
-        remote.Scope = responseFormat[PAIRING].scope;
-      }
-
-      remote.type = QUESTION_TYPE_NAME;
-      remote.questionType = responseFormat.type;
-      remote = {
-        ...remote,
-        ...ResponseFormat.stateToRemote(
-          responseFormat,
-          collectedVariables,
-          collectedVariablesStore,
-          response,
-        ),
-      };
-    } else {
-      remote.type = SEQUENCE_TYPE_NAME;
-      if (type === QUESTIONNAIRE) {
-        remote.genericName = 'QUESTIONNAIRE';
-      } else if (type === SEQUENCE) {
-        remote.genericName = 'MODULE';
-      } else if (type === EXTERNAL_ELEMENT) {
-        remote.genericName = 'EXTERNAL_ELEMENT';
-      } else {
-        remote.genericName = 'SUBMODULE';
-      }
-      remote.Child = childrenToRemote(
-        children,
-        store,
-        collectedVariablesStore,
-        codesListsStore,
-        dynamiqueSpecified,
-        depth,
-      );
+      remote.FlowControl = remoteclarification.flowcontrolefinal;
+      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
     }
-    return remote;
+    if (
+      responseFormat.type === TABLE &&
+      collectedVariablesStore !== undefined
+    ) {
+      const remoteclarification = getClarificationResponseTableQuestion(
+        collectedVariablesStore,
+        collectedVariables,
+        codesListsStore,
+        responseFormat,
+        remote.FlowControl,
+        TargetMode,
+        responsesClarification,
+        flowControl,
+      );
+      remote.FlowControl = remoteclarification.flowcontrolefinal;
+      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
+    }
+    if (responseFormat.type === PAIRING) {
+      remote.Scope = responseFormat[PAIRING].scope;
+    }
+
+    remote.type = QUESTION_TYPE_NAME;
+    remote.questionType = responseFormat.type;
+    remote = {
+      ...remote,
+      ...ResponseFormat.stateToRemote(
+        responseFormat,
+        collectedVariables,
+        collectedVariablesStore,
+        response,
+      ),
+    };
+  } else if (type === ROUNDABOUT) {
+    remote = {
+      ...remote,
+      type: 'RoundaboutType',
+      ...Roundabout.stateToRemote(state),
+    };
+  } else {
+    remote.type = SEQUENCE_TYPE_NAME;
+    if (type === QUESTIONNAIRE) {
+      remote.genericName = 'QUESTIONNAIRE';
+    } else if (type === SEQUENCE) {
+      remote.genericName = 'MODULE';
+    } else if (type === EXTERNAL_ELEMENT) {
+      remote.genericName = 'EXTERNAL_ELEMENT';
+    } else {
+      remote.genericName = 'SUBMODULE';
+    }
+    remote.Child = childrenToRemote(
+      children,
+      store,
+      collectedVariablesStore,
+      codesListsStore,
+      dynamiqueSpecified,
+      depth,
+    );
   }
-  return {};
+  return remote;
 }
+
 function childrenToRemote(
   children,
   store,
@@ -779,6 +798,21 @@ export function remoteToStore(
   iterations,
   filters,
 ) {
+  const roundaboutIterations = remote.Child.reduce((acc, child1) => {
+    if (child1.type === 'SequenceType')
+      return [
+        ...acc,
+        child1.Child.reduce((acc2, child2) => {
+          if (child2.type === 'RoundaboutType')
+            return [...acc2, child2?.Loop?.IterationReference];
+          return acc2;
+        }, []),
+      ];
+    if (child1.type === 'RoundaboutType')
+      return [...acc, child1?.Loop?.IterationReference];
+    return acc;
+  }, []);
+
   return {
     ...remoteToStoreNested(
       remote.Child,
@@ -788,6 +822,11 @@ export function remoteToStore(
       iterations,
       filters,
     ),
+    ...iterations
+      .filter(({ Name }) => !roundaboutIterations.includes(Name))
+      .map(iteration => ({
+        [iteration.id]: Loop.remoteToState(iteration, parent),
+      })),
     [questionnaireId]: remoteToState(remote, []),
   };
 }

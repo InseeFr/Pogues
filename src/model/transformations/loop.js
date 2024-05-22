@@ -1,4 +1,7 @@
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { uuid } from 'utils/utils';
+
+const { LOOP, ROUNDABOUT } = COMPONENT_TYPE;
 
 export function remoteToState(remote, parent) {
   const {
@@ -42,9 +45,11 @@ export function remoteToState(remote, parent) {
 
 export function stateToRemote(store) {
   return Object.values(store)
-    .filter(element => element.type === 'LOOP')
+    .filter(element => element.type === LOOP || element.type === ROUNDABOUT)
     .map(component => {
       const {
+        type,
+        name,
         id,
         nameLoop,
         maximum,
@@ -57,7 +62,7 @@ export function stateToRemote(store) {
       } = component;
 
       const response = {
-        id,
+        id: type === ROUNDABOUT ? `${name}-${nameLoop}` : id,
         Name: nameLoop,
         MemberReference: [initialMember, finalMember],
         type: 'DynamicIterationType',

@@ -257,6 +257,7 @@ ComponentNewEdit.propTypes = {
   submitting: PropTypes.bool.isRequired,
   InitialMember: PropTypes.string,
   activeQuestionnaire: PropTypes.object.isRequired,
+  form: PropTypes.string,
 };
 
 ComponentNewEdit.defaultProps = {
@@ -264,6 +265,7 @@ ComponentNewEdit.defaultProps = {
   componentsStore: {},
   deleteComponent: undefined,
   InitialMember: undefined,
+  form: undefined,
 };
 
 export default ComponentNewEdit;
