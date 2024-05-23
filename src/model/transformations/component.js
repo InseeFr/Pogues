@@ -81,9 +81,9 @@ const getResponsesByVariable = (responses = [], coordinatesByResponse = []) =>
 
 const clarificationQuestion = Children => {
   const Clarification = [];
-  const childr = Children.filter(children => children.Child.length !== 0);
+  const childr = Children.filter(children => children.Child?.length !== 0);
   childr.forEach(item => {
-    item.Child.forEach(clar => {
+    item.Child?.forEach(clar => {
       if (clar.type === 'SequenceType') {
         clar.Child.forEach(supseq => {
           if (
@@ -249,7 +249,7 @@ function remoteToState(remote, componentGroup, codesListsStore, iterations) {
       responseFinal = responseFinal.concat(clar.Response);
     });
   }
-  let state = {
+  const state = {
     id,
     name,
     parent: parent || '',
@@ -280,17 +280,22 @@ function remoteToState(remote, componentGroup, codesListsStore, iterations) {
       state.type = EXTERNAL_ELEMENT;
     }
   } else if (remoteType === 'RoundaboutType') {
+    const loopElements = Loop.remoteToState(
+      iterations.find(({ id }) => id === `${name}-${loop.IterationReference}`),
+    );
     state.type = ROUNDABOUT;
     state.label = label;
-    if (occurrenceLabel) state.occurrenceLabel = occurrenceLabel;
+    if (loopElements.nameLoop) state.nameLoop = loopElements.nameLoop;
+    if (loopElements.basedOn) state.basedOn = loopElements.basedOn;
+    if (loopElements.filter) state.filter = loopElements.filter;
     if (loop.ExcludedOccurrenceLabel)
       state.excludedOccurrenceLabel = loop.ExcludedOccurrenceLabel;
-    if (loop.Complete) state.endedPersonnalizedFormula = loop.Complete;
+    if (loopElements.initialMember)
+      state.initialMember = loopElements.initialMember;
+    if (loopElements.finalMember) state.finalMember = loopElements.finalMember;
+    if (occurrenceLabel) state.occurrenceLabel = occurrenceLabel;
     if (loop.Partial) state.startedPersonnalizedFormula = loop.Partial;
-    state = {
-      ...state,
-      ...Loop.remoteToState(iterations[`${name}-${loop.IterationReference}`]),
-    };
+    if (loop.Complete) state.endedPersonnalizedFormula = loop.Complete;
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 
@@ -804,12 +809,15 @@ export function remoteToStore(
         ...acc,
         child1.Child.reduce((acc2, child2) => {
           if (child2.type === 'RoundaboutType')
-            return [...acc2, child2?.Loop?.IterationReference];
+            return [
+              ...acc2,
+              `${child2.Name}-${child2?.Loop?.IterationReference}`,
+            ];
           return acc2;
         }, []),
       ];
     if (child1.type === 'RoundaboutType')
-      return [...acc, child1?.Loop?.IterationReference];
+      return [...acc, `${child1.Name}-${child1?.Loop?.IterationReference}`];
     return acc;
   }, []);
 
@@ -823,10 +831,13 @@ export function remoteToStore(
       filters,
     ),
     ...iterations
-      .filter(({ Name }) => !roundaboutIterations.includes(Name))
-      .map(iteration => ({
-        [iteration.id]: Loop.remoteToState(iteration, parent),
-      })),
+      .filter(({ id }) => !roundaboutIterations.includes(id))
+      .reduce((accIteration, iteration) => {
+        return {
+          ...accIteration,
+          [iteration.id]: Loop.remoteToState(iteration, parent),
+        };
+      }, {}),
     [questionnaireId]: remoteToState(remote, []),
   };
 }

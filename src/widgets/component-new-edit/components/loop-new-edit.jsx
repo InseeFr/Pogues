@@ -32,7 +32,12 @@ const LoopNewEdit = ({
         label={Dictionary.name}
         required
       />
-      <Field name="basedOn" component={Select} label={Dictionary.BasedOn}>
+      <Field
+        name="basedOn"
+        component={Select}
+        label={Dictionary.BasedOn}
+        required={componentType === ROUNDABOUT}
+      >
         <GenericOption key="selectBasedOn" value="">
           {Dictionary.selectBasedOn}
         </GenericOption>
