@@ -116,6 +116,7 @@ export const SequenceNewEdit = ({
 
 SequenceNewEdit.propTypes = {
   componentId: PropTypes.string,
+  componentType: PropTypes.string.isRequired,
   errorsIntegrityByTab: PropTypes.object,
   addSubformValidationErrors: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
@@ -128,7 +129,7 @@ SequenceNewEdit.propTypes = {
 
 SequenceNewEdit.defaultProps = {
   componentId: '',
-  componentStore: {},
+  componentsStore: {},
   InitialMember: undefined,
   scopes: undefined,
   form: undefined,
