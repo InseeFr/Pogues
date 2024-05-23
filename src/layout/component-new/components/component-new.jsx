@@ -6,11 +6,12 @@ import {
   validateFilterForm,
   validateLoopForm,
   validateQuestionForm,
+  validateRoundaboutForm,
   validateSequenceForm,
 } from '../../../utils/validation/validate';
 import { ComponentNewEdit } from '../../../widgets/component-new-edit';
 
-const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -48,6 +49,7 @@ function validateAndSubmit(
   validateSequence,
   validateLoop,
   validateFilter,
+  validateRoundabout,
   transformer,
   onSuccess,
 ) {
@@ -58,6 +60,8 @@ function validateAndSubmit(
       validateLoop(values);
     } else if (type === FILTER) {
       validateFilter(values);
+    } else if (type === ROUNDABOUT) {
+      validateRoundabout(values);
     } else {
       validateSequence(values);
     }
@@ -117,6 +121,8 @@ function ComponentNew({
     validateLoopForm(values, setValidationErrorsAction);
   const validateFilter = setValidationErrorsAction => values =>
     validateFilterForm(values, setValidationErrorsAction);
+  const validateRoundabout = setValidationErrorsAction => values =>
+    validateRoundaboutForm(values, setValidationErrorsAction);
   const actions = {
     createComponent,
     updateParentChildren,
@@ -153,6 +159,7 @@ function ComponentNew({
         validateSequence(setValidationErrors),
         validateLoop(setValidationErrors),
         validateFilter(setValidationErrors),
+        validateRoundabout(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}
