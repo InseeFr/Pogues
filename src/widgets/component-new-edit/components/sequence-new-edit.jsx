@@ -1,7 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { TABS_PATHS, TargetMode } from '../../../constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  TABS_PATHS,
+  TargetMode,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -10,15 +14,22 @@ import { AssociatedFields } from '../../associated-fields';
 import { Tab, Tabs } from '../../tabs';
 import Controls from './controls';
 import Declaration from './declarations';
+import LoopNewEdit from './loop-new-edit';
 
 export const SequenceNewEdit = ({
   form,
+  componentType,
   componentId,
   errorsIntegrityByTab,
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
+  componentsStore,
+  InitialMember,
+  scopes,
 }) => {
+  const { ROUNDABOUT } = COMPONENT_TYPE;
+
   return (
     <>
       <AssociatedFields
@@ -46,29 +57,59 @@ export const SequenceNewEdit = ({
           </GenericOption>
         ))}
       </Field>
-      <Tabs componentId={componentId}>
-        <Tab
-          label={Dictionary.declaration_tabTitle}
-          path={TABS_PATHS.DECLARATIONS}
-          key={TABS_PATHS.DECLARATIONS}
-        >
-          <Declaration
-            showPosition={false}
-            errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
-        <Tab
-          label={Dictionary.controls}
-          path={TABS_PATHS.CONTROLS}
-          key={TABS_PATHS.CONTROLS}
-        >
-          <Controls
-            errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
-      </Tabs>
+      {componentType === ROUNDABOUT && (
+        <Tabs componentId={componentId}>
+          <Tab
+            label={Dictionary.loop}
+            path={TABS_PATHS.LOOP}
+            key={TABS_PATHS.LOOP}
+          >
+            <LoopNewEdit
+              form={form}
+              componentsStore={componentsStore}
+              componentType={ROUNDABOUT}
+              InitialMember={InitialMember}
+              scopes={scopes}
+            />
+          </Tab>
+          <Tab
+            label={Dictionary.declaration_tabTitle}
+            path={TABS_PATHS.DECLARATIONS}
+            key={TABS_PATHS.DECLARATIONS}
+          >
+            <Declaration
+              showPosition={false}
+              errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
+              addErrors={addSubformValidationErrors}
+            />
+          </Tab>
+        </Tabs>
+      )}
+      {componentType !== ROUNDABOUT && (
+        <Tabs componentId={componentId}>
+          <Tab
+            label={Dictionary.declaration_tabTitle}
+            path={TABS_PATHS.DECLARATIONS}
+            key={TABS_PATHS.DECLARATIONS}
+          >
+            <Declaration
+              showPosition={false}
+              errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
+              addErrors={addSubformValidationErrors}
+            />
+          </Tab>
+          <Tab
+            label={Dictionary.controls}
+            path={TABS_PATHS.CONTROLS}
+            key={TABS_PATHS.CONTROLS}
+          >
+            <Controls
+              errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
+              addErrors={addSubformValidationErrors}
+            />
+          </Tab>
+        </Tabs>
+      )}
     </>
   );
 };
@@ -79,10 +120,16 @@ SequenceNewEdit.propTypes = {
   addSubformValidationErrors: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
+  componentsStore: PropTypes.object,
+  InitialMember: PropTypes.string,
+  scopes: PropTypes.array,
   form: PropTypes.string,
 };
 
 SequenceNewEdit.defaultProps = {
   componentId: '',
+  componentStore: {},
+  InitialMember: undefined,
+  scopes: undefined,
   form: undefined,
 };

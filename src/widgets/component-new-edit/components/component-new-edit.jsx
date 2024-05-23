@@ -13,7 +13,6 @@ import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 import { FilterNewEdit } from './filter-new-edit';
 import LoopNewEdit from './loop-new-edit';
 import { QuestionNewEdit } from './question-new-edit';
-import { RoundaboutNewEdit } from './roundabout-new-edit';
 import { SequenceNewEdit } from './sequence-new-edit';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
@@ -111,6 +110,7 @@ const ComponentNewEdit = ({
         {(componentType === SEQUENCE || componentType === SUBSEQUENCE) && (
           <SequenceNewEdit
             form={form}
+            componentType={componentType}
             componentId={componentId}
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
@@ -145,8 +145,9 @@ const ComponentNewEdit = ({
           />
         )}
         {componentType === ROUNDABOUT && (
-          <RoundaboutNewEdit
+          <SequenceNewEdit
             form={form}
+            componentType={componentType}
             componentId={componentId}
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
