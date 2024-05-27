@@ -213,7 +213,7 @@ export function remoteToVariableResponse(remote) {
   return remoteToVariableResponseNested(remote.Child);
 }
 
-function remoteToState(remote, componentGroup, codesListsStore, iterations) {
+function remoteToState(remote, componentGroup, codesListsStore) {
   const {
     id,
     type: remoteType,
@@ -222,7 +222,6 @@ function remoteToState(remote, componentGroup, codesListsStore, iterations) {
     Name: name,
     Label: [label],
     Declaration: declarations,
-    // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: redirections,
     Control: controls,
     Response: responses,
@@ -280,19 +279,14 @@ function remoteToState(remote, componentGroup, codesListsStore, iterations) {
       state.type = EXTERNAL_ELEMENT;
     }
   } else if (remoteType === 'RoundaboutType') {
-    const loopElements = Loop.remoteToState(
-      iterations.find(({ id }) => id === `${name}-${loop.IterationReference}`),
-    );
     state.type = ROUNDABOUT;
     state.label = label;
-    if (loopElements.nameLoop) state.nameLoop = loopElements.nameLoop;
-    if (loopElements.basedOn) state.basedOn = loopElements.basedOn;
-    if (loopElements.filter) state.filter = loopElements.filter;
+    state.nameLoop = loop.Name;
+    state.basedOn = loop.IterableReference;
+    if (loop.Filter) state.filter = loop.Filter;
     if (loop.ExcludedOccurrenceLabel)
       state.excludedOccurrenceLabel = loop.ExcludedOccurrenceLabel;
-    if (loopElements.initialMember)
-      state.initialMember = loopElements.initialMember;
-    if (loopElements.finalMember) state.finalMember = loopElements.finalMember;
+    [state.initialMember, state.finalMember] = loop.MemberReference;
     if (occurrenceLabel) state.occurrenceLabel = occurrenceLabel;
     if (loop.Partial) state.startedPersonnalizedFormula = loop.Partial;
     if (loop.Complete) state.endedPersonnalizedFormula = loop.Complete;
@@ -340,7 +334,6 @@ function remoteToStoreNested(
       { ...child, weight, parent },
       componentGroup,
       codesListsStore,
-      iterations,
     );
     weight += 1;
     if (child.Child)
@@ -792,7 +785,7 @@ function childrenToRemote(
       codesListsStore,
       dynamiqueSpecified,
       newDepth,
-    ); // eslint-disable-line no-use-before-define
+    );
   });
 }
 
@@ -803,24 +796,6 @@ export function remoteToStore(
   iterations,
   filters,
 ) {
-  const roundaboutIterations = remote.Child.reduce((acc, child1) => {
-    if (child1.type === 'SequenceType')
-      return [
-        ...acc,
-        child1.Child.reduce((acc2, child2) => {
-          if (child2.type === 'RoundaboutType')
-            return [
-              ...acc2,
-              `${child2.Name}-${child2?.Loop?.IterationReference}`,
-            ];
-          return acc2;
-        }, []),
-      ];
-    if (child1.type === 'RoundaboutType')
-      return [...acc, `${child1.Name}-${child1?.Loop?.IterationReference}`];
-    return acc;
-  }, []);
-
   return {
     ...remoteToStoreNested(
       remote.Child,
@@ -830,14 +805,12 @@ export function remoteToStore(
       iterations,
       filters,
     ),
-    ...iterations
-      .filter(({ id }) => !roundaboutIterations.includes(id))
-      .reduce((accIteration, iteration) => {
-        return {
-          ...accIteration,
-          [iteration.id]: Loop.remoteToState(iteration, parent),
-        };
-      }, {}),
+    ...iterations.reduce((accIteration, iteration) => {
+      return {
+        ...accIteration,
+        [iteration.id]: Loop.remoteToState(iteration, parent),
+      };
+    }, {}),
     [questionnaireId]: remoteToState(remote, []),
   };
 }

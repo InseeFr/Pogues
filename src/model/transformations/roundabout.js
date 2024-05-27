@@ -2,20 +2,29 @@ export function stateToRemote(state) {
   const {
     occurrenceLabel: OccurrenceLabel,
     nameLoop,
-    excludedOccurrenceLabel: ExcludedOccurrenceLabel,
-    startedPersonnalizedFormula: Partial,
-    endedPersonnalizedFormula: Complete,
+    initialMember,
+    finalMember,
+    basedOn,
+    filter,
+    excludedOccurrenceLabel,
+    startedPersonnalizedFormula,
+    endedPersonnalizedFormula,
   } = state;
   const roundabout = {
     OccurrenceLabel,
     Loop: {
-      IterationReference: nameLoop,
+      Name: nameLoop,
+      MemberReference: [initialMember, finalMember],
+      IterableReference: basedOn,
     },
   };
-  if (ExcludedOccurrenceLabel)
-    roundabout.Loop.ExcludedOccurrenceLabel = ExcludedOccurrenceLabel;
-  if (Partial) roundabout.Loop.Partial = Partial;
-  if (Complete) roundabout.Loop.Complete = Complete;
+  if (filter) roundabout.Loop.Filter = filter;
+  if (excludedOccurrenceLabel)
+    roundabout.Loop.ExcludedOccurrenceLabel = excludedOccurrenceLabel;
+  if (startedPersonnalizedFormula)
+    roundabout.Loop.Partial = startedPersonnalizedFormula;
+  if (endedPersonnalizedFormula)
+    roundabout.Loop.Complete = endedPersonnalizedFormula;
 
   return roundabout;
 }
