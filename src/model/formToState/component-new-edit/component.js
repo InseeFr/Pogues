@@ -54,8 +54,6 @@ export function formToState(form, transformers) {
     filterImbriquer,
     excludedOccurrenceLabel,
     occurrenceLabel,
-    startedPersonnalizedFormula,
-    endedPersonnalizedFormula,
   } = form;
 
   let newName;
@@ -97,8 +95,6 @@ export function formToState(form, transformers) {
     filterImbriquer: filterImbriquer,
     excludedOccurrenceLabel: excludedOccurrenceLabel,
     occurrenceLabel: occurrenceLabel,
-    startedPersonnalizedFormula: startedPersonnalizedFormula,
-    endedPersonnalizedFormula: endedPersonnalizedFormula,
   };
 }
 
@@ -120,8 +116,6 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     minimum,
     excludedOccurrenceLabel,
     occurrenceLabel,
-    startedPersonnalizedFormula,
-    endedPersonnalizedFormula,
     selectedComponent,
   } = currentState;
 
@@ -154,8 +148,6 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     filterImbriquer: filterImbriquer,
     excludedOccurrenceLabel: excludedOccurrenceLabel || '',
     occurrenceLabel: occurrenceLabel || '',
-    startedPersonnalizedFormula: startedPersonnalizedFormula || '',
-    endedPersonnalizedFormula: endedPersonnalizedFormula || '',
   };
 
   if (type === QUESTION) {

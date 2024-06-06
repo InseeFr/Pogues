@@ -288,8 +288,6 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       state.excludedOccurrenceLabel = loop.ExcludedOccurrenceLabel;
     [state.initialMember, state.finalMember] = loop.MemberReference;
     if (occurrenceLabel) state.occurrenceLabel = occurrenceLabel;
-    if (loop.Partial) state.startedPersonnalizedFormula = loop.Partial;
-    if (loop.Complete) state.endedPersonnalizedFormula = loop.Complete;
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 

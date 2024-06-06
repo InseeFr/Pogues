@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, formValueSelector } from 'redux-form';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import {
-  InputWithVariableAutoCompletion,
-  TextareaWithVariableAutoCompletion,
-} from '../../../forms/controls/control-with-suggestions';
+import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../forms/controls/generic-option';
 import Input from '../../../forms/controls/input';
 import Select from '../../../forms/controls/select';
@@ -89,27 +86,13 @@ const LoopNewEdit = ({
         InitialMember={InitialMember}
       />
       {componentType === ROUNDABOUT && (
-        <>
-          <Field
-            name="occurrenceLabel"
-            type="text"
-            required
-            component={InputWithVariableAutoCompletion}
-            label={Dictionary.occurrenceLabel}
-          />
-          <Field
-            name="startedPersonnalizedFormula"
-            type="text"
-            component={TextareaWithVariableAutoCompletion}
-            label={Dictionary.startedPersonnalizedFormula}
-          />
-          <Field
-            name="endedPersonnalizedFormula"
-            type="text"
-            component={TextareaWithVariableAutoCompletion}
-            label={Dictionary.endedPersonnalizedFormula}
-          />
-        </>
+        <Field
+          name="occurrenceLabel"
+          type="text"
+          required
+          component={InputWithVariableAutoCompletion}
+          label={Dictionary.occurrenceLabel}
+        />
       )}
     </div>
   );

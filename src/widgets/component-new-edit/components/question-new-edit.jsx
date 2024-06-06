@@ -1,7 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { TABS_PATHS, TargetMode } from '../../../constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  TABS_PATHS,
+  TargetMode,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -11,6 +15,7 @@ import { Tab, Tabs } from '../../tabs';
 import CollectedVariablesContainer from '../containers/variables/collected-variables-container';
 import Controls from './controls';
 import Declarations from './declarations';
+import Redirections from './redirections';
 import ResponseFormat from './response-format/response-format';
 import CalculatedVariables from './variables/calculated-variables';
 import ExternalVariables from './variables/external-variables';
@@ -24,7 +29,11 @@ export const QuestionNewEdit = ({
   handleDisableValidation,
   scopes,
   activeQuestionnaire,
+  redirectionNeeded,
+  componentsStore,
 }) => {
+  const { QUESTION } = COMPONENT_TYPE;
+
   return (
     <>
       <AssociatedFields
@@ -85,7 +94,7 @@ export const QuestionNewEdit = ({
             addErrors={addSubformValidationErrors}
           />
         </Tab>
-        {/* {dynamiqueSpecified !== 'Filtres' && (
+        {redirectionNeeded && (
           <Tab
             label={Dictionary.goTo}
             path={TABS_PATHS.REDIRECTIONS}
@@ -99,7 +108,7 @@ export const QuestionNewEdit = ({
               editingComponentId={componentId}
             />
           </Tab>
-        )} */}
+        )}
         <Tab
           label={Dictionary.externalVariables}
           path={TABS_PATHS.EXTERNAL_VARIABLES}
@@ -146,8 +155,12 @@ QuestionNewEdit.propTypes = {
   scopes: PropTypes.array.isRequired,
   activeQuestionnaire: PropTypes.object.isRequired,
   form: PropTypes.string,
+  redirectionNeeded: PropTypes.bool,
+  componentsStore: PropTypes.object,
 };
 
 QuestionNewEdit.defaultProps = {
   form: undefined,
+  redirectionNeeded: false,
+  componentsStore: {},
 };

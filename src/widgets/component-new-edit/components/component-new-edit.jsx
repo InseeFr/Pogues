@@ -36,6 +36,7 @@ const ComponentNewEdit = ({
   externalLoopsStore,
   InitialMember,
   activeQuestionnaire,
+  redirectionNeeded,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
@@ -129,6 +130,8 @@ const ComponentNewEdit = ({
             buttonRef={buttonRef}
             handleDisableValidation={handleDisableValidation}
             scopes={scopes}
+            redirectionNeeded={redirectionNeeded}
+            componentsStore={componentsStore}
             activeQuestionnaire={activeQuestionnaire}
           />
         )}
@@ -259,6 +262,7 @@ ComponentNewEdit.propTypes = {
   InitialMember: PropTypes.string,
   activeQuestionnaire: PropTypes.object.isRequired,
   form: PropTypes.string,
+  redirectionNeeded: PropTypes.bool,
 };
 
 ComponentNewEdit.defaultProps = {
@@ -267,6 +271,7 @@ ComponentNewEdit.defaultProps = {
   deleteComponent: undefined,
   InitialMember: undefined,
   form: undefined,
+  redirectionNeeded: false,
 };
 
 export default ComponentNewEdit;
