@@ -34,6 +34,86 @@ export const QuestionNewEdit = ({
 }) => {
   const { QUESTION } = COMPONENT_TYPE;
 
+  const panels = [
+    <Tab
+      label={Dictionary.responsesEdition}
+      path={TABS_PATHS.RESPONSE_FORMAT}
+      key={TABS_PATHS.RESPONSE_FORMAT}
+    >
+      <ResponseFormat
+        edit={componentId !== ''}
+        addErrors={addSubformValidationErrors}
+      />
+    </Tab>,
+    <Tab
+      label={Dictionary.declaration_tabTitle}
+      path={TABS_PATHS.DECLARATIONS}
+      key={TABS_PATHS.DECLARATIONS}
+    >
+      <Declarations
+        activeQuestionnaire={activeQuestionnaire}
+        showPosition
+        errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
+        addErrors={addSubformValidationErrors}
+      />
+    </Tab>,
+    <Tab
+      label={Dictionary.controls}
+      path={TABS_PATHS.CONTROLS}
+      key={TABS_PATHS.CONTROLS}
+    >
+      <Controls
+        errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
+        addErrors={addSubformValidationErrors}
+      />
+    </Tab>,
+    <Tab
+      label={Dictionary.goTo}
+      path={TABS_PATHS.REDIRECTIONS}
+      key={TABS_PATHS.REDIRECTIONS}
+    >
+      <Redirections
+        errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
+        addErrors={addSubformValidationErrors}
+        componentType={QUESTION}
+        componentsStore={componentsStore}
+        editingComponentId={componentId}
+      />
+    </Tab>,
+    <Tab
+      label={Dictionary.externalVariables}
+      path={TABS_PATHS.EXTERNAL_VARIABLES}
+      key={TABS_PATHS.EXTERNAL_VARIABLES}
+    >
+      <ExternalVariables
+        errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
+        addErrors={addSubformValidationErrors}
+        scopes={scopes}
+      />
+    </Tab>,
+    <Tab
+      label={Dictionary.calculatedVariables}
+      path={TABS_PATHS.CALCULATED_VARIABLES}
+      key={TABS_PATHS.CALCULATED_VARIABLES}
+    >
+      <CalculatedVariables
+        errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
+        addErrors={addSubformValidationErrors}
+        scopes={scopes}
+      />
+    </Tab>,
+    <Tab
+      label={Dictionary.collectedVariables}
+      path={TABS_PATHS.COLLECTED_VARIABLES}
+      key={TABS_PATHS.COLLECTED_VARIABLES}
+    >
+      <CollectedVariablesContainer
+        errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
+        addErrors={addSubformValidationErrors}
+      />
+    </Tab>,
+  ];
+
   return (
     <>
       <AssociatedFields
@@ -62,85 +142,9 @@ export const QuestionNewEdit = ({
         ))}
       </Field>
       <Tabs componentId={componentId}>
-        <Tab
-          label={Dictionary.responsesEdition}
-          path={TABS_PATHS.RESPONSE_FORMAT}
-          key={TABS_PATHS.RESPONSE_FORMAT}
-        >
-          <ResponseFormat
-            edit={componentId !== ''}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
-        <Tab
-          label={Dictionary.declaration_tabTitle}
-          path={TABS_PATHS.DECLARATIONS}
-          key={TABS_PATHS.DECLARATIONS}
-        >
-          <Declarations
-            activeQuestionnaire={activeQuestionnaire}
-            showPosition
-            errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
-        <Tab
-          label={Dictionary.controls}
-          path={TABS_PATHS.CONTROLS}
-          key={TABS_PATHS.CONTROLS}
-        >
-          <Controls
-            errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
-        {redirectionNeeded && (
-          <Tab
-            label={Dictionary.goTo}
-            path={TABS_PATHS.REDIRECTIONS}
-            key={TABS_PATHS.REDIRECTIONS}
-          >
-            <Redirections
-              errors={errorsIntegrityByTab[TABS_PATHS.REDIRECTIONS]}
-              addErrors={addSubformValidationErrors}
-              componentType={QUESTION}
-              componentsStore={componentsStore}
-              editingComponentId={componentId}
-            />
-          </Tab>
-        )}
-        <Tab
-          label={Dictionary.externalVariables}
-          path={TABS_PATHS.EXTERNAL_VARIABLES}
-          key={TABS_PATHS.EXTERNAL_VARIABLES}
-        >
-          <ExternalVariables
-            errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
-            addErrors={addSubformValidationErrors}
-            scopes={scopes}
-          />
-        </Tab>
-        <Tab
-          label={Dictionary.calculatedVariables}
-          path={TABS_PATHS.CALCULATED_VARIABLES}
-          key={TABS_PATHS.CALCULATED_VARIABLES}
-        >
-          <CalculatedVariables
-            errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
-            addErrors={addSubformValidationErrors}
-            scopes={scopes}
-          />
-        </Tab>
-        <Tab
-          label={Dictionary.collectedVariables}
-          path={TABS_PATHS.COLLECTED_VARIABLES}
-          key={TABS_PATHS.COLLECTED_VARIABLES}
-        >
-          <CollectedVariablesContainer
-            errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
-            addErrors={addSubformValidationErrors}
-          />
-        </Tab>
+        {redirectionNeeded
+          ? panels
+          : panels.filter(panel => panel.key !== TABS_PATHS.REDIRECTIONS)}
       </Tabs>
     </>
   );
