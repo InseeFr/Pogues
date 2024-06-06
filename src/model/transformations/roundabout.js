@@ -7,8 +7,6 @@ export function stateToRemote(state) {
     basedOn,
     filter,
     excludedOccurrenceLabel,
-    startedPersonnalizedFormula,
-    endedPersonnalizedFormula,
   } = state;
   const roundabout = {
     OccurrenceLabel,
@@ -21,10 +19,6 @@ export function stateToRemote(state) {
   if (filter) roundabout.Loop.Filter = filter;
   if (excludedOccurrenceLabel)
     roundabout.Loop.ExcludedOccurrenceLabel = excludedOccurrenceLabel;
-  if (startedPersonnalizedFormula)
-    roundabout.Loop.Partial = startedPersonnalizedFormula;
-  if (endedPersonnalizedFormula)
-    roundabout.Loop.Complete = endedPersonnalizedFormula;
 
   return roundabout;
 }

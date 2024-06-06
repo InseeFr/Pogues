@@ -35,6 +35,7 @@ const ComponentNewEdit = ({
   clearSubformValidationErrors,
   externalLoopsStore,
   InitialMember,
+  redirectionNeeded,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
@@ -127,6 +128,8 @@ const ComponentNewEdit = ({
             buttonRef={buttonRef}
             handleDisableValidation={handleDisableValidation}
             scopes={scopes}
+            redirectionNeeded={redirectionNeeded}
+            componentsStore={componentsStore}
           />
         )}
         {componentType === FILTER && (
@@ -255,6 +258,7 @@ ComponentNewEdit.propTypes = {
   submitting: PropTypes.bool.isRequired,
   InitialMember: PropTypes.string,
   form: PropTypes.string,
+  redirectionNeeded: PropTypes.bool,
 };
 
 ComponentNewEdit.defaultProps = {
@@ -263,6 +267,7 @@ ComponentNewEdit.defaultProps = {
   deleteComponent: undefined,
   InitialMember: undefined,
   form: undefined,
+  redirectionNeeded: false,
 };
 
 export default ComponentNewEdit;

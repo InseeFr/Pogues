@@ -461,14 +461,6 @@ const dictionary = {
     fr: "Libellé d'une occurrence",
     en: 'Occurrence label',
   },
-  startedPersonnalizedFormula: {
-    fr: "Formule personnalisée d'occurrence commencée",
-    en: 'Personalized formula for started occurrence',
-  },
-  endedPersonnalizedFormula: {
-    fr: "Formule personnalisée d'occurrence terminée",
-    en: 'Personalized formula for ended occurrence',
-  },
   selectScope: {
     fr: 'Portée Questionnaire',
     en: 'Scope Questionnaire',

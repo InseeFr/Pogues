@@ -64,6 +64,8 @@ const mapStateToProps = (state, { componentId }) => {
     errorsIntegrityByTab: getErrorsIntegrityByTab(errorsIntegrity),
     componentsStore: state.appState.activeComponentsById,
     externalLoopsStore: externalLoopsWanted,
+    redirectionNeeded:
+      state.appState.activeQuestionnaire.dynamiqueSpecified !== 'Filtres',
   };
 };
 
