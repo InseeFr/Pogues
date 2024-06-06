@@ -56,10 +56,6 @@ export const getResponseCoordinate = (
       variableRes[m.MappingSource].alternativeLabel = variablesAttribute.find(
         ele => ele.AttributeTarget === m.MappingTarget,
       ).Label;
-    } else if (m.Filter) {
-      variableRes[m.MappingSource].isCollected = '2';
-      variableRes[m.MappingSource].condition = m.Filter;
-      variableRes[m.MappingSource].alternativeLabel = m.AlternativeLabel;
     } else {
       variableRes[m.MappingSource].isCollected = '1';
     }

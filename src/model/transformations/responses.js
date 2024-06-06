@@ -29,7 +29,7 @@ export function stateToModel(
   );
   const attributeModel = [];
   const mappingModel = responsesModel.map(r => {
-    const { x, y, isCollected, alternativeLabel, condition } =
+    const { x, y, isCollected, alternativeLabel } =
       collectedVariablesStore[r.CollectedVariableReference];
     // Table : Fix lines and look into columns
     const MappingTarget = type === MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
@@ -40,14 +40,6 @@ export function stateToModel(
         AttributeTarget: MappingTarget,
         Label: alternativeLabel,
       });
-    }
-    if (isCollected === '2') {
-      return {
-        MappingSource: r.id,
-        MappingTarget,
-        AlternativeLabel: alternativeLabel,
-        Filter: condition,
-      };
     }
     return { MappingSource: r.id, MappingTarget };
   });

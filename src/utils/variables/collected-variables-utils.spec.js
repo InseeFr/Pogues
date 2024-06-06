@@ -628,7 +628,6 @@ describe('collected variables utils: ', () => {
           [BOOLEAN]: {},
           isCollected: '1',
           alternativeLabel: '',
-          condition: '',
         },
         {
           id: result[1].id,
@@ -639,7 +638,6 @@ describe('collected variables utils: ', () => {
           [BOOLEAN]: {},
           isCollected: '1',
           alternativeLabel: '',
-          condition: '',
         },
       ]);
     });
@@ -674,7 +672,6 @@ describe('collected variables utils: ', () => {
           x: 1,
           isCollected: '1',
           alternativeLabel: '',
-          condition: '',
           type: BOOLEAN,
           [BOOLEAN]: {},
         },

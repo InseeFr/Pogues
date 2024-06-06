@@ -83,7 +83,6 @@ export function getCollectedVariable(
   label,
   coordinates,
   reponseFormatValues = {},
-  condition = '',
   alternativeLabel = '',
 ) {
   let collectedVariable = {
@@ -94,7 +93,6 @@ export function getCollectedVariable(
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
-  if (condition) collectedVariable = { ...collectedVariable, ...condition };
   if (alternativeLabel)
     collectedVariable = { ...collectedVariable, ...alternativeLabel };
   return collectedVariable;
@@ -138,7 +136,7 @@ export function getCollectedVariablesMultiple(
     getCollectedVariable(
       `${questionName}${index + 1}`,
       `${c.value} - ${c.label}`,
-      { x: index + 1, isCollected: '1', condition: '', alternativeLabel: '' },
+      { x: index + 1, isCollected: '1', alternativeLabel: '' },
       reponseFormatValues,
     ),
   );
@@ -248,7 +246,6 @@ export function getCollectedVariablesTable(questionName, form) {
                     x: i + 1,
                     y: j + 1,
                     isCollected: '1',
-                    condition: '',
                     alternativeLabel: '',
                   },
                   getReponsesValues(measureState),

@@ -14,7 +14,6 @@ export const defaultState = {
   codeListReference: '',
   codeListReferenceLabel: '',
   isCollected: '1',
-  condition: '',
   alternativeLabel: '',
 };
 
@@ -30,7 +29,6 @@ export const defaultForm = {
   codeListReference: '',
   codeListReferenceLabel: '',
   isCollected: '1',
-  condition: '',
   alternativeLabel: '',
 };
 
@@ -52,7 +50,6 @@ export function formToState(form) {
     codeListReference,
     codeListReferenceLabel,
     isCollected,
-    condition,
     alternativeLabel,
   } = form;
   const id = form.id || uuid();
@@ -65,7 +62,6 @@ export function formToState(form) {
     y,
     z,
     isCollected,
-    condition,
     alternativeLabel,
     mesureLevel,
     ...getTypings(form),
@@ -99,7 +95,6 @@ export function storeToForm(currentStore) {
         y,
         z,
         isCollected = '1',
-        condition,
         alternativeLabel,
         mesureLevel,
         codeListReference,
@@ -113,7 +108,6 @@ export function storeToForm(currentStore) {
         y,
         z,
         isCollected,
-        condition,
         alternativeLabel,
         mesureLevel,
         ...getTypings(currentStore[key]),

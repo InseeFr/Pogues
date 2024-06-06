@@ -926,10 +926,6 @@ const dictionary = {
     fr: 'Non',
     en: 'No',
   },
-  underCondition: {
-    fr: 'Sous condition',
-    en: 'Under condition',
-  },
   alternativeLabel: {
     fr: 'Valeur alternative',
     en: 'Alternative value',

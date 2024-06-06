@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 import { defaultState } from 'model/formToState/component-new-edit/collected-variable';
 import { DATATYPE_NAME, QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
 
-import {
-  RichEditorWithVariable,
-  SimpleEditorWithVariable,
-} from 'forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
 import GenericOption from 'forms/controls/generic-option';
 import Input from 'forms/controls/input';
 import { ListWithInputPanel } from 'widgets/list-with-input-panel';
@@ -105,18 +102,7 @@ function CollectedVariables({
             <GenericOption key="0" value="0">
               {Dictionary.no}
             </GenericOption>
-            <GenericOption key="2" value="2">
-              {Dictionary.underCondition}
-            </GenericOption>
           </Field>
-        </div>
-        <div className="ctrl-checkbox" hidden={isVariableCollected !== '2'}>
-          <Field
-            name="condition"
-            required
-            component={SimpleEditorWithVariable}
-            label={Dictionary.expression}
-          />
         </div>
         <div className="ctrl-checkbox" hidden={isVariableCollected === '1'}>
           <Field
