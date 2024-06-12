@@ -429,10 +429,6 @@ const dictionary = {
     en: 'Excepted',
     fr: 'Sauf',
   },
-  ExcludedOccurrenceLabel: {
-    en: 'Excluded occurrences label',
-    fr: 'Libellé des occurrences exclues',
-  },
   InitialMembre: {
     en: 'Start',
     fr: 'Début',
@@ -458,8 +454,16 @@ const dictionary = {
     en: 'Specify Final member',
   },
   occurrenceLabel: {
-    fr: "Libellé d'une occurrence",
-    en: 'Occurrence label',
+    fr: 'Libellé identifiant une occurrence',
+    en: 'Occurrence identifier label',
+  },
+  occurrenceDescription: {
+    fr: "Description d'une occurrence",
+    en: 'Occurrence description',
+  },
+  isRoundaboutLocked: {
+    fr: 'Interdire de modifier une occurrence terminée',
+    en: 'Forbid modifying ended occurrence',
   },
   selectScope: {
     fr: 'Portée Questionnaire',
