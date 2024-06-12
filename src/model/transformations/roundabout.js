@@ -1,15 +1,18 @@
 export function stateToRemote(state) {
   const {
     occurrenceLabel: OccurrenceLabel,
+    occurrenceDescription: OccurrenceDescription,
     nameLoop,
     initialMember,
     finalMember,
     basedOn,
     filter,
-    excludedOccurrenceLabel,
+    locked,
   } = state;
   const roundabout = {
     OccurrenceLabel,
+    OccurrenceDescription,
+    Locked: !!locked,
     Loop: {
       Name: nameLoop,
       MemberReference: [initialMember, finalMember],
@@ -17,8 +20,6 @@ export function stateToRemote(state) {
     },
   };
   if (filter) roundabout.Loop.Filter = filter;
-  if (excludedOccurrenceLabel)
-    roundabout.Loop.ExcludedOccurrenceLabel = excludedOccurrenceLabel;
 
   return roundabout;
 }

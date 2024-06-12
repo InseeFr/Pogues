@@ -236,6 +236,8 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     flowLogic,
     Scope: scope,
     OccurrenceLabel: occurrenceLabel,
+    OccurrenceDescription: occurrenceDescription,
+    Locked: locked,
     Loop: loop,
   } = remote;
   const redirectionClar =
@@ -284,10 +286,10 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     state.nameLoop = loop.Name;
     state.basedOn = loop.IterableReference;
     if (loop.Filter) state.filter = loop.Filter;
-    if (loop.ExcludedOccurrenceLabel)
-      state.excludedOccurrenceLabel = loop.ExcludedOccurrenceLabel;
     [state.initialMember, state.finalMember] = loop.MemberReference;
-    if (occurrenceLabel) state.occurrenceLabel = occurrenceLabel;
+    state.occurrenceLabel = occurrenceLabel;
+    state.occurrenceDescription = occurrenceDescription;
+    state.locked = locked;
   } else {
     const dimensions = responseStructure ? responseStructure.Dimension : [];
 

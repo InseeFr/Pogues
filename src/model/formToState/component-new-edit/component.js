@@ -52,8 +52,9 @@ export function formToState(form, transformers) {
     addButtonLibel,
     description,
     filterImbriquer,
-    excludedOccurrenceLabel,
     occurrenceLabel,
+    occurrenceDescription,
+    locked,
   } = form;
 
   let newName;
@@ -93,8 +94,9 @@ export function formToState(form, transformers) {
     addButtonLibel: addButtonLibel,
     description: description,
     filterImbriquer: filterImbriquer,
-    excludedOccurrenceLabel: excludedOccurrenceLabel,
     occurrenceLabel: occurrenceLabel,
+    occurrenceDescription: occurrenceDescription,
+    locked: locked,
   };
 }
 
@@ -114,8 +116,9 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     description,
     filterImbriquer,
     minimum,
-    excludedOccurrenceLabel,
     occurrenceLabel,
+    occurrenceDescription,
+    locked,
     selectedComponent,
   } = currentState;
 
@@ -146,8 +149,9 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     addButtonLibel: addButtonLibel || '',
     description: description || '',
     filterImbriquer: filterImbriquer,
-    excludedOccurrenceLabel: excludedOccurrenceLabel || '',
     occurrenceLabel: occurrenceLabel || '',
+    occurrenceDescription: occurrenceDescription || '',
+    locked: locked,
   };
 
   if (type === QUESTION) {

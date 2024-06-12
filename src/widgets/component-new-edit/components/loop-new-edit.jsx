@@ -16,7 +16,6 @@ const LoopNewEdit = ({
   InitialMember,
   scopes,
   loopBasedOn,
-  loopFilter,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -49,15 +48,6 @@ const LoopNewEdit = ({
           required={false}
         />
       )}
-      {componentType === ROUNDABOUT && loopFilter && (
-        <Field
-          name="excludedOccurrenceLabel"
-          type="text"
-          component={InputWithVariableAutoCompletion}
-          label={Dictionary.ExcludedOccurrenceLabel}
-          required={false}
-        />
-      )}
       {!loopBasedOn && componentType !== ROUNDABOUT && (
         <>
           <Field
@@ -86,13 +76,27 @@ const LoopNewEdit = ({
         InitialMember={InitialMember}
       />
       {componentType === ROUNDABOUT && (
-        <Field
-          name="occurrenceLabel"
-          type="text"
-          required
-          component={InputWithVariableAutoCompletion}
-          label={Dictionary.occurrenceLabel}
-        />
+        <>
+          <Field
+            name="occurrenceLabel"
+            type="text"
+            required
+            component={InputWithVariableAutoCompletion}
+            label={Dictionary.occurrenceLabel}
+          />
+          <Field
+            name="occurrenceDescription"
+            type="text"
+            component={InputWithVariableAutoCompletion}
+            label={Dictionary.occurrenceDescription}
+          />
+          <Field
+            type="checkbox"
+            name="locked"
+            component={Input}
+            label={Dictionary.isRoundaboutLocked}
+          />
+        </>
       )}
     </div>
   );
@@ -104,13 +108,11 @@ LoopNewEdit.propTypes = {
   InitialMember: PropTypes.string,
   scopes: PropTypes.array.isRequired,
   loopBasedOn: PropTypes.string,
-  loopFilter: PropTypes.string,
 };
 
 LoopNewEdit.defaultProps = {
   InitialMember: undefined,
   loopBasedOn: undefined,
-  loopFilter: undefined,
 };
 
 // Container
@@ -118,7 +120,6 @@ const mapStateToProps = (state, { form }) => {
   const selector = formValueSelector(form);
   return {
     loopBasedOn: selector(state, 'basedOn'),
-    loopFilter: selector(state, 'filter'),
   };
 };
 
