@@ -182,6 +182,7 @@ const ComponentNewEdit = props => {
         key={TABS_PATHS.DECLARATIONS}
       >
         <Declaration
+          activeQuestionnaire={activeQuestionnaire}
           showPosition={componentType === QUESTION}
           errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
           addErrors={addSubformValidationErrors}
