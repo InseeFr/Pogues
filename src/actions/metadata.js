@@ -312,12 +312,14 @@ export const loadNomenclatures = token => async dispatch => {
 
   try {
     const nomenclatures = await getNomenclatures(token);
-    const nomenclaturesMetadata = Object.values(
-      nomenclatures.nomenclatures,
-    ).map(nomenclature => ({
-      id: nomenclature.id,
-      label: nomenclature.label,
-    }));
+    const nomenclaturesMetadata = Object.values(nomenclatures.nomenclatures)
+      .map(nomenclature => ({
+        id: nomenclature.id,
+        label: nomenclature.label,
+      }))
+      .sort((a, b) => {
+        return `${a.label}`.localeCompare(b.label);
+      });
     return dispatch(
       loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
     );
