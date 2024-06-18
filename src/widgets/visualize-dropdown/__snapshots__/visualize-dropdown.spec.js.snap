@@ -42,14 +42,7 @@ exports[`Visualize Dropdown Component:  Should disable the button 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Web V3
-        <span
-          className="link-tag"
-        >
-          <i>
-            beta
-          </i>
-        </span>
+        Web DSFR
       </a>
     </li>
     <li>
@@ -138,14 +131,7 @@ exports[`Visualize Dropdown Component:  Should display the dropdown on top 1`] =
         href="#"
         onClick={[Function]}
       >
-        Web V3
-        <span
-          className="link-tag"
-        >
-          <i>
-            beta
-          </i>
-        </span>
+        Web DSFR
       </a>
     </li>
     <li>
@@ -234,14 +220,7 @@ exports[`Visualize Dropdown Component:  Should return the right HTML 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Web V3
-        <span
-          className="link-tag"
-        >
-          <i>
-            beta
-          </i>
-        </span>
+        Web DSFR
       </a>
     </li>
     <li>

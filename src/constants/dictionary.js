@@ -1595,8 +1595,8 @@ const dictionary = {
     en: 'Web V2',
   },
   VISUALIZE_WEB_STROMAE_V3: {
-    fr: 'Web V3',
-    en: 'Web V3',
+    fr: 'Web DSFR',
+    en: 'Web DSFR',
   },
   VISUALIZE_QUEEN_CAPI: {
     fr: 'Enquêteur face à face',
@@ -1617,6 +1617,14 @@ const dictionary = {
   VISUALIZE_DDI: {
     fr: 'Métadonnées',
     en: 'Metadata',
+  },
+  beta: {
+    fr: 'beta',
+    en: 'beta',
+  },
+  deprecated: {
+    fr: 'obsolète',
+    en: 'deprecated',
   },
   NEW: {
     fr: 'Nouveau',
