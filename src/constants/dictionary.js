@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, CODELISTS_ACTIONS } from 'constants/pogues-constants';
+import { CODELISTS_ACTIONS, COMPONENT_TYPE } from 'constants/pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
 const {
@@ -762,6 +762,18 @@ const dictionary = {
     en: 'Error',
     fr: 'Erreur',
   },
+  control_scope: {
+    en: 'Level',
+    fr: 'Niveau',
+  },
+  LINE: {
+    en: 'Line',
+    fr: 'Ligne',
+  },
+  DYNAMIC_ARRAY: {
+    en: 'Array',
+    fr: 'Tableau',
+  },
   responseFormatSimple: {
     fr: 'Réponse simple',
     en: 'Simple response',
@@ -913,6 +925,14 @@ const dictionary = {
   no: {
     fr: 'Non',
     en: 'No',
+  },
+  alternativeLabel: {
+    fr: 'Valeur alternative',
+    en: 'Alternative value',
+  },
+  unCollected: {
+    fr: 'Case non collectée',
+    en: 'uncollected cell',
   },
   infoAxis: {
     fr: "Axe d'information",

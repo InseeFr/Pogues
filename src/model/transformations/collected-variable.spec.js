@@ -1,9 +1,9 @@
+import { DATATYPE_NAME } from 'constants/pogues-constants';
 import {
-  remoteToStore,
   remoteToComponentState,
+  remoteToStore,
   storeToRemote,
 } from './collected-variable';
-import { DATATYPE_NAME } from 'constants/pogues-constants';
 
 const { TEXT, DURATION, DATE } = DATATYPE_NAME;
 
@@ -163,11 +163,11 @@ describe('collected variable tranformations', () => {
           codeListReferenceLabel: 'label',
           [DURATION]: {
             format: 'HH:CH',
-            mahundhours: '02',
+            mahundhours: '2',
             mahundredths: '12',
             maximum: '02:12',
-            mihundhours: '02',
-            mihundredths: '00',
+            mihundhours: '2',
+            mihundredths: '0',
             minimum: '02:00',
           },
         },

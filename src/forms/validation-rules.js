@@ -184,6 +184,7 @@ function collectedVariableCompare(object1, object2) {
         p !== 'name' &&
         p !== 'label' &&
         p !== 'isCollected' &&
+        p !== 'alternativeLabel' &&
         !collectedVariableCompare(object1[p], object2[p])
       ) {
         equal = false;

@@ -152,8 +152,9 @@ const QuestionnaireList = props => {
         !activeQuestionnaire.childQuestionnaireRef?.includes(q.id) &&
         (!isTcm || q.campaigns.some(campaign => campaign === TCM.id)) &&
         (filter === '' ||
-          (q.label && q.label.toLowerCase().indexOf(filter) >= 0) ||
-          getState(q.final).toLowerCase().indexOf(filter) >= 0 ||
+          (q.label &&
+            q.label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) ||
+          getState(q.final).toLowerCase().indexOf(filter.toLowerCase()) >= 0 ||
           (q.lastUpdatedDate &&
             formatDate(q.lastUpdatedDate).toLowerCase().indexOf(filter) >= 0) ||
           !q)
