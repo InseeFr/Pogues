@@ -71,7 +71,7 @@
     "L_COMMUNES-2024": {
       "id": "L_COMMUNES-2024",
       "name": "L_COMMUNES-2024",
-      "label": "Communes",
+      "label": "Communes 2024",
       "parameters": {
         "version": 1,
         "fields": [
