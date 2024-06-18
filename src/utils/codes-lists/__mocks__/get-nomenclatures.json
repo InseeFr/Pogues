@@ -68,10 +68,10 @@
       "urn": "urn:ddi:fr.insee:l_activites-2-0-0:1",
       "codes": []
     },
-    "L_COMMUNEPASSEE-1-2-0": {
-      "id": "L_COMMUNEPASSEE-1-2-0",
-      "name": "L_COMMUNEPASSEE-1-2-0",
-      "label": "Communes (historique sur 5 ans)",
+    "L_COMMUNES-2024": {
+      "id": "L_COMMUNES-2024",
+      "name": "L_COMMUNES-2024",
+      "label": "Communes",
       "parameters": {
         "version": 1,
         "fields": [
@@ -93,7 +93,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_communepassee-1-2-0:1",
+      "urn": "urn:ddi:fr.insee:l_communes-2024:1",
       "codes": []
     },
     "L_DEP-1-1-0": {
