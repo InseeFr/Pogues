@@ -10,8 +10,13 @@ plugins:
 settings:
   ecmascript: 2020
 
+parser: babel-eslint
+
 parserOptions:
   ecmaVersion: 2020
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
 
 env:
   browser: true
@@ -37,15 +42,11 @@ rules:
   react/react-in-jsx-scope: 0
   react/no-unescaped-entities: 0
   prettier/prettier:
-    [
-      'error',
-      {
-        'trailingComma': 'all',
-        'singleQuote': true,
-        'endOfLine': 'auto',
-        'react/forbid-prop-types': 0,
-      },
-    ]
+    - 'error'
+    - trailingComma: 'all'
+      singleQuote: true
+      endOfLine: 'auto'
+      react/forbid-prop-types: 0
   import/prefer-default-export: 0
   react/jsx-props-no-spreading: 0
   import/order: 0
