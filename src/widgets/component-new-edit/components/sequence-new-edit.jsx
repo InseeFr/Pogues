@@ -13,7 +13,7 @@ import { updateNameField } from '../../../utils/utils';
 import { AssociatedFields } from '../../associated-fields';
 import { Tab, Tabs } from '../../tabs';
 import Controls from './controls';
-import Declaration from './declarations';
+import Declarations from './declarations';
 import LoopNewEdit from './loop-new-edit';
 
 export const SequenceNewEdit = ({
@@ -78,7 +78,7 @@ export const SequenceNewEdit = ({
             path={TABS_PATHS.DECLARATIONS}
             key={TABS_PATHS.DECLARATIONS}
           >
-            <Declaration
+            <Declarations
               activeQuestionnaire={activeQuestionnaire}
               showPosition={false}
               errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
@@ -94,7 +94,7 @@ export const SequenceNewEdit = ({
             path={TABS_PATHS.DECLARATIONS}
             key={TABS_PATHS.DECLARATIONS}
           >
-            <Declaration
+            <Declarations
               activeQuestionnaire={activeQuestionnaire}
               showPosition={false}
               errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}

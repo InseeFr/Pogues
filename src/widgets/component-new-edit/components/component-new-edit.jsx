@@ -35,8 +35,8 @@ const ComponentNewEdit = ({
   clearSubformValidationErrors,
   externalLoopsStore,
   InitialMember,
-  activeQuestionnaire,
   redirectionNeeded,
+  activeQuestionnaire,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
@@ -260,9 +260,9 @@ ComponentNewEdit.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   InitialMember: PropTypes.string,
-  activeQuestionnaire: PropTypes.object.isRequired,
   form: PropTypes.string,
   redirectionNeeded: PropTypes.bool,
+  activeQuestionnaire: PropTypes.object.isRequired,
 };
 
 ComponentNewEdit.defaultProps = {
