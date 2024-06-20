@@ -34,16 +34,10 @@ export function remoteToState(remote) {
       const strminimum = datatype.minimum;
       const matches_minimum = strminimum.match(/\d+/g);
       if (format === 'PTnHnM') {
-        datatype.mihours =
-          matches_minimum[0].toString() === '0' ? '' : matches_minimum[0];
-        datatype.miminutes =
-          matches_minimum[1].toString() === '0' ? '' : matches_minimum[1];
+        [datatype.mihours, datatype.miminutes] = matches_minimum;
       }
       if (format === 'PnYnM') {
-        datatype.miyears =
-          matches_minimum[0].toString() === '0' ? '' : matches_minimum[0];
-        datatype.mimonths =
-          matches_minimum[1].toString() === '0' ? '' : matches_minimum[1];
+        [datatype.miyears, datatype.mimonths] = matches_minimum;
       }
       if (format === 'HH:CH') {
         datatype.mihundhours =
@@ -60,16 +54,10 @@ export function remoteToState(remote) {
       const strmaximum = datatype.maximum;
       const matches_maximum = strmaximum.match(/\d+/g);
       if (format === 'PTnHnM') {
-        datatype.mahours =
-          matches_maximum[0].toString() === '0' ? '' : matches_maximum[0];
-        datatype.maminutes =
-          matches_maximum[1].toString() === '0' ? '' : matches_maximum[1];
+        [datatype.mahours, datatype.maminutes] = matches_maximum;
       }
       if (format === 'PnYnM') {
-        datatype.mayears =
-          matches_maximum[0].toString() === '0' ? '' : matches_maximum[0];
-        datatype.mamonths =
-          matches_maximum[1].toString() === '0' ? '' : matches_maximum[1];
+        [datatype.mayears, datatype.mamonths] = matches_maximum;
       }
       if (format === 'HH:CH') {
         datatype.mahundhours =
@@ -143,7 +131,7 @@ export function stateToRemote(state, collectedVariables) {
       if (mihours || miminutes) {
         durationDataType.minimum = `PT${mihours || 0}H${miminutes || 0}M`;
       }
-      if (mahours !== '' || maminutes !== '') {
+      if (mahours || maminutes) {
         durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
       }
     }

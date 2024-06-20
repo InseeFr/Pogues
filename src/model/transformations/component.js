@@ -1,20 +1,20 @@
-import * as ResponseFormat from './response-format';
-import * as Declaration from './declaration';
 import * as Control from './control';
-import * as Redirection from './redirection';
-import * as Response from './response';
+import * as Declaration from './declaration';
 import * as Loop from './loop';
+import * as Redirection from './redirection';
 import * as Filters from './redirection-filters';
+import * as Response from './response';
+import * as ResponseFormat from './response-format';
 
 import { uuid } from 'utils/utils';
 import * as CollectedVariable from './collected-variable';
 
 import {
   COMPONENT_TYPE,
-  SEQUENCE_TYPE_NAME,
-  QUESTION_TYPE_NAME,
-  QUESTION_TYPE_ENUM,
   QUESTIONNAIRE_TYPE,
+  QUESTION_TYPE_ENUM,
+  QUESTION_TYPE_NAME,
+  SEQUENCE_TYPE_NAME,
 } from 'constants/pogues-constants';
 
 const { MULTIPLE_CHOICE, SINGLE_CHOICE, TABLE, PAIRING } = QUESTION_TYPE_ENUM;
@@ -41,9 +41,9 @@ export const getResponseCoordinate = (
 ) =>
   variablesMapping.reduce((acc, m) => {
     const axis = m.MappingTarget.split(' ');
-    const find = variablesAttribute
-      ? variablesAttribute.find(ele => ele.AttributeTarget === m.MappingTarget)
-      : false;
+    const find = variablesAttribute?.find(
+      ele => ele.AttributeTarget === m.MappingTarget,
+    );
     const variableRes = {
       ...acc,
       [m.MappingSource]: {
@@ -52,9 +52,12 @@ export const getResponseCoordinate = (
       },
     };
     if (find) {
-      variableRes[m.MappingSource].isCollected = false;
+      variableRes[m.MappingSource].isCollected = '0';
+      variableRes[m.MappingSource].alternativeLabel = variablesAttribute.find(
+        ele => ele.AttributeTarget === m.MappingTarget,
+      ).Label;
     } else {
-      variableRes[m.MappingSource].isCollected = true;
+      variableRes[m.MappingSource].isCollected = '1';
     }
     return variableRes;
   }, {});

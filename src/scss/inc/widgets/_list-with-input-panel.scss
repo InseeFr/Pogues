@@ -4,7 +4,7 @@
     flex-flow: row wrap;
 
     .widget-list-with-input-panel__panel {
-      flex: 0 0 65%;
+      flex: 0 0 75%;
 
       button {
         margin-bottom: 20px;
@@ -53,7 +53,7 @@
     }
 
     .widget-list-with-input-panel__list {
-      flex: 0 0 35%;
+      flex: 0 0 25%;
 
       ul {
         list-style: none;
@@ -76,6 +76,10 @@
 
           .widget-list-with-input-panel__variable-name {
             font-family: 'Courier New', Courier, monospace;
+          }
+
+          .widget-list-with-input-panel__uncollected-variable {
+            font-style: italic;
           }
         }
       }
