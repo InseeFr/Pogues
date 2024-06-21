@@ -1,16 +1,18 @@
+import EditorValue from 'gillespie59-react-rte/lib/lib/EditorValue';
+import { EditorState } from 'draft-js';
 import decorators from '../decorators/rich-textarea-decorators';
 
+import stateFromMarkdownVtl from '../lib/state-from-markdown-vtl';
 import stateToMarkdownVtl from '../lib/state-to-markdown-vtl';
 
 export function removeVtlFromMarkdow(markdownVtl) {
   return markdownVtl.replace(/##{"label":\s*"(.+?)".+#end/g, '$1');
 }
 
-export function createFromMarkdownVtl(/* markdownVtl, format, decorator */) {
-  // const contentState = stateFromMarkdownVtl(markdownVtl);
-  // const editorState = EditorState.createWithContent(contentState, decorator);
-  return <div style={{ color: 'red' }}>EditorValue</div>;
-  // return new EditorValue(editorState, { [format]: markdownVtl });
+export function createFromMarkdownVtl(markdownVtl, format, decorator) {
+  const contentState = stateFromMarkdownVtl(markdownVtl);
+  const editorState = EditorState.createWithContent(contentState, decorator);
+  return new EditorValue(editorState, { [format]: markdownVtl });
 }
 
 export function contentStateToString(contentState) {
@@ -18,13 +20,9 @@ export function contentStateToString(contentState) {
 }
 
 export function getEditorValue(markdownVtl) {
-  return markdownVtl ? (
-    createFromMarkdownVtl(markdownVtl, 'markdown', decorators)
-  ) : (
-    <div style={{ color: 'red' }}>
-      <b>ToDo</b>EditorValue
-    </div>
-  );
+  return markdownVtl
+    ? createFromMarkdownVtl(markdownVtl, 'markdown', decorators)
+    : EditorValue.createEmpty(decorators);
 }
 
 export function markdownVtlToHtml(markdownVtl) {

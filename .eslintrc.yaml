@@ -52,9 +52,11 @@ rules:
   import/order: 0
   camelcase: 0
   no-plusplus: 0
+  no-useless-escape: warn
   no-restricted-globals: 0
   import/named: 0
   no-use-before-define: 0
+  prefer-destructuring: off
   react/destructuring-assignment: 0
   no-shadow: 0
   no-else-return: 0

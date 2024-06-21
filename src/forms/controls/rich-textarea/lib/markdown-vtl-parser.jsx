@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 /**
  * Ported from:
  *   https://github.com/chjj/marked/blob/49b7eaca/lib/marked.js
@@ -12,23 +13,6 @@ import {
   FragmentNode,
   SELF_CLOSING,
 } from 'synthetic-dom';
-
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-const assign =
-  Object.assign ||
-  function (obj) {
-    let i = 1;
-    for (; i < arguments.length; i++) {
-      const target = arguments[i];
-      for (const key in target) {
-        if (hasOwnProperty.call(target, key)) {
-          obj[key] = target[key];
-        }
-      }
-    }
-    return obj;
-  };
 
 const noop = function () {};
 noop.exec = noop;
@@ -86,17 +70,18 @@ block.paragraph = replace(block.paragraph)('hr', block.hr)(
  * Normal Block Grammar
  */
 
-block.normal = assign({}, block);
+block.normal = { ...block };
 
 /**
  * GFM Block Grammar
  */
 
-block.gfm = assign({}, block.normal, {
+block.gfm = {
+  ...block.normal,
   fences: /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,
   paragraph: /^/,
   heading: /^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/,
-});
+};
 
 block.gfm.paragraph = replace(block.paragraph)(
   '(?!',
@@ -113,7 +98,7 @@ block.gfm.paragraph = replace(block.paragraph)(
 function Lexer(options) {
   this.tokens = [];
   this.tokens.links = {};
-  this.options = assign({}, options || defaults);
+  this.options = { ...(options || defaults) };
   this.rules = block.normal;
 
   if (this.options.gfm) {
@@ -169,7 +154,7 @@ Lexer.prototype.token = function (src, top, bq) {
 
   while (src) {
     // newline
-    if ((cap = this.rules.newline.exec(src))) {
+    if (cap === this.rules.newline.exec(src)) {
       src = src.substring(cap[0].length);
       if (cap[0].length > 1) {
         this.tokens.push({
@@ -179,7 +164,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // code
-    if ((cap = this.rules.code.exec(src))) {
+    if (cap === this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       cap = cap[0].replace(/^ {4}/gm, '');
       this.tokens.push({
@@ -190,7 +175,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // fences (gfm)
-    if ((cap = this.rules.fences.exec(src))) {
+    if (cap === this.rules.fences.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'code',
@@ -201,7 +186,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // heading
-    if ((cap = this.rules.heading.exec(src))) {
+    if (cap === this.rules.heading.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'heading',
@@ -212,7 +197,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // lheading
-    if ((cap = this.rules.lheading.exec(src))) {
+    if (cap === this.rules.lheading.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'heading',
@@ -223,7 +208,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // hr
-    if ((cap = this.rules.hr.exec(src))) {
+    if (cap === this.rules.hr.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'hr',
@@ -232,7 +217,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // blockquote
-    if ((cap = this.rules.blockquote.exec(src))) {
+    if (cap === this.rules.blockquote.exec(src)) {
       src = src.substring(cap[0].length);
 
       this.tokens.push({
@@ -254,7 +239,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // list
-    if ((cap = this.rules.list.exec(src))) {
+    if (cap === this.rules.list.exec(src)) {
       src = src.substring(cap[0].length);
       bull = cap[2];
 
@@ -280,7 +265,7 @@ Lexer.prototype.token = function (src, top, bq) {
 
         // Outdent whatever the
         // list item contains. Hacky.
-        if (~item.indexOf('\n ')) {
+        if (item.indexOf('\n ') !== -1) {
           space -= item.length;
           item = !this.options.pedantic
             ? item.replace(new RegExp(`^ {1,${space}}`, 'gm'), '')
@@ -328,7 +313,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // def
-    if (!bq && top && (cap = this.rules.def.exec(src))) {
+    if (!bq && top && cap === this.rules.def.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.links[cap[1].toLowerCase()] = {
         href: cap[2],
@@ -338,7 +323,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // top-level paragraph
-    if (top && (cap = this.rules.paragraph.exec(src))) {
+    if (top && cap === this.rules.paragraph.exec(src)) {
       src = src.substring(cap[0].length);
       this.tokens.push({
         type: 'paragraph',
@@ -351,7 +336,7 @@ Lexer.prototype.token = function (src, top, bq) {
     }
 
     // text
-    if ((cap = this.rules.text.exec(src))) {
+    if (cap === this.rules.text.exec(src)) {
       // Top-level should never reach here.
       src = src.substring(cap[0].length);
       this.tokens.push({
@@ -409,43 +394,46 @@ inline.reflink = replace(inline.reflink)('inside', inline._inside)();
  * Normal Inline Grammar
  */
 
-inline.normal = assign({}, inline);
+inline.normal = { ...inline };
 
 /**
  * Pedantic Inline Grammar
  */
 
-inline.pedantic = assign({}, inline.normal, {
+inline.pedantic = {
+  ...inline.normal,
   strong: /^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,
   em: /^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/,
-});
+};
 
 /**
  * GFM Inline Grammar
  */
 
-inline.gfm = assign({}, inline.normal, {
+inline.gfm = {
+  ...inline.normal,
   escape: replace(inline.escape)('])', '~|])')(),
   del: /^~~(?=\S)([\s\S]*?\S)~~/,
   ins: /^\+\+(?=\S)([\s\S]*?\S)\+\+/,
   text: replace(inline.text)(']|', '~+]|')(),
-});
+};
 
 /**
  * GFM + Line Breaks Inline Grammar
  */
 
-inline.breaks = assign({}, inline.gfm, {
+inline.breaks = {
+  ...inline.gfm,
   br: replace(inline.br)('{2,}', '*')(),
   text: replace(inline.gfm.text)('{2,}', '*')(),
-});
+};
 
 /**
  * Inline Lexer & Compiler
  */
 
 function InlineLexer(links, options) {
-  this.options = assign({}, options || defaults);
+  this.options = { ...(options || defaults) };
   this.links = links;
   this.rules = inline.normal;
   this.renderer = this.options.renderer || new Renderer();
@@ -492,14 +480,14 @@ InlineLexer.prototype.parse = function (src) {
 
   while (src) {
     // escape
-    if ((cap = this.rules.escape.exec(src))) {
+    if (cap === this.rules.escape.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(new TextNode(cap[1]));
       continue;
     }
 
     // condition
-    if ((cap = this.rules.condition.exec(src))) {
+    if (cap === this.rules.condition.exec(src)) {
       src = src.substring(cap[0].length);
       this.inLink = true;
       out.appendChild(
@@ -510,7 +498,7 @@ InlineLexer.prototype.parse = function (src) {
     }
 
     // link
-    if ((cap = this.rules.link.exec(src))) {
+    if (cap === this.rules.link.exec(src)) {
       src = src.substring(cap[0].length);
       this.inLink = true;
       out.appendChild(this.outputLink(cap, { href: cap[2], title: cap[3] }));
@@ -520,8 +508,8 @@ InlineLexer.prototype.parse = function (src) {
 
     // reflink, nolink
     if (
-      (cap = this.rules.reflink.exec(src)) ||
-      (cap = this.rules.nolink.exec(src))
+      cap === this.rules.reflink.exec(src) ||
+      cap === this.rules.nolink.exec(src)
     ) {
       src = src.substring(cap[0].length);
       link = (cap[2] || cap[1]).replace(/\s+/g, ' ');
@@ -538,49 +526,49 @@ InlineLexer.prototype.parse = function (src) {
     }
 
     // strong
-    if ((cap = this.rules.strong.exec(src))) {
+    if (cap === this.rules.strong.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.strong(this.parse(cap[2] || cap[1])));
       continue;
     }
 
     // em
-    if ((cap = this.rules.em.exec(src))) {
+    if (cap === this.rules.em.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.em(this.parse(cap[2] || cap[1])));
       continue;
     }
 
     // code
-    if ((cap = this.rules.code.exec(src))) {
+    if (cap === this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.codespan(cap[2]));
       continue;
     }
 
     // br
-    if ((cap = this.rules.br.exec(src))) {
+    if (cap === this.rules.br.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.br());
       continue;
     }
 
     // del (gfm)
-    if ((cap = this.rules.del.exec(src))) {
+    if (cap === this.rules.del.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.del(this.parse(cap[1])));
       continue;
     }
 
     // ins (gfm extended)
-    if ((cap = this.rules.ins.exec(src))) {
+    if (cap === this.rules.ins.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.ins(this.parse(cap[1])));
       continue;
     }
 
     // text
-    if ((cap = this.rules.text.exec(src))) {
+    if (cap === this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
       out.appendChild(this.renderer.text(new TextNode(cap[0])));
       continue;
@@ -721,7 +709,7 @@ Renderer.prototype.text = function (childNode) {
 function Parser(options) {
   this.tokens = [];
   this.token = null;
-  this.options = assign({}, options || defaults);
+  this.options = { ...(options || defaults) };
   this.options.renderer = this.options.renderer || new Renderer();
   this.renderer = this.options.renderer;
   this.renderer.options = this.options;
@@ -757,7 +745,7 @@ Parser.prototype.parse = function (src) {
  */
 
 Parser.prototype.next = function () {
-  return (this.token = this.tokens.pop());
+  return this.token === this.tokens.pop();
 };
 
 /**
@@ -786,6 +774,7 @@ Parser.prototype.parseText = function () {
  * Parse Current Token
  */
 
+// eslint-disable-next-line consistent-return
 Parser.prototype.tok = function () {
   switch (this.token.type) {
     case 'space': {
@@ -848,6 +837,7 @@ Parser.prototype.tok = function () {
     case 'text': {
       return this.renderer.paragraph(this.parseText());
     }
+    default:
   }
 };
 
@@ -871,9 +861,10 @@ function replace(regex, options) {
 
 const MarkdownParser = {
   parse(src, options) {
-    options = assign({}, defaults, options);
+    options = { ...defaults, ...options };
+    let fragment;
     try {
-      var fragment = Parser.parse(Lexer.parse(src, options), options);
+      fragment = Parser.parse(Lexer.parse(src, options), options);
     } catch (e) {
       if (options.silent) {
         fragment = new FragmentNode([

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import ClassSet from 'react-classset';
 import ButtonWrap from './button-wrap';
-
+import { Button } from 'gillespie59-react-rte/lib/RichTextEditor';
 import { ICON_BUTTON } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, IS_ACTIVE, ICON } = ICON_BUTTON;
@@ -33,10 +33,7 @@ function IconButton({
 }) {
   return (
     <ButtonWrap>
-      <div style={{ color: 'red' }}>
-        <b>ToDo</b> Button
-      </div>
-      {/* <Button
+      <Button
         {...otherProps}
         title={label}
         className={ClassSet({
@@ -46,7 +43,7 @@ function IconButton({
         })}
       >
         <span className={`${ICON} icon-${iconName}`} />
-      </Button> */}
+      </Button>
       {children}
     </ButtonWrap>
   );

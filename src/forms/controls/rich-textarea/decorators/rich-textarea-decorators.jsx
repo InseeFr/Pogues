@@ -1,4 +1,4 @@
-// import { CompositeDecorator } from 'draft-js';
+import { CompositeDecorator } from 'draft-js';
 import RichTextareaCondition from './rich-textarea-condition';
 import RichTextareaLink from './rich-textarea-link';
 
@@ -29,13 +29,7 @@ export const customConditionDecorator = {
   component: RichTextareaCondition,
 };
 
-export default () => (
-  <div style={{ color: 'red' }}>
-    <b>ToDo </b>CompositeDecorator
-  </div>
-);
-
-// export default new CompositeDecorator([
-//   customLinkDecorator,
-//   customConditionDecorator,
-// ]);
+export default new CompositeDecorator([
+  customLinkDecorator,
+  customConditionDecorator,
+]);
