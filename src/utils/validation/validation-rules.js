@@ -283,3 +283,13 @@ export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]:
     [value => required(value) && Dictionary.validation_minimum],
 };
+
+export const roundaboutRules = {
+  name: [required, name],
+  label: [required],
+  nameLoop: [required, nameLoop],
+  basedOn: [required],
+  initialMember: [required],
+  finalMember: [required],
+  occurrenceLabel: [required],
+};

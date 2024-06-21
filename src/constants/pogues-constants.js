@@ -4,14 +4,11 @@ export const COMPONENT_TYPE = {
   SUBSEQUENCE: 'SUBSEQUENCE',
   QUESTIONNAIRE: 'QUESTIONNAIRE',
   LOOP: 'LOOP',
+  ROUNDABOUT: 'ROUNDABOUT',
   FILTER: 'FILTER',
   NESTEDFILTRE: 'NESTEDFILTRE',
   REDIRECTION: 'REDIRECTION',
-  // used as a placeholder to place the generic input within the questionnaire
-  GENERIC_INPUT: 'GENERIC_INPUT',
   EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
-  XPATH: 'XPATH',
-  VTL: 'VTL',
 };
 
 export const TargetMode = [
@@ -222,6 +219,7 @@ export const TABS_PATHS = {
   EXTERNAL_VARIABLES: 'externalVariables',
   CALCULATED_VARIABLES: 'calculatedVariables',
   COLLECTED_VARIABLES: 'collectedVariables',
+  LOOP: 'loop',
 };
 
 export const ERROR_TYPES = {

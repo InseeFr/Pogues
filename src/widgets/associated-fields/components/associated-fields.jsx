@@ -53,6 +53,7 @@ function AssociatedFields({
             props={{
               targetIsQuestion,
             }}
+            required
             name={fieldOrigin.name}
             component={RichEditorWithVariable}
             label={fieldOrigin.label}
@@ -65,6 +66,7 @@ function AssociatedFields({
           onBlur={onBlur}
           name={fieldOrigin.name}
           type="text"
+          required
           component={InputWithVariableAutoCompletion}
           label={fieldOrigin.label}
           focusOnInit={focusOnInit}
@@ -75,6 +77,7 @@ function AssociatedFields({
         name={fieldTarget.name}
         type="text"
         component={Input}
+        required
         label={fieldTarget.label}
         onEnter={onEnter}
       />

@@ -1,6 +1,7 @@
-import { CODELISTS_ACTIONS, COMPONENT_TYPE } from 'constants/pogues-constants';
+import { CODELISTS_ACTIONS, COMPONENT_TYPE } from './pogues-constants';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, ROUNDABOUT, FILTER } =
+  COMPONENT_TYPE;
 const {
   EDIT,
   DUPLICATE,
@@ -129,6 +130,10 @@ const dictionary = {
   loop: {
     en: 'Loop',
     fr: 'Boucle',
+  },
+  roundabout: {
+    en: 'Roundabout',
+    fr: 'Rond-point',
   },
   filtre: {
     en: 'Filter',
@@ -447,6 +452,18 @@ const dictionary = {
   selectFinalMembre: {
     fr: 'Spécifier Membre final',
     en: 'Specify Final member',
+  },
+  occurrenceLabel: {
+    fr: 'Libellé identifiant une occurrence',
+    en: 'Occurrence identifier label',
+  },
+  occurrenceDescription: {
+    fr: "Description d'une occurrence",
+    en: 'Occurrence description',
+  },
+  isRoundaboutLocked: {
+    fr: 'Interdire de modifier une occurrence terminée',
+    en: 'Forbid modifying ended occurrence',
   },
   selectScope: {
     fr: 'Portée Questionnaire',
@@ -1681,6 +1698,11 @@ dictionary[`componentNew${LOOP}`] = {
   en: 'New loop',
 };
 
+dictionary[`componentNew${ROUNDABOUT}`] = {
+  fr: 'Nouveau rond-point',
+  en: 'New roundabout',
+};
+
 dictionary[`componentNew${FILTER}`] = {
   fr: 'Nouveau filtre',
   en: 'New filter',
@@ -1709,6 +1731,11 @@ dictionary[`componentEdit${SUBSEQUENCE}`] = {
 dictionary[`componentEdit${LOOP}`] = {
   fr: 'Modifier la boucle',
   en: 'Edit loop',
+};
+
+dictionary[`componentEdit${ROUNDABOUT}`] = {
+  fr: 'Modifier le rond-point',
+  en: 'Edit roundabout',
 };
 
 dictionary[`componentEdit${FILTER}`] = {

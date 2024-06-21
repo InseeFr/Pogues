@@ -162,6 +162,26 @@
         }
       }
 
+      .questionnaire-element.questionnaire-roundabout {
+        & > .questionnaire-element-info {
+          color: #ff6065;
+          font-weight: bold;
+        }
+        &.selected > .questionnaire-element-info {
+          border-color: #ff6065;
+
+          .questionnaire-element-name {
+            background-color: #ff6065;
+          }
+        }
+        .questionnaire-element-body
+          .questionnaire-elements
+          .questionnaire-element-actions
+          .btn-yellow {
+          color: black;
+        }
+      }
+
       .questionnaire-element.questionnaire-subsequence {
         & > .questionnaire-element-info {
           color: $color-blue_02;

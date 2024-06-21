@@ -1,13 +1,13 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { formValueSelector, formPropTypes } from 'redux-form';
+import { connect } from 'react-redux';
+import { formPropTypes, formValueSelector } from 'redux-form';
 
-import ComponentNewEdit from '../components/component-new-edit';
 import {
   addSubformValidationErrors,
   clearSubformValidationErrors,
 } from 'actions/errors';
 import { TABS_PATHS } from 'constants/pogues-constants';
+import ComponentNewEdit from '../components/component-new-edit';
 
 // Utils
 
@@ -61,10 +61,12 @@ const mapStateToProps = (state, { componentId }) => {
   const selector = formValueSelector('component');
   return {
     InitialMember: selector(state, 'initialMember'),
-    filterImbriquer: selector(state, 'filterImbriquer'),
     errorsIntegrityByTab: getErrorsIntegrityByTab(errorsIntegrity),
     componentsStore: state.appState.activeComponentsById,
     externalLoopsStore: externalLoopsWanted,
+    redirectionNeeded:
+      state.appState.activeQuestionnaire.dynamiqueSpecified !== 'Filtres',
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 
