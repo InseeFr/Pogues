@@ -4,6 +4,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    global: 'window',
+  },
   test: {
     include: ['**/*.spec.jsx'],
     globals: true,
