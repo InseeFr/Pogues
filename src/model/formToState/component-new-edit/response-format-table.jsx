@@ -60,13 +60,13 @@ export const defaultMeasureState = {
   label: '',
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
-  // [SINGLE_CHOICE]: {
-  //   [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
-  //     cloneDeep(CodesListDefaultState),
-  //     { id: uuid() },
-  //   ),
-  //   visHint: RADIO,
-  // },
+  [SINGLE_CHOICE]: {
+    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
+    //   cloneDeep(CodesListDefaultState),
+    //   { id: uuid() },
+    // ),
+    visHint: RADIO,
+  },
 };
 
 export const defaultMeasureForm = {
