@@ -58,24 +58,27 @@ const VTLEditor = ({
         {required && <span className="ctrl-required">*</span>}
       </label>
       <div>
-        <AntlrEditor
-          script={value}
-          setScript={localOnChange}
-          onListErrors={handleErrors}
-          variables={variables}
-          variablesInputURLs={[]}
-          tools={customTools}
-          height="100px"
-          theme="vs-light"
-          options={{
-            minimap: { enabled: false },
-            lineNumbers: 'off',
-            glyphMargin: false,
-            folding: false,
-            lineDecorationsWidth: 0,
-            lineNumbersMinChars: 0,
-          }}
-        />
+        <div className="editor-container">
+          <AntlrEditor
+            script={value}
+            setScript={localOnChange}
+            onListErrors={handleErrors}
+            variables={variables}
+            variablesInputURLs={[]}
+            tools={customTools}
+            height="100px"
+            theme="vs-light"
+            options={{
+              minimap: { enabled: false },
+              lineNumbers: 'off',
+              glyphMargin: false,
+              folding: false,
+              lineDecorationsWidth: 0,
+              lineNumbersMinChars: 0,
+              renderLineHighlight: 'none',
+            }}
+          />
+        </div>
       </div>
       <div style={{ color: 'red', display: 'inline-block' }}>
         {value &&
