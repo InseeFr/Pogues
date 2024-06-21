@@ -69,7 +69,11 @@ const VTLEditor = ({
           theme="vs-light"
           options={{
             minimap: { enabled: false },
-            lineNumbers: 'on',
+            lineNumbers: 'off',
+            glyphMargin: false,
+            folding: false,
+            lineDecorationsWidth: 0,
+            lineNumbersMinChars: 0,
           }}
         />
       </div>
