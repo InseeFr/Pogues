@@ -162,6 +162,7 @@ const ComponentNewEdit = ({
             componentsStore={componentsStore}
             InitialMember={InitialMember}
             scopes={scopes}
+            activeQuestionnaire={activeQuestionnaire}
           />
         )}
         <div

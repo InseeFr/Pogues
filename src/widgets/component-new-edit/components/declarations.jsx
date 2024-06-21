@@ -29,27 +29,6 @@ const validateForm = (addErrors, validate) => values => {
   return validate(values, addErrors);
 };
 
-// Prop types and default props
-
-export const propTypes = {
-  formName: PropTypes.string,
-  selectorPath: PropTypes.string,
-  errors: PropTypes.array,
-  showPosition: PropTypes.bool,
-  addErrors: PropTypes.func.isRequired,
-  declarationType: PropTypes.string,
-};
-
-export const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.DECLARATIONS,
-  errors: [],
-  showPosition: true,
-  declarationType: '',
-};
-
-// Component
-
 const Declarations = ({
   formName,
   selectorPath,
@@ -142,8 +121,23 @@ const Declarations = ({
   );
 };
 
-Declarations.propTypes = propTypes;
-Declarations.defaultProps = defaultProps;
+Declarations.propTypes = {
+  formName: PropTypes.string,
+  selectorPath: PropTypes.string,
+  errors: PropTypes.array,
+  showPosition: PropTypes.bool,
+  addErrors: PropTypes.func.isRequired,
+  declarationType: PropTypes.string,
+  activeQuestionnaire: PropTypes.object.isRequired,
+};
+
+Declarations.defaultProps = {
+  formName: DEFAULT_FORM_NAME,
+  selectorPath: TABS_PATHS.DECLARATIONS,
+  errors: [],
+  showPosition: true,
+  declarationType: '',
+};
 
 const mapStateToProps = state => {
   const selector = formValueSelector('component');

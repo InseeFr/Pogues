@@ -66,6 +66,7 @@ const mapStateToProps = (state, { componentId }) => {
     externalLoopsStore: externalLoopsWanted,
     redirectionNeeded:
       state.appState.activeQuestionnaire.dynamiqueSpecified !== 'Filtres',
+    activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };
 
