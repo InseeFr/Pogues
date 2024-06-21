@@ -70,7 +70,7 @@
     "react-scripts": "4.0.3",
     "recompose": "^0.30.0",
     "redux": "4.1.1",
-    "redux-form": "8.3.7",
+    "redux-form": "8.3.10",
     "redux-form-validators": "^3.3.2",
     "redux-oidc": "^4.0.0-beta1",
     "redux-thunk": "2.3.0",
