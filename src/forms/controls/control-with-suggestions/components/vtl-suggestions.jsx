@@ -1,7 +1,8 @@
+/* eslint-disable no-template-curly-in-string */
 import { languages as Languages } from 'monaco-editor';
 
 const FUNCTION = Languages.CompletionItemKind.Function;
-const VARIABLE = Languages.CompletionItemKind.Variable;
+// const VARIABLE = Languages.CompletionItemKind.Variable;
 const KEYWORD = Languages.CompletionItemKind.Keyword;
 const SNIPPET = Languages.CompletionItemKind.Snippet;
 const INSERT_AS_SNIPPET =
@@ -195,6 +196,16 @@ export const getSuggestions = range => {
       },
     },
     {
+      label: 'random',
+      kind: FUNCTION,
+      insertText: 'random',
+      range: range,
+      documentation: {
+        value:
+          'The operator returns a random decimal number >= 0 and <1.  \n\n **Syntax** \n\n    random()',
+      },
+    },
+    {
       label: 'in',
       kind: KEYWORD,
       insertText: 'in',
@@ -224,6 +235,7 @@ export const getSuggestions = range => {
           'The operator returns TRUE if the value of the operand is NULL, FALSE otherwise.     \n\n **Syntax** \n\n    isnull(op)  ',
       },
     },
+    // TODO
     {
       label: 'ex',
       kind: KEYWORD,
@@ -240,6 +252,7 @@ export const getSuggestions = range => {
           'The union operator implements the union of functions (i.e., Data Sets).   \n\n **Syntax** \n\n    union ( ds { , ds }*) ',
       },
     },
+    // TODO
     {
       label: 'diff',
       kind: KEYWORD,
@@ -341,7 +354,7 @@ export const getSuggestions = range => {
     {
       label: 'errorlevel',
       kind: KEYWORD,
-      insertText: 'errorlvel',
+      insertText: 'errorlevel',
       range: range,
     },
     {

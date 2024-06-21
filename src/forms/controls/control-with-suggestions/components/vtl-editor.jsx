@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { AntlrEditor } from '@eurostat/vtl-editor';
-import * as tools from 'vtl-2-0-antlr-tools-ts';
+import { AntlrEditor } from '@making-sense/antlr-editor';
+
+import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
 import { getSuggestions } from './vtl-suggestions';
 
 import { CONTROL_VTL_EDITOR } from '../../../../constants/dom-constants';
@@ -60,18 +61,15 @@ const VTLEditor = ({
         <AntlrEditor
           script={value}
           setScript={localOnChange}
-          languageVersion="my-language"
           onListErrors={handleErrors}
           variables={variables}
-          variableURLs={[]}
+          variablesInputURLs={[]}
           tools={customTools}
+          height="100px"
+          theme="vs-light"
           options={{
-            minimap: false,
-            theme: 'vs-light',
-            hideLines: true,
-            style: {
-              height: '100px',
-            },
+            minimap: { enabled: false },
+            lineNumbers: 'on',
           }}
         />
       </div>
