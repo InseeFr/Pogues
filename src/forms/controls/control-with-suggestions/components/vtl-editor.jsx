@@ -78,12 +78,13 @@ const VTLEditor = ({
         />
       </div>
       <div style={{ color: 'red', display: 'inline-block' }}>
-        {errors.map(({ line, column, message }) => (
-          <div key={`${line}_${column}`} style={{ marginBottom: '20px' }}>
-            <div>{`Ligne : ${line} - Colonne : ${column}`}</div>
-            <div>{message}</div>
-          </div>
-        ))}
+        {value &&
+          errors.map(({ line, column, message }) => (
+            <div key={`${line}_${column}`} style={{ marginBottom: '20px' }}>
+              <div>{`Ligne : ${line} - Colonne : ${column}`}</div>
+              <div>{message}</div>
+            </div>
+          ))}
       </div>
     </div>
   );
