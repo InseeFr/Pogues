@@ -80,6 +80,7 @@
     "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
+    "@types/react-dnd": "^3.0.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.4.0",
     "bootstrap-sass": "3.4.1",
