@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
@@ -20,8 +20,17 @@ const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
+function withForwardRef(Component) {
+  const WrappedComponent = (props, ref) => {
+    return <Component {...props} forwardedRef={ref} />;
+  };
+
+  return forwardRef(WrappedComponent);
+}
+
 const QuestionnaireListComponents = props => {
   const {
+    forwardedRef,
     token,
     questionnaire,
     componentsStore,
@@ -81,6 +90,7 @@ const QuestionnaireListComponents = props => {
         ) {
           return (
             <QuestionnaireComponent
+              ref={forwardedRef}
               key={component.id}
               selected={props.selectedComponentId === key}
               component={component}
@@ -302,4 +312,12 @@ QuestionnaireListComponents.defaultProps = {
   calculatedVariables: {},
 };
 
-export default DragDropContext(HTML5Backend)(QuestionnaireListComponents);
+const ForwardedQuestionnaireListComponents = withForwardRef(
+  QuestionnaireListComponents,
+);
+
+const WrappedQuestionnaireListComponents = DragDropContext(HTML5Backend)(
+  ForwardedQuestionnaireListComponents,
+);
+
+export default WrappedQuestionnaireListComponents;
