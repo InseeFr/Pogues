@@ -19,6 +19,7 @@ import integrityChecker from '../utils/integrity/integrity-checker';
 
 export default integrityChecker(
   combineReducers({
+    authType: (s = '') => s,
     isSearchDisable: (s = '') => s,
     form,
     locale,
