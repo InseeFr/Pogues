@@ -23,7 +23,6 @@ const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
 
 export const propTypes = {
   input: PropTypes.shape(fieldInputPropTypes).isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   meta: PropTypes.shape(fieldMetaPropTypes).isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
   label: PropTypes.string.isRequired,
@@ -154,11 +153,9 @@ class ControlWithSuggestions extends Component {
         <div className={COMPONENT_CLASS}>
           {suggestions.length > 0 && (
             <div className={LIST_CLASS}>
-              {suggestions.slice(0, numSuggestionsShown).map(
-                (
-                  suggest,
-                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                ) => (
+              {suggestions
+                .slice(0, numSuggestionsShown)
+                .map((suggest, index) => (
                   <div
                     key={getKey(suggest)}
                     onClick={() => {
@@ -180,8 +177,7 @@ class ControlWithSuggestions extends Component {
                       {suggest}
                     </HighLighter>
                   </div>
-                ),
-              )}
+                ))}
             </div>
           )}
         </div>
