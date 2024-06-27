@@ -16,10 +16,11 @@ import searchResultById from './search-result-by-id';
 
 import checkers from '../utils/integrity/checkers';
 import integrityChecker from '../utils/integrity/integrity-checker';
+import { authType } from './auth-type';
 
 export default integrityChecker(
   combineReducers({
-    authType: (s = '') => s,
+    authType,
     isSearchDisable: (s = '') => s,
     form,
     locale,
