@@ -1,11 +1,19 @@
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { reducer as formReducer, reduxForm } from 'redux-form';
+import { Provider } from 'react-redux';
+import { combineReducers, createStore } from 'redux';
 import React from 'react';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import InputFilterWithCriteria from './input-filter-with-criteria';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
-import { OidcProvider } from '../../../utils/oidc';
-import { fakeEvent, noop } from '../../../utils/test/test-utils';
+import { noop } from '../../../utils/test/test-utils';
+
+const store = createStore(combineReducers({ form: formReducer }));
+
+const WrappedInputFilterWithCriteria = reduxForm({
+  form: 'testForm', // you can use any form name
+})(InputFilterWithCriteria);
 
 const { SEARCH_INPUT_CLASS, BUTTON_SEARCH_CLASS } =
   WIDGET_INPUT_FILTER_WITH_CRITERIA;
@@ -24,23 +32,28 @@ describe('<InputFilterWithCriteria />', () => {
   });
 
   test('Should render the search input', () => {
-    const wrapper = shallow(
-      <OidcProvider>
-        <InputFilterWithCriteria {...props} />
-      </OidcProvider>,
+    render(
+      <Provider store={store}>
+        <WrappedInputFilterWithCriteria {...props} />
+      </Provider>,
     );
 
-    expect(wrapper.find(`input.${SEARCH_INPUT_CLASS}`)).toHaveLength(1);
+    const searchInput = document.querySelectorAll(
+      `input.${SEARCH_INPUT_CLASS}`,
+    );
+    expect(searchInput.length).toBe(1);
   });
 
   test('Should render the search action button', () => {
-    const wrapper = shallow(
-      <OidcProvider>
-        <InputFilterWithCriteria {...props} />
-      </OidcProvider>,
+    render(
+      <Provider store={store}>
+        <WrappedInputFilterWithCriteria {...props} />
+      </Provider>,
     );
-
-    expect(wrapper.find(`button.${BUTTON_SEARCH_CLASS}`)).toHaveLength(1);
+    const searchButton = document.querySelectorAll(
+      `button.${BUTTON_SEARCH_CLASS}`,
+    );
+    expect(searchButton.length).toBe(1);
   });
 
   test('Should call "search" at the beggining only if the prop "loadOnInit" is true', () => {
@@ -48,47 +61,52 @@ describe('<InputFilterWithCriteria />', () => {
     const spySearchSecond = vi.fn();
 
     props.loadSearchResult = spySearchFirst;
-    shallow(
-      <OidcProvider>
-        <InputFilterWithCriteria {...props} />
-      </OidcProvider>,
+
+    const { rerender } = render(
+      <Provider store={store}>
+        <WrappedInputFilterWithCriteria {...props} />
+      </Provider>,
     );
 
-    expect(spySearchFirst).not.toHaveBeenCalled();
+    expect(props.loadSearchResult).toHaveBeenCalledOnce();
 
     props = { ...props, loadOnInit: false, loadSearchResult: spySearchSecond };
-    shallow(
-      <OidcProvider>
-        <InputFilterWithCriteria {...props} />
-      </OidcProvider>,
+
+    // Clear mock call history before next rerender
+    props.loadSearchResult.mockClear();
+
+    rerender(
+      <Provider store={store}>
+        <WrappedInputFilterWithCriteria {...props} />
+      </Provider>,
     );
 
-    expect(spySearchSecond).not.toHaveBeenCalled();
+    expect(props.loadSearchResult).not.toHaveBeenCalled();
   });
 
-  test.skip('Should call "search" with the text existing in the "input" action when the "button" is clicked', () => {
-    // @TODO: Find a way to test refs
+  // test.skip('Should call "search" with the text existing in the "input" action when the "button" is clicked', () => {
+  //   // @TODO: Find a way to test refs
 
-    const spySearch = vi.fn();
-    const text = 'This is a fake test';
+  //   const spySearch = vi.fn();
+  //   const text = 'This is a fake test';
 
-    props.loadSearchResult = spySearch;
-    const wrapper = shallow(
-      <OidcProvider>
-        <InputFilterWithCriteria {...props} />
-      </OidcProvider>,
-    );
-    wrapper
-      .find(`input.${SEARCH_INPUT_CLASS}`)
-      .get(0)
-      .ref(<input value={text} />);
+  //   props.loadSearchResult = spySearch;
+  //   const wrapper = shallow(
+  //     <OidcProvider>
+  //       <InputFilterWithCriteria {...props} />
+  //     </OidcProvider>,
+  //   );
+  //   wrapper
+  //     .find(`input.${SEARCH_INPUT_CLASS}`)
+  //     .get(0)
+  //     .ref(<input value={text} />);
 
-    wrapper.find(`button.${BUTTON_SEARCH_CLASS}`).simulate('click', fakeEvent);
+  //   wrapper.find(`button.${BUTTON_SEARCH_CLASS}`).simulate('click', fakeEvent);
 
-    expect(spySearch).toHaveBeenCalledWith(
-      props.typeItem,
-      props.criteriaValues,
-      text,
-    );
-  });
+  //   expect(spySearch).toHaveBeenCalledWith(
+  //     props.typeItem,
+  //     props.criteriaValues,
+  //     text,
+  //   );
+  // });
 });
