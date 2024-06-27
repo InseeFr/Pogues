@@ -196,9 +196,8 @@ describe('redirection transformation', () => {
   });
   describe('stateToRemote', () => {
     beforeEach(() => {
-      const responseStateToRemote = vi.fn();
-      Response.stateToRemote = responseStateToRemote;
-      Response.stateToRemote.mockReturnValueOnce({ id: '2' });
+      const responseStateToRemote = vi.spyOn(Response, 'stateToRemote');
+      responseStateToRemote.mockReturnValueOnce({ id: '2' });
     });
 
     afterEach(() => {
