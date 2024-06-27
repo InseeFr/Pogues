@@ -1,11 +1,9 @@
 import React from 'react';
 import { Field, formPropTypes } from 'redux-form';
-
 import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { AssociatedFields } from '../../associated-fields';
 import { StatisticalContextCriteria } from '../../statistical-context-criteria';
-
 import {
   FORMULA_LANGUAGE,
   QUESTIONNAIRE_TYPE,
@@ -14,8 +12,8 @@ import {
 import GenericOption from '../../../forms/controls/generic-option';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import ListRadios from '../../../forms/controls/list-radios';
-
 import { updateNameField } from '../../../utils/utils';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } =
   WIDGET_QUESTIONNAIRE_NEW_EDIT;
@@ -31,10 +29,14 @@ function QuestionnaireNewEdit({
   onCancel,
   stamp,
 }) {
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
+
   return (
     <div className={COMPONENT_CLASS}>
       <form onSubmit={handleSubmit}>
         <StatisticalContextCriteria
+          token={token}
           stamp={stamp}
           formName={form}
           multipleCampaign

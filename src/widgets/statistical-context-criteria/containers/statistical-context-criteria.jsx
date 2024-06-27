@@ -17,8 +17,8 @@ import StatisticalContextCriteria from '../components/statistical-context-criter
 // PropTypes and defaultProps
 
 const propTypes = {
+  token: PropTypes.string,
   formName: PropTypes.string,
-  path: PropTypes.string,
   showOperations: PropTypes.bool,
   showCampaigns: PropTypes.bool,
   multipleCampaign: PropTypes.bool,
@@ -82,9 +82,9 @@ export const mapStateToProps = (
       stamp === TCM.owner || stamp === 'FAKEPERMISSION'
         ? [
             { id: TCM.id, value: TCM.value, label: TCM.label },
-            ...storeToArray(state.metadataByType.series),
+            ...storeToArray(state?.metadataByType?.series),
           ]
-        : storeToArray(state.metadataByType.series),
+        : storeToArray(state?.metadataByType?.series),
     selectedSerie,
     path,
   };

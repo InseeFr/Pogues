@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import ClassSet from 'react-classset';
 import { Field } from 'redux-form';
-
 import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from '../../../constants/dom-constants';
 import { TCM } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
@@ -10,13 +9,13 @@ import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import Select from '../../../forms/controls/select';
 import { requiredSelect } from '../../../forms/validation-rules';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = props => {
   const {
+    token,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -33,9 +32,6 @@ const StatisticalContextCriteria = props => {
 
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
-
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
 
   useEffect(() => {
     loadSeriesIfNeeded(token);
@@ -121,6 +117,7 @@ const StatisticalContextCriteria = props => {
           label={Dictionary.campaign}
           emptyOption={Dictionary.selectCampaign}
           noValuesMessage={Dictionary.noValuesCampaigns}
+          data-testid="campaigns-field"
         >
           {selectedOperation === TCM.id ? (
             <GenericOption key={TCM.id} value={TCM.value}>
@@ -141,7 +138,8 @@ const StatisticalContextCriteria = props => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
-  series: PropTypes.array.isRequired,
+  token: PropTypes.string,
+  series: PropTypes.array,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
   multipleCampaign: PropTypes.bool,
@@ -155,6 +153,8 @@ StatisticalContextCriteria.propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
+  token: '',
+  series: [],
   multipleCampaign: false,
   required: false,
   focusOnInit: false,
