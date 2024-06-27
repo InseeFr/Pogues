@@ -4,7 +4,6 @@ import classSet from 'react-classset';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { useOidc } from '../../../utils/oidc';
 import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
 /**
@@ -14,6 +13,7 @@ import { hasDuplicateVariables } from '../../../utils/variables/variables-utils'
  * visualizations of the PDF : WEB, PDF or ODT
  */
 function VisualizeDropdown({
+  token,
   componentId,
   disabled,
   top,
@@ -32,9 +32,6 @@ function VisualizeDropdown({
   const [allowDuplicateVariablesModal, setAllowDuplicateVariablesModal] =
     useState(false);
   const wrapperRef = useRef(null);
-
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
 
   const handleClickOutside = useCallback(event => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
@@ -170,6 +167,7 @@ function VisualizeDropdown({
 // PropTypes and defaultProps
 
 VisualizeDropdown.propTypes = {
+  token: PropTypes.string,
   visualizeActiveQuestionnaire: PropTypes.func,
   disabled: PropTypes.bool,
   top: PropTypes.bool,
@@ -181,6 +179,7 @@ VisualizeDropdown.propTypes = {
   externalQuestionnairesVariables: PropTypes.object,
 };
 VisualizeDropdown.defaultProps = {
+  token: '',
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,

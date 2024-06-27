@@ -27,6 +27,7 @@ import {
 } from '../../../utils/component/component-dragndrop-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getIntegrityErrors } from '../../../utils/integrity/utils';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const { QUESTION, SEQUENCE, SUBSEQUENCE, FILTER, EXTERNAL_ELEMENT } =
@@ -55,6 +56,9 @@ const QuestionnaireComponent = props => {
     removeComponent,
     removeQuestionnaireRef,
   } = props;
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
 
@@ -221,7 +225,10 @@ const QuestionnaireComponent = props => {
                         <span className="glyphicon glyphicon-duplicate" />
                       </button>
                     )}
-                    <VisualizeDropdown componentId={component.id} />
+                    <VisualizeDropdown
+                      componentId={component.id}
+                      token={token}
+                    />
                     <button
                       className="btn-yellow"
                       disabled={

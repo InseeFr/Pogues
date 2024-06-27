@@ -24,6 +24,7 @@ const VisualizeDropdownContainer = connect(
 
 VisualizeDropdownContainer.propTypes = {
   questionnaireId: PropTypes.string,
+  token: PropTypes.string,
 };
 VisualizeDropdownContainer.defaultProps = {
   questionnaireId: undefined,

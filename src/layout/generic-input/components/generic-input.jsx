@@ -242,6 +242,7 @@ function GenericInput(props) {
           top
           disabled={!isQuestionnaireValid}
           questionnaireId={activeQuestionnaire.id}
+          token={token}
         />
         <button className="btn-yellow disabled" id="publish">
           {Dictionary.publishQuestionnaire}
