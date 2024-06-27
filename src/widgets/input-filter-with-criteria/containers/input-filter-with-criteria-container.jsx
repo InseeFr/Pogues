@@ -9,6 +9,7 @@ import InputFilterWithCriteria from '../components/input-filter-with-criteria';
 // PropTypes and defaultProps
 
 const propTypes = {
+  token: PropTypes.string,
   formName: PropTypes.string,
   path: PropTypes.string,
   typeItem: PropTypes.string.isRequired,

@@ -17,6 +17,7 @@ const { COMPONENT_ID, SEARCH_RESULTS_ID } = PAGE_SEARCH_QUESTIONNAIRE;
 
 // @TODO: noop is used temporally
 import { noop } from '../../../utils/test/test-utils';
+import { useOidc } from '../../../utils/oidc';
 
 // Component
 
@@ -25,7 +26,11 @@ const PageSearchQuestionnaire = props => {
     props.clearSearchResult();
   }, [props]);
 
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
+
   const propsInputFilterWithCriteria = {
+    token,
     typeItem: TYPES_ITEMS.QUESTIONNAIRE,
     criterias: SEARCH_CRITERIAS.QUESTIONNAIRE,
     label: Dictionary.searchInputQuestionnaireLabel,
