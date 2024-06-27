@@ -15,6 +15,7 @@ import Dictionary from '../../utils/dictionary/dictionary';
 
 // @TODO: noop is used temporally
 import { noop } from '../../utils/test/test-utils';
+import { useOidc } from '../../utils/oidc';
 
 const { COMPONENT_CLASS, SEARCH_RESULTS_CLASS, SEARCH_CLASS } =
   WIDGET_SEARCH_CODES_LISTS;
@@ -23,27 +24,33 @@ const { COMPONENT_CLASS, SEARCH_RESULTS_CLASS, SEARCH_CLASS } =
 
 const propTypes = {
   path: PropTypes.string,
+  token: PropTypes.string,
 };
 
 const defaultProps = {
   path: '',
+  token: '',
 };
 
 // Component
 
 function SearchCodesLists({ path }) {
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
   const props = {
     formName: DEFAULT_FORM_NAME,
     path,
   };
   const propsStatisticaContextCriteria = {
     ...props,
+    token,
     showOperations: false,
     showCampaigns: false,
     horizontal: true,
   };
   const propsInputFilterWithCriteria = {
     ...props,
+    token,
     typeItem: TYPES_ITEMS.CODES_LIST,
     criterias: SEARCH_CRITERIAS.CODES_LIST,
     label: Dictionary.searchInputCodesListsLabel,
