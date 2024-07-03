@@ -68,10 +68,10 @@
       "urn": "urn:ddi:fr.insee:l_activites-2-0-0:1",
       "codes": []
     },
-    "L_COMMUNEPASSEE-1-2-0": {
-      "id": "L_COMMUNEPASSEE-1-2-0",
-      "name": "L_COMMUNEPASSEE-1-2-0",
-      "label": "Communes (historique sur 5 ans)",
+    "L_COMMUNES-2024": {
+      "id": "L_COMMUNES-2024",
+      "name": "L_COMMUNES-2024",
+      "label": "Communes 2024",
       "parameters": {
         "version": 1,
         "fields": [
@@ -93,7 +93,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_communepassee-1-2-0:1",
+      "urn": "urn:ddi:fr.insee:l_communes-2024:1",
       "codes": []
     },
     "L_DEP-1-1-0": {
@@ -657,6 +657,230 @@
         }
       },
       "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2022:1",
+      "codes": []
+    },
+    "L_REGFRONT_BE-1-0-0": {
+      "id": "L_REGFRONT_BE-1-0-0",
+      "name": "L_REGFRONT_BE-1-0-0",
+      "label": "Régions frontalières Belgique",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_be-1-0-0:1",
+      "codes": []
+    },
+    "L_REGFRONT_CH-1-0-0": {
+      "id": "L_REGFRONT_CH-1-0-0",
+      "name": "L_REGFRONT_CH-1-0-0",
+      "label": "Régions frontalières Suisse",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_ch-1-0-0:1",
+      "codes": []
+    },
+    "L_REGFRONT_DE-1-0-0": {
+      "id": "L_REGFRONT_DE-1-0-0",
+      "name": "L_REGFRONT_DE-1-0-0",
+      "label": "Régions frontalières Allemagne",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_de-1-0-0:1",
+      "codes": []
+    },
+    "L_REGFRONT_ES-1-0-0": {
+      "id": "L_REGFRONT_ES-1-0-0",
+      "name": "L_REGFRONT_ES-1-0-0",
+      "label": "Régions frontalières Espagne",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_es-1-0-0:1",
+      "codes": []
+    },
+    "L_REGFRONT_IT-1-0-0": {
+      "id": "L_REGFRONT_IT-1-0-0",
+      "name": "L_REGFRONT_IT-1-0-0",
+      "label": "Régions frontalières Italie",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_it-1-0-0:1",
+      "codes": []
+    },
+    "L_REGFRONT_NL-1-0-0": {
+      "id": "L_REGFRONT_NL-1-0-0",
+      "name": "L_REGFRONT_NL-1-0-0",
+      "label": "Régions frontalières Pays-Bas",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_nl-1-0-0:1",
+      "codes": []
+    },
+    "L_REGFRONT_UK-1-0-0": {
+      "id": "L_REGFRONT_UK-1-0-0",
+      "name": "L_REGFRONT_UK-1-0-0",
+      "label": "Régions frontalières Royaume Uni",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_regfront_uk-1-0-0:1",
+      "codes": []
+    },
+    "L_TYPEVOIE-1-0-0": {
+      "id": "L_TYPEVOIE-1-0-0",
+      "name": "L_TYPEVOIE-1-0-0",
+      "label": "Types de voie",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_typevoie-1-0-0:1",
       "codes": []
     }
   }

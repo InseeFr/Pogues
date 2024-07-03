@@ -1,27 +1,27 @@
 import { uuid, verifyVariable } from '../../../utils/utils';
 
-export const defaultState = {
+const commonDeclarationFormProperties = {
   declarationType: 'HELP',
   label: '',
   position: 'AFTER_QUESTION_TEXT',
-  id: null,
   TargetMode: '',
 };
 
-export const defaultForm = {
-  declarationType: 'HELP',
-  label: '',
-  position: 'AFTER_QUESTION_TEXT',
+const defaultForm = {
+  ...commonDeclarationFormProperties,
   declarations: [],
-  TargetMode: [],
 };
 
-function defaultCustum(activeQuestionnaire) {
-  const form = defaultForm;
+export const defaultDeclaration = {
+  ...commonDeclarationFormProperties,
+  id: null,
+};
+
+export function defaultCustum(activeQuestionnaire, form) {
   form.TargetMode =
     Object.values(activeQuestionnaire).length > 0
       ? activeQuestionnaire.TargetMode.join()
-      : [];
+      : '';
   return form;
 }
 
@@ -65,7 +65,7 @@ export function stateToForm(currentState, activeQuestionnaire) {
     });
   });
   return {
-    ...defaultCustum(activeQuestionnaire),
+    ...defaultCustum(activeQuestionnaire, defaultForm),
     declarations,
   };
 }

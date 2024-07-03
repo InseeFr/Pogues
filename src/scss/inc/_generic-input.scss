@@ -37,9 +37,17 @@
   flex-direction: column-reverse;
 }
 
-.link-tag {
+.link-tag-new {
   color: green;
   border: solid green 0.5px;
+  border-radius: 10%;
+  padding: 1px;
+  margin-left: 5px;
+}
+
+.link-tag-old {
+  color: red;
+  border: solid red 0.5px;
   border-radius: 10%;
   padding: 1px;
   margin-left: 5px;

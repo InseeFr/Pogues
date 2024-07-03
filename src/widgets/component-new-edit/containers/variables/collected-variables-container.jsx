@@ -37,7 +37,9 @@ const mapStateToProps = (state, { formName }) => {
       state,
       `responseFormat.${responseFormatType}`,
     ),
-    codesListsStoreStore: state.appState.activeCodeListsById,
+    codesListsStore: state.appState.activeCodeListsById,
+    referencedCodeList: selector(state, 'collectedVariables.codeListReference'),
+    isVariableCollected: selector(state, 'collectedVariables.isCollected'),
   };
 };
 

@@ -384,22 +384,22 @@ describe('component tranformations', () => {
         khokqjtw: {
           x: 1,
           y: NaN,
-          isCollected: true,
+          isCollected: '1',
         },
         khokur7a: {
           x: 2,
           y: NaN,
-          isCollected: true,
+          isCollected: '1',
         },
         khol82ux: {
           x: 3,
           y: NaN,
-          isCollected: true,
+          isCollected: '1',
         },
         khokqee5: {
           x: 4,
           y: NaN,
-          isCollected: true,
+          isCollected: '1',
         },
       };
       expect(

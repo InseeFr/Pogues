@@ -11,6 +11,7 @@ describe('control tramsformation', () => {
       criticity: 'criticity 1',
       during_collect: 'during_collect 1',
       post_collect: 'post_collect 1',
+      scope: false,
     },
     {
       id: '2',
@@ -20,6 +21,7 @@ describe('control tramsformation', () => {
       criticity: 'criticity 2',
       during_collect: 'during_collect 2',
       post_collect: 'post_collect 2',
+      scope: 'line',
     },
   ];
   const state = {
@@ -31,6 +33,7 @@ describe('control tramsformation', () => {
       criticity: 'criticity 1',
       during_collect: 'during_collect 1',
       post_collect: 'post_collect 1',
+      scope: 'DYNAMIC_ARRAY',
     },
     2: {
       id: '2',
@@ -40,6 +43,7 @@ describe('control tramsformation', () => {
       criticity: 'criticity 2',
       during_collect: 'during_collect 2',
       post_collect: 'post_collect 2',
+      scope: 'LINE',
     },
   };
   describe('remoteToState', () => {

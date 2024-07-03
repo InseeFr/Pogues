@@ -762,6 +762,18 @@ const dictionary = {
     en: 'Error',
     fr: 'Erreur',
   },
+  control_scope: {
+    en: 'Level',
+    fr: 'Niveau',
+  },
+  LINE: {
+    en: 'Line',
+    fr: 'Ligne',
+  },
+  DYNAMIC_ARRAY: {
+    en: 'Array',
+    fr: 'Tableau',
+  },
   responseFormatSimple: {
     fr: 'Réponse simple',
     en: 'Simple response',
@@ -913,6 +925,14 @@ const dictionary = {
   no: {
     fr: 'Non',
     en: 'No',
+  },
+  alternativeLabel: {
+    fr: 'Valeur alternative',
+    en: 'Alternative value',
+  },
+  unCollected: {
+    fr: 'Case non collectée',
+    en: 'uncollected cell',
   },
   infoAxis: {
     fr: "Axe d'information",
@@ -1575,8 +1595,8 @@ const dictionary = {
     en: 'Web V2',
   },
   VISUALIZE_WEB_STROMAE_V3: {
-    fr: 'Web V3',
-    en: 'Web V3',
+    fr: 'Web DSFR',
+    en: 'Web DSFR',
   },
   VISUALIZE_QUEEN_CAPI: {
     fr: 'Enquêteur face à face',
@@ -1597,6 +1617,14 @@ const dictionary = {
   VISUALIZE_DDI: {
     fr: 'Métadonnées',
     en: 'Metadata',
+  },
+  beta: {
+    fr: 'beta',
+    en: 'beta',
+  },
+  deprecated: {
+    fr: 'obsolète',
+    en: 'deprecated',
   },
   NEW: {
     fr: 'Nouveau',

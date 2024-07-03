@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
-import { defaultState } from '../../../model/formToState/component-new-edit/declaration';
+import {
+  defaultCustum,
+  defaultDeclaration,
+} from '../../../model/formToState/component-new-edit/declaration';
 
 import Select from '../../../forms/controls/select';
 import GenericOption from '../../../forms/controls/generic-option';
@@ -54,6 +57,7 @@ const Declarations = ({
   showPosition,
   addErrors,
   declarationType,
+  activeQuestionnaire,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
 
@@ -65,7 +69,7 @@ const Declarations = ({
         name="declarations"
         errors={errors}
         validateForm={validateForm(addErrors, validateDeclarationForm)}
-        resetObject={defaultState}
+        resetObject={defaultCustum(activeQuestionnaire, defaultDeclaration)}
         disableValidation={disableValidation}
       >
         <Field

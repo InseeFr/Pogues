@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Field, FormSection } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, FormSection, formValueSelector } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import { defaultState } from '../../../model/formToState/component-new-edit/control';
@@ -16,32 +17,22 @@ import { ListWithInputPanel } from '../../list-with-input-panel';
 import {
   TABS_PATHS,
   DEFAULT_FORM_NAME,
+  QUESTION_TYPE_ENUM,
+  DIMENSION_TYPE,
+  DIMENSION_FORMATS,
 } from '../../../constants/pogues-constants';
-
-// Utils
 
 const validateForm = (addErrors, validate) => values => {
   return validate(values, addErrors);
 };
 
-// Prop types and default props
-
-export const propTypes = {
-  formName: PropTypes.string,
-  selectorPath: PropTypes.string,
-  errors: PropTypes.array,
-  addErrors: PropTypes.func.isRequired,
-};
-
-export const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.CONTROLS,
-  errors: [],
-};
-
-// Component
-
-const Controls = ({ formName, selectorPath, errors, addErrors }) => {
+const Controls = ({
+  formName,
+  selectorPath,
+  errors,
+  addErrors,
+  isDynamicArray,
+}) => {
   const [disableValidation, setDisableValidation] = useState(false);
   return (
     <FormSection name={selectorPath}>
@@ -92,6 +83,22 @@ const Controls = ({ formName, selectorPath, errors, addErrors }) => {
             {Dictionary.ERROR}
           </GenericOption>
         </Field>
+        {isDynamicArray && (
+          <Field
+            name="scope"
+            id="control_scope"
+            component={Select}
+            label={Dictionary.control_scope}
+            required={isDynamicArray}
+          >
+            <GenericOption key="DYNAMIC_ARRAY" value="DYNAMIC_ARRAY">
+              {Dictionary.DYNAMIC_ARRAY}
+            </GenericOption>
+            <GenericOption key="LINE" value="LINE">
+              {Dictionary.LINE}
+            </GenericOption>
+          </Field>
+        )}
         {/* <Field */}
         {/* name="during_collect" */}
         {/* id="control_during_collect" */}
@@ -109,7 +116,32 @@ const Controls = ({ formName, selectorPath, errors, addErrors }) => {
   );
 };
 
-Controls.propTypes = propTypes;
-Controls.defaultProps = defaultProps;
+const mapStateToProps = (state, { formName }) => {
+  formName = formName || 'component';
+  const selector = formValueSelector(formName);
+  return {
+    isDynamicArray:
+      selector(state, `${TABS_PATHS.RESPONSE_FORMAT}.type`) ===
+        QUESTION_TYPE_ENUM.TABLE &&
+      selector(
+        state,
+        `${TABS_PATHS.RESPONSE_FORMAT}.${QUESTION_TYPE_ENUM.TABLE}.${DIMENSION_TYPE.PRIMARY}.type`,
+      ) === DIMENSION_FORMATS.LIST,
+  };
+};
 
-export default Controls;
+Controls.propTypes = {
+  formName: PropTypes.string,
+  selectorPath: PropTypes.string,
+  errors: PropTypes.array,
+  addErrors: PropTypes.func.isRequired,
+  isDynamicArray: PropTypes.bool,
+};
+Controls.defaultProps = {
+  formName: DEFAULT_FORM_NAME,
+  selectorPath: TABS_PATHS.CONTROLS,
+  errors: [],
+  isDynamicArray: false,
+};
+
+export default connect(mapStateToProps)(Controls);

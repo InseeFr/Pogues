@@ -7,8 +7,12 @@ import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea/utils/rich-textarea-utils';
 
-const { LIST_CLASS, LIST_EMPTY_CLASS, VARIABLE_NAME_CLASS } =
-  WIDGET_LIST_WITH_INPUT_PANEL;
+const {
+  LIST_CLASS,
+  LIST_EMPTY_CLASS,
+  VARIABLE_NAME_CLASS,
+  UNCOLLECTED_VARIABLE_CLASS,
+} = WIDGET_LIST_WITH_INPUT_PANEL;
 
 function ListWithInputPanelList({ fields, select, errors }) {
   const fieldsName = fields.name.split('.')[1];
@@ -29,7 +33,9 @@ function ListWithInputPanelList({ fields, select, errors }) {
       y: item.y,
       prefix: prefix,
       name: item.name,
+      isCollected: item.isCollected,
       label: markdownVtlToString(item.label),
+      alternativeLabel: item.alternativeLabel,
     };
   });
 
@@ -54,8 +60,17 @@ function ListWithInputPanelList({ fields, select, errors }) {
               select={() => select(item.index)}
               invalid={item.hasError}
             >
-              {`${item.prefix} ${item.label}`}
-              {item.name && (
+              {item.isCollected === '0' && (
+                <>
+                  {`${item.prefix}`}
+                  <span
+                    className={UNCOLLECTED_VARIABLE_CLASS}
+                  >{`${Dictionary.unCollected}`}</span>
+                  {` : ${item.alternativeLabel}`}
+                </>
+              )}
+              {item.isCollected !== '0' && `${item.prefix} ${item.label}`}
+              {item.isCollected !== '0' && item.name && (
                 <span className={VARIABLE_NAME_CLASS}>{` [${item.name}]`}</span>
               )}
             </ListWithInputPanelItem>
