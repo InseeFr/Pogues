@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: build/
+          path: dist/
 
   sonarcloud:
     runs-on: ubuntu-latest
