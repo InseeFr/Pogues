@@ -116,6 +116,7 @@
   },
   "scripts": {
     "test": "vitest",
+    "test:coverage": "vitest --coverage",
     "start": "vite",
     "build": "npm run generate-entrypoint && vite build",
     "lint": "eslint ./src -f table || true",
