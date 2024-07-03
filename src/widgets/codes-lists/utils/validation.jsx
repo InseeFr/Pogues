@@ -1,5 +1,5 @@
 import * as rules from '../../../forms/validation-rules';
-import Dictionary from '../../../dictionary/dictionary';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 export const validationSchema = {
   value: [
