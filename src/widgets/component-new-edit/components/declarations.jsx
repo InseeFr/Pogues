@@ -23,13 +23,9 @@ import {
   TargetMode,
 } from '../../../constants/pogues-constants';
 
-// Utils
-
 const validateForm = (addErrors, validate) => values => {
   return validate(values, addErrors);
 };
-
-// Prop types and default props
 
 export const propTypes = {
   formName: PropTypes.string,
