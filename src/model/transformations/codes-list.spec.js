@@ -271,7 +271,7 @@ describe('codes list tranformations', () => {
                 Datatype: {
                   typeName: 'TEXT',
                   type: 'TextDatatypeType',
-                  MaxLength: '249',
+                  MaxLength: 249,
                   Pattern: '',
                 },
                 CollectedVariableReference: 'k4e0g90a',
@@ -802,7 +802,7 @@ describe('codes list tranformations', () => {
               weight: 3,
               precisionid: 'tests',
               precisionlabel: 'Préciser :',
-              precisionsize: '249',
+              precisionsize: 249,
             },
             4: {
               value: '4',

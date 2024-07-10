@@ -359,7 +359,7 @@ CodesListsCodes.propTypes = {
 
   currentPrecisionid: PropTypes.string,
   currentPrecisionlabel: PropTypes.string,
-  currentPrecisionsize: PropTypes.string,
+  currentPrecisionsize: PropTypes.number,
 
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
@@ -371,7 +371,7 @@ CodesListsCodes.defaultProps = {
   currentLabel: '',
   currentPrecisionid: '',
   currentPrecisionlabel: '',
-  currentPrecisionsize: '',
+  currentPrecisionsize: undefined,
 };
 
 const mapStateToProps = state => {
