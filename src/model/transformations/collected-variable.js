@@ -47,7 +47,7 @@ export function remoteToStore(
     }
   });
   return remote.reduce((acc, ev) => {
-    const { Name: name, Label: label, CodeListReference } = ev;
+    const { Name: name, Label: label, CodeListReference, z, mesureLevel } = ev;
     const id = ev.id || uuid();
 
     const formatSingleRemote = remoteToStateFormatSimple({
@@ -67,8 +67,8 @@ export function remoteToStore(
           : '',
         [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
         ...responsesByVariable[id],
-        ...ev.z,
-        ...ev.mesureLevel,
+        z,
+        mesureLevel,
       },
     };
   }, {});
