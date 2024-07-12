@@ -1,14 +1,7 @@
 import { COMPONENT_TYPE } from 'constants/pogues-constants';
 
-const {
-  QUESTION,
-  SEQUENCE,
-  SUBSEQUENCE,
-  LOOP,
-  FILTER,
-  NESTEDFILTRE,
-  EXTERNAL_ELEMENT,
-} = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
+  COMPONENT_TYPE;
 
 /**
  * Get closest component id by type
@@ -26,8 +19,7 @@ export function getClosestComponentIdByType(components, activeComponent, type) {
   while (
     currentComponent.parent !== '' &&
     currentComponent.type !== LOOP &&
-    currentComponent.type !== FILTER &&
-    currentComponent.type !== NESTEDFILTRE
+    currentComponent.type !== FILTER
   ) {
     if (
       currentComponent.type === type ||
@@ -288,6 +280,27 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
  */
 export function getNewLoopPlaceholder(components) {
   return !!Object.values(components).find(
-    component => component.type === SEQUENCE && component.id !== 'idendquest',
+    component =>
+      (component.type === SEQUENCE && component.id !== 'idendquest') ||
+      component.type === EXTERNAL_ELEMENT,
   );
+}
+
+/**
+ * Get new roundabout placeholder
+ *
+ * It obtains the gap in the questionnaire hierarchy (parent id and weight) for a new
+ * question, applying the sub-sequence insertion rules.
+ *
+ * @param  {object}           components        List of components
+ * @param  {object|undefined} activeComponent   The selected component
+ * @return {object} Parent and weight
+ */
+export function getNewRoundaboutPlaceholder(activeComponent) {
+  if (activeComponent)
+    return {
+      parent: activeComponent.parent,
+      weight: activeComponent.weight,
+    };
+  return { parent: '', weight: 0 };
 }
