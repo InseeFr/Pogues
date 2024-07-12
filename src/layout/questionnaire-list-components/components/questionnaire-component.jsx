@@ -1,37 +1,33 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ClassSet from 'react-classset';
 import { DragSource, DropTarget } from 'react-dnd';
-import ClassSet from 'react-classset';
+import { Link } from 'react-router-dom';
 import { compose } from 'redux';
+
+import DropZone from './drop-zone/drop-zone';
+
 import { QUESTIONNAIRE_COMPONENT } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+
+import ReactModal from 'react-modal';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
 import { ComponentEdit } from '../../component-edit';
-import DropZone from './drop-zone/drop-zone';
-
-import { QUESTIONNAIRE_COMPONENT } from 'constants/dom-constants';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-
-import { VisualizeDropdown } from 'widgets/visualize-dropdown';
-import { markdownVtlToString } from 'forms/controls/rich-textarea';
-import { ComponentEdit } from 'layout/component-edit';
-import ReactModal from 'react-modal';
 
 import {
   PropType,
   cardTarget,
   collect,
-} from 'utils/component/component-dragndrop';
+  componentSource,
+} from '../../../utils/component/component-dragndrop';
 import {
   calculateMargin,
   getDragnDropLevel,
-  calculateMargin,
-} from 'utils/component/component-dragndrop-utils';
-import Dictionary from 'utils/dictionary/dictionary';
-import { getIntegrityErrors } from 'utils/integrity/utils';
+} from '../../../utils/component/component-dragndrop-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { getIntegrityErrors } from '../../../utils/integrity/utils';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const {
