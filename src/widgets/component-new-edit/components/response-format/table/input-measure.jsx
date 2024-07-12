@@ -43,6 +43,7 @@ function InputMeasure({ selectorPath }) {
           <ResponseFormatSingle
             selectorPathParent={selectorPath}
             showMandatory={false}
+            allowPrecision={false}
           />
         </View>
       </SelectorView>

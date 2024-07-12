@@ -79,7 +79,7 @@ class CodesListInputCode extends ComponentWithValidation {
       } else if (precisionShow) {
         change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
         change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
-        change(formName, `${path}precisionsize`, '249');
+        change(formName, `${path}precisionsize`, 249);
       } else {
         change(formName, `${path}precisionid`, '');
         change(formName, `${path}precisionlabel`, '');

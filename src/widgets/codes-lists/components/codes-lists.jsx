@@ -48,6 +48,7 @@ export const propTypes = {
   clearSearchResult: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
+  allowPrecision: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -55,6 +56,7 @@ export const defaultProps = {
   currentId: '',
   codesListsStore: {},
   currentCodesListsStore: {},
+  allowPrecision: true,
 };
 
 const CodesLists = ({
@@ -70,6 +72,7 @@ const CodesLists = ({
   clearSearchResult,
   change,
   arrayRemoveAll,
+  allowPrecision,
 }) => {
   const refDiv = useRef(null);
   const [currentIdState, setCurrentIdState] = useState(currentId);
@@ -195,6 +198,7 @@ const CodesLists = ({
                 component={CodesListsCodesContainer}
                 inputCodePath={`${path}input-code.`}
                 formName={formName}
+                allowPrecision={allowPrecision}
               />
             </div>
           )}

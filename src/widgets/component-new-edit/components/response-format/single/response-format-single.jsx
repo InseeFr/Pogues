@@ -35,6 +35,7 @@ function ResponseFormatSingle({
   visHint,
   path,
   formName,
+  allowPrecision,
 }) {
   const selectorPath = responseFormatType;
 
@@ -168,7 +169,10 @@ function ResponseFormatSingle({
       {visHint === SUGGESTER ? (
         <SuggesterLists selectorPathParent={selectorPathComposed} />
       ) : (
-        <CodesLists selectorPathParent={selectorPathComposed} />
+        <CodesLists
+          selectorPathParent={selectorPathComposed}
+          allowPrecision={allowPrecision}
+        />
       )}
     </FormSection>
   );
@@ -183,6 +187,7 @@ ResponseFormatSingle.propTypes = {
   visHint: PropTypes.string,
   path: PropTypes.string,
   formName: PropTypes.string,
+  allowPrecision: PropTypes.bool,
 };
 
 ResponseFormatSingle.defaultProps = {
@@ -194,6 +199,7 @@ ResponseFormatSingle.defaultProps = {
   visHint: undefined,
   path: SINGLE_CHOICE,
   formName: DEFAULT_FORM_NAME,
+  allowPrecision: true,
 };
 
 const mapStateToProps = (state, { selectorPathParent, responseFormatType }) => {
