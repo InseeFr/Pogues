@@ -22,38 +22,42 @@ const propTypes = {
     precision: PropTypes.func.isRequired,
     setPrecision: PropTypes.func.isRequired,
   }).isRequired,
+  allowPrecision: PropTypes.bool,
 };
 
 const defaultProps = {
   disabledActions: [],
+  allowPrecision: true,
 };
 
 // Component
 
-function CodesListsActions({ disabledActions, actions }) {
+function CodesListsActions({ disabledActions, actions, allowPrecision }) {
   return (
     <div className={ACTIONS_CLASS}>
-      {Object.keys(CODELISTS_ACTIONS).map(key => {
-        return (
-          <button
-            key={key}
-            type="button"
-            onClick={actions[CODELISTS_ACTIONS[key].name]}
-            disabled={
-              disabledActions.indexOf(CODELISTS_ACTIONS[key].name) !== -1
-            }
-            title={
-              Dictionary[`componentCodeList${CODELISTS_ACTIONS[key].name}`]
-            }
-          >
-            <span className="sr-only">
-              {' '}
-              {Dictionary[CODELISTS_ACTIONS[key].dictionary]}
-            </span>
-            <span className={`glyphicon ${CODELISTS_ACTIONS[key].icon}`} />
-          </button>
-        );
-      })}
+      {Object.keys(CODELISTS_ACTIONS)
+        .filter(actionKey => allowPrecision || !actionKey.includes('PRECISION'))
+        .map(key => {
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={actions[CODELISTS_ACTIONS[key].name]}
+              disabled={
+                disabledActions.indexOf(CODELISTS_ACTIONS[key].name) !== -1
+              }
+              title={
+                Dictionary[`componentCodeList${CODELISTS_ACTIONS[key].name}`]
+              }
+            >
+              <span className="sr-only">
+                {' '}
+                {Dictionary[CODELISTS_ACTIONS[key].dictionary]}
+              </span>
+              <span className={`glyphicon ${CODELISTS_ACTIONS[key].icon}`} />
+            </button>
+          );
+        })}
     </div>
   );
 }

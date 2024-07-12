@@ -34,6 +34,7 @@ function CodesListsCodes(props) {
     meta,
     Type,
     fields: { getAll, removeAll, push, remove, get },
+    allowPrecision,
   } = props;
 
   const [showInputCode, setShowInputCode] = useState(false);
@@ -259,6 +260,7 @@ function CodesListsCodes(props) {
                 Type,
               )}
               actions={actions}
+              allowPrecision={allowPrecision}
             />
             {showPrecision &&
               editing &&
@@ -359,11 +361,12 @@ CodesListsCodes.propTypes = {
 
   currentPrecisionid: PropTypes.string,
   currentPrecisionlabel: PropTypes.string,
-  currentPrecisionsize: PropTypes.string,
+  currentPrecisionsize: PropTypes.number,
 
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
+  allowPrecision: PropTypes.bool,
 };
 
 CodesListsCodes.defaultProps = {
@@ -371,7 +374,8 @@ CodesListsCodes.defaultProps = {
   currentLabel: '',
   currentPrecisionid: '',
   currentPrecisionlabel: '',
-  currentPrecisionsize: '',
+  currentPrecisionsize: undefined,
+  allowPrecision: true,
 };
 
 const mapStateToProps = state => {
