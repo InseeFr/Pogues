@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
-
-import GenericInput from '../components/generic-input';
-
-import { saveActiveQuestionnaire } from 'actions/app-state';
-import { removeVisualizationError } from 'actions/errors';
+import { saveActiveQuestionnaire } from '../../../actions/app-state';
+import { removeVisualizationError } from '../../../actions/errors';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { getToken } from '../../../reducers/selectors';
 import {
+  getNewLoopPlaceholder,
+  getNewQuestionPlaceholder,
+  getNewRoundaboutPlaceholder,
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
-  getNewQuestionPlaceholder,
-  getNewLoopPlaceholder,
-} from 'utils/component/generic-input-utils';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { getToken } from 'reducers/selectors';
+} from '../../../utils/component/generic-input-utils';
+import GenericInput from '../components/generic-input';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, ROUNDABOUT } =
+  COMPONENT_TYPE;
 
 // Utils
 
@@ -35,6 +35,7 @@ function getPlaceholders(
     ),
     [QUESTION]: getNewQuestionPlaceholder(componentsStore, selectedComponent),
     [LOOP]: getNewLoopPlaceholder(componentsStore),
+    [ROUNDABOUT]: getNewRoundaboutPlaceholder(selectedComponent),
     [FILTER]: getNewLoopPlaceholder(componentsStore),
   };
 }

@@ -1,17 +1,18 @@
-import React from 'react';
+/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 
-import { ComponentNewEdit } from 'widgets/component-new-edit';
+import { COMPONENT_TYPE } from 'constants/pogues-constants';
 import { Component } from 'model';
 import {
-  validateQuestionForm,
-  validateSequenceForm,
-  validateLoopForm,
   validateFilterForm,
+  validateLoopForm,
+  validateQuestionForm,
+  validateRoundaboutForm,
+  validateSequenceForm,
 } from 'utils/validation/validate';
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
+import { ComponentNewEdit } from 'widgets/component-new-edit';
 
-const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -44,6 +45,7 @@ function validateAndSubmit(
   validateSequence,
   validateLoop,
   validateFilter,
+  validateRoundabout,
   transformer,
   onSuccess,
 ) {
@@ -54,6 +56,8 @@ function validateAndSubmit(
       validateLoop(values);
     } else if (component.type === FILTER) {
       validateFilter(values);
+    } else if (component.type === ROUNDABOUT) {
+      validateRoundabout(values);
     } else {
       validateSequence(values);
     }
@@ -105,6 +109,9 @@ function ComponentEdit({
     validateLoopForm(values, setValidationErrorsAction);
   const validateFilter = setValidationErrorsAction => values =>
     validateFilterForm(values, setValidationErrorsAction);
+  const validateRoundabout = setValidationErrorsAction => values =>
+    validateRoundaboutForm(values, setValidationErrorsAction);
+
   const actions = {
     updateComponent,
   };
@@ -131,7 +138,6 @@ function ComponentEdit({
       onCancel={onCancel}
       initialValues={initialValues}
       deleteComponent={deleteComponent}
-      updateComponent={updateComponent}
       activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
@@ -140,6 +146,7 @@ function ComponentEdit({
         validateSequence(setValidationErrors),
         validateLoop(setValidationErrors),
         validateFilter(setValidationErrors),
+        validateRoundabout(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}
