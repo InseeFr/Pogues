@@ -1,17 +1,18 @@
-import React from 'react';
+/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { ComponentNewEdit } from '../../../widgets/component-new-edit';
 import { Component } from '../../../model';
 import {
-  validateQuestionForm,
-  validateSequenceForm,
-  validateLoopForm,
   validateFilterForm,
+  validateLoopForm,
+  validateQuestionForm,
+  validateRoundaboutForm,
+  validateSequenceForm,
 } from '../../../utils/validation/validate';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
-const { QUESTION, LOOP, FILTER } = COMPONENT_TYPE;
+const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -25,12 +26,11 @@ export const propTypes = {
   updateParentChildren: PropTypes.func.isRequired,
   orderComponents: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
-  updateComponent: PropTypes.func.isRequired,
-
   codesListsStore: PropTypes.object,
   calculatedVariablesStore: PropTypes.object,
   externalVariablesStore: PropTypes.object,
   activeQuestionnaire: PropTypes.object.isRequired,
+  selectedComponent: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -38,6 +38,7 @@ export const defaultProps = {
   calculatedVariablesStore: {},
   externalVariablesStore: {},
   activeQuestionnaire: {},
+  selectedComponent: undefined,
 };
 
 // Utils
@@ -49,6 +50,7 @@ function validateAndSubmit(
   validateSequence,
   validateLoop,
   validateFilter,
+  validateRoundabout,
   transformer,
   onSuccess,
 ) {
@@ -59,6 +61,8 @@ function validateAndSubmit(
       validateLoop(values);
     } else if (type === FILTER) {
       validateFilter(values);
+    } else if (type === ROUNDABOUT) {
+      validateRoundabout(values);
     } else {
       validateSequence(values);
     }
@@ -108,7 +112,7 @@ function ComponentNew({
   type,
   activeQuestionnaire,
   removeComponent,
-  updateComponent,
+  selectedComponent,
 }) {
   const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
     validateQuestionForm(values, setValidationErrorsAction, codesLists);
@@ -118,6 +122,8 @@ function ComponentNew({
     validateLoopForm(values, setValidationErrorsAction);
   const validateFilter = setValidationErrorsAction => values =>
     validateFilterForm(values, setValidationErrorsAction);
+  const validateRoundabout = setValidationErrorsAction => values =>
+    validateRoundaboutForm(values, setValidationErrorsAction);
   const actions = {
     createComponent,
     updateParentChildren,
@@ -127,7 +133,7 @@ function ComponentNew({
 
   // Initial values
 
-  const initialState = { type, parent: parentId, weight };
+  const initialState = { type, parent: parentId, weight, selectedComponent };
   const componentTransformer = Component(
     initialState,
     {
@@ -146,7 +152,6 @@ function ComponentNew({
       onCancel={onCancel}
       initialValues={initialValues}
       removeComponent={removeComponent}
-      updateComponent={updateComponent}
       activeQuestionnaire={activeQuestionnaire}
       onSubmit={validateAndSubmit(
         actions,
@@ -155,6 +160,7 @@ function ComponentNew({
         validateSequence(setValidationErrors),
         validateLoop(setValidationErrors),
         validateFilter(setValidationErrors),
+        validateRoundabout(setValidationErrors),
         componentTransformer,
         onSuccess,
       )}

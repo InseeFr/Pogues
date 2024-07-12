@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react';
+/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
+import { useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
@@ -11,8 +12,15 @@ import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
 import { useOidc } from '../../../utils/oidc';
 
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, EXTERNAL_ELEMENT } =
-  COMPONENT_TYPE;
+const {
+  QUESTION,
+  SEQUENCE,
+  SUBSEQUENCE,
+  LOOP,
+  ROUNDABOUT,
+  FILTER,
+  EXTERNAL_ELEMENT,
+} = COMPONENT_TYPE;
 const { COMPONENT_ID } = GENERIC_INPUT;
 
 // PropTypes and defaultProps
@@ -209,9 +217,23 @@ function GenericInput(props) {
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.loop}
         </button>
+        <button
+          id="add-roundabout"
+          className="btn-white"
+          disabled={
+            !selectedComponent ||
+            (selectedComponent.type !== SEQUENCE &&
+              selectedComponent.type !== SUBSEQUENCE &&
+              selectedComponent.type !== EXTERNAL_ELEMENT)
+          }
+          onClick={() => handleOpenNewComponent(ROUNDABOUT)}
+        >
+          <span className="glyphicon glyphicon-plus" />
+          {Dictionary.roundabout}
+        </button>
         {activeQuestionnaire.dynamiqueSpecified === 'Filtres' && (
           <button
-            id="add-loop"
+            id="add-filter"
             className="btn-white"
             disabled={!placeholders[FILTER]}
             onClick={() => handleOpenNewComponent(FILTER)}
@@ -244,10 +266,6 @@ function GenericInput(props) {
           questionnaireId={activeQuestionnaire.id}
           token={token}
         />
-        <button className="btn-yellow disabled" id="publish">
-          {Dictionary.publishQuestionnaire}
-          <span className="glyphicon glyphicon-share-alt" />
-        </button>
       </div>
       <ReactModal
         ariaHideApp={false}
@@ -276,6 +294,7 @@ function GenericInput(props) {
               type={typeNewComponent}
               onCancel={handleCloseNewComponent}
               onSuccess={handleCloseNewComponent}
+              selectedComponent={selectedComponent?.id}
             />
           </div>
         </div>

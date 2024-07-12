@@ -12,6 +12,7 @@ import {
   externalVariableRules,
   calculatedVariableRules,
   collectedVariableRules,
+  roundaboutRules,
   tableListMeasuresRules,
 } from './validation-rules';
 import { Component } from '../../model';
@@ -54,6 +55,14 @@ export function validateLoopForm(values, setErrors) {
 
 export function validateFilterForm(values, setErrors) {
   const errors = validate(values, filterRules);
+  if (errors.length > 0) {
+    setErrors(errors);
+    throw new SubmissionError(getErrorsObject(errors));
+  }
+}
+
+export function validateRoundaboutForm(values, setErrors) {
+  const errors = validate(values, roundaboutRules);
   if (errors.length > 0) {
     setErrors(errors);
     throw new SubmissionError(getErrorsObject(errors));
