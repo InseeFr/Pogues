@@ -10,45 +10,43 @@ import { QuestionnaireComposition } from './layout/questionnaire-composition';
 import { QuestionnaireMerge } from './layout/questionnaire-merge';
 import { QuestionnaireTcmComposition } from './layout/questionnaire-tcm-composition';
 
+const AppSecure = props => secure(App)(props);
+
 function Router() {
   const { pathname } = useLocation();
   return (
-    <App>
+    <AppSecure>
       <Switch>
-        <Route exact path="/" component={secure(PageHome)} />
-        <Route
-          exact
-          path="/questionnaire/:id"
-          component={secure(PageQuestionnaire)}
-        />
+        <Route exact path="/" component={PageHome} />
+        <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
         <Route
           exact
           path="/questionnaire/:id/composition"
-          component={secure(QuestionnaireComposition)}
+          component={QuestionnaireComposition}
         />
         <Route
           exact
           path="/questionnaire/:id/tcm-composition"
-          component={secure(QuestionnaireTcmComposition)}
+          component={QuestionnaireTcmComposition}
         />
         <Route
           exact
           path="/questionnaire/:id/merge"
-          component={secure(QuestionnaireMerge)}
+          component={QuestionnaireMerge}
         />
         <Route
           exact
           path="/questionnaire/:id/duplicate-variables"
-          component={secure(DuplicateVariables)}
+          component={DuplicateVariables}
         />
         <Route
           exact
           path="/search/questionnaires"
-          component={secure(PageSearchQuestionnaire)}
+          component={PageSearchQuestionnaire}
         />
         {!pathname.startsWith('/authentication') && <Redirect to="/" />}
       </Switch>
-    </App>
+    </AppSecure>
   );
 }
 
