@@ -123,7 +123,7 @@ a {
 .btn-search {
   @extend .btn;
   background: none;
-  background-image: url('images/search-icon.png');
+  background-image: url('/images/search-icon.png');
   background-repeat: no-repeat;
   color: $color-blue_02;
   font-size: $font-s;
