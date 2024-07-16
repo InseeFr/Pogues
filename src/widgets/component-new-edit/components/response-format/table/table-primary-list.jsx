@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormSection, Field } from 'redux-form';
 
-import Dictionary from 'utils/dictionary/dictionary';
-import Input from 'forms/controls/input';
-import { DIMENSION_FORMATS } from 'constants/pogues-constants';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import Input from '../../../../../forms/controls/input';
+import { DIMENSION_FORMATS } from '../../../../../constants/pogues-constants';
 
 const { LIST: selectorPath } = DIMENSION_FORMATS;
 

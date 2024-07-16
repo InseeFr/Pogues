@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import Select from 'forms/controls/select';
-import GenericOption from 'forms/controls/generic-option';
+import Select from '../../forms/controls/select';
+import GenericOption from '../../forms/controls/generic-option';
 
 const mapStateToProps = (state, { type }) => ({
   meatadata: Object.keys(state.metadataByType[type] || {}).map(

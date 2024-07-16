@@ -1,16 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 
-import { COMPONENT_TYPE } from 'constants/pogues-constants';
-import { Component } from 'model';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { ComponentNewEdit } from '../../../widgets/component-new-edit';
+import { Component } from '../../../model';
 import {
   validateFilterForm,
   validateLoopForm,
   validateQuestionForm,
   validateRoundaboutForm,
   validateSequenceForm,
-} from 'utils/validation/validate';
-import { ComponentNewEdit } from 'widgets/component-new-edit';
+} from '../../../utils/validation/validate';
 
 const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 

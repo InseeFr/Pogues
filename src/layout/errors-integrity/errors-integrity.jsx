@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { ERRORS_INTEGRITY } from 'constants/dom-constants';
-import { getIntegrityErrors } from 'utils/integrity/utils';
+import { ERRORS_INTEGRITY } from '../../constants/dom-constants';
+import { getIntegrityErrors } from '../../utils/integrity/utils';
 
 const { COMPONENT_ID, INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 

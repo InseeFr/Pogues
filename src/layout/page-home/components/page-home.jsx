@@ -1,15 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { QuestionnaireNew } from 'layout/questionnaire-new';
-import { QuestionnaireList } from 'layout/questionnaire-list';
+import { QuestionnaireList } from '../../questionnaire-list';
+import { QuestionnaireNew } from '../../questionnaire-new';
 
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
 
 const PageHome = ({ history, deleteAppState }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const oidc = useOidc();
+  const stamp = oidc.oidcTokens.decodedIdToken.timbre;
 
   useEffect(() => deleteAppState(), [deleteAppState]);
 
@@ -85,6 +89,7 @@ const PageHome = ({ history, deleteAppState }) => {
           </div>
           <div className="popup-body">
             <QuestionnaireNew
+              stamp={stamp}
               onCancel={handleCloseModal}
               onSuccess={handleQuestionnaryCreated}
             />

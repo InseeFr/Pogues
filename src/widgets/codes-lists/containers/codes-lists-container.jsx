@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { formValueSelector, arrayRemoveAll, change } from 'redux-form';
 import CodesLists from '../components/codes-lists';
 
-import { getCurrentSelectorPath } from 'utils/widget-utils';
+import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import {
   DEFAULT_FORM_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from 'constants/pogues-constants';
-import { clearSearchResult } from 'actions/search';
+} from '../../../constants/pogues-constants';
+import { clearSearchResult } from '../../../actions/search';
 
 // PropTypes and defaultProps
 

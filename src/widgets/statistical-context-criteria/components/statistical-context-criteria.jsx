@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import React, { useEffect, useState } from 'react';
 import ClassSet from 'react-classset';
-
-import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from 'constants/dom-constants';
-import { TCM } from 'constants/pogues-constants';
-import Select from 'forms/controls/select';
-import ListCheckboxes from 'forms/controls/list-checkboxes';
-import GenericOption from 'forms/controls/generic-option';
-import Dictionary from 'utils/dictionary/dictionary';
-import { requiredSelect } from 'forms/validation-rules';
+import { Field } from 'redux-form';
+import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from '../../../constants/dom-constants';
+import { TCM } from '../../../constants/pogues-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import Select from '../../../forms/controls/select';
+import { requiredSelect } from '../../../forms/validation-rules';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
@@ -118,6 +117,7 @@ const StatisticalContextCriteria = props => {
           label={Dictionary.campaign}
           emptyOption={Dictionary.selectCampaign}
           noValuesMessage={Dictionary.noValuesCampaigns}
+          data-testid="campaigns-field"
         >
           {selectedOperation === TCM.id ? (
             <GenericOption key={TCM.id} value={TCM.value}>
@@ -139,7 +139,7 @@ const StatisticalContextCriteria = props => {
 
 StatisticalContextCriteria.propTypes = {
   token: PropTypes.string,
-  series: PropTypes.array.isRequired,
+  series: PropTypes.array,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
   multipleCampaign: PropTypes.bool,
@@ -154,6 +154,7 @@ StatisticalContextCriteria.propTypes = {
 };
 StatisticalContextCriteria.defaultProps = {
   token: '',
+  series: [],
   multipleCampaign: false,
   required: false,
   focusOnInit: false,

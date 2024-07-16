@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Field, FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from 'model/formToState/component-new-edit/redirection';
+import { defaultState } from '../../../model/formToState/component-new-edit/redirection';
 
-import { ListWithInputPanel } from 'widgets/list-with-input-panel';
-import { GotoInput } from 'widgets/goto-input';
-import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
-import Textarea from 'forms/controls/textarea';
-import { validateRedirectionForm } from 'utils/validation/validate';
+import { ListWithInputPanel } from '../../list-with-input-panel';
+import { GotoInput } from '../../goto-input';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import Textarea from '../../../forms/controls/textarea';
+import { validateRedirectionForm } from '../../../utils/validation/validate';
 
-import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import {
+  TABS_PATHS,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 // Utils
 

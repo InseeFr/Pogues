@@ -1,9 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import defaultPicture from './user-picture-default.png';
+import { useOidc } from '../../../utils/oidc';
 
-import defaultPicture from 'layout/user/components/user-picture-default.png';
+function UserConnection() {
+  const oidc = useOidc();
+  const user = oidc.oidcTokens.decodedIdToken.preferred_username;
 
-function UserConnection({ user }) {
   const hasName = user?.name;
   if (!hasName) return null;
   return (
@@ -22,33 +23,10 @@ function UserConnection({ user }) {
           <div className="user-name">
             <strong>{user.name}</strong>
           </div>
-          {/* <div className="user-stamp">
-              {Dictionary.stamp} {user.stamp}
-            </div> */}
         </div>
-        {/* <div className="user-logout">
-            <a>
-              <span className="glyphicon glyphicon-remove-sign" />
-              {Dictionary.logout}
-            </a>
-          </div>
-        */}
       </div>
     </div>
   );
 }
-
-UserConnection.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    stamp: PropTypes.string,
-    id: PropTypes.string,
-    picture: PropTypes.string,
-  }),
-};
-
-UserConnection.defaultProps = {
-  user: {},
-};
 
 export default UserConnection;

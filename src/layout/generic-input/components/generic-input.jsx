@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { GENERIC_INPUT } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { GENERIC_INPUT } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
 import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
+import { useOidc } from '../../../utils/oidc';
 
 const {
   QUESTION,
@@ -33,7 +34,6 @@ export const propTypes = {
   isQuestionnaireModified: PropTypes.bool,
   isQuestionnaireValid: PropTypes.bool.isRequired,
   isLoopsValid: PropTypes.bool.isRequired,
-  token: PropTypes.string,
   selectedComponent: PropTypes.object,
   removeVisualizationError: PropTypes.func,
   showVisualizationErrorPopup: PropTypes.string,
@@ -44,7 +44,6 @@ export const defaultProps = {
   isLoadingVisualization: false,
   isQuestionnaireHaveError: false,
   isQuestionnaireModified: false,
-  token: undefined,
   selectedComponent: undefined,
   removeVisualizationError: undefined,
   showVisualizationErrorPopup: '',
@@ -87,7 +86,6 @@ function GenericInput(props) {
     isQuestionnaireValid,
     isQuestionnaireHaveError,
     placeholders,
-    token,
     selectedComponent,
     removeVisualizationError,
     saveActiveQuestionnaire,
@@ -98,6 +96,9 @@ function GenericInput(props) {
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   const handleOpenNewComponent = componentType => {
     setShowNewComponentModal(true);
@@ -176,7 +177,8 @@ function GenericInput(props) {
           id="add-question"
           className="btn-white"
           disabled={
-            placeholders[QUESTION].parent === ('' || 'idendquest') ||
+            placeholders[QUESTION].parent === '' ||
+            placeholders[QUESTION].parent === 'idendquest' ||
             (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
           }
           onClick={() => handleOpenNewComponent(QUESTION)}
@@ -188,7 +190,8 @@ function GenericInput(props) {
           id="add-subsequence"
           className="btn-white"
           disabled={
-            placeholders[SUBSEQUENCE].parent === ('' || 'idendquest') ||
+            placeholders[SUBSEQUENCE].parent === '' ||
+            placeholders[SUBSEQUENCE].parent === 'idendquest' ||
             (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
           }
           onClick={() => handleOpenNewComponent(SUBSEQUENCE)}
@@ -240,6 +243,7 @@ function GenericInput(props) {
           </button>
         )}
         <ExternalQuestionnaireDropdown
+          questionnaireId={activeQuestionnaire.id}
           disabled={
             selectedComponent &&
             selectedComponent.type !== SEQUENCE &&
@@ -259,8 +263,8 @@ function GenericInput(props) {
         <VisualizeDropdown
           top
           disabled={!isQuestionnaireValid}
-          token={token}
           questionnaireId={activeQuestionnaire.id}
+          token={token}
         />
       </div>
       <ReactModal

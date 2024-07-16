@@ -1,26 +1,22 @@
-import React from 'react';
+import { EditorState, Modifier, getDefaultKeyBinding } from 'draft-js';
 import PropTypes from 'prop-types';
+import React from 'react';
 import RichTextEditor from 'gillespie59-react-rte/dist/react-rte';
-import { getDefaultKeyBinding, EditorState, Modifier } from 'draft-js';
-
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions } from './input-with-suggestions-utils';
-import {
-  getPattern,
-  getStartValueWithSuggestion,
-} from 'forms/controls/control-with-suggestions/components/utils';
+import { getPattern, getStartValueWithSuggestion } from './utils';
 
 import {
-  getEditorValue,
   contentStateToString,
   formatURL,
+  getEditorValue,
   toolbarConfig,
   toolbarConfigQuestion,
   rootStyle,
-} from 'forms/controls/rich-textarea';
+} from '../../rich-textarea';
 
-import { getControlId } from 'utils/widget-utils';
-import { CONTROL_RICH_TEXTAREA } from 'constants/dom-constants';
+import { CONTROL_RICH_TEXTAREA } from '../../../../constants/dom-constants';
+import { getControlId } from '../../../../utils/widget-utils';
 
 const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 

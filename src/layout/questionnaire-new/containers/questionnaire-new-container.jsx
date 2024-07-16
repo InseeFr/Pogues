@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createQuestionnaire } from 'actions/questionnaire';
-import { setValidationErrors } from 'actions/errors';
+import { setValidationErrors } from '../../../actions/errors';
+import { createQuestionnaire } from '../../../actions/questionnaire';
 import QuestionnaireNew from '../components/questionnaire-new';
-import { getToken, getUser } from 'reducers/selectors';
 
 // PropTypes and defaultProps
 
@@ -17,8 +16,6 @@ export const propTypes = {
 
 const mapStateToProps = state => {
   return {
-    stamp: getUser(state).stamp,
-    token: getToken(state),
     activeQuestionnaire: state.appState.activeQuestionnaire,
   };
 };

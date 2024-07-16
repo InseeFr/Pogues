@@ -14,13 +14,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
       - run: yarn
       - run: yarn build
       - uses: actions/upload-artifact@v3
         with:
           name: pogues
-          path: build
+          path: dist
 
   check_if_version_upgraded:
     needs: build
@@ -62,7 +62,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: pogues
-          path: build
+          path: dist
       - uses: docker/build-push-action@v4
         with:
           platforms: linux/amd64,linux/arm64
@@ -87,7 +87,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: pogues
-          path: build
+          path: dist
       - name: Zip bundle
         run: cd build && zip -r ../pogues.zip ./* && cd ..
       - uses: softprops/action-gh-release@v1

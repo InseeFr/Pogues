@@ -2,8 +2,8 @@ import React from 'react';
 import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { QUESTION_TYPE_ENUM } from 'constants/pogues-constants';
-import Dictionary from 'utils/dictionary/dictionary';
+import { QUESTION_TYPE_ENUM } from '../../../../../constants/pogues-constants';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
 import ResponseFormatMultiplePrimary from './multiple-primary';
 import ResponseFormatMultipleMeasure from './multiple-measure';
 

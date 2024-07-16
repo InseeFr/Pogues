@@ -1,30 +1,33 @@
-/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ClassSet from 'react-classset';
 import { DragSource, DropTarget } from 'react-dnd';
-import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
+
+import DropZone from './drop-zone/drop-zone';
+
 import { QUESTIONNAIRE_COMPONENT } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+
+import ReactModal from 'react-modal';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
 import { ComponentEdit } from '../../component-edit';
-import DropZone from './drop-zone/drop-zone';
 
 import {
   PropType,
   cardTarget,
   collect,
   componentSource,
-} from 'utils/component/component-dragndrop';
+} from '../../../utils/component/component-dragndrop';
 import {
   calculateMargin,
   getDragnDropLevel,
-} from 'utils/component/component-dragndrop-utils';
-import Dictionary from 'utils/dictionary/dictionary';
-import { getIntegrityErrors } from 'utils/integrity/utils';
+} from '../../../utils/component/component-dragndrop-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { getIntegrityErrors } from '../../../utils/integrity/utils';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const {
@@ -40,7 +43,6 @@ const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const QuestionnaireComponent = props => {
   const {
-    token,
     component,
     connectDragSource,
     integrityErrorsByType,
@@ -60,6 +62,9 @@ const QuestionnaireComponent = props => {
     removeComponent,
     removeQuestionnaireRef,
   } = props;
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
 
@@ -290,7 +295,6 @@ QuestionnaireComponent.propTypes = {
   component: PropTypes.object.isRequired,
   integrityErrorsByType: PropTypes.object,
   draggedItem: PropTypes.object,
-
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
@@ -299,15 +303,11 @@ QuestionnaireComponent.propTypes = {
   removeComponent: PropTypes.func.isRequired,
   moveComponent: PropTypes.func.isRequired,
   removeQuestionnaireRef: PropTypes.func.isRequired,
-
   children: PropTypes.array,
-
   selected: PropTypes.bool.isRequired,
   isOver: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool,
-
   parentType: PropTypes.string.isRequired,
-
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
   }).isRequired,

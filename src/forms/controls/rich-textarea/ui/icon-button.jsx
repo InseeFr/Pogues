@@ -1,11 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import ClassSet from 'react-classset';
-import { Button } from 'gillespie59-react-rte/lib/RichTextEditor';
-
 import ButtonWrap from './button-wrap';
-
-import { ICON_BUTTON } from 'constants/dom-constants';
+import { Button } from 'gillespie59-react-rte/lib/RichTextEditor';
+import { ICON_BUTTON } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, IS_ACTIVE, ICON } = ICON_BUTTON;
 

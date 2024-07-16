@@ -1,5 +1,5 @@
 import React from 'react';
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../../utils/dictionary/dictionary';
 import PropTypes from 'prop-types';
 
 const DropZone = ({ style }) => {

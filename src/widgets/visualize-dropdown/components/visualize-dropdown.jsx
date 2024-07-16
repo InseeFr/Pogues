@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import classSet from 'react-classset';
-import { Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
-import Dictionary from 'utils/dictionary/dictionary';
-import { hasDuplicateVariables } from 'utils/variables/variables-utils';
+import { Link } from 'react-router-dom';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
 /**
  * Component used in the actions toolbar and on each
@@ -13,8 +13,8 @@ import { hasDuplicateVariables } from 'utils/variables/variables-utils';
  * visualizations of the PDF : WEB, PDF or ODT
  */
 function VisualizeDropdown({
-  componentId,
   token,
+  componentId,
   disabled,
   top,
   visualizeActiveQuestionnaire,
@@ -171,6 +171,7 @@ function VisualizeDropdown({
 // PropTypes and defaultProps
 
 VisualizeDropdown.propTypes = {
+  token: PropTypes.string,
   visualizeActiveQuestionnaire: PropTypes.func,
   disabled: PropTypes.bool,
   top: PropTypes.bool,
@@ -180,9 +181,9 @@ VisualizeDropdown.propTypes = {
   collectedVariableByQuestion: PropTypes.object,
   questionnaire: PropTypes.object,
   externalQuestionnairesVariables: PropTypes.object,
-  token: PropTypes.string,
 };
 VisualizeDropdown.defaultProps = {
+  token: '',
   visualizeActiveQuestionnaire: undefined,
   disabled: false,
   top: false,
@@ -192,7 +193,6 @@ VisualizeDropdown.defaultProps = {
   collectedVariableByQuestion: {},
   questionnaire: {},
   externalQuestionnairesVariables: {},
-  token: undefined,
 };
 
 export default VisualizeDropdown;

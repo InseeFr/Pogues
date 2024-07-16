@@ -11,14 +11,14 @@ import {
   CODES_LIST_INPUT_ENUM,
   DEFAULT_FORM_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from 'constants/pogues-constants';
-import { CodesLists } from 'widgets/codes-lists';
-import { getCurrentSelectorPath } from 'utils/widget-utils';
-import Dictionary from 'utils/dictionary/dictionary';
-import GenericOption from 'forms/controls/generic-option';
-import ListRadios from 'forms/controls/list-radios';
-import Select from 'forms/controls/select';
-import SuggesterLists from 'widgets/codes-lists/containers/suggester-lists-container';
+} from '../../../../../constants/pogues-constants';
+import { CodesLists } from '../../../../codes-lists';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import GenericOption from '../../../../../forms/controls/generic-option';
+import ListRadios from '../../../../../forms/controls/list-radios';
+import Select from '../../../../../forms/controls/select';
+import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
+import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
 
 const { SINGLE_CHOICE, PAIRING, TABLE } = QUESTION_TYPE_ENUM;
 const { CHECKBOX, RADIO, DROPDOWN, SUGGESTER } = DATATYPE_VIS_HINT;

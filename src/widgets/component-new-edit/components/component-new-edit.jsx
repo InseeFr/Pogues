@@ -2,9 +2,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import ReactModal from 'react-modal';
-
 import { getQuestionnaireScope } from './variables/utils-loops';
-
 import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';

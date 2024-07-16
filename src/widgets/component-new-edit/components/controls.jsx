@@ -3,24 +3,24 @@ import { connect } from 'react-redux';
 import { Field, FormSection, formValueSelector } from 'redux-form';
 import PropTypes from 'prop-types';
 
-import { defaultState } from 'model/formToState/component-new-edit/control';
+import { defaultState } from '../../../model/formToState/component-new-edit/control';
 
-import Select from 'forms/controls/select';
-import GenericOption from 'forms/controls/generic-option';
-import Textarea from 'forms/controls/textarea';
-import { SimpleEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import Select from '../../../forms/controls/select';
+import GenericOption from '../../../forms/controls/generic-option';
+import Textarea from '../../../forms/controls/textarea';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 
-import { validateControlForm } from 'utils/validation/validate';
-import Dictionary from 'utils/dictionary/dictionary';
+import { validateControlForm } from '../../../utils/validation/validate';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
-import { ListWithInputPanel } from 'widgets/list-with-input-panel';
+import { ListWithInputPanel } from '../../list-with-input-panel';
 import {
   TABS_PATHS,
   DEFAULT_FORM_NAME,
   QUESTION_TYPE_ENUM,
   DIMENSION_TYPE,
   DIMENSION_FORMATS,
-} from 'constants/pogues-constants';
+} from '../../../constants/pogues-constants';
 
 const validateForm = (addErrors, validate) => values => {
   return validate(values, addErrors);

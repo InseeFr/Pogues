@@ -10,12 +10,16 @@ plugins:
 settings:
   ecmascript: 2020
 
+parser: babel-eslint
+
 parserOptions:
   ecmaVersion: 2020
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
 
 env:
   browser: true
-  jest: true
 
 rules:
   indent: 0
@@ -35,25 +39,24 @@ rules:
   react/prefer-stateless-function: 0
   react/no-children-prop: 0
   react/forbid-prop-types: 0
+  react/react-in-jsx-scope: 0
   react/no-unescaped-entities: 0
   prettier/prettier:
-    [
-      'error',
-      {
-        'trailingComma': 'all',
-        'singleQuote': true,
-        'endOfLine': 'auto',
-        'react/forbid-prop-types': 0,
-      },
-    ]
+    - 'error'
+    - trailingComma: 'all'
+      singleQuote: true
+      endOfLine: 'auto'
+      react/forbid-prop-types: 0
   import/prefer-default-export: 0
   react/jsx-props-no-spreading: 0
   import/order: 0
   camelcase: 0
   no-plusplus: 0
+  no-useless-escape: warn
   no-restricted-globals: 0
   import/named: 0
   no-use-before-define: 0
+  prefer-destructuring: off
   react/destructuring-assignment: 0
   no-shadow: 0
   no-else-return: 0

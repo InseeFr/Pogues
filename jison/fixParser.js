@@ -1,7 +1,11 @@
 // Inspired by https://github.com/knsv/mermaid/issues/277 quickfix
 const { readFileSync, writeFileSync } = require('fs');
-const path = require('path')
-const xpathPath = path.resolve(__dirname, './generated-parsers/xpath-parser.js');
+const path = require('path');
+
+const xpathPath = path.resolve(
+  __dirname,
+  './generated-parsers/xpath-parser.js',
+);
 
 console.log(`Fixing XPath parser file at ${xpathPath}`);
 const contents = readFileSync(xpathPath, 'utf8');
@@ -12,9 +16,10 @@ const contents = readFileSync(xpathPath, 'utf8');
 let fixedContents = contents.split('_token_stack:').join('');
 
 // Troublesome and designed for command line use of parser that we don't care about
-fixedContents = fixedContents.split('exports.main = function commonjsMain(args) {');
+fixedContents = fixedContents.split(
+  'exports.main = function commonjsMain(args) {',
+);
 fixedContents = [fixedContents[0], '}'].join('');
-
 
 writeFileSync(xpathPath, fixedContents, 'utf8');
 console.log('Fixed XPath parser!');

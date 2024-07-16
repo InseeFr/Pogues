@@ -3,7 +3,7 @@ import { FormSection } from 'redux-form';
 import PropTypes from 'prop-types';
 
 import InputMeasure from './input-measure';
-import { DIMENSION_TYPE } from 'constants/pogues-constants';
+import { DIMENSION_TYPE } from '../../../../../constants/pogues-constants';
 
 const { MEASURE: selectorPath } = DIMENSION_TYPE;
 

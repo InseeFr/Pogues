@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { getControlId, getValuesFromGenericOptions } from 'utils/widget-utils';
-import { CONTROL_SELECT } from 'constants/dom-constants';
+import {
+  getControlId,
+  getValuesFromGenericOptions,
+} from '../../utils/widget-utils';
+import { CONTROL_SELECT } from '../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_SELECT;
 

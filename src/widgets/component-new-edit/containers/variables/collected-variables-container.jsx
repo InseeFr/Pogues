@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 
 import CollectedVariables from '../../components/variables/collected-variables';
 
-import { removeValidationErrors } from 'actions/errors';
-import { TABS_PATHS, DEFAULT_FORM_NAME } from 'constants/pogues-constants';
+import { removeValidationErrors } from '../../../../actions/errors';
+import {
+  TABS_PATHS,
+  DEFAULT_FORM_NAME,
+} from '../../../../constants/pogues-constants';
 
 // Prop types and default Props
 

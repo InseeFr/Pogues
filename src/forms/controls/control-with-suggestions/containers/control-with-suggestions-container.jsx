@@ -1,4 +1,4 @@
-import withCurrentFormVariables from 'hoc/with-current-form-variables';
+import withCurrentFormVariables from '../../../../hoc/with-current-form-variables';
 
 import InputWithSuggestions from '../components/input-with-suggestions';
 import TextareaWithSuggestions from '../components/textarea-with-suggestions';

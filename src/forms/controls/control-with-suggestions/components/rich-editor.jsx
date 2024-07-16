@@ -3,7 +3,7 @@ import React from 'react';
 import VTLEditor from './vtl-editor';
 import RichTextareaWithSuggestions from './rich-textarea-with-suggestions';
 
-import { FORMULA_LANGUAGE } from 'constants/pogues-constants';
+import { FORMULA_LANGUAGE } from '../../../../constants/pogues-constants';
 
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 

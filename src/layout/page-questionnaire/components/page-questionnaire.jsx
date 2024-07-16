@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'layout/loader';
+import Loader from '../../loader';
 
-import { PAGE_QUESTIONNAIRE } from 'constants/dom-constants';
-import { QuestionnaireListComponents } from 'layout/questionnaire-list-components';
-import { QuestionnaireNav } from 'layout/questionnaire-nav';
-import { GenericInput } from 'layout/generic-input';
+import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
+import { QuestionnaireListComponents } from '../../questionnaire-list-components';
+import { QuestionnaireNav } from '../../questionnaire-nav';
+import { GenericInput } from '../../generic-input';
+import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -13,7 +14,6 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 export const propTypes = {
   id: PropTypes.string.isRequired,
-  token: PropTypes.string,
   loadQuestionnaire: PropTypes.func.isRequired,
   loadStatisticalContext: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
@@ -32,7 +32,6 @@ export const propTypes = {
 };
 
 export const defaultProps = {
-  token: '',
   questionnaire: {},
   activeQuestionnaire: {},
   components: {},
@@ -45,7 +44,6 @@ export const defaultProps = {
 const PageQuestionnaire = props => {
   const {
     id,
-    token,
     questionnaire,
     components,
     codeLists,
@@ -60,10 +58,14 @@ const PageQuestionnaire = props => {
     setActiveCodeLists,
     setActiveVariables,
     loadExternalQuestionnairesIfNeeded,
+    history,
     appState,
   } = props;
 
   const [toInitialize, setToInitialize] = useState(false);
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
 
   useEffect(() => {
     if (
@@ -117,7 +119,7 @@ const PageQuestionnaire = props => {
       ) : (
         <div>
           <QuestionnaireNav />
-          <QuestionnaireListComponents navigate={props.history.push} />
+          <QuestionnaireListComponents navigate={history.push} token={token} />
           <GenericInput />
         </div>
       )}

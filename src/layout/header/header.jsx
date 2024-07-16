@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from 'layout/header/logo-insee.png';
-import UserConnectionContainer from 'layout/user/user-connection-container';
-import Dictionary from 'utils/dictionary/dictionary';
-import { poguesFrontVersion } from 'utils/version';
+import logo from './logo-insee.png';
+import UserConnection from '../user/components/user-connection';
+import Dictionary from '../../utils/dictionary/dictionary';
+import { poguesFrontVersion } from '../../utils/version';
 
 function Header() {
   return (
@@ -43,7 +43,7 @@ function Header() {
           </a>
         </div>
         <div className="header-user">
-          <UserConnectionContainer />
+          <UserConnection />
         </div>
       </div>
     </nav>

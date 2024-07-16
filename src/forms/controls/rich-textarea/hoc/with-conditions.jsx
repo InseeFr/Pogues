@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { DEFAULT_FORM_NAME } from 'constants/pogues-constants';
-import { storeToArray, nestedStoreToFlat } from 'utils/utils';
+import { DEFAULT_FORM_NAME } from '../../../../constants/pogues-constants';
+import { storeToArray, nestedStoreToFlat } from '../../../../utils/utils';
 
 /**
  * High order component

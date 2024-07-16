@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 
-import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from 'constants/dom-constants';
-import { getControlId } from 'utils/widget-utils';
-import { uuid } from 'utils/utils';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { uuid } from '../../../utils/utils';
+import { getControlId } from '../../../utils/widget-utils';
 
 const {
   COMPONENT_CLASS,
@@ -18,9 +18,9 @@ const InputFilterWithCriteria = props => {
     typeItem,
     criteriaValues,
     label,
-    token,
     loadOnInit,
     loadSearchResult,
+    token,
   } = props;
   const inputSearchRef = useRef(null);
 

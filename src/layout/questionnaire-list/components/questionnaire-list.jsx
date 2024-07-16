@@ -2,13 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import QuestionnaireListItem from './questionnaire-list-item';
-import Dropdown from 'widgets/dropdown';
-import Loader from 'layout/loader';
-import Dictionary from 'utils/dictionary/dictionary';
-import { formatDate, getState } from 'utils/component/component-utils';
-import { getStampsList } from 'utils/remote-api';
-import { getWeight } from 'utils/component/generic-input-utils';
-import { COMPONENT_TYPE, TCM } from 'constants/pogues-constants';
+import Dropdown from '../../../widgets/dropdown';
+import Loader from '../../loader';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { formatDate, getState } from '../../../utils/component/component-utils';
+import { getStampsList } from '../../../utils/remote-api';
+import { getWeight } from '../../../utils/component/generic-input-utils';
+import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
+import { useOidc } from '../../../utils/oidc';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 
@@ -17,8 +18,6 @@ const QuestionnaireList = props => {
     activeQuestionnaire,
     selectedComponentId,
     questionnaires,
-    stamp,
-    token,
     duplicateQuestionnaire,
     isFusion,
     isComposition,
@@ -39,6 +38,10 @@ const QuestionnaireList = props => {
     collectedVariablesStore,
     handleNewChildQuestionnaireRef,
   } = props;
+
+  const oidc = useOidc();
+  const token = oidc.oidcTokens.accessToken;
+  const stamp = oidc.oidcTokens.decodedIdToken.timbre;
 
   let actionLabel = Dictionary.duplicate;
   if (isComposition) actionLabel = Dictionary.add;
@@ -141,7 +144,7 @@ const QuestionnaireList = props => {
 
   const handleSubmit = () => {
     duplicateQuestionnaire(questionId, token);
-    props.loadQuestionnaireList(stamp, token);
+    loadQuestionnaireList(stamp, token);
     setShowPopup(false);
   };
 
@@ -281,8 +284,6 @@ QuestionnaireList.propTypes = {
   selectedComponentId: PropTypes.string,
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
-  stamp: PropTypes.string,
-  token: PropTypes.string,
   selectedStamp: PropTypes.string,
   isFusion: PropTypes.bool,
   isComposition: PropTypes.bool,
@@ -305,8 +306,6 @@ QuestionnaireList.propTypes = {
 QuestionnaireList.defaultProps = {
   selectedComponentId: undefined,
   questionnaires: [],
-  stamp: '',
-  token: '',
   selectedStamp: 'FAKEPERMISSION',
   isFusion: false,
   isComposition: false,

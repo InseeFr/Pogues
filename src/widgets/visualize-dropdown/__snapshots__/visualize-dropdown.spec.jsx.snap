@@ -1,0 +1,245 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Visualize Dropdown Component:  > Should disable the button 1`] = `
+<div>
+  <div
+    class="btn-group flex-column"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="btn dropdown-toggle btn-yellow disabled"
+      data-toggle="dropdown"
+      disabled=""
+      id="visualize"
+    >
+      Visualise
+      <span
+        class="caret"
+      />
+    </button>
+    <ul
+      class="dropdown-menu"
+    >
+      <li>
+        <a
+          href="#"
+        >
+          Web V1
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Web V2
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Web DSFR
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Interviewer face to face
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Interviewer phone
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Paper
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Specification
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Metadata
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Visualize Dropdown Component:  > Should display the dropdown on top 1`] = `
+<div>
+  <div
+    class="btn-group dropup flex-column-reverse"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="btn dropdown-toggle btn-yellow"
+      data-toggle="dropdown"
+      id="visualize"
+    >
+      Visualise
+      <span
+        class="caret"
+      />
+    </button>
+    <ul
+      class="dropdown-menu"
+    >
+      <li>
+        <a
+          href="#"
+        >
+          Web V1
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Web V2
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Web DSFR
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Interviewer face to face
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Interviewer phone
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Paper
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Specification
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Metadata
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Visualize Dropdown Component:  > Should return the right HTML 1`] = `
+<div>
+  <div
+    class="btn-group flex-column"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="btn dropdown-toggle btn-yellow"
+      data-toggle="dropdown"
+      id="visualize"
+    >
+      Visualise
+      <span
+        class="caret"
+      />
+    </button>
+    <ul
+      class="dropdown-menu"
+    >
+      <li>
+        <a
+          href="#"
+        >
+          Web V1
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Web V2
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Web DSFR
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Interviewer face to face
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Interviewer phone
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Paper
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Specification
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+        >
+          Metadata
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

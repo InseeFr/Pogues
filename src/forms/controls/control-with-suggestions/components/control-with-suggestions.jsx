@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 import ClassSet from 'react-classset';
-import {
-  getValueWithSuggestion,
-  getPattern,
-} from 'forms/controls/control-with-suggestions/components/utils';
+import { getValueWithSuggestion, getPattern } from './utils';
 
 import {
   updateSuggestions,
   initialize,
   getNewIndex,
 } from './input-with-suggestions-utils';
-import { HighLighter } from 'widgets/highlighter';
-import { getKey } from 'utils/widget-utils';
+import { HighLighter } from '../../../../widgets/highlighter';
+import { getKey } from '../../../../utils/widget-utils';
 
-import { CONTROL_WITH_SUGGESTIONS } from 'constants/dom-constants';
+import { CONTROL_WITH_SUGGESTIONS } from '../../../../constants/dom-constants';
 
 const { COMPONENT_CLASS, LIST_CLASS, ITEM_CLASS, ITEM_SELECTED_CLASS } =
   CONTROL_WITH_SUGGESTIONS;
@@ -26,7 +23,6 @@ const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
 
 export const propTypes = {
   input: PropTypes.shape(fieldInputPropTypes).isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   meta: PropTypes.shape(fieldMetaPropTypes).isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
   label: PropTypes.string.isRequired,
@@ -157,11 +153,9 @@ class ControlWithSuggestions extends Component {
         <div className={COMPONENT_CLASS}>
           {suggestions.length > 0 && (
             <div className={LIST_CLASS}>
-              {suggestions.slice(0, numSuggestionsShown).map(
-                (
-                  suggest,
-                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                ) => (
+              {suggestions
+                .slice(0, numSuggestionsShown)
+                .map((suggest, index) => (
                   <div
                     key={getKey(suggest)}
                     onClick={() => {
@@ -183,8 +177,7 @@ class ControlWithSuggestions extends Component {
                       {suggest}
                     </HighLighter>
                   </div>
-                ),
-              )}
+                ))}
             </div>
           )}
         </div>

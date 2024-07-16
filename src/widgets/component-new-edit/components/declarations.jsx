@@ -7,23 +7,21 @@ import PropTypes from 'prop-types';
 import {
   defaultCustum,
   defaultDeclaration,
-} from 'model/formToState/component-new-edit/declaration';
+} from '../../../model/formToState/component-new-edit/declaration';
 
-import Select from 'forms/controls/select';
-import GenericOption from 'forms/controls/generic-option';
-import { ListWithInputPanel } from 'widgets/list-with-input-panel';
-import { validateDeclarationForm } from 'utils/validation/validate';
-import ListCheckboxes from 'forms/controls/list-checkboxes';
-import { RichEditorWithVariable } from 'forms/controls/control-with-suggestions';
+import Select from '../../../forms/controls/select';
+import GenericOption from '../../../forms/controls/generic-option';
+import { ListWithInputPanel } from '../../list-with-input-panel';
+import { validateDeclarationForm } from '../../../utils/validation/validate';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 
-import Dictionary from 'utils/dictionary/dictionary';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import {
   TABS_PATHS,
   DEFAULT_FORM_NAME,
   TargetMode,
-} from 'constants/pogues-constants';
-
-// Utils
+} from '../../../constants/pogues-constants';
 
 const validateForm = (addErrors, validate) => values => {
   return validate(values, addErrors);

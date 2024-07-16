@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import ListWithInputPanelItem from './list-with-input-panel-item';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from 'constants/dom-constants';
-import { markdownVtlToString } from 'forms/controls/rich-textarea/utils/rich-textarea-utils';
-import Dictionary from 'utils/dictionary/dictionary';
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { markdownVtlToString } from '../../../forms/controls/rich-textarea/utils/rich-textarea-utils';
 
 const {
   LIST_CLASS,
