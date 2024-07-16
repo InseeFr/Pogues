@@ -41,6 +41,7 @@ const QuestionnaireListComponentsContainer = connect(
 )(QuestionnaireListComponents);
 
 QuestionnaireListComponentsContainer.propTypes = {
+  token: PropTypes.string,
   navigate: PropTypes.func.isRequired,
 };
 

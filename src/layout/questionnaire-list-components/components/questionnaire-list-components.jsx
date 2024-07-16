@@ -288,6 +288,7 @@ const QuestionnaireListComponents = props => {
 
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {
+  token: PropTypes.string,
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
   errorsIntegrity: PropTypes.object,
@@ -306,6 +307,7 @@ QuestionnaireListComponents.propTypes = {
 };
 
 QuestionnaireListComponents.defaultProps = {
+  token: '',
   componentsStore: {},
   errorsIntegrity: {},
   activeCalculatedVariables: {},
