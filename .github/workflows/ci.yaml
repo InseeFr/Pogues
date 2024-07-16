@@ -89,7 +89,7 @@ jobs:
           name: pogues
           path: dist
       - name: Zip bundle
-        run: cd build && zip -r ../pogues.zip ./* && cd ..
+        run: cd dist && zip -r ../pogues.zip ./* && cd ..
       - uses: softprops/action-gh-release@v1
         with:
           name: Release ${{ needs.check_if_version_upgraded.outputs.version }}
