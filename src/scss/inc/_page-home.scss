@@ -4,7 +4,7 @@
     color: $color-blue_01;
     padding: 40px 30px;
     background-color: $color-blue_03;
-    background-image: url('../images/logo-insee-bg.png');
+    background-image: url('/images/logo-insee-bg.png');
     background-repeat: no-repeat;
     background-position-x: right;
   }
@@ -39,11 +39,11 @@
           }
 
           &#questionnaires-team {
-            background-image: url('../images/population.png');
+            background-image: url('/images/population.png');
           }
 
           &#questionnaires-insee {
-            background-image: url('../images/population.png');
+            background-image: url('/images/population.png');
           }
         }
       }
