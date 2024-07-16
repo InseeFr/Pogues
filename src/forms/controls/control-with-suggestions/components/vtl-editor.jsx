@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import { AntlrEditor } from '@making-sense/antlr-editor';
 
 import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
-import { getSuggestions } from './vtl-suggestions';
+import {
+  monarchDefinition,
+  getSuggestionsFromRange,
+} from '@making-sense/vtl-2-0-monaco-tools-ts';
 
 import { CONTROL_VTL_EDITOR } from '../../../../constants/dom-constants';
 
@@ -27,7 +30,8 @@ const VTLEditor = ({
 
   const customTools = {
     ...tools,
-    getSuggestionsFromRange: getSuggestions,
+    monarchDefinition,
+    getSuggestionsFromRange,
     initialRule: 'expr',
   };
 
