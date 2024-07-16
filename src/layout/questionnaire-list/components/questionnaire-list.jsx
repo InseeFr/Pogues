@@ -18,7 +18,6 @@ const QuestionnaireList = props => {
     activeQuestionnaire,
     selectedComponentId,
     questionnaires,
-    stamp,
     duplicateQuestionnaire,
     isFusion,
     isComposition,
@@ -42,6 +41,7 @@ const QuestionnaireList = props => {
 
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
+  const stamp = oidc.oidcTokens.decodedIdToken.timbre;
 
   let actionLabel = Dictionary.duplicate;
   if (isComposition) actionLabel = Dictionary.add;
@@ -284,7 +284,6 @@ QuestionnaireList.propTypes = {
   selectedComponentId: PropTypes.string,
   questionnaires: PropTypes.array,
   duplicateQuestionnaire: PropTypes.func.isRequired,
-  stamp: PropTypes.string,
   selectedStamp: PropTypes.string,
   isFusion: PropTypes.bool,
   isComposition: PropTypes.bool,
@@ -307,7 +306,6 @@ QuestionnaireList.propTypes = {
 QuestionnaireList.defaultProps = {
   selectedComponentId: undefined,
   questionnaires: [],
-  stamp: '',
   selectedStamp: 'FAKEPERMISSION',
   isFusion: false,
   isComposition: false,
