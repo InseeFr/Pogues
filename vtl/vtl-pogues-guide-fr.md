@@ -206,40 +206,12 @@ On a créé une question dont la réponse est au format Date dans Pogues, la var
 Voici comment obtenir l’année :
 
 ```
-substr(cast($DATE_NAISSANCE$, string, "YYYY-MM-DD"), 1, 4)
+substr(cast($DATE_NAISSANCE$, string), 1, 4)
 ```
 
-On transforme la variable de type date en chaîne de caractères, puis on extrait les 4 premiers caractères. Le motif "YYYY-MM-DD" permet de la traduction
+On transforme la variable de type date en chaîne de caractères, puis on extrait les 4 premiers caractères.
 
 <span class="label label-rounded label-warning">Attention !</span> Si Pogues permet de choisir trois types de formats de date, seul le format JJMMAAAA (jour, mois, année) est aujourd’hui proposé à l’enquêté. Par ailleurs, si le format présenté lui-même est JJMMAAAA, la variable collectée est au format AAAAMMJJ, ce qui explique le code VTL précédent.
-
-#### Comparaison
-
-<span class="label label-rounded label-warning">Bientôt disponible !</span>
-
-Pour comparer des dates :
-
-```
-$ARRIVEE$ > $DEPART$
-```
-
-Renvoie `true` si la date d'arrivée est postérieure à la date de départ.
-
-#### Calcul de durée
-
-<span class="label label-rounded label-warning">Bientôt disponible !</span>
-
-Pour calculer une durée à partir de variables collectées de type Date :
-
-```
-$ARRIVEE$ - $DEPART$
-```
-
-Qui fournira le résultat en millisecondes. Pour avoir, par exemple en jour :
-
-```
-($ARRIVEE$ - $DEPART$) / 86400000
-```
 
 ### Liste à choix multiples
 
@@ -255,106 +227,3 @@ On souhaite calculer le nombre de cases cochées dans une liste à choix multipl
 ```
 
 <span class="label label-rounded label-primary">À noter</span> Cette solution est fastidieuse et difficile à mettre en place pour des longues listes. Des fonctionnalités non-encore disponibles dans VTL permettront à terme une expression plus directe de ce calcul.
-
-### Contrôles
-
-#### Non-réponse
-
-Dans la plupart des cas, vérifier une potentielle non-réponse c'est vérifier que la variable sous-jacente n'a pas été valorisée. Il faut donc écrire un contrôle pour tester la _nullité_ de la variable :
-
-```
-isnull($VAR_A$)
-```
-
-Selon les questions, on peut vouloir aller plus loin, par exemple pour une réponse textuelle s'assurer que l'on n'a pas aussi une chaîne vide :
-
-```
-isnull($VAR_A$) or $VAR_A$ = ""
-```
-
-Et dans ce cas, on peut encore plus simplement tirer partie de la fonction `nvl` :
-
-```
-nvl($VAR_A$, "") = ""
-```
-
-#### Contrôle de validité d'un SIRET
-
-On se place dans le cas où le Siret est collecté à travers la variable `SIRET`. Le contrôle est alors :
-
-```
-mod(
-cast(substr($SIRET$, 1, 1), integer) +
-(
-    if cast(substr($SIRET$, 2, 1), integer) > 4 
-    then cast(substr($SIRET$, 2, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 2, 1), integer) * 2
-) +
-cast(substr($SIRET$, 3, 1), integer) +
-(
-    if cast(substr($SIRET$, 4, 1), integer) > 4 
-    then cast(substr($SIRET$, 4, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 4, 1), integer) * 2
-) +
-cast(substr($SIRET$, 5, 1), integer) +
-(
-    if cast(substr($SIRET$, 6, 1), integer) > 4 
-    then cast(substr($SIRET$, 6, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 6, 1), integer) * 2
-) +
-cast(substr($SIRET$, 7, 1), integer) +
-(
-    if cast(substr($SIRET$, 8, 1), integer) > 4 
-    then cast(substr($SIRET$, 8, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 8, 1), integer) * 2
-) +
-cast(substr($SIRET$, 9, 1), integer)
-, 10) = 0
-and
-mod(
-(
-    if cast(substr($SIRET$, 1, 1), integer) > 4 
-    then cast(substr($SIRET$, 1, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 1, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 2, 1), integer) +
-(
-    if cast(substr($SIRET$, 3, 1), integer) > 4 
-    then cast(substr($SIRET$, 3, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 3, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 4, 1), integer) +
-(
-    if cast(substr($SIRET$, 5, 1), integer) > 4 
-    then cast(substr($SIRET$, 5, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 5, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 6, 1), integer) +
-(
-    if cast(substr($SIRET$, 7, 1), integer) > 4 
-    then cast(substr($SIRET$, 7, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 7, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 8, 1), integer) +
-(
-    if cast(substr($SIRET$, 9, 1), integer) > 4 
-    then cast(substr($SIRET$, 9, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 9, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 10, 1), integer) +
-(
-    if cast(substr($SIRET$, 11, 1), integer) > 4 
-    then cast(substr($SIRET$, 11, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 11, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 12, 1), integer) +
-(
-    if cast(substr($SIRET$, 13, 1), integer) > 4 
-    then cast(substr($SIRET$, 13, 1), integer) * 2 - 9 
-    else cast(substr($SIRET$, 13, 1), integer) * 2
-) + 
-cast(substr($SIRET$, 14, 1), integer)
-, 10) <> 0
-```
-
-La première partie du contrôle s'assure que les 9 premiers chiffres forment un SIREN valide, la seconde que le SIRET est valide.
