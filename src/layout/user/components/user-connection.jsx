@@ -3,7 +3,7 @@ import { useOidc } from '../../../utils/oidc';
 
 function UserConnection() {
   const oidc = useOidc();
-  const user = oidc.oidcTokens.decodedIdToken.preferred_username;
+  const user = oidc.oidcTokens.decodedIdToken;
 
   const hasName = user?.name;
   if (!hasName) return null;
