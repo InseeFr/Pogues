@@ -62,6 +62,7 @@ function CodesListsCodes(props) {
       if (codes && codes.length > 0) {
         removeAll();
         codes.forEach((code, index) => {
+          code.value = code.value.toString();
           code.weight = index;
           code.depth = allCodes[0]?.depth || 1;
           code.parent = code.parent || '';
