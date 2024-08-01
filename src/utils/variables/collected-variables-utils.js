@@ -246,7 +246,6 @@ export function getCollectedVariablesTable(questionName, form) {
                     x: i + 1,
                     y: j + 1,
                     isCollected: '1',
-                    alternativeLabel: '',
                   },
                   getReponsesValues(measureState),
                 ),
