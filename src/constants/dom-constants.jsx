@@ -168,24 +168,6 @@ export const PAGE_QUESTIONNAIRE = {
   COMPONENT_ID: 'page-questionnaire',
 };
 
-export const INPUT_CONDITION_POPOVER = {
-  COMPONENT_CLASS: 'input-condition-popover',
-  BUTTONGROUP: 'input-condition-popover-button-group',
-  INNER: 'input-condition-popover__inner',
-  CONDITION: 'input-condition-popover__condition',
-  INPUT: 'input-condition-popover__condition-input',
-};
-
-export const BUTTON_WRAP = {
-  COMPONENT_CLASS: 'button-wrap',
-};
-
-export const ICON_BUTTON = {
-  COMPONENT_CLASS: 'icon-button',
-  IS_ACTIVE: 'icon-button-active',
-  ICON: 'icon-button__icon',
-};
-
 export const QUESTIONNAIRE_NAV = {
   COMPONENT_CLASS: 'questionnaire-nav',
 };
