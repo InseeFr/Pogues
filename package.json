@@ -67,7 +67,6 @@
     "react-redux": "7.2.4",
     "react-router-dom": "^5.0.1",
     "react-router-navigation-prompt": "^1.8.10",
-    "react-scripts": "4.0.3",
     "recompose": "^0.30.0",
     "redux": "4.1.1",
     "redux-form": "8.3.10",
@@ -76,7 +75,6 @@
     "redux-thunk": "2.3.0",
     "restify-cors-middleware": "1.1.1",
     "restify-plugins": "1.6.0",
-    "sass": "1.32.13",
     "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
@@ -105,10 +103,12 @@
     "jison": "0.4.18",
     "prettier": "^2.2.1",
     "react-classset": "0.0.2",
+    "react-scripts": "4.0.3",
     "redux-devtools": "3.7.0",
     "redux-devtools-extension": "2.13.9",
     "redux-logger": "3.0.6",
     "restify": "8.5.1",
+    "sass": "1.32.13",
     "shx": "^0.3.3",
     "vite": "^5.0.8",
     "vite-tsconfig-paths": "^4.3.2",
