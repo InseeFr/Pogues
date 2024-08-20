@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1.25-alpine
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 
 # Non root user
 ENV NGINX_USER_ID=101
