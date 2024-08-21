@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import { getUrlFromCriterias } from './utils';
 import { getEnvVar } from './env';
 import getNomenclaturesContent from './codes-lists/__mocks__/get-nomenclatures.json';
