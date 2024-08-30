@@ -72,8 +72,6 @@
     "redux-form-validators": "^3.3.2",
     "redux-oidc": "^4.0.0-beta1",
     "redux-thunk": "2.3.0",
-    "restify-cors-middleware": "1.1.1",
-    "restify-plugins": "1.6.0",
     "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
@@ -105,7 +103,6 @@
     "redux-devtools": "3.7.0",
     "redux-devtools-extension": "2.13.9",
     "redux-logger": "3.0.6",
-    "restify": "8.5.1",
     "sass": "1.32.13",
     "shx": "^0.3.3",
     "vite": "^5.0.8",
