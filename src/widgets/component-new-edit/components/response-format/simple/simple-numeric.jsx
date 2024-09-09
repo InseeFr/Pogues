@@ -46,6 +46,12 @@ function ResponseFormatDatatypeNumeric({ name, required, readOnly }) {
           label={Dictionary.decimals}
           disabled={readOnly}
         />
+        <Field
+          name="dynamicUnit"
+          component={CheckboxBoolean}
+          label={Dictionary.dynamicUnit}
+          disabled={readOnly}
+        />
         <SelectMetaDataContainer
           type="units"
           name="unit"
