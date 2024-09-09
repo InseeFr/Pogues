@@ -4,6 +4,7 @@ import Input from '../../../../../forms/controls/input';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
 import SelectMetaDataContainer from '../../../../../layout/connected-widget/select-metadata';
+import CheckboxBoolean from '../../../../../forms/controls/checkboxBoolean';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -42,6 +43,12 @@ function ResponseFormatDatatypeNumeric({ name, required, readOnly }) {
           step="any"
           component={Input}
           label={Dictionary.decimals}
+          disabled={readOnly}
+        />
+        <Field
+          name="dynamicUnit"
+          component={CheckboxBoolean}
+          label={Dictionary.dynamicUnit}
           disabled={readOnly}
         />
         <SelectMetaDataContainer

@@ -14,6 +14,7 @@ export function stateToRemote(state, response) {
     minimum: Minimum,
     maximum: Maximum,
     decimals: Decimals,
+    dynamicUnit: DynamicUnit,
     unit: Unit,
     format: Format,
     mihours: Mihours,
@@ -65,6 +66,7 @@ export function stateToRemote(state, response) {
   if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
   if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
   if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
+  if (DynamicUnit !== undefined) model.Datatype.DynamicUnit = DynamicUnit;
   if (Unit !== undefined) model.Datatype.Unit = Unit;
   if (Format !== undefined) model.Datatype.Format = Format;
   if (Mihours !== undefined) model.Datatype.Mihours = Mihours;
