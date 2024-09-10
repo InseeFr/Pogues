@@ -149,7 +149,11 @@ function CollectedVariables({
               />
             </View>
             <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-              <ResponseFormatDatatypeNumeric readOnly required={false} />
+              <ResponseFormatDatatypeNumeric
+                selectorPath={selectorPath}
+                readOnly
+                required={false}
+              />
             </View>
             <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
             <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>
