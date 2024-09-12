@@ -21,12 +21,12 @@ jobs:
       - run: yarn test:coverage
       # Build lib
       - run: yarn build
-      - name: Upload deploy artifact
+      - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage/
-      - name: Upload deploy artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
