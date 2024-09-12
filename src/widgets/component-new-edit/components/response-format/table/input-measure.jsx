@@ -32,7 +32,6 @@ function InputMeasure({ selectorPath }) {
           <ResponseFormatSimple
             selectorPathParent={selectorPath}
             showMandatory={false}
-            required
           />
         </View>
         <View

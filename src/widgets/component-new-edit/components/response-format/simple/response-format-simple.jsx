@@ -16,7 +16,7 @@ import ResponseFormatDatatypeDuree from './simple-duree';
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { SIMPLE: selectorPath } = QUESTION_TYPE_ENUM;
 
-function ResponseFormatSimple({ selectorPathParent, showMandatory, required }) {
+function ResponseFormatSimple({ selectorPathParent, showMandatory }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -49,7 +49,7 @@ function ResponseFormatSimple({ selectorPathParent, showMandatory, required }) {
           <ResponseFormatDatatypeDate />
         </View>
         <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-          <ResponseFormatDatatypeNumeric required={!!required} />
+          <ResponseFormatDatatypeNumeric />
         </View>
         <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>
