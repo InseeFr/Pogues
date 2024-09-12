@@ -1,6 +1,29 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "description": "CI dependencies",
+      "matchPaths": [".github/workflows/**"],
+      "groupName": "CI dependencies",
+      "labels": ["CI"]
+    },
+    {
+      "matchPaths": ["package.json"],
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dependencies minor and patch updates",
+      "groupSlug": "minor-patch",
+      "labels": ["dependencies"]
+    },
+    {
+      "matchPaths": ["package.json"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "devDependencies minor and patch updates",
+      "groupSlug": "dev-minor-patch",
+      "labels": ["devDependencies"]
+    }
+  ],
+  "dependencyDashboard": true
 }
