@@ -5818,12 +5818,7 @@ draft-js-import-markdown@^1.4.0:
     draft-js-import-element "^1.4.0"
     synthetic-dom "^1.4.0"
 
-draft-js-utils@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.4.0.tgz#c60af198108f69b0f1df3572555b23836819d1cf"
-  integrity sha512-8s9FFuKC+lOWGwJ0b3om2PF+uXrqQPaEQlPJI7UxdzxTYGMeKouMPA9+YlPn52zcAVElIZtd2tXj6eQmvlKelw==
-
-draft-js-utils@^1.4.0:
+draft-js-utils@1.4.1, draft-js-utils@^1.4.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.4.1.tgz#a59c792ad621f7050292031a237d524708a6d509"
   integrity sha512-xE81Y+z/muC5D5z9qWmKfxEW1XyXfsBzSbSBk2JRsoD0yzMGGHQm/0MtuqHl/EUDkaBJJLjJ2EACycoDMY/OOg==
