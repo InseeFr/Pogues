@@ -32,7 +32,6 @@ jobs:
     name: SonarCloud Analysis
     runs-on: ubuntu-latest
     needs: test-build # Ensure SonarCloud job runs after the test-build job
-    if: ${{ github.event_name == 'pull_request' }} # Only run SonarCloud on pull requests
     steps:
       - uses: actions/checkout@v4
         with:
