@@ -82,7 +82,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.4.0",
     "bootstrap-sass": "3.4.1",
-    "concurrently": "6.2.1",
+    "concurrently": "9.0.1",
     "cross-env": "^7.0.3",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.14.0",
