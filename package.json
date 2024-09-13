@@ -87,7 +87,7 @@
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "font-awesome": "4.7.0",
-    "husky": "^6.0.0",
+    "husky": "^9.0.0",
     "jison": "0.4.18",
     "jsdom": "^25.0.0",
     "prettier": "^2.2.1",
