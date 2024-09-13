@@ -40,7 +40,7 @@ jobs:
           path: 'package.json'
           prop_path: 'version'
       ## we check if repo contains already this tag, if not version, has changed
-      - uses: mukunku/tag-exists-action@v1.4.0
+      - uses: mukunku/tag-exists-action@v1.6.0
         id: check
         with:
           tag: ${{ steps.version.outputs.prop }}
