@@ -18,7 +18,7 @@ export const defaultForm = {
     minimum: '',
     maximum: '',
     decimals: '',
-    dynamicUnit: false,
+    isDynamicUnit: false,
     unit: '',
   },
   [DATE]: {
