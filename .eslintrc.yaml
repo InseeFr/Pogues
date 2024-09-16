@@ -23,6 +23,9 @@ env:
 
 rules:
   indent: 0
+  default-param-last: 0
+  no-restricted-exports: 0
+  prefer-regex-literals: 0
   func-style: 0
   func-names: 0
   comma-dangle: 0
@@ -38,6 +41,7 @@ rules:
   react/jsx-filename-extension: 0
   react/prefer-stateless-function: 0
   react/no-children-prop: 0
+  react/function-component-definition: 0
   react/forbid-prop-types: 0
   react/react-in-jsx-scope: 0
   react/no-unescaped-entities: 0

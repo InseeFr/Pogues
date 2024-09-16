@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { createDictionary, getLang } from './dictionary';
 
 ['browserLanguage', 'language'].forEach(property => {

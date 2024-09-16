@@ -12,16 +12,3 @@ exports[`DropZone > Should have this default template 1`] = `
   </div>
 </div>
 `;
-
-exports[`DropZone Should have this default template 1`] = `
-<div
-  className="questionnaire-element-drop-zone"
-  style={Object {}}
->
-  <div
-    className="questionnaire-element-label"
-  >
-    Drop here !
-  </div>
-</div>
-`;

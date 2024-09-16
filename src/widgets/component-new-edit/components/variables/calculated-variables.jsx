@@ -13,9 +13,9 @@ import Input from '../../../../forms/controls/input';
 import { SimpleEditorWithVariable } from '../../../../forms/controls/control-with-suggestions';
 import { ListWithInputPanel } from '../../../list-with-input-panel';
 import { validateCalculatedVariableForm } from '../../../../utils/validation/validate';
-import ResponseFormatDatatypeNumeric from '../../components/response-format/simple/simple-numeric';
-import ResponseFormatDatatypeText from '../../components/response-format/simple/simple-text';
-import ResponseFormatDatatypeDate from '../../components/response-format/simple/simple-date';
+import ResponseFormatDatatypeNumeric from '../response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from '../response-format/simple/simple-text';
+import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
 import Dictionary from '../../../../utils/dictionary/dictionary';
 
 import { SelectorView, View } from '../../../selector-view';
