@@ -12,7 +12,7 @@ export function remoteToState(remote) {
           Minimum: minimum,
           Maximum: maximum,
           Decimals: decimals,
-          DynamicUnit: dynamicUnit,
+          IsDynamicUnit: isDynamicUnit,
           Unit: unit,
           Format: format,
         },
@@ -27,7 +27,7 @@ export function remoteToState(remote) {
   if (minimum !== undefined) datatype.minimum = minimum;
   if (maximum !== undefined) datatype.maximum = maximum;
   if (decimals !== undefined) datatype.decimals = decimals;
-  if (dynamicUnit !== undefined) datatype.dynamicUnit = dynamicUnit;
+  if (isDynamicUnit !== undefined) datatype.isDynamicUnit = isDynamicUnit;
   if (unit !== undefined) datatype.unit = unit;
   if (format !== undefined) datatype.format = format;
 

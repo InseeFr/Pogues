@@ -22,7 +22,7 @@ function ResponseFormatDatatypeNumeric({
   name,
   required,
   readOnly,
-  dynamicUnit,
+  isDynamicUnit,
   setUnit,
   availableSuggestions,
 }) {
@@ -65,13 +65,13 @@ function ResponseFormatDatatypeNumeric({
           disabled={readOnly}
         />
         <Field
-          name="dynamicUnit"
+          name="isDynamicUnit"
           component={CheckboxBoolean}
-          label={Dictionary.dynamicUnit}
+          label={Dictionary.isDynamicUnit}
           disabled={readOnly}
           onChange={handleDynamicUnitChange}
         />
-        {dynamicUnit ? (
+        {isDynamicUnit ? (
           <Field
             name="unit"
             component={Select}
@@ -109,7 +109,7 @@ ResponseFormatDatatypeNumeric.defaultProps = {
 const mapStateToProps = (state, { selectorPath }) => {
   const selector = formValueSelector('component');
   return {
-    dynamicUnit: selector(state, `${selectorPath}.NUMERIC.dynamicUnit`),
+    isDynamicUnit: selector(state, `${selectorPath}.NUMERIC.isDynamicUnit`),
     unit: selector(state, `${selectorPath}.NUMERIC.unit`),
   };
 };
