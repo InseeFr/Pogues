@@ -1,1 +1,1 @@
-yarn pre-commit
+yarn lint && yarn format:check
