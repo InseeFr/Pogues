@@ -1,5 +1,4 @@
 #questionnaire-list {
-
   .home-questionnaires-container {
     display: flex;
     flex-direction: row-reverse;
@@ -84,13 +83,12 @@
     color: $color-blue_02;
   }
 
-  .questionnaire-list-item-header{
+  .questionnaire-list-item-header {
     display: flex;
     justify-content: space-between;
-
   }
 
-  .question-list-item-name-modes{
+  .question-list-item-name-modes {
     display: flex;
     flex-direction: column;
   }
@@ -105,14 +103,14 @@
     flex-direction: row;
   }
 
-  .question-list-item-mode{
+  .question-list-item-mode {
     width: 4em;
     .glyphicon {
       margin-right: 6px;
     }
   }
 
-  .item-mode{
+  .item-mode {
     font-size: $font-xs;
     color: $color-blue_02;
   }
@@ -126,4 +124,3 @@
   float: right;
   box-sizing: border-box;
 }
-
