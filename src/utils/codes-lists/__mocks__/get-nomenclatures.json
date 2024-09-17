@@ -407,9 +407,9 @@
       "urn": "urn:ddi:fr.insee:l_langues-1-0-0:1",
       "codes": []
     },
-    "L_PRODEAP_VPI_2022": {
-      "id": "L_PRODEAP_VPI_2022",
-      "name": "L_PRODEAP_VPI_2022",
+    "L_PRODEAP_VPI_2024": {
+      "id": "L_PRODEAP_VPI_2024",
+      "name": "L_PRODEAP_VPI_2024",
       "label": "EAP - Produits - vente de produits industriels",
       "parameters": {
         "version": 1,
@@ -446,12 +446,12 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_vpi_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpi_2024:1",
       "codes": []
     },
-    "L_PRODEAP_VPNI_2022": {
-      "id": "L_PRODEAP_VPNI_2022",
-      "name": "L_PRODEAP_VPNI_2022",
+    "L_PRODEAP_VPNI_2024": {
+      "id": "L_PRODEAP_VPNI_2024",
+      "name": "L_PRODEAP_VPNI_2024",
       "label": "EAP - Produits - vente de produits non industriels",
       "parameters": {
         "version": 1,
@@ -488,12 +488,12 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_vpni_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpni_2024:1",
       "codes": []
     },
-    "L_PRODEAP_DECHETS_2022": {
-      "id": "L_PRODEAP_DECHETS_2022",
-      "name": "L_PRODEAP_DECHETS_2022",
+    "L_PRODEAP_DECHETS_2024": {
+      "id": "L_PRODEAP_DECHETS_2024",
+      "name": "L_PRODEAP_DECHETS_2024",
       "label": "EAP - Produits - déchets",
       "parameters": {
         "version": 1,
@@ -530,12 +530,12 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_dechets_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_dechets_2024:1",
       "codes": []
     },
-    "L_PRODEAP_EAU_2022": {
-      "id": "L_PRODEAP_EAU_2022",
-      "name": "L_PRODEAP_EAU_2022",
+    "L_PRODEAP_EAU_2024": {
+      "id": "L_PRODEAP_EAU_2024",
+      "name": "L_PRODEAP_EAU_2024",
       "label": "EAP - Produits - eau",
       "parameters": {
         "version": 1,
@@ -572,13 +572,13 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_eau_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_eau_2024:1",
       "codes": []
     },
-    "L_PRODEAP_ENERGIE_2022": {
-      "id": "L_PRODEAP_ENERGIE_2022",
-      "name": "L_PRODEAP_ENERGIE_2022",
-      "label": "EAP - Produits - énergie",
+    "L_PRODEAP_ELEC_2024": {
+      "id": "L_PRODEAP_ELEC_2024",
+      "name": "L_PRODEAP_ELEC_2024",
+      "label": "EAP - Produits - électricité",
       "parameters": {
         "version": 1,
         "fields": [
@@ -614,12 +614,96 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_energie_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_elec_2024:1",
       "codes": []
     },
-    "L_PRODEAP_INSTAL_REPAR_2022": {
-      "id": "L_PRODEAP_INSTAL_REPAR_2022",
-      "name": "L_PRODEAP_INSTAL_REPAR_2022",
+    "L_PRODEAP_GAZ_2024": {
+      "id": "L_PRODEAP_GAZ_2024",
+      "name": "L_PRODEAP_GAZ_2024",
+      "label": "EAP - Produits - gaz",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_gaz_2024:1",
+      "codes": []
+    },
+    "L_PRODEAP_VAPEUR_2024": {
+      "id": "L_PRODEAP_VAPEUR_2024",
+      "name": "L_PRODEAP_VAPEUR_2024",
+      "label": "EAP - Produits - vapeur",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_vapeur_2024:1",
+      "codes": []
+    },
+    "L_PRODEAP_INSTAL_REPAR_2024": {
+      "id": "L_PRODEAP_INSTAL_REPAR_2024",
+      "name": "L_PRODEAP_INSTAL_REPAR_2024",
       "label": "EAP - Produits - installation - réparation",
       "parameters": {
         "version": 1,
@@ -656,7 +740,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2022:1",
+      "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2024:1",
       "codes": []
     },
     "L_REGFRONT_BE-1-0-0": {
