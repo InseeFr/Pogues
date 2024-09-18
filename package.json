@@ -109,9 +109,10 @@
     "lint": "eslint ./src -f table || true",
     "lint:fix": "eslint ./src -f table --fix || true",
     "jison": "jison jison/grammars/xpath.jison jison/grammars/xpath.jisonlex -o jison/generated-parsers/xpath-parser.js && node ./jison/fixParser.js",
-    "format": "prettier --write \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
+    "_format": "prettier \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
+    "format": "npm run _format -- --write",
+    "format:check": "npm run _format -- --list-different",
     "generate-entrypoint": "node scripts/generate-entrypoint.js",
-    "pre-commit": "npm run lint && npm run test",
     "postinstall": "shx cp src/bootstrap-custom/_variables.scss node_modules/bootstrap-sass/assets/stylesheets/bootstrap/",
     "prepare": "husky"
   },
