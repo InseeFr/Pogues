@@ -491,6 +491,48 @@
       "urn": "urn:ddi:fr.insee:l_prodeap_vpni_2024:1",
       "codes": []
     },
+    "L_PRODEAP_VPIZ_2024": {
+      "id": "L_PRODEAP_VPIZ_2024",
+      "name": "L_PRODEAP_VPIZ_2024",
+      "label": "EAP - Produits - commerce",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodeap_vpiz_2024:1",
+      "codes": []
+    },
     "L_PRODEAP_DECHETS_2024": {
       "id": "L_PRODEAP_DECHETS_2024",
       "name": "L_PRODEAP_DECHETS_2024",
