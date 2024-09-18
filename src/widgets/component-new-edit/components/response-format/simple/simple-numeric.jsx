@@ -67,7 +67,7 @@ function ResponseFormatDatatypeNumeric({
         <Field
           name="isDynamicUnit"
           component={CheckboxBoolean}
-          label={Dictionary.isDynamicUnit}
+          label={Dictionary.dynamicUnit}
           disabled={readOnly}
           onChange={handleDynamicUnitChange}
         />
