@@ -23,7 +23,8 @@ export function remoteToState(remote = []) {
         criticity,
         during_collect,
         post_collect,
-        scope: scope === 'line' ? 'LINE' : 'DYNAMIC_ARRAY',
+        scope:
+          scope === 'line' || scope === 'occurrence' ? 'OCCURRENCE' : 'WHOLE',
       },
     };
   }, {});
@@ -50,7 +51,7 @@ export function stateToRemote(state) {
       criticity,
       during_collect,
       post_collect,
-      scope: scope === 'LINE' && 'line',
+      scope: scope === 'OCCURRENCE' && 'occurrence',
     };
   });
 }

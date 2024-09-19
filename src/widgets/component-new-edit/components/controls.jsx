@@ -32,6 +32,7 @@ const Controls = ({
   errors,
   addErrors,
   isDynamicArray,
+  isRoundabout,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
   return (
@@ -91,11 +92,27 @@ const Controls = ({
             label={Dictionary.control_scope}
             required={isDynamicArray}
           >
-            <GenericOption key="DYNAMIC_ARRAY" value="DYNAMIC_ARRAY">
+            <GenericOption key="WHOLE" value="WHOLE">
               {Dictionary.DYNAMIC_ARRAY}
             </GenericOption>
-            <GenericOption key="LINE" value="LINE">
+            <GenericOption key="OCCURRENCE" value="OCCURRENCE">
               {Dictionary.LINE}
+            </GenericOption>
+          </Field>
+        )}
+        {isRoundabout && (
+          <Field
+            name="scope"
+            id="control_scope"
+            component={Select}
+            label={Dictionary.control_scope}
+            required={isDynamicArray}
+          >
+            <GenericOption key="WHOLE" value="WHOLE">
+              {Dictionary.ROUNDABOUT}
+            </GenericOption>
+            <GenericOption key="OCCURRENCE" value="OCCURRENCE">
+              {Dictionary.OCCURRENCE}
             </GenericOption>
           </Field>
         )}
@@ -127,6 +144,7 @@ const mapStateToProps = (state, { formName }) => {
         state,
         `${TABS_PATHS.RESPONSE_FORMAT}.${QUESTION_TYPE_ENUM.TABLE}.${DIMENSION_TYPE.PRIMARY}.type`,
       ) === DIMENSION_FORMATS.LIST,
+    isRoundabout: selector(state, `locked`) !== undefined,
   };
 };
 
@@ -136,12 +154,14 @@ Controls.propTypes = {
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
   isDynamicArray: PropTypes.bool,
+  isRoundabout: PropTypes.bool,
 };
 Controls.defaultProps = {
   formName: DEFAULT_FORM_NAME,
   selectorPath: TABS_PATHS.CONTROLS,
   errors: [],
   isDynamicArray: false,
+  isRoundabout: false,
 };
 
 export default connect(mapStateToProps)(Controls);
