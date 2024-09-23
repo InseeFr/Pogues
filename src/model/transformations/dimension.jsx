@@ -13,8 +13,6 @@ export function stateToRemote(state) {
     fixedLength,
     numLinesMin,
     numLinesMax,
-    showTotalLabel,
-    totalLabel,
     label: Label,
   } = state;
   const model = {
@@ -23,7 +21,6 @@ export function stateToRemote(state) {
 
   if (type === PRIMARY || type === SECONDARY) {
     if (CodesListState) model.CodeListReference = CodesListState.id;
-    if (showTotalLabel && totalLabel) model.totalLabel = totalLabel;
   }
 
   if (type === PRIMARY) {

@@ -163,7 +163,6 @@ function parseDynamic(dynamic) {
 
 function remoteToStatePrimary(remote) {
   const {
-    totalLabel,
     dynamic,
     CodeListReference,
     isFixedLength,
@@ -172,11 +171,6 @@ function remoteToStatePrimary(remote) {
     maximum,
   } = remote;
   let state = {};
-
-  if (totalLabel) {
-    state.showTotalLabel = '1';
-    state.totalLabel = totalLabel;
-  }
 
   if (CodeListReference) {
     state = {
@@ -208,17 +202,12 @@ function remoteToStatePrimary(remote) {
 }
 
 function remoteToStateSecondary(remote) {
-  const { totalLabel, CodeListReference } = remote;
+  const { CodeListReference } = remote;
   const state = {
     showSecondaryAxis: true,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       CodeList.remoteToState(CodeListReference),
   };
-
-  if (totalLabel) {
-    state.showTotalLabel = '1';
-    state.totalLabel = totalLabel;
-  }
 
   return state;
 }
@@ -402,7 +391,6 @@ export function stateToRemote(
   const {
     type,
     [type]: { type: typePrimaryCodesList, ...primaryTypeState },
-    ...totalLabelPrimaryState
   } = primaryState;
   const dimensionsModel = [];
   let responsesState = [];
@@ -412,7 +400,6 @@ export function stateToRemote(
     Dimension.stateToRemote({
       type: PRIMARY,
       ...primaryTypeState,
-      ...totalLabelPrimaryState,
     }),
   );
   if (secondaryState) {

@@ -42,31 +42,6 @@ describe('dimension tranformations', () => {
       CodeListReference: '1',
     });
   });
-  test(`when the type is PRIMARY and has a totalLabel and showTotalLabel=true`, () => {
-    const result = stateToRemote({
-      type: PRIMARY,
-      totalLabel: 'totalLabel',
-      showTotalLabel: true,
-    });
-
-    expect(result).toEqual({
-      dynamic: 'NON_DYNAMIC',
-      dimensionType: PRIMARY,
-      totalLabel: 'totalLabel',
-    });
-  });
-  test(`when the type is PRIMARY and has a totalLabel and showTotalLabel=false`, () => {
-    const result = stateToRemote({
-      type: PRIMARY,
-      totalLabel: 'totalLabel',
-      showTotalLabel: false,
-    });
-
-    expect(result).toEqual({
-      dynamic: 'NON_DYNAMIC',
-      dimensionType: PRIMARY,
-    });
-  });
   test(`when the type is PRIMARY and has a numLinesMin and numLinesMax`, () => {
     const result = stateToRemote({
       type: PRIMARY,
@@ -133,31 +108,6 @@ describe('dimension tranformations', () => {
       dynamic: '0',
       dimensionType: SECONDARY,
       CodeListReference: '1',
-    });
-  });
-  test(`when the type is SECONDARY and has a totalLabel and showTotalLabel=true`, () => {
-    const result = stateToRemote({
-      type: SECONDARY,
-      totalLabel: 'totalLabel',
-      showTotalLabel: true,
-    });
-
-    expect(result).toEqual({
-      dynamic: '0',
-      dimensionType: SECONDARY,
-      totalLabel: 'totalLabel',
-    });
-  });
-  test(`when the type is PRIMARY and has a totalLabel and showTotalLabel=false`, () => {
-    const result = stateToRemote({
-      type: SECONDARY,
-      totalLabel: 'totalLabel',
-      showTotalLabel: false,
-    });
-
-    expect(result).toEqual({
-      dynamic: '0',
-      dimensionType: SECONDARY,
     });
   });
 });

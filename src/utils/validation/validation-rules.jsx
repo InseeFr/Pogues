@@ -132,7 +132,6 @@ export const questionRules = {
     [validCodesList],
   [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
     value => minValue(1)(value),
     value => maxValue(300)(value),
@@ -143,7 +142,6 @@ export const questionRules = {
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.totalLabel`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.label`]: [required],
