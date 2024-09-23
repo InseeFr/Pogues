@@ -84,6 +84,22 @@ describe('dimension tranformations', () => {
       maximum: 2,
     });
   });
+  test(`when the type is PRIMARY and has a length fixed by a formula`, () => {
+    const result = stateToRemote({
+      type: PRIMARY,
+      isFixedLength: '1',
+      fixedLength: 'formula',
+      numLinesMin: 1,
+      numLinesMax: 2,
+    });
+
+    expect(result).toEqual({
+      dimensionType: PRIMARY,
+      dynamic: 'FIXED_LENGTH',
+      isFixedLength: true,
+      fixedLength: 'formula',
+    });
+  });
   test(`when the type is PRIMARY and has a numLinesMin but not numLinesMax`, () => {
     const result = stateToRemote({
       type: PRIMARY,
