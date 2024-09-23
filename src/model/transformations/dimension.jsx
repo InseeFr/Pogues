@@ -27,12 +27,12 @@ export function stateToRemote(state) {
   }
 
   if (type === PRIMARY) {
-    model.isFixedLength = isFixedLength === '1';
-
-    if (model.isFixedLength) {
+    if (isFixedLength === '1') {
+      model.isFixedLength = true;
       model.dynamic = 'FIXED_LENGTH';
       model.fixedLength = fixedLength;
     } else if (numLinesMin !== undefined && numLinesMax !== undefined) {
+      model.isFixedLength = false;
       model.minimum = numLinesMin;
       model.maximum = numLinesMax;
       model.dynamic = 'DYNAMIC_LENGTH';
