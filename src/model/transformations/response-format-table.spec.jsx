@@ -93,6 +93,7 @@ describe('remoteToState', () => {
       PRIMARY: {
         type: 'LIST',
         LIST: {
+          isFixedLength: '0',
           numLinesMin: 1,
           numLinesMax: 10,
         },
@@ -311,7 +312,10 @@ describe('remoteToState', () => {
           type: 'SIMPLE',
         },
       ],
-      PRIMARY: { LIST: { numLinesMax: 3, numLinesMin: 1 }, type: 'LIST' },
+      PRIMARY: {
+        LIST: { isFixedLength: '0', numLinesMax: 3, numLinesMin: 1 },
+        type: 'LIST',
+      },
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
   });
@@ -401,7 +405,12 @@ describe('stateToRemote', () => {
         showTotalLabel: '0',
         totalLabel: '',
         type: 'LIST',
-        LIST: { numLinesMin: '2', numLinesMax: '3' },
+        LIST: {
+          isFixedLength: '0',
+          fixedLength: 'formula',
+          numLinesMin: 2,
+          numLinesMax: 3,
+        },
       },
       LIST_MEASURE: [
         {
@@ -455,7 +464,10 @@ describe('stateToRemote', () => {
     expect(result.Dimension).toEqual([
       {
         dimensionType: 'PRIMARY',
-        dynamic: '2-3',
+        dynamic: 'DYNAMIC_LENGTH',
+        isFixedLength: false,
+        minimum: 2,
+        maximum: 3,
       },
       {
         Label: 'measure 1',
@@ -541,7 +553,11 @@ describe('stateToRemote', () => {
     );
 
     expect(result.Dimension).toEqual([
-      { CodeListReference: 'jf0vbzj9', dimensionType: 'PRIMARY', dynamic: '0' },
+      {
+        CodeListReference: 'jf0vbzj9',
+        dimensionType: 'PRIMARY',
+        dynamic: 'NON_DYNAMIC',
+      },
       {
         CodeListReference: 'jf0vj3il',
         dimensionType: 'SECONDARY',
@@ -570,7 +586,7 @@ describe('stateToRemote', () => {
     expect(outputMapping[0].MappingTarget).toEqual('1 1');
   });
 
-  it('get responses id when edting question', () => {
+  it('get responses id when editing question', () => {
     const state = {
       LIST_MEASURE: [
         {
@@ -583,7 +599,12 @@ describe('stateToRemote', () => {
         },
       ],
       PRIMARY: {
-        LIST: { numLinesMin: 2, numLinesMax: 1 },
+        LIST: {
+          isFixedLength: '0',
+          fixedLength: '',
+          numLinesMin: 2,
+          numLinesMax: 1,
+        },
         showTotalLabel: '0',
         totalLabel: '',
         type: 'LIST',
@@ -630,7 +651,13 @@ describe('stateToRemote', () => {
     );
 
     expect(result.Dimension).toEqual([
-      { dimensionType: 'PRIMARY', dynamic: '2-1' },
+      {
+        dimensionType: 'PRIMARY',
+        dynamic: 'DYNAMIC_LENGTH',
+        isFixedLength: false,
+        minimum: 2,
+        maximum: 1,
+      },
       {
         Label: 'testlibe',
         dimensionType: 'MEASURE',
