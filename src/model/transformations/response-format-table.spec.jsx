@@ -402,8 +402,6 @@ describe('stateToRemote', () => {
   it('without secondary axes', () => {
     const state = {
       PRIMARY: {
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'LIST',
         LIST: {
           isFixedLength: '0',
@@ -510,15 +508,11 @@ describe('stateToRemote', () => {
   it('with secondary axes', () => {
     const state = {
       PRIMARY: {
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'CODES_LIST',
         CODES_LIST: { CodesList: { id: 'jf0vbzj9' } },
       },
       SECONDARY: {
         showSecondaryAxis: true,
-        showTotalLabel: '0',
-        totalLabel: '',
         CodesList: { id: 'jf0vj3il' },
       },
       MEASURE: {
@@ -605,8 +599,6 @@ describe('stateToRemote', () => {
           numLinesMin: 2,
           numLinesMax: 1,
         },
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'LIST',
       },
     };

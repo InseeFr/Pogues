@@ -158,8 +158,6 @@ describe('getCollectedVariablesTable', () => {
     const questionName = 'QUESTION';
     const form = {
       PRIMARY: {
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'CODES_LIST',
         LIST: {
           numLinesMin: '0',
@@ -189,8 +187,6 @@ describe('getCollectedVariablesTable', () => {
           codes: [],
         },
         showSecondaryAxis: false,
-        showTotalLabel: '0',
-        totalLabel: '',
       },
       LIST_MEASURE: {
         label: '',
@@ -332,8 +328,6 @@ describe('getCollectedVariablesTable', () => {
     const questionName = 'QUESTION';
     const form = {
       PRIMARY: {
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'LIST',
         LIST: {
           numLinesMin: '1',
@@ -354,8 +348,6 @@ describe('getCollectedVariablesTable', () => {
           codes: [],
         },
         showSecondaryAxis: false,
-        showTotalLabel: '0',
-        totalLabel: '',
       },
       LIST_MEASURE: {
         label: '',
