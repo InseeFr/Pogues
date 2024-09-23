@@ -66,7 +66,7 @@ describe('response format multiple', () => {
           {
             CodeListReference: 'jf0w3fab',
             dimensionType: 'PRIMARY',
-            dynamic: '0',
+            dynamic: 'NON_DYNAMIC',
           },
           { dimensionType: 'MEASURE', dynamic: '0' },
         ],
@@ -150,7 +150,7 @@ describe('response format multiple', () => {
           {
             CodeListReference: 'kgs19ihv',
             dimensionType: 'PRIMARY',
-            dynamic: '0',
+            dynamic: 'NON_DYNAMIC',
           },
           { dimensionType: 'MEASURE', dynamic: '0' },
         ],
