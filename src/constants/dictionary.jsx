@@ -875,6 +875,14 @@ const dictionary = {
     fr: 'Liste',
     en: 'List',
   },
+  minMax: {
+    fr: 'Min/Max',
+    en: 'Min/max',
+  },
+  linesNbCalculation: {
+    fr: 'Calcul du nombre de lignes',
+    en: 'Calculation of number of lines',
+  },
   minRowNb: {
     fr: 'Nombre de lignes min.',
     en: 'Number of lines min.',

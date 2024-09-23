@@ -118,16 +118,39 @@ function getMeasuresModel(responses, dimensions, offset) {
   return responsesModel;
 }
 
+// function parseDynamic(dynamic) {
+//   return dynamic.split('-').map(v => {
+//     return v.length > 0 ? parseInt(v, 10) : 0;
+//   });
+// }
+
 function parseDynamic(dynamic) {
-  return dynamic.split('-').map(v => {
-    return v.length > 0 ? parseInt(v, 10) : 0;
-  });
+  // if it still uses the old format 'min-max'
+  if (dynamic.includes('-')) {
+    const minMax = dynamic.split('-').map(v => parseInt(v, 10));
+
+    // Check if we have exactly two valid numbers
+    if (minMax.length === 2 && !isNaN(minMax[0]) && !isNaN(minMax[1])) {
+      return minMax;
+    }
+  }
+
+  // Default case: return [0, 0] for '0', 'NON_DYNAMIC', or any invalid format
+  return [0, 0];
 }
 
 // REMOTE TO STATE
 
 function remoteToStatePrimary(remote) {
-  const { totalLabel, dynamic, CodeListReference } = remote;
+  const {
+    totalLabel,
+    dynamic,
+    CodeListReference,
+    isFixedLength,
+    fixedLength,
+    minimum,
+    maximum,
+  } = remote;
   let state = {};
 
   if (totalLabel) {
@@ -145,13 +168,18 @@ function remoteToStatePrimary(remote) {
       },
     };
   } else {
-    const [numLinesMin, numLinesMax] = parseDynamic(dynamic);
+    const isFixedLengthValue = isFixedLength ? '1' : '0';
+    const [numLinesMin, numLinesMax] =
+      dynamic === 'DYNAMIC_LENGTH' ? [minimum, maximum] : parseDynamic(dynamic);
+
     state = {
       ...state,
       type: LIST,
       [LIST]: {
-        numLinesMin: numLinesMin,
-        numLinesMax: numLinesMax,
+        isFixedLength: isFixedLengthValue,
+        fixedLength,
+        numLinesMin,
+        numLinesMax,
       },
     };
   }

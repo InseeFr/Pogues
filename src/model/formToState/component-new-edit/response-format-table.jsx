@@ -86,6 +86,8 @@ export const defaultState = {
     totalLabel: '',
     type: LIST,
     [LIST]: {
+      isFixedLength: '0',
+      fixedLength: '',
       numLinesMin: 0,
       numLinesMax: 0,
     },
@@ -116,8 +118,9 @@ export function formToStatePrimary(form, codesListPrimary) {
   };
 
   if (type === LIST) {
-    const { numLinesMin, numLinesMax } = primaryForm;
-    state[LIST] = { numLinesMin, numLinesMax };
+    const { numLinesMin, numLinesMax, isFixedLength, fixedLength } =
+      primaryForm;
+    state[LIST] = { numLinesMin, numLinesMax, isFixedLength, fixedLength };
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;
     state[CODES_LIST] = {
