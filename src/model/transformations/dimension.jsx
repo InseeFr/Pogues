@@ -1,15 +1,16 @@
 import {
   DIMENSION_TYPE,
+  DIMENSION_LENGTH,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from '../../constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { DYNAMIC_LENGTH, FIXED_LENGTH, NON_DYNAMIC } = DIMENSION_LENGTH;
 
 export function stateToRemote(state) {
   const {
     type,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListState,
-    isFixedLength,
     fixedLength,
     numLinesMin,
     numLinesMax,
@@ -24,17 +25,15 @@ export function stateToRemote(state) {
   }
 
   if (type === PRIMARY) {
-    if (isFixedLength === '1') {
-      model.isFixedLength = true;
-      model.dynamic = 'FIXED_LENGTH';
+    if (fixedLength !== undefined) {
+      model.dynamic = FIXED_LENGTH;
       model.fixedLength = fixedLength;
     } else if (numLinesMin !== undefined && numLinesMax !== undefined) {
-      model.isFixedLength = false;
       model.minimum = numLinesMin;
       model.maximum = numLinesMax;
-      model.dynamic = 'DYNAMIC_LENGTH';
+      model.dynamic = DYNAMIC_LENGTH;
     } else {
-      model.dynamic = 'NON_DYNAMIC';
+      model.dynamic = NON_DYNAMIC;
     }
   }
 
@@ -44,7 +43,6 @@ export function stateToRemote(state) {
 
   return {
     dimensionType: '',
-    dynamic: '0',
     ...model,
   };
 }
