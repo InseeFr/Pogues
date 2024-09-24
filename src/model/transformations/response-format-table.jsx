@@ -14,10 +14,12 @@ import {
   QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_LENGTH,
 } from '../../constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
+const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { TEXT } = DATATYPE_NAME;
 
@@ -142,14 +144,7 @@ function parseDynamic(dynamic) {
 // REMOTE TO STATE
 
 function remoteToStatePrimary(remote) {
-  const {
-    dynamic,
-    CodeListReference,
-    isFixedLength,
-    fixedLength,
-    minimum,
-    maximum,
-  } = remote;
+  const { dynamic, CodeListReference, fixedLength, minimum, maximum } = remote;
   let state = {};
 
   if (CodeListReference) {
@@ -162,7 +157,6 @@ function remoteToStatePrimary(remote) {
       },
     };
   } else {
-    const isFixedLengthValue = isFixedLength ? '1' : '0';
     const [numLinesMin, numLinesMax] =
       dynamic === 'DYNAMIC_LENGTH' ? [minimum, maximum] : parseDynamic(dynamic);
 
@@ -170,10 +164,14 @@ function remoteToStatePrimary(remote) {
       ...state,
       type: LIST,
       [LIST]: {
-        isFixedLength: isFixedLengthValue,
-        fixedLength,
-        numLinesMin,
-        numLinesMax,
+        type: dynamic === 'FIXED_LENGTH' ? FIXED_LENGTH : DYNAMIC_LENGTH,
+        [FIXED_LENGTH]: {
+          fixedLength,
+        },
+        [DYNAMIC_LENGTH]: {
+          numLinesMin,
+          numLinesMax,
+        },
       },
     };
   }
@@ -360,11 +358,19 @@ export function stateToRemote(
   const dimensionsModel = [];
   let responsesState = [];
 
+  let primaryListTypeState = {};
+  if (type === LIST) {
+    const listTypeState = primaryTypeState[typePrimaryCodesList];
+    if (listTypeState) {
+      primaryListTypeState = { ...listTypeState };
+    }
+  }
+
   // Primary and secondary dimension
   dimensionsModel.push(
     Dimension.stateToRemote({
       type: PRIMARY,
-      ...primaryTypeState,
+      ...(type === LIST ? primaryListTypeState : primaryTypeState),
     }),
   );
   if (secondaryState) {

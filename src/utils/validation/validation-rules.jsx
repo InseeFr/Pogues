@@ -28,12 +28,14 @@ import {
   DIMENSION_FORMATS,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_LENGTH,
 } from '../../constants/pogues-constants';
 import Dictionary from '../dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { NUMERIC, TEXT, DATE, DURATION } = DATATYPE_NAME;
 const { PRIMARY, SECONDARY, LIST_MEASURE, MEASURE } = DIMENSION_TYPE;
+const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const {
   RESPONSE_FORMAT,
@@ -121,14 +123,12 @@ export const questionRules = {
     [validCodesList],
   [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMin`]: [
-    value => minValue(1)(value),
-    value => maxValue(300)(value),
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.numLinesMax`]: [
-    value => minValue(1)(value),
-    value => maxValue(300)(value),
-  ],
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.numLinesMin`]:
+    [value => minValue(1)(value), value => maxValue(300)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.numLinesMax`]:
+    [value => minValue(1)(value), value => maxValue(300)(value)],
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FIXED_LENGTH}.fixedLength`]:
+    [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:

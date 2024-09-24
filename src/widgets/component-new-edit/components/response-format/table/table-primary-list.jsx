@@ -1,77 +1,49 @@
 import React from 'react';
-import { FormSection, Field, formValueSelector } from 'redux-form';
+import { FormSection } from 'redux-form';
 
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import Input from '../../../../../forms/controls/input';
-import { DIMENSION_FORMATS } from '../../../../../constants/pogues-constants';
-import { InputWithVariableAutoCompletion } from '../../../../../forms/controls/control-with-suggestions';
-import ListRadios from '../../../../../forms/controls/list-radios';
-import GenericOption from '../../../../../forms/controls/generic-option';
-import { connect } from 'react-redux';
-import withCurrentFormVariables from '../../../../../hoc/with-current-form-variables';
+import {
+  DIMENSION_FORMATS,
+  DIMENSION_LENGTH,
+} from '../../../../../constants/pogues-constants';
+import { SelectorView, View } from '../../../../selector-view';
+import { ResponseFormatTablePrincipalListDynamic } from './table-primary-list-dynamic';
+import { ResponseFormatTablePrincipalListFixed } from './table-primary-list-fixed';
 
 const { LIST: selectorPath } = DIMENSION_FORMATS;
+const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
 
-function ResponseFormatTablePrincipalList({ isFixedLength }) {
+export default function ResponseFormatTablePrincipalList({
+  selectorPathParent,
+}) {
+  const selectorPathComposed = selectorPathParent
+    ? `${selectorPathParent}.${selectorPath}`
+    : selectorPath;
+
   return (
     <div className="axis-primary__panel">
       <FormSection name={selectorPath}>
-        <Field
-          name="isFixedLength"
-          label={Dictionary.linesNbCalculation}
-          component={ListRadios}
-          required
+        <SelectorView
+          label={Dictionary.primaryFormat}
+          selectorPath={selectorPathComposed}
+          radio
         >
-          <GenericOption key="0" value="0">
-            {Dictionary.minMax}
-          </GenericOption>
-          <GenericOption key="1" value="1">
-            {Dictionary.formula}
-          </GenericOption>
-        </Field>
-        {isFixedLength === '1' ? (
-          <Field
-            name="fixedLength"
-            type="text"
-            component={InputWithVariableAutoCompletion}
+          <View
+            key={DYNAMIC_LENGTH}
+            value={DYNAMIC_LENGTH}
+            label={Dictionary.minMax}
+          >
+            <ResponseFormatTablePrincipalListDynamic />
+          </View>
+          <View
+            key={FIXED_LENGTH}
+            value={FIXED_LENGTH}
             label={Dictionary.formula}
-            required
-          />
-        ) : (
-          <div>
-            <Field
-              name="numLinesMin"
-              type="number"
-              component={Input}
-              label={Dictionary.minRowNb}
-              required
-            />
-            <Field
-              name="numLinesMax"
-              type="number"
-              component={Input}
-              label={Dictionary.maxRowNb}
-              required
-            />
-          </div>
-        )}
+          >
+            <ResponseFormatTablePrincipalListFixed />
+          </View>
+        </SelectorView>
       </FormSection>
     </div>
   );
 }
-
-// Container
-const mapStateToProps = (state, { selectorPathParent }) => {
-  const selector = formValueSelector('component');
-
-  return {
-    isFixedLength: selector(
-      state,
-      `${selectorPathParent}.${selectorPath}.isFixedLength`,
-    ),
-  };
-};
-
-export default connect(mapStateToProps)(
-  withCurrentFormVariables(ResponseFormatTablePrincipalList),
-);

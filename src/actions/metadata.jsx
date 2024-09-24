@@ -1,3 +1,4 @@
+import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 import {
   getUnitsList,
   getSeries,
@@ -9,6 +10,7 @@ import {
   getNomenclature,
 } from '../utils/remote-api';
 
+const { NON_DYNAMIC } = DIMENSION_LENGTH;
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';
 export const LOAD_METADATA_FAILURE = 'LOAD_METADATA_FAILURE';
 const LOAD_SERIES = 'LOAD_SERIES';
@@ -212,7 +214,10 @@ const isQuestionLoop = component => {
     component.type === 'QuestionType' &&
     ((component.questionType === 'TABLE' &&
       component.ResponseStructure.Dimension.some(
-        dim => dim.dimensionType === 'PRIMARY' && dim.dynamic !== '0',
+        dim =>
+          dim.dimensionType === 'PRIMARY' &&
+          dim.dynamic !== '0' &&
+          dim.dynamic !== NON_DYNAMIC,
       )) ||
       component.questionType === 'PAIRING')
   );
