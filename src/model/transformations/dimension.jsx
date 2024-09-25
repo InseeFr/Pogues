@@ -12,8 +12,8 @@ export function stateToRemote(state) {
     type,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListState,
     fixedLength,
-    numLinesMin,
-    numLinesMax,
+    minLines,
+    maxLines,
     label: Label,
   } = state;
   const model = {
@@ -27,10 +27,10 @@ export function stateToRemote(state) {
   if (type === PRIMARY) {
     if (fixedLength !== undefined) {
       model.dynamic = FIXED_LENGTH;
-      model.fixedLength = fixedLength;
-    } else if (numLinesMin !== undefined && numLinesMax !== undefined) {
-      model.minimum = numLinesMin;
-      model.maximum = numLinesMax;
+      model.FixedLength = fixedLength;
+    } else if (minLines !== undefined && maxLines !== undefined) {
+      model.MinLines = minLines;
+      model.MaxLines = maxLines;
       model.dynamic = DYNAMIC_LENGTH;
     } else {
       model.dynamic = NON_DYNAMIC;

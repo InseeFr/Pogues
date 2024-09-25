@@ -123,9 +123,9 @@ export const questionRules = {
     [validCodesList],
   [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.numLinesMin`]:
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.minLines`]:
     [value => minValue(1)(value), value => maxValue(300)(value)],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.numLinesMax`]:
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.maxLines`]:
     [value => minValue(1)(value), value => maxValue(300)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FIXED_LENGTH}.fixedLength`]:
     [required],

@@ -144,7 +144,8 @@ function parseDynamic(dynamic) {
 // REMOTE TO STATE
 
 function remoteToStatePrimary(remote) {
-  const { dynamic, CodeListReference, fixedLength, minimum, maximum } = remote;
+  const { dynamic, CodeListReference, FixedLength, MinLines, MaxLines } =
+    remote;
   let state = {};
 
   if (CodeListReference) {
@@ -157,8 +158,10 @@ function remoteToStatePrimary(remote) {
       },
     };
   } else {
-    const [numLinesMin, numLinesMax] =
-      dynamic === 'DYNAMIC_LENGTH' ? [minimum, maximum] : parseDynamic(dynamic);
+    const [minLines, maxLines] =
+      dynamic === 'DYNAMIC_LENGTH'
+        ? [MinLines, MaxLines]
+        : parseDynamic(dynamic);
 
     state = {
       ...state,
@@ -166,11 +169,11 @@ function remoteToStatePrimary(remote) {
       [LIST]: {
         type: dynamic === 'FIXED_LENGTH' ? FIXED_LENGTH : DYNAMIC_LENGTH,
         [FIXED_LENGTH]: {
-          fixedLength,
+          fixedLength: FixedLength,
         },
         [DYNAMIC_LENGTH]: {
-          numLinesMin,
-          numLinesMax,
+          minLines,
+          maxLines,
         },
       },
     };
