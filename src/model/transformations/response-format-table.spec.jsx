@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { remoteToState, stateToRemote } from './response-format-table';
 
 describe('remoteToState', () => {
-  it('should use an offset equal to 1', () => {
+  it('should use an offset equal to 1, with old modelization of dimension', () => {
     const remote = {
       responses: [
         {
@@ -93,9 +93,14 @@ describe('remoteToState', () => {
       PRIMARY: {
         type: 'LIST',
         LIST: {
-          isFixedLength: '0',
-          numLinesMin: 1,
-          numLinesMax: 10,
+          type: 'DYNAMIC_LENGTH',
+          DYNAMIC_LENGTH: {
+            minLines: 1,
+            maxLines: 10,
+          },
+          FIXED_LENGTH: {
+            fixedLength: undefined,
+          },
         },
       },
       LIST_MEASURE: [
@@ -157,7 +162,165 @@ describe('remoteToState', () => {
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
   });
-  it('with hierarchical codes', () => {
+  it('should use an offset equal to 1, with new modelization of dimension', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'joy1vnzz',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'joxzq5qe',
+        },
+        {
+          id: 'joy1ujjc',
+          Datatype: {
+            typeName: 'NUMERIC',
+            type: 'NumericDatatypeType',
+            Minimum: '0',
+            Maximum: '10',
+            Decimals: '',
+          },
+          CollectedVariableReference: 'joxzsdwi',
+        },
+
+        {
+          id: 'k1ai8yzv',
+          Datatype: {
+            typeName: 'DATE',
+            type: 'DateDatatypeType',
+            Format: 'dd-mm-yyyy',
+            Minimum: '',
+            Maximum: '',
+          },
+          CollectedVariableReference: 'k1ail7ly',
+        },
+
+        {
+          id: 'k1tcqelo',
+          Datatype: {
+            Format: 'PTnHnM',
+            Mahours: '2',
+            Maminutes: '1',
+            Mamonths: '',
+            Maximum: 'PT2H1M',
+            Mayears: '',
+            Mihours: '1',
+            Miminutes: '1',
+            Mimonths: '',
+            Minimum: 'PT1H1M',
+            Miyears: '',
+            type: 'DurationDatatypeType',
+            typeName: 'DURATION',
+          },
+          CollectedVariableReference: 'k1tcqec4',
+        },
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: 'DYNAMIC_LENGTH',
+          MinLines: 1,
+          MaxLines: 10,
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'mes1',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'mes2',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'mes3',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'mes4',
+        },
+      ],
+    };
+
+    const codesListsStore = {};
+
+    const output = {
+      PRIMARY: {
+        type: 'LIST',
+        LIST: {
+          type: 'DYNAMIC_LENGTH',
+          DYNAMIC_LENGTH: {
+            minLines: 1,
+            maxLines: 10,
+          },
+          FIXED_LENGTH: {
+            fixedLength: undefined,
+          },
+        },
+      },
+      LIST_MEASURE: [
+        {
+          label: 'mes1',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'TEXT',
+            TEXT: {
+              maxLength: 249,
+              pattern: '',
+            },
+          },
+        },
+
+        {
+          label: 'mes2',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'NUMERIC',
+            NUMERIC: {
+              minimum: '0',
+              maximum: '10',
+              decimals: '',
+            },
+          },
+        },
+
+        {
+          label: 'mes3',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'DATE',
+            DATE: {
+              minimum: '',
+              maximum: '',
+              format: 'dd-mm-yyyy',
+            },
+          },
+        },
+
+        {
+          label: 'mes4',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'DURATION',
+            DURATION: {
+              maximum: 'PT2H1M',
+              minimum: 'PT1H1M',
+              format: 'PTnHnM',
+              mihours: '1',
+              miminutes: '1',
+              mahours: '2',
+              maminutes: '1',
+            },
+          },
+        },
+      ],
+    };
+    expect(remoteToState(remote, codesListsStore)).toEqual(output);
+  });
+  it('with hierarchical codes, with old modelization of dimension', () => {
     const remote = {
       responses: [
         {
@@ -259,7 +422,107 @@ describe('remoteToState', () => {
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
   });
-  it('without secondary axes', () => {
+  it('with hierarchical codes, with new modelization of dimension', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'jjjyttfv',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'jjjyjq15',
+        },
+
+        {
+          id: 'jjjz2i63',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'jjjyymbc',
+        },
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: 'NON_DYNAMIC',
+          CodeListReference: 'jjjyt2ta',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'measure1',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'measure2',
+        },
+      ],
+    };
+    const codesListsStore = {
+      jjjyt2ta: {
+        id: 'jjjyt2ta',
+        label: 'new',
+        codes: {
+          a1: {
+            value: 'a1',
+            label: 'a1',
+            parent: '',
+            depth: 1,
+            weight: 1,
+          },
+          a2: {
+            value: 'a2',
+            label: 'a2',
+            parent: 'a1',
+            depth: 2,
+            weight: 1,
+          },
+        },
+        name: '',
+      },
+    };
+    const output = {
+      PRIMARY: {
+        type: 'CODES_LIST',
+        CODES_LIST: {
+          CodesList: {
+            id: 'jjjyt2ta',
+          },
+        },
+      },
+      LIST_MEASURE: [
+        {
+          label: 'measure1',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'TEXT',
+            TEXT: {
+              maxLength: 249,
+              pattern: '',
+            },
+          },
+        },
+        {
+          label: 'measure2',
+          type: 'SIMPLE',
+          SIMPLE: {
+            type: 'TEXT',
+            TEXT: {
+              maxLength: 249,
+              pattern: '',
+            },
+          },
+        },
+      ],
+    };
+    expect(remoteToState(remote, codesListsStore)).toEqual(output);
+  });
+  it('without secondary axes, with old modelization of dimension', () => {
     const remote = {
       responses: [
         {
@@ -313,13 +576,96 @@ describe('remoteToState', () => {
         },
       ],
       PRIMARY: {
-        LIST: { isFixedLength: '0', numLinesMax: 3, numLinesMin: 1 },
+        LIST: {
+          type: 'DYNAMIC_LENGTH',
+          DYNAMIC_LENGTH: {
+            minLines: 1,
+            maxLines: 3,
+          },
+          FIXED_LENGTH: {
+            fixedLength: undefined,
+          },
+        },
         type: 'LIST',
       },
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
   });
-  it('with secondary axes', () => {
+  it('without secondary axes, with new modelization of dimension', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'jf0vzwbp',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'jf0vzlbq',
+        },
+        {
+          id: 'jf0vunia',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'jf0vjphy',
+        },
+        {
+          id: 'jf0vqmpo',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'jf0vyha5',
+        },
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: 'DYNAMIC_LENGTH',
+          MinLines: 1,
+          MaxLines: 3,
+        },
+        { dimensionType: 'MEASURE', Label: 'mneasure1' },
+      ],
+    };
+    const codesListsStore = {};
+    const output = {
+      LIST_MEASURE: [
+        {
+          SIMPLE: {
+            TEXT: { maxLength: 249, pattern: '' },
+            id: undefined,
+            mandatory: undefined,
+            type: 'TEXT',
+          },
+          label: 'mneasure1',
+          type: 'SIMPLE',
+        },
+      ],
+      PRIMARY: {
+        LIST: {
+          type: 'DYNAMIC_LENGTH',
+          DYNAMIC_LENGTH: {
+            minLines: 1,
+            maxLines: 3,
+          },
+          FIXED_LENGTH: {
+            fixedLength: undefined,
+          },
+        },
+        type: 'LIST',
+      },
+    };
+    expect(remoteToState(remote, codesListsStore)).toEqual(output);
+  });
+  it('with secondary axes, with old modelization of dimension', () => {
     const remote = {
       responses: [
         {
@@ -396,6 +742,82 @@ describe('remoteToState', () => {
     };
     expect(remoteToState(remote, codesListsStore)).toEqual(output);
   });
+  it('with secondary axes, with new modelization of dimension', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'jf0vblxi',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+            Pattern: '',
+          },
+          CollectedVariableReference: 'jf0vahmg',
+        },
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: 'NON_DYNAMIC',
+          CodeListReference: 'jf0vbzj9',
+        },
+        {
+          dimensionType: 'SECONDARY',
+          CodeListReference: 'jf0vj3il',
+        },
+        { dimensionType: 'MEASURE', Label: 'fsdfsdfsdf' },
+      ],
+    };
+    const codesListsStore = {
+      jf0vbzj9: {
+        id: 'jf0vbzj9',
+        label: 'code list',
+        codes: {
+          c1: { value: 'c1', label: 'asd', parent: '', depth: 1, weight: 1 },
+        },
+        name: '',
+      },
+      jf0vj3il: {
+        id: 'jf0vj3il',
+        label: 'code lisg 23',
+        codes: {
+          df: { value: 'df', label: 'sdfs', parent: '', depth: 1, weight: 1 },
+        },
+        name: '',
+      },
+    };
+    const output = {
+      MEASURE: {
+        SIMPLE: {
+          TEXT: {
+            maxLength: 249,
+            pattern: '',
+          },
+          id: undefined,
+          mandatory: undefined,
+          type: 'TEXT',
+        },
+        label: 'fsdfsdfsdf',
+        type: 'SIMPLE',
+      },
+      PRIMARY: {
+        CODES_LIST: {
+          CodesList: {
+            id: 'jf0vbzj9',
+          },
+        },
+        type: 'CODES_LIST',
+      },
+      SECONDARY: {
+        CodesList: {
+          id: 'jf0vj3il',
+        },
+        showSecondaryAxis: true,
+      },
+    };
+    expect(remoteToState(remote, codesListsStore)).toEqual(output);
+  });
 });
 
 describe('stateToRemote', () => {
@@ -404,10 +826,11 @@ describe('stateToRemote', () => {
       PRIMARY: {
         type: 'LIST',
         LIST: {
-          isFixedLength: '0',
-          fixedLength: 'formula',
-          numLinesMin: 2,
-          numLinesMax: 3,
+          type: 'DYNAMIC_LENGTH',
+          DYNAMIC_LENGTH: {
+            minLines: 2,
+            maxLines: 3,
+          },
         },
       },
       LIST_MEASURE: [
@@ -463,14 +886,12 @@ describe('stateToRemote', () => {
       {
         dimensionType: 'PRIMARY',
         dynamic: 'DYNAMIC_LENGTH',
-        isFixedLength: false,
-        minimum: 2,
-        maximum: 3,
+        MinLines: 2,
+        MaxLines: 3,
       },
       {
         Label: 'measure 1',
         dimensionType: 'MEASURE',
-        dynamic: '0',
       },
     ]);
 
@@ -555,9 +976,8 @@ describe('stateToRemote', () => {
       {
         CodeListReference: 'jf0vj3il',
         dimensionType: 'SECONDARY',
-        dynamic: '0',
       },
-      { Label: 'fsdfsdfsdf', dimensionType: 'MEASURE', dynamic: '0' },
+      { Label: 'fsdfsdfsdf', dimensionType: 'MEASURE' },
     ]);
 
     expect(result.Attribute).toEqual([
@@ -594,10 +1014,11 @@ describe('stateToRemote', () => {
       ],
       PRIMARY: {
         LIST: {
-          isFixedLength: '0',
-          fixedLength: '',
-          numLinesMin: 2,
-          numLinesMax: 1,
+          type: 'DYNAMIC_LENGTH',
+          DYNAMIC_LENGTH: {
+            minLines: 1,
+            maxLines: 2,
+          },
         },
         type: 'LIST',
       },
@@ -646,14 +1067,12 @@ describe('stateToRemote', () => {
       {
         dimensionType: 'PRIMARY',
         dynamic: 'DYNAMIC_LENGTH',
-        isFixedLength: false,
-        minimum: 2,
-        maximum: 1,
+        MinLines: 1,
+        MaxLines: 2,
       },
       {
         Label: 'testlibe',
         dimensionType: 'MEASURE',
-        dynamic: '0',
       },
     ]);
 

@@ -160,8 +160,9 @@ describe('getCollectedVariablesTable', () => {
       PRIMARY: {
         type: 'CODES_LIST',
         LIST: {
-          numLinesMin: '0',
-          numLinesMax: 0,
+          DYNAMIC_LENGTH: { minLines: 0, maxLines: 0 },
+          FIXED_LENGTH: { fixedLength: '' },
+          type: 'DYNAMIC_LENGTH',
         },
         CODES_LIST: {
           CodesList: {
@@ -330,8 +331,9 @@ describe('getCollectedVariablesTable', () => {
       PRIMARY: {
         type: 'LIST',
         LIST: {
-          numLinesMin: '1',
-          numLinesMax: '4',
+          DYNAMIC_LENGTH: { minLines: 1, maxLines: 3 },
+          FIXED_LENGTH: { fixedLength: '' },
+          type: 'DYNAMIC_LENGTH',
         },
         CODES_LIST: {
           CodesList: {

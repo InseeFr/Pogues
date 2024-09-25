@@ -13,7 +13,6 @@ describe('dimension tranformations', () => {
     });
 
     expect(result).toEqual({
-      dynamic: '0',
       dimensionType: MEASURE,
     });
   });
@@ -24,7 +23,6 @@ describe('dimension tranformations', () => {
     });
 
     expect(result).toEqual({
-      dynamic: '0',
       dimensionType: MEASURE,
       Label: 'Label',
     });
@@ -42,43 +40,36 @@ describe('dimension tranformations', () => {
       CodeListReference: '1',
     });
   });
-  test(`when the type is PRIMARY and has a numLinesMin and numLinesMax`, () => {
+  test(`when the type is PRIMARY and has a minLines and maxLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      isFixedLength: '0',
-      fixedLength: 'formula',
-      numLinesMin: 1,
-      numLinesMax: 2,
+      minLines: 1,
+      maxLines: 2,
     });
 
     expect(result).toEqual({
       dimensionType: PRIMARY,
       dynamic: 'DYNAMIC_LENGTH',
-      isFixedLength: false,
-      minimum: 1,
-      maximum: 2,
+      MinLines: 1,
+      MaxLines: 2,
     });
   });
   test(`when the type is PRIMARY and has a length fixed by a formula`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      isFixedLength: '1',
       fixedLength: 'formula',
-      numLinesMin: 1,
-      numLinesMax: 2,
     });
 
     expect(result).toEqual({
       dimensionType: PRIMARY,
       dynamic: 'FIXED_LENGTH',
-      isFixedLength: true,
-      fixedLength: 'formula',
+      FixedLength: 'formula',
     });
   });
-  test(`when the type is PRIMARY and has a numLinesMin but not numLinesMax`, () => {
+  test(`when the type is PRIMARY and has a minLines but not maxLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      numLinesMin: 1,
+      minLines: 1,
     });
 
     expect(result).toEqual({
@@ -86,10 +77,10 @@ describe('dimension tranformations', () => {
       dimensionType: PRIMARY,
     });
   });
-  test(`when the type is PRIMARY and has a numLinesMax but not numLinesMin`, () => {
+  test(`when the type is PRIMARY and has a maxLines but not minLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      numLinesMax: 2,
+      maxLines: 2,
     });
 
     expect(result).toEqual({
@@ -105,7 +96,6 @@ describe('dimension tranformations', () => {
     });
 
     expect(result).toEqual({
-      dynamic: '0',
       dimensionType: SECONDARY,
       CodeListReference: '1',
     });
@@ -118,7 +108,6 @@ test('when the type is not PRIMARY, SECONDATY neither MEASURE', () => {
   });
 
   expect(result).toEqual({
-    dynamic: '0',
     dimensionType: 'FAKE TYPE',
   });
 });

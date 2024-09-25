@@ -1191,7 +1191,10 @@ describe('collected variable tranformations', () => {
               },
             ],
             PRIMARY: {
-              LIST: { numLinesMin: 4, numLinesMax: 2 },
+              LIST: {
+                DYNAMIC_LENGTH: { minLines: 2, maxLines: 4 },
+                type: 'DYNAMIC_LENGTH',
+              },
               type: 'LIST',
             },
           },
@@ -1321,7 +1324,11 @@ describe('collected variable tranformations', () => {
               },
             ],
             PRIMARY: {
-              LIST: { numLinesMin: 4, numLinesMax: 2 },
+              LIST: {
+                DYNAMIC_LENGTH: { minLines: 0, maxLines: 0 },
+                FIXED_LENGTH: { fixedLength: '' },
+                type: 'DYNAMIC_LENGTH',
+              },
               type: 'LIST',
             },
           },
