@@ -24,7 +24,7 @@ export default function ResponseFormatTablePrincipalList({
     <div className="axis-primary__panel">
       <FormSection name={selectorPath}>
         <SelectorView
-          label={Dictionary.primaryFormat}
+          label={Dictionary.linesNbCalculation}
           selectorPath={selectorPathComposed}
           radio
         >
