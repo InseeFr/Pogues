@@ -10,14 +10,14 @@ export function ResponseFormatTablePrincipalListDynamic() {
   return (
     <FormSection name={selectorPath}>
       <Field
-        name="numLinesMin"
+        name="minLines"
         type="number"
         component={Input}
         label={Dictionary.minRowNb}
         required
       />
       <Field
-        name="numLinesMax"
+        name="maxLines"
         type="number"
         component={Input}
         label={Dictionary.maxRowNb}
