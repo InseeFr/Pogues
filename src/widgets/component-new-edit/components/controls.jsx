@@ -106,7 +106,7 @@ const Controls = ({
             id="control_scope"
             component={Select}
             label={Dictionary.control_scope}
-            required={isDynamicArray}
+            required={isRoundabout}
           >
             <GenericOption key="WHOLE" value="WHOLE">
               {Dictionary.ROUNDABOUT}
@@ -116,18 +116,6 @@ const Controls = ({
             </GenericOption>
           </Field>
         )}
-        {/* <Field */}
-        {/* name="during_collect" */}
-        {/* id="control_during_collect" */}
-        {/* component={Checkbox} */}
-        {/* label={Dictionary.control_during_collect} */}
-        {/* /> */}
-        {/* <Field */}
-        {/* name="post_collect" */}
-        {/* id="control_post_collect" */}
-        {/* component={Checkbox} */}
-        {/* label={Dictionary.control_post_collect} */}
-        {/* /> */}
       </ListWithInputPanel>
     </FormSection>
   );
