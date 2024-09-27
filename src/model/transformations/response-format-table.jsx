@@ -120,12 +120,6 @@ function getMeasuresModel(responses, dimensions, offset) {
   return responsesModel;
 }
 
-// function parseDynamic(dynamic) {
-//   return dynamic.split('-').map(v => {
-//     return v.length > 0 ? parseInt(v, 10) : 0;
-//   });
-// }
-
 function parseDynamic(dynamic) {
   // if it still uses the old format 'min-max'
   if (dynamic.includes('-')) {
