@@ -85,6 +85,16 @@ export const SequenceNewEdit = ({
               addErrors={addSubformValidationErrors}
             />
           </Tab>
+          <Tab
+            label={Dictionary.controls}
+            path={TABS_PATHS.CONTROLS}
+            key={TABS_PATHS.CONTROLS}
+          >
+            <Controls
+              errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
+              addErrors={addSubformValidationErrors}
+            />
+          </Tab>
         </Tabs>
       )}
       {componentType !== ROUNDABOUT && (

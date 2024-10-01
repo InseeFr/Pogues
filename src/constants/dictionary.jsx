@@ -791,6 +791,14 @@ const dictionary = {
     en: 'Array',
     fr: 'Tableau',
   },
+  ROUNDABOUT: {
+    en: 'Roundabout',
+    fr: 'Rond-point',
+  },
+  OCCURRENCE: {
+    en: 'Occurrence',
+    fr: 'Occurrence',
+  },
   responseFormatSimple: {
     fr: 'Réponse simple',
     en: 'Simple response',
