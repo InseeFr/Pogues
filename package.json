@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.7.2",
+  "version": "1.7.3-rc-roundabout-checks",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
