@@ -39,16 +39,6 @@ export function remoteToState(remote) {
       if (format === 'PnYnM') {
         [datatype.miyears, datatype.mimonths] = matches_minimum;
       }
-      if (format === 'HH:CH') {
-        datatype.mihundhours =
-          matches_minimum[0][0].toString() === '0'
-            ? matches_minimum[0].slice(1)
-            : matches_minimum[0];
-        datatype.mihundredths =
-          matches_minimum[1][0].toString() === '0'
-            ? matches_minimum[1].slice(1)
-            : matches_minimum[1];
-      }
     }
     if (datatype.maximum !== undefined) {
       const strmaximum = datatype.maximum;
@@ -58,16 +48,6 @@ export function remoteToState(remote) {
       }
       if (format === 'PnYnM') {
         [datatype.mayears, datatype.mamonths] = matches_maximum;
-      }
-      if (format === 'HH:CH') {
-        datatype.mahundhours =
-          matches_maximum[0][0].toString() === '0'
-            ? matches_maximum[0].slice(1)
-            : matches_maximum[0];
-        datatype.mahundredths =
-          matches_maximum[1][0].toString() === '0'
-            ? matches_maximum[1].slice(1)
-            : matches_maximum[1];
       }
     }
   }
@@ -110,10 +90,6 @@ export function stateToRemote(state, collectedVariables) {
       miminutes,
       mahours,
       maminutes,
-      mihundhours,
-      mihundredths,
-      mahundhours,
-      mahundredths,
     } = customDataType;
     const durationDataType = {};
 
@@ -133,18 +109,6 @@ export function stateToRemote(state, collectedVariables) {
       }
       if (mahours || maminutes) {
         durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
-      }
-    }
-    if (dataType.format === 'HH:CH') {
-      if (mihundhours || mihundredths) {
-        durationDataType.minimum = `${
-          mihundhours ? `0${mihundhours}`.slice(-2) : '00'
-        }:${mihundredths ? `0${mihundredths}`.slice(-2) : '00'}`;
-      }
-      if (mahundhours || mahundredths) {
-        durationDataType.maximum = `${
-          mahundhours ? `0${mahundhours}`.slice(-2) : '00'
-        }:${mahundredths ? `0${mahundredths}`.slice(-2) : '00'}`;
       }
     }
 

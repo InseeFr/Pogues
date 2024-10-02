@@ -20,8 +20,7 @@ function ResponseFormatDatatypeDuree({
   readOnly,
 }) {
   const formatInit = type === 'TABLE' ? formatTableList || formatTable : format;
-  const isDuration =
-    formatInit === 'PTnHnM' || formatInit === 'PnYnM' || formatInit === 'HH:CH';
+  const isDuration = formatInit === 'PTnHnM' || formatInit === 'PnYnM';
 
   return (
     <FormSection name={name}>
@@ -45,10 +44,6 @@ function ResponseFormatDatatypeDuree({
 
           <GenericOption key="PnYnM" value="PnYnM">
             {Dictionary.durationformat2}
-          </GenericOption>
-
-          <GenericOption key="HH:CH" value="HH:CH">
-            {Dictionary.durationformat3}
           </GenericOption>
         </Field>
         <div className="response-format-datatype-duree-minimum">
@@ -102,28 +97,6 @@ function ResponseFormatDatatypeDuree({
                 disabled={readOnly}
               />
             </div>
-
-            <div
-              className="response-format-datatype-duree-minimum"
-              style={{ display: formatInit === 'HH:CH' ? 'flex' : 'none' }}
-            >
-              <Field
-                name="mihundhours"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.hours}
-                disabled={readOnly}
-              />
-              <Field
-                name="mihundredths"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.hundredths}
-                disabled={readOnly}
-              />
-            </div>
           </div>
         </div>
 
@@ -174,28 +147,6 @@ function ResponseFormatDatatypeDuree({
                 step="any"
                 component={Input}
                 label={Dictionary.months}
-                disabled={readOnly}
-              />
-            </div>
-
-            <div
-              className="response-format-datatype-duree-maximum"
-              style={{ display: formatInit === 'HH:CH' ? 'flex' : 'none' }}
-            >
-              <Field
-                name="mahundhours"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.hours}
-                disabled={readOnly}
-              />
-              <Field
-                name="mahundredths"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.hundredths}
                 disabled={readOnly}
               />
             </div>

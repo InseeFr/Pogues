@@ -103,17 +103,6 @@ export const questionRules = {
       value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
 
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahundredths`]: [
-    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value =>
-      value !== undefined && value !== '' ? maxValue(99)(value) : false,
-  ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihundredths`]: [
-    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value =>
-      value !== undefined && value !== '' ? maxValue(99)(value) : false,
-  ],
-
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mamonths`]: [
     value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
     value =>
