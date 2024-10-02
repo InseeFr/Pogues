@@ -135,48 +135,6 @@ describe('collected variable tranformations', () => {
         output,
       );
     });
-    test('should return mihundredths = "0" if type name Duration and format HH:CH and mihundredths = 0 to the store representation of a collected variable', () => {
-      const input = [
-        {
-          id: 'k23bk67e',
-          Name: 'AQS',
-          Label: 'AQS label',
-          type: 'CollectedVariableType',
-          CodeListReference: 'id',
-          Datatype: {
-            Format: 'HH:CH',
-            Maximum: '02:12',
-            Minimum: '02:00',
-            type: 'DurationDatatypeType',
-            typeName: DURATION,
-          },
-        },
-      ];
-      const responsesByVariable = { k23bk67e: {} };
-      const codesListStore = { id: { label: 'label' } };
-      const output = {
-        k23bk67e: {
-          id: 'k23bk67e',
-          label: 'AQS label',
-          name: 'AQS',
-          type: DURATION,
-          codeListReference: 'id',
-          codeListReferenceLabel: 'label',
-          [DURATION]: {
-            format: 'HH:CH',
-            mahundhours: '2',
-            mahundredths: '12',
-            maximum: '02:12',
-            mihundhours: '2',
-            mihundredths: '0',
-            minimum: '02:00',
-          },
-        },
-      };
-      expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
-        output,
-      );
-    });
   });
   describe('remoteToComponentState', () => {
     test('should return the state representation of a collected variable', () => {
@@ -221,12 +179,8 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: undefined,
             miminutes: undefined,
-            mihundhours: undefined,
-            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
-            mahundhours: undefined,
-            mahundredths: undefined,
           },
         },
       };
@@ -311,12 +265,8 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: undefined,
             miminutes: undefined,
-            mihundhours: undefined,
-            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
-            mahundhours: undefined,
-            mahundredths: undefined,
           },
         },
       };
@@ -378,98 +328,6 @@ describe('collected variable tranformations', () => {
       expect(storeToRemote(input, input1)).toEqual(output);
     });
 
-    test('should return collected variable model if type is DURATION and the HH:CH format', () => {
-      const input = {
-        k23bk67e: {
-          id: 'k23bk67e',
-          label: 'AQS label',
-          name: 'AQS',
-          x: undefined,
-          y: undefined,
-          type: DURATION,
-          [DURATION]: {
-            decimals: undefined,
-            maxLength: undefined,
-            pattern: undefined,
-            format: 'HH:CH',
-            minimum: undefined,
-            maximum: undefined,
-            unit: undefined,
-            miyears: undefined,
-            mimonths: undefined,
-            mayears: undefined,
-            mamonths: undefined,
-            mihours: undefined,
-            miminutes: undefined,
-            mihundhours: 2,
-            mihundredths: 2,
-            mahours: undefined,
-            maminutes: undefined,
-            mahundhours: 3,
-            mahundredths: 0,
-          },
-        },
-      };
-
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ['CAWI', 'PAPI'],
-          children: [],
-          collectedVariables: ['kaphc2ly'],
-          controls: {},
-          declarations: {},
-          id: 'kapgzmji',
-          label: 'question1',
-          name: 'QUESTION1',
-          parent: 'kaph7dbh',
-          redirections: {},
-          responseFormat: {
-            type: 'SIMPLE',
-            SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
-              id: 'kaph6l3y',
-              mandatory: false,
-              type: 'TEXT',
-            },
-          },
-          responsesClarification: undefined,
-          type: 'QUESTION',
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ['CAWI', 'PAPI'],
-          children: ['kapgzmji', 'kaphg7pd'],
-          controls: {},
-          declarations: {},
-          id: 'kaph7dbh',
-          label: 'sequence1',
-          name: 'SEQUENCE1',
-          parent: 'kaphhxpd',
-          redirections: {},
-          responsesClarification: undefined,
-          type: 'SEQUENCE',
-          weight: 0,
-        },
-      };
-      const output = [
-        {
-          CodeListReference: undefined,
-          Label: 'AQS label',
-          Name: 'AQS',
-          id: 'k23bk67e',
-          type: 'CollectedVariableType',
-          Datatype: {
-            Format: 'HH:CH',
-            Maximum: '03:00',
-            Minimum: '02:02',
-            type: 'DurationDatatypeType',
-            typeName: DURATION,
-          },
-        },
-      ];
-      expect(storeToRemote(input, input1)).toEqual(output);
-    });
-
     test('should return collected variable model if type is DURATION and the PTnHnM format', () => {
       const input = {
         k23bk67e: {
@@ -493,12 +351,8 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: 2,
             miminutes: '',
-            mihundhours: undefined,
-            mihundredths: undefined,
             mahours: 2,
             maminutes: 2,
-            mahundhours: undefined,
-            mahundredths: undefined,
           },
         },
       };
@@ -584,12 +438,8 @@ describe('collected variable tranformations', () => {
             mamonths: 1,
             mihours: undefined,
             miminutes: undefined,
-            mihundhours: undefined,
-            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
-            mahundhours: undefined,
-            mahundredths: undefined,
           },
         },
       };
@@ -676,12 +526,8 @@ describe('collected variable tranformations', () => {
             mamonths: 1,
             mihours: undefined,
             miminutes: undefined,
-            mihundhours: undefined,
-            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
-            mahundhours: undefined,
-            mahundredths: undefined,
           },
         },
       };
@@ -766,12 +612,8 @@ describe('collected variable tranformations', () => {
             mamonths: undefined,
             mihours: 2,
             miminutes: 1,
-            mihundhours: undefined,
-            mihundredths: undefined,
             mahours: undefined,
             maminutes: undefined,
-            mahundhours: undefined,
-            mahundredths: undefined,
           },
         },
       };
@@ -827,186 +669,6 @@ describe('collected variable tranformations', () => {
           Datatype: {
             Format: 'PTnHnM',
             Minimum: 'PT2H1M',
-            type: 'DurationDatatypeType',
-            typeName: DURATION,
-          },
-        },
-      ];
-      expect(storeToRemote(input, input1)).toEqual(output);
-    });
-    test('should not return Maximum collected variable model if type is DURATION and the HH:CH format and mahundhours and mahundredths are undefined', () => {
-      const input = {
-        k23bk67e: {
-          id: 'k23bk67e',
-          label: 'AQS label',
-          name: 'AQS',
-          x: undefined,
-          y: undefined,
-          type: DURATION,
-          [DURATION]: {
-            decimals: undefined,
-            maxLength: undefined,
-            pattern: undefined,
-            format: 'HH:CH',
-            minimum: undefined,
-            maximum: undefined,
-            unit: undefined,
-            miyears: undefined,
-            mimonths: undefined,
-            mayears: undefined,
-            mamonths: undefined,
-            mihours: undefined,
-            miminutes: undefined,
-            mihundhours: 0,
-            mihundredths: 3,
-            mahours: undefined,
-            maminutes: undefined,
-            mahundhours: undefined,
-            mahundredths: undefined,
-          },
-        },
-      };
-
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ['CAWI', 'PAPI'],
-          children: [],
-          collectedVariables: ['kaphc2ly'],
-          controls: {},
-          declarations: {},
-          id: 'kapgzmji',
-          label: 'question1',
-          name: 'QUESTION1',
-          parent: 'kaph7dbh',
-          redirections: {},
-          responseFormat: {
-            type: 'SIMPLE',
-            SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
-              id: 'kaph6l3y',
-              mandatory: false,
-              type: 'TEXT',
-            },
-          },
-          responsesClarification: undefined,
-          type: 'QUESTION',
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ['CAWI', 'PAPI'],
-          children: ['kapgzmji', 'kaphg7pd'],
-          controls: {},
-          declarations: {},
-          id: 'kaph7dbh',
-          label: 'sequence1',
-          name: 'SEQUENCE1',
-          parent: 'kaphhxpd',
-          redirections: {},
-          responsesClarification: undefined,
-          type: 'SEQUENCE',
-          weight: 0,
-        },
-      };
-      const output = [
-        {
-          CodeListReference: undefined,
-          Label: 'AQS label',
-          Name: 'AQS',
-          id: 'k23bk67e',
-          type: 'CollectedVariableType',
-          Datatype: {
-            Format: 'HH:CH',
-            Minimum: '00:03',
-            type: 'DurationDatatypeType',
-            typeName: DURATION,
-          },
-        },
-      ];
-      expect(storeToRemote(input, input1)).toEqual(output);
-    });
-    test('should not return Minimum collected variable model if type is DURATION and the HH:CH format and mihundhours and mihundredths are undefined', () => {
-      const input = {
-        k23bk67e: {
-          id: 'k23bk67e',
-          label: 'AQS label',
-          name: 'AQS',
-          x: undefined,
-          y: undefined,
-          type: DURATION,
-          [DURATION]: {
-            decimals: undefined,
-            maxLength: undefined,
-            pattern: undefined,
-            format: 'HH:CH',
-            minimum: undefined,
-            maximum: undefined,
-            unit: undefined,
-            miyears: undefined,
-            mimonths: undefined,
-            mayears: undefined,
-            mamonths: undefined,
-            mihours: undefined,
-            miminutes: undefined,
-            mihundhours: undefined,
-            mihundredths: undefined,
-            mahours: undefined,
-            maminutes: undefined,
-            mahundhours: 0,
-            mahundredths: 2,
-          },
-        },
-      };
-
-      const input1 = {
-        kapgzmji: {
-          TargetMode: ['CAWI', 'PAPI'],
-          children: [],
-          collectedVariables: ['kaphc2ly'],
-          controls: {},
-          declarations: {},
-          id: 'kapgzmji',
-          label: 'question1',
-          name: 'QUESTION1',
-          parent: 'kaph7dbh',
-          redirections: {},
-          responseFormat: {
-            type: 'SIMPLE',
-            SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
-              id: 'kaph6l3y',
-              mandatory: false,
-              type: 'TEXT',
-            },
-          },
-          responsesClarification: undefined,
-          type: 'QUESTION',
-          weight: 0,
-        },
-        kaph7dbh: {
-          TargetMode: ['CAWI', 'PAPI'],
-          children: ['kapgzmji', 'kaphg7pd'],
-          controls: {},
-          declarations: {},
-          id: 'kaph7dbh',
-          label: 'sequence1',
-          name: 'SEQUENCE1',
-          parent: 'kaphhxpd',
-          redirections: {},
-          responsesClarification: undefined,
-          type: 'SEQUENCE',
-          weight: 0,
-        },
-      };
-      const output = [
-        {
-          CodeListReference: undefined,
-          Label: 'AQS label',
-          Name: 'AQS',
-          id: 'k23bk67e',
-          type: 'CollectedVariableType',
-          Datatype: {
-            Format: 'HH:CH',
-            Maximum: '00:02',
             type: 'DurationDatatypeType',
             typeName: DURATION,
           },

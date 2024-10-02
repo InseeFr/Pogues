@@ -90,16 +90,6 @@ function getMeasuresModel(responses, dimensions, offset) {
           responses[i].Datatype.Mimonths =
             matches_minimum[1] === 0 ? '' : matches_minimum[0];
         }
-        if (responses[i].Datatype.Format === 'HH:CH') {
-          responses[i].Datatype.Mihundhours =
-            matches_minimum[0][0] === 0
-              ? matches_minimum[0].slice(1)
-              : matches_minimum[0];
-          responses[i].Datatype.Mihundredths =
-            matches_minimum[1][0] === 0
-              ? matches_minimum[1].slice(1)
-              : matches_minimum[1];
-        }
       }
       if (responses[i].Datatype.Maximum !== undefined) {
         const strmaximum = responses[i].Datatype.Maximum;
@@ -115,16 +105,6 @@ function getMeasuresModel(responses, dimensions, offset) {
             matches_maximum[0] === 0 ? '' : matches_maximum[0];
           responses[i].Datatype.Mamonths =
             matches_maximum[1] === 0 ? '' : matches_maximum[0];
-        }
-        if (responses[i].Datatype.Format === 'HH:CH') {
-          responses[i].Datatype.Mahundhours =
-            matches_maximum[0][0] === 0
-              ? matches_maximum[0].slice(1)
-              : matches_maximum[0];
-          responses[i].Datatype.Mahundredths =
-            matches_maximum[1][0] === 0
-              ? matches_maximum[1].slice(1)
-              : matches_maximum[1];
         }
       }
     }
@@ -300,10 +280,6 @@ function stateToResponseState(state) {
         miminutes,
         mahours,
         maminutes,
-        mihundhours,
-        mihundredths,
-        mahundhours,
-        mahundredths,
       } = customsimpleState;
       const durationDataType = {};
       durationDataType.format = simpleState.format;
@@ -323,18 +299,7 @@ function stateToResponseState(state) {
           durationDataType.maximum = `PT${mahours || 0}H${maminutes || 0}M`;
         }
       }
-      if (simpleState.format === 'HH:CH') {
-        if (mihundhours || mihundredths) {
-          durationDataType.minimum = `${
-            mihundhours ? `0${mihundhours}`.slice(-2) : '00'
-          }:${mihundredths ? `0${mihundredths}`.slice(-2) : '00'}`;
-        }
-        if (mahundhours || mahundredths) {
-          durationDataType.maximum = `${
-            mahundhours ? `0${mahundhours}`.slice(-2) : '00'
-          }:${mahundredths ? `0${mahundredths}`.slice(-2) : '00'}`;
-        }
-      }
+
       customsimpleState = durationDataType;
     }
 

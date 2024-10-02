@@ -12,7 +12,6 @@ describe('checkVariableNumberStart', () => {
           maximum: '',
           mihours: '',
           miminutes: '',
-          mihundhours: '',
         },
         NUMERIC: { minimum: '', maximum: '', decimals: '', unit: '' },
         TEXT: { maxLength: 249, pattern: '' },

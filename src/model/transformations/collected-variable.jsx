@@ -217,10 +217,6 @@ export function storeToRemote(store, componentsStore) {
         miminutes: Miminutes,
         mahours: Mahours,
         maminutes: Maminutes,
-        mihundhours: Mihundhours,
-        mihundredths: Mihundredths,
-        mahundhours: Mahundhours,
-        mahundredths: Mahundredths,
       },
     } = store[key];
 
@@ -286,18 +282,6 @@ export function storeToRemote(store, componentsStore) {
         }
         if (Mahours || Maminutes) {
           model.Datatype.Maximum = `PT${Mahours || 0}H${Maminutes || 0}M`;
-        }
-      }
-      if (Format === 'HH:CH') {
-        if (Mihundhours || Mihundredths) {
-          model.Datatype.Minimum = `${
-            Mihundhours ? `0${Mihundhours}`.slice(-2) : '00'
-          }:${Mihundredths ? `0${Mihundredths}`.slice(-2) : '00'}`;
-        }
-        if (Mahundhours || Mahundredths) {
-          model.Datatype.Maximum = `${
-            Mahundhours ? `0${Mahundhours}`.slice(-2) : '00'
-          }:${Mahundredths ? `0${Mahundredths}`.slice(-2) : '00'}`;
         }
       }
     } else if (typeName === DATATYPE_NAME.DATE) {
