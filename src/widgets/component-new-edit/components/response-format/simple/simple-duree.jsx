@@ -46,112 +46,105 @@ function ResponseFormatDatatypeDuree({
             {Dictionary.durationformat2}
           </GenericOption>
         </Field>
-        <div className="response-format-datatype-duree-minimum">
-          <div
-            className="response-format-datatype-duree-label-minimum"
-            style={{ display: isDuration ? 'flex' : 'none' }}
-          >
-            {Dictionary.minimum}
-          </div>
-          <div style={{ width: '75%' }}>
-            <div
-              className="response-format-datatype-duree-minimum"
-              style={{ display: formatInit === 'PTnHnM' ? 'flex' : 'none' }}
-            >
-              <Field
-                name="mihours"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.hours}
-                disabled={readOnly}
-              />
-              <Field
-                name="miminutes"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.minutes}
-                disabled={readOnly}
-              />
+        {isDuration && (
+          <div>
+            <div className="response-format-datatype-duree-minimum">
+              <div className="response-format-datatype-duree-label-minimum">
+                {Dictionary.minimum}
+              </div>
+              <div style={{ width: '75%' }}>
+                {formatInit === 'PTnHnM' && (
+                  <div className="response-format-datatype-duree-minimum">
+                    <Field
+                      name="mihours"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.hours}
+                      disabled={readOnly}
+                    />
+                    <Field
+                      name="miminutes"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.minutes}
+                      disabled={readOnly}
+                    />
+                  </div>
+                )}
+                {formatInit === 'PnYnM' && (
+                  <div className="response-format-datatype-duree-minimum">
+                    <Field
+                      name="miyears"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.years}
+                      disabled={readOnly}
+                    />
+                    <Field
+                      name="mimonths"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.months}
+                      disabled={readOnly}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div
-              className="response-format-datatype-duree-minimum"
-              style={{ display: formatInit === 'PnYnM' ? 'flex' : 'none' }}
-            >
-              <Field
-                name="miyears"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.years}
-                disabled={readOnly}
-              />
-              <Field
-                name="mimonths"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.months}
-                disabled={readOnly}
-              />
+            <div className="response-format-datatype-duree-maximum">
+              <div className="response-format-datatype-duree-label-maximum">
+                {Dictionary.maximum}
+              </div>
+              <div style={{ width: '75%' }}>
+                {formatInit === 'PTnHnM' && (
+                  <div className="response-format-datatype-duree-maximum">
+                    <Field
+                      name="mahours"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.hours}
+                      disabled={readOnly}
+                    />
+                    <Field
+                      name="maminutes"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.minutes}
+                      disabled={readOnly}
+                    />
+                  </div>
+                )}
+                {formatInit === 'PnYnM' && (
+                  <div className="response-format-datatype-duree-maximum">
+                    <Field
+                      name="mayears"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.years}
+                      disabled={readOnly}
+                    />
+                    <Field
+                      name="mamonths"
+                      type="number"
+                      step="any"
+                      component={Input}
+                      label={Dictionary.months}
+                      disabled={readOnly}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="response-format-datatype-duree-maximum">
-          <div
-            className="response-format-datatype-duree-label-maximum"
-            style={{ display: isDuration ? 'flex' : 'none' }}
-          >
-            {Dictionary.maximum}
-          </div>
-          <div style={{ width: '75%' }}>
-            <div
-              className="response-format-datatype-duree-maximum"
-              style={{ display: formatInit === 'PTnHnM' ? 'flex' : 'none' }}
-            >
-              <Field
-                name="mahours"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.hours}
-                disabled={readOnly}
-              />
-              <Field
-                name="maminutes"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.minutes}
-                disabled={readOnly}
-              />
-            </div>
-            <div
-              className="response-format-datatype-duree-maximum"
-              style={{ display: formatInit === 'PnYnM' ? 'flex' : 'none' }}
-            >
-              <Field
-                name="mayears"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.years}
-                disabled={readOnly}
-              />
-              <Field
-                name="mamonths"
-                type="number"
-                step="any"
-                component={Input}
-                label={Dictionary.months}
-                disabled={readOnly}
-              />
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </FormSection>
   );
