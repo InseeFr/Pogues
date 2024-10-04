@@ -12,6 +12,7 @@ export const defaultTypageForm = {
     minimum: '',
     maximum: '',
     decimals: '',
+    isDynamicUnit: false,
     unit: '',
   },
   [DATE]: {
