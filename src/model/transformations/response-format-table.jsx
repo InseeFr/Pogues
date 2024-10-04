@@ -14,10 +14,12 @@ import {
   QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_LENGTH,
 } from '../../constants/pogues-constants';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
+const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { TEXT } = DATATYPE_NAME;
 
@@ -119,21 +121,26 @@ function getMeasuresModel(responses, dimensions, offset) {
 }
 
 function parseDynamic(dynamic) {
-  return dynamic.split('-').map(v => {
-    return v.length > 0 ? parseInt(v, 10) : 0;
-  });
+  // if it still uses the old format 'min-max'
+  if (dynamic.includes('-')) {
+    const minMax = dynamic.split('-').map(v => parseInt(v, 10));
+
+    // Check if we have exactly two valid numbers
+    if (minMax.length === 2 && !isNaN(minMax[0]) && !isNaN(minMax[1])) {
+      return minMax;
+    }
+  }
+
+  // Default case: return [0, 0] for '0', 'NON_DYNAMIC', or any invalid format
+  return [0, 0];
 }
 
 // REMOTE TO STATE
 
 function remoteToStatePrimary(remote) {
-  const { totalLabel, dynamic, CodeListReference } = remote;
+  const { dynamic, CodeListReference, FixedLength, MinLines, MaxLines } =
+    remote;
   let state = {};
-
-  if (totalLabel) {
-    state.showTotalLabel = '1';
-    state.totalLabel = totalLabel;
-  }
 
   if (CodeListReference) {
     state = {
@@ -145,13 +152,23 @@ function remoteToStatePrimary(remote) {
       },
     };
   } else {
-    const [numLinesMin, numLinesMax] = parseDynamic(dynamic);
+    const [minLines, maxLines] =
+      dynamic === 'DYNAMIC_LENGTH'
+        ? [MinLines, MaxLines]
+        : parseDynamic(dynamic);
+
     state = {
       ...state,
       type: LIST,
       [LIST]: {
-        numLinesMin: numLinesMin,
-        numLinesMax: numLinesMax,
+        type: dynamic === 'FIXED_LENGTH' ? FIXED_LENGTH : DYNAMIC_LENGTH,
+        [FIXED_LENGTH]: {
+          fixedLength: FixedLength,
+        },
+        [DYNAMIC_LENGTH]: {
+          minLines,
+          maxLines,
+        },
       },
     };
   }
@@ -160,17 +177,12 @@ function remoteToStatePrimary(remote) {
 }
 
 function remoteToStateSecondary(remote) {
-  const { totalLabel, CodeListReference } = remote;
+  const { CodeListReference } = remote;
   const state = {
     showSecondaryAxis: true,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       CodeList.remoteToState(CodeListReference),
   };
-
-  if (totalLabel) {
-    state.showTotalLabel = '1';
-    state.totalLabel = totalLabel;
-  }
 
   return state;
 }
@@ -339,17 +351,23 @@ export function stateToRemote(
   const {
     type,
     [type]: { type: typePrimaryCodesList, ...primaryTypeState },
-    ...totalLabelPrimaryState
   } = primaryState;
   const dimensionsModel = [];
   let responsesState = [];
+
+  let primaryListTypeState = {};
+  if (type === LIST) {
+    const listTypeState = primaryTypeState[typePrimaryCodesList];
+    if (listTypeState) {
+      primaryListTypeState = { ...listTypeState };
+    }
+  }
 
   // Primary and secondary dimension
   dimensionsModel.push(
     Dimension.stateToRemote({
       type: PRIMARY,
-      ...primaryTypeState,
-      ...totalLabelPrimaryState,
+      ...(type === LIST ? primaryListTypeState : primaryTypeState),
     }),
   );
   if (secondaryState) {

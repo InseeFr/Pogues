@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { remoteToState, stateToRemote } from './response-format-multiple';
 
 describe('response format multiple', () => {
-  it('remoteToState', () => {
+  it('remoteToState, with old modelization of dynamic', () => {
     const remote = {
       responses: [
         {
@@ -18,6 +18,32 @@ describe('response format multiple', () => {
           CodeListReference: 'jf0w3fab',
         },
         { dimensionType: 'MEASURE', dynamic: '0' },
+      ],
+    };
+    const output = remoteToState(remote);
+    const expected = {
+      MEASURE: { BOOL: {}, type: 'BOOL' },
+      PRIMARY: { CodesList: { id: 'jf0w3fab' } },
+    };
+    expect(output).toEqual(expected);
+  });
+
+  it('remoteToState, with new modelizaation of dynamic', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'jf0wxgwc',
+          Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
+          CollectedVariableReference: 'jf0wtl3p',
+        },
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: 'NON_DYNAMIC',
+          CodeListReference: 'jf0w3fab',
+        },
+        { dimensionType: 'MEASURE' },
       ],
     };
     const output = remoteToState(remote);
@@ -66,9 +92,9 @@ describe('response format multiple', () => {
           {
             CodeListReference: 'jf0w3fab',
             dimensionType: 'PRIMARY',
-            dynamic: '0',
+            dynamic: 'NON_DYNAMIC',
           },
-          { dimensionType: 'MEASURE', dynamic: '0' },
+          { dimensionType: 'MEASURE' },
         ],
         Mapping: [{ MappingSource: output.Response[0].id, MappingTarget: '1' }],
         Response: [
@@ -150,9 +176,9 @@ describe('response format multiple', () => {
           {
             CodeListReference: 'kgs19ihv',
             dimensionType: 'PRIMARY',
-            dynamic: '0',
+            dynamic: 'NON_DYNAMIC',
           },
-          { dimensionType: 'MEASURE', dynamic: '0' },
+          { dimensionType: 'MEASURE' },
         ],
         Mapping: [
           { MappingSource: 'kgs1hrro', MappingTarget: '1' },
