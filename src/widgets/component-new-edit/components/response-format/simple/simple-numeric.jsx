@@ -3,11 +3,11 @@ import Input from '../../../../../forms/controls/input';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
 import SelectMetaDataContainer from '../../../../../layout/connected-widget/select-metadata';
-import CheckboxBoolean from '../../../../../forms/controls/checkboxBoolean';
 import { connect } from 'react-redux';
 import withCurrentFormVariables from '../../../../../hoc/with-current-form-variables';
 import Select from '../../../../../forms/controls/select';
 import GenericOption from '../../../../../forms/controls/generic-option';
+import ListRadios from '../../../../../forms/controls/list-radios';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -66,11 +66,23 @@ function ResponseFormatDatatypeNumeric({
         />
         <Field
           name="isDynamicUnit"
-          component={CheckboxBoolean}
+          component={ListRadios}
           label={Dictionary.dynamicUnit}
           disabled={readOnly}
           onChange={handleDynamicUnitChange}
-        />
+          required
+          // Convert string "true"/"false" to boolean true/false when storing in Redux form
+          parse={value => value === 'true'}
+          // Convert boolean true/false to string "true"/"false" when displaying the form
+          format={value => (value === true ? 'true' : 'false')}
+        >
+          <GenericOption key="1" value="true">
+            {Dictionary.yes}
+          </GenericOption>
+          <GenericOption key="2" value="false">
+            {Dictionary.no}
+          </GenericOption>
+        </Field>
         {isDynamicUnit ? (
           <Field
             name="unit"
