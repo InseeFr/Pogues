@@ -379,9 +379,9 @@
       "urn": "urn:ddi:fr.insee:l_specialites-1-0-0:1",
       "codes": []
     },
-    "L_LANGUES-1-0-0": {
-      "id": "L_LANGUES-1-0-0",
-      "name": "L_LANGUES-1-0-0",
+    "L_LANGUES-2-0-0": {
+      "id": "L_LANGUES-2-0-0",
+      "name": "L_LANGUES-2-0-0",
       "label": "Langues",
       "parameters": {
         "version": 1,
@@ -404,7 +404,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_langues-1-0-0:1",
+      "urn": "urn:ddi:fr.insee:l_langues-2-0-0:1",
       "codes": []
     },
     "L_PRODEAP_VPI_2024": {
