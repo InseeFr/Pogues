@@ -65,14 +65,15 @@ export function stateToRemote(store) {
         MemberReference: [initialMember, finalMember],
         type: 'DynamicIterationType',
       };
-      if (maximum) {
+      if (basedOn) {
+        response.IterableReference = basedOn;
+      }
+      if (maximum && !basedOn) {
         response.Maximum = maximum;
         response.Step = '1';
         response.Minimum = minimum;
       }
-      if (basedOn) {
-        response.IterableReference = basedOn;
-      }
+
       if (addButtonLibel) {
         response.Label = addButtonLibel;
       }
