@@ -875,6 +875,14 @@ const dictionary = {
     fr: 'Liste',
     en: 'List',
   },
+  minMax: {
+    fr: 'Min/Max',
+    en: 'Min/max',
+  },
+  linesNbCalculation: {
+    fr: 'Calcul du nombre de lignes',
+    en: 'Calculation of number of lines',
+  },
   minRowNb: {
     fr: 'Nombre de lignes min.',
     en: 'Number of lines min.',
@@ -882,22 +890,6 @@ const dictionary = {
   maxRowNb: {
     fr: 'Nombre de lignes max.',
     en: 'Number of lines max.',
-  },
-  rowTotal: {
-    fr: 'Ajouter la ligne "Total"',
-    en: 'Add the "Total" row',
-  },
-  rowTotalLabel: {
-    fr: 'Libellé de la ligne "Total"',
-    en: 'Label of the "Total" row',
-  },
-  columnTotal: {
-    fr: 'Ajouter la colonne "Total"',
-    en: 'Add the "Total" column',
-  },
-  columnTotalLabel: {
-    fr: 'Libellé de la colonne "Total"',
-    en: 'Label of the "Total" column',
   },
   addScndAxis: {
     fr: 'Ajouter un axe secondaire',

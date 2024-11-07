@@ -158,12 +158,11 @@ describe('getCollectedVariablesTable', () => {
     const questionName = 'QUESTION';
     const form = {
       PRIMARY: {
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'CODES_LIST',
         LIST: {
-          numLinesMin: '0',
-          numLinesMax: 0,
+          DYNAMIC_LENGTH: { minLines: 0, maxLines: 0 },
+          FIXED_LENGTH: { fixedLength: '' },
+          type: 'DYNAMIC_LENGTH',
         },
         CODES_LIST: {
           CodesList: {
@@ -189,8 +188,6 @@ describe('getCollectedVariablesTable', () => {
           codes: [],
         },
         showSecondaryAxis: false,
-        showTotalLabel: '0',
-        totalLabel: '',
       },
       LIST_MEASURE: {
         label: '',
@@ -332,12 +329,11 @@ describe('getCollectedVariablesTable', () => {
     const questionName = 'QUESTION';
     const form = {
       PRIMARY: {
-        showTotalLabel: '0',
-        totalLabel: '',
         type: 'LIST',
         LIST: {
-          numLinesMin: '1',
-          numLinesMax: '4',
+          DYNAMIC_LENGTH: { minLines: 1, maxLines: 3 },
+          FIXED_LENGTH: { fixedLength: '' },
+          type: 'DYNAMIC_LENGTH',
         },
         CODES_LIST: {
           CodesList: {
@@ -354,8 +350,6 @@ describe('getCollectedVariablesTable', () => {
           codes: [],
         },
         showSecondaryAxis: false,
-        showTotalLabel: '0',
-        totalLabel: '',
       },
       LIST_MEASURE: {
         label: '',

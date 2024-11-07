@@ -2,12 +2,13 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 import { verifyVariable } from '../../../utils/utils';
 
-import { Factory as CodesListFactory } from '../..';
+import { Factory as CodesListFactory } from '../codes-lists/codes-list';
 import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DIMENSION_FORMATS,
+  DIMENSION_LENGTH,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
   UI_BEHAVIOUR,
@@ -15,6 +16,7 @@ import {
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
+const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { RADIO } = DATATYPE_VIS_HINT;
@@ -80,15 +82,21 @@ export const defaultMeasureForm = {
   },
 };
 
+const defaultPrimaryListState = {
+  type: DYNAMIC_LENGTH,
+  [DYNAMIC_LENGTH]: {
+    minLines: 0,
+    maxLines: 0,
+  },
+  [FIXED_LENGTH]: {
+    fixedLength: '',
+  },
+};
+
 export const defaultState = {
   [PRIMARY]: {
-    showTotalLabel: '0',
-    totalLabel: '',
     type: LIST,
-    [LIST]: {
-      numLinesMin: 0,
-      numLinesMax: 0,
-    },
+    [LIST]: defaultPrimaryListState,
     [CODES_LIST]: {
       // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     },
@@ -96,8 +104,6 @@ export const defaultState = {
   [SECONDARY]: {
     // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     showSecondaryAxis: false,
-    showTotalLabel: '0',
-    totalLabel: '',
   },
   [LIST_MEASURE]: {
     ...defaultMeasureState,
@@ -107,17 +113,23 @@ export const defaultState = {
 };
 
 export function formToStatePrimary(form, codesListPrimary) {
-  const { showTotalLabel, totalLabel, type, [type]: primaryForm } = form;
+  const { type, [type]: primaryForm } = form;
 
   const state = {
-    showTotalLabel,
-    totalLabel,
     type,
   };
 
   if (type === LIST) {
-    const { numLinesMin, numLinesMax } = primaryForm;
-    state[LIST] = { numLinesMin, numLinesMax };
+    const {
+      type: listType,
+      [listType]: { minLines, maxLines, fixedLength },
+    } = primaryForm;
+
+    state[LIST] = {
+      type: listType,
+      [listType]:
+        listType === DYNAMIC_LENGTH ? { minLines, maxLines } : { fixedLength },
+    };
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;
     state[CODES_LIST] = {
@@ -132,14 +144,10 @@ export function formToStatePrimary(form, codesListPrimary) {
 export function formToStateSecondary(form, codesListSecondary) {
   const {
     showSecondaryAxis,
-    showTotalLabel,
-    totalLabel,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
   } = form;
   return {
     showSecondaryAxis,
-    showTotalLabel,
-    totalLabel,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       codesListSecondary.formToStateComponent(codesListForm),
   };
@@ -210,11 +218,9 @@ export function formToState(form, transformers) {
 }
 
 export function stateToFormPrimary(currentState, codesListPrimary) {
-  const { showTotalLabel, totalLabel, type, [LIST]: listState } = currentState;
+  const { type, [LIST]: listState } = currentState;
 
   return {
-    showTotalLabel,
-    totalLabel,
     type,
     [LIST]: { ...listState },
     [CODES_LIST]: {
@@ -225,11 +231,9 @@ export function stateToFormPrimary(currentState, codesListPrimary) {
 }
 
 export function stateToFormSecondary(currentState, codesListSecondary) {
-  const { showSecondaryAxis, showTotalLabel, totalLabel } = currentState;
+  const { showSecondaryAxis } = currentState;
   return {
     showSecondaryAxis,
-    showTotalLabel,
-    totalLabel,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       codesListSecondary.stateComponentToForm(),
   };
@@ -426,34 +430,28 @@ const Factory = (initialState = {}, codesListsStore) => {
     getNormalizedValues: form => {
       // Values ready to be validated
       const {
-        [PRIMARY]: {
-          type: typePrimary,
-          [typePrimary]: primary,
-          showTotalLabel: showTotalLabelPrimary,
-          totalLabel: totalLabelPrimary,
-        },
-        [SECONDARY]: {
-          showSecondaryAxis,
-          showTotalLabel: showTotalLabelSecondary,
-          totalLabel: totalLabelSecondary,
-          ...others
-        },
+        [PRIMARY]: { type: typePrimary, [typePrimary]: primary },
+        [SECONDARY]: { showSecondaryAxis, ...others },
         [MEASURE]: measure,
         [LIST_MEASURE]: { measures: listMeasures, ...listMeasuresInput },
       } = form;
 
       // Normalized primary axis values
 
-      const normalized = {
-        [PRIMARY]: {
-          type: typePrimary,
-          showTotalLabel: showTotalLabelPrimary,
-          [typePrimary]: primary,
-        },
-      };
+      const normalized = {};
 
-      if (showTotalLabelPrimary === '1') {
-        normalized[PRIMARY].totalLabel = totalLabelPrimary;
+      if (typePrimary === CODES_LIST) {
+        normalized[PRIMARY] = {
+          type: typePrimary,
+          [typePrimary]: primary,
+        };
+      }
+      if (typePrimary === LIST) {
+        const { type: listType, [listType]: listContent } = primary;
+        normalized[PRIMARY] = {
+          type: typePrimary,
+          [typePrimary]: { type: listType, [listType]: listContent },
+        };
       }
 
       if (typePrimary === CODES_LIST && showSecondaryAxis) {
@@ -462,11 +460,7 @@ const Factory = (initialState = {}, codesListsStore) => {
         normalized[SECONDARY] = {
           ...others,
           showSecondaryAxis,
-          showTotalLabelSecondary,
         };
-        if (showTotalLabelSecondary === '1') {
-          normalized[SECONDARY].totalLabel = totalLabelSecondary;
-        }
 
         // Normalized measure axis values
 
