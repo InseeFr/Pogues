@@ -93,6 +93,7 @@ export const SequenceNewEdit = ({
             <Controls
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
+              isRoundabout={true}
             />
           </Tab>
         </Tabs>

@@ -132,7 +132,6 @@ const mapStateToProps = (state, { formName }) => {
         state,
         `${TABS_PATHS.RESPONSE_FORMAT}.${QUESTION_TYPE_ENUM.TABLE}.${DIMENSION_TYPE.PRIMARY}.type`,
       ) === DIMENSION_FORMATS.LIST,
-    isRoundabout: selector(state, `locked`) !== undefined,
   };
 };
 
