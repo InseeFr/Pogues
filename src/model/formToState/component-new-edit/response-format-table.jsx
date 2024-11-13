@@ -1,8 +1,12 @@
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
-import { verifyVariable } from '../../../utils/utils';
+import { uuid, verifyVariable } from '../../../utils/utils';
 
-import { Factory as CodesListFactory } from '../codes-lists/codes-list';
+import {
+  defaultState as CodesListDefaultState,
+  defaultForm as CodesListDefaultForm,
+  Factory as CodesListFactory,
+} from '../codes-lists/codes-list';
 import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
@@ -59,10 +63,10 @@ export const defaultMeasureState = {
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
-    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
-    //   cloneDeep(CodesListDefaultState),
-    //   { id: uuid() },
-    // ),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
+      cloneDeep(CodesListDefaultState),
+      { id: uuid() },
+    ),
     visHint: RADIO,
   },
 };
@@ -77,7 +81,7 @@ export const defaultMeasureForm = {
     specialCode: '',
     specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
     specialFollowUpMessage: '',
-    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
     visHint: RADIO,
   },
 };
@@ -98,11 +102,11 @@ export const defaultState = {
     type: LIST,
     [LIST]: defaultPrimaryListState,
     [CODES_LIST]: {
-      // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     },
   },
   [SECONDARY]: {
-    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     showSecondaryAxis: false,
   },
   [LIST_MEASURE]: {
@@ -276,9 +280,24 @@ export function stateToFormMeasure(
 }
 
 export function stateToFormMeasureList(currentState, codesListsStore) {
-  const { measures } = currentState;
+  const {
+    [SINGLE_CHOICE]: {
+      visHint,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
+    },
+    measures,
+  } = currentState;
+  const codesListForm = CodesListFactory(
+    codesListState,
+    codesListsStore,
+  ).stateComponentToForm();
+
   return {
     ...currentState,
+    [SINGLE_CHOICE]: {
+      visHint,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
+    },
     measures: measures.map(m => stateToFormMeasure(m, codesListsStore)),
   };
 }
