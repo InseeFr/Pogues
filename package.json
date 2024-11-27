@@ -68,28 +68,27 @@
     "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.15.0",
     "@testing-library/dom": "^10.2.0",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^2.0.0",
-    "babel-eslint": "^10.1.0",
     "bootstrap-sass": "3.4.1",
     "depcheck": "^1.4.7",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^7.24.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "2.30.0",
-    "eslint-plugin-jsx-a11y": "6.10.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react": "7.36.1",
-    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
     "font-awesome": "4.7.0",
-    "husky": "^9.0.0",
+    "globals": "^15.12.0",
+    "husky": "^9.1.7",
     "jsdom": "^25.0.0",
-    "prettier": "^3.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
     "react-classset": "0.0.2",
     "react-test-renderer": "^18.3.1",
     "redux-devtools": "3.7.0",
@@ -105,7 +104,7 @@
     "test:coverage": "vitest --coverage",
     "start": "vite",
     "build": "npm run generate-entrypoint && vite build",
-    "lint": "eslint ./src -f table || true",
+    "lint": "eslint ./src",
     "lint:fix": "eslint ./src -f table --fix || true",
     "_format": "prettier \"{src,build-config,e2e}/**/*.{js,jsx,css,scss}\"",
     "format": "npm run _format -- --write",
@@ -114,11 +113,12 @@
     "postinstall": "shx cp src/bootstrap-custom/_variables.scss node_modules/bootstrap-sass/assets/stylesheets/bootstrap/",
     "prepare": "husky"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/vitest"
-    ]
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write --list-different"
+    ],
+    "!(*.js|*.jsx|*.ts|*.tsx)": "prettier --write --ignore-unknown --list-different"
   },
   "browserslist": {
     "production": [
@@ -131,11 +131,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "singleQuote": true,
-    "trailingComma": "all"
   },
   "type": "module"
 }
