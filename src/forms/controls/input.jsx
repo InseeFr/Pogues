@@ -54,6 +54,8 @@ class Input extends Component {
       required,
       disabled,
       input,
+      // eslint-disable-next-line no-unused-vars
+      focusOnInit,
       meta: { touched, error },
       ...otherProps
     } = this.props;
