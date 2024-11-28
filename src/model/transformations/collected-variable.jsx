@@ -299,9 +299,7 @@ export function storeToRemote(store, componentsStore) {
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (IsDynamicUnit !== undefined)
       model.Datatype.IsDynamicUnit = IsDynamicUnit;
-    if (Unit !== undefined)
-      model.Datatype.Unit =
-        IsDynamicUnit && Unit.length > 0 ? `$${Unit}$` : Unit;
+    if (Unit !== undefined) model.Datatype.Unit = Unit;
     if (Format !== undefined) {
       if (typeName === DATATYPE_NAME.DATE) {
         model.Datatype.Format = Format.toUpperCase();

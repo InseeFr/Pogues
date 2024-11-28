@@ -5,4 +5,15 @@
     border: solid 1px #ccc;
     border-radius: 4px;
   }
+
+  .editor-disabled {
+    cursor: not-allowed;
+  }
+
+  .editor-disabled * {
+    background-color: $gray-lighter;
+    color: $gray;
+    opacity: 1;
+    pointer-events: none;
+  }
 }
