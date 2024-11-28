@@ -108,7 +108,7 @@
     "test:coverage": "vitest --coverage",
     "start": "vite",
     "build": "npm run generate-entrypoint && vite build",
-    "lint": "eslint ./src",
+    "lint": "eslint .",
     "_format": "prettier --ignore-unknown .",
     "format": "npm run _format -- --write",
     "format:check": "npm run _format -- --list-different",
@@ -117,11 +117,11 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write --list-different"
     ],
-    "!src/**/(*.js|*.jsx|*.ts|*.tsx)": "prettier --write --ignore-unknown --list-different"
+    "!(*.js|*.jsx|*.ts|*.tsx)": "prettier --write --ignore-unknown --list-different"
   },
   "browserslist": {
     "production": [
