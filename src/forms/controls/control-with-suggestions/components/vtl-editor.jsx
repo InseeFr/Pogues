@@ -16,6 +16,7 @@ const VTLEditor = ({
   label,
   input,
   required,
+  disabled,
   setDisableValidation,
 }) => {
   const [errors, setErrors] = useState([]);
@@ -61,7 +62,9 @@ const VTLEditor = ({
         {required && <span className="ctrl-required">*</span>}
       </label>
       <div>
-        <div className="editor-container">
+        <div
+          className={`editor-container ${disabled ? 'editor-disabled' : ''}`}
+        >
           <AntlrEditor
             script={value}
             setScript={localOnChange}
@@ -79,12 +82,14 @@ const VTLEditor = ({
               lineDecorationsWidth: 0,
               lineNumbersMinChars: 0,
               renderLineHighlight: 'none',
+              readOnly: disabled,
             }}
           />
         </div>
       </div>
       <div style={{ color: 'red', display: 'inline-block' }}>
         {value &&
+          !disabled &&
           errors.map(({ line, column, message }) => (
             <div key={`${line}_${column}`} style={{ marginBottom: '20px' }}>
               <div>{`Ligne : ${line} - Colonne : ${column}`}</div>

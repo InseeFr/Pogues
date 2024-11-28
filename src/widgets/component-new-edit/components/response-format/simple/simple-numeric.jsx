@@ -12,6 +12,7 @@ import withCurrentFormVariables from '../../../../../hoc/with-current-form-varia
 import Select from '../../../../../forms/controls/select';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import ListRadios from '../../../../../forms/controls/list-radios';
+import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -28,13 +29,7 @@ function ResponseFormatDatatypeNumeric({
   readOnly,
   isDynamicUnit,
   setUnit,
-  availableSuggestions,
 }) {
-  const dynamicUnitList = availableSuggestions.map((as) => (
-    <GenericOption key={as} value={as}>
-      {as}
-    </GenericOption>
-  ));
   const handleDynamicUnitChange = () => {
     setUnit('');
   };
@@ -90,16 +85,10 @@ function ResponseFormatDatatypeNumeric({
         {isDynamicUnit ? (
           <Field
             name="unit"
-            component={Select}
-            label={Dictionary.dynamicUnitVariable}
-            required={required}
+            component={RichEditorWithVariable}
+            label={Dictionary.dynamicUnitFormula}
             disabled={readOnly}
-          >
-            <GenericOption key="dynamicUnitEmptySelect" value="">
-              {Dictionary.dynamicUnitEmptySelect}
-            </GenericOption>
-            {dynamicUnitList}
-          </Field>
+          />
         ) : (
           <SelectMetaDataContainer
             type="units"
