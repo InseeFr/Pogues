@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import QuestionnaireErrors from '../components/questionnaire-errors';
+import { connect } from 'react-redux';
 
 import { setSelectedComponentId } from '../../../actions/app-state';
+import QuestionnaireErrors from '../components/questionnaire-errors';
 
 // Prop types and default props
 
@@ -17,7 +16,7 @@ const defaultProps = {
 
 // Container
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   components: state.appState.activeComponentsById,
 });
 

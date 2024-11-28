@@ -91,7 +91,7 @@ export function isFilter(component) {
  * @param {object} activesComponents The object representing the activated components
  */
 export function toComponents(ids, activesComponents) {
-  return ids.map(id => activesComponents[id]);
+  return ids.map((id) => activesComponents[id]);
 }
 
 /**
@@ -100,7 +100,7 @@ export function toComponents(ids, activesComponents) {
  * @param {object[]} components The list of components
  */
 export function toId(components) {
-  return components.map(c => c.id);
+  return components.map((c) => c.id);
 }
 
 /**
@@ -138,7 +138,7 @@ export function couldInsertAsChild(droppedComponent, draggedComponent) {
  */
 export function getSortedChildren(components, parent) {
   return Object.keys(components)
-    .filter(key => components[key].parent === parent)
+    .filter((key) => components[key].parent === parent)
     .sort((key, nextKey) => {
       if (components[key].weight < components[nextKey].weight) return -1;
       if (components[key].weight > components[nextKey].weight) return 1;

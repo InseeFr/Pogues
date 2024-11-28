@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { getControlId } from '../../utils/widget-utils';
 import { CONTROL_INPUT } from '../../constants/dom-constants';
+import { getControlId } from '../../utils/widget-utils';
 
 const { COMPONENT_CLASS } = CONTROL_INPUT;
 
@@ -53,9 +54,6 @@ class Input extends Component {
       required,
       disabled,
       input,
-      reference,
-      focusOnInit,
-      onEnter,
       meta: { touched, error },
       ...otherProps
     } = this.props;
@@ -75,10 +73,10 @@ class Input extends Component {
             id={id}
             placeholder={placeholder !== '' || label}
             disabled={disabled}
-            ref={node => {
+            ref={(node) => {
               this.input = node;
             }}
-            onKeyPress={event => {
+            onKeyPress={(event) => {
               if (event.charCode === 13 && this.props.onEnter) {
                 this.props.onEnter(event);
               }

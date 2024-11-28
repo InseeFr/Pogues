@@ -1,6 +1,8 @@
 import React from 'react';
+
 import renderer from 'react-test-renderer';
 import { describe, expect, test } from 'vitest';
+
 import DropZone from './drop-zone';
 
 describe('DropZone', () => {

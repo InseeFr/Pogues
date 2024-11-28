@@ -1,8 +1,9 @@
 import React from 'react';
+
 import renderer from 'react-test-renderer';
 import { describe, expect, test } from 'vitest';
-import { decoreFormField } from '../../../../../utils/test/test-utils.jsx';
 
+import { decoreFormField } from '../../../../../utils/test/test-utils.jsx';
 import SimpleText from './simple-text.jsx';
 
 describe('Simple Text', () => {

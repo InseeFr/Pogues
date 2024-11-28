@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
+
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, FormSection, formValueSelector } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import { defaultState } from '../../../model/formToState/component-new-edit/control';
-
-import Select from '../../../forms/controls/select';
-import GenericOption from '../../../forms/controls/generic-option';
-import Textarea from '../../../forms/controls/textarea';
-import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
-
-import { validateControlForm } from '../../../utils/validation/validate';
-import Dictionary from '../../../utils/dictionary/dictionary';
-
-import { ListWithInputPanel } from '../../list-with-input-panel';
 import {
-  TABS_PATHS,
   DEFAULT_FORM_NAME,
-  QUESTION_TYPE_ENUM,
-  DIMENSION_TYPE,
   DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
+  TABS_PATHS,
 } from '../../../constants/pogues-constants';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import GenericOption from '../../../forms/controls/generic-option';
+import Select from '../../../forms/controls/select';
+import Textarea from '../../../forms/controls/textarea';
+import { defaultState } from '../../../model/formToState/component-new-edit/control';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { validateControlForm } from '../../../utils/validation/validate';
+import { ListWithInputPanel } from '../../list-with-input-panel';
 
-const validateForm = (addErrors, validate) => values => {
+const validateForm = (addErrors, validate) => (values) => {
   return validate(values, addErrors);
 };
 

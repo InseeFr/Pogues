@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { change, formValueSelector } from 'redux-form';
+
 import {
   loadCampaignsIfNeeded,
   loadOperationsIfNeeded,

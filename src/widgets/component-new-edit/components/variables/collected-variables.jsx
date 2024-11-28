@@ -1,28 +1,28 @@
 import React from 'react';
-import { Field, FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import { defaultState } from '../../../../model/formToState/component-new-edit/collected-variable';
+import PropTypes from 'prop-types';
+import { Field, FormSection } from 'redux-form';
+
+import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../../constants/dom-constants';
 import {
   DATATYPE_NAME,
   QUESTION_TYPE_ENUM,
 } from '../../../../constants/pogues-constants';
-
-import Input from '../../../../forms/controls/input';
-import { ListWithInputPanel } from '../../../list-with-input-panel';
-import { validateCollectedVariableForm } from '../../../../utils/validation/validate';
-import { generateCollectedVariables } from '../../../../utils/variables/collected-variables-utils';
-import Dictionary from '../../../../utils/dictionary/dictionary';
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../../constants/dom-constants';
-import { SelectorView, View } from '../../../selector-view';
-import ResponseFormatDatatypeNumeric from '../response-format/simple/simple-numeric';
-import ResponseFormatDatatypeText from '../response-format/simple/simple-text';
-import ResponseFormatDatatypeDuree from '../response-format/simple/simple-duree';
-import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
 import { RichEditorWithVariable } from '../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../forms/controls/generic-option';
+import Input from '../../../../forms/controls/input';
 import ListRadios from '../../../../forms/controls/list-radios';
 import { toolbarConfigTooltip } from '../../../../forms/controls/rich-textarea';
+import { defaultState } from '../../../../model/formToState/component-new-edit/collected-variable';
+import Dictionary from '../../../../utils/dictionary/dictionary';
+import { validateCollectedVariableForm } from '../../../../utils/validation/validate';
+import { generateCollectedVariables } from '../../../../utils/variables/collected-variables-utils';
+import { ListWithInputPanel } from '../../../list-with-input-panel';
+import { SelectorView, View } from '../../../selector-view';
+import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
+import ResponseFormatDatatypeDuree from '../response-format/simple/simple-duree';
+import ResponseFormatDatatypeNumeric from '../response-format/simple/simple-numeric';
+import ResponseFormatDatatypeText from '../response-format/simple/simple-text';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -56,7 +56,7 @@ function CollectedVariables({
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
 
-    newVariables.forEach(cv => {
+    newVariables.forEach((cv) => {
       cv.label = cv.label.replace(/\*/g, '');
       arrayPush(formName, 'collectedVariables.collectedVariables', cv);
     });
@@ -84,7 +84,7 @@ function CollectedVariables({
             type="button"
             disabled={componentName === '' || responseFormatType === ''}
             className="btn-yellow"
-            onClick={event => {
+            onClick={(event) => {
               event.preventDefault();
               generateVariables();
             }}

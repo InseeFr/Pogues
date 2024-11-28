@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react';
-import { AntlrEditor } from '@making-sense/antlr-editor';
 
+import { AntlrEditor } from '@making-sense/antlr-editor';
 import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
 import {
-  monarchDefinition,
   getSuggestionsFromRange,
+  monarchDefinition,
 } from '@making-sense/vtl-2-0-monaco-tools-ts';
 
 import { CONTROL_VTL_EDITOR } from '../../../../constants/dom-constants';
@@ -37,7 +36,7 @@ const VTLEditor = ({
 
   const { value, onChange, name: id } = input;
 
-  const handleErrors = e => {
+  const handleErrors = (e) => {
     setErrors(e);
     if (setDisableValidation) {
       if (e.length > 0) setDisableValidation(true);
@@ -45,7 +44,7 @@ const VTLEditor = ({
     }
   };
 
-  const localOnChange = e => {
+  const localOnChange = (e) => {
     onChange(e);
     if (!e) {
       if (setDisableValidation) {

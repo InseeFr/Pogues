@@ -1,9 +1,8 @@
-import * as CodeList from './codes-list';
-
 import {
-  UI_BEHAVIOUR,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  UI_BEHAVIOUR,
 } from '../../constants/pogues-constants';
+import * as CodeList from './codes-list';
 
 export function remoteToState(remote) {
   const {

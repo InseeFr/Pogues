@@ -1,5 +1,5 @@
-import { uuid } from '../../../utils/utils';
 import { DATATYPE_NAME } from '../../../constants/pogues-constants';
+import { uuid } from '../../../utils/utils';
 import { defaultTypageForm } from './typage';
 
 const { TEXT } = DATATYPE_NAME;
@@ -50,7 +50,7 @@ export function formToStore(form) {
 export function storeToForm(currentStore) {
   const externalVariables = [];
 
-  Object.keys(currentStore).forEach(key => {
+  Object.keys(currentStore).forEach((key) => {
     const {
       id,
       name,
@@ -79,7 +79,7 @@ export function storeToForm(currentStore) {
 
 const Factory = (currentStore = {}) => {
   return {
-    formToStore: form => {
+    formToStore: (form) => {
       if (form) currentStore = formToStore(form);
       return currentStore;
     },

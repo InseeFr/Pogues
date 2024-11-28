@@ -1,7 +1,8 @@
 import { expect, test } from 'vitest';
+
 import { createDictionary, getLang } from './dictionary';
 
-['browserLanguage', 'language'].forEach(property => {
+['browserLanguage', 'language'].forEach((property) => {
   test(`should return the french version when the navigator.${property} is FR`, () => {
     expect(createDictionary('fr').welcome).toBe('Bienvenue dans POGUES');
   });

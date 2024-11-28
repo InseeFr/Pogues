@@ -1,8 +1,8 @@
 import uniq from 'lodash.uniq';
 
 import {
-  INTEGRITY_TYPES,
   COMPONENT_TYPE,
+  INTEGRITY_TYPES,
 } from '../../constants/pogues-constants';
 import Dictionary from '../dictionary/dictionary';
 
@@ -16,12 +16,16 @@ function checkerUniqueComponentName({
 }) {
   const errors = [];
   const componentNames = Object.values(activeComponentsById)
-    .filter(component => component.type !== FILTER)
-    .map(element => (element.type === LOOP ? element.nameLoop : element.name));
+    .filter((component) => component.type !== FILTER)
+    .map((element) =>
+      element.type === LOOP ? element.nameLoop : element.name,
+    );
 
   const duplicatedComponentNames = uniq(
-    componentNames.filter(name => {
-      return componentNames.filter(innerName => innerName === name).length > 1;
+    componentNames.filter((name) => {
+      return (
+        componentNames.filter((innerName) => innerName === name).length > 1
+      );
     }),
   );
   if (duplicatedComponentNames.length > 0) {

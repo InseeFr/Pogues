@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
-import ClassSet from 'react-classset';
-import { getValueWithSuggestion, getPattern } from './utils';
 
-import {
-  updateSuggestions,
-  initialize,
-  getNewIndex,
-} from './input-with-suggestions-utils';
-import { HighLighter } from '../../../../widgets/highlighter';
-import { getKey } from '../../../../utils/widget-utils';
+import PropTypes from 'prop-types';
+import ClassSet from 'react-classset';
+import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
 import { CONTROL_WITH_SUGGESTIONS } from '../../../../constants/dom-constants';
+import { getKey } from '../../../../utils/widget-utils';
+import { HighLighter } from '../../../../widgets/highlighter';
+import {
+  getNewIndex,
+  initialize,
+  updateSuggestions,
+} from './input-with-suggestions-utils';
+import { getPattern, getValueWithSuggestion } from './utils';
 
 const { COMPONENT_CLASS, LIST_CLASS, ITEM_CLASS, ITEM_SELECTED_CLASS } =
   CONTROL_WITH_SUGGESTIONS;
@@ -24,11 +24,8 @@ const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
 export const propTypes = {
   input: PropTypes.shape(fieldInputPropTypes).isRequired,
   meta: PropTypes.shape(fieldMetaPropTypes).isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   label: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   required: PropTypes.bool,
-  // eslint-disable-next-line react/no-unused-prop-types
   disabled: PropTypes.bool,
   numSuggestionsShown: PropTypes.number,
   availableSuggestions: PropTypes.arrayOf(PropTypes.string),
@@ -75,7 +72,7 @@ class ControlWithSuggestions extends Component {
   }
 
   // OnChange of the input
-  handleInputChange = value => {
+  handleInputChange = (value) => {
     this.setState(
       updateSuggestions(
         getPattern(value, this.input.selectionStart),
@@ -89,7 +86,7 @@ class ControlWithSuggestions extends Component {
   };
 
   // OnClick of an item
-  handleSuggestionClick = suggestion => {
+  handleSuggestionClick = (suggestion) => {
     const newValue = getValueWithSuggestion(
       suggestion,
       this.input.selectionStart,
@@ -104,7 +101,7 @@ class ControlWithSuggestions extends Component {
   };
 
   // OnKeyDown of the input
-  handleInputKeyDown = e => {
+  handleInputKeyDown = (e) => {
     if (e.key === 'Tab') {
       this.handleTab(e);
     } else if (e.key === 'Enter') {
@@ -112,7 +109,7 @@ class ControlWithSuggestions extends Component {
     }
   };
 
-  handleTab = e => {
+  handleTab = (e) => {
     const { numSuggestionsShown } = this.props;
     const { suggestions, hoveredSuggestionIndex } = this.state;
 
@@ -128,7 +125,7 @@ class ControlWithSuggestions extends Component {
     }
   };
 
-  handleEnter = e => {
+  handleEnter = (e) => {
     const { suggestions, hoveredSuggestionIndex } = this.state;
 
     if (suggestions.length > 0) {
@@ -168,7 +165,7 @@ class ControlWithSuggestions extends Component {
                       [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
                     })}
                     title={suggest}
-                    ref={node => {
+                    ref={(node) => {
                       if (index === hoveredSuggestionIndex)
                         this.activeItem = node;
                     }}

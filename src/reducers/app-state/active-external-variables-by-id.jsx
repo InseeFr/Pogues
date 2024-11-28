@@ -1,4 +1,4 @@
-import { SET_ACTIVE_VARIABLES, DELETE_APPSTATE } from '../../actions/app-state';
+import { DELETE_APPSTATE, SET_ACTIVE_VARIABLES } from '../../actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../actions/component';
 import { createActionHandlers } from '../../utils/reducer/actions-handlers';
 

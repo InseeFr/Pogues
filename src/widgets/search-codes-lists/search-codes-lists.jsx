@@ -1,21 +1,21 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-import { StatisticalContextCriteria } from '../statistical-context-criteria';
-import { InputFilterWithCriteria } from '../input-filter-with-criteria';
-import { SearchResults } from '../search-results';
 import { WIDGET_SEARCH_CODES_LISTS } from '../../constants/dom-constants';
 import {
   DEFAULT_FORM_NAME,
-  TYPES_ITEMS,
   SEARCH_CRITERIAS,
   SEARCH_RESULTS_COLUMNS,
+  TYPES_ITEMS,
 } from '../../constants/pogues-constants';
 import Dictionary from '../../utils/dictionary/dictionary';
-
+import { useOidc } from '../../utils/oidc';
 // @TODO: noop is used temporally
 import { noop } from '../../utils/test/test-utils';
-import { useOidc } from '../../utils/oidc';
+import { InputFilterWithCriteria } from '../input-filter-with-criteria';
+import { SearchResults } from '../search-results';
+import { StatisticalContextCriteria } from '../statistical-context-criteria';
 
 const { COMPONENT_CLASS, SEARCH_RESULTS_CLASS, SEARCH_CLASS } =
   WIDGET_SEARCH_CODES_LISTS;

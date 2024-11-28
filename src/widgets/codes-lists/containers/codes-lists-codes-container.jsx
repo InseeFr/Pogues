@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, change } from 'redux-form';
+import { change, formValueSelector } from 'redux-form';
 
 import CodesListsCodes from '../components/codes-lists-codes';
 

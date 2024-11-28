@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { visualizeActiveQuestionnaire } from '../../../actions/app-state';
 import VisualizeDropdown from '../components/visualize-dropdown';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionnaire: state.appState.activeQuestionnaire,
     calculatedVariables: state.appState.activeCalculatedVariablesById,

@@ -1,11 +1,12 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import ResponseFormatTableSecondaryOptional from './table-secondary-optional';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
+import { DIMENSION_TYPE } from '../../../../../constants/pogues-constants';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { OptionalView } from '../../../../optional-view';
-import { DIMENSION_TYPE } from '../../../../../constants/pogues-constants';
+import ResponseFormatTableSecondaryOptional from './table-secondary-optional';
 
 const { SECONDARY: selectorPath } = DIMENSION_TYPE;
 

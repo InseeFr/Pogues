@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { remoteToState, stateToRemote } from './response-format-single';
 
 describe('response format single', () => {

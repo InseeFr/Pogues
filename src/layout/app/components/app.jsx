@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 
-import Header from '../../header/header';
-import Footer from '../../footer/footer';
-import '../../../scss/pogues.scss';
 import { APP } from '../../../constants/dom-constants';
+import '../../../scss/pogues.scss';
 import { useOidc } from '../../../utils/oidc';
+import Footer from '../../footer/footer';
+import Header from '../../header/header';
 
 const { COMPONENT_ID } = APP;
 

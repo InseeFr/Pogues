@@ -1,11 +1,11 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-import ListWithInputPanelItem from './list-with-input-panel-item';
-
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea/utils/rich-textarea-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import ListWithInputPanelItem from './list-with-input-panel-item';
 
 const {
   LIST_CLASS,
@@ -27,7 +27,7 @@ function ListWithInputPanelList({ fields, select, errors }) {
     return {
       key: key,
       hasError:
-        item.id && errors.filter(e => e.itemListId === item.id).length > 0,
+        item.id && errors.filter((e) => e.itemListId === item.id).length > 0,
       index: index,
       x: item.x,
       y: item.y,
@@ -53,7 +53,7 @@ function ListWithInputPanelList({ fields, select, errors }) {
               item1.y === item2.y &&
               item1.name > item2.name),
         )
-        .map(item => {
+        .map((item) => {
           return (
             <ListWithInputPanelItem
               key={item.key}

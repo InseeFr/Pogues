@@ -10,7 +10,7 @@ import { QuestionnaireComposition } from './layout/questionnaire-composition';
 import { QuestionnaireMerge } from './layout/questionnaire-merge';
 import { QuestionnaireTcmComposition } from './layout/questionnaire-tcm-composition';
 
-const AppSecure = props => secure(App)(props);
+const AppSecure = (props) => secure(App)(props);
 
 function Router() {
   const { pathname } = useLocation();

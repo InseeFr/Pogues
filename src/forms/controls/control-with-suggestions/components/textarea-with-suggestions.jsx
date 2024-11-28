@@ -1,9 +1,8 @@
 import React from 'react';
 
-import ControlWithSuggestion from './control-with-suggestions';
-
-import { getControlId } from '../../../../utils/widget-utils';
 import { CONTROL_TEXTAREA } from '../../../../constants/dom-constants';
+import { getControlId } from '../../../../utils/widget-utils';
+import ControlWithSuggestion from './control-with-suggestions';
 
 const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
@@ -40,7 +39,7 @@ class TextareaWithSuggestions extends ControlWithSuggestion {
               this.handleInputFocus();
               input.onFocus();
             }}
-            ref={node => {
+            ref={(node) => {
               this.input = node;
             }}
           />

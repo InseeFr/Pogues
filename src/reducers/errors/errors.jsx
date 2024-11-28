@@ -1,7 +1,7 @@
 import errorsByComponent from './errors-by-component';
 import errorsIntegrity from './errors-integrity';
-import errorsValidation from './errors-validation';
 import errorsSubformValidation from './errors-subform-validation';
+import errorsValidation from './errors-validation';
 import errorsVisualization from './errors-visualization';
 
 const defaultState = {

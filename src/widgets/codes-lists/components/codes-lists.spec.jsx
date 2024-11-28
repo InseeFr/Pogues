@@ -1,11 +1,12 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { describe, expect, test, vi } from 'vitest';
-import CodesLists from './codes-lists';
-import CodesListsCodes from './codes-lists-codes';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import { CODES_LIST_INPUT_ENUM } from '../../../constants/pogues-constants';
+import CodesLists from './codes-lists';
+import CodesListsCodes from './codes-lists-codes';
 
 const { PANEL_CLASS } = WIDGET_CODES_LISTS;
 const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;

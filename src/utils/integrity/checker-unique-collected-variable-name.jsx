@@ -3,8 +3,8 @@ import uniq from 'lodash.uniq';
 import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
 import Dictionary from '../dictionary/dictionary';
 import {
-  removeOrphansCollectedVariables,
   getCollectedVariablesIdsFromComponents,
+  removeOrphansCollectedVariables,
 } from '../variables/variables-utils';
 
 function checkerUniqueCollectedVariableName({
@@ -25,12 +25,14 @@ function checkerUniqueCollectedVariableName({
     collectedVariablesStore,
   );
   const variablesNames = Object.keys(collectedVariablesWithoutOrphans).map(
-    key => collectedVariablesWithoutOrphans[key].name,
+    (key) => collectedVariablesWithoutOrphans[key].name,
   );
 
   const duplicatedVariablesNames = uniq(
-    variablesNames.filter(name => {
-      return variablesNames.filter(innerName => innerName === name).length > 1;
+    variablesNames.filter((name) => {
+      return (
+        variablesNames.filter((innerName) => innerName === name).length > 1
+      );
     }),
   );
 

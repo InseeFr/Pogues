@@ -1,5 +1,6 @@
-import MarkdownParser from './markdown-vtl-parser';
 import { stateFromElement } from 'draft-js-import-element';
+
+import MarkdownParser from './markdown-vtl-parser';
 
 export default function stateFromMarkdown(markdown) {
   const elementMarkdown = MarkdownParser.parse(markdown, { getAST: true });

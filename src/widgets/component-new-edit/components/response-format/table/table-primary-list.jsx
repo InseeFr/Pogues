@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { FormSection } from 'redux-form';
 
-import Dictionary from '../../../../../utils/dictionary/dictionary';
 import {
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
 } from '../../../../../constants/pogues-constants';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { SelectorView, View } from '../../../../selector-view';
 import { ResponseFormatTablePrincipalListDynamic } from './table-primary-list-dynamic';
 import { ResponseFormatTablePrincipalListFixed } from './table-primary-list-fixed';

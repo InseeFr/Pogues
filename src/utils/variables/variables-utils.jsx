@@ -7,7 +7,7 @@ export function removeOrphansCollectedVariables(
   variablesStore = {},
 ) {
   return Object.keys(variablesStore)
-    .filter(key => variablesIdsFromComponents.indexOf(key) !== -1)
+    .filter((key) => variablesIdsFromComponents.indexOf(key) !== -1)
     .reduce((acc, key) => {
       return {
         ...acc,
@@ -18,7 +18,7 @@ export function removeOrphansCollectedVariables(
 
 export function getCollectedVariablesIdsFromComponents(componentsStore) {
   return Object.keys(componentsStore)
-    .filter(key => {
+    .filter((key) => {
       return componentsStore[key].type === QUESTION;
     })
     .reduce((acc, key) => {
@@ -35,15 +35,15 @@ export function getAllVariables(
 ) {
   const externalVariables = Object.values(
     activeExternalVariablesById || {},
-  ).map(element => element.name);
+  ).map((element) => element.name);
   const calculatedVariables = Object.values(
     activeCalculatedVariablesById || {},
-  ).map(element => element.name);
+  ).map((element) => element.name);
   const collectedVariables = Object.values(collectedVariableByQuestion || {})
     .map(
-      question =>
+      (question) =>
         typeof question === 'object' &&
-        Object.values(question).map(variable => variable.name),
+        Object.values(question).map((variable) => variable.name),
     )
     .flat();
   const externalQuestionnaires =
@@ -51,13 +51,13 @@ export function getAllVariables(
   const referencedQuestionnairesVariables =
     externalQuestionnairesVariables &&
     Object.values(externalQuestionnairesVariables)
-      .filter(questionnaire =>
+      .filter((questionnaire) =>
         externalQuestionnaires.includes(questionnaire.id),
       )
       .reduce((acc, quest) => {
         return [
           ...acc,
-          ...Object.values(quest.variables).map(variable => variable.Name),
+          ...Object.values(quest.variables).map((variable) => variable.Name),
         ];
       }, []);
   return collectedVariables.concat(

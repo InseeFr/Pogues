@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
-import logo from './logo-insee.png';
-import UserConnection from '../user/components/user-connection';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { poguesFrontVersion } from '../../utils/version';
+import UserConnection from '../user/components/user-connection';
+import logo from './logo-insee.png';
 
 function Header() {
   return (

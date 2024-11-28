@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { Provider } from 'react-redux';
+import { combineReducers, createStore } from 'redux';
+import { reducer as form, reduxForm } from 'redux-form';
+
 import dictionary from '../../constants/dictionary';
 import { DEFAULT_LANG } from '../../constants/pogues-constants';
-import { reduxForm, reducer as form } from 'redux-form';
-import { combineReducers, createStore } from 'redux';
-import { Provider } from 'react-redux';
 
 export function getLocale(lang) {
   if (!lang) lang = DEFAULT_LANG;

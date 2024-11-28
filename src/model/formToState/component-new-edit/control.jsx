@@ -62,7 +62,7 @@ export function formToComponentState(form) {
 export function stateToForm(currentState) {
   const controls = [];
 
-  Object.keys(currentState).forEach(key => {
+  Object.keys(currentState).forEach((key) => {
     const {
       id,
       label,
@@ -93,7 +93,7 @@ export function stateToForm(currentState) {
 
 const Factory = (currentState = []) => {
   return {
-    formToComponentState: form => {
+    formToComponentState: (form) => {
       if (form) currentState = formToComponentState(form);
       return currentState;
     },

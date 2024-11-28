@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
-import ReactModal from 'react-modal';
+import React, { useEffect, useRef, useState } from 'react';
+
 import PropTypes from 'prop-types';
+import ReactModal from 'react-modal';
+
 import Dictionary from '../../utils/dictionary/dictionary';
 
-const ConfirmDialog = props => {
+const ConfirmDialog = (props) => {
   const cancelButtonRef = useRef(null);
   const [showConfirmModal, setShowConfirmModal] = useState(
     props.showConfirmModal,
@@ -21,13 +23,13 @@ const ConfirmDialog = props => {
     }
   }, [showConfirmModal]);
 
-  const handleValidate = event => {
+  const handleValidate = (event) => {
     event.stopPropagation();
     setShowConfirmModal(false);
     props.confirm();
   };
 
-  const handleCancel = event => {
+  const handleCancel = (event) => {
     event.stopPropagation();
     props.closePopup();
     setShowConfirmModal(false);

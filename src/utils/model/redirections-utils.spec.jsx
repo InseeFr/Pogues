@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'vitest';
+
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
+import { componentsStore, listGotos } from './__mocks__/redirections-utils';
 import {
   getComponentsTargetsByComponent,
   getComponentsTargetsByPosition,
   getListGotos,
 } from './redirections-utils';
-
-import { componentsStore, listGotos } from './__mocks__/redirections-utils';
 
 const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
 
@@ -22,7 +22,7 @@ describe('Redirections utils', () => {
     });
     test('Should return the expected array if components are provided and some of then are disabled', () => {
       const activeComponentsIds = ['SUBSEQUENCE2', 'QUESTION2', 'QUESTION3'];
-      const expectedListGotos = listGotos.map(goto => {
+      const expectedListGotos = listGotos.map((goto) => {
         return {
           ...goto,
           disabled: activeComponentsIds.indexOf(goto.value) === -1,

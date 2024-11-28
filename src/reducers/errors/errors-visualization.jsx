@@ -1,9 +1,8 @@
-import { createActionHandlers } from '../../utils/reducer/actions-handlers';
-
 import {
   ADD_VISUALIZATION_ERROR,
   REMOVE_VISUALIZATION_ERROR,
 } from '../../actions/errors';
+import { createActionHandlers } from '../../utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 

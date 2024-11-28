@@ -1,5 +1,5 @@
-import Dictionary from '../dictionary/dictionary';
 import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
+import Dictionary from '../dictionary/dictionary';
 
 function checkerTargetMode({
   appState: {
@@ -10,18 +10,18 @@ function checkerTargetMode({
   const errors = [];
 
   const wrongComponentIds = Object.keys(activeComponentsById)
-    .filter(cid => cid !== id)
+    .filter((cid) => cid !== id)
     .filter(
-      cid =>
+      (cid) =>
         activeComponentsById[cid].TargetMode.filter(
-          mode => mode !== '' && TargetMode.indexOf(mode) < 0,
+          (mode) => mode !== '' && TargetMode.indexOf(mode) < 0,
         ).length > 0,
     );
 
   if (wrongComponentIds.length > 0) {
     errors.push({
       message: `${Dictionary.errorQuestionnaireTargetMode} ${wrongComponentIds
-        .map(cid => activeComponentsById[cid].name)
+        .map((cid) => activeComponentsById[cid].name)
         .join()}`,
     });
   }

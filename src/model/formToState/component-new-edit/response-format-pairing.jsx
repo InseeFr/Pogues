@@ -102,7 +102,7 @@ export const Factory = (initialState = {}, codesListsStore) => {
     ),
   };
   return {
-    formToState: form => {
+    formToState: (form) => {
       const state = formToState(form, transformers);
       currentState = merge(cloneDeep(currentState), state);
       return state;
@@ -113,7 +113,7 @@ export const Factory = (initialState = {}, codesListsStore) => {
     getCodesListStore: () => {
       return transformers.codesList.getStore();
     },
-    getNormalizedValues: form => {
+    getNormalizedValues: (form) => {
       // Values ready to be validated
       return form;
     },

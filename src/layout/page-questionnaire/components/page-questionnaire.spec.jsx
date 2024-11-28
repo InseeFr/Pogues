@@ -1,8 +1,11 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
+
 import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
+
 // import PageQuestionnaire from './page-questionnaire';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
@@ -52,7 +55,7 @@ describe.skip('<PageQuestionnaire />', () => {
   let useEffect;
 
   const mockUseEffect = () => {
-    useEffect.mockImplementation(f => f());
+    useEffect.mockImplementation((f) => f());
   };
 
   const spySetActiveQuestionnaire = vi.fn();

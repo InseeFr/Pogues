@@ -1,9 +1,8 @@
 import React from 'react';
 
-import VTLEditor from './vtl-editor';
-import TextareaWithSuggestions from './textarea-with-suggestions';
-
 import { FORMULA_LANGUAGE } from '../../../../constants/pogues-constants';
+import TextareaWithSuggestions from './textarea-with-suggestions';
+import VTLEditor from './vtl-editor';
 
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 

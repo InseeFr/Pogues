@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import QuestionnaireListItem from './questionnaire-list-item';
+
+import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
+import { formatDate, getState } from '../../../utils/component/component-utils';
+import { getWeight } from '../../../utils/component/generic-input-utils';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
+import { getStampsList } from '../../../utils/remote-api';
 import Dropdown from '../../../widgets/dropdown';
 import Loader from '../../loader';
-import Dictionary from '../../../utils/dictionary/dictionary';
-import { formatDate, getState } from '../../../utils/component/component-utils';
-import { getStampsList } from '../../../utils/remote-api';
-import { getWeight } from '../../../utils/component/generic-input-utils';
-import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
-import { useOidc } from '../../../utils/oidc';
+import QuestionnaireListItem from './questionnaire-list-item';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 
-const QuestionnaireList = props => {
+const QuestionnaireList = (props) => {
   const {
     activeQuestionnaire,
     selectedComponentId,
@@ -55,7 +57,7 @@ const QuestionnaireList = props => {
   const [loading, setLoading] = useState(true);
 
   const fusionateQuestionnaire = useCallback(
-    checkedQuestionnaire => {
+    (checkedQuestionnaire) => {
       mergeQuestionnaires(checkedQuestionnaire, token);
       handleCloseNewQuestionnaire();
     },
@@ -66,12 +68,12 @@ const QuestionnaireList = props => {
     const weight = selectedComponentId
       ? getWeight(componentsStore, selectedComponentId)
       : Object.values(componentsStore).filter(
-          component =>
+          (component) =>
             (component.type === SEQUENCE && component.id !== 'idendquest') ||
             component.type === EXTERNAL_ELEMENT,
         ).length;
     const externalQuestionnaire = questionnaires.find(
-      q => q.id === checkedQuestionnaire,
+      (q) => q.id === checkedQuestionnaire,
     );
     const componentState = {
       id: checkedQuestionnaire,
@@ -110,7 +112,7 @@ const QuestionnaireList = props => {
   };
 
   useEffect(() => {
-    getStampsList(token).then(r => {
+    getStampsList(token).then((r) => {
       r.sort((a, b) => a.label.localeCompare(b.label));
       setOptions(r);
     });
@@ -118,7 +120,6 @@ const QuestionnaireList = props => {
 
   useEffect(() => {
     setSelectedStamp(isTcm ? TCM.owner : stamp || 'FAKEPERMISSION');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TODO: Find why 2 calls
@@ -128,7 +129,7 @@ const QuestionnaireList = props => {
     else deleteQuestionnaireList();
   }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
 
-  const updateFilter = value => {
+  const updateFilter = (value) => {
     setFilter(value);
   };
 
@@ -149,11 +150,11 @@ const QuestionnaireList = props => {
   };
 
   const list = questionnaires
-    .filter(q => {
+    .filter((q) => {
       return (
         activeQuestionnaire.id !== q.id &&
         !activeQuestionnaire.childQuestionnaireRef?.includes(q.id) &&
-        (!isTcm || q.campaigns.some(campaign => campaign === TCM.id)) &&
+        (!isTcm || q.campaigns.some((campaign) => campaign === TCM.id)) &&
         (filter === '' ||
           (q.label &&
             q.label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) ||
@@ -169,7 +170,7 @@ const QuestionnaireList = props => {
         new Date(a.lastUpdatedDate).getTime()
       );
     })
-    .map(q => {
+    .map((q) => {
       if (q) {
         return (
           <QuestionnaireListItem
@@ -229,7 +230,7 @@ const QuestionnaireList = props => {
                     className="form-control"
                     placeholder={Dictionary.search}
                     type="text"
-                    onChange={e => updateFilter(e.target.value)}
+                    onChange={(e) => updateFilter(e.target.value)}
                   />
                 </div>
                 <div className="questionnaire-list_header">

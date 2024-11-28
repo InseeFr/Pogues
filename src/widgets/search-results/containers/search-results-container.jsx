@@ -1,9 +1,8 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import SearchResults from '../components/search-results';
+import { connect } from 'react-redux';
 
 import { storeToArray } from '../../../utils/utils';
+import SearchResults from '../components/search-results';
 
 // PropTypes and defaultProps
 

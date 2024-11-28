@@ -1,6 +1,6 @@
-import { getUrlFromCriterias } from './utils';
-import { getEnvVar } from './env';
 import getNomenclaturesContent from './codes-lists/__mocks__/get-nomenclatures.json';
+import { getEnvVar } from './env';
+import { getUrlFromCriterias } from './utils';
 
 const configurationURL = `${window.location.origin}/configuration.json`;
 
@@ -9,11 +9,11 @@ let saveApiURL = '';
 const getBaseURI = () => {
   if (saveApiURL) return Promise.resolve(saveApiURL);
   return getEnvVar('INSEE')
-    ? fetch(configurationURL).then(res => {
-        saveApiURL = res.json().then(config => config.POGUES_API_BASE_HOST);
+    ? fetch(configurationURL).then((res) => {
+        saveApiURL = res.json().then((config) => config.POGUES_API_BASE_HOST);
         return saveApiURL;
       })
-    : Promise.resolve(getEnvVar('API_URL')).then(u => {
+    : Promise.resolve(getEnvVar('API_URL')).then((u) => {
         saveApiURL = u;
         return u;
       });
@@ -39,7 +39,7 @@ const mutualizedGet = async (address, token) => {
   const b = await getBaseURI();
   return fetch(`${b}/${address}`, {
     headers: getHeaders({ Accept: 'application/json' }, token),
-  }).then(res => res.json());
+  }).then((res) => res.json());
 };
 
 /**
@@ -73,8 +73,8 @@ export const getVisualization = async (type, qr, ref, token) => {
   }
   if (visualiseType[type].response === 'url') {
     return postVisualization(visualiseType[type].path, qr, ref, token)
-      .then(response => response.text())
-      .then(url => {
+      .then((response) => response.text())
+      .then((url) => {
         const a = document.createElement('a');
         a.href = url;
         a.setAttribute('target', '_blank');
@@ -99,7 +99,7 @@ const postVisualization = async (path, qr, ref, token) => {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
-  }).then(async response => {
+  }).then(async (response) => {
     if (response.ok) {
       return response;
     }
@@ -128,8 +128,8 @@ function openDocument(data) {
   }
   data
     .blob()
-    .then(blob => (window.URL || window.webkitURL).createObjectURL(blob))
-    .then(downloadUrl => {
+    .then((blob) => (window.URL || window.webkitURL).createObjectURL(blob))
+    .then((downloadUrl) => {
       if (filename) {
         const a = document.createElement('a');
         a.href = downloadUrl;
@@ -168,7 +168,7 @@ export const postQuestionnaire = async (qr, token) => {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
-  }).then(res => {
+  }).then((res) => {
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
   });
@@ -183,7 +183,7 @@ export const putQuestionnaire = async (id, qr, token) => {
     method: 'PUT',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
-  }).then(res => {
+  }).then((res) => {
     if (res.ok) return res;
     throw new Error(`Network request failed :${res.statusText}`);
   });
@@ -218,10 +218,10 @@ export const getInit = async () => {
   const b = await getBaseURI();
   return fetch(`${b}/${pathInit}`, {
     headers: getHeaders({ Accept: 'application/json' }),
-  }).then(res => res.json());
+  }).then((res) => res.json());
 };
 
-export const getSeries = token => mutualizedGet(`${pathSeriesList}`, token);
+export const getSeries = (token) => mutualizedGet(`${pathSeriesList}`, token);
 
 export const getOperations = (id, token) =>
   mutualizedGet(`${pathSeriesList}/${id}/operations`, token);
@@ -232,10 +232,10 @@ export const getCampaigns = (id, token) =>
 export const getContextFromCampaign = (id, token) =>
   mutualizedGet(`${pathSearch}/context/collection/${id}`, token);
 
-export const getUnitsList = token =>
+export const getUnitsList = (token) =>
   mutualizedGet(`${pathMetadata}/units`, token);
 
-export const getStampsList = async token =>
+export const getStampsList = async (token) =>
   mutualizedGet(`persistence/questionnaires/stamps`, token);
 
 export const getSearchResults = async (
@@ -252,13 +252,13 @@ export const getSearchResults = async (
       types: [typeItem],
       filter,
     }),
-  }).then(res => res.json());
+  }).then((res) => res.json());
 };
 
 export const getNomenclatures = async () => {
   return getNomenclaturesContent;
 };
 
-export const getNomenclature = async id => {
+export const getNomenclature = async (id) => {
   return getNomenclaturesContent.nomenclatures[id];
 };

@@ -1,6 +1,6 @@
 // @TODO: Scroll on select error
-
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 
 import { ERRORS_INTEGRITY } from '../../constants/dom-constants';
@@ -13,7 +13,7 @@ const { COMPONENT_ID, INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 function renderComponentsErrors(errorsIntegrity, componentsStore) {
   // We are testing if the component exists in the active components store
   return Object.keys(errorsIntegrity)
-    .filter(componentId => componentsStore[componentId])
+    .filter((componentId) => componentsStore[componentId])
     .reduce((acc, componentId) => {
       const integrityErrors = getIntegrityErrors(errorsIntegrity[componentId]);
 
@@ -68,12 +68,12 @@ class ErrorsIntegrity extends Component {
 
   handleExpand(key) {
     if (this.state.expanded.indexOf(key) < 0) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         expanded: [...prevState.expanded, key],
       }));
     } else {
-      this.setState(prevState => ({
-        expanded: prevState.expanded.filter(k => k !== key),
+      this.setState((prevState) => ({
+        expanded: prevState.expanded.filter((k) => k !== key),
       }));
     }
   }

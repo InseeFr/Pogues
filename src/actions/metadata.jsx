@@ -1,13 +1,13 @@
 import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 import {
-  getUnitsList,
-  getSeries,
-  getOperations,
   getCampaigns,
-  getVariablesById,
-  getQuestionnaire,
-  getNomenclatures,
   getNomenclature,
+  getNomenclatures,
+  getOperations,
+  getQuestionnaire,
+  getSeries,
+  getUnitsList,
+  getVariablesById,
 } from '../utils/remote-api';
 
 const { NON_DYNAMIC } = DIMENSION_LENGTH;
@@ -38,7 +38,7 @@ export const loadMetadataSuccess = (type, metadata) => {
   };
 };
 
-export const loadMetadataFailure = err => ({
+export const loadMetadataFailure = (err) => ({
   type: LOAD_METADATA_FAILURE,
   payload: err,
 });
@@ -52,15 +52,15 @@ export const loadMetadataFailure = err => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_METADATA_SUCCESS or LOAD_METADATA_FAILURE
  */
-export const loadUnits = token => dispatch => {
+export const loadUnits = (token) => (dispatch) => {
   dispatch({
     type: LOAD_UNITS,
     payload: null,
   });
   return getUnitsList(token)
-    .then(listUnits => {
+    .then((listUnits) => {
       const units = listUnits
-        .map(u => ({
+        .map((u) => ({
           id: u.uri,
           uri: u.uri,
           label: u.label,
@@ -70,10 +70,10 @@ export const loadUnits = token => dispatch => {
         });
       return dispatch(loadMetadataSuccess('units', units));
     })
-    .catch(err => dispatch(loadMetadataFailure(err)));
+    .catch((err) => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadUnitsIfNeeded = token => (dispatch, getState) => {
+export const loadUnitsIfNeeded = (token) => (dispatch, getState) => {
   const state = getState();
   const { units } = state.metadataByType;
   if (!units) dispatch(loadUnits(token));
@@ -81,25 +81,25 @@ export const loadUnitsIfNeeded = token => (dispatch, getState) => {
 
 // Metadata series
 
-export const loadSeries = token => dispatch => {
+export const loadSeries = (token) => (dispatch) => {
   dispatch({
     type: LOAD_SERIES,
     payload: null,
   });
 
   return getSeries(token)
-    .then(series => {
-      const seriesMetadata = series.map(s => ({
+    .then((series) => {
+      const seriesMetadata = series.map((s) => ({
         id: s.id,
         value: s.id,
         label: s.label,
       }));
       return dispatch(loadMetadataSuccess('series', seriesMetadata));
     })
-    .catch(err => dispatch(loadMetadataFailure(err)));
+    .catch((err) => dispatch(loadMetadataFailure(err)));
 };
 
-export const loadSeriesIfNeeded = token => (dispatch, getState) => {
+export const loadSeriesIfNeeded = (token) => (dispatch, getState) => {
   const state = getState();
   const { series } = state.metadataByType;
   if (!series) dispatch(loadSeries(token));
@@ -107,15 +107,15 @@ export const loadSeriesIfNeeded = token => (dispatch, getState) => {
 
 // Metadata operations
 
-export const loadOperations = (idSerie, token) => dispatch => {
+export const loadOperations = (idSerie, token) => (dispatch) => {
   dispatch({
     type: LOAD_OPERATIONS,
     payload: null,
   });
 
   return getOperations(idSerie, token)
-    .then(operations => {
-      const operationsMetadata = operations.map(o => ({
+    .then((operations) => {
+      const operationsMetadata = operations.map((o) => ({
         id: o.id,
         value: o.id,
         label: o.label,
@@ -123,7 +123,7 @@ export const loadOperations = (idSerie, token) => dispatch => {
       }));
       return dispatch(loadMetadataSuccess('operations', operationsMetadata));
     })
-    .catch(err => dispatch(loadMetadataFailure(err)));
+    .catch((err) => dispatch(loadMetadataFailure(err)));
 };
 
 export const loadOperationsIfNeeded =
@@ -142,15 +142,15 @@ export const loadOperationsIfNeeded =
 
 // Metadata campaigns
 
-export const loadCampaigns = (idOperation, token) => dispatch => {
+export const loadCampaigns = (idOperation, token) => (dispatch) => {
   dispatch({
     type: LOAD_CAMPAIGNS,
     payload: null,
   });
 
   return getCampaigns(idOperation, token)
-    .then(campaigns => {
-      const campaignsMetadata = campaigns.map(c => ({
+    .then((campaigns) => {
+      const campaignsMetadata = campaigns.map((c) => ({
         id: c.id,
         value: c.id,
         label: c.label,
@@ -158,7 +158,7 @@ export const loadCampaigns = (idOperation, token) => dispatch => {
       }));
       return dispatch(loadMetadataSuccess('campaigns', campaignsMetadata));
     })
-    .catch(err => dispatch(loadMetadataFailure(err)));
+    .catch((err) => dispatch(loadMetadataFailure(err)));
 };
 
 export const loadCampaignsIfNeeded =
@@ -179,7 +179,7 @@ export const loadCampaignsIfNeeded =
 // Metadata : variables from external elements
 
 export const loadExternalQuestionnairesVariables =
-  (idExternalQuestionnaire, token) => async dispatch => {
+  (idExternalQuestionnaire, token) => async (dispatch) => {
     dispatch({
       type: LOAD_EXTERNAL_ELEMENTS_VARIABLES,
       payload: null,
@@ -209,12 +209,12 @@ export const loadExternalQuestionnairesVariables =
 
 // Metadata : loops from external elements
 
-const isQuestionLoop = component => {
+const isQuestionLoop = (component) => {
   return (
     component.type === 'QuestionType' &&
     ((component.questionType === 'TABLE' &&
       component.ResponseStructure.Dimension.some(
-        dim =>
+        (dim) =>
           dim.dimensionType === 'PRIMARY' &&
           dim.dynamic !== '0' &&
           dim.dynamic !== NON_DYNAMIC,
@@ -224,7 +224,7 @@ const isQuestionLoop = component => {
 };
 
 export const loadExternalQuestionnairesLoops =
-  (idExternalQuestionnaire, token) => async dispatch => {
+  (idExternalQuestionnaire, token) => async (dispatch) => {
     dispatch({
       type: LOAD_EXTERNAL_ELEMENTS_LOOPS,
       payload: null,
@@ -268,8 +268,8 @@ export const loadExternalQuestionnairesLoops =
         }, []);
       const externalQuestionnaireLoops =
         externalQuestionnaire.Iterations?.Iteration.filter(
-          loop => !loop.IterableReference,
-        ).map(loop => ({ id: loop.id, name: loop.Name }));
+          (loop) => !loop.IterableReference,
+        ).map((loop) => ({ id: loop.id, name: loop.Name }));
 
       const externalQuestionnairesMetadata = [
         {
@@ -309,7 +309,7 @@ export const loadExternalQuestionnairesIfNeeded =
 
 // Metadata : Nomenclatures
 
-export const loadNomenclatures = token => async dispatch => {
+export const loadNomenclatures = (token) => async (dispatch) => {
   dispatch({
     type: LOAD_NOMENCLATURES,
     payload: null,
@@ -318,7 +318,7 @@ export const loadNomenclatures = token => async dispatch => {
   try {
     const nomenclatures = await getNomenclatures(token);
     const nomenclaturesMetadata = Object.values(nomenclatures.nomenclatures)
-      .map(nomenclature => ({
+      .map((nomenclature) => ({
         id: nomenclature.id,
         label: nomenclature.label,
       }))
@@ -333,14 +333,14 @@ export const loadNomenclatures = token => async dispatch => {
   }
 };
 
-export const loadNomenclaturesIfNeeded = token => (dispatch, getState) => {
+export const loadNomenclaturesIfNeeded = (token) => (dispatch, getState) => {
   const state = getState();
   const { nomenclatures } = state.metadataByType;
   if (!nomenclatures) dispatch(loadNomenclatures(token));
 };
 
 export const loadNomenclature =
-  (token, id, nomenclatures) => async dispatch => {
+  (token, id, nomenclatures) => async (dispatch) => {
     dispatch({
       type: LOAD_NOMENCLATURES,
       payload: null,

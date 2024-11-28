@@ -1,14 +1,13 @@
-import { connect } from 'react-redux';
-import { formValueSelector, arrayRemoveAll, arrayPush } from 'redux-form';
 import PropTypes from 'prop-types';
-
-import CollectedVariables from '../../components/variables/collected-variables';
+import { connect } from 'react-redux';
+import { arrayPush, arrayRemoveAll, formValueSelector } from 'redux-form';
 
 import { removeValidationErrors } from '../../../../actions/errors';
 import {
-  TABS_PATHS,
   DEFAULT_FORM_NAME,
+  TABS_PATHS,
 } from '../../../../constants/pogues-constants';
+import CollectedVariables from '../../components/variables/collected-variables';
 
 // Prop types and default Props
 

@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import {
   externalVariablesFormNew,
   externalVariablesFormUpdate,
@@ -13,12 +14,14 @@ describe.skip('Transformation entities - ExternalVariable', () => {
 
     // The id is random in creation, so it's not take it into account for testing.
     const store = cvTransformer.formToStore(externalVariablesFormNew);
-    const state = Object.keys(store).map(key => {
+    const state = Object.keys(store).map((key) => {
+      // eslint-disable-next-line no-unused-vars
       const { id, ...stateItem } = store[key];
       return stateItem;
     });
 
-    const expectedState = Object.keys(externalVariablesStore).map(key => {
+    const expectedState = Object.keys(externalVariablesStore).map((key) => {
+      // eslint-disable-next-line no-unused-vars
       const { id, ...expectedStateItem } = externalVariablesStore[key];
       return expectedStateItem;
     });

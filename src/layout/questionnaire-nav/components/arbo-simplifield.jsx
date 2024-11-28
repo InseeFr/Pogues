@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+
 import PropTypes from 'prop-types';
+
 import {
-  isQuestion,
   getSortedChildren,
-  isLoop,
   isFilter,
+  isLoop,
   isNestedFilter,
+  isQuestion,
 } from '../../../utils/component/component-utils';
 
 function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
@@ -14,7 +16,7 @@ function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
   function handleExpand(e, key) {
     e.preventDefault();
     if (expanded.indexOf(key) < 0) setExpanded([...expanded, key]);
-    else setExpanded(expanded.filter(k => k !== key));
+    else setExpanded(expanded.filter((k) => k !== key));
   }
 
   function handleClick(e, key) {
@@ -23,7 +25,7 @@ function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
   }
 
   function renderComponentsByParent(components, parent) {
-    return getSortedChildren(components, parent).map(key => {
+    return getSortedChildren(components, parent).map((key) => {
       if (key === 'idendquest') return null;
 
       const subTree = renderComponentsByParent(components, key);
@@ -41,7 +43,7 @@ function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
         >
           {components[key].children && components[key].children.length > 0 && (
             <button
-              onClick={e => handleExpand(e, key)}
+              onClick={(e) => handleExpand(e, key)}
               className={`glyphicon ${
                 expanded.indexOf(key) >= 0
                   ? 'glyphicon-menu-down'
@@ -49,7 +51,7 @@ function ArboSimplified({ setSelectedComponentId, components, questionnaire }) {
               }`}
             />
           )}
-          <button onClick={e => handleClick(e, key)}>
+          <button onClick={(e) => handleClick(e, key)}>
             {components[key].name.toUpperCase()}
           </button>
           {expanded.indexOf(key) >= 0 && (

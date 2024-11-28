@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { updateComponent } from '../../../actions/actionComponent';
+import { setValidationErrors } from '../../../actions/errors';
 import ComponentEdit from '../components/component-edit';
 
-import { setValidationErrors } from '../../../actions/errors';
-import { updateComponent } from '../../../actions/actionComponent';
 // PropTypes and defaultProps
 
 export const propTypes = {
@@ -14,7 +14,7 @@ export const propTypes = {
 
 // Container
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const componentsStore = state.appState.activeComponentsById;
 
   return {

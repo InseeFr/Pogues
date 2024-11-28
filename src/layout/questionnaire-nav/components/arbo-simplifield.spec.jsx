@@ -1,6 +1,8 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { describe, expect, test, vi } from 'vitest';
+
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import ArboSimplified from './arbo-simplifield';
 

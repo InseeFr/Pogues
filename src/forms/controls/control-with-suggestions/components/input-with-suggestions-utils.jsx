@@ -3,7 +3,7 @@ export function updateSuggestions(text, regex, availableSuggestions) {
   let suggestions = [];
 
   if (matches) {
-    suggestions = availableSuggestions.filter(suggestion =>
+    suggestions = availableSuggestions.filter((suggestion) =>
       suggestion.toLowerCase().includes(matches[1].toLocaleLowerCase()),
     );
   }

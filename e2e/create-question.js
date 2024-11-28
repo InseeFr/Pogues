@@ -2,7 +2,7 @@ const genericInput = require('./po/generic-input');
 const editQuestion = require('./po/edit-question');
 
 module.exports = {
-  'Should close the model if Cancel is clicked': browser => {
+  'Should close the model if Cancel is clicked': (browser) => {
     // PLEASE MAKE YOUR TESTS DATA AGNOSTICS
     // browser
     //   .url(`${browser.globals.launch_url}/#/questionnaire/fr.insee-POPO-QPO-DOC`)
@@ -13,7 +13,7 @@ module.exports = {
     //   .waitForElementNotPresent(editQuestion.Tabs)
     //   .end()
   },
-  'Should show declaration panel': browser => {
+  'Should show declaration panel': (browser) => {
     // PLEASE MAKE YOUR TESTS DATA AGNOSTICS
     // browser
     //   .url(`${browser.globals.launch_url}/#/questionnaire/fr.insee-POPO-QPO-DOC`)

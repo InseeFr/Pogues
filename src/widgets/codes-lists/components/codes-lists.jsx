@@ -1,24 +1,23 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import { Field, FieldArray, FormSection } from 'redux-form';
 
-import CodesListsCodesContainer from '../containers/codes-lists-codes-container';
-
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import {
-  CODES_LIST_INPUT_ENUM,
   CODES_LISTS_PANELS,
   CODES_LISTS_PANELS_SEARCH_DISABLE,
+  CODES_LIST_INPUT_ENUM,
 } from '../../../constants/pogues-constants';
-import Dictionary from '../../../utils/dictionary/dictionary';
+import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
+import GenericOption from '../../../forms/controls/generic-option';
 import ListRadios from '../../../forms/controls/list-radios';
 import Select from '../../../forms/controls/select';
-import GenericOption from '../../../forms/controls/generic-option';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import { storeToArray, uuid } from '../../../utils/utils';
-import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
-
-import { SearchCodesLists } from '../../search-codes-lists';
 import { ErrorsPanel } from '../../errors-panel';
+import { SearchCodesLists } from '../../search-codes-lists';
+import CodesListsCodesContainer from '../containers/codes-lists-codes-container';
 
 const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } =
   WIDGET_CODES_LISTS;
@@ -27,7 +26,7 @@ const { NEW, REF, QUEST } = CODES_LIST_INPUT_ENUM;
 // Utils
 
 function getSelectorOptions(panels) {
-  return panels.map(p => ({
+  return panels.map((p) => ({
     label: Dictionary[p.dictionary],
     value: p.value,
   }));
@@ -99,7 +98,7 @@ const CodesLists = ({
       change(
         formName,
         `${path}codes`,
-        Object.keys(codesStore).map(key => codesStore[key]),
+        Object.keys(codesStore).map((key) => codesStore[key]),
       );
       setCurrentIdState(currentId);
     }
@@ -133,13 +132,13 @@ const CodesLists = ({
         >
           {isSearchDisable
             ? getSelectorOptions(CODES_LISTS_PANELS_SEARCH_DISABLE).map(
-                panel => (
+                (panel) => (
                   <GenericOption key={panel.value} value={panel.value}>
                     {panel.label}
                   </GenericOption>
                 ),
               )
-            : getSelectorOptions(CODES_LISTS_PANELS).map(panel => (
+            : getSelectorOptions(CODES_LISTS_PANELS).map((panel) => (
                 <GenericOption key={panel.value} value={panel.value}>
                   {panel.label}
                 </GenericOption>
@@ -162,8 +161,8 @@ const CodesLists = ({
               </GenericOption>
               {storeToArray(currentCodesListsStore)
                 .sort((cl1, cl2) => cl1.label.localeCompare(cl2.label))
-                .filter(cl => cl.codes)
-                .map(cl => (
+                .filter((cl) => cl.codes)
+                .map((cl) => (
                   <GenericOption key={cl.id} value={cl.id}>
                     {cl.label}
                   </GenericOption>
@@ -188,7 +187,7 @@ const CodesLists = ({
                 label={Dictionary.newCl}
                 focusOnInit
                 required
-                onEnter={e => {
+                onEnter={(e) => {
                   e.preventDefault();
                   refDiv.querySelector('button').click();
                 }}

@@ -1,8 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import { ComponentNewEdit } from '../../../widgets/component-new-edit';
 import { Component } from '../../../model';
 import {
   validateFilterForm,
@@ -11,6 +9,7 @@ import {
   validateRoundaboutForm,
   validateSequenceForm,
 } from '../../../utils/validation/validate';
+import { ComponentNewEdit } from '../../../widgets/component-new-edit';
 
 const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -84,7 +83,7 @@ function validateAndSubmit(
       )
       .then(actions.updateParentChildren)
       .then(actions.orderComponents)
-      .then(result => {
+      .then((result) => {
         const {
           payload: { id },
         } = result;
@@ -114,15 +113,16 @@ function ComponentNew({
   removeComponent,
   selectedComponent,
 }) {
-  const validateQuestion = (setValidationErrorsAction, codesLists) => values =>
-    validateQuestionForm(values, setValidationErrorsAction, codesLists);
-  const validateSequence = setValidationErrorsAction => values =>
+  const validateQuestion =
+    (setValidationErrorsAction, codesLists) => (values) =>
+      validateQuestionForm(values, setValidationErrorsAction, codesLists);
+  const validateSequence = (setValidationErrorsAction) => (values) =>
     validateSequenceForm(values, setValidationErrorsAction);
-  const validateLoop = setValidationErrorsAction => values =>
+  const validateLoop = (setValidationErrorsAction) => (values) =>
     validateLoopForm(values, setValidationErrorsAction);
-  const validateFilter = setValidationErrorsAction => values =>
+  const validateFilter = (setValidationErrorsAction) => (values) =>
     validateFilterForm(values, setValidationErrorsAction);
-  const validateRoundabout = setValidationErrorsAction => values =>
+  const validateRoundabout = (setValidationErrorsAction) => (values) =>
     validateRoundaboutForm(values, setValidationErrorsAction);
   const actions = {
     createComponent,

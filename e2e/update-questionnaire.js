@@ -1,7 +1,7 @@
 const questionnairePage = require('./po/questionnaire');
 
 module.exports = {
-  'Should update the title of a questionnaire': browser => {
+  'Should update the title of a questionnaire': (browser) => {
     // PLEASE MAKE YOUR TESTS DATA AGNOSTICS
     // browser
     //   .url(`${browser.globals.launch_url}/#/questionnaire/fr.insee-POPO-QPO-DOC`)

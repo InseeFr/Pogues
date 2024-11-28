@@ -19,7 +19,7 @@ import xpathParser from './generated-parsers/xpath-parser';
  * @returns error message if anything went wrong during the parsing of the expression
  */
 const validateXpath = (xpath) => {
-  if(xpath) {
+  if (xpath) {
     try {
       // Throws an error if the syntax isn't valid
       xpathParser.parse(xpath);
@@ -30,6 +30,3 @@ const validateXpath = (xpath) => {
 };
 
 export { validateXpath };
-
-
-

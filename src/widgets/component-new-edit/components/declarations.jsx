@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
-import { Field, FormSection, formValueSelector } from 'redux-form';
-import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Field, FormSection, formValueSelector } from 'redux-form';
 
+import {
+  DEFAULT_FORM_NAME,
+  TABS_PATHS,
+  TargetMode,
+} from '../../../constants/pogues-constants';
+import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import GenericOption from '../../../forms/controls/generic-option';
+import ListCheckboxes from '../../../forms/controls/list-checkboxes';
+import Select from '../../../forms/controls/select';
 import {
   defaultCustum,
   defaultDeclaration,
 } from '../../../model/formToState/component-new-edit/declaration';
-
-import Select from '../../../forms/controls/select';
-import GenericOption from '../../../forms/controls/generic-option';
-import { ListWithInputPanel } from '../../list-with-input-panel';
-import { validateDeclarationForm } from '../../../utils/validation/validate';
-import ListCheckboxes from '../../../forms/controls/list-checkboxes';
-import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
-
 import Dictionary from '../../../utils/dictionary/dictionary';
-import {
-  TABS_PATHS,
-  DEFAULT_FORM_NAME,
-  TargetMode,
-} from '../../../constants/pogues-constants';
+import { validateDeclarationForm } from '../../../utils/validation/validate';
+import { ListWithInputPanel } from '../../list-with-input-panel';
 
-const validateForm = (addErrors, validate) => values => {
+const validateForm = (addErrors, validate) => (values) => {
   return validate(values, addErrors);
 };
 
@@ -108,7 +106,7 @@ const Declarations = ({
           label={Dictionary.collectionMode}
           inline
         >
-          {TargetMode.map(s => (
+          {TargetMode.map((s) => (
             <GenericOption key={s.value} value={s.value}>
               {s.label}
             </GenericOption>
@@ -137,7 +135,7 @@ Declarations.defaultProps = {
   declarationType: '',
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
   return {
     declarationType: selector(state, `declarations.declarationType`),

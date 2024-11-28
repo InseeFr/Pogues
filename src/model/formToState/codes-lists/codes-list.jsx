@@ -1,5 +1,5 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
 
 import { uuid } from '../../../utils/utils';
 
@@ -68,7 +68,7 @@ export function stateComponentToForm({
     : merge(cloneDeep(defaultForm), {
         id,
         label,
-        codes: Object.keys(codes).map(key => codes[key]),
+        codes: Object.keys(codes).map((key) => codes[key]),
       });
 }
 
@@ -83,13 +83,13 @@ export const Factory = (currentState = {}, codesListsStore) => {
   }
 
   return {
-    formToStateComponent: form => {
+    formToStateComponent: (form) => {
       if (form) currentState = formToState(form);
       return {
         id: currentState.id,
       };
     },
-    formToState: form => {
+    formToState: (form) => {
       if (form) currentState = formToState(form);
       return currentState;
     },

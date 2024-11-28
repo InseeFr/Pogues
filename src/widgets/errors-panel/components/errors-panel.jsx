@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import { WIDGET_ERRORS_PANEL } from '../../../constants/dom-constants';
@@ -22,7 +23,7 @@ function ErrrosPanel({ errors }) {
     <div className={COMPONENT_CLASS}>
       {errors.length > 0 && (
         <ul className={INNER}>
-          {errors.map(e => (
+          {errors.map((e) => (
             <li key={e}>{e}</li>
           ))}
         </ul>

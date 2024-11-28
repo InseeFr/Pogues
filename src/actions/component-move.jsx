@@ -1,17 +1,18 @@
 import sortBy from 'lodash.sortby';
+
+import { getDragnDropLevel } from '../utils/component/component-dragndrop-utils';
 import {
-  isSubSequence,
-  isSequence,
   isQuestion,
+  isSequence,
+  isSubSequence,
   toComponents,
 } from '../utils/component/component-utils';
 import { getClosestComponentIdByType } from '../utils/component/generic-input-utils';
-import { getDragnDropLevel } from '../utils/component/component-dragndrop-utils';
-import { resetAllWeight, increaseWeightOfAll } from './component-update';
 import {
-  moveQuestionToSubSequence,
   moveQuestionAndSubSequenceToSequence,
+  moveQuestionToSubSequence,
 } from './component-insert';
+import { increaseWeightOfAll, resetAllWeight } from './component-update';
 
 export function dummyFunction() {
   return 'Hello world';
@@ -83,11 +84,11 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
   const moves = {
     ...activesComponents,
   };
-  const sequences = Object.keys(activesComponents).filter(key =>
+  const sequences = Object.keys(activesComponents).filter((key) =>
     isSequence(moves[key]),
   );
 
-  sequences.forEach(sequence => {
+  sequences.forEach((sequence) => {
     const children = sortBy(toComponents(moves[sequence].children, moves), [
       'weight',
     ]);
@@ -109,7 +110,7 @@ function attachQuestionToPreviousSubSequence(activesComponents) {
         moves[children[i].parent] = {
           ...moves[children[i].parent],
           children: moves[children[i].parent].children.filter(
-            id => id !== children[i].id,
+            (id) => id !== children[i].id,
           ),
         };
       }
@@ -191,7 +192,7 @@ export function moveComponent(
     ) {
       includeSelectedComponent = true;
       droppedComponent = toComponents(droppedComponent.children, moves).find(
-        c => c.weight === 0,
+        (c) => c.weight === 0,
       );
     }
 
@@ -217,7 +218,7 @@ export function moveComponent(
     ) {
       includeSelectedComponent = true;
       droppedComponent = toComponents(droppedComponent.children, moves).find(
-        c => c.weight === 0,
+        (c) => c.weight === 0,
       );
     }
 
@@ -262,7 +263,7 @@ export function moveComponent(
       },
       [oldParent.id]: {
         ...oldParent,
-        children: oldParent.children.filter(id => id !== moveComponentId),
+        children: oldParent.children.filter((id) => id !== moveComponentId),
       },
     };
   }

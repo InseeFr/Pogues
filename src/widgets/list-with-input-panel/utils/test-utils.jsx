@@ -8,7 +8,7 @@ export function getFakeFields(items, inputName) {
         index,
         name: `${inputName}[${index}]`,
         listFields: {
-          get: indexInner => items[indexInner],
+          get: (indexInner) => items[indexInner],
         },
       };
     }),

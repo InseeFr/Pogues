@@ -1,5 +1,6 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { DuplicateVariables } from '../components/duplicate-variables';
 
 const propTypes = {

@@ -1,10 +1,10 @@
 import { describe, expect, it, test } from 'vitest';
-import { remoteToStore, storeToRemote } from './calculated-variable';
 
 import {
   DATATYPE_NAME,
   VARIABLES_TYPES,
 } from '../../constants/pogues-constants';
+import { remoteToStore, storeToRemote } from './calculated-variable';
 
 const { TEXT } = DATATYPE_NAME;
 
@@ -174,7 +174,7 @@ describe('calculated variables tranformations', () => {
         },
       ];
       const result = remoteToStore(remote);
-      Object.keys(result).forEach(key => expect(key).toBeDefined());
+      Object.keys(result).forEach((key) => expect(key).toBeDefined());
     });
   });
   describe('storeToRemote', () => {

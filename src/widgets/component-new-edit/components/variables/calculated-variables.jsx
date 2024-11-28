@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import { Field, FormSection } from 'redux-form';
+
 import PropTypes from 'prop-types';
+import { Field, FormSection } from 'redux-form';
+
 import {
   DATATYPE_NAME,
-  TABS_PATHS,
   DEFAULT_FORM_NAME,
+  TABS_PATHS,
 } from '../../../../constants/pogues-constants';
-
-import { defaultState } from '../../../../model/formToState/component-new-edit/calculated-variable';
-
-import Input from '../../../../forms/controls/input';
 import { SimpleEditorWithVariable } from '../../../../forms/controls/control-with-suggestions';
-import { ListWithInputPanel } from '../../../list-with-input-panel';
+import GenericOption from '../../../../forms/controls/generic-option';
+import Input from '../../../../forms/controls/input';
+import Select from '../../../../forms/controls/select';
+import { defaultState } from '../../../../model/formToState/component-new-edit/calculated-variable';
+import Dictionary from '../../../../utils/dictionary/dictionary';
 import { validateCalculatedVariableForm } from '../../../../utils/validation/validate';
+import { ListWithInputPanel } from '../../../list-with-input-panel';
+import { SelectorView, View } from '../../../selector-view';
+import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
 import ResponseFormatDatatypeNumeric from '../response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from '../response-format/simple/simple-text';
-import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
-import Dictionary from '../../../../utils/dictionary/dictionary';
-
-import { SelectorView, View } from '../../../selector-view';
-import GenericOption from '../../../../forms/controls/generic-option';
-import Select from '../../../../forms/controls/select';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 // Utils

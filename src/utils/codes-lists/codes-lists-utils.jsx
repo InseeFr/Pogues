@@ -1,9 +1,9 @@
 import {
   COMPONENT_TYPE,
-  QUESTION_TYPE_ENUM,
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
@@ -63,7 +63,7 @@ export function getTableCodesLists(tableFormat) {
   }
 
   if (measures) {
-    measures.forEach(m => {
+    measures.forEach((m) => {
       codesListsIds = [...codesListsIds, ...getMeasureCodesLists(m)];
     });
   }
@@ -73,7 +73,7 @@ export function getTableCodesLists(tableFormat) {
 
 export function removeOrphansCodesLists(codesListsStore, componentsStore) {
   return Object.keys(componentsStore)
-    .filter(key => {
+    .filter((key) => {
       return componentsStore[key].type === QUESTION;
     })
     .reduce((acc, key) => {

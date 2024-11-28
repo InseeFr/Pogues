@@ -1,13 +1,13 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { TABS_PATHS } from '../../../constants/pogues-constants';
+import { connect } from 'react-redux';
 
+import { TABS_PATHS } from '../../../constants/pogues-constants';
 import Tabs from '../components/tabs';
 
 // Utils
 
 function getvalidationErrorsByTab(numErrorsByTab, validation) {
-  Object.keys(validation).forEach(path => {
+  Object.keys(validation).forEach((path) => {
     const matches = path.match(/^(.+?)\./);
 
     if (matches) {
@@ -23,8 +23,8 @@ function getIntegrityErrorsByTab(numErrorsByTab, integrity) {
     .reduce((acc, key) => {
       return [...acc, ...integrity[key]];
     }, [])
-    .filter(e => e.path)
-    .forEach(e => {
+    .filter((e) => e.path)
+    .forEach((e) => {
       const matches = e.path.match(/^(.+?)\./);
 
       if (matches) {

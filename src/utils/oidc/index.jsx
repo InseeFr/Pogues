@@ -1,5 +1,6 @@
 import { createMockReactOidc } from 'oidc-spa/mock/react';
 import { createReactOidc } from 'oidc-spa/react';
+
 import { getEnvVar } from '../env';
 
 const authority = getEnvVar('OIDC_AUTHORITY');

@@ -1,7 +1,7 @@
-import EditorValue from 'gillespie59-react-rte/lib/lib/EditorValue';
 import { EditorState } from 'draft-js';
-import decorators from '../decorators/rich-textarea-decorators';
+import EditorValue from 'gillespie59-react-rte/lib/lib/EditorValue';
 
+import decorators from '../decorators/rich-textarea-decorators';
 import stateFromMarkdownVtl from '../lib/state-from-markdown-vtl';
 import stateToMarkdownVtl from '../lib/state-to-markdown-vtl';
 

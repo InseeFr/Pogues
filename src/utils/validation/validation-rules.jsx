@@ -1,35 +1,35 @@
 import {
-  required,
-  requiredSelect,
+  DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_LENGTH,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
+  TABS_PATHS,
+} from '../../constants/pogues-constants';
+import {
+  cartCodeModeCollecte,
+  emptyMeasures,
+  letterStart,
+  maxValue,
+  maximumRequired,
+  minValue,
+  minimumRequired,
   name,
   nameLoop,
   nameSize,
-  minValue,
-  maxValue,
+  required,
+  requiredSelect,
+  typeCalculated,
+  typeExternal,
   validCodesList,
-  emptyMeasures,
+  validCollectedVariables,
+  validateDuplicatesCalculated,
+  validateDuplicatesCollected,
+  validateDuplicatesExternal,
   validateEarlyTarget,
   validateExistingTarget,
-  validateDuplicatesCalculated,
-  validateDuplicatesExternal,
-  typeExternal,
-  typeCalculated,
-  validateDuplicatesCollected,
-  validCollectedVariables,
-  letterStart,
-  minimumRequired,
-  maximumRequired,
-  cartCodeModeCollecte,
 } from '../../forms/validation-rules';
-import {
-  TABS_PATHS,
-  QUESTION_TYPE_ENUM,
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  DATATYPE_NAME,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DIMENSION_LENGTH,
-} from '../../constants/pogues-constants';
 import Dictionary from '../dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -89,30 +89,34 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.type`]: [requiredSelect],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
-    value => minValue(1)(value),
+    (value) => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.minimum`]: [required],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.maximum`]: [required],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.maminutes`]: [
-    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value =>
+    (value) =>
+      value !== undefined && value !== '' ? minValue(0)(value) : false,
+    (value) =>
       value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miminutes`]: [
-    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value =>
+    (value) =>
+      value !== undefined && value !== '' ? minValue(0)(value) : false,
+    (value) =>
       value !== undefined && value !== '' ? maxValue(59)(value) : false,
   ],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mamonths`]: [
-    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value =>
+    (value) =>
+      value !== undefined && value !== '' ? minValue(0)(value) : false,
+    (value) =>
       value !== undefined && value !== '' ? maxValue(11)(value) : false,
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mimonths`]: [
-    value => (value !== undefined && value !== '' ? minValue(0)(value) : false),
-    value =>
+    (value) =>
+      value !== undefined && value !== '' ? minValue(0)(value) : false,
+    (value) =>
       value !== undefined && value !== '' ? maxValue(11)(value) : false,
   ],
 
@@ -124,9 +128,9 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.minLines`]:
-    [value => minValue(1)(value), value => maxValue(300)(value)],
+    [(value) => minValue(1)(value), (value) => maxValue(300)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${DYNAMIC_LENGTH}.maxLines`]:
-    [value => minValue(1)(value), value => maxValue(300)(value)],
+    [(value) => minValue(1)(value), (value) => maxValue(300)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FIXED_LENGTH}.fixedLength`]:
     [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
@@ -141,13 +145,13 @@ export const questionRules = {
 
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
-    value => minValue(1)(value),
+    (value) => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.measures`]: [emptyMeasures],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.label`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
-    value => minValue(1)(value),
+    (value) => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
@@ -155,7 +159,7 @@ export const questionRules = {
 };
 export const declarationRules = {
   [`${DECLARATIONS}.label`]: [
-    value => required(value) && Dictionary.validation_declaration_label,
+    (value) => required(value) && Dictionary.validation_declaration_label,
   ],
   [`${DECLARATIONS}.declarationType`]: [
     (value, conf) =>
@@ -165,13 +169,13 @@ export const declarationRules = {
 
 export const redirectionRules = {
   [`${REDIRECTIONS}.label`]: [
-    value => required(value) && Dictionary.validation_goTo_description,
+    (value) => required(value) && Dictionary.validation_goTo_description,
   ],
   [`${REDIRECTIONS}.condition`]: [
-    value => required(value) && Dictionary.validation_condition,
+    (value) => required(value) && Dictionary.validation_condition,
   ],
   [`${REDIRECTIONS}.cible`]: [
-    value => required(value) && Dictionary.validation_target,
+    (value) => required(value) && Dictionary.validation_target,
     validateEarlyTarget,
     validateExistingTarget,
   ],
@@ -179,22 +183,23 @@ export const redirectionRules = {
 
 export const controlRules = {
   [`${CONTROLS}.label`]: [
-    value => required(value) && Dictionary.validation_control_description,
+    (value) => required(value) && Dictionary.validation_control_description,
   ],
   [`${CONTROLS}.condition`]: [
-    value => required(value) && Dictionary.validation_expression,
+    (value) => required(value) && Dictionary.validation_expression,
   ],
   [`${CONTROLS}.message`]: [
-    value => required(value) && Dictionary.validation_control_message,
+    (value) => required(value) && Dictionary.validation_control_message,
   ],
 };
 
 export const calculatedVariableRules = {
   [`${CALCULATED_VARIABLES}.label`]: [
-    value => required(value) && Dictionary.validation_calculatedvariable_label,
+    (value) =>
+      required(value) && Dictionary.validation_calculatedvariable_label,
   ],
   [`${CALCULATED_VARIABLES}.name`]: [
-    value => required(value) && Dictionary.validation_calculatedvariable_name,
+    (value) => required(value) && Dictionary.validation_calculatedvariable_name,
     name,
     nameSize,
     letterStart,
@@ -203,7 +208,7 @@ export const calculatedVariableRules = {
       Dictionary.validation_calculatedvariable_existing,
   ],
   [`${CALCULATED_VARIABLES}.formula`]: [
-    value =>
+    (value) =>
       required(value) && Dictionary.validation_calculatedvariable_formula,
   ],
 
@@ -219,10 +224,10 @@ export const calculatedVariableRules = {
 
 export const externalVariableRules = {
   [`${EXTERNAL_VARIABLES}.label`]: [
-    value => required(value) && Dictionary.validation_externalvariable_label,
+    (value) => required(value) && Dictionary.validation_externalvariable_label,
   ],
   [`${EXTERNAL_VARIABLES}.name`]: [
-    value => required(value) && Dictionary.validation_externalvariable_name,
+    (value) => required(value) && Dictionary.validation_externalvariable_name,
     name,
     nameSize,
     letterStart,
@@ -242,10 +247,10 @@ export const externalVariableRules = {
 
 export const collectedVariableRules = {
   [`${COLLECTED_VARIABLES}.label`]: [
-    value => required(value) && Dictionary.validation_collectedvariable_label,
+    (value) => required(value) && Dictionary.validation_collectedvariable_label,
   ],
   [`${COLLECTED_VARIABLES}.name`]: [
-    value => required(value) && Dictionary.validation_collectedvariable_name,
+    (value) => required(value) && Dictionary.validation_collectedvariable_name,
     name,
     nameSize,
     letterStart,
@@ -257,18 +262,18 @@ export const collectedVariableRules = {
 
 export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [
-    value => required(value) && Dictionary.validationMeasureLabel,
+    (value) => required(value) && Dictionary.validationMeasureLabel,
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
-    value => minValue(1)(value),
+    (value) => minValue(1)(value),
   ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.maximum`]:
-    [value => required(value) && Dictionary.validation_maximum],
+    [(value) => required(value) && Dictionary.validation_maximum],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${NUMERIC}.minimum`]:
-    [value => required(value) && Dictionary.validation_minimum],
+    [(value) => required(value) && Dictionary.validation_minimum],
 };
 
 export const roundaboutRules = {

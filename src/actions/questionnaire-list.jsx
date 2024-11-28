@@ -1,5 +1,5 @@
-import { getQuestionnaireList } from '../utils/remote-api';
 import { questionnaireListRemoteToStores } from '../model/remote-to-stores';
+import { getQuestionnaireList } from '../utils/remote-api';
 
 export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';
@@ -24,7 +24,7 @@ export const DELETE_QLIST_SUCCESS = 'DELETE_QLIST_SUCCESS';
  * @param   {array} updatesList The new values to update in the different stores affected.
  * @return  {object}            LOAD_QLIST_SUCCESS action.
  */
-export const loadQuestionnaireListSuccess = updatesList => ({
+export const loadQuestionnaireListSuccess = (updatesList) => ({
   type: LOAD_QLIST_SUCCESS,
   payload: updatesList,
 });
@@ -37,7 +37,7 @@ export const loadQuestionnaireListSuccess = updatesList => ({
  * @param   {string} err   The error returned for the fetch process.
  * @return  {object}       LOAD_QLIST_FAILURE action
  */
-export const loadQuestionnaireListFailure = err => ({
+export const loadQuestionnaireListFailure = (err) => ({
   type: LOAD_QLIST_FAILURE,
   payload: err,
 });
@@ -49,7 +49,7 @@ export const loadQuestionnaireListFailure = err => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_QLIST_SUCCESS or LOAD_QLIST_FAILURE
  */
-export const loadQuestionnaireList = (stamp, token) => async dispatch => {
+export const loadQuestionnaireList = (stamp, token) => async (dispatch) => {
   dispatch({
     type: LOAD_QLIST,
     payload: null,
@@ -64,7 +64,7 @@ export const loadQuestionnaireList = (stamp, token) => async dispatch => {
   }
 };
 
-export const deleteQuestionnaireList = () => dispatch => {
+export const deleteQuestionnaireList = () => (dispatch) => {
   dispatch({
     type: DELETE_QLIST_SUCCESS,
   });

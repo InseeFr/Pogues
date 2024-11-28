@@ -1,37 +1,36 @@
-import activeComponentsById from './active-components-by-id';
-import activeCodeListsById from './active-code-lists-by-id';
-import activeCalculatedVariablesById from './active-calculated-variables-by-id';
-import collectedVariableByQuestion from './collected-variable-by-question';
-import activeExternalVariablesById from './active-external-variables-by-id';
-import invalidItemsByActiveQuestion from './invalid-items-by-active-question';
-import errorsByQuestionTab from './errors-by-question-tab';
-import formUtilsReducers from './form-utils';
-
 import {
-  SET_ACTIVE_QUESTIONNAIRE,
-  SET_SELECTED_COMPONENT,
-  SET_EDITING_COMPONENT,
-  UPDATE_ACTIVE_QUESTIONNAIRE,
-  LOAD_STATISTICAL_CONTEXT_SUCCESS,
-  SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
-  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
-  START_LOADING_VISUALIZATION,
-  END_LOADING_VISUALIZATION,
   DELETE_APPSTATE,
+  END_LOADING_VISUALIZATION,
+  LOAD_STATISTICAL_CONTEXT_SUCCESS,
+  SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
+  SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
+  SET_ACTIVE_QUESTIONNAIRE,
+  SET_EDITING_COMPONENT,
+  SET_SELECTED_COMPONENT,
+  START_LOADING_VISUALIZATION,
+  UPDATE_ACTIVE_QUESTIONNAIRE,
 } from '../../actions/app-state';
 import {
   CREATE_COMPONENT,
   DUPLICATE_COMPONENT,
-  UPDATE_COMPONENT,
-  REMOVE_COMPONENT,
-  UPDATE_COMPONENT_PARENT,
-  UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
+  REMOVE_COMPONENT,
+  UPDATE_COMPONENT,
+  UPDATE_COMPONENT_ORDER,
+  UPDATE_COMPONENT_PARENT,
 } from '../../actions/component';
 import {
   CREATE_QUESTIONNAIRE_REF,
   REMOVE_QUESTIONNAIRE_REF,
 } from '../../actions/external-questionnaire';
+import activeCalculatedVariablesById from './active-calculated-variables-by-id';
+import activeCodeListsById from './active-code-lists-by-id';
+import activeComponentsById from './active-components-by-id';
+import activeExternalVariablesById from './active-external-variables-by-id';
+import collectedVariableByQuestion from './collected-variable-by-question';
+import errorsByQuestionTab from './errors-by-question-tab';
+import formUtilsReducers from './form-utils';
+import invalidItemsByActiveQuestion from './invalid-items-by-active-question';
 
 const actionHandlers = {
   ...formUtilsReducers,
@@ -57,6 +56,7 @@ const defaultState = {
 };
 
 export function setActiveQuestionnaire(state, questionnaire) {
+  // eslint-disable-next-line no-unused-vars
   const { components, codeLists, ...activeQuestionnaire } = questionnaire;
 
   return {
@@ -104,7 +104,7 @@ export function loadStatisticalContext(state, { serie, operation }) {
 export function setActiveExternalQuestionnaires(state, { id }) {
   const newChildQuestionnaireRef = [
     ...Object.values(state.activeQuestionnaire.childQuestionnaireRef).filter(
-      extQR => extQR !== id,
+      (extQR) => extQR !== id,
     ),
     id,
   ];
@@ -120,7 +120,7 @@ export function setActiveExternalQuestionnaires(state, { id }) {
 export function setRemoveExternalQuestionnaires(state, { id }) {
   const newChildQuestionnaireRef = [
     ...Object.values(state.activeQuestionnaire.childQuestionnaireRef).filter(
-      extQR => extQR !== id,
+      (extQR) => extQR !== id,
     ),
   ];
   return {

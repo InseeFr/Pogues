@@ -1,6 +1,6 @@
 import {
-  SET_ACTIVE_CODE_LISTS,
   DELETE_APPSTATE,
+  SET_ACTIVE_CODE_LISTS,
 } from '../../actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../actions/component';
 import { createActionHandlers } from '../../utils/reducer/actions-handlers';

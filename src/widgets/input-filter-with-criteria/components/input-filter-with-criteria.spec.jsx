@@ -1,13 +1,14 @@
+import React from 'react';
+
 import { render } from '@testing-library/react';
-import { reducer as formReducer, reduxForm } from 'redux-form';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
-import React from 'react';
+import { reducer as formReducer, reduxForm } from 'redux-form';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import InputFilterWithCriteria from './input-filter-with-criteria';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
+import InputFilterWithCriteria from './input-filter-with-criteria';
 
 const store = createStore(combineReducers({ form: formReducer }));
 

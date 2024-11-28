@@ -1,9 +1,9 @@
-import { uuid } from '../../utils/utils';
 import {
+  DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
   VARIABLES_TYPES,
-  DATATYPE_NAME,
 } from '../../constants/pogues-constants';
+import { uuid } from '../../utils/utils';
 
 const { EXTERNAL } = VARIABLES_TYPES;
 
@@ -49,7 +49,7 @@ export function remoteToStore(remote = []) {
 }
 
 export function storeToRemote(store) {
-  return Object.keys(store).map(key => {
+  return Object.keys(store).map((key) => {
     const {
       id,
       name: Name,

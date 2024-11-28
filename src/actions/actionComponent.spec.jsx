@@ -1,4 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
+
 import * as actionComponent from './actionComponent';
 
 vi.mock('./component-update');

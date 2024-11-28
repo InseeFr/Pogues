@@ -1,5 +1,5 @@
-import defaultPicture from './user-picture-default.png';
 import { useOidc } from '../../../utils/oidc';
+import defaultPicture from './user-picture-default.png';
 
 function UserConnection() {
   const oidc = useOidc();

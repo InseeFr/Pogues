@@ -1,15 +1,16 @@
 import React, { Children } from 'react';
+
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import Select from '../../../forms/controls/select';
-import ListRadios from '../../../forms/controls/list-radios';
 import GenericOption from '../../../forms/controls/generic-option';
+import ListRadios from '../../../forms/controls/list-radios';
+import Select from '../../../forms/controls/select';
 
 // Utils
 
 export function getValuesFromViews(views) {
-  return Children.map(views, v => {
+  return Children.map(views, (v) => {
     const { children: view, value, label } = v.props;
     return {
       value,
@@ -48,14 +49,14 @@ function SelectorView({
   required,
 }) {
   const values = getValuesFromViews(children);
-  const options = values.map(v => (
+  const options = values.map((v) => (
     <GenericOption key={v.value} value={v.value}>
       {v.label}
     </GenericOption>
   ));
   const activeView = values
-    .filter(v => v.value === activeViewValue)
-    .map(v => v.view);
+    .filter((v) => v.value === activeViewValue)
+    .map((v) => v.view);
 
   if (emptyOption) {
     options.unshift(

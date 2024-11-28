@@ -35,7 +35,7 @@ export function stateToRemote(state, response) {
   } = state;
   const find = response
     ? response.find(
-        element =>
+        (element) =>
           element.CollectedVariableReference === CollectedVariableReference,
       )
     : undefined;

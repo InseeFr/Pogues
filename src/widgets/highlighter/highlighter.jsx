@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
 // PropTypes and defaultProps
@@ -23,7 +24,7 @@ function HighLighter({ children, highlight, caseSensitive }) {
   return (
     <span
       dangerouslySetInnerHTML={{
-        __html: children.replace(regex, str => `<strong>${str}</strong>`),
+        __html: children.replace(regex, (str) => `<strong>${str}</strong>`),
       }}
     />
   );

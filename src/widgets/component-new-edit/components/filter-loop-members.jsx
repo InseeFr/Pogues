@@ -1,6 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
@@ -23,7 +23,7 @@ export const FilterLoopMembers = ({
   const filterMinimumWeight = (store, initial) => {
     const firstComponent = Object.values(store)
       .filter(
-        component =>
+        (component) =>
           component.type === FILTER &&
           component.type === initial.type &&
           store[component.initialMember].weight < initial.weight &&
@@ -38,9 +38,9 @@ export const FilterLoopMembers = ({
     return firstComponent;
   };
 
-  const getFinalOptions = store => {
+  const getFinalOptions = (store) => {
     const componentinitial = Object.values(store).filter(
-      component => component.id === InitialMember,
+      (component) => component.id === InitialMember,
     );
     if (!InitialMember || componentinitial.length === 0)
       return (
@@ -51,7 +51,7 @@ export const FilterLoopMembers = ({
     if (filterMinimumWeight(store, componentinitial[0])) {
       return Object.values(store)
         .filter(
-          component =>
+          (component) =>
             component.type === componentinitial[0].type &&
             component.weight >= componentinitial[0].weight &&
             component.weight <=
@@ -59,7 +59,7 @@ export const FilterLoopMembers = ({
             component.parent === componentinitial[0].parent &&
             component.id !== 'idendquest',
         )
-        .map(element => {
+        .map((element) => {
           return (
             <GenericOption key={`final-'${element.id}`} value={element.id}>
               {element.name}
@@ -69,7 +69,7 @@ export const FilterLoopMembers = ({
     }
     return Object.values(store)
       .filter(
-        component =>
+        (component) =>
           (component.type === componentinitial[0].type ||
             (component.type === EXTERNAL_ELEMENT &&
               componentinitial[0].type === SEQUENCE) ||
@@ -79,7 +79,7 @@ export const FilterLoopMembers = ({
           component.parent === componentinitial[0].parent &&
           component.id !== 'idendquest',
       )
-      .map(element => {
+      .map((element) => {
         return (
           <GenericOption key={`final-'${element.id}`} value={element.id}>
             {element.name}
@@ -88,16 +88,16 @@ export const FilterLoopMembers = ({
       });
   };
 
-  const optionsInitial = type => {
+  const optionsInitial = (type) => {
     return Object.values(componentsStore)
       .filter(
-        component =>
+        (component) =>
           (component.type === SEQUENCE && component.id !== 'idendquest') ||
           component.type === SUBSEQUENCE ||
           component.type === EXTERNAL_ELEMENT ||
           (type === FILTER && component.type === QUESTION),
       )
-      .map(element => {
+      .map((element) => {
         return (
           <GenericOption key={`initial-${element.id}`} value={element.id}>
             {element.name}

@@ -1,38 +1,36 @@
+/* eslint-disable no-unused-vars */
+
+/* eslint-disable no-undef */
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { combineReducers, createStore } from 'redux';
+import { reducer as formReducer, reduxForm } from 'redux-form';
 import { describe, expect, test } from 'vitest';
 
-import SearchCodesLists from './search-codes-lists';
-
 import { WIDGET_SEARCH_CODES_LISTS } from '../../constants/dom-constants';
-
-const { SEARCH_RESULTS_CLASS } = WIDGET_SEARCH_CODES_LISTS;
-
-import {
-  StatisticalContextCriteria,
-  defaultProps as StatisticalContextCriteriaDefaultProps,
-} from '../statistical-context-criteria';
-
-import {
-  InputFilterWithCriteria,
-  defaultProps as InputFilterWithCriteriaDefaultProps,
-} from '../input-filter-with-criteria';
-
-import { SearchResults } from '../search-results';
-
 import {
   DEFAULT_FORM_NAME,
   SEARCH_CRITERIAS,
   SEARCH_RESULTS_COLUMNS,
   TYPES_ITEMS,
 } from '../../constants/pogues-constants';
-
 import Dictionary from '../../utils/dictionary/dictionary';
-import { noop } from '../../utils/test/test-utils';
 import { OidcProvider } from '../../utils/oidc';
-import { createStore, combineReducers } from 'redux';
-import { reducer as formReducer, reduxForm } from 'redux-form';
-import { Provider } from 'react-redux';
-import { render, screen } from '@testing-library/react';
+import { noop } from '../../utils/test/test-utils';
+import {
+  InputFilterWithCriteria,
+  defaultProps as InputFilterWithCriteriaDefaultProps,
+} from '../input-filter-with-criteria';
+import { SearchResults } from '../search-results';
+import {
+  StatisticalContextCriteria,
+  defaultProps as StatisticalContextCriteriaDefaultProps,
+} from '../statistical-context-criteria';
+import SearchCodesLists from './search-codes-lists';
+
+const { SEARCH_RESULTS_CLASS } = WIDGET_SEARCH_CODES_LISTS;
 
 const rootReducer = combineReducers({
   form: formReducer,

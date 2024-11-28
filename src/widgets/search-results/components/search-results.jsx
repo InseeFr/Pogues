@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 
@@ -17,16 +18,11 @@ const {
 // Utils
 
 function renderRowValues(values) {
-  return values.map(
-    (
-      v,
-      index, // eslint-disable-next-line react/no-array-index-key
-    ) => (
-      <div key={index} className={COLUMN_CLASS}>
-        {v}
-      </div>
-    ),
-  );
+  return values.map((v, index) => (
+    <div key={index} className={COLUMN_CLASS}>
+      {v}
+    </div>
+  ));
 }
 
 function renderRowActions(actions, values) {
@@ -34,9 +30,8 @@ function renderRowActions(actions, values) {
     <div className={`${COLUMN_CLASS} ${COLUMN_ACTIONS_CLASS}`}>
       {actions.map((a, index) => (
         <button
-          // eslint-disable-next-line react/no-array-index-key
           key={index}
-          onClick={event => {
+          onClick={(event) => {
             event.preventDefault();
             a.action(values);
           }}
@@ -94,7 +89,7 @@ function SearchResults({
 }) {
   // Obtaining the traductions for the different columns and the actions column.
   const headerValues = [
-    ...columns.map(c => Dictionary[c.dictionary]),
+    ...columns.map((c) => Dictionary[c.dictionary]),
     Dictionary.searchResultAction,
   ];
   const props = {
@@ -120,10 +115,9 @@ function SearchResults({
 
       {/* Rows */}
       {values.map((v, index) => {
-        const rowValues = columns.map(c => v[c.key]);
+        const rowValues = columns.map((c) => v[c.key]);
 
         return (
-          // eslint-disable-next-line react/no-array-index-key
           <div key={index} className={ROW_CLASS}>
             {renderRowValues(rowValues)}
             {renderRowActions(actions)}

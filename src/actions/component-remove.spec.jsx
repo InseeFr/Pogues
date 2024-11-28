@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import * as component from './component-remove';
 
@@ -85,7 +86,7 @@ describe('remove', () => {
       },
     },
   };
-  [SEQUENCE, SUBSEQUENCE, QUESTION].forEach(type => {
+  [SEQUENCE, SUBSEQUENCE, QUESTION].forEach((type) => {
     test(`should only remove the component if it is a ${type} without child`, () => {
       const activesComponents = {
         1: { id: '1', weight: 0, type: QUESTIONNAIRE, children: ['2', '6'] },
@@ -618,7 +619,7 @@ describe('remove', () => {
 });
 
 describe('remove', () => {
-  [SEQUENCE, SUBSEQUENCE, QUESTION].forEach(type => {
+  [SEQUENCE, SUBSEQUENCE, QUESTION].forEach((type) => {
     test(`For a ${type} without children, should call removeLeafComponent`, () => {
       const activesComponents = {
         1: { id: '1', weight: 0, type: QUESTIONNAIRE, children: ['2', '6'] },

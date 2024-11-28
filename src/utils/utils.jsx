@@ -1,6 +1,6 @@
 export function getUrlFromCriterias(criterias = {}) {
   let url = '';
-  const keys = Object.keys(criterias).filter(key => criterias[key]);
+  const keys = Object.keys(criterias).filter((key) => criterias[key]);
 
   if (keys.length > 0) {
     url = `?${keys
@@ -14,7 +14,7 @@ export function getUrlFromCriterias(criterias = {}) {
 }
 
 export function storeToArray(store = {}) {
-  return Object.keys(store).map(key => store[key]);
+  return Object.keys(store).map((key) => store[key]);
 }
 
 export function nestedStoreToFlat(store = {}) {
@@ -52,7 +52,7 @@ export function verifyVariable(label) {
   const expression = /\$([^\s]+)/g;
   const variables = label.match(expression);
   if (variables) {
-    variables.forEach(variable => {
+    variables.forEach((variable) => {
       const find = variable.search(/[/\-*?^{€"%,}[\]@&'&=><+()!.:[\\]/g);
       let variable1 = variable;
       if (find !== -1 && variable[find - 1] !== '$') {
@@ -75,8 +75,8 @@ export function verifyVariable(label) {
 export function getSupWeight(components) {
   let sup = 1;
   Object.values(components)
-    .filter(component => component.type === 'SEQUENCE')
-    .forEach(compo => {
+    .filter((component) => component.type === 'SEQUENCE')
+    .forEach((compo) => {
       if (compo.weight && compo.weight > sup) sup = compo.weight;
     });
   return sup + 1;

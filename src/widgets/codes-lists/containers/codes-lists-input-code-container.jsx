@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, change } from 'redux-form';
-
-import CodesListsInputCode from '../components/codes-lists-input-code';
-import { validateCode, validationSchema } from '../utils/validation';
+import { change, formValueSelector } from 'redux-form';
 
 import withErrorValidation from '../../../hoc/with-error-validation';
+import CodesListsInputCode from '../components/codes-lists-input-code';
+import { validateCode, validationSchema } from '../utils/validation';
 
 // PropTypes and defaultProps
 

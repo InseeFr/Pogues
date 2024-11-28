@@ -1,13 +1,13 @@
 import { describe, expect, test } from 'vitest';
-import actionsHandlers, {
-  endLoadingVisualization,
-  startLoadingVisualization,
-} from './app-state';
 
 import {
   END_LOADING_VISUALIZATION,
   START_LOADING_VISUALIZATION,
 } from '../../actions/app-state';
+import actionsHandlers, {
+  endLoadingVisualization,
+  startLoadingVisualization,
+} from './app-state';
 
 const state = {
   activeCalculatedVariablesById: {},
@@ -30,7 +30,7 @@ describe('startLoadingVisualization', () => {
       isLoadingVisualization: true,
     });
   });
-  [START_LOADING_VISUALIZATION].forEach(action => {
+  [START_LOADING_VISUALIZATION].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         {
@@ -60,7 +60,7 @@ describe('endLoadingVisualization', () => {
       isLoadingVisualization: false,
     });
   });
-  [END_LOADING_VISUALIZATION].forEach(action => {
+  [END_LOADING_VISUALIZATION].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         {

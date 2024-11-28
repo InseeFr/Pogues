@@ -1,14 +1,13 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-
-import { shallow } from 'enzyme';
 import React from 'react';
 
-import ListWithInputPanelItem from './list-with-input-panel-item';
-import ListWithInputPanelList from './list-with-input-panel-list';
+import { shallow } from 'enzyme';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
 import { getFakeFields } from '../utils/test-utils';
+import ListWithInputPanelItem from './list-with-input-panel-item';
+import ListWithInputPanelList from './list-with-input-panel-list';
 
 vi.mock('../../../utils/dictionary/dictionary', () => ({
   default: {

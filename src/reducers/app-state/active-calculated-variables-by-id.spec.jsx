@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { SET_ACTIVE_VARIABLES } from '../../actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../actions/component';
 import actionsHandlers, {
@@ -40,7 +41,7 @@ describe('setActiveCalculatedVariables', () => {
     );
     expect(result).toEqual('activeCalculatedVariablesById');
   });
-  [CREATE_COMPONENT, UPDATE_COMPONENT].forEach(action => {
+  [CREATE_COMPONENT, UPDATE_COMPONENT].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { state: 'previous' },

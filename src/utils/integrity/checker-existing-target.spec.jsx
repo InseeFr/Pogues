@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
 import checkerExistingTarget from './checker-existing-target';
 

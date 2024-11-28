@@ -1,21 +1,20 @@
-import { sortByYXAndZ } from '../../utils/variables/collected-variables-utils';
 import maxBy from 'lodash.maxby';
 
-import * as ResponseFormatSimple from './response-format-simple';
-import * as ResponseFormatSingle from './response-format-single';
-import * as CodeList from './codes-list';
-import * as Dimension from './dimension';
-import * as Responses from './responses';
-import { hasChild } from '../../utils/codes-lists/codes-lists-utils';
-
 import {
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
   DIMENSION_LENGTH,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
+import { hasChild } from '../../utils/codes-lists/codes-lists-utils';
+import { sortByYXAndZ } from '../../utils/variables/collected-variables-utils';
+import * as CodeList from './codes-list';
+import * as Dimension from './dimension';
+import * as ResponseFormatSimple from './response-format-simple';
+import * as ResponseFormatSingle from './response-format-single';
+import * as Responses from './responses';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
@@ -66,8 +65,8 @@ function getResponsesOffset(primaryState, secondaryState, activeCodeLists) {
     }
     const listCodes = Object.keys(
       activeCodeLists[codesListIdPrimary].codes,
-    ).map(key => activeCodeLists[codesListIdPrimary].codes[key]);
-    const codes = listCodes.filter(code => !hasChild(code, listCodes));
+    ).map((key) => activeCodeLists[codesListIdPrimary].codes[key]);
+    const codes = listCodes.filter((code) => !hasChild(code, listCodes));
     responseOffset = codes.length * responseOffsetSecondary;
   }
   return responseOffset;
@@ -123,7 +122,7 @@ function getMeasuresModel(responses, dimensions, offset) {
 function parseDynamic(dynamic) {
   // if it still uses the old format 'min-max'
   if (dynamic.includes('-')) {
-    const minMax = dynamic.split('-').map(v => parseInt(v, 10));
+    const minMax = dynamic.split('-').map((v) => parseInt(v, 10));
 
     // Check if we have exactly two valid numbers
     if (minMax.length === 2 && !isNaN(minMax[0]) && !isNaN(minMax[1])) {
@@ -243,7 +242,7 @@ export function remoteToState(remote, codesListsStore) {
   if (dimensionSecondaryModel) {
     state[MEASURE] = remoteToStateMeasure(responsesMeasuresModel[0]);
   } else {
-    state[LIST_MEASURE] = responsesMeasuresModel.map(m =>
+    state[LIST_MEASURE] = responsesMeasuresModel.map((m) =>
       remoteToStateMeasure(m),
     );
   }
@@ -371,6 +370,7 @@ export function stateToRemote(
     }),
   );
   if (secondaryState) {
+    // eslint-disable-next-line no-unused-vars
     const { type: typeSecondaryCodesList, ...secondaryTypeState } =
       secondaryState;
     dimensionsModel.push(
@@ -399,7 +399,7 @@ export function stateToRemote(
 
   const numDataTypes = measureState
     ? maxBy(
-        collectedVariables.map(key => collectedVariablesStore[key]),
+        collectedVariables.map((key) => collectedVariablesStore[key]),
         'y',
       ).y || 1
     : listMeasuresState.length;
@@ -410,9 +410,9 @@ export function stateToRemote(
   for (let i = 0; i < numDataTypes; i += 1) {
     const collectedVariablesByDatatype = collectedVariables
       .sort(sortByYXAndZ(collectedVariablesStore))
-      .map(key => collectedVariablesStore[key])
-      .filter(variable => !variable.y || variable.y === i + 1)
-      .map(variable => variable.id);
+      .map((key) => collectedVariablesStore[key])
+      .filter((variable) => !variable.y || variable.y === i + 1)
+      .map((variable) => variable.id);
 
     const responsesModelByRow = Responses.stateToModel(
       responsesState[measureState ? 0 : i],

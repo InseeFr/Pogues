@@ -1,4 +1,5 @@
-import React, { useState, Children } from 'react';
+import React, { Children, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
@@ -24,7 +25,7 @@ function Tabs({ children, errorsByTab }) {
             role="button"
             tabIndex={0}
             className={classTab}
-            onClick={event => {
+            onClick={(event) => {
               event.preventDefault();
               setActivePanelIndex(index);
             }}

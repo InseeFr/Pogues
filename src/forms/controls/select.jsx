@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
+import { CONTROL_SELECT } from '../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
 } from '../../utils/widget-utils';
-import { CONTROL_SELECT } from '../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_SELECT;
 
@@ -71,13 +72,12 @@ class Select extends Component {
             placeholder={label}
             disabled={disabled}
             multiple={multiple}
-            ref={node => {
+            ref={(node) => {
               this.input = node;
             }}
           >
             {emptyOption && <option value="">{emptyOption}</option>}
-            {values.map(val => {
-              // eslint-disable-next-line no-shadow
+            {values.map((val) => {
               const { label, value, ...otherProps } = val;
               return (
                 <option key={value} value={value} {...otherProps}>

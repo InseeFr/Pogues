@@ -1,6 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 import Input from '../../../forms/controls/input';

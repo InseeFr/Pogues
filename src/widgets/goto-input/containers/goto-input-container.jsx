@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
-import PropTypes from 'prop-types';
 
+import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 import GotoInput from '../components/goto-input';
 import { getTargets } from '../utils/goto-input-utils';
-import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 
 // Prop types and default props
 

@@ -74,7 +74,7 @@ const Factory = (initialState = {}) => {
     id: initialState.id || uuid(),
   };
   return {
-    formToState: form => {
+    formToState: (form) => {
       currentState = {
         ...currentState,
         ...formToState(form),

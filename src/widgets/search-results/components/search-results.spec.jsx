@@ -1,11 +1,11 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import { describe, expect, test } from 'vitest';
 
-import SearchResult from './search-results';
+import { shallow } from 'enzyme';
+import { describe, expect, test } from 'vitest';
 
 import { WIDGET_SEARCH_RESULTS } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
+import SearchResult from './search-results';
 
 const { HEADER_CLASS, COLUMN_CLASS, ROW_CLASS, ROW_EMPTY_CLASS } =
   WIDGET_SEARCH_RESULTS;

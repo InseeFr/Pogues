@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import {
   controlsFormNew,
   controlsFormUpdate,
@@ -13,12 +14,14 @@ describe.skip('Transformation entities - Control', () => {
 
     // The id is random in creation, so it's not take it into account for testing.
     const state = controlTransformer.formToState(controlsFormNew);
-    const currentState = Object.keys(state).map(key => {
+    const currentState = Object.keys(state).map((key) => {
+      // eslint-disable-next-line no-unused-vars
       const { id, ...stateItem } = state[key];
       return stateItem;
     });
 
-    const expectedState = Object.keys(controlsState).map(key => {
+    const expectedState = Object.keys(controlsState).map((key) => {
+      // eslint-disable-next-line no-unused-vars
       const { id, ...expectedStateItem } = controlsState[key];
       return expectedStateItem;
     });

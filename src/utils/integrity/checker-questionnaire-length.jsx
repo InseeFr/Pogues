@@ -13,13 +13,13 @@ function checkerQuestionnaireLength({
 }) {
   const errors = [];
   const numSequences = Object.keys(activeComponentsById).filter(
-    key => activeComponentsById[key].type === SEQUENCE,
+    (key) => activeComponentsById[key].type === SEQUENCE,
   );
   const numQuestions = Object.keys(activeComponentsById).filter(
-    key => activeComponentsById[key].type === QUESTION,
+    (key) => activeComponentsById[key].type === QUESTION,
   );
   const numReferences = Object.keys(activeComponentsById).filter(
-    key => activeComponentsById[key].type === EXTERNAL_ELEMENT,
+    (key) => activeComponentsById[key].type === EXTERNAL_ELEMENT,
   );
 
   if (

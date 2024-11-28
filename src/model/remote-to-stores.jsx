@@ -1,11 +1,11 @@
-import * as Questionnaire from './transformations/questionnaire';
-import * as CalculatedVariable from './transformations/calculated-variable';
-import * as ExternalVariable from './transformations/external-variable';
-import * as CollectedVariable from './transformations/collected-variable';
-import * as CodesList from './transformations/codes-list';
-import * as Component from './transformations/component';
 import { VARIABLES_TYPES } from '../constants/pogues-constants';
 import { removeOrphansCodesLists } from '../utils/codes-lists/codes-lists-utils';
+import * as CalculatedVariable from './transformations/calculated-variable';
+import * as CodesList from './transformations/codes-list';
+import * as CollectedVariable from './transformations/collected-variable';
+import * as Component from './transformations/component';
+import * as ExternalVariable from './transformations/external-variable';
+import * as Questionnaire from './transformations/questionnaire';
 
 const { CALCULATED, EXTERNAL, COLLECTED } = VARIABLES_TYPES;
 
@@ -23,9 +23,9 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   if (remote.FlowControl) {
     filters = remote.FlowControl;
   }
-  const calculatedVariables = variables.filter(v => v.type === CALCULATED);
-  const externalVariables = variables.filter(v => v.type === EXTERNAL);
-  const collectedVariables = variables.filter(v => v.type === COLLECTED);
+  const calculatedVariables = variables.filter((v) => v.type === CALCULATED);
+  const externalVariables = variables.filter((v) => v.type === EXTERNAL);
+  const collectedVariables = variables.filter((v) => v.type === COLLECTED);
 
   // Questionnaire store
   const questionnaireById = Questionnaire.remoteToStore(remote, currentStores);
@@ -76,7 +76,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     Object.values(condListLinked).length !==
     Object.values(codesListsStore).length
   ) {
-    Object.values(codesListsStore).forEach(code => {
+    Object.values(codesListsStore).forEach((code) => {
       if (!condListLinked[code.id]) {
         code.isDuplicated = true;
       }
@@ -103,7 +103,7 @@ export function questionnaireListRemoteToStores(questionnairesList) {
     try {
       questionnaireState = Questionnaire.remoteToStore1(questionnairesList[i]);
     } catch (e) {
-      //
+      console.error(e);
     }
     if (questionnaireState) questionnaireById.push(questionnaireState);
   }

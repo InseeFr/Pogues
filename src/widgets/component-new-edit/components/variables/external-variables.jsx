@@ -1,26 +1,24 @@
 import React from 'react';
-import { Field, FormSection } from 'redux-form';
+
 import PropTypes from 'prop-types';
+import { Field, FormSection } from 'redux-form';
 
-import { defaultState } from '../../../../model/formToState/component-new-edit/external-variable';
-
-import Input from '../../../../forms/controls/input';
-import GenericOption from '../../../../forms/controls/generic-option';
-import Select from '../../../../forms/controls/select';
-import { ListWithInputPanel } from '../../../list-with-input-panel';
-import { validateExternalVariableForm } from '../../../../utils/validation/validate';
-
-import Dictionary from '../../../../utils/dictionary/dictionary';
 import {
-  TABS_PATHS,
-  DEFAULT_FORM_NAME,
   DATATYPE_NAME,
+  DEFAULT_FORM_NAME,
+  TABS_PATHS,
 } from '../../../../constants/pogues-constants';
-
+import GenericOption from '../../../../forms/controls/generic-option';
+import Input from '../../../../forms/controls/input';
+import Select from '../../../../forms/controls/select';
+import { defaultState } from '../../../../model/formToState/component-new-edit/external-variable';
+import Dictionary from '../../../../utils/dictionary/dictionary';
+import { validateExternalVariableForm } from '../../../../utils/validation/validate';
+import { ListWithInputPanel } from '../../../list-with-input-panel';
+import { SelectorView, View } from '../../../selector-view';
+import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
 import ResponseFormatDatatypeNumeric from '../response-format/simple/simple-numeric';
 import ResponseFormatDatatypeText from '../response-format/simple/simple-text';
-import ResponseFormatDatatypeDate from '../response-format/simple/simple-date';
-import { SelectorView, View } from '../../../selector-view';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN } = DATATYPE_NAME;
 

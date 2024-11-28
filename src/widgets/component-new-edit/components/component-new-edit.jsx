@@ -1,8 +1,8 @@
-/* eslint-disable react/react-in-jsx-scope */
-import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { getQuestionnaireScope } from './variables/utils-loops';
+
 import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
@@ -12,6 +12,7 @@ import { FilterNewEdit } from './filter-new-edit';
 import LoopNewEdit from './loop-new-edit';
 import { QuestionNewEdit } from './question-new-edit';
 import { SequenceNewEdit } from './sequence-new-edit';
+import { getQuestionnaireScope } from './variables/utils-loops';
 
 const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
   WIDGET_COMPONENT_NEW_EDIT;
@@ -52,11 +53,11 @@ const ComponentNewEdit = ({
     onSubmit(formData);
   };
 
-  const handleDisableValidation = isDisable => {
+  const handleDisableValidation = (isDisable) => {
     setDisableValidation(isDisable);
   };
 
-  const checkUnsavedChange = data => {
+  const checkUnsavedChange = (data) => {
     setFormData(data);
     if (
       componentType === QUESTION &&
@@ -96,7 +97,7 @@ const ComponentNewEdit = ({
 
   const scopes = [
     getQuestionnaireScope(componentsStore, externalLoopsStore).map(
-      iteration => (
+      (iteration) => (
         <GenericOption key={`scope-${iteration.id}`} value={iteration.id}>
           {iteration.name}
         </GenericOption>
@@ -106,7 +107,7 @@ const ComponentNewEdit = ({
 
   return (
     <div className={COMPONENT_CLASS}>
-      <form onSubmit={handleSubmit(data => checkUnsavedChange(data))}>
+      <form onSubmit={handleSubmit((data) => checkUnsavedChange(data))}>
         {(componentType === SEQUENCE || componentType === SUBSEQUENCE) && (
           <SequenceNewEdit
             form={form}

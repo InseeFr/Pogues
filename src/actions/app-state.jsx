@@ -1,12 +1,12 @@
-import {
-  putQuestionnaire,
-  getContextFromCampaign,
-  getVisualization,
-} from '../utils/remote-api';
-import { addVisualizationError } from './errors';
 import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
+import {
+  getContextFromCampaign,
+  getVisualization,
+  putQuestionnaire,
+} from '../utils/remote-api';
+import { addVisualizationError } from './errors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -45,7 +45,7 @@ export const END_LOADING_VISUALIZATION = 'END_LOADING_VISUALIZATION';
  * @param  {object} questionnaire The questionnaire to set as active
  * @return {object}               SET_ACTIVE_QUESTIONNAIRE action
  */
-export const setActiveQuestionnaire = questionnaire => ({
+export const setActiveQuestionnaire = (questionnaire) => ({
   type: SET_ACTIVE_QUESTIONNAIRE,
   payload: questionnaire,
 });
@@ -58,7 +58,7 @@ export const setActiveQuestionnaire = questionnaire => ({
  * @param  {object} activeComponents  The components to set as actives
  * @return {object}                   SET_ACTIVE_COMPONENTS action
  */
-export const setActiveComponents = activeComponents => ({
+export const setActiveComponents = (activeComponents) => ({
   type: SET_ACTIVE_COMPONENTS,
   payload: activeComponents,
 });
@@ -73,7 +73,7 @@ export const setActiveComponents = activeComponents => ({
  * @param  {object} activeCodes       The codes to set as actives
  * @return {object}                   SET_ACTIVE_CODE_LISTS action
  */
-export const setActiveCodeLists = activeCodeLists => ({
+export const setActiveCodeLists = (activeCodeLists) => ({
   type: SET_ACTIVE_CODE_LISTS,
   payload: {
     activeCodeLists,
@@ -90,7 +90,7 @@ export const setActiveCodeLists = activeCodeLists => ({
  *
  * @return {object} SET_ACTIVE_VARIABLES action
  */
-export const setActiveVariables = variables => {
+export const setActiveVariables = (variables) => {
   const {
     activeCalculatedVariablesById,
     activeExternalVariablesById,
@@ -114,7 +114,7 @@ export const setActiveVariables = variables => {
  * @param  {object} activeComponents  The components to set as actives
  * @return {object}                   SET_ACTIVE_COMPONENTS action
  */
-export const setActiveDeclarations = activeDeclarations => ({
+export const setActiveDeclarations = (activeDeclarations) => ({
   type: SET_ACTIVE_DECLARATIONS,
   payload: activeDeclarations,
 });
@@ -127,7 +127,7 @@ export const setActiveDeclarations = activeDeclarations => ({
  * @param  {string} id  The component id
  * @return {object}     SET_SELECTED_COMPONENT action
  */
-export const setSelectedComponentId = id => ({
+export const setSelectedComponentId = (id) => ({
   type: SET_SELECTED_COMPONENT,
   payload: id,
 });
@@ -155,7 +155,7 @@ export const setEditingComponentId = (id = '') => ({
  * @param  {string} label The new questionnaire label.
  * @return {object}       UPDATE_ACTIVE_QUESTIONNAIRE action
  */
-export const updateActiveQuestionnaire = updatedState => {
+export const updateActiveQuestionnaire = (updatedState) => {
   const {
     name,
     label,
@@ -256,7 +256,7 @@ function getQuestionnaireModel(state, customComponentsStore) {
  *
  * @return {function} Thunk which may dispatch SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS or SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
  */
-export const saveActiveQuestionnaire = token => {
+export const saveActiveQuestionnaire = (token) => {
   return (dispatch, getState) => {
     dispatch({
       type: SAVE_ACTIVE_QUESTIONNAIRE,
@@ -274,7 +274,7 @@ export const saveActiveQuestionnaire = token => {
           ),
         );
       })
-      .catch(err => {
+      .catch((err) => {
         return dispatch(
           saveActiveQuestionnaireFailure(questionnaireModel.id, err),
         );
@@ -299,7 +299,7 @@ function getPathFromComponent(componentId, componentsById) {
       return [];
     }
     return [
-      ...children.map(i => componentsById[i]),
+      ...children.map((i) => componentsById[i]),
       ...children.reduce((acc, c) => {
         return [...acc, ...addChild(c)];
       }, []),
@@ -313,7 +313,7 @@ function getPathFromComponent(componentId, componentsById) {
     return [
       {
         ...componentsById[parentId],
-        children: componentsById[parentId].children.filter(i => i === id),
+        children: componentsById[parentId].children.filter((i) => i === id),
       },
       ...addParent(parentId),
     ];
@@ -336,7 +336,7 @@ function getPathFromComponent(componentId, componentsById) {
  * This method will reset Controls and redirections when we want to visualize a part of the questionnaire.
  * @param {*} activeComponentsById the components list on which we need to reset all controls and redirections
  */
-export const removeControlsAndRedirections = activeComponentsById => {
+export const removeControlsAndRedirections = (activeComponentsById) => {
   return Object.keys(activeComponentsById).reduce((acc, componentId) => {
     return {
       ...acc,
@@ -384,7 +384,7 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
     const visualize = () => {
       getVisualization(type, questionnaireModel, containsRef, token)
         .then(() => dispatch(endLoadingVisualization()))
-        .catch(error => {
+        .catch((error) => {
           dispatch(endLoadingVisualization());
           dispatch(addVisualizationError(error));
         });
@@ -420,19 +420,19 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
  *
  * @return {function} Thunk which may dispatch SET_INVALID_ITEMS
  */
-export const setInvalidItemsFromErrors = questionId => {
+export const setInvalidItemsFromErrors = (questionId) => {
   return (dispatch, getState) => {
     const state = getState();
     const { errorsByCode } = state.appState;
 
     const invalidItems = Object.keys(errorsByCode)
-      .filter(code => errorsByCode[code].errors.length > 0)
+      .filter((code) => errorsByCode[code].errors.length > 0)
       .reduce((acc, code) => {
         const { errors } = errorsByCode[code];
         return {
           ...acc,
           ...errors
-            .filter(e => e.id === questionId)
+            .filter((e) => e.id === questionId)
             .reduce((accInner, eInner) => {
               const { itemId, ...params } = eInner.params;
               return {
@@ -464,7 +464,7 @@ export const setInvalidItemsFromErrors = questionId => {
  *
  * @return {object}         REMOVE_INVALID_ITEM action
  */
-export const removeInvalidItem = invalidItemIdToRemove => ({
+export const removeInvalidItem = (invalidItemIdToRemove) => ({
   type: REMOVE_INVALID_ITEM,
   payload: {
     invalidItemIdToRemove,
@@ -492,12 +492,12 @@ export const loadStatisticalContextSuccess = ({ serie, operation }) => ({
   payload: { serie, operation },
 });
 
-export const loadStatisticalContextFailure = err => ({
+export const loadStatisticalContextFailure = (err) => ({
   type: LOAD_STATISTICAL_CONTEXT_FAILURE,
   payload: err,
 });
 
-export const loadStatisticalContext = (idCampaign, token) => dispatch => {
+export const loadStatisticalContext = (idCampaign, token) => (dispatch) => {
   dispatch({
     type: LOAD_STATISTICAL_CONTEXT,
     payload: null,
@@ -512,10 +512,10 @@ export const loadStatisticalContext = (idCampaign, token) => dispatch => {
     .then(({ serieId: serie, operationId: operation }) => {
       return dispatch(loadStatisticalContextSuccess({ serie, operation }));
     })
-    .catch(err => dispatch(loadStatisticalContextFailure(err)));
+    .catch((err) => dispatch(loadStatisticalContextFailure(err)));
 };
 
-export const deleteAppState = () => dispatch => {
+export const deleteAppState = () => (dispatch) => {
   dispatch({
     type: DELETE_APPSTATE,
   });

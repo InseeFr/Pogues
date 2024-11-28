@@ -1,11 +1,10 @@
-import * as Response from './response';
-import * as CodeList from './codes-list';
-
 import {
-  UI_BEHAVIOUR,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  UI_BEHAVIOUR,
 } from '../../constants/pogues-constants';
+import * as CodeList from './codes-list';
+import * as Response from './response';
 
 const { TEXT } = DATATYPE_NAME;
 

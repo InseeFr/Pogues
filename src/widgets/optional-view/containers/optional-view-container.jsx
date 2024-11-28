@@ -1,10 +1,9 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
-import PropTypes from 'prop-types';
-
-import OptionalView from '../components/optional-view';
 
 import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
+import OptionalView from '../components/optional-view';
 
 // PropTypes and defaultProps
 

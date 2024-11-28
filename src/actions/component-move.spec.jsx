@@ -1,4 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
+
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import * as component from './component-move';
 

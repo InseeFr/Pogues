@@ -1,6 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+
 import {
   COMPONENT_TYPE,
   TABS_PATHS,
@@ -135,7 +135,7 @@ export const QuestionNewEdit = ({
         label={Dictionary.collectionMode}
         inline
       >
-        {TargetMode.map(s => (
+        {TargetMode.map((s) => (
           <GenericOption key={s.value} value={s.value}>
             {s.label}
           </GenericOption>
@@ -144,7 +144,7 @@ export const QuestionNewEdit = ({
       <Tabs componentId={componentId}>
         {redirectionNeeded
           ? panels
-          : panels.filter(panel => panel.key !== TABS_PATHS.REDIRECTIONS)}
+          : panels.filter((panel) => panel.key !== TABS_PATHS.REDIRECTIONS)}
       </Tabs>
     </>
   );

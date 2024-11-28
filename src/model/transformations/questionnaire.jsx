@@ -1,24 +1,23 @@
-import * as Component from './component';
-import * as CodesList from './codes-list';
-import * as CalculatedVariable from './calculated-variable';
-import * as ExternalVariable from './external-variable';
-import * as CollectedVariable from './collected-variable';
-import * as Loop from './loop';
-import * as RedirectionsFilter from './redirection-filters';
-
-import { uuid } from '../../utils/utils';
-import { getOrderedComponents } from '../../utils/model/redirections-utils';
-import { removeOrphansCodesLists } from '../../utils/codes-lists/codes-lists-utils';
-import {
-  removeOrphansCollectedVariables,
-  getCollectedVariablesIdsFromComponents,
-} from '../../utils/variables/variables-utils';
 import {
   COMPONENT_TYPE,
-  QUESTION_END_CHILD,
-  QUESTIONNAIRE_TYPE,
   FORMULA_LANGUAGE,
+  QUESTIONNAIRE_TYPE,
+  QUESTION_END_CHILD,
 } from '../../constants/pogues-constants';
+import { removeOrphansCodesLists } from '../../utils/codes-lists/codes-lists-utils';
+import { getOrderedComponents } from '../../utils/model/redirections-utils';
+import { uuid } from '../../utils/utils';
+import {
+  getCollectedVariablesIdsFromComponents,
+  removeOrphansCollectedVariables,
+} from '../../utils/variables/variables-utils';
+import * as CalculatedVariable from './calculated-variable';
+import * as CodesList from './codes-list';
+import * as CollectedVariable from './collected-variable';
+import * as Component from './component';
+import * as ExternalVariable from './external-variable';
+import * as Loop from './loop';
+import * as RedirectionsFilter from './redirection-filters';
 
 const { QUESTIONNAIRE, SEQUENCE, FILTER, REDIRECTION, EXTERNAL_ELEMENT } =
   COMPONENT_TYPE;
@@ -30,7 +29,7 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
     componentsStore,
     Object.keys(componentsStore)
       .filter(
-        id =>
+        (id) =>
           componentsStore[id].type === SEQUENCE ||
           componentsStore[id].type === EXTERNAL_ELEMENT,
       )
@@ -40,7 +39,7 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
   );
   let startPage = 1;
   const result = [];
-  orderedComponents.forEach(componentId => {
+  orderedComponents.forEach((componentId) => {
     if (!result[startPage - 1]) {
       result.push({
         id:
@@ -66,9 +65,9 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
   return result;
 }
 
-const generateChildQuestionnaireRef = componentsStore => {
+const generateChildQuestionnaireRef = (componentsStore) => {
   return Object.keys(componentsStore).filter(
-    id => componentsStore[id].type === EXTERNAL_ELEMENT,
+    (id) => componentsStore[id].type === EXTERNAL_ELEMENT,
   );
 };
 
@@ -105,7 +104,7 @@ export function remoteToState(remote, currentStores = {}) {
     lastUpdatedDate,
     serie: questionnaireCurrentState.serie || '',
     operation: questionnaireCurrentState.operation || '',
-    campaigns: dataCollection.map(dc => dc.id),
+    campaigns: dataCollection.map((dc) => dc.id),
     TargetMode: TargetMode || declarationMode || [],
     dynamiqueSpecified:
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
@@ -137,7 +136,7 @@ export function remoteToState1(remote) {
     id,
     label,
     lastUpdatedDate,
-    campaigns: DataCollection.map(dc => dc.id),
+    campaigns: DataCollection.map((dc) => dc.id),
     TargetMode: TargetMode || [],
     name,
     dynamiqueSpecified:
@@ -181,10 +180,10 @@ export function stateToRemote(state, stores) {
     componentsStore,
   );
   const codesListDuplicated = Object.values(codesListsStore).filter(
-    code => code.isDuplicated,
+    (code) => code.isDuplicated,
   );
   if (codesListDuplicated.length > 0) {
-    codesListDuplicated.forEach(element => {
+    codesListDuplicated.forEach((element) => {
       codesListsWihoutOrphans[element.id] = element;
     });
   }
@@ -208,7 +207,7 @@ export function stateToRemote(state, stores) {
     ComponentGroup,
   } = state;
 
-  const dataCollections = campaigns.map(c => ({
+  const dataCollections = campaigns.map((c) => ({
     id: c,
     uri: `http://ddi:fr.insee:DataCollection.${c}`,
     Name: campaignsStore ? campaignsStore[c]?.label : undefined,

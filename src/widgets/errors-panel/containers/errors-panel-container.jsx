@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ErrorsPanel from '../components/errors-panel';
 
@@ -26,7 +26,7 @@ const mapStateToProps = (state, { path, includeSubPaths }) => {
     : new RegExp(`^${path}$`);
 
   const errors = Object.keys(errorsValidation)
-    .filter(p => regex.test(p))
+    .filter((p) => regex.test(p))
     .reduce((acc, p) => {
       return [...acc, ...errorsValidation[p]];
     }, []);

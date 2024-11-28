@@ -14,7 +14,7 @@ export const propTypes = {
 
 // Container
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     activeQuestionnaire: state.appState.activeQuestionnaire,
   };

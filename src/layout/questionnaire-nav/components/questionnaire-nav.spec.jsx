@@ -1,10 +1,12 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, test, vi } from 'vitest';
+
+import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import QuestionnaireNav from './questionnaire-nav';
+import { describe, expect, test, vi } from 'vitest';
+
 import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
+import QuestionnaireNav from './questionnaire-nav';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 

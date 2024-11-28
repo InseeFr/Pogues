@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
-import { Field } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import Input from '../../../forms/controls/input';
-import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
-import {
-  RichEditorWithVariable,
-  InputWithVariableAutoCompletion,
-} from '../../../forms/controls/control-with-suggestions';
+import PropTypes from 'prop-types';
+import { Field } from 'redux-form';
 
 import { WIDGET_ASSOCIATED_FIELDS } from '../../../constants/dom-constants';
+import {
+  InputWithVariableAutoCompletion,
+  RichEditorWithVariable,
+} from '../../../forms/controls/control-with-suggestions';
+import Input from '../../../forms/controls/input';
+import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 
 const { COMPONENT_CLASS } = WIDGET_ASSOCIATED_FIELDS;
 

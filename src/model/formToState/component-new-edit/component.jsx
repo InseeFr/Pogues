@@ -1,3 +1,5 @@
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { nameFromLabel, uuid, verifyVariable } from '../../../utils/utils';
 import CalculatedVariable from './calculated-variable';
 import CollectedVariable from './collected-variable';
 import Control from './control';
@@ -5,9 +7,6 @@ import Declaration from './declaration';
 import ExternalVariable from './external-variable';
 import Redirection from './redirection';
 import ResponseFormat from './response-format';
-
-import { uuid, nameFromLabel, verifyVariable } from '../../../utils/utils';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 
 const { QUESTION, LOOP, FILTER, ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -195,7 +194,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
   };
 
   return {
-    formToState: form => {
+    formToState: (form) => {
       currentState = {
         ...currentState,
         ...formToState(form, transformers),
@@ -234,7 +233,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     getCollectedVariablesStore: () => {
       return transformers.collectedVariable.getStore();
     },
-    getNormalizedValues: form => {
+    getNormalizedValues: (form) => {
       // Values ready to be validated
       return {
         name: form.name,

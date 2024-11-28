@@ -27,7 +27,7 @@ describe('Form controls - Input autocomplete - Utils', () => {
   });
 
   test('setSuggestions', () => {
-    const getOptionLabel = label => {
+    const getOptionLabel = (label) => {
       return label;
     };
     const getOptionName = (label, name) => {

@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { DATATYPE_NAME } from '../../constants/pogues-constants';
 import {
   remoteToComponentState,
@@ -684,7 +685,6 @@ describe('collected variable tranformations', () => {
         TEXT: { maxLength: 249, pattern: '' },
         codeListReference: undefined,
         codeListReferenceLabel: '',
-        id: 'kawknt1k',
         label: 'QUESTION1 label',
         mesureLevel: undefined,
         name: 'QUESTION1',

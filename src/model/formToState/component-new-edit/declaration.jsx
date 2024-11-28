@@ -53,7 +53,7 @@ export function formToComponentState(form) {
 
 export function stateToForm(currentState, activeQuestionnaire) {
   const declarations = [];
-  Object.keys(currentState).forEach(key => {
+  Object.keys(currentState).forEach((key) => {
     const { id, declarationType, label, position, TargetMode } =
       currentState[key];
     declarations.push({
@@ -72,7 +72,7 @@ export function stateToForm(currentState, activeQuestionnaire) {
 
 const Factory = (currentState = [], activeQuestionnaire = {}) => {
   return {
-    formToComponentState: form => {
+    formToComponentState: (form) => {
       if (form) currentState = formToComponentState(form);
       return currentState;
     },

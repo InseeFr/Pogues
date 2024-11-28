@@ -1,13 +1,14 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import { SelectorView, View } from '../../../../selector-view';
-import Dictionary from '../../../../../utils/dictionary/dictionary';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
 import {
-  DIMENSION_TYPE,
   DIMENSION_FORMATS,
+  DIMENSION_TYPE,
 } from '../../../../../constants/pogues-constants';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { SelectorView, View } from '../../../../selector-view';
 import ResponseFormatMultipleMeasureCodeslist from './multiple-measure-codeslist';
 
 const { MEASURE: selectorPath } = DIMENSION_TYPE;

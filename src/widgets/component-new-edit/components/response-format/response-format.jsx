@@ -1,16 +1,17 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import { SelectorView, View } from '../../../selector-view';
-import Dictionary from '../../../../utils/dictionary/dictionary';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
 import {
   QUESTION_TYPE_ENUM,
   TABS_PATHS,
 } from '../../../../constants/pogues-constants';
+import Dictionary from '../../../../utils/dictionary/dictionary';
+import { SelectorView, View } from '../../../selector-view';
+import ResponseFormatMultiple from './multiple/response-format-multiple';
 import ResponseFormatSimple from './simple/response-format-simple';
 import ResponseFormatSingle from './single/response-format-single';
-import ResponseFormatMultiple from './multiple/response-format-multiple';
 import ResponseFormatTable from './table/response-format-table';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =

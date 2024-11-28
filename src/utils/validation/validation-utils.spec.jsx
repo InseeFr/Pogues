@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { getErrorsObject, validate } from './validation-utils';
 
 const form = {

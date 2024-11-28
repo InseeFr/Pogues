@@ -3,8 +3,8 @@ import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
 export function getNewCodeWeight(allCodes = [], parent = '') {
   return (
     allCodes
-      .filter(c => c.parent === parent)
-      .map(c => c.weight)
+      .filter((c) => c.parent === parent)
+      .map((c) => c.weight)
       .reduce((a, b) => {
         return Math.max(a, b);
       }, 0) + 1
@@ -12,7 +12,7 @@ export function getNewCodeWeight(allCodes = [], parent = '') {
 }
 
 export function getChildren(code, codes) {
-  return codes.filter(c => c.parent === code.value);
+  return codes.filter((c) => c.parent === code.value);
 }
 
 export function getDescendents(code, codes) {
@@ -22,16 +22,20 @@ export function getDescendents(code, codes) {
 }
 
 export function getHeavierSiblings(code, codes) {
-  return codes.filter(c => c.parent === code.parent && c.weight > code.weight);
+  return codes.filter(
+    (c) => c.parent === code.parent && c.weight > code.weight,
+  );
 }
 
 export function getLightierSiblings(code, codes) {
-  return codes.filter(c => c.parent === code.parent && c.weight < code.weight);
+  return codes.filter(
+    (c) => c.parent === code.parent && c.weight < code.weight,
+  );
 }
 
 export function getMaxDepthInChildren(code, codes) {
   return getDescendents(code, codes)
-    .map(c => c.depth)
+    .map((c) => c.depth)
     .reduce((a, b) => {
       return Math.max(a, b);
     }, 1);
@@ -39,7 +43,7 @@ export function getMaxDepthInChildren(code, codes) {
 
 export function resetListCodes(codes, removeAll, push) {
   removeAll();
-  codes.forEach(c => push(c));
+  codes.forEach((c) => push(c));
 }
 
 export function getIndexCode(value, codes) {

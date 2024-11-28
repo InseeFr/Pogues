@@ -1,8 +1,8 @@
 import {
   ADD_SUBFORM_VALIDATION_ERRORS,
-  SET_SUBFORM_VALIDATION_ERRORS,
-  REMOVE_SUBFORM_VALIDATION_ERRORS,
   CLEAR_SUBFORM_VALIDATION_ERRORS,
+  REMOVE_SUBFORM_VALIDATION_ERRORS,
+  SET_SUBFORM_VALIDATION_ERRORS,
 } from '../../actions/errors';
 import { createActionHandlers } from '../../utils/reducer/actions-handlers';
 
@@ -31,6 +31,7 @@ export function setSubformValidationErrors(state, { errors }) {
 
 export function removeSubformValidationErrors(state, paths) {
   return paths.reduce((acc, p) => {
+    // eslint-disable-next-line no-unused-vars
     const { [p]: remove, ...others } = acc;
     return others;
   }, state);

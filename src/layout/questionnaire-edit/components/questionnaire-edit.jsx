@@ -1,13 +1,14 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-import {
-  QuestionnaireNewEdit,
-  Questionnaire,
-} from '../../../widgets/questionnaire-new-edit';
-import { validateQuestionnaireForm } from '../../../utils/validation/validate';
-import { Component as ComponentFactory } from '../../../model';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { Component as ComponentFactory } from '../../../model';
+import { validateQuestionnaireForm } from '../../../utils/validation/validate';
+import {
+  Questionnaire,
+  QuestionnaireNewEdit,
+} from '../../../widgets/questionnaire-new-edit';
 
 const { QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -89,7 +90,7 @@ function QuestionnaireNew({
   activeCollectedVariablesById,
   activeCodeListsById,
 }) {
-  const validate = setErrorsAction => values =>
+  const validate = (setErrorsAction) => (values) =>
     validateQuestionnaireForm(values, setErrorsAction);
   // Initial values
 

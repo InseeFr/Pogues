@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { REMOVE_INTEGRITY_ERROR } from '../../actions/errors';
 import actionsHandlers, { removeError } from './errors-integrity';
 
@@ -19,7 +20,7 @@ describe('removeError', () => {
       2: { typeError2: [{ itemListId: '1' }] },
     });
   });
-  [REMOVE_INTEGRITY_ERROR].forEach(action => {
+  [REMOVE_INTEGRITY_ERROR].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         {

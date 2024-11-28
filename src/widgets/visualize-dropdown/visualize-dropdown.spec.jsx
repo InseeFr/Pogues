@@ -1,7 +1,9 @@
+import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { describe, expect, test, vi } from 'vitest';
+
 import VisualizeDropdown from './components/visualize-dropdown';
 
 describe('Visualize Dropdown Component: ', () => {

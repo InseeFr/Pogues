@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import {
   remoteToState,
   remoteToState1,
@@ -35,7 +36,6 @@ describe('questionnaire', () => {
       agency: 'fr.insee',
       campaigns: ['campaign01'],
       final: false,
-      formulaSpecified: 'XPATH',
       id: 'jf0s8i94',
       label: 'questionnaire',
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
@@ -73,7 +73,6 @@ describe('questionnaire', () => {
       dynamiqueSpecified: 'Redirections',
       formulaSpecified: 'XPATH',
       final: false,
-      formulaSpecified: 'XPATH',
       id: 'jf0s8i94',
       label: 'questionnaire',
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
@@ -301,7 +300,6 @@ describe('questionnaire', () => {
         flowLogic: 'FILTER',
         formulasLanguage: 'XPATH',
         final: false,
-        formulasLanguage: 'XPATH',
         genericName: 'QUESTIONNAIRE',
         id: 'jf0s8i94',
         lastUpdatedDate: output.lastUpdatedDate,
@@ -563,7 +561,6 @@ describe('questionnaire', () => {
         flowLogic: 'FILTER',
         formulasLanguage: 'XPATH',
         final: false,
-        formulasLanguage: 'XPATH',
         genericName: 'QUESTIONNAIRE',
         id: 'kgs4uwzd',
         lastUpdatedDate: output.lastUpdatedDate,
@@ -601,7 +598,6 @@ describe('questionnaire', () => {
         agency: 'fr.insee',
         campaigns: ['campaign01'],
         final: false,
-        formulaSpecified: 'XPATH',
         id: 'jf0s8i94',
         label: 'questionnaire',
         lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',

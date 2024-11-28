@@ -13,7 +13,7 @@ function validate(scheme, values, path) {
   return Object.keys(scheme).reduce((acc, name) => {
     const errors = [];
 
-    scheme[name].forEach(rule => {
+    scheme[name].forEach((rule) => {
       let errorMessage = rules[rule.name](values[name], values);
       if (errorMessage) {
         errorMessage = rule.dictionary

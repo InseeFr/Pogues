@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import {
   couldInsertAsChild,

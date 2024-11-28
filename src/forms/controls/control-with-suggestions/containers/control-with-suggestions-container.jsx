@@ -1,10 +1,9 @@
 import withCurrentFormVariables from '../../../../hoc/with-current-form-variables';
-
 import InputWithSuggestions from '../components/input-with-suggestions';
-import TextareaWithSuggestions from '../components/textarea-with-suggestions';
-import RichTextareaWithSuggestions from '../components/rich-textarea-with-suggestions';
 import RichEditor from '../components/rich-editor';
+import RichTextareaWithSuggestions from '../components/rich-textarea-with-suggestions';
 import SimpleEditor from '../components/simple-editor';
+import TextareaWithSuggestions from '../components/textarea-with-suggestions';
 
 export const InputWithSuggestionsContainer =
   withCurrentFormVariables(InputWithSuggestions);

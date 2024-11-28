@@ -1,19 +1,20 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
+
 import { QUESTION_TYPE_ENUM } from '../../../constants/pogues-constants';
+import Multiple, {
+  defaultState as multipleDefault,
+} from './response-format-multiple';
+import Pairing, {
+  defaultState as pairingDefault,
+} from './response-format-pairing';
 import Simple, {
   defaultState as simpleDefault,
 } from './response-format-simple';
 import Single, {
   defaultState as singleDefault,
 } from './response-format-single';
-import Multiple, {
-  defaultState as multipleDefault,
-} from './response-format-multiple';
 import Table, { defaultState as tableDefault } from './response-format-table';
-import Pairing, {
-  defaultState as pairingDefault,
-} from './response-format-pairing';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
@@ -73,7 +74,7 @@ const Factory = (initialState = {}, codesListsStore) => {
   };
 
   return {
-    formToState: form => {
+    formToState: (form) => {
       if (form) {
         const state = formToState(form, transformers);
         currentState = merge(cloneDeep(currentState), state);
@@ -101,7 +102,7 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       return codesLists;
     },
-    getNormalizedValues: form => {
+    getNormalizedValues: (form) => {
       // Values ready to be validated
       const { type, [type]: responseFormatType } = form;
       const normalized = {

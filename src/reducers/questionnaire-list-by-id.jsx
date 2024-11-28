@@ -1,6 +1,6 @@
 import {
-  LOAD_QLIST_SUCCESS,
   DELETE_QLIST_SUCCESS,
+  LOAD_QLIST_SUCCESS,
 } from '../actions/questionnaire-list';
 import { createActionHandlers } from '../utils/reducer/actions-handlers';
 
