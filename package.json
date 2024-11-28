@@ -68,6 +68,8 @@
     "synthetic-dom": "1.4.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.25.9",
+    "@babel/plugin-syntax-jsx": "^7.25.9",
     "@eslint/js": "^9.15.0",
     "@testing-library/dom": "^10.2.0",
     "@testing-library/react": "^16.0.0",
@@ -81,6 +83,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "font-awesome": "4.7.0",
