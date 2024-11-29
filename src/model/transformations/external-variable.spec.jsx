@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import { remoteToStore, storeToRemote } from './external-variable';
 
+import { DATATYPE_NAME } from '../../constants/pogues-constants';
+
+const { TEXT, NUMERIC } = DATATYPE_NAME;
+
 describe('external variable transformation', () => {
   const remote = [
     {
@@ -12,14 +16,9 @@ describe('external variable transformation', () => {
       Scope: 'jqqchose',
       Datatype: {
         type: 'TextDatatypeType',
-        typeName: 'TEXT',
+        typeName: TEXT,
         MaxLength: 'maxLength',
         Pattern: 'pattern',
-        Minimum: 'minimum',
-        Maximum: 'maximum',
-        Decimals: 'decimals',
-        Unit: 'unit',
-        Format: 'format',
       },
     },
     {
@@ -28,15 +27,28 @@ describe('external variable transformation', () => {
       Label: 'Label 2',
       type: 'ExternalVariableType',
       Datatype: {
-        type: 'TextDatatypeType',
-        typeName: 'TEXT',
-        MaxLength: 'maxLength',
-        Pattern: 'pattern',
-        Minimum: 'minimum',
-        Maximum: 'maximum',
-        Decimals: 'decimals',
-        Unit: 'unit',
-        Format: 'format',
+        Minimum: '1',
+        Maximum: '10',
+        Decimals: '',
+        IsDynamicUnit: false,
+        Unit: 'euro',
+        type: 'NumericDatatypeType',
+        typeName: NUMERIC,
+      },
+    },
+    {
+      id: '3',
+      Name: 'Name 3',
+      Label: 'Label 3',
+      type: 'ExternalVariableType',
+      Datatype: {
+        Minimum: '1',
+        Maximum: '10',
+        Decimals: '2',
+        IsDynamicUnit: true,
+        Unit: 'my formula',
+        type: 'NumericDatatypeType',
+        typeName: NUMERIC,
       },
     },
   ];
@@ -45,32 +57,39 @@ describe('external variable transformation', () => {
       id: '1',
       name: 'Name 1',
       label: 'Label 1',
-      type: 'TEXT',
+      type: TEXT,
       scope: 'jqqchose',
-      TEXT: {
+      [TEXT]: {
         maxLength: 'maxLength',
         pattern: 'pattern',
-        minimum: 'minimum',
-        maximum: 'maximum',
-        decimals: 'decimals',
-        unit: 'unit',
-        format: 'format',
       },
     },
     2: {
       id: '2',
       name: 'Name 2',
       label: 'Label 2',
-      type: 'TEXT',
+      type: NUMERIC,
       scope: '',
-      TEXT: {
-        maxLength: 'maxLength',
-        pattern: 'pattern',
-        minimum: 'minimum',
-        maximum: 'maximum',
-        decimals: 'decimals',
-        unit: 'unit',
-        format: 'format',
+      [NUMERIC]: {
+        minimum: '1',
+        maximum: '10',
+        decimals: '',
+        isDynamicUnit: false,
+        unit: 'euro',
+      },
+    },
+    3: {
+      id: '3',
+      name: 'Name 3',
+      label: 'Label 3',
+      type: NUMERIC,
+      scope: '',
+      [NUMERIC]: {
+        minimum: '1',
+        maximum: '10',
+        decimals: '2',
+        isDynamicUnit: true,
+        unit: 'my formula',
       },
     },
   };

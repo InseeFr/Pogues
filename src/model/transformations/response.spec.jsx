@@ -136,7 +136,7 @@ describe('response tranformations', () => {
     expect(result.Datatype.Maximum).toEqual(maximum);
   });
   test('when Decimals is defined', () => {
-    const typeName = 'DATE';
+    const typeName = 'NUMERIC';
     const decimals = 1;
     const result = stateToRemote({
       typeName,
@@ -146,8 +146,19 @@ describe('response tranformations', () => {
 
     expect(result.Datatype.Decimals).toEqual(decimals);
   });
+  test('when IsDynamicUnit is defined', () => {
+    const typeName = 'NUMERIC';
+    const isDynamicUnit = true;
+    const result = stateToRemote({
+      typeName,
+      id: '1',
+      isDynamicUnit,
+    });
+
+    expect(result.Datatype.IsDynamicUnit).toEqual(isDynamicUnit);
+  });
   test('when Unit is defined', () => {
-    const typeName = 'DATE';
+    const typeName = 'NUMERIC';
     const unit = 1;
     const result = stateToRemote({
       typeName,
