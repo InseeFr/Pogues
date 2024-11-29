@@ -533,10 +533,6 @@ const dictionary = {
     en: 'Formula of the unit of measure',
     fr: "Formule de l'unité de mesure",
   },
-  dynamicUnitEmptySelect: {
-    en: 'Select a variable of the unit of measure',
-    fr: "Sélectionnez une variable de l'unité de mesure",
-  },
   unitEmptySelect: {
     en: 'Select an unit of measure',
     fr: 'Sélectionnez une unité de mesure',

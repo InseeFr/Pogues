@@ -9,7 +9,6 @@ import withCurrentFormVariables from '../../../../../hoc/with-current-form-varia
 import SelectMetaDataContainer from '../../../../../layout/connected-widget/select-metadata';
 import { connect } from 'react-redux';
 import withCurrentFormVariables from '../../../../../hoc/with-current-form-variables';
-import Select from '../../../../../forms/controls/select';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import ListRadios from '../../../../../forms/controls/list-radios';
 import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
