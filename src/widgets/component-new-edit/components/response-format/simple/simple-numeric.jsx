@@ -2,16 +2,13 @@ import { connect } from 'react-redux';
 import { Field, FormSection, change, formValueSelector } from 'redux-form';
 
 import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
+import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Input from '../../../../../forms/controls/input';
-import Select from '../../../../../forms/controls/select';
+import ListRadios from '../../../../../forms/controls/list-radios';
 import withCurrentFormVariables from '../../../../../hoc/with-current-form-variables';
 import SelectMetaDataContainer from '../../../../../layout/connected-widget/select-metadata';
-import { connect } from 'react-redux';
-import withCurrentFormVariables from '../../../../../hoc/with-current-form-variables';
-import GenericOption from '../../../../../forms/controls/generic-option';
-import ListRadios from '../../../../../forms/controls/list-radios';
-import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -70,9 +67,9 @@ function ResponseFormatDatatypeNumeric({
           onChange={handleDynamicUnitChange}
           required
           // Convert string "true"/"false" to boolean true/false when storing in Redux form
-          parse={value => value === 'true'}
+          parse={(value) => value === 'true'}
           // Convert true/false/undefined to string "true"/"false" when displaying the form
-          format={value => (value === true ? 'true' : 'false')}
+          format={(value) => (value === true ? 'true' : 'false')}
         >
           <GenericOption value="true">{Dictionary.yes}</GenericOption>
           <GenericOption value="false">{Dictionary.no}</GenericOption>
