@@ -71,15 +71,11 @@ function ResponseFormatDatatypeNumeric({
           required
           // Convert string "true"/"false" to boolean true/false when storing in Redux form
           parse={value => value === 'true'}
-          // Convert boolean true/false to string "true"/"false" when displaying the form
+          // Convert true/false/undefined to string "true"/"false" when displaying the form
           format={value => (value === true ? 'true' : 'false')}
         >
-          <GenericOption key="1" value="true">
-            {Dictionary.yes}
-          </GenericOption>
-          <GenericOption key="2" value="false">
-            {Dictionary.no}
-          </GenericOption>
+          <GenericOption value="true">{Dictionary.yes}</GenericOption>
+          <GenericOption value="false">{Dictionary.no}</GenericOption>
         </Field>
         {isDynamicUnit ? (
           <Field
