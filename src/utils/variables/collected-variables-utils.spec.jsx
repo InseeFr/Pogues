@@ -1,11 +1,11 @@
 import { describe, expect, it, test } from 'vitest';
+
 import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
-
 import {
   generateCollectedVariables,
   getCollectedVariable,
@@ -137,7 +137,6 @@ describe('getCollectedVariablesSingle', () => {
         label: 'questionName label',
       },
       {
-        type: 'CollectedVariableType',
         type: 'TEXT',
         TEXT: {
           maxLength: 249,
@@ -322,7 +321,7 @@ describe('getCollectedVariablesTable', () => {
       questionName,
       form,
       codesListStore,
-    ).map(variable => variable.label);
+    ).map((variable) => variable.label);
     expect(output).toEqual(['a-m1', 'a-m2']);
   });
   it('should return the collected variable when the type of the primary state is a list', () => {
@@ -481,7 +480,7 @@ describe('getCollectedVariablesTable', () => {
       codesListStore,
     );
 
-    const outputLabels = output.map(variable => variable.label);
+    const outputLabels = output.map((variable) => variable.label);
     expect(outputLabels).toEqual(['measure 1', 'measure 2']);
 
     const outputCoordinates = output.map(({ x, y }) => {
@@ -530,7 +529,7 @@ describe('collected variables utils: ', () => {
       ]);
     });
     test('should sort the targetMapping, with the store', () => {
-      expect(targets.map(t => t.id).sort(sortByYXAndZ(store))).toEqual([
+      expect(targets.map((t) => t.id).sort(sortByYXAndZ(store))).toEqual([
         '1',
         '7',
         '8',

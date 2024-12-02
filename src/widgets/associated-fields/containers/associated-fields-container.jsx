@@ -1,11 +1,10 @@
-import { connect } from 'react-redux';
-import { formValueSelector, change } from 'redux-form';
 import PropTypes from 'prop-types';
-
-import AssociatedFields from '../components/associated-fields';
+import { connect } from 'react-redux';
+import { change, formValueSelector } from 'redux-form';
 
 import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
+import AssociatedFields from '../components/associated-fields';
 
 // PropTypes and defaultProps
 

@@ -1,6 +1,8 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { beforeEach, describe, expect, test } from 'vitest';
+
 import { fakeEvent, fakeFieldProps } from '../../../utils/test/test-utils';
 import GenericOption from '../generic-option';
 import InputAutocomplete from './input-autocomplete';

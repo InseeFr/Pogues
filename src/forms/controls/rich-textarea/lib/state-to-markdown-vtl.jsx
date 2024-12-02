@@ -1,8 +1,8 @@
 import {
-  getEntityRanges,
   BLOCK_TYPE,
   ENTITY_TYPE,
   INLINE_STYLE,
+  getEntityRanges,
 } from 'draft-js-utils';
 
 const { BOLD, CODE, ITALIC, STRIKETHROUGH, UNDERLINE } = INLINE_STYLE;

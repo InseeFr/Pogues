@@ -1,5 +1,5 @@
-import { uuid } from '../../../utils/utils';
 import { DATATYPE_NAME } from '../../../constants/pogues-constants';
+import { uuid } from '../../../utils/utils';
 import { sortByYXAndZ } from '../../../utils/variables/collected-variables-utils';
 
 const { TEXT } = DATATYPE_NAME;
@@ -86,7 +86,7 @@ export function formToStore(form) {
 export function storeToForm(currentStore) {
   const collectedVariables = Object.keys(currentStore)
     .sort(sortByYXAndZ(currentStore))
-    .map(key => {
+    .map((key) => {
       const {
         id,
         name,
@@ -131,11 +131,11 @@ const Factory = (currentState = [], collectedVariablesStore) => {
   }, {});
 
   return {
-    formToStore: form => {
+    formToStore: (form) => {
       if (form) currentStore = formToStore(form);
       return currentStore;
     },
-    formToComponentState: form => {
+    formToComponentState: (form) => {
       if (form) currentStore = formToStore(form);
       currentState = Object.keys(currentStore);
       return currentState;

@@ -1,6 +1,7 @@
 import sortBy from 'lodash.sortby';
-import { toComponents, toId } from '../utils/component/component-utils';
+
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import { toComponents, toId } from '../utils/component/component-utils';
 
 const { FILTER, LOOP } = COMPONENT_TYPE;
 /**
@@ -90,7 +91,7 @@ export function resetWeight(components) {
  */
 export function resetAllWeight(activesComponents) {
   return Object.keys(activesComponents)
-    .map(key => activesComponents[key])
+    .map((key) => activesComponents[key])
     .reduce((acc, component) => {
       if (component.children && component.children.length > 0) {
         return {

@@ -1,21 +1,20 @@
+import {
+  DATATYPE_NAME,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
+} from '../../constants/pogues-constants';
 import * as CodeList from './codes-list';
 import * as Dimension from './dimension';
 import * as Responses from './responses';
-
-import {
-  DATATYPE_NAME,
-  DIMENSION_TYPE,
-  DIMENSION_FORMATS,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
-  QUESTION_TYPE_ENUM,
-} from '../../constants/pogues-constants';
 
 const { BOOLEAN, TEXT } = DATATYPE_NAME;
 const { PRIMARY, MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 
 function getDimension(type, dimensions) {
-  const result = dimensions.filter(d => {
+  const result = dimensions.filter((d) => {
     return d.dimensionType === type;
   });
   return result.length > 0 ? result[0] : {};

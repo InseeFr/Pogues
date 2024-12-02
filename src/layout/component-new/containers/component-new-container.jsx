@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ComponentNew from '../components/component-new';
-
-import { setValidationErrors } from '../../../actions/errors';
 import { removeComponent } from '../../../actions/actionComponent';
 import { setSelectedComponentId } from '../../../actions/app-state';
 import {
@@ -11,8 +8,10 @@ import {
   orderComponents,
   updateParentChildren,
 } from '../../../actions/component';
+import { setValidationErrors } from '../../../actions/errors';
+import ComponentNew from '../components/component-new';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     codesListsStore: state.appState.activeCodeListsById,
     calculatedVariablesStore: state.appState.activeCalculatedVariablesById,

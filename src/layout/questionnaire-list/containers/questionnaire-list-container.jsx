@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 
-import QuestionnaireList from '../components/questionnaire-list';
-
 import {
   createComponent,
   orderComponents,
@@ -17,10 +15,11 @@ import {
   deleteQuestionnaireList,
   loadQuestionnaireList,
 } from '../../../actions/questionnaire-list';
+import QuestionnaireList from '../components/questionnaire-list';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const questionnaires = Object.keys(state.questionnaireListById).map(
-    key => state.questionnaireListById[key],
+    (key) => state.questionnaireListById[key],
   );
 
   return {

@@ -42,7 +42,7 @@ export function formToComponentState(form) {
 
 export function stateToForm(currentState) {
   const redirections = [];
-  Object.keys(currentState).forEach(key => {
+  Object.keys(currentState).forEach((key) => {
     const { id, label, condition, cible } = currentState[key];
     redirections.push({
       id,
@@ -60,7 +60,7 @@ export function stateToForm(currentState) {
 
 const Factory = (currentState = []) => {
   return {
-    formToComponentState: form => {
+    formToComponentState: (form) => {
       if (form) currentState = formToComponentState(form);
       return currentState;
     },

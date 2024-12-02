@@ -1,11 +1,11 @@
 import cloneDeep from 'lodash.clonedeep';
 
-import Dictionary from '../utils/dictionary/dictionary';
 import {
   CODES_LIST_INPUT_ENUM,
-  QUESTION_TYPE_ENUM,
   DATATYPE_NAME,
+  QUESTION_TYPE_ENUM,
 } from '../constants/pogues-constants';
+import Dictionary from '../utils/dictionary/dictionary';
 import { getComponentsTargetsByComponent } from '../utils/model/redirections-utils';
 import { generateCollectedVariables } from '../utils/variables/collected-variables-utils';
 
@@ -28,7 +28,7 @@ export function unique(property) {
     if (values.length <= 1) {
       return undefined;
     }
-    const orderList = values.map(v => v[property]).sort((v1, v2) => v1 > v2);
+    const orderList = values.map((v) => v[property]).sort((v1, v2) => v1 > v2);
     for (let i = 0; i < orderList.length; i += 1) {
       if (orderList[i + 1] && orderList[i] === orderList[i + 1]) {
         return 'unique';
@@ -130,7 +130,7 @@ export function uniqueCodeAttr(value, { editing, previousValue, codes }) {
   if (editing && value === previousValue) {
     return undefined;
   }
-  return codes.filter(code => code.value === value).length > 0
+  return codes.filter((code) => code.value === value).length > 0
     ? 'unique'
     : undefined;
 }
@@ -159,7 +159,7 @@ function checkIfCodesListTheSame(expected, values) {
     return true;
   }
   return (
-    expected.filter(e => e !== undefined && e !== '' && !values.includes(e))
+    expected.filter((e) => e !== undefined && e !== '' && !values.includes(e))
       .length === 0
   );
 }
@@ -169,7 +169,7 @@ function collectedVariableCompare(object1, object2) {
     return object1 === object2;
   let equal = true;
   if (object2) {
-    Object.keys(object1).forEach(p => {
+    Object.keys(object1).forEach((p) => {
       if (
         (object1[p] === '' && object2[p] !== undefined && object2[p] !== '') ||
         (object1[p] !== '' && object2[p] === undefined)
@@ -219,8 +219,8 @@ export function validCollectedVariables(
    * variable are in the same order as the ones expected
    */
   const isCodesTheSame = checkIfCodesListTheSame(
-    expectedVariables.map(e => e.codeListReference),
-    value.map(e => e.codeListReference),
+    expectedVariables.map((e) => e.codeListReference),
+    value.map((e) => e.codeListReference),
   );
 
   if (value[0] && expectedVariables.length !== value.length) {
@@ -298,7 +298,7 @@ export function validateExistingTarget(value, { stores: { componentsStore } }) {
 }
 
 export function validateDuplicates(value, { form }) {
-  return value !== '' && form.filter(i => i.name === value).length > 0
+  return value !== '' && form.filter((i) => i.name === value).length > 0
     ? 'Duplicated'
     : undefined;
 }

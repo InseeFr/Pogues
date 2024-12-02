@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import PropTypes from 'prop-types';
-import Loader from '../../loader';
 
 import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
+import { useOidc } from '../../../utils/oidc';
+import { GenericInput } from '../../generic-input';
+import Loader from '../../loader';
 import { QuestionnaireListComponents } from '../../questionnaire-list-components';
 import { QuestionnaireNav } from '../../questionnaire-nav';
-import { GenericInput } from '../../generic-input';
-import { useOidc } from '../../../utils/oidc';
 
 const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
@@ -41,7 +42,7 @@ export const defaultProps = {
   collectedVariablesByQuestion: {},
 };
 
-const PageQuestionnaire = props => {
+const PageQuestionnaire = (props) => {
   const {
     id,
     questionnaire,
@@ -76,7 +77,6 @@ const PageQuestionnaire = props => {
       loadQuestionnaire(id, token);
       setToInitialize(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, questionnaire?.id]);
 
   useEffect(() => {
@@ -94,7 +94,6 @@ const PageQuestionnaire = props => {
       });
       setToInitialize(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toInitialize, questionnaire?.id]);
 
   useEffect(() => {
@@ -102,7 +101,7 @@ const PageQuestionnaire = props => {
       appState.activeQuestionnaire.childQuestionnaireRef &&
       appState.activeQuestionnaire.childQuestionnaireRef.length !== 0
     ) {
-      appState.activeQuestionnaire.childQuestionnaireRef.map(ref =>
+      appState.activeQuestionnaire.childQuestionnaireRef.map((ref) =>
         loadExternalQuestionnairesIfNeeded(ref, token),
       );
     }

@@ -1,10 +1,9 @@
+import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
+import * as ResponseFormatMultiple from './response-format-multiple';
+import * as ResponseFormatPairing from './response-format-pairing';
 import * as ResponseFormatSimple from './response-format-simple';
 import * as ResponseFormatSingle from './response-format-single';
-import * as ResponseFormatMultiple from './response-format-multiple';
 import * as ResponseFormatTable from './response-format-table';
-import * as ResponseFormatPairing from './response-format-pairing';
-
-import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;

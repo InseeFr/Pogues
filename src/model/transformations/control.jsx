@@ -31,7 +31,7 @@ export function remoteToState(remote = []) {
 }
 
 export function stateToRemote(state) {
-  return Object.keys(state).map(key => {
+  return Object.keys(state).map((key) => {
     const {
       id,
       label: Description,

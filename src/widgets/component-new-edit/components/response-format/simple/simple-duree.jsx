@@ -1,12 +1,14 @@
 import React from 'react';
-import { FormSection, Field, formValueSelector } from 'redux-form';
+
 import { connect } from 'react-redux';
+import { Field, FormSection, formValueSelector } from 'redux-form';
 import { required as funcRequired } from 'redux-form-validators';
+
+import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
+import GenericOption from '../../../../../forms/controls/generic-option';
 import Input from '../../../../../forms/controls/input';
 import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
-import GenericOption from '../../../../../forms/controls/generic-option';
 
 const { DURATION } = DATATYPE_NAME;
 
@@ -156,7 +158,7 @@ ResponseFormatDatatypeDuree.defaultProps = {
   required: true,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
   return {
     formatTable: selector(

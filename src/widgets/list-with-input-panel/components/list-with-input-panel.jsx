@@ -1,15 +1,15 @@
-import React, { Children, cloneElement, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { FieldArray } from 'redux-form';
+import React, { Children, cloneElement, useEffect, useState } from 'react';
+
 import cloneDeep from 'lodash.clonedeep';
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
+import { FieldArray } from 'redux-form';
 
-import ListWithInputPanelList from './list-with-input-panel-list';
-
-import { ErrorsPanel } from '../../errors-panel';
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
+import { ErrorsPanel } from '../../errors-panel';
+import ListWithInputPanelList from './list-with-input-panel-list';
 
 const {
   WRAPPER_CLASS,
@@ -72,7 +72,6 @@ const ListWithInputPanel = ({
   useEffect(() => {
     // Generation items when another item is selected
     if (canAddNew && selectedItemIndex !== undefined) reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentValues[name]]);
 
   useEffect(() => {
@@ -86,16 +85,15 @@ const ListWithInputPanel = ({
         name,
       );
       validate(formValuesToValidate);
-      Object.keys(item).forEach(key =>
+      Object.keys(item).forEach((key) =>
         change(formName, `${path}${key}`, item[key]),
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItemIndex]);
 
   const handleClosePopup = () => setShowPopup(false);
 
-  const validate = values => {
+  const validate = (values) => {
     clearAllErrors();
     return validateForm(values, { selectedItemIndex: selectedItemIndex });
   };
@@ -110,6 +108,7 @@ const ListWithInputPanel = ({
     ) {
       setShowPopup(true);
     } else {
+      // eslint-disable-next-line no-unused-vars
       const { [name]: items, ...values } = currentValues;
       const path = getCurrentSelectorPath(selectorPath);
       const canValidate = selectedItemIndex !== undefined || canAddNew;
@@ -136,6 +135,7 @@ const ListWithInputPanel = ({
   };
 
   const duplicate = () => {
+    // eslint-disable-next-line no-unused-vars
     const { [name]: items, ...values } = currentValues;
     values.id = null;
     const path = getCurrentSelectorPath(selectorPath);
@@ -149,23 +149,23 @@ const ListWithInputPanel = ({
     const path = getCurrentSelectorPath(selectorPath);
     setSelectedItemIndex(undefined);
     clearAllErrors();
-    Object.keys(resetObject).forEach(key =>
+    Object.keys(resetObject).forEach((key) =>
       change(formName, `${path}${key}`, resetObject[key]),
     );
   };
 
-  const select = index => setSelectedItemIndex(index);
+  const select = (index) => setSelectedItemIndex(index);
 
   const clearAllErrors = () => clearSubformValidationErrors();
 
-  const removeErrorIntegrityIfExists = values => {
-    const error = errors.filter(e => e.itemListId === values.id);
+  const removeErrorIntegrityIfExists = (values) => {
+    const error = errors.filter((e) => e.itemListId === values.id);
     if (error.length > 0) {
       removeIntegrityError(componentId, error[0].type, error[0].itemListId);
     }
   };
 
-  const childrenWithDisabledProp = Children.map(children, child => {
+  const childrenWithDisabledProp = Children.map(children, (child) => {
     return child
       ? cloneElement(child, {
           ...child.props,
@@ -174,7 +174,7 @@ const ListWithInputPanel = ({
             (!canAddNew && selectedItemIndex === undefined),
         })
       : child;
-  }).filter(child => child);
+  }).filter((child) => child);
 
   return (
     <div className={COMPONENT_CLASS}>
@@ -195,7 +195,7 @@ const ListWithInputPanel = ({
               <button
                 type="button"
                 className={BUTTON_NEW_CLASS}
-                onClick={event => {
+                onClick={(event) => {
                   if (event.target.className === BUTTON_NEW_CLASS) {
                     event.preventDefault();
                     reset();
@@ -212,7 +212,7 @@ const ListWithInputPanel = ({
             <button
               type="button"
               className={BUTTON_RESET_CLASS}
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault();
                 reset();
               }}
@@ -222,7 +222,7 @@ const ListWithInputPanel = ({
             <button
               type="submit"
               className={BUTTON_SUBMIT_CLASS}
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault();
                 submit();
               }}
@@ -235,7 +235,7 @@ const ListWithInputPanel = ({
                 type="button"
                 disabled={selectedItemIndex === undefined}
                 className={BUTTON_DUPLICATE_CLASS}
-                onClick={event => {
+                onClick={(event) => {
                   event.preventDefault();
                   duplicate();
                 }}
@@ -249,7 +249,7 @@ const ListWithInputPanel = ({
                 type="button"
                 disabled={selectedItemIndex === undefined}
                 className={BUTTON_REMOVE_CLASS}
-                onClick={event => {
+                onClick={(event) => {
                   event.preventDefault();
                   remove();
                 }}

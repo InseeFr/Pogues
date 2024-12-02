@@ -1,11 +1,12 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
+
 import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
 
 import { QUESTION_TYPE_ENUM } from '../../../../../constants/pogues-constants';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import ResponseFormatMultiplePrimary from './multiple-primary';
 import ResponseFormatMultipleMeasure from './multiple-measure';
+import ResponseFormatMultiplePrimary from './multiple-primary';
 
 const { MULTIPLE_CHOICE: selectorPath } = QUESTION_TYPE_ENUM;
 

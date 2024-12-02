@@ -1,9 +1,9 @@
 import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
 import {
-  getNewCodeWeight,
   getDescendents,
-  getIndexCode,
   getHeavierSiblings,
+  getIndexCode,
+  getNewCodeWeight,
 } from './utils';
 
 function getPreviousSibling(code, codes) {
@@ -27,9 +27,9 @@ function getNextSibling(code, codes) {
 }
 
 function increaseDescendentsDepth(code, codes) {
-  const descendentsValues = getDescendents(code, codes).map(c => c.value);
+  const descendentsValues = getDescendents(code, codes).map((c) => c.value);
 
-  return codes.map(c => {
+  return codes.map((c) => {
     if (descendentsValues.indexOf(c.value) !== -1) {
       return {
         ...c,
@@ -41,9 +41,9 @@ function increaseDescendentsDepth(code, codes) {
 }
 
 function decreaseDescendentsDepth(code, codes) {
-  const descendentsValues = getDescendents(code, codes).map(c => c.value);
+  const descendentsValues = getDescendents(code, codes).map((c) => c.value);
 
-  return codes.map(c => {
+  return codes.map((c) => {
     if (descendentsValues.indexOf(c.value) !== -1) {
       return {
         ...c,
@@ -55,9 +55,9 @@ function decreaseDescendentsDepth(code, codes) {
 }
 
 function decreaseHeavierSiblingsWeight(code, codes) {
-  const heavierSiblings = getHeavierSiblings(code, codes).map(c => c.value);
+  const heavierSiblings = getHeavierSiblings(code, codes).map((c) => c.value);
 
-  return codes.map(c => {
+  return codes.map((c) => {
     if (heavierSiblings.indexOf(c.value) !== -1) {
       return {
         ...c,

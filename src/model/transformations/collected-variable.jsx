@@ -1,4 +1,3 @@
-import { uuid } from '../../utils/utils';
 import {
   COMPONENT_TYPE,
   DATATYPE_NAME,
@@ -7,6 +6,7 @@ import {
   QUESTION_TYPE_ENUM,
   VARIABLES_TYPES,
 } from '../../constants/pogues-constants';
+import { uuid } from '../../utils/utils';
 import { remoteToState as remoteToStateFormatSimple } from './response-format-simple';
 
 const { COLLECTED } = VARIABLES_TYPES;
@@ -21,10 +21,10 @@ export function remoteToStore(
   codesListsStore,
   variableclarification,
 ) {
-  remote.forEach(variable => {
+  remote.forEach((variable) => {
     if (variableclarification) {
       const find = variableclarification.find(
-        element =>
+        (element) =>
           element.responseclar.Response[0].CollectedVariableReference ===
           variable.id,
       );
@@ -34,13 +34,13 @@ export function remoteToStore(
         } else if (find.type === TABLE) {
           const code = Object.values(
             codesListsStore[find.codelistid].codes,
-          ).find(cod => cod.value === find.position);
+          ).find((cod) => cod.value === find.position);
           variable.z = code.weight;
           variable.mesureLevel = find.level;
         } else {
           const code = Object.values(
             codesListsStore[find.codelistid].codes,
-          ).find(cod => cod.value === find.position);
+          ).find((cod) => cod.value === find.position);
           variable.z = code.weight;
         }
       }
@@ -75,18 +75,18 @@ export function remoteToStore(
 }
 export function remoteToComponentState(remote = []) {
   return remote
-    .filter(r => r.CollectedVariableReference)
-    .map(r => r.CollectedVariableReference);
+    .filter((r) => r.CollectedVariableReference)
+    .map((r) => r.CollectedVariableReference);
 }
 
 function getQuestionFromSequence(componentsStore, id) {
   const sequenceQuestions = [];
-  componentsStore[id].children.forEach(child => {
+  componentsStore[id].children.forEach((child) => {
     if (componentsStore[child]) {
       if (componentsStore[child].type === QUESTION) {
         sequenceQuestions.push(componentsStore[child]);
       } else {
-        componentsStore[child].children.forEach(chil => {
+        componentsStore[child].children.forEach((chil) => {
           sequenceQuestions.push(componentsStore[chil]);
         });
       }
@@ -98,7 +98,7 @@ function getQuestionFromSequence(componentsStore, id) {
 function getQuestionFromSubSequence(componentsStore, id) {
   const SubSequenceQuestions = [];
   if (componentsStore[id].children) {
-    componentsStore[id].children.forEach(child => {
+    componentsStore[id].children.forEach((child) => {
       if (componentsStore[child] && componentsStore[child].type === QUESTION) {
         SubSequenceQuestions.push(componentsStore[child]);
       }
@@ -111,8 +111,8 @@ function getQuestionFromSubSequence(componentsStore, id) {
 function findQuestionInLoop(componentsStore) {
   const LoopsQuestions = {};
   Object.values(componentsStore)
-    .filter(element => element.type === LOOP || element.type === ROUNDABOUT)
-    .forEach(component => {
+    .filter((element) => element.type === LOOP || element.type === ROUNDABOUT)
+    .forEach((component) => {
       let LoopQuestions = [];
       if (componentsStore[component.initialMember]) {
         if (
@@ -125,7 +125,7 @@ function findQuestionInLoop(componentsStore) {
             i++
           ) {
             const sequence = Object.values(componentsStore).find(
-              element => element.type === SEQUENCE && element.weight === i,
+              (element) => element.type === SEQUENCE && element.weight === i,
             );
             if (sequence) {
               LoopQuestions = LoopQuestions.concat(
@@ -140,7 +140,7 @@ function findQuestionInLoop(componentsStore) {
             i++
           ) {
             const subsequence = Object.values(componentsStore).find(
-              element =>
+              (element) =>
                 element.type === SUBSEQUENCE &&
                 element.weight === i &&
                 element.parent ===
@@ -162,9 +162,9 @@ function findQuestionInLoop(componentsStore) {
 
 function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
-  Object.keys(questionsLoop).forEach(key => {
-    questionsLoop[key].forEach(element => {
-      if (element.collectedVariables?.find(collected => collected === id)) {
+  Object.keys(questionsLoop).forEach((key) => {
+    questionsLoop[key].forEach((element) => {
+      if (element.collectedVariables?.find((collected) => collected === id)) {
         isfound = {
           loop: componentsStore[key],
           component: element,
@@ -179,12 +179,12 @@ function getTableDynamique(componentsStore, id) {
   let tableId = '';
   Object.values(componentsStore)
     .filter(
-      components =>
+      (components) =>
         components.type === QUESTION &&
         components.responseFormat.type === TABLE &&
         components.responseFormat.TABLE.PRIMARY.type === LIST,
     )
-    .map(component => {
+    .map((component) => {
       if (component?.collectedVariables?.includes(id)) {
         tableId = component.id;
       }
@@ -194,7 +194,7 @@ function getTableDynamique(componentsStore, id) {
 }
 
 export function storeToRemote(store, componentsStore) {
-  return Object.keys(store).map(key => {
+  return Object.keys(store).map((key) => {
     const {
       id,
       name: Name,

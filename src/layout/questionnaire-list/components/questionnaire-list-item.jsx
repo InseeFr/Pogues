@@ -1,6 +1,8 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { TargetMode } from '../../../constants/pogues-constants';
 import { formatDate } from '../../../utils/component/component-utils';
@@ -19,7 +21,7 @@ function QuestionnaireListItem({
   sameFormulaLanguage,
   sameDynamic,
 }) {
-  const modesEvolution = mode => {
+  const modesEvolution = (mode) => {
     if (activeQuestionnaireTargetMode.includes(mode.value)) {
       return questionnaireTargetMode.includes(mode.value) ? '=' : '-';
     }
@@ -43,7 +45,7 @@ function QuestionnaireListItem({
               </div>
 
               <div className="question-list-item-modes">
-                {TargetMode.map(mode => (
+                {TargetMode.map((mode) => (
                   <div key={mode.value} className="question-list-item-mode">
                     {modesEvolution(mode) && (
                       <>
@@ -60,14 +62,14 @@ function QuestionnaireListItem({
       </div>
       <div className="check-button">
         {isHome ||
-        activeQuestionnaireTargetMode.find(activetargetMode =>
+        activeQuestionnaireTargetMode.find((activetargetMode) =>
           questionnaireTargetMode.includes(activetargetMode),
         ) ? (
           <button
             type="button"
             className={BUTTON_DUPLICATE_CLASS}
             aria-label={actionLabel}
-            onClick={event => {
+            onClick={(event) => {
               if (isHome) event.preventDefault();
               handleAction(id, label);
             }}

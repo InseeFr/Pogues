@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
+
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
@@ -33,7 +35,7 @@ function VisualizeDropdown({
     useState(false);
   const wrapperRef = useRef(null);
 
-  const handleClickOutside = useCallback(event => {
+  const handleClickOutside = useCallback((event) => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
       setDropdownOpen(false);
     }
@@ -49,7 +51,7 @@ function VisualizeDropdown({
   /**
    * Will toggle the dropdown menu
    */
-  const openDropDown = e => {
+  const openDropDown = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setHasQuestionnaireDuplicateVariables(
@@ -117,7 +119,7 @@ function VisualizeDropdown({
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded={dropdownOpen}
-        onClick={e => openDropDown(e)}
+        onClick={(e) => openDropDown(e)}
       >
         {Dictionary.visualise}
         <span className="caret" />
@@ -126,10 +128,10 @@ function VisualizeDropdown({
         allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
       ) && (
         <ul className="dropdown-menu">
-          {links.map(link => {
+          {links.map((link) => {
             return (
               <li key={link.actionLabel}>
-                <a href="#" onClick={e => visualize(e, link.actionType)}>
+                <a href="#" onClick={(e) => visualize(e, link.actionType)}>
                   {link.actionLabel}
                   {link?.tag === 'beta' && (
                     <span className="link-tag-new">

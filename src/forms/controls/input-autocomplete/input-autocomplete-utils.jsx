@@ -18,7 +18,7 @@ export function setSuggestions(
     const flags = caseSensitive ? 'g' : 'gi';
     const regEx = new RegExp(withText, flags);
     filteredSuggestions = options
-      .filter(o => getOptionLabel(o.label, o.value).search(regEx) !== -1)
+      .filter((o) => getOptionLabel(o.label, o.value).search(regEx) !== -1)
       .splice(0, numSuggestionsShown);
   }
 
@@ -30,7 +30,7 @@ export function setSuggestions(
 }
 
 export function init(options, value) {
-  const indexSelectedOption = options.map(o => o.value).indexOf(value);
+  const indexSelectedOption = options.map((o) => o.value).indexOf(value);
   const selectedOption = options[indexSelectedOption] || {};
 
   return {

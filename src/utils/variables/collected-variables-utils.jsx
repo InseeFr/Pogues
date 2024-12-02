@@ -1,4 +1,3 @@
-import { markdownVtlToString } from '../../forms/controls/rich-textarea';
 import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
@@ -6,8 +5,9 @@ import {
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
-import { uuid } from '../utils';
+import { markdownVtlToString } from '../../forms/controls/rich-textarea';
 import { hasChild } from '../codes-lists/codes-lists-utils';
+import { uuid } from '../utils';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
@@ -22,14 +22,14 @@ const { TEXT, BOOLEAN } = DATATYPE_NAME;
  */
 function sortCodes(codes = [], depth = 1, parent = '') {
   const filtered = codes.filter(
-    code => code.depth === depth && code.parent === parent,
+    (code) => code.depth === depth && code.parent === parent,
   );
   if (filtered.length === 0) {
     return [];
   }
   return filtered
     .sort((code1, code2) => code1.weight - code2.weight)
-    .map(code => [code, ...sortCodes(codes, depth + 1, code.value)])
+    .map((code) => [code, ...sortCodes(codes, depth + 1, code.value)])
     .reduce((acc, res) => [...acc, ...res], []);
 }
 
@@ -112,7 +112,7 @@ export function getCollectedVariablesMultiple(
   let listCodes = sortCodes(codes);
   if (listCodes.length === 0 && codesListStore[id]) {
     const codesStore = codesListStore[id].codes;
-    listCodes = Object.keys(codesStore).map(key => codesStore[key]);
+    listCodes = Object.keys(codesStore).map((key) => codesStore[key]);
   }
 
   let reponseFormatValues = {
@@ -131,7 +131,7 @@ export function getCollectedVariablesMultiple(
     };
   }
 
-  const listFiltered = listCodes.filter(code => !hasChild(code, listCodes));
+  const listFiltered = listCodes.filter((code) => !hasChild(code, listCodes));
   const collectedVariables = listFiltered.map((c, index) =>
     getCollectedVariable(
       `${questionName}${index + 1}`,
@@ -140,7 +140,7 @@ export function getCollectedVariablesMultiple(
       reponseFormatValues,
     ),
   );
-  form.PRIMARY.CodesList.codes.forEach(code => {
+  form.PRIMARY.CodesList.codes.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollectedVariable(
@@ -178,7 +178,7 @@ export function getCollectedVariablesSingle(questionName, form) {
     }),
   );
 
-  form.CodesList.codes?.forEach(code => {
+  form.CodesList.codes?.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollectedVariable(
@@ -231,10 +231,10 @@ export function getCollectedVariablesTable(questionName, form) {
 
       const codesStateSecondary = sortCodes(componentCodesStateSecondary);
       codesStatePrimary
-        .filter(code => !hasChild(code, codesStatePrimary))
+        .filter((code) => !hasChild(code, codesStatePrimary))
         .map((codePrimary, i) =>
           codesStateSecondary
-            .filter(code => !hasChild(code, codesStateSecondary))
+            .filter((code) => !hasChild(code, codesStateSecondary))
             .map((codeSecondary, j) =>
               collectedVariables.push(
                 getCollectedVariable(
@@ -256,7 +256,7 @@ export function getCollectedVariablesTable(questionName, form) {
     // 1 dimension from a codelist ; 1 or several measures ; if several, it becomes a second dimension
     if (!secondaryState?.showSecondaryAxis) {
       codesStatePrimary
-        .filter(code => !hasChild(code, codesStatePrimary))
+        .filter((code) => !hasChild(code, codesStatePrimary))
         .map((codePrimary, i) =>
           listMeasuresState.measures.map((measure, j) =>
             collectedVariables.push(
@@ -299,14 +299,14 @@ export function getCollectedVariablesTable(questionName, form) {
   form.LIST_MEASURE?.measures.SINGLE_CHOICE?.CodesList?.codes.map(
     ({ id, codes }) =>
       codes
-        .filter(code => code.precisionid && code.precisionid !== '')
-        .map(code =>
+        .filter((code) => code.precisionid && code.precisionid !== '')
+        .map((code) =>
           collectedVariables
             .filter(
-              variable =>
+              (variable) =>
                 variable.codeListReference && variable.codeListReference === id,
             )
-            .map(variable =>
+            .map((variable) =>
               collectedVariables.push(
                 getCollectedVariable(
                   `${variable.name}${code.value}CL`,

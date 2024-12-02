@@ -1,14 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
-import debounce from 'lodash.debounce';
 
 import { CONTROL_TREE_SELECT } from '../../constants/dom-constants';
 
 const { COMPONENT_CLASS } = CONTROL_TREE_SELECT;
 
 // Control
-const TreeSelect = props => {
+const TreeSelect = (props) => {
   const {
     input,
     label,
@@ -20,7 +21,9 @@ const TreeSelect = props => {
   const inputSearchRef = useRef(null);
 
   const filterOptions = (options, q) => {
-    return q !== '' ? options.filter(o => o.label.indexOf(q) !== -1) : options;
+    return q !== ''
+      ? options.filter((o) => o.label.indexOf(q) !== -1)
+      : options;
   };
 
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -38,7 +41,7 @@ const TreeSelect = props => {
   const selectValue = (value = '') => {
     props.input.onChange(value);
   };
-  const listOptions = filteredOptions.map(op => {
+  const listOptions = filteredOptions.map((op) => {
     const padding = Array(op.depth + 1).join('-');
     const isSelectedValue = op.value === input.value;
     const { value } = op;
@@ -50,7 +53,7 @@ const TreeSelect = props => {
           selected: isSelectedValue,
           disabled: op.disabled,
         })}
-        onClick={event => {
+        onClick={(event) => {
           event.preventDefault();
           if (!op.disabled) selectValue(value);
         }}
@@ -65,7 +68,7 @@ const TreeSelect = props => {
       <li
         role="presentation"
         key="-1"
-        onClick={event => {
+        onClick={(event) => {
           event.preventDefault();
           selectValue();
         }}

@@ -1,17 +1,18 @@
-import sortBy from 'lodash.sortby';
 import find from 'lodash.find';
-import takeWhile from 'lodash.takewhile';
+import sortBy from 'lodash.sortby';
 import takeRight from 'lodash.takeright';
+import takeWhile from 'lodash.takewhile';
+
+import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import {
-  toComponents,
+  isFilter,
+  isLoop,
+  isNestedFilter,
   isQuestion,
   isSubSequence,
-  isLoop,
-  isFilter,
-  isNestedFilter,
+  toComponents,
   toId,
 } from '../utils/component/component-utils';
-import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { resetWeight } from './component-update';
 
 const { SEQUENCE } = COMPONENT_TYPE;
@@ -37,7 +38,7 @@ export function removeComponentFromActivesComponent(
         ...activesComponents[currentElement.id],
         children: activesComponents[currentElement.id]?.children
           ? activesComponents[currentElement.id].children.filter(
-              childId => childId !== deletedComponent.id,
+              (childId) => childId !== deletedComponent.id,
             )
           : [],
       };
@@ -85,8 +86,8 @@ export function removeSubSequence(activesComponents, deletedComponent) {
   const previousSubSequence = activesComponents[
     deletedComponent.parent
   ].children
-    .map(id => activesComponents[id])
-    .find(c => c.weight === deletedComponent.weight - 1);
+    .map((id) => activesComponents[id])
+    .find((c) => c.weight === deletedComponent.weight - 1);
 
   let newChildren = deletedComponent.children;
   let newParentId;
@@ -193,7 +194,7 @@ export function removeSequence(activesComponents, deletedComponent) {
   // We will find the previous sibling SEQUENCE
   const previousSequence = find(
     toComponents(parent.children, activesComponents),
-    c => c.weight === previousSequenceWeight,
+    (c) => c.weight === previousSequenceWeight,
   );
 
   // From the previous SEQUENCE, we will get the last component
@@ -206,7 +207,7 @@ export function removeSequence(activesComponents, deletedComponent) {
 
   // If the last component is a subsequence, we will get the first n QUESTION of the deleted component
   if (isSubSequence(lastComponentFromPreviousSequence)) {
-    firstQuestionsToMove = takeWhile(childrenToMove, c => isQuestion(c));
+    firstQuestionsToMove = takeWhile(childrenToMove, (c) => isQuestion(c));
   }
 
   // Based on the previous firstQuestionsToMove array, we will get the other item in another array

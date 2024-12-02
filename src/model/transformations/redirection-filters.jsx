@@ -33,7 +33,7 @@ function remoteToStateNestedFilter(remote, parent, type, store) {
   const stateNestedFilter = getFiltersState(remote, parent, type);
 
   if (filters) {
-    filters.forEach(filt => {
+    filters.forEach((filt) => {
       const nested = remoteToStateNestedFilter(
         filt,
         parent,
@@ -57,7 +57,7 @@ export function remoteToState(remote, parent, store) {
   const { Next: filters } = remote;
 
   if (filters) {
-    filters.forEach(filt => {
+    filters.forEach((filt) => {
       const nested = remoteToStateNestedFilter(
         filt,
         parent,
@@ -75,7 +75,7 @@ export function remoteToState(remote, parent, store) {
 
 function getNextFlowControle(filterImbriquers, store) {
   const imbriquerControle = [];
-  filterImbriquers.forEach(filtere => {
+  filterImbriquers.forEach((filtere) => {
     const {
       id,
       name,
@@ -102,8 +102,8 @@ function getNextFlowControle(filterImbriquers, store) {
 
 export function stateToRemote(store) {
   return Object.values(store)
-    .filter(element => element.type === FILTER)
-    .map(component => {
+    .filter((element) => element.type === FILTER)
+    .map((component) => {
       const {
         id,
         filterImbriquer,

@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { DATATYPE_NAME } from '../../constants/pogues-constants';
 import {
   remoteToComponentState,
@@ -680,11 +681,10 @@ describe('collected variable tranformations', () => {
   test('should return Scoop from loop ID in collected variable model if there is LOOP and question is not table', () => {
     const input = {
       k23bk67e: {
-        id: 'k23bk67e',
+        id: 'kawknt1k',
         TEXT: { maxLength: 249, pattern: '' },
         codeListReference: undefined,
         codeListReferenceLabel: '',
-        id: 'kawknt1k',
         label: 'QUESTION1 label',
         mesureLevel: undefined,
         name: 'QUESTION1',

@@ -1,8 +1,9 @@
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { persistState } from 'redux-devtools';
-import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { createLogger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+
 import rootReducer from '../reducers/index.jsx';
 
 const loggerMiddleware = createLogger();

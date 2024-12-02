@@ -1,10 +1,10 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { describe, expect, test } from 'vitest';
 
-import Textarea from './textarea';
-
 import { fakeFieldProps } from '../../utils/test/test-utils';
+import Textarea from './textarea';
 
 describe('Form controls - Textarea', () => {
   const props = {

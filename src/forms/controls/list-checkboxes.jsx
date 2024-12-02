@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
+import ClassSet from 'react-classset';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
+import { CONTROL_LIST_CHECKBOXES } from '../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
   toggleValueInList,
 } from '../../utils/widget-utils';
-
-import { CONTROL_LIST_CHECKBOXES } from '../../constants/dom-constants';
-import ClassSet from 'react-classset';
 
 const { COMPONENT_CLASS, INLINE_MODE } = CONTROL_LIST_CHECKBOXES;
 
@@ -62,7 +62,6 @@ class ListCheckboxes extends Component {
   UNSAFE_componentWillUpdate(nextProps) {
     const values = nextProps.input.value;
     if (this.props.input.value !== values) {
-      // eslint-disable-next-line react/no-will-update-set-state
       this.setState({
         listCheckValues:
           values !== '' && values.length > 0 ? values.split(',') : [],
@@ -110,8 +109,7 @@ class ListCheckboxes extends Component {
             </div>
           )}
 
-          {values.map(val => {
-            // eslint-disable-next-line no-shadow
+          {values.map((val) => {
             const { label, value, ...otherProps } = val;
             const id = getControlId('checkbox', input.name, value);
 

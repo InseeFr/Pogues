@@ -1,9 +1,10 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { CODELISTS_ACTIONS } from '../../../constants/pogues-constants';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { ACTIONS_CLASS } = WIDGET_CODES_LISTS;
 
@@ -36,8 +37,10 @@ function CodesListsActions({ disabledActions, actions, allowPrecision }) {
   return (
     <div className={ACTIONS_CLASS}>
       {Object.keys(CODELISTS_ACTIONS)
-        .filter(actionKey => allowPrecision || !actionKey.includes('PRECISION'))
-        .map(key => {
+        .filter(
+          (actionKey) => allowPrecision || !actionKey.includes('PRECISION'),
+        )
+        .map((key) => {
           return (
             <button
               key={key}

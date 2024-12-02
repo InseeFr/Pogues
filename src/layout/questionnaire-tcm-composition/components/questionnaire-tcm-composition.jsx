@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
+
 import { useHistory } from 'react-router-dom';
 
-import { QuestionnaireNav } from '../../questionnaire-nav';
 import { QuestionnaireList } from '../../questionnaire-list';
+import { QuestionnaireNav } from '../../questionnaire-nav';
 
 // Prop types and default props
 
-const QuestionnaireTcmComposition = props => {
+const QuestionnaireTcmComposition = (props) => {
   const { questionnaire } = props;
   const history = useHistory();
 

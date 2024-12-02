@@ -1,11 +1,13 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { noop } from '../../../utils/test/test-utils';
-import StatisticalContextCriteria from './statistical-context-criteria';
-import { reducer as formReducer, reduxForm } from 'redux-form';
+
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
+import { reducer as formReducer, reduxForm } from 'redux-form';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+
+import { noop } from '../../../utils/test/test-utils';
+import StatisticalContextCriteria from './statistical-context-criteria';
 
 const store = createStore(combineReducers({ form: formReducer }));
 
@@ -116,15 +118,15 @@ describe('<StatisticalContextCriteria />', () => {
       // in addition to real options, there is an empty option by default
       const serieOptions = Array.from(
         serieField.querySelectorAll('option'),
-      ).filter(option => option.value !== '');
+      ).filter((option) => option.value !== '');
 
       const operationOptions = Array.from(
         operationField.querySelectorAll('option'),
-      ).filter(option => option.value !== '');
+      ).filter((option) => option.value !== '');
 
       const campaignsOptions = Array.from(
         campaignsField.querySelectorAll('option'),
-      ).filter(option => option.value !== '');
+      ).filter((option) => option.value !== '');
 
       expect(serieOptions.length).toBe(props.series.length);
       expect(operationOptions.length).toBe(props.operations.length);

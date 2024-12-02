@@ -68,7 +68,7 @@ function getHeavyComponentIdFromGroupIds(components, subgroupIds) {
 function getHeavyComponentIdByTypeFromGroupIds(components, subgroupIds, type) {
   let heavyComponentId = '';
   const componentsIds = subgroupIds.filter(
-    key => components[key] && components[key].type === type,
+    (key) => components[key] && components[key].type === type,
   );
   if (componentsIds.length > 0) {
     heavyComponentId = getHeavyComponentIdFromGroupIds(
@@ -280,7 +280,7 @@ export function getNewQuestionPlaceholder(components, activeComponent) {
  */
 export function getNewLoopPlaceholder(components) {
   return !!Object.values(components).find(
-    component =>
+    (component) =>
       (component.type === SEQUENCE && component.id !== 'idendquest') ||
       component.type === EXTERNAL_ELEMENT,
   );

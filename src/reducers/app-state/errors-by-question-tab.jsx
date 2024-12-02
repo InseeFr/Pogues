@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-import { SET_TAB_ERRORS, CLEAR_TAB_ERRORS } from '../../actions/app-state';
-import { createActionHandlers } from '../../utils/reducer/actions-handlers';
+import { CLEAR_TAB_ERRORS, SET_TAB_ERRORS } from '../../actions/app-state';
 import { TAB_NAMES } from '../../constants/pogues-constants';
+import { createActionHandlers } from '../../utils/reducer/actions-handlers';
 
 const actionHandlers = {};
 
@@ -36,7 +36,7 @@ function getNumErrorsByTab(errorsValidation, errorsIntegrity) {
     const tabName = TAB_NAMES[key];
     return {
       ...acc,
-      [tabName]: Object.keys(errorsIntegrity).filter(innerKey => {
+      [tabName]: Object.keys(errorsIntegrity).filter((innerKey) => {
         return errorsIntegrity[innerKey].type === tabName;
       }).length,
     };

@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { Field } from 'redux-form';
+
 import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from '../../../constants/dom-constants';
 import { TCM } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
@@ -13,7 +15,7 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
   WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
-const StatisticalContextCriteria = props => {
+const StatisticalContextCriteria = (props) => {
   const {
     token,
     selectedSerie,
@@ -76,7 +78,7 @@ const StatisticalContextCriteria = props => {
             {TCM.label}
           </GenericOption>
         ) : (
-          series.map(s => (
+          series.map((s) => (
             <GenericOption key={s.value} value={s.value}>
               {s.label}
             </GenericOption>
@@ -98,7 +100,7 @@ const StatisticalContextCriteria = props => {
               {TCM.label}
             </GenericOption>
           ) : (
-            operations.map(s => (
+            operations.map((s) => (
               <GenericOption key={s.value} value={s.value}>
                 {s.label}
               </GenericOption>
@@ -124,7 +126,7 @@ const StatisticalContextCriteria = props => {
               {TCM.label}
             </GenericOption>
           ) : (
-            campaigns.map(s => (
+            campaigns.map((s) => (
               <GenericOption key={s.value} value={s.value}>
                 {s.label}
               </GenericOption>

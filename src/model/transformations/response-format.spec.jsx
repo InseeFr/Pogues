@@ -1,4 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
+
 import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 import { remoteToState, stateToRemote } from './response-format';
 import * as ResponseFormatMultiple from './response-format-multiple';
@@ -53,7 +54,7 @@ describe.skip('response transformation', () => {
         'store',
       ],
     };
-    [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach(type => {
+    [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach((type) => {
       it(`should call the ${type} remoteToState`, () => {
         let mockFn;
         switch (type) {
@@ -130,7 +131,7 @@ describe.skip('response transformation', () => {
       ],
     };
 
-    [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach(type => {
+    [SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE].forEach((type) => {
       it(`should call the ${type} stateToRemote`, () => {
         let mockFn;
         switch (type) {

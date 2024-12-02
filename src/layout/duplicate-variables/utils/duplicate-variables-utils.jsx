@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { getAllVariables } from '../../../utils/variables/variables-utils';
 
 export function questionnaireDuplicateVariables(
@@ -50,8 +51,8 @@ export function questionnaireDuplicateVariables(
     [],
   );
   const currentDuplicateExternal = Object.values(activeExternalVariablesById)
-    .filter(variable => duplicateVariables.includes(variable.name))
-    .map(variable => ({
+    .filter((variable) => duplicateVariables.includes(variable.name))
+    .map((variable) => ({
       questionnaire: 'current',
       variableName: variable.name,
       variableType: 'ExternalVariableType',
@@ -59,8 +60,8 @@ export function questionnaireDuplicateVariables(
   const currentDuplicateCalculated = Object.values(
     activeCalculatedVariablesById,
   )
-    .filter(variable => duplicateVariables.includes(variable.name))
-    .map(variable => ({
+    .filter((variable) => duplicateVariables.includes(variable.name))
+    .map((variable) => ({
       questionnaire: 'current',
       variableName: variable.name,
       variableType: 'CalculatedVariableType',
@@ -68,14 +69,16 @@ export function questionnaireDuplicateVariables(
   const externalQuestionnaireDuplicate = Object.values(
     externalQuestionnairesVariables,
   )
-    .filter(questionnaire => externalQuestionnaires.includes(questionnaire.id))
+    .filter((questionnaire) =>
+      externalQuestionnaires.includes(questionnaire.id),
+    )
     .reduce((accQuest, quest) => {
       const qRefName = activeComponentsById[quest.id]?.name;
       return [
         ...accQuest,
         ...Object.values(quest.variables)
-          .filter(variable => duplicateVariables.includes(variable.Name))
-          .map(variable => ({
+          .filter((variable) => duplicateVariables.includes(variable.Name))
+          .map((variable) => ({
             questionnaire: qRefName,
             variableName: variable.Name,
             variableType: variable.type,

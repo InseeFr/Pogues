@@ -1,8 +1,8 @@
-import { getMaxDepthInChildren, getLightierSiblings } from './utils';
+import { getLightierSiblings, getMaxDepthInChildren } from './utils';
 
 export function disableMoveUpButton(allCodes, { parent, value }) {
   const children = allCodes
-    .filter(c => c.parent === parent)
+    .filter((c) => c.parent === parent)
     .sort((code, nexCode) => {
       if (code.weight < nexCode.weight) return -1;
       if (code.weight > nexCode.weight) return 1;
@@ -18,7 +18,7 @@ export function disableMoveUpButton(allCodes, { parent, value }) {
 
 export function disableMoveDownButton(allCodes, { parent, value }) {
   const children = allCodes
-    .filter(c => c.parent === parent)
+    .filter((c) => c.parent === parent)
     .sort((code, nexCode) => {
       if (code.weight < nexCode.weight) return -1;
       if (code.weight > nexCode.weight) return 1;

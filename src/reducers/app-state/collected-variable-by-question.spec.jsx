@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { SET_ACTIVE_VARIABLES } from '../../actions/app-state';
 import {
   CREATE_COMPONENT,
@@ -18,7 +19,7 @@ describe('setActiveCollectedVariables', () => {
     );
     expect(result).toEqual('collectedVariableByQuestion');
   });
-  [SET_ACTIVE_VARIABLES].forEach(action => {
+  [SET_ACTIVE_VARIABLES].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { state: 'previous' },
@@ -51,25 +52,27 @@ describe('updateActiveCollectedVariables', () => {
       activeCollectedVariablesById: 'activeCollectedVariablesById',
     });
   });
-  [UPDATE_COMPONENT, CREATE_COMPONENT, DUPLICATE_COMPONENT].forEach(action => {
-    test(`when called when we trigger ${action}`, () => {
-      const result = actionsHandlers(
-        { state: 'previous' },
-        {
-          type: action,
-          payload: {
-            update: {
-              activeCollectedVariablesById: {
-                activeCollectedVariablesById: 'activeCollectedVariablesById',
+  [UPDATE_COMPONENT, CREATE_COMPONENT, DUPLICATE_COMPONENT].forEach(
+    (action) => {
+      test(`when called when we trigger ${action}`, () => {
+        const result = actionsHandlers(
+          { state: 'previous' },
+          {
+            type: action,
+            payload: {
+              update: {
+                activeCollectedVariablesById: {
+                  activeCollectedVariablesById: 'activeCollectedVariablesById',
+                },
               },
             },
           },
-        },
-      );
-      expect(result).toEqual({
-        state: 'previous',
-        activeCollectedVariablesById: 'activeCollectedVariablesById',
+        );
+        expect(result).toEqual({
+          state: 'previous',
+          activeCollectedVariablesById: 'activeCollectedVariablesById',
+        });
       });
-    });
-  });
+    },
+  );
 });

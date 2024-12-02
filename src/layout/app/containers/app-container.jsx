@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import App from '../components/app';
+
 import { loadUnitsIfNeeded } from '../../../actions/metadata';
+import App from '../components/app';
 
 const AppContainer = connect(null, {
   loadUnitsIfNeeded,

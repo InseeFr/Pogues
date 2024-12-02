@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import {
   ADD_LIST_INVALID_ITEMS,
   REMOVE_INVALID_ITEM,
@@ -18,7 +19,7 @@ describe('setActiveExternalVariables', () => {
     );
     expect(result).toEqual('invalidItems');
   });
-  [SET_INVALID_ITEMS].forEach(action => {
+  [SET_INVALID_ITEMS].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { state: 'previous' },
@@ -42,7 +43,7 @@ describe('removeInvalidItem', () => {
     );
     expect(result).toEqual({ 2: 'keep' });
   });
-  [REMOVE_INVALID_ITEM].forEach(action => {
+  [REMOVE_INVALID_ITEM].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { 1: 'remove', 2: 'keep' },
@@ -66,7 +67,7 @@ describe('addListInvalidItem', () => {
       2: 'keep',
     });
   });
-  [ADD_LIST_INVALID_ITEMS].forEach(action => {
+  [ADD_LIST_INVALID_ITEMS].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { 'test.1': 'remove', 2: 'keep' },

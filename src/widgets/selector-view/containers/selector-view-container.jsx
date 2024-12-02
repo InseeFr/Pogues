@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
-import SelectorView from '../components/selector-view';
-
-import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
+import { getCurrentSelectorPath } from '../../../utils/widget-utils';
+import SelectorView from '../components/selector-view';
 
 // PropTypes and defaultProps
 

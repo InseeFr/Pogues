@@ -48,7 +48,7 @@ const questionnaires = [
                     id: 'iwnegyn6',
                     description:
                       'Si vous avez coché la case, poursuivez le questionnaire.',
-                    expression: "${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' ", // eslint-disable-line no-template-curly-in-string
+                    expression: "${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' ",
                     ifTrue: 'isg13cuk',
                   },
                 ],
@@ -2051,7 +2051,7 @@ const questionnaires = [
                     id: 'iw7ukiat',
                     description: '',
                     expression:
-                      "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0 ) and ${S1-S1-Q1-R1}!=''", // eslint-disable-line no-template-curly-in-string
+                      "(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))<0 ) and ${S1-S1-Q1-R1}!=''",
                     failMessage:
                       "Le montant des investissements spécifiquement dédiés à l'environnement est supérieur au montant total des investissements.",
                   },

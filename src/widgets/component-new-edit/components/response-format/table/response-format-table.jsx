@@ -1,18 +1,19 @@
 import React from 'react';
-import { FormSection, formValueSelector } from 'redux-form';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { FormSection, formValueSelector } from 'redux-form';
 
-import Dictionary from '../../../../../utils/dictionary/dictionary';
 import {
-  QUESTION_TYPE_ENUM,
-  DIMENSION_TYPE,
   DIMENSION_FORMATS,
+  DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
 } from '../../../../../constants/pogues-constants';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import TableListMeasures from './table-list-measures';
+import ResponseFormatTableMeasure from './table-measure';
 import ResponseFormatTablePrimary from './table-primary';
 import ResponseFormatTableSecondary from './table-secondary';
-import ResponseFormatTableMeasure from './table-measure';
-import TableListMeasures from './table-list-measures';
 
 const { PRIMARY, SECONDARY } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;

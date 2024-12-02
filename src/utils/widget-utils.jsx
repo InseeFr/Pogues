@@ -8,7 +8,7 @@ export function getControlId(type, name, value) {
 }
 
 export function getValuesFromGenericOptions(options) {
-  return Children.map(options, op => {
+  return Children.map(options, (op) => {
     const { children: label, value, ...otherProps } = op.props;
     return {
       label,
@@ -37,8 +37,8 @@ export function getCurrentSelectorPath(selectorPath = '') {
 
 export function filterStoreByProp(store = {}, propName, value) {
   return Object.keys(store)
-    .filter(key => store[key][propName] === value)
-    .map(key => store[key]);
+    .filter((key) => store[key][propName] === value)
+    .map((key) => store[key]);
 }
 
 export function getKey(str) {
@@ -47,13 +47,13 @@ export function getKey(str) {
 
 export function getIndexItemsByAttrs(attrs, items) {
   const searchedKey = Object.keys(attrs)
-    .map(attrKey => attrs[attrKey])
+    .map((attrKey) => attrs[attrKey])
     .join('');
 
   const index = items
-    .map(i =>
+    .map((i) =>
       Object.keys(attrs)
-        .map(attrKey => i[attrKey])
+        .map((attrKey) => i[attrKey])
         .join(''),
     )
     .indexOf(searchedKey);

@@ -1,10 +1,11 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { describe, expect, test, vi } from 'vitest';
-import ListWithInputPanel from './list-with-input-panel';
 
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { fakeEvent, noop } from '../../../utils/test/test-utils';
+import ListWithInputPanel from './list-with-input-panel';
 
 const {
   BUTTON_SUBMIT_CLASS,
@@ -35,7 +36,7 @@ describe('<ListWithInputPanel', () => {
   };
 
   const FakeInputPanel = () => <div />;
-  const buildFakeListWithPanel = customProps => {
+  const buildFakeListWithPanel = (customProps) => {
     return shallow(
       <ListWithInputPanel {...customProps}>
         <FakeInputPanel />
@@ -67,7 +68,7 @@ describe('<ListWithInputPanel', () => {
         },
       ];
 
-      buttons.forEach(btn => {
+      buttons.forEach((btn) => {
         wrapper = buildFakeListWithPanel(props);
         expect(wrapper.find(`.${btn.className}`)).toHaveLength(1);
         wrapper = buildFakeListWithPanel({ ...props, [btn.property]: false });
@@ -103,7 +104,7 @@ describe('<ListWithInputPanel', () => {
         },
       ];
 
-      buttons.forEach(btn => {
+      buttons.forEach((btn) => {
         const spy = vi.fn();
         wrapper = buildFakeListWithPanel({ ...props, [btn.action]: spy });
         wrapper.find(`.${btn.className}`).simulate('click', fakeEvent);

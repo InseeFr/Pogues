@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import Logger from './logger';
 
 describe('Instantiate Logger', () => {

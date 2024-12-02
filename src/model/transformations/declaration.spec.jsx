@@ -1,4 +1,5 @@
 import { describe, expect, it, test } from 'vitest';
+
 import { remoteToState, stateToRemote } from './declaration';
 
 describe('declaration tranformations', () => {
@@ -71,7 +72,7 @@ describe('declaration tranformations', () => {
         },
       ];
       const result = remoteToState(remote);
-      Object.keys(result).forEach(key => expect(key).toBeDefined());
+      Object.keys(result).forEach((key) => expect(key).toBeDefined());
     });
   });
   describe('storeToRemote', () => {

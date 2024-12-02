@@ -12,21 +12,21 @@ export const SET_ERRORS_BY_COMPONENT = 'SET_ERRORS_BY_COMPONENT';
 export const ADD_VISUALIZATION_ERROR = 'ADD_VISUALIZATION_ERROR';
 export const REMOVE_VISUALIZATION_ERROR = 'REMOVE_VISUALIZATION_ERROR';
 
-export const addValidationErrors = errors => {
+export const addValidationErrors = (errors) => {
   return {
     type: ADD_VALIDATION_ERRORS,
     payload: { errors },
   };
 };
 
-export const setValidationErrors = errors => {
+export const setValidationErrors = (errors) => {
   return {
     type: SET_VALIDATION_ERRORS,
     payload: { errors },
   };
 };
 
-export const removeValidationErrors = paths => {
+export const removeValidationErrors = (paths) => {
   return {
     type: REMOVE_VALIDATION_ERRORS,
     payload: paths,
@@ -40,21 +40,21 @@ export const clearValidationErrors = () => {
   };
 };
 
-export const addSubformValidationErrors = errors => {
+export const addSubformValidationErrors = (errors) => {
   return {
     type: ADD_SUBFORM_VALIDATION_ERRORS,
     payload: { errors },
   };
 };
 
-export const setSubformValidationErrors = errors => {
+export const setSubformValidationErrors = (errors) => {
   return {
     type: SET_SUBFORM_VALIDATION_ERRORS,
     payload: { errors },
   };
 };
 
-export const removeSubformValidationErrors = paths => {
+export const removeSubformValidationErrors = (paths) => {
   return {
     type: REMOVE_SUBFORM_VALIDATION_ERRORS,
     payload: paths,
@@ -79,7 +79,7 @@ export const removeIntegrityError = (componentId, typeError, itemListId) => {
   };
 };
 
-export const addVisualizationError = error => {
+export const addVisualizationError = (error) => {
   return {
     type: ADD_VISUALIZATION_ERROR,
     payload: { error },

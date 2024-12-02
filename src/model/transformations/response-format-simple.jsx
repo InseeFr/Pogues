@@ -1,5 +1,5 @@
-import * as Response from './response';
 import { DATATYPE_NAME } from '../../constants/pogues-constants';
+import * as Response from './response';
 
 export function remoteToState(remote) {
   const {

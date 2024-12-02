@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import * as component from './component-insert';
 
@@ -391,7 +392,7 @@ describe('duplicate', () => {
   test('should duplicate the question', () => {
     const result = component.duplicate(activesComponents, '2');
     const newId = Object.keys(result).find(
-      id => Object.keys(activesComponents).indexOf(id) < 0,
+      (id) => Object.keys(activesComponents).indexOf(id) < 0,
     );
 
     expect(result['1']).toEqual({
@@ -534,7 +535,7 @@ describe('duplicateComponentAndVars', () => {
   );
 
   const newId = Object.keys(output.activeComponentsById).find(
-    id => Object.keys(activesComponents).indexOf(id) < 0,
+    (id) => Object.keys(activesComponents).indexOf(id) < 0,
   );
 
   const duplicated = output.activeComponentsById[idComponent];
@@ -561,7 +562,7 @@ describe('duplicateComponentAndVars', () => {
     expect(Object.keys(duplicate.declarations)).not.toEqual(
       Object.keys(duplicated.declarations),
     );
-    Object.keys(duplicate.declarations).forEach(declarationId => {
+    Object.keys(duplicate.declarations).forEach((declarationId) => {
       expect(declarationId).toBe(duplicate.declarations[declarationId].id);
     });
   });

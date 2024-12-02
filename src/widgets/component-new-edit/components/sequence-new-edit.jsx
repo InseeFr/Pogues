@@ -1,6 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+
 import {
   COMPONENT_TYPE,
   TABS_PATHS,
@@ -52,7 +52,7 @@ export const SequenceNewEdit = ({
         label={Dictionary.collectionMode}
         inline
       >
-        {TargetMode.map(s => (
+        {TargetMode.map((s) => (
           <GenericOption key={s.value} value={s.value}>
             {s.label}
           </GenericOption>

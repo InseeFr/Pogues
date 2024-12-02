@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
 import {
   CREATE_QUESTIONNAIRE_SUCCESS,
@@ -28,7 +29,7 @@ describe('loadQuestionnaireSuccess', () => {
     LOAD_QUESTIONNAIRE_SUCCESS,
     CREATE_QUESTIONNAIRE_SUCCESS,
     SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
-  ].forEach(action => {
+  ].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { state: 'previous' },

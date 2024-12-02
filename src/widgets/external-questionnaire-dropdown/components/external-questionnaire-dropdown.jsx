@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  const handleClickOutside = useCallback(event => {
+  const handleClickOutside = useCallback((event) => {
     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
       setDropdownOpen(false);
     }
@@ -31,7 +32,7 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
   /**
    * Will toggle the dropdown menu
    */
-  const openDropDown = e => {
+  const openDropDown = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDropdownOpen(!dropdownOpen);
@@ -77,14 +78,14 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded={dropdownOpen}
-        onClick={e => openDropDown(e)}
+        onClick={(e) => openDropDown(e)}
       >
         {Dictionary.externalElement}
         <span className="caret" />
       </button>
 
       <ul className="dropdown-menu">
-        {linksQuestionnaire.map(link => {
+        {linksQuestionnaire.map((link) => {
           return (
             <li key={link.actionLabel}>
               <Link to={`/questionnaire/${questionnaireId}/${link.page}`}>

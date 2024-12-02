@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ExternalQuestionnaireDropdown from '../components/external-questionnaire-dropdown';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   questionnaireId: state.appState.activeQuestionnaire.id,
 });
 

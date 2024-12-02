@@ -1,21 +1,22 @@
-import sortBy from 'lodash.sortby';
 import cloneDeep from 'lodash.clonedeep';
+import sortBy from 'lodash.sortby';
+
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import {
-  toComponents,
   isQuestion,
-  isSubSequence,
   isSequence,
+  isSubSequence,
+  toComponents,
   toId,
   updateNewComponentParent,
 } from '../utils/component/component-utils';
 import { getClosestComponentIdByType } from '../utils/component/generic-input-utils';
+import { uuid } from '../utils/utils';
 import {
-  resetWeight,
   increaseWeightOfAll,
   resetChildren,
+  resetWeight,
 } from './component-update';
-import { uuid } from '../utils/utils';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 
@@ -80,7 +81,7 @@ export function moveQuestionToSubSequence(
       oldParent.children,
       activesComponents,
     ).filter(
-      child =>
+      (child) =>
         ((!keepChildren && child.weight === selectedComponent.weight + 1) ||
           (keepChildren &&
             (child.weight > selectedComponent.weight ||
@@ -96,7 +97,7 @@ export function moveQuestionToSubSequence(
      */
     if (questionsToMove.length > 0) {
       const newChildren = oldParent.children.filter(
-        child => questionsToMoveId.indexOf(child) < 0,
+        (child) => questionsToMoveId.indexOf(child) < 0,
       );
 
       /**
@@ -118,7 +119,7 @@ export function moveQuestionToSubSequence(
       if (!isQuestion(oldParent)) {
         moves = {
           ...moves,
-          ...resetWeight(newChildren.map(id => moves[id])),
+          ...resetWeight(newChildren.map((id) => moves[id])),
         };
         moves = {
           ...moves,
@@ -155,7 +156,9 @@ export function moveQuestionAndSubSequenceToSequence(
     /**
      * We get the list of components of the parent of the selected element
      */
-    const listOfComponent = oldParent.children.map(id => activesComponents[id]);
+    const listOfComponent = oldParent.children.map(
+      (id) => activesComponents[id],
+    );
 
     /**
      * Based on this list, we fetch only the component to move (with the
@@ -164,7 +167,7 @@ export function moveQuestionAndSubSequenceToSequence(
      */
     let listOfComponentsToMove = sortBy(listOfComponent, ['weight'])
       .filter(
-        child =>
+        (child) =>
           child.weight > selectedComponent.weight ||
           (includeSelectedComponent &&
             child.weight === selectedComponent.weight),
@@ -183,7 +186,7 @@ export function moveQuestionAndSubSequenceToSequence(
      * List of components that should stay in the previous parent
      */
     const listOfComponentsToKeep = listOfComponent.filter(
-      child =>
+      (child) =>
         child.weight < selectedComponent.weight ||
         (!includeSelectedComponent &&
           child.weight === selectedComponent.weight),
@@ -219,8 +222,8 @@ export function moveQuestionAndSubSequenceToSequence(
       listOfComponentsToMove = [
         ...listOfComponentsToMove,
         ...parentSequence.children
-          .map(c => activesComponents[c])
-          .filter(c => c.weight > component.weight)
+          .map((c) => activesComponents[c])
+          .filter((c) => c.weight > component.weight)
           .map((c, i) => {
             return {
               ...c,
@@ -250,7 +253,7 @@ export function moveQuestionAndSubSequenceToSequence(
       ...activesComponents,
       ...moveComponents(
         Object.keys(listOfComponentsToMove).map(
-          key => listOfComponentsToMove[key],
+          (key) => listOfComponentsToMove[key],
         ),
         newComponent,
       ),
@@ -258,7 +261,7 @@ export function moveQuestionAndSubSequenceToSequence(
       ...resetChildren(
         parentSequence,
         toComponents(parentSequence.children, activesComponents).filter(
-          c =>
+          (c) =>
             c.weight < component.weight ||
             (!includeSelectedComponent && c.weight === component.weight),
         ),

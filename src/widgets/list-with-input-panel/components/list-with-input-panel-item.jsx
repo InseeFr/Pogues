@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
@@ -16,7 +17,7 @@ function ListWithInputPanelItem({ children, invalid, select }) {
     >
       <button
         type="button"
-        onClick={event => {
+        onClick={(event) => {
           event.preventDefault();
           select();
         }}

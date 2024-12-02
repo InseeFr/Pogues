@@ -1,12 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
-import { uuid, verifyVariable } from '../../../utils/utils';
 
-import {
-  defaultState as CodesListDefaultState,
-  defaultForm as CodesListDefaultForm,
-  Factory as CodesListFactory,
-} from '../codes-lists/codes-list';
 import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
@@ -17,6 +11,12 @@ import {
   QUESTION_TYPE_ENUM,
   UI_BEHAVIOUR,
 } from '../../../constants/pogues-constants';
+import { uuid, verifyVariable } from '../../../utils/utils';
+import {
+  defaultForm as CodesListDefaultForm,
+  defaultState as CodesListDefaultState,
+  Factory as CodesListFactory,
+} from '../codes-lists/codes-list';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
@@ -188,7 +188,7 @@ export function formToStateMeasure(form, codesListMeasure) {
 
 export function formToStateMeasureList(form) {
   const { measures } = form;
-  return measures.map(measure => {
+  return measures.map((measure) => {
     return formToStateMeasure(measure);
   });
 }
@@ -298,7 +298,7 @@ export function stateToFormMeasureList(currentState, codesListsStore) {
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     },
-    measures: measures.map(m => stateToFormMeasure(m, codesListsStore)),
+    measures: measures.map((m) => stateToFormMeasure(m, codesListsStore)),
   };
 }
 
@@ -366,7 +366,7 @@ const Factory = (initialState = {}, codesListsStore) => {
     [LIST_MEASURE]: { measures },
   });
   currentState[LIST_MEASURE].measures = currentState[LIST_MEASURE].measures.map(
-    m => {
+    (m) => {
       const { type, label, [type]: measureState } = m;
       const state = {
         type,
@@ -403,7 +403,7 @@ const Factory = (initialState = {}, codesListsStore) => {
   };
 
   return {
-    formToState: form => {
+    formToState: (form) => {
       if (form) currentState = formToState(form, transformers);
       return currentState;
     },
@@ -432,7 +432,7 @@ const Factory = (initialState = {}, codesListsStore) => {
       }
 
       if (currentState[LIST_MEASURE]) {
-        currentState[LIST_MEASURE].forEach(m => {
+        currentState[LIST_MEASURE].forEach((m) => {
           if (m.type === SINGLE_CHOICE) {
             const codesListState =
               m[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH];
@@ -446,7 +446,7 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       return codesLists;
     },
-    getNormalizedValues: form => {
+    getNormalizedValues: (form) => {
       // Values ready to be validated
       const {
         [PRIMARY]: { type: typePrimary, [typePrimary]: primary },

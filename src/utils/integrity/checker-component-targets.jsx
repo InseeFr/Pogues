@@ -1,9 +1,9 @@
-import { getComponentsTargetsByComponent } from '../model/redirections-utils';
 import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
+import { getComponentsTargetsByComponent } from '../model/redirections-utils';
 
 function checkerComponentTargets({ appState: { activeComponentsById } }) {
   const errorsByComponent = {};
-  Object.keys(activeComponentsById).forEach(key => {
+  Object.keys(activeComponentsById).forEach((key) => {
     const targetNotFoundErrors = [];
     const targetEarlierErrors = [];
     const redirections = activeComponentsById[key].redirections || {};
@@ -13,7 +13,7 @@ function checkerComponentTargets({ appState: { activeComponentsById } }) {
         activeComponentsById,
         activeComponentsById[key],
       );
-      redirectionsIds.forEach(innerKey => {
+      redirectionsIds.forEach((innerKey) => {
         const redirection = redirections[innerKey];
         if (redirection.redirectiontest) {
           if (!activeComponentsById[redirection.cible]) {

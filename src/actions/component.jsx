@@ -1,24 +1,24 @@
+import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import {
-  isSubSequence,
-  isSequence,
+  isExternalQuestionnaire,
+  isFilter,
+  isLoop,
+  isNestedFilter,
   isQuestion,
+  isSequence,
+  isSubSequence,
   toComponents,
   updateNewComponentParent,
-  isExternalQuestionnaire,
-  isLoop,
-  isFilter,
-  isNestedFilter,
 } from '../utils/component/component-utils';
-import { increaseWeightOfAll } from './component-update';
-import { remove } from './component-remove';
 import {
-  moveQuestionToSubSequence,
-  moveQuestionAndSubSequenceToSequence,
   duplicate,
   duplicateComponentAndVars,
+  moveQuestionAndSubSequenceToSequence,
+  moveQuestionToSubSequence,
 } from './component-insert';
 import { moveComponent } from './component-move';
-import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import { remove } from './component-remove';
+import { increaseWeightOfAll } from './component-update';
 
 export const CREATE_COMPONENT = 'CREATE_COMPONENT';
 export const DUPLICATE_COMPONENT = 'DUPLICATE_COMPONENT';
@@ -49,11 +49,11 @@ export const createComponent =
     collectedVariablesStore,
     codesListsStore,
   ) =>
-  dispatch => {
+  (dispatch) => {
     const activeComponentsStore = {
       [componentState.id]: componentState,
     };
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const result = dispatch({
         type: CREATE_COMPONENT,
         payload: {
@@ -136,7 +136,7 @@ export const orderComponents =
       const siblingSelectedComponent = toComponents(
         activesComponents[selectedComponent.parent].children,
         activesComponents,
-      ).find(c => c.weight === selectedComponent.weight + 1);
+      ).find((c) => c.weight === selectedComponent.weight + 1);
       const childrenSelectedComponentLength = selectedComponent.children.length;
 
       /**
@@ -158,7 +158,7 @@ export const orderComponents =
             : toComponents(
                 activesComponents[selectedComponent.id].children,
                 activesComponents,
-              ).find(c => c.weight === 0);
+              ).find((c) => c.weight === 0);
 
         activeComponentsById = moveQuestionToSubSequence(
           activesComponents,
@@ -186,7 +186,7 @@ export const orderComponents =
             : toComponents(
                 activesComponents[selectedComponent.id].children,
                 activesComponents,
-              ).find(c => c.weight === 0);
+              ).find((c) => c.weight === 0);
         activeComponentsById = moveQuestionAndSubSequenceToSequence(
           activesComponents,
           comp,
@@ -262,16 +262,16 @@ export const dragComponent =
     const externalVariablesStore = state.appState.activeExternalVariablesById;
 
     const find_Filters = Object.values(activesComponents).filter(
-      element =>
+      (element) =>
         element.type === FILTER &&
         (element.initialMember === idTargetComponent ||
           element.finalMember === idTargetComponent),
     );
     if (find_Filters.length > 0) {
-      find_Filters.forEach(filter => {
+      find_Filters.forEach((filter) => {
         if (filter.finalMember !== idTargetComponent) {
           const next_element = Object.values(activesComponents).find(
-            element =>
+            (element) =>
               activesComponents[filter.initialMember] &&
               element.type === activesComponents[filter.initialMember].type &&
               element.parent ===
@@ -303,7 +303,7 @@ export const dragComponent =
           }
         } else if (filter.initialMember !== idTargetComponent) {
           const next_element = Object.values(activesComponents).find(
-            element =>
+            (element) =>
               activesComponents[filter.finalMember] &&
               element.type === activesComponents[filter.finalMember].type &&
               element.parent === activesComponents[filter.finalMember].parent &&
@@ -365,7 +365,7 @@ export const dragComponent =
  *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
-export const removeComponent = idDeletedComponent => (dispatch, getState) => {
+export const removeComponent = (idDeletedComponent) => (dispatch, getState) => {
   const state = getState();
   const { activeComponentsById } = state.appState;
 
@@ -380,7 +380,7 @@ export const removeComponent = idDeletedComponent => (dispatch, getState) => {
  *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
-export const duplicateComponent = idComponent => (dispatch, getState) => {
+export const duplicateComponent = (idComponent) => (dispatch, getState) => {
   const state = getState();
   const { activeComponentsById } = state.appState;
   dispatch({
@@ -399,7 +399,7 @@ export const duplicateComponent = idComponent => (dispatch, getState) => {
  * @param {string} idComponent the id of the component we want to remove
  */
 export const duplicateComponentAndVariables =
-  idComponent => (dispatch, getState) => {
+  (idComponent) => (dispatch, getState) => {
     const state = getState();
     const { activeComponentsById } = state.appState;
     const collectedVariables =

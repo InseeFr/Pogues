@@ -1,9 +1,10 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import { CodesLists } from '../../../../codes-lists';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
 import { DIMENSION_TYPE } from '../../../../../constants/pogues-constants';
+import { CodesLists } from '../../../../codes-lists';
 
 const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 

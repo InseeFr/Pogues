@@ -1,13 +1,14 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
+  arrayInsert,
+  arrayPush,
+  arrayRemove,
+  change,
   formValueSelector,
   getFormValues,
-  change,
-  arrayInsert,
-  arrayRemove,
-  arrayPush,
 } from 'redux-form';
+
 import {
   clearSubformValidationErrors,
   removeIntegrityError,

@@ -1,12 +1,12 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import ArboSimplified from './arbo-simplifield';
-import NavLoop from './nav-loop';
-
 import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import ArboSimplified from './arbo-simplifield';
+import NavLoop from './nav-loop';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 
@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 // Component
-const QuestionnaireNav = props => {
+const QuestionnaireNav = (props) => {
   const {
     questionnaire,
     componentsStore,

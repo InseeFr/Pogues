@@ -1,14 +1,13 @@
+import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import { Component } from '../model';
+import { questionnaireRemoteToStores } from '../model/remote-to-stores';
+import * as Questionnaire from '../model/transformations/questionnaire';
 import {
+  deleteQuestionnaire,
   getQuestionnaire,
   postQuestionnaire,
-  deleteQuestionnaire,
 } from '../utils/remote-api';
-import { uuid, getSupWeight } from '../utils/utils';
-import { questionnaireRemoteToStores } from '../model/remote-to-stores';
-
-import * as Questionnaire from '../model/transformations/questionnaire';
-import { Component } from '../model';
-import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import { getSupWeight, uuid } from '../utils/utils';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -45,7 +44,7 @@ export const UPDATE_COMPONENT = 'UPDATE_COMPONENT';
  * @param   {object} update The new values to update in the different stores affected.
  * @return  {object}        LOAD_QUESTIONNAIRE_SUCCESS action.
  */
-export const loadQuestionnaireSuccess = update => ({
+export const loadQuestionnaireSuccess = (update) => ({
   type: LOAD_QUESTIONNAIRE_SUCCESS,
   payload: {
     update,
@@ -86,7 +85,7 @@ export const loadQuestionnaireStart = () => ({
  * @param   {string}    id  The questionnaire id.
  * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
  */
-export const loadQuestionnaire = (id, token) => async dispatch => {
+export const loadQuestionnaire = (id, token) => async (dispatch) => {
   dispatch(loadQuestionnaireStart());
   dispatch({
     type: LOAD_QUESTIONNAIRE,
@@ -127,7 +126,7 @@ export const createQuestionnaireSuccess = (id, update) => ({
  * @param   {string}  err The error returned for the creation process.
  * @return  {object}      CREATE_QUESTIONNAIRE_FAILURE action
  */
-export const createQuestionnaireFailure = err => ({
+export const createQuestionnaireFailure = (err) => ({
   type: CREATE_QUESTIONNAIRE_FAILURE,
   payload: err,
 });
@@ -174,12 +173,12 @@ export const createQuestionnaire =
           ),
         );
       })
-      .catch(err => {
+      .catch((err) => {
         return dispatch(createQuestionnaireFailure(err));
       });
   };
 
-export const removeQuestionnaireSuccess = payload => ({
+export const removeQuestionnaireSuccess = (payload) => ({
   type: DELETE_QUESTIONNAIRE_SUCCESS,
   payload,
 });
@@ -214,29 +213,30 @@ export const removeQuestionnaire =
       .then(() => {
         return dispatch(removeQuestionnaireSuccess(questionnairesList));
       })
-      .catch(err => {
+      .catch((err) => {
         return dispatch(removeQuestionnaireFailure(idQuestionnaire, err));
       });
   };
 
-export const duplicateQuestionnaire = (idQuestionnaire, token) => dispatch => {
-  getQuestionnaire(idQuestionnaire, token).then(question => {
-    question.id = uuid();
-    question.Label[0] += ' Copie';
-    return postQuestionnaire(question, token)
-      .then(() => {
-        return dispatch(
-          createQuestionnaireSuccess(
-            question.id,
-            questionnaireRemoteToStores(question),
-          ),
-        );
-      })
-      .catch(err => {
-        return dispatch(createQuestionnaireFailure(err));
-      });
-  });
-};
+export const duplicateQuestionnaire =
+  (idQuestionnaire, token) => (dispatch) => {
+    getQuestionnaire(idQuestionnaire, token).then((question) => {
+      question.id = uuid();
+      question.Label[0] += ' Copie';
+      return postQuestionnaire(question, token)
+        .then(() => {
+          return dispatch(
+            createQuestionnaireSuccess(
+              question.id,
+              questionnaireRemoteToStores(question),
+            ),
+          );
+        })
+        .catch((err) => {
+          return dispatch(createQuestionnaireFailure(err));
+        });
+    });
+  };
 
 /**
  * Method used when we click on merge question to merge 2 questions
@@ -258,27 +258,27 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
     payload: idMerge,
   });
 
-  const manageDuplicateCollectedVariable = mergedCollectedVariable => {
-    Object.values(collectedVariableByQuestion).forEach(element => {
+  const manageDuplicateCollectedVariable = (mergedCollectedVariable) => {
+    Object.values(collectedVariableByQuestion).forEach((element) => {
       const find = Object.values(element).find(
-        varib => varib.name === mergedCollectedVariable.name,
+        (varib) => varib.name === mergedCollectedVariable.name,
       );
       if (find) {
         mergedCollectedVariable.name = `${mergedCollectedVariable.name}_2`;
       }
     });
   };
-  const manageDuplicateCodeList = mergedCodeList => {
+  const manageDuplicateCodeList = (mergedCodeList) => {
     const find = Object.values(activeCodeListsById).find(
-      element => element.label === mergedCodeList.label,
+      (element) => element.label === mergedCodeList.label,
     );
     if (find && mergedCodeList.id !== find.id) {
       mergedCodeList.label = `${mergedCodeList.label}_2`;
     }
   };
-  const manageDuplicateCalculatedVariable = mergedCalculatedVariable => {
+  const manageDuplicateCalculatedVariable = (mergedCalculatedVariable) => {
     const find = Object.values(activeCalculatedVariablesById).find(
-      element => element.name === mergedCalculatedVariable.name,
+      (element) => element.name === mergedCalculatedVariable.name,
     );
     if (find) {
       mergedCalculatedVariable.name = `${mergedCalculatedVariable.name}_2`;
@@ -287,9 +287,9 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
     activeCalculatedVariablesById[mergedCalculatedVariable.id] =
       mergedCalculatedVariable;
   };
-  const manageDuplicateExternalVariable = mergedExternalVariable => {
+  const manageDuplicateExternalVariable = (mergedExternalVariable) => {
     const find = Object.values(activeExternalVariablesById).find(
-      element => element.name === mergedExternalVariable.name,
+      (element) => element.name === mergedExternalVariable.name,
     );
     if (find) {
       mergedExternalVariable.name = `${mergedExternalVariable.name}_2`;
@@ -308,17 +308,17 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
     addedWeight,
   ) => {
     const findName = Object.values(activeComponentsById).find(
-      active => active.name === mergedComponent.name,
+      (active) => active.name === mergedComponent.name,
     );
     if (findName) {
       mergedComponent.name = `${mergedComponent.name}_2`;
     }
     const findId = Object.values(activeComponentsById).find(
-      active => active.id === mergedComponent.id,
+      (active) => active.id === mergedComponent.id,
     );
     if (findId) {
       mergedComponent.id = uuid();
-      Object.values(mergedComponentByQuestionnaire).forEach(element => {
+      Object.values(mergedComponentByQuestionnaire).forEach((element) => {
         if (element.parent === findId.id) {
           element.parent = mergedComponent.id;
         }
@@ -368,9 +368,9 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
     } else {
       if (mergedComponent.type === QUESTION) {
         mergedComponent.collectedVariables =
-          mergedComponent.collectedVariables.map(variable => {
+          mergedComponent.collectedVariables.map((variable) => {
             const find = Object.values(mergedCollectedVariables).find(
-              element => element.id === variable,
+              (element) => element.id === variable,
             );
             const newId = uuid();
             find.id = newId;
@@ -378,7 +378,7 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
             return newId;
           });
         // We change Id of the responseFormat (to deal with the case of the fusion of questionnaires sharing the same ids (duplication))
-        Object.values(mergedComponent.responseFormat).forEach(resp => {
+        Object.values(mergedComponent.responseFormat).forEach((resp) => {
           if (resp?.id) resp.id = uuid();
         });
       }
@@ -403,7 +403,7 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
     }
   };
 
-  return getQuestionnaire(idMerge, token).then(qr => {
+  return getQuestionnaire(idMerge, token).then((qr) => {
     const mergedQuestionnaire = questionnaireRemoteToStores(qr);
     const mergedQuestionnaireId = Object.keys(
       mergedQuestionnaire.questionnaireById,
@@ -425,24 +425,24 @@ export const mergeQuestionnaires = (idMerge, token) => (dispatch, getState) => {
     const mergedComponentByQuestionnaire =
       mergedQuestionnaire.componentByQuestionnaire[mergedQuestionnaireId];
     const QuestionnaireId = activeQuestionnaire.id;
-    Object.values(mergedCollectedVariables).forEach(variable =>
+    Object.values(mergedCollectedVariables).forEach((variable) =>
       manageDuplicateCollectedVariable(variable),
     );
-    Object.values(mergedCodeListByQuestionnaire).forEach(codelist =>
+    Object.values(mergedCodeListByQuestionnaire).forEach((codelist) =>
       manageDuplicateCodeList(codelist),
     );
-    Object.values(mergedCalculatedVariableByQuestionnaire).forEach(variable =>
+    Object.values(mergedCalculatedVariableByQuestionnaire).forEach((variable) =>
       manageDuplicateCalculatedVariable(variable),
     );
-    Object.values(mergedExternalVariableByQuestionnaire).forEach(variable =>
+    Object.values(mergedExternalVariableByQuestionnaire).forEach((variable) =>
       manageDuplicateExternalVariable(variable),
     );
     Object.values(mergedComponentByQuestionnaire)
       .filter(
-        element =>
+        (element) =>
           element.type !== QUESTIONNAIRE && element.id !== 'idendquest',
       )
-      .forEach(component => {
+      .forEach((component) => {
         manageComponentOnMerge(
           component,
           QuestionnaireId,

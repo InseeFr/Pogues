@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 
-import { QuestionnaireList } from '../../questionnaire-list';
-import { QuestionnaireNew } from '../../questionnaire-new';
-
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
+import { QuestionnaireList } from '../../questionnaire-list';
+import { QuestionnaireNew } from '../../questionnaire-new';
 
 const PageHome = ({ history, deleteAppState }) => {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +21,7 @@ const PageHome = ({ history, deleteAppState }) => {
   const handleCloseModal = useCallback(() => setShowModal(false), []);
 
   const handleQuestionnaryCreated = useCallback(
-    questionnaireId => history.push(`/questionnaire/${questionnaireId}`),
+    (questionnaireId) => history.push(`/questionnaire/${questionnaireId}`),
     [history],
   );
 

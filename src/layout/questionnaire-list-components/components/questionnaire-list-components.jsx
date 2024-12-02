@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
 import React, { forwardRef, useEffect, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
 
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import QuestionnaireComponent from './questionnaire-component';
-
 import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getEnvVar } from '../../../utils/env';
@@ -15,6 +14,7 @@ import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
 import { QuestionnaireEdit } from '../../questionnaire-edit';
+import QuestionnaireComponent from './questionnaire-component';
 
 const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
@@ -28,7 +28,7 @@ function withForwardRef(Component) {
   return forwardRef(WrappedComponent);
 }
 
-const QuestionnaireListComponents = props => {
+const QuestionnaireListComponents = (props) => {
   const {
     forwardedRef,
     token,
@@ -67,19 +67,20 @@ const QuestionnaireListComponents = props => {
 
   const handleOpenComponentDetail = () => setShowComponentModal(true);
 
-  const componentFilterConditionInitial = id => {
+  const componentFilterConditionInitial = (id) => {
     return Object.values(componentsStore).filter(
-      component => component.type === FILTER && component.initialMember === id,
+      (component) =>
+        component.type === FILTER && component.initialMember === id,
     );
   };
-  const componentFilterConditionFinal = id => {
+  const componentFilterConditionFinal = (id) => {
     return Object.values(componentsStore).filter(
-      component => component.type === FILTER && component.finalMember === id,
+      (component) => component.type === FILTER && component.finalMember === id,
     );
   };
 
   const renderComponentsByParent = (parent, props, actions) => {
-    return getSortedChildren(props.componentsStore, parent).map(key => {
+    return getSortedChildren(props.componentsStore, parent).map((key) => {
       if (props.componentsStore[key].id !== 'idendquest') {
         const subTree = renderComponentsByParent(key, props, actions);
         const component = props.componentsStore[key];

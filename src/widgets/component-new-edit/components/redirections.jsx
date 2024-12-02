@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import { Field, FormSection } from 'redux-form';
+
 import PropTypes from 'prop-types';
-
-import { defaultState } from '../../../model/formToState/component-new-edit/redirection';
-
-import { ListWithInputPanel } from '../../list-with-input-panel';
-import { GotoInput } from '../../goto-input';
-import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
-import Textarea from '../../../forms/controls/textarea';
-import { validateRedirectionForm } from '../../../utils/validation/validate';
+import { Field, FormSection } from 'redux-form';
 
 import {
-  TABS_PATHS,
   DEFAULT_FORM_NAME,
+  TABS_PATHS,
 } from '../../../constants/pogues-constants';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import Textarea from '../../../forms/controls/textarea';
+import { defaultState } from '../../../model/formToState/component-new-edit/redirection';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { validateRedirectionForm } from '../../../utils/validation/validate';
+import { GotoInput } from '../../goto-input';
+import { ListWithInputPanel } from '../../list-with-input-panel';
 
 // Utils
 
 const validateForm =
-  (addErrors, validate, componentsStore, editingComponentId) => values => {
+  (addErrors, validate, componentsStore, editingComponentId) => (values) => {
     return validate(values, addErrors, {
       componentsStore,
       editingComponentId,

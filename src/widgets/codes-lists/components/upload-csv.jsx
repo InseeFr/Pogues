@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+
 import CSVReader from 'react-csv-reader';
+
 import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { COMPONENT_CLASS, CANCEL, VALIDATE, FOOTERLOOP } =
   WIDGET_COMPONENT_NEW_EDIT;
 
-const UploadCSV = props => {
+const UploadCSV = (props) => {
   const [errorFile, setErrorFile] = useState(false);
   const [dataFile, setDataFile] = useState();
   const [codesFile, setCodesFile] = useState();
@@ -15,16 +17,16 @@ const UploadCSV = props => {
     header: true,
     dynamicTyping: true,
     skipEmptyLines: true,
-    transformHeader: header => header.toLowerCase().replace(/\W/g, '_'),
+    transformHeader: (header) => header.toLowerCase().replace(/\W/g, '_'),
     encoding: 'utf-8',
   };
-  const handleForce = data => {
+  const handleForce = (data) => {
     setDataFile(data.length);
     setErrorFile(false);
     setCodesFile(data);
 
     if (data.length > 0) {
-      data.forEach(element => {
+      data.forEach((element) => {
         if (
           element.label === null ||
           element.value === null ||

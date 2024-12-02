@@ -1,8 +1,7 @@
 import { reduxForm } from 'redux-form';
 
-import ComponentNewEditContainer from './component-new-edit-container';
-
 import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
+import ComponentNewEditContainer from './component-new-edit-container';
 
 // Form
 

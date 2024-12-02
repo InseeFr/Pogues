@@ -1,18 +1,16 @@
 import {
+  DELETE_APPSTATE,
+  SET_ACTIVE_COMPONENTS,
+} from '../../actions/app-state';
+import {
   CREATE_COMPONENT,
   DUPLICATE_COMPONENT,
-  UPDATE_COMPONENT,
-  REMOVE_COMPONENT,
-  UPDATE_COMPONENT_PARENT,
-  UPDATE_COMPONENT_ORDER,
   MOVE_COMPONENT,
+  REMOVE_COMPONENT,
+  UPDATE_COMPONENT,
+  UPDATE_COMPONENT_ORDER,
+  UPDATE_COMPONENT_PARENT,
 } from '../../actions/component';
-
-import {
-  SET_ACTIVE_COMPONENTS,
-  DELETE_APPSTATE,
-} from '../../actions/app-state';
-
 import { createActionHandlers } from '../../utils/reducer/actions-handlers';
 
 const actionHandlers = {};

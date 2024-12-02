@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { getUrlFromCriterias, storeToArray, verifyVariable } from './utils';
 
 describe('Utils', () => {

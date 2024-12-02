@@ -23,8 +23,8 @@ function getErrorsIntegrityByTab(integrityErrors = {}) {
     .reduce((acc, key) => {
       return [...acc, ...integrityErrors[key]];
     }, [])
-    .filter(e => e.path)
-    .forEach(e => {
+    .filter((e) => e.path)
+    .forEach((e) => {
       const matches = e.path.match(/^(.+?)\./);
 
       if (matches) {
@@ -56,7 +56,7 @@ const mapStateToProps = (state, { componentId }) => {
   const externalQuestionnnairesId =
     state.appState.activeQuestionnaire.childQuestionnaireRef || [];
   const externalLoopsWanted = Object.keys(externalLoopsAvailable)
-    .filter(key => externalQuestionnnairesId.includes(key))
+    .filter((key) => externalQuestionnnairesId.includes(key))
     .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
   const selector = formValueSelector('component');
   return {

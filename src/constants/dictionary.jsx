@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE, CODELISTS_ACTIONS } from './pogues-constants';
+import { CODELISTS_ACTIONS, COMPONENT_TYPE } from './pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, ROUNDABOUT, FILTER } =
   COMPONENT_TYPE;

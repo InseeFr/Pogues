@@ -1,15 +1,3 @@
-/* eslint-disable block-scoped-var */
-/* eslint-disable no-var */
-/* eslint-disable vars-on-top */
-/* eslint-disable default-case */
-/* eslint-disable consistent-return */
-/* eslint-disable no-return-assign */
-/* eslint-disable no-bitwise */
-/* eslint-disable no-continue */
-/* eslint-disable no-cond-assign */
-/* eslint-disable prefer-object-spread */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable prefer-rest-params */
 /**
  * Ported from:
  *   https://github.com/chjj/marked/blob/49b7eaca/lib/marked.js
@@ -17,12 +5,11 @@
  *   Use ES6 classes
  *   Add flow annotations
  */
-
 import {
-  TextNode,
   ElementNode,
   FragmentNode,
   SELF_CLOSING,
+  TextNode,
 } from 'synthetic-dom';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -105,7 +92,7 @@ block.normal = assign({}, block);
  */
 
 block.gfm = assign({}, block.normal, {
-  fences: /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,
+  fences: /^ *(`{3,}|~{3,})[ .]*(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,
   paragraph: /^/,
   heading: /^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/,
 });
@@ -386,21 +373,21 @@ Lexer.prototype.token = function (src, top, bq) {
  */
 
 const inline = {
-  escape: /^\\([\\`*{}\[\]()#+\-.!_>])/,
+  escape: /^\\([\\`*{}[\]()#+\-.!_>])/,
   link: /^!?\[(inside)\]\(href\)/,
   condition: /^##{"label": "(inside)", "conditions": (inside)}.+#end/,
   reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
-  nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
+  nolink: /^!?\[((?:\[[^\]]*\]|[^[\]])*)\]/,
   strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
   em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
   code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
   br: /^ {2,}\n(?!\s*$)/,
   del: noop,
   ins: noop,
-  text: /^[\s\S]+?(?=[\\<!\[_*`#]| {2,}\n|$)/,
+  text: /^[\s\S]+?(?=[\\<![_*`#]| {2,}\n|$)/,
 };
 
-inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
+inline._inside = /(?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*/;
 inline._href = /\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
 
 inline._conditions = /\s*<?([\s\S]*)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
@@ -875,7 +862,7 @@ function replace(regex, options) {
       return new RegExp(regex, options);
     }
     val = val.source || val;
-    val = val.replace(/(^|[^\[])\^/g, '$1');
+    val = val.replace(/(^|[^[])\^/g, '$1');
     regex = regex.replace(name, val);
     return self;
   };

@@ -1,6 +1,8 @@
 import React from 'react';
-import Dictionary from '../../../../utils/dictionary/dictionary';
+
 import PropTypes from 'prop-types';
+
+import Dictionary from '../../../../utils/dictionary/dictionary';
 
 const DropZone = ({ style }) => {
   return (

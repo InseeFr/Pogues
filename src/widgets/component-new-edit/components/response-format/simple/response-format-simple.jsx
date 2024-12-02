@@ -1,6 +1,7 @@
 import React from 'react';
-import { FormSection, Field } from 'redux-form';
+
 import PropTypes from 'prop-types';
+import { Field, FormSection } from 'redux-form';
 
 import {
   DATATYPE_NAME,
@@ -8,10 +9,10 @@ import {
 } from '../../../../../constants/pogues-constants';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { SelectorView, View } from '../../../../selector-view';
-import ResponseFormatDatatypeNumeric from './simple-numeric';
-import ResponseFormatDatatypeText from './simple-text';
 import ResponseFormatDatatypeDate from './simple-date';
 import ResponseFormatDatatypeDuree from './simple-duree';
+import ResponseFormatDatatypeNumeric from './simple-numeric';
+import ResponseFormatDatatypeText from './simple-text';
 
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { SIMPLE: selectorPath } = QUESTION_TYPE_ENUM;

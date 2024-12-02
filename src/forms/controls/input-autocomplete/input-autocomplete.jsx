@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
+
+import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
-import debounce from 'lodash.debounce';
+import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import {
-  clearSuggestions,
-  setSuggestions,
-  moveDown,
-  moveUp,
-  updateSelectedOption,
-  init,
-} from './input-autocomplete-utils';
-
+import { CONTROL_INPUT_AUTOCOMPLETE } from '../../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
 } from '../../../utils/widget-utils';
 import { HighLighter } from '../../../widgets/highlighter';
-import { CONTROL_INPUT_AUTOCOMPLETE } from '../../../constants/dom-constants';
+import {
+  clearSuggestions,
+  init,
+  moveDown,
+  moveUp,
+  setSuggestions,
+  updateSelectedOption,
+} from './input-autocomplete-utils';
 
 const {
   COMPONENT_CLASS,
@@ -46,7 +46,7 @@ export const defaultProps = {
   required: false,
   children: [],
   numSuggestionsShown: 10,
-  getOptionLabel: label => {
+  getOptionLabel: (label) => {
     return label;
   },
   caseSensitive: true,
@@ -97,7 +97,6 @@ class InputAutocomplete extends Component {
     } = nextProps;
 
     if (value !== this.props.input.value) {
-      // eslint-disable-next-line react/no-will-update-set-state
       this.setState(init(getValuesFromGenericOptions(children), value));
     }
   }
@@ -189,7 +188,7 @@ class InputAutocomplete extends Component {
               value={this.state.inputSearch}
               className="form-control"
               type="text"
-              onKeyDown={event => {
+              onKeyDown={(event) => {
                 // In this way the form submit is avoided
                 if (event.key === 'Enter') event.preventDefault();
               }}
@@ -198,15 +197,14 @@ class InputAutocomplete extends Component {
                 this.setState({ showSuggestions: true });
               }}
               onBlur={debounce(this.onBlur, 500)}
-              onChange={event => {
+              onChange={(event) => {
                 this.setState({ inputSearch: event.currentTarget.value });
               }}
-              ref={node => {
+              ref={(node) => {
                 this.input = node;
               }}
             />
             {value && (
-              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
                 className={`input-group-addon ${BUTTON_CLEAR_CLASS}`}
                 onClick={() => {
@@ -222,30 +220,25 @@ class InputAutocomplete extends Component {
 
           {suggestions.length > 0 && (
             <ul style={searchInputStyle}>
-              {suggestions.map(
-                (
-                  su,
-                  index, // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                ) => (
-                  <li
-                    key={su.value}
-                    aria-hidden
-                    className={ClassSet({
-                      active: index === indexActiveSuggestion,
-                    })}
-                    onClick={() => {
-                      this.onClick(index);
-                    }}
+              {suggestions.map((su, index) => (
+                <li
+                  key={su.value}
+                  aria-hidden
+                  className={ClassSet({
+                    active: index === indexActiveSuggestion,
+                  })}
+                  onClick={() => {
+                    this.onClick(index);
+                  }}
+                >
+                  <HighLighter
+                    highlight={inputSearch}
+                    caseSensitive={caseSensitive}
                   >
-                    <HighLighter
-                      highlight={inputSearch}
-                      caseSensitive={caseSensitive}
-                    >
-                      {this.props.getOptionLabel(su.label, su.value)}
-                    </HighLighter>
-                  </li>
-                ),
-              )}
+                    {this.props.getOptionLabel(su.label, su.value)}
+                  </HighLighter>
+                </li>
+              ))}
             </ul>
           )}
           {touched && error && <span className="form-error">{error}</span>}

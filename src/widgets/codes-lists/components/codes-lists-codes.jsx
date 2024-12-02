@@ -1,26 +1,25 @@
 import React, { useCallback, useState } from 'react';
+
 import PropTypes from 'prop-types';
+import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
-import ReactModal from 'react-modal';
 
-import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
-import CodesListsActions from './codes-lists-actions';
-import UploadCSV from './upload-csv';
-
-import { ACTIONS } from '../constants';
-import { getNewCodeWeight, resetListCodes } from '../utils/utils';
-import { getDisabledActions } from '../utils/actions';
-import { moveUp, moveDown, moveLeft, moveRight } from '../utils/movement';
-
+import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import {
   fieldArrayFields,
   fieldArrayMeta,
 } from '../../../utils/proptypes-utils';
-import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
-import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
+import { ACTIONS } from '../constants';
+import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
+import { getDisabledActions } from '../utils/actions';
+import { moveDown, moveLeft, moveRight, moveUp } from '../utils/movement';
+import { getNewCodeWeight, resetListCodes } from '../utils/utils';
+import CodesListsActions from './codes-lists-actions';
+import UploadCSV from './upload-csv';
 
 const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
 
@@ -57,7 +56,7 @@ function CodesListsCodes(props) {
   }, [change, formName, inputCodePath]);
 
   const getFileCodes = useCallback(
-    codes => {
+    (codes) => {
       const allCodes = getAll() || [];
       if (codes && codes.length > 0) {
         removeAll();
@@ -282,13 +281,13 @@ function CodesListsCodes(props) {
   function renderCodes(parent = '') {
     const allCodes = getAll() || [];
     return allCodes
-      .filter(code => code.parent === parent)
+      .filter((code) => code.parent === parent)
       .sort((code, nexCode) => {
         if (code.weight < nexCode.weight) return -1;
         if (code.weight > nexCode.weight) return 1;
         return 0;
       })
-      .map(code => renderCode(code));
+      .map((code) => renderCode(code));
   }
 
   return (
@@ -297,7 +296,7 @@ function CodesListsCodes(props) {
       {!showInputCode && (
         <button
           type="button"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setShowInputCode(true);
             setActiveCodeIndex(undefined);
@@ -312,7 +311,7 @@ function CodesListsCodes(props) {
 
       <button
         type="button"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           setShowUploadCode(true);
         }}
@@ -382,7 +381,7 @@ CodesListsCodes.defaultProps = {
   allowPrecision: true,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
   return {
     Type: selector(state, 'responseFormat.type'),

@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
+
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { questionnaireDuplicateVariables } from '../utils/duplicate-variables-utils';
 
@@ -27,7 +29,7 @@ export function DuplicateVariables({
     activeComponentsById,
   );
   const duplicateVariablesSet = [
-    ...new Set(questDuplicateVariables.map(qdv => qdv.variableName)),
+    ...new Set(questDuplicateVariables.map((qdv) => qdv.variableName)),
   ];
 
   return (
@@ -48,13 +50,13 @@ export function DuplicateVariables({
           <div>{Dictionary.duplicateVariablesSource}</div>
         </div>
         <div className="duplicate-variables_body">
-          {duplicateVariablesSet.map(duplicateVariable => (
+          {duplicateVariablesSet.map((duplicateVariable) => (
             <div key={duplicateVariable} className="duplicate-variables_row">
               <div>{duplicateVariable}</div>
               <div className="duplicate-variables_questionnaire">
                 {questDuplicateVariables
-                  .filter(qdv => qdv.variableName === duplicateVariable)
-                  .map(dv => (
+                  .filter((qdv) => qdv.variableName === duplicateVariable)
+                  .map((dv) => (
                     <div
                       key={`${duplicateVariable}-${dv.questionnaire}-${dv.variableType}`}
                     >

@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
+
+import PropTypes from 'prop-types';
 
 import { WIDGET_INPUT_FILTER_WITH_CRITERIA } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -13,7 +14,7 @@ const {
   BUTTON_SEARCH_CLASS,
 } = WIDGET_INPUT_FILTER_WITH_CRITERIA;
 
-const InputFilterWithCriteria = props => {
+const InputFilterWithCriteria = (props) => {
   const {
     typeItem,
     criteriaValues,
@@ -41,7 +42,7 @@ const InputFilterWithCriteria = props => {
             type="text"
             placeholder={label}
             ref={inputSearchRef}
-            onKeyDown={e => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter')
                 props.loadSearchResult(
                   token,
@@ -55,7 +56,7 @@ const InputFilterWithCriteria = props => {
       </div>
       <button
         className={BUTTON_SEARCH_CLASS}
-        onClick={event => {
+        onClick={(event) => {
           event.preventDefault();
           props.loadSearchResult(
             token,

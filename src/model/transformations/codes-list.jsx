@@ -16,7 +16,7 @@ export function sortByWeight(codes) {
 }
 export function remoteToCodesState(codes, parent = '', depth = 1) {
   return codes
-    .filter(c => c.Parent === parent)
+    .filter((c) => c.Parent === parent)
     .reduce((acc, c, index) => {
       const codeState = {
         value: c.Value,
@@ -38,15 +38,15 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
     }, {});
 }
 export function getcodelistwithclarification(remote, variableclarification) {
-  remote.forEach(codelist => {
-    variableclarification.forEach(clarif => {
+  remote.forEach((codelist) => {
+    variableclarification.forEach((clarif) => {
       if (clarif.codelistid === codelist.id) {
         let index = 0;
         if (clarif.type === MULTIPLE_CHOICE) {
           index = parseInt(clarif.position, 10);
         } else {
           index = codelist.Code.findIndex(
-            code => code.Value === clarif.position,
+            (code) => code.Value === clarif.position,
           );
         }
         codelist.Code[parseInt(index, 10)] = {
@@ -103,8 +103,8 @@ export function remoteToState(remote) {
  */
 function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
   return Object.keys(codes)
-    .filter(code => codes[code].depth === depth)
-    .filter(code => codes[code].parent === parent)
+    .filter((code) => codes[code].depth === depth)
+    .filter((code) => codes[code].parent === parent)
     .sort(sortByWeight(codes))
     .reduce(
       (acc, code) => [
@@ -130,7 +130,7 @@ export function storeToRemote(store) {
         ? {
             id,
             Label: label,
-            Code: getCodesListSortedByDepthAndWeight(codes).map(keyCode => {
+            Code: getCodesListSortedByDepthAndWeight(codes).map((keyCode) => {
               const { label: labelCode, value, parent } = codes[keyCode];
               return {
                 Label: labelCode,

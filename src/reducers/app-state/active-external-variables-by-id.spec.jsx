@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { SET_ACTIVE_VARIABLES } from '../../actions/app-state';
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../actions/component';
 import actionsHandlers, {
@@ -14,7 +15,7 @@ describe('setActiveExternalVariables', () => {
     );
     expect(result).toEqual('activeExternalVariablesById');
   });
-  [SET_ACTIVE_VARIABLES].forEach(action => {
+  [SET_ACTIVE_VARIABLES].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { state: 'previous' },
@@ -40,7 +41,7 @@ describe('updateActiveExternalVariables', () => {
     );
     expect(result).toEqual('activeExternalVariablesById');
   });
-  [CREATE_COMPONENT, UPDATE_COMPONENT].forEach(action => {
+  [CREATE_COMPONENT, UPDATE_COMPONENT].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         { state: 'previous' },

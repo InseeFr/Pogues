@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import PropTypes from 'prop-types';
 
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
@@ -18,7 +19,7 @@ function QuestionnaireErrors({
     if (expanded.indexOf(key) < 0) {
       setExpanded([...expanded, key]);
     } else {
-      setExpanded(expanded.filter(k => k !== key));
+      setExpanded(expanded.filter((k) => k !== key));
     }
   }
 
@@ -30,8 +31,8 @@ function QuestionnaireErrors({
   }
 
   const listErrors = Object.keys(errorsByComponent)
-    .filter(id => components[id])
-    .map(id => {
+    .filter((id) => components[id])
+    .map((id) => {
       const expanded = expanded.indexOf(id) >= 0;
       const invalidComponent = errorsByComponent[id];
       const component = `[${components[id].name}] ${components[id].label}`;
@@ -44,14 +45,14 @@ function QuestionnaireErrors({
 
       return (
         <li key={id}>
-          <a href={`#errors-${id}`} onClick={e => handleExpand(e, id)}>
+          <a href={`#errors-${id}`} onClick={(e) => handleExpand(e, id)}>
             {expanded ? (
               <i className="fa fa-minus-square-o" />
             ) : (
               <i className="fa fa-plus-square-o" />
             )}
           </a>
-          <a href={`#${id}`} onClick={e => handleSelect(e, id)}>
+          <a href={`#${id}`} onClick={(e) => handleSelect(e, id)}>
             {component}
           </a>
           {expanded && <ul>{errors}</ul>}

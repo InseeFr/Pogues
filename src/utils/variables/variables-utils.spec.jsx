@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest';
+
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import {
   getCollectedVariablesIdsFromComponents,
   removeOrphansCollectedVariables,
 } from './variables-utils';
-
-import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 const { QUESTION, SUBSEQUENCE, SEQUENCE } = COMPONENT_TYPE;
 

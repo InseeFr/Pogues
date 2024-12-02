@@ -1,5 +1,5 @@
-import { uuid } from '../../utils/utils';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
+import { uuid } from '../../utils/utils';
 
 const { LOOP } = COMPONENT_TYPE;
 
@@ -45,8 +45,8 @@ export function remoteToState(remote, parent) {
 
 export function stateToRemote(store) {
   return Object.values(store)
-    .filter(element => element.type === LOOP)
-    .map(component => {
+    .filter((element) => element.type === LOOP)
+    .map((component) => {
       const {
         id,
         nameLoop,

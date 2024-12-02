@@ -1,6 +1,6 @@
-import { remove } from './component-remove';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { setActiveVariables } from './app-state';
+import { remove } from './component-remove';
 
 const { LOOP } = COMPONENT_TYPE;
 
@@ -42,18 +42,18 @@ export const updateComponent =
       !activeComponentsById[componentId].basedOn
     ) {
       const loops = Object.values(activeComponentsById).filter(
-        element => element.type === LOOP && element.basedOn === componentId,
+        (element) => element.type === LOOP && element.basedOn === componentId,
       );
       const loopsCalculated = {};
       const loopsExternal = {};
-      Object.values(activeCalculatedVariablesById).forEach(element => {
+      Object.values(activeCalculatedVariablesById).forEach((element) => {
         if (element.scope === componentId) {
           element.scope = componentsStore[componentId].basedOn;
         }
         loopsCalculated[element.id] = element;
       });
 
-      Object.values(activeExternalVariablesById).forEach(element => {
+      Object.values(activeExternalVariablesById).forEach((element) => {
         if (element.scope === componentId) {
           element.scope = componentsStore[componentId].basedOn;
         }
@@ -65,7 +65,7 @@ export const updateComponent =
         collectedVariableByQuestion: collectedVariableByQuestion,
       });
       if (loops.length > 0) {
-        loops.forEach(loop => {
+        loops.forEach((loop) => {
           loop.basedOn = componentsStore[componentId].basedOn;
           const { id } = loop;
           dispatch({
@@ -108,7 +108,7 @@ export const updateComponent =
  *
  * @param {string} idDeletedComponent the id of the component we want to remove
  */
-export const removeComponent = idDeletedComponent => (dispatch, getState) => {
+export const removeComponent = (idDeletedComponent) => (dispatch, getState) => {
   const state = getState();
   const { activeComponentsById } = state.appState;
 

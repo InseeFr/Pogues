@@ -28,7 +28,7 @@ function getGotos(componentsStore, activeComponentsIds, components, depth = 0) {
 export function getListGotos(componentsStore, activeComponentsIds = []) {
   let listGotos = [];
   const rootKey = Object.keys(componentsStore).filter(
-    key => componentsStore[key].type === QUESTIONNAIRE,
+    (key) => componentsStore[key].type === QUESTIONNAIRE,
   )[0];
 
   if (rootKey) {
@@ -53,7 +53,7 @@ function getDescendants(componentsStore, component = {}) {
 
 function getSiblingHeaviest(componentsStore, component) {
   const siblings = componentsStore[component.parent].children.filter(
-    key =>
+    (key) =>
       key !== component.id && componentsStore[key].weight > component.weight,
   );
 
@@ -72,7 +72,7 @@ function getUnclesHeaviest(componentsStore, component) {
   const grandFatherId = componentsStore[parentId].parent;
   if (grandFatherId) {
     const uncles = componentsStore[grandFatherId].children.filter(
-      key =>
+      (key) =>
         key !== parentId &&
         componentsStore[key].weight > componentsStore[parentId].weight,
     );
@@ -98,7 +98,7 @@ function getGreatUnclesHeaviest(componentsStore, component) {
 
     if (greatGrandFatherId) {
       const greatUncles = componentsStore[greatGrandFatherId].children.filter(
-        key =>
+        (key) =>
           key !== grandFatherId &&
           componentsStore[key].weight > componentsStore[grandFatherId].weight,
       );
@@ -165,7 +165,7 @@ export function getComponentsTargetsByPosition(
     );
   } else if (type === SUBSEQUENCE) {
     const rootId = Object.keys(componentsStore).filter(
-      key => componentsStore[key].type === QUESTIONNAIRE,
+      (key) => componentsStore[key].type === QUESTIONNAIRE,
     )[0];
     const heaviestSequenceId = componentsStore[rootId].children.reduce(
       (acc, key) => {
@@ -176,7 +176,7 @@ export function getComponentsTargetsByPosition(
     );
 
     targets = componentsStore[heaviestSequenceId].children
-      .filter(key => componentsStore[key].type === SUBSEQUENCE)
+      .filter((key) => componentsStore[key].type === SUBSEQUENCE)
       .reduce((acc, key) => {
         return [
           ...acc,

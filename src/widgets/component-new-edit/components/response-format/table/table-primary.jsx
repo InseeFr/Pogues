@@ -1,15 +1,16 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import { SelectorView, View } from '../../../../selector-view';
-import ResponseFormatTablePrincipalList from './table-primary-list';
-import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
-import Dictionary from '../../../../../utils/dictionary/dictionary';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
 import {
-  DIMENSION_TYPE,
   DIMENSION_FORMATS,
+  DIMENSION_TYPE,
 } from '../../../../../constants/pogues-constants';
+import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { SelectorView, View } from '../../../../selector-view';
+import ResponseFormatTablePrincipalCodeslist from './table-primary-codeslist';
+import ResponseFormatTablePrincipalList from './table-primary-list';
 
 const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 const { CODES_LIST, LIST } = DIMENSION_FORMATS;

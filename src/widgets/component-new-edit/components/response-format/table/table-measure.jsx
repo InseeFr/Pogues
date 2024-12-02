@@ -1,9 +1,10 @@
 import React from 'react';
-import { FormSection } from 'redux-form';
-import PropTypes from 'prop-types';
 
-import InputMeasure from './input-measure';
+import PropTypes from 'prop-types';
+import { FormSection } from 'redux-form';
+
 import { DIMENSION_TYPE } from '../../../../../constants/pogues-constants';
+import InputMeasure from './input-measure';
 
 const { MEASURE: selectorPath } = DIMENSION_TYPE;
 

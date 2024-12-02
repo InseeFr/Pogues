@@ -1,16 +1,17 @@
-/* eslint-disable react/react-in-jsx-scope */
-import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+
 import { GENERIC_INPUT } from '../../../constants/dom-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { useOidc } from '../../../utils/oidc';
 import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
+import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
 import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
-import { useOidc } from '../../../utils/oidc';
 
 const {
   QUESTION,
@@ -100,7 +101,7 @@ function GenericInput(props) {
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
-  const handleOpenNewComponent = componentType => {
+  const handleOpenNewComponent = (componentType) => {
     setShowNewComponentModal(true);
     setTypeNewComponent(componentType);
   };

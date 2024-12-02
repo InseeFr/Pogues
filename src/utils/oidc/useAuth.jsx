@@ -1,5 +1,6 @@
-import { useOidc } from '.';
 import { useMemo } from 'react';
+
+import { useOidc } from '.';
 
 export const useUser = () => {
   const oidc = useOidc();

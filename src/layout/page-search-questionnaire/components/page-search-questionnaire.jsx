@@ -1,27 +1,26 @@
 import React, { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 
-import Criteria from '../containers/criteria';
-
-import { InputFilterWithCriteria } from '../../../widgets/input-filter-with-criteria';
-import { SearchResults } from '../../../widgets/search-results';
 import { PAGE_SEARCH_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import {
-  TYPES_ITEMS,
   SEARCH_CRITERIAS,
   SEARCH_RESULTS_COLUMNS,
+  TYPES_ITEMS,
 } from '../../../constants/pogues-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { useOidc } from '../../../utils/oidc';
+// @TODO: noop is used temporally
+import { noop } from '../../../utils/test/test-utils';
+import { InputFilterWithCriteria } from '../../../widgets/input-filter-with-criteria';
+import { SearchResults } from '../../../widgets/search-results';
+import Criteria from '../containers/criteria';
 
 const { COMPONENT_ID, SEARCH_RESULTS_ID } = PAGE_SEARCH_QUESTIONNAIRE;
 
-// @TODO: noop is used temporally
-import { noop } from '../../../utils/test/test-utils';
-import { useOidc } from '../../../utils/oidc';
-
 // Component
 
-const PageSearchQuestionnaire = props => {
+const PageSearchQuestionnaire = (props) => {
   useEffect(() => {
     props.clearSearchResult();
   }, [props]);

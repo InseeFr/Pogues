@@ -1,22 +1,23 @@
 // @TODO: Refactor to avoid similar validation functions
 import { SubmissionError } from 'redux-form';
+
+import { Component } from '../../model';
 import {
-  questionnaireRules,
-  questionRules,
-  sequenceRules,
-  loopRules,
-  filterRules,
-  controlRules,
-  declarationRules,
-  redirectionRules,
-  externalVariableRules,
   calculatedVariableRules,
   collectedVariableRules,
+  controlRules,
+  declarationRules,
+  externalVariableRules,
+  filterRules,
+  loopRules,
+  questionRules,
+  questionnaireRules,
+  redirectionRules,
   roundaboutRules,
+  sequenceRules,
   tableListMeasuresRules,
 } from './validation-rules';
-import { Component } from '../../model';
-import { validate, getErrorsObject } from './validation-utils';
+import { getErrorsObject, validate } from './validation-utils';
 
 export function validateQuestionnaireForm(values, setErrors) {
   const errors = validate(values, questionnaireRules);

@@ -1,12 +1,12 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import { InputAutocomplete } from '../../../forms/controls/input-autocomplete';
-import GenericOption from '../../../forms/controls/generic-option';
-
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { WIDGET_GOTO_INPUT } from '../../../constants/dom-constants';
+import GenericOption from '../../../forms/controls/generic-option';
+import { InputAutocomplete } from '../../../forms/controls/input-autocomplete';
+import Dictionary from '../../../utils/dictionary/dictionary';
 
 const { COMPONENT_CLASS } = WIDGET_GOTO_INPUT;
 
@@ -37,7 +37,7 @@ function GotoInput({ targets }) {
       caseSensitive={false}
       component={InputAutocomplete}
     >
-      {targets.map(t => (
+      {targets.map((t) => (
         <GenericOption key={t.value} value={t.value}>
           {t.label}
         </GenericOption>

@@ -1,11 +1,11 @@
+import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import {
-  couldInsertToSibling,
   couldInsertAsChild,
+  couldInsertToSibling,
   isQuestion,
   isSequence,
   isSubSequence,
 } from './component-utils';
-import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 const { SEQUENCE } = COMPONENT_TYPE;
 

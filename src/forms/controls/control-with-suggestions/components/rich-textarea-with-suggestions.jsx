@@ -1,22 +1,22 @@
-import { EditorState, Modifier, getDefaultKeyBinding } from 'draft-js';
-import PropTypes from 'prop-types';
 import React from 'react';
-import RichTextEditor from 'gillespie59-react-rte/dist/react-rte';
-import ControlWithSuggestion from './control-with-suggestions';
-import { updateSuggestions } from './input-with-suggestions-utils';
-import { getPattern, getStartValueWithSuggestion } from './utils';
 
+import { EditorState, Modifier, getDefaultKeyBinding } from 'draft-js';
+import RichTextEditor from 'gillespie59-react-rte/dist/react-rte';
+import PropTypes from 'prop-types';
+
+import { CONTROL_RICH_TEXTAREA } from '../../../../constants/dom-constants';
+import { getControlId } from '../../../../utils/widget-utils';
 import {
   contentStateToString,
   formatURL,
   getEditorValue,
+  rootStyle,
   toolbarConfig,
   toolbarConfigQuestion,
-  rootStyle,
 } from '../../rich-textarea';
-
-import { CONTROL_RICH_TEXTAREA } from '../../../../constants/dom-constants';
-import { getControlId } from '../../../../utils/widget-utils';
+import ControlWithSuggestion from './control-with-suggestions';
+import { updateSuggestions } from './input-with-suggestions-utils';
+import { getPattern, getStartValueWithSuggestion } from './utils';
 
 const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 
@@ -80,7 +80,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     }
   }
 
-  handleChange = value => {
+  handleChange = (value) => {
     const editorState = value.getEditorState();
     const contentState = editorState.getCurrentContent();
     const transformedValue = contentStateToString(contentState);
@@ -110,7 +110,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     this.props.input.onChange(transformedValue);
   };
 
-  handleReturn = e => {
+  handleReturn = (e) => {
     if (this.props.submitOnEnter) {
       e.preventDefault();
       e.target.closest('form').querySelector('button[type=submit]').click();
@@ -124,7 +124,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     this.setState({ value, currentValue });
   }
 
-  handleSuggestionClick = suggestion => {
+  handleSuggestionClick = (suggestion) => {
     const caretCursor = this.state.value
       .getEditorState()
       .getSelection()
@@ -169,7 +169,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     this.textChange(this.state.value.setEditorState(newEditorState));
   };
 
-  handleKeyCommand = command => {
+  handleKeyCommand = (command) => {
     if (command === 'myeditor-save') {
       return 'handled';
     }
@@ -208,7 +208,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
               this.handleInputFocus();
               input.onFocus();
             }}
-            ref={node => {
+            ref={(node) => {
               this.input = node;
             }}
             handleKeyCommand={this.handleKeyCommand}

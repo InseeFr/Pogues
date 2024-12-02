@@ -1,9 +1,9 @@
+import { getSearchResults } from '../utils/remote-api';
+
 export const LOAD_SEARCH_RESULT = 'LOAD_SEARCH_RESULT';
 export const LOAD_SEARCH_RESULT_SUCCESS = 'LOAD_SEARCH_RESULT_SUCCESS';
 export const LOAD_SEARCH_RESULT_FAILURE = 'LOAD_SEARCH_RESULT_FAILURE';
 export const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
-
-import { getSearchResults } from '../utils/remote-api';
 
 /**
  * Clear search result list
@@ -25,7 +25,7 @@ export const clearSearchResult = () => ({
  * @param   {string} resultsList The list of results found.
  * @return  {object}  LOAD_SEARCH_RESULT_SUCCESS action
  */
-export const loadSearchResultSuccess = resultsList => ({
+export const loadSearchResultSuccess = (resultsList) => ({
   type: LOAD_SEARCH_RESULT_SUCCESS,
   payload: resultsList,
 });
@@ -38,7 +38,7 @@ export const loadSearchResultSuccess = resultsList => ({
  * @param   {string} err   The error returned for the fetch process.
  * @return  {object}       LOAD_SEARCH_RESULT_FAILURE action
  */
-export const loadSearchResultFailure = err => ({
+export const loadSearchResultFailure = (err) => ({
   type: LOAD_SEARCH_RESULT_FAILURE,
   payload: err,
 });
@@ -52,12 +52,12 @@ export const loadSearchResultFailure = err => ({
  * @return  {object}  LOAD_SEARCH_RESULT action
  */
 export const loadSearchResult =
-  (token, typeItem, criterias, filter) => dispatch => {
+  (token, typeItem, criterias, filter) => (dispatch) => {
     dispatch({
       type: LOAD_SEARCH_RESULT,
       payload: null,
     });
     return getSearchResults(token, typeItem, criterias, filter)
-      .then(resultsList => dispatch(loadSearchResultSuccess(resultsList)))
-      .catch(err => dispatch(loadSearchResultFailure(err)));
+      .then((resultsList) => dispatch(loadSearchResultSuccess(resultsList)))
+      .catch((err) => dispatch(loadSearchResultFailure(err)));
   };

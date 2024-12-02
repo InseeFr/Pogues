@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { getControlId } from '../../utils/widget-utils';
 import { CONTROL_TEXTAREA } from '../../constants/dom-constants';
+import { getControlId } from '../../utils/widget-utils';
 
 const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
@@ -57,7 +58,7 @@ class Textarea extends Component {
             id={id}
             placeholder={label}
             disabled={disabled}
-            ref={node => {
+            ref={(node) => {
               this.input = node;
             }}
           />

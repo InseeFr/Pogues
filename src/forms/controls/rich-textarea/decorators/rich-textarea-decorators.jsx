@@ -1,4 +1,5 @@
 import { CompositeDecorator } from 'draft-js';
+
 import RichTextareaCondition from './rich-textarea-condition';
 import RichTextareaLink from './rich-textarea-link';
 
@@ -6,7 +7,7 @@ import RichTextareaLink from './rich-textarea-link';
 
 export function findEntities(type) {
   return function findEntitiesCurried(contentBlock, callback, contentState) {
-    contentBlock.findEntityRanges(character => {
+    contentBlock.findEntityRanges((character) => {
       const entityKey = character.getEntity();
       if (entityKey != null) {
         const entity = contentState ? contentState.getEntity(entityKey) : null;

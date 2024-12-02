@@ -1,6 +1,8 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+
+import { shallow } from 'enzyme';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
+
 import {
   fakeEnterEvent,
   fakeFieldArrayFields,

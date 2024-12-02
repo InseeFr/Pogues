@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
+
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
@@ -99,7 +101,7 @@ export function SuggesterLists({
         <GenericOption key="noNomenclature" value="">
           {Dictionary.selectSuggesterList}
         </GenericOption>
-        {Object.values(nomenclatures).map(nomenclature => (
+        {Object.values(nomenclatures).map((nomenclature) => (
           <GenericOption key={nomenclature.id} value={nomenclature.id}>
             {nomenclature.label}
           </GenericOption>

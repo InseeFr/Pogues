@@ -1,20 +1,15 @@
-import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
+import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { DragSource, DropTarget } from 'react-dnd';
+import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 
-import DropZone from './drop-zone/drop-zone';
-
 import { QUESTIONNAIRE_COMPONENT } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-
-import ReactModal from 'react-modal';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
-import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
-import { ComponentEdit } from '../../component-edit';
-
 import {
   PropType,
   cardTarget,
@@ -28,6 +23,9 @@ import {
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getIntegrityErrors } from '../../../utils/integrity/utils';
 import { useOidc } from '../../../utils/oidc';
+import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { ComponentEdit } from '../../component-edit';
+import DropZone from './drop-zone/drop-zone';
 
 const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const {
@@ -39,9 +37,9 @@ const {
   ROUNDABOUT,
 } = COMPONENT_TYPE;
 
-const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
-const QuestionnaireComponent = props => {
+const QuestionnaireComponent = (props) => {
   const {
     component,
     connectDragSource,
@@ -84,7 +82,7 @@ const QuestionnaireComponent = props => {
     setEditingComponentId(component.id);
     actions.handleOpenComponentDetail();
   };
-  const handleEditFilterComponent = id => {
+  const handleEditFilterComponent = (id) => {
     setEditingComponentId(id);
     setShowComponentModal(true);
   };
@@ -92,12 +90,12 @@ const QuestionnaireComponent = props => {
   const handleCloseComponentDetail = () => setShowComponentModal(false);
   const handleDuplicateComponent = () =>
     duplicateComponentAndVariables(component.id);
-  const handleDeleteComponent = event => {
+  const handleDeleteComponent = (event) => {
     event.preventDefault();
     event.stopPropagation();
     removeComponent(component.id);
   };
-  const handleDeleteQuestionnaireRef = event => {
+  const handleDeleteQuestionnaireRef = (event) => {
     event.preventDefault();
     event.stopPropagation();
     const deletedComponent = component.id;
@@ -105,7 +103,7 @@ const QuestionnaireComponent = props => {
     removeComponent(deletedComponent);
   };
 
-  const handleDeleteComponent1 = id => {
+  const handleDeleteComponent1 = (id) => {
     removeComponent(id);
     setShowComponentModal(false);
   };
@@ -138,7 +136,6 @@ const QuestionnaireComponent = props => {
           })}
           ref={myRef}
         >
-          {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
           <div
             role="presentation"
             onClick={() => setSelectedComponentId(component.id)}
@@ -166,7 +163,7 @@ const QuestionnaireComponent = props => {
                   )}
                 </div>
                 {componentFiltersInitial?.length > 0 &&
-                  componentFiltersInitial.map(filter => {
+                  componentFiltersInitial.map((filter) => {
                     return (
                       <div
                         key={`${filter.id}-if`}
@@ -182,7 +179,7 @@ const QuestionnaireComponent = props => {
                     );
                   })}
                 {componentFiltersFinal?.length > 0 &&
-                  componentFiltersFinal.map(filter => {
+                  componentFiltersFinal.map((filter) => {
                     return (
                       <div
                         key={`${filter.id}-endif`}
@@ -281,7 +278,7 @@ const QuestionnaireComponent = props => {
               <ComponentEdit
                 onCancel={handleCloseComponentDetail}
                 onSuccess={handleCloseComponentDetail}
-                deleteComponent={id => handleDeleteComponent1(id)}
+                deleteComponent={(id) => handleDeleteComponent1(id)}
               />
             </div>
           </div>

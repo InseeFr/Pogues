@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 
 /**
@@ -9,7 +8,7 @@ import React from 'react';
  * @param schema
  * @returns <div><ComponentToWrap props.meta.error=withCodeValidation(input.value) /></div>
  */
-const withErrorValidation = (ComponentToWrap, validate, schema) => props => {
+const withErrorValidation = (ComponentToWrap, validate, schema) => (props) => {
   let childProps = props;
 
   const error = validate(props, props.path, schema);

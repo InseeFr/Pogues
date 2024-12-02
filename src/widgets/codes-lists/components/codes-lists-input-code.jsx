@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field, formValueSelector } from 'redux-form';
 
-import { ComponentWithValidation } from '../../component-with-validation';
-import Input from '../../../forms/controls/input';
-import { fieldArrayMeta } from '../../../utils/proptypes-utils';
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import Input from '../../../forms/controls/input';
+import Dictionary from '../../../utils/dictionary/dictionary';
+import { fieldArrayMeta } from '../../../utils/proptypes-utils';
+import { ComponentWithValidation } from '../../component-with-validation';
 
 const {
   CODE_INPUT_CLASS,
@@ -144,10 +144,10 @@ class CodesListInputCode extends ComponentWithValidation {
             type="text"
             component={Input}
             label={Dictionary.code}
-            onKeyDown={e => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter') this.addCodeIfIsValid();
             }}
-            reference={node => {
+            reference={(node) => {
               this.firstField = node;
             }}
             focusOnInit
@@ -170,7 +170,7 @@ class CodesListInputCode extends ComponentWithValidation {
             </button>
             <button
               className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 this.addCodeIfIsValid();
               }}
@@ -222,7 +222,7 @@ class CodesListInputCode extends ComponentWithValidation {
               </button>
               <button
                 className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   this.addCodeIfIsValid1();
                 }}
@@ -238,7 +238,7 @@ class CodesListInputCode extends ComponentWithValidation {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
   return {
     Question: selector(state, 'name'),

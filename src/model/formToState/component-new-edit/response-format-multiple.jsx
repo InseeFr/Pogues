@@ -117,7 +117,7 @@ const Factory = (initialState = {}, codesListsStore) => {
   };
 
   return {
-    formToState: form => {
+    formToState: (form) => {
       if (form) currentState = formToState(form, transformers);
       return currentState;
     },
@@ -136,7 +136,7 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       return codesLists;
     },
-    getNormalizedValues: form => {
+    getNormalizedValues: (form) => {
       // Values ready to be validated
       const {
         [MEASURE]: { type, [type]: measure },

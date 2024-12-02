@@ -1,10 +1,10 @@
-import {
-  LOAD_QUESTIONNAIRE_SUCCESS,
-  LOAD_QUESTIONNAIRE_START,
-  LOAD_QUESTIONNAIRE_FAILURE,
-  CREATE_QUESTIONNAIRE_SUCCESS,
-} from '../actions/questionnaire';
 import { SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS } from '../actions/app-state';
+import {
+  CREATE_QUESTIONNAIRE_SUCCESS,
+  LOAD_QUESTIONNAIRE_FAILURE,
+  LOAD_QUESTIONNAIRE_START,
+  LOAD_QUESTIONNAIRE_SUCCESS,
+} from '../actions/questionnaire';
 import { createActionHandlers } from '../utils/reducer/actions-handlers';
 
 const actionHandlers = {};

@@ -1,21 +1,20 @@
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import PageQuestionnaire from '../components/page-questionnaire';
-
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import { loadQuestionnaire } from '../../../actions/questionnaire';
+import {
+  loadStatisticalContext,
+  setActiveCodeLists,
+  setActiveComponents,
+  setActiveQuestionnaire,
+  setActiveVariables,
+} from '../../../actions/app-state';
 import {
   loadCampaignsIfNeeded,
   loadExternalQuestionnairesIfNeeded,
 } from '../../../actions/metadata';
-import {
-  setActiveQuestionnaire,
-  setActiveComponents,
-  setActiveCodeLists,
-  setActiveVariables,
-  loadStatisticalContext,
-} from '../../../actions/app-state';
+import { loadQuestionnaire } from '../../../actions/questionnaire';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import PageQuestionnaire from '../components/page-questionnaire';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -26,8 +25,8 @@ function getCollectedVariablesByQuestionnaire(
   collectedVariables = {},
 ) {
   return Object.keys(components)
-    .filter(key => components[key].type === QUESTION)
-    .filter(key => components[key].collectedVariables.length > 0)
+    .filter((key) => components[key].type === QUESTION)
+    .filter((key) => components[key].collectedVariables.length > 0)
     .reduce((acc, key) => {
       return {
         ...acc,

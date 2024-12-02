@@ -9,10 +9,10 @@ function checkerExistingTarget({
 }) {
   const targetNotFoundErrors = [];
   const errors = [];
-  Object.keys(activeComponentsById).forEach(key => {
+  Object.keys(activeComponentsById).forEach((key) => {
     const redirections = activeComponentsById[key].redirections || {};
     if (Object.values(redirections).length > 0) {
-      Object.values(redirections).forEach(redir => {
+      Object.values(redirections).forEach((redir) => {
         if (redir.cible && !activeComponentsById[redir.cible]) {
           targetNotFoundErrors.push(redir.label);
         }

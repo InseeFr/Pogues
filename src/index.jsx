@@ -1,10 +1,11 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
 import Router from './router';
 import configureStore from './store/configure-store';
-import { getInit } from './utils/remote-api';
 import { OidcProvider } from './utils/oidc';
+import { getInit } from './utils/remote-api';
 
 const container = document.getElementById('root');
 
@@ -24,4 +25,4 @@ const renderApp = (Component, init) => {
 
 // Instead of Promise.resolve, deal with a public API endpoint
 
-getInit().then(res => renderApp(Router, res));
+getInit().then((res) => renderApp(Router, res));

@@ -7,13 +7,13 @@ const { COMPONENT_CLASS, SELECT_CLASS } = WIDGET_DROPDOWN;
 const Dropdown = ({ onChange, value, options }) => (
   <div className={COMPONENT_CLASS}>
     <select
-      onChange={e => onChange(e.target.value)}
+      onChange={(e) => onChange(e.target.value)}
       value={value}
       id="STAMPS"
       className={SELECT_CLASS}
     >
       <option value="" />
-      {options.map(s => (
+      {options.map((s) => (
         <option key={s.id} value={s.id}>
           {s.label}
         </option>

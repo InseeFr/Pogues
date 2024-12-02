@@ -1,5 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+
+import PropTypes from 'prop-types';
+
 import { useOidc } from '../../../utils/oidc';
 import { validateQuestionnaireForm } from '../../../utils/validation/validate';
 import {
@@ -13,7 +15,7 @@ function validateAndSubmit(action, validate, transformer, onSuccess, token) {
   return function (values) {
     validate(values);
 
-    return action(transformer.formToState(values), token).then(result => {
+    return action(transformer.formToState(values), token).then((result) => {
       const {
         payload: { id },
       } = result;
@@ -34,7 +36,7 @@ function QuestionnaireNew({
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
-  const validate = setErrorsAction => values =>
+  const validate = (setErrorsAction) => (values) =>
     validateQuestionnaireForm(values, setErrorsAction);
 
   // Initial values

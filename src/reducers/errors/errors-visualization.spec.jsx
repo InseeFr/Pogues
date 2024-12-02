@@ -1,13 +1,13 @@
 import { describe, expect, test } from 'vitest';
-import actionsHandlers, {
-  addVisualizationError,
-  removeVisualizationError,
-} from './errors-visualization';
 
 import {
   ADD_VISUALIZATION_ERROR,
   REMOVE_VISUALIZATION_ERROR,
 } from '../../actions/errors';
+import actionsHandlers, {
+  addVisualizationError,
+  removeVisualizationError,
+} from './errors-visualization';
 
 describe('addVisualizationError', () => {
   test('when called directly', () => {
@@ -25,7 +25,7 @@ describe('addVisualizationError', () => {
       showErrorVisualizationPopup: 'visualisation error message',
     });
   });
-  [ADD_VISUALIZATION_ERROR].forEach(action => {
+  [ADD_VISUALIZATION_ERROR].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         {
@@ -57,7 +57,7 @@ describe('removeVisualizationError', () => {
       showErrorVisualizationPopup: '',
     });
   });
-  [REMOVE_VISUALIZATION_ERROR].forEach(action => {
+  [REMOVE_VISUALIZATION_ERROR].forEach((action) => {
     test(`when called when we trigger ${action}`, () => {
       const result = actionsHandlers(
         {

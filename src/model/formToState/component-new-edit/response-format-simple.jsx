@@ -1,5 +1,5 @@
-import merge from 'lodash.merge';
 import cloneDeep from 'lodash.clonedeep';
+import merge from 'lodash.merge';
 
 import { DATATYPE_NAME } from '../../../constants/pogues-constants';
 
@@ -70,7 +70,7 @@ const Factory = (initialState = {}) => {
   let currentState = merge(cloneDeep(defaultForm), initialState);
 
   return {
-    formToState: form => {
+    formToState: (form) => {
       const state = formToState(form);
       currentState = merge(cloneDeep(currentState), state);
       return state;
@@ -78,7 +78,7 @@ const Factory = (initialState = {}) => {
     stateToForm: () => {
       return stateToForm(currentState);
     },
-    getNormalizedValues: form => {
+    getNormalizedValues: (form) => {
       // Values ready to be validated
       const { type, [type]: simpleType } = form;
 

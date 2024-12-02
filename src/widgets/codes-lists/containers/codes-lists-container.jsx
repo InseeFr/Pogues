@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector, arrayRemoveAll, change } from 'redux-form';
-import CodesLists from '../components/codes-lists';
+import { arrayRemoveAll, change, formValueSelector } from 'redux-form';
 
-import { getCurrentSelectorPath } from '../../../utils/widget-utils';
-import {
-  DEFAULT_FORM_NAME,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
-} from '../../../constants/pogues-constants';
 import { clearSearchResult } from '../../../actions/search';
+import {
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
+import { getCurrentSelectorPath } from '../../../utils/widget-utils';
+import CodesLists from '../components/codes-lists';
 
 // PropTypes and defaultProps
 

@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import Dictionary, { getLocale } from './dictionary';
 
 describe('Dictionary', () => {

@@ -1,7 +1,7 @@
 import {
   COMPONENT_TYPE,
-  QUESTION_TYPE_ENUM,
   DIMENSION_FORMATS,
+  QUESTION_TYPE_ENUM,
 } from '../../../../constants/pogues-constants';
 
 const { LOOP, QUESTION } = COMPONENT_TYPE;
@@ -19,19 +19,19 @@ const { LIST } = DIMENSION_FORMATS;
 export function getQuestionnaireScope(components, externalLoops) {
   return [
     ...Object.values(components)
-      .filter(component => component.type === LOOP && !component.basedOn)
-      .map(loop => {
+      .filter((component) => component.type === LOOP && !component.basedOn)
+      .map((loop) => {
         return { id: loop.id, name: loop.nameLoop };
       }),
     ...Object.values(components)
       .filter(
-        component =>
+        (component) =>
           component.type === QUESTION &&
           (component.responseFormat.type === PAIRING ||
             (component.responseFormat.type === TABLE &&
               component.responseFormat.TABLE.PRIMARY.type === LIST)),
       )
-      .map(question => ({ id: question.id, name: question.name })),
+      .map((question) => ({ id: question.id, name: question.name })),
     ...externalLoops,
   ];
 }
