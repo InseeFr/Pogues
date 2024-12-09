@@ -82,10 +82,6 @@ function VisualizeDropdown({
   const links = [
     { actionType: 'html', actionLabel: Dictionary.VISUALIZE_WEB },
     {
-      actionType: 'stromae-v2',
-      actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V2,
-    },
-    {
       actionType: 'stromae-v3',
       actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V3,
     },

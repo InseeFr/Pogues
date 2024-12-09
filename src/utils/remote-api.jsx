@@ -60,7 +60,6 @@ export const getVisualization = async (type, qr, ref, token) => {
       response: 'url',
       path: `/${qr.DataCollection[0].id}/${qr.Name}`,
     },
-    'stromae-v2': { response: 'url', path: `-stromae-v2/${qr.Name}` },
     'stromae-v3': { response: 'url', path: `-stromae-v3/${qr.Name}` },
     'queen-capi': { response: 'url', path: `-queen/${qr.Name}` },
     'queen-cati': { response: 'url', path: `-queen-telephone/${qr.Name}` },

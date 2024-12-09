@@ -32,13 +32,6 @@ exports[`Visualize Dropdown Component:  > Should disable the button 1`] = `
         <a
           href="#"
         >
-          Web V2
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
           Web DSFR
         </a>
       </li>
@@ -113,13 +106,6 @@ exports[`Visualize Dropdown Component:  > Should display the dropdown on top 1`]
         <a
           href="#"
         >
-          Web V2
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
           Web DSFR
         </a>
       </li>
@@ -188,13 +174,6 @@ exports[`Visualize Dropdown Component:  > Should return the right HTML 1`] = `
           href="#"
         >
           Web V1
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web V2
         </a>
       </li>
       <li>

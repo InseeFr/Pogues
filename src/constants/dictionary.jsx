@@ -1599,10 +1599,6 @@ const dictionary = {
     fr: 'Web V1',
     en: 'Web V1',
   },
-  VISUALIZE_WEB_STROMAE_V2: {
-    fr: 'Web V2',
-    en: 'Web V2',
-  },
   VISUALIZE_WEB_STROMAE_V3: {
     fr: 'Web DSFR',
     en: 'Web DSFR',
