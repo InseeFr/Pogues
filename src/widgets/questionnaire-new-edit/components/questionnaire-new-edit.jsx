@@ -57,6 +57,7 @@ function QuestionnaireNewEdit({
           component={ListCheckboxes}
           label={Dictionary.collectionMode}
           inline
+          required
         >
           {TargetMode.map((s) => (
             <GenericOption key={s.value} value={s.value}>
@@ -69,6 +70,7 @@ function QuestionnaireNewEdit({
           component={ListRadios}
           label={Dictionary.dynamiqueSpecified}
           inline
+          required
         >
           <GenericOption key={Redirections} value={Redirections}>
             {Dictionary.QGoTo}
@@ -82,6 +84,7 @@ function QuestionnaireNewEdit({
           component={ListRadios}
           label={Dictionary.formulaSpecified}
           inline
+          required
         >
           <GenericOption key={XPATH} value={XPATH}>
             {Dictionary.formulaXpath}
