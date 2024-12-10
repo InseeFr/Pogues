@@ -47,10 +47,11 @@ const {
   COLLECTED_VARIABLES,
 } = TABS_PATHS;
 
+//Disabled validation rules for series to implement specific validation rules for series
 export const questionnaireRules = {
-  serie: [requiredSelect],
-  operation: [requiredSelect],
-  campaigns: [required],
+  serie: [],
+  operation: [],
+  campaigns: [],
   name: [required, name],
   label: [required],
   TargetMode: [required],
