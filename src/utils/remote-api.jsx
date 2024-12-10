@@ -62,11 +62,11 @@ export const getVisualization = async (type, qr, ref, token) => {
     },
     'web-household': {
       response: 'url',
-      path: `-stromae-v3/${qr.Name}?context='HOUSEHOLD'`,
+      path: `-stromae-v3/${qr.Name}?context=HOUSEHOLD`,
     },
     'web-business': {
       response: 'url',
-      path: `-stromae-v3/${qr.Name}?context='BUSINESS'`,
+      path: `-stromae-v3/${qr.Name}?context=BUSINESS`,
     },
     'queen-capi': { response: 'url', path: `-queen/${qr.Name}` },
     'queen-cati': { response: 'url', path: `-queen-telephone/${qr.Name}` },

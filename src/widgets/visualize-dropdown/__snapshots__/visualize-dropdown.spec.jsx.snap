@@ -32,14 +32,14 @@ exports[`Visualize Dropdown Component:  > Should disable the button 1`] = `
         <a
           href="#"
         >
-          Web ménage
+          Web household
         </a>
       </li>
       <li>
         <a
           href="#"
         >
-          Web entreprise
+          Web business
         </a>
       </li>
       <li>
@@ -113,14 +113,14 @@ exports[`Visualize Dropdown Component:  > Should display the dropdown on top 1`]
         <a
           href="#"
         >
-          Web ménage
+          Web household
         </a>
       </li>
       <li>
         <a
           href="#"
         >
-          Web entreprise
+          Web business
         </a>
       </li>
       <li>
@@ -194,14 +194,14 @@ exports[`Visualize Dropdown Component:  > Should return the right HTML 1`] = `
         <a
           href="#"
         >
-          Web ménage
+          Web household
         </a>
       </li>
       <li>
         <a
           href="#"
         >
-          Web entreprise
+          Web business
         </a>
       </li>
       <li>
