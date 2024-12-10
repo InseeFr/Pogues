@@ -86,7 +86,7 @@ export const mapStateToProps = (
             ...storeToArray(state?.metadataByType?.series),
           ]
         : storeToArray(state?.metadataByType?.series),
-    required: state?.metadataByType?.series?.length > 0,
+    required: Object.keys(state?.metadataByType?.series ?? {}).length > 0,
     selectedSerie,
     path,
   };
