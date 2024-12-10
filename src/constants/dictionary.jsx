@@ -1599,9 +1599,13 @@ const dictionary = {
     fr: 'Web V1',
     en: 'Web V1',
   },
-  VISUALIZE_WEB_STROMAE_V3: {
-    fr: 'Web DSFR',
-    en: 'Web DSFR',
+  VISUALIZE_WEB_HOUSEHOLD: {
+    fr: 'Web ménage',
+    en: 'Web household',
+  },
+  VISUALIZE_WEB_BUSINESS: {
+    fr: 'Web entreprise',
+    en: 'Web business',
   },
   VISUALIZE_QUEEN_CAPI: {
     fr: 'Enquêteur face à face',
