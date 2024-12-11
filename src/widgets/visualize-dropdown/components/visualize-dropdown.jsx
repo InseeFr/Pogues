@@ -82,12 +82,12 @@ function VisualizeDropdown({
   const links = [
     { actionType: 'html', actionLabel: Dictionary.VISUALIZE_WEB },
     {
-      actionType: 'stromae-v2',
-      actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V2,
+      actionType: 'web-household',
+      actionLabel: Dictionary.VISUALIZE_WEB_HOUSEHOLD,
     },
     {
-      actionType: 'stromae-v3',
-      actionLabel: Dictionary.VISUALIZE_WEB_STROMAE_V3,
+      actionType: 'web-business',
+      actionLabel: Dictionary.VISUALIZE_WEB_BUSINESS,
     },
     { actionType: 'queen-capi', actionLabel: Dictionary.VISUALIZE_QUEEN_CAPI },
     { actionType: 'queen-cati', actionLabel: Dictionary.VISUALIZE_QUEEN_CATI },

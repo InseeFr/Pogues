@@ -19,6 +19,23 @@ const getBaseURI = () => {
       });
 };
 
+/**
+ * Constructs a URL with the given base URL, path, reference, and optional context.
+ *
+ * @param {string} baseUrl - Backend baseUrl.
+ * @param {string} path - The specific path of the endpoint.
+ * @param {boolean} ref - Indicates if the questionnaire contains a reference to another questionnaire.
+ * @param {string} [context] - The optional context of the visualization (HOUSEHOLD or BUSINESS).
+ * @returns {string} - The constructed URL with the provided parameters.
+ */
+const buildUrl = (baseUrl, path, ref, context) => {
+  let url = `${baseUrl}/${path}?references=${ref}`;
+  if (context) {
+    url += `&context=${context}`;
+  }
+  return url;
+};
+
 const pathInit = 'init';
 const pathQuestionnaireList = 'persistence/questionnaires';
 const pathQuestionnaireListSearch = 'persistence/questionnaires/search/meta';
@@ -60,8 +77,16 @@ export const getVisualization = async (type, qr, ref, token) => {
       response: 'url',
       path: `/${qr.DataCollection[0].id}/${qr.Name}`,
     },
-    'stromae-v2': { response: 'url', path: `-stromae-v2/${qr.Name}` },
-    'stromae-v3': { response: 'url', path: `-stromae-v3/${qr.Name}` },
+    'web-household': {
+      response: 'url',
+      path: `-stromae-v3/${qr.Name}`,
+      context: 'HOUSEHOLD',
+    },
+    'web-business': {
+      response: 'url',
+      path: `-stromae-v3/${qr.Name}`,
+      context: 'BUSINESS',
+    },
     'queen-capi': { response: 'url', path: `-queen/${qr.Name}` },
     'queen-cati': { response: 'url', path: `-queen-telephone/${qr.Name}` },
   };
@@ -72,7 +97,13 @@ export const getVisualization = async (type, qr, ref, token) => {
     );
   }
   if (visualiseType[type].response === 'url') {
-    return postVisualization(visualiseType[type].path, qr, ref, token)
+    return postVisualization(
+      visualiseType[type].path,
+      qr,
+      ref,
+      token,
+      visualiseType[type].context ? visualiseType[type].context : null,
+    )
       .then((response) => response.text())
       .then((url) => {
         const a = document.createElement('a');
@@ -91,11 +122,13 @@ export const getVisualization = async (type, qr, ref, token) => {
  * @param {*} qr : the questionnaire to visualize
  * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
  * @param {*} token : the token
+ * @param {*} context : the context of the visualization (optional, houseold or business)
  * @returns a data to interpret
  */
-const postVisualization = async (path, qr, ref, token) => {
+const postVisualization = async (path, qr, ref, token, context = null) => {
   const b = await getBaseURI();
-  return fetch(`${b}/${pathVisualisation}${path}?references=${ref}`, {
+  const url = buildUrl(b, pathVisualisation + path, ref, context);
+  return fetch(url, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': 'application/json' }, token),
     body: JSON.stringify(qr),
