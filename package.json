@@ -29,6 +29,20 @@
       "email": "nicolas.laval@insee.fr"
     }
   ],
+  "scripts": {
+    "start": "vite",
+    "build": "npm run generate-entrypoint && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint .",
+    "_format": "prettier --ignore-unknown .",
+    "format": "npm run _format -- --write",
+    "format:check": "npm run _format -- --list-different",
+    "generate-entrypoint": "node scripts/generate-entrypoint.js",
+    "postinstall": "shx cp src/bootstrap-custom/_variables.scss node_modules/bootstrap-sass/assets/stylesheets/bootstrap/",
+    "prepare": "husky"
+  },
   "license": "MIT",
   "dependencies": {
     "@making-sense/antlr-editor": "^2.0.0",
@@ -72,9 +86,15 @@
     "@babel/plugin-syntax-jsx": "^7.25.9",
     "@eslint/js": "^9.15.0",
     "@testing-library/dom": "^10.2.0",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/enzyme": "^3.10.18",
+    "@types/node": "^22.7.3",
+    "@types/react": "^18.2.9",
+    "@types/react-dom": "^18.2.0",
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^2.0.0",
     "bootstrap-sass": "3.4.1",
@@ -98,22 +118,10 @@
     "redux-logger": "3.0.6",
     "sass": "1.32.13",
     "shx": "^0.3.3",
+    "typescript": "^5.7.2",
     "vite": "^5.0.8",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.0.0"
-  },
-  "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest --coverage",
-    "start": "vite",
-    "build": "npm run generate-entrypoint && vite build",
-    "lint": "eslint .",
-    "_format": "prettier --ignore-unknown .",
-    "format": "npm run _format -- --write",
-    "format:check": "npm run _format -- --list-different",
-    "generate-entrypoint": "node scripts/generate-entrypoint.js",
-    "postinstall": "shx cp src/bootstrap-custom/_variables.scss node_modules/bootstrap-sass/assets/stylesheets/bootstrap/",
-    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
