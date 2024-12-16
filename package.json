@@ -108,7 +108,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/coverage-v8": "^2.0.0",
+    "@vitest/coverage-v8": "^2.1.2",
     "bootstrap-sass": "3.4.1",
     "depcheck": "^1.4.7",
     "enzyme": "3.11.0",
