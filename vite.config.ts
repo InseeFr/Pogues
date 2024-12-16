@@ -1,9 +1,18 @@
 import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    tsconfigPaths({
+      projects: [
+        './tsconfig.json', // To avoid tsconfigPaths read website tsconfig path
+      ],
+    }),
+  ],
   define: {
     global: 'window',
   },
@@ -15,8 +24,5 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'lcov'],
     },
-  },
-  resolve: {
-    alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
   },
 });
