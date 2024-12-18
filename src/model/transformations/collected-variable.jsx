@@ -208,6 +208,7 @@ export function storeToRemote(store, componentsStore) {
         maximum: Maximum,
         decimals: Decimals,
         format: Format,
+        isDynamicUnit: IsDynamicUnit,
         unit: Unit,
         miyears: Miyears,
         mimonths: Mimonths,
@@ -296,6 +297,8 @@ export function storeToRemote(store, componentsStore) {
       if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     }
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
+    if (IsDynamicUnit !== undefined)
+      model.Datatype.IsDynamicUnit = IsDynamicUnit;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
     if (Format !== undefined) {
       if (typeName === DATATYPE_NAME.DATE) {

@@ -521,9 +521,17 @@ const dictionary = {
     en: 'Please respect the date format',
     fr: 'Merci de respecter le format de la date',
   },
+  dynamicUnit: {
+    en: 'Custom unit of measure',
+    fr: 'Unité de mesure personnalisée',
+  },
   unit: {
     en: 'Unit of measure',
     fr: 'Unité de mesure',
+  },
+  dynamicUnitFormula: {
+    en: 'Formula of the unit of measure',
+    fr: "Formule de l'unité de mesure",
   },
   unitEmptySelect: {
     en: 'Select an unit of measure',

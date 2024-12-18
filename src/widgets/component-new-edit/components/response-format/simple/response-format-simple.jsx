@@ -50,7 +50,7 @@ function ResponseFormatSimple({ selectorPathParent, showMandatory }) {
           <ResponseFormatDatatypeDate />
         </View>
         <View key={NUMERIC} value={NUMERIC} label={Dictionary.NUMERIC}>
-          <ResponseFormatDatatypeNumeric />
+          <ResponseFormatDatatypeNumeric selectorPath={selectorPathComposed} />
         </View>
         <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         <View key={DURATION} value={DURATION} label={Dictionary.DURATION}>

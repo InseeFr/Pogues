@@ -7,11 +7,11 @@ import {
   storeToRemote,
 } from './collected-variable';
 
-const { TEXT, DURATION, DATE } = DATATYPE_NAME;
+const { TEXT, DURATION, DATE, NUMERIC } = DATATYPE_NAME;
 
 describe('collected variable tranformations', () => {
   describe('remoteToStore', () => {
-    test('should return the store representation of a collected variable', () => {
+    test('should return the store representation of a text collected variable', () => {
       const input = [
         {
           id: 'jdww2n76',
@@ -50,6 +50,88 @@ describe('collected variable tranformations', () => {
       expect(remoteToStore(input, responsesByVariable, codesListStore)).toEqual(
         output,
       );
+    });
+
+    test('should return the store representation of a numeric collected variable', () => {
+      const input1 = [
+        {
+          id: 'jdww2n76',
+          Name: 'A',
+          Label: 'A label',
+          type: 'CollectedVariableType',
+          CodeListReference: 'id',
+          Datatype: {
+            typeName: NUMERIC,
+            Minimum: '1',
+            Maximum: '10',
+            Decimals: '',
+            IsDynamicUnit: false,
+            Unit: 'euro',
+          },
+        },
+      ];
+      const input2 = [
+        {
+          id: 'jdww2n76',
+          Name: 'A',
+          Label: 'A label',
+          type: 'CollectedVariableType',
+          CodeListReference: 'id',
+          Datatype: {
+            typeName: NUMERIC,
+            Minimum: '1',
+            Maximum: '10',
+            Decimals: '2',
+            IsDynamicUnit: true,
+            Unit: 'my formula',
+          },
+        },
+      ];
+
+      const responsesByVariable = { jdww2n76: {} };
+      const codesListStore = { id: { label: 'label' } };
+
+      const output1 = {
+        jdww2n76: {
+          id: 'jdww2n76',
+          label: 'A label',
+          name: 'A',
+          type: NUMERIC,
+          codeListReference: 'id',
+          codeListReferenceLabel: 'label',
+          [NUMERIC]: {
+            minimum: '1',
+            maximum: '10',
+            decimals: '',
+            isDynamicUnit: false,
+            unit: 'euro',
+          },
+        },
+      };
+      const output2 = {
+        jdww2n76: {
+          id: 'jdww2n76',
+          label: 'A label',
+          name: 'A',
+          type: NUMERIC,
+          codeListReference: 'id',
+          codeListReferenceLabel: 'label',
+          [NUMERIC]: {
+            minimum: '1',
+            maximum: '10',
+            decimals: '2',
+            isDynamicUnit: true,
+            unit: 'my formula',
+          },
+        },
+      };
+
+      expect(
+        remoteToStore(input1, responsesByVariable, codesListStore),
+      ).toEqual(output1);
+      expect(
+        remoteToStore(input2, responsesByVariable, codesListStore),
+      ).toEqual(output2);
     });
 
     test('should return miyears, mimonths, mayears, and mamonths from minimum and maximum to the store representation of a collected variable', () => {
@@ -237,6 +319,83 @@ describe('collected variable tranformations', () => {
             typeName: TEXT,
             MaxLength: 100,
             Pattern: 'pattern',
+          },
+        },
+      ];
+      expect(storeToRemote(input, input1)).toEqual(output);
+    });
+
+    test('should return collected variable model if type is NUMERIC', () => {
+      const input = {
+        k23cdv5w: {
+          id: 'k23cdv5w',
+          label: 'A label',
+          name: 'A',
+          type: NUMERIC,
+          [NUMERIC]: {
+            minimum: '1',
+            maximum: '10',
+            decimals: '2',
+            isDynamicUnit: true,
+            unit: 'my formula',
+          },
+        },
+      };
+      const input1 = {
+        kapgzmji: {
+          TargetMode: ['CAWI', 'PAPI'],
+          children: [],
+          collectedVariables: ['kaphc2ly'],
+          controls: {},
+          declarations: {},
+          id: 'kapgzmji',
+          label: 'question1',
+          name: 'QUESTION1',
+          parent: 'kaph7dbh',
+          redirections: {},
+          responseFormat: {
+            type: 'SIMPLE',
+            SIMPLE: {
+              NUMERIC: { maxLength: 249, pattern: '' },
+              id: 'kaph6l3y',
+              mandatory: false,
+              type: 'NUMERIC',
+            },
+          },
+          responsesClarification: undefined,
+          type: 'QUESTION',
+          weight: 0,
+        },
+        kaph7dbh: {
+          TargetMode: ['CAWI', 'PAPI'],
+          children: ['kapgzmji', 'kaphg7pd'],
+          controls: {},
+          declarations: {},
+          id: 'kaph7dbh',
+          label: 'sequence1',
+          name: 'SEQUENCE1',
+          parent: 'kaphhxpd',
+          redirections: {},
+          responsesClarification: undefined,
+          type: 'SEQUENCE',
+          weight: 0,
+        },
+      };
+      const output = [
+        {
+          CodeListReference: undefined,
+          Label: 'A label',
+          Name: 'A',
+          id: 'k23cdv5w',
+          type: 'CollectedVariableType',
+          Datatype: {
+            Minimum: '1',
+            Maximum: '10',
+            Decimals: '2',
+            IsDynamicUnit: true,
+            Unit: 'my formula',
+            type: 'NumericDatatypeType',
+            typeName: NUMERIC,
           },
         },
       ];

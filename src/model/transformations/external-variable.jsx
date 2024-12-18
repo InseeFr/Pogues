@@ -22,6 +22,7 @@ export function remoteToStore(remote = []) {
         Maximum: maximum,
         Decimals: decimals,
         Unit: unit,
+        IsDynamicUnit: isDynamicUnit,
         Format: format,
       },
     } = ev;
@@ -41,6 +42,7 @@ export function remoteToStore(remote = []) {
           maximum,
           decimals,
           unit,
+          isDynamicUnit,
           format,
         },
       },
@@ -62,6 +64,7 @@ export function storeToRemote(store) {
         minimum: Minimum,
         maximum: Maximum,
         decimals: Decimals,
+        isDynamicUnit: IsDynamicUnit,
         unit: Unit,
         format: Format,
       },
@@ -83,6 +86,8 @@ export function storeToRemote(store) {
     if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
     if (Decimals !== undefined) model.Datatype.Decimals = Decimals;
     if (Unit !== undefined) model.Datatype.Unit = Unit;
+    if (IsDynamicUnit !== undefined)
+      model.Datatype.IsDynamicUnit = IsDynamicUnit;
     if (Format !== undefined) {
       if (typeName === DATATYPE_NAME.DATE) {
         model.Datatype.Format = Format.toUpperCase();
