@@ -36,6 +36,7 @@ describe('variables-utils:', () => {
       ),
     ).toEqual(output);
   });
+
   test('should all collected variables if for all questions', () => {
     const componentsStore = {
       1: { type: SEQUENCE, collectedVariables: ['collectedVariables1'] },
