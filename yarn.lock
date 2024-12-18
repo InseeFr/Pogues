@@ -750,6 +750,11 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
+"@redux-devtools/extension@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@redux-devtools/extension/-/extension-3.0.0.tgz#70fe453703ac81bb22ff6ea72612533e712d8556"
+  integrity sha512-oWFp1zIiqn8H/AbFw+pJnM3b2YKdRSzB+NycomEuMgxYPcn46iiIN/RJ4TucXfI8CR8QRbWpiBrAXSwY6GC92A==
+
 "@rollup/rollup-android-arm-eabi@4.21.3":
   version "4.21.3"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.21.3.tgz#155c7d82c1b36c3ad84d9adf9b3cd520cba81a0f"
@@ -4594,11 +4599,6 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
-
-redux-devtools-extension@2.13.9:
-  version "2.13.9"
-  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
-  integrity sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==
 
 redux-devtools-instrument@^1.10.0:
   version "1.10.0"
