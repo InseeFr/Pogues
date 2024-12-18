@@ -785,6 +785,90 @@
       "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2024:1",
       "codes": []
     },
+    "L_PRODIAA_VPI_2024": {
+      "id": "L_PRODIAA_VPI_2024",
+      "name": "L_PRODIAA_VPI_2024",
+      "label": "EAP - Produits - vente de produits industriels (dont IAA)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodiaa_vpi_2024:1",
+      "codes": []
+    },
+    "L_PRODIAA_VPIZ_2024": {
+      "id": "L_PRODIAA_VPIZ_2024",
+      "name": "L_PRODIAA_VPIZ_2024",
+      "label": "EAP - Produits - commerce (dont IAA)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodiaa_vpiz_2024:1",
+      "codes": []
+    },
     "L_REGFRONT_BE-1-0-0": {
       "id": "L_REGFRONT_BE-1-0-0",
       "name": "L_REGFRONT_BE-1-0-0",
