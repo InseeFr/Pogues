@@ -185,9 +185,9 @@
       "urn": "urn:ddi:fr.insee:l_nationalite-1-2-0:1",
       "codes": []
     },
-    "L_PCS_HOMMES-2-1-0": {
-      "id": "L_PCS_HOMMES-2-1-0",
-      "name": "L_PCS_HOMMES-2-1-0",
+    "L_PCS_HOMMES-2-2-0": {
+      "id": "L_PCS_HOMMES-2-2-0",
+      "name": "L_PCS_HOMMES-2-2-0",
       "label": "Professions masculin",
       "parameters": {
         "fields": [
@@ -251,12 +251,12 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-2-0:1",
       "codes": []
     },
-    "L_PCS_FEMMES-2-1-0": {
-      "id": "L_PCS_FEMMES-2-1-0",
-      "name": "L_PCS_FEMMES-2-1-0",
+    "L_PCS_FEMMES-2-2-0": {
+      "id": "L_PCS_FEMMES-2-2-0",
+      "name": "L_PCS_FEMMES-2-2-0",
       "label": "Professions féminin",
       "parameters": {
         "version": 1,
@@ -320,7 +320,7 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-2-0:1",
       "codes": []
     },
     "L_DIPLOMES-2-0-0": {
