@@ -185,9 +185,9 @@
       "urn": "urn:ddi:fr.insee:l_nationalite-1-2-0:1",
       "codes": []
     },
-    "L_PCS_HOMMES-2-1-0": {
-      "id": "L_PCS_HOMMES-2-1-0",
-      "name": "L_PCS_HOMMES-2-1-0",
+    "L_PCS_HOMMES-2-2-0": {
+      "id": "L_PCS_HOMMES-2-2-0",
+      "name": "L_PCS_HOMMES-2-2-0",
       "label": "Professions masculin",
       "parameters": {
         "fields": [
@@ -251,12 +251,12 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-2-0:1",
       "codes": []
     },
-    "L_PCS_FEMMES-2-1-0": {
-      "id": "L_PCS_FEMMES-2-1-0",
-      "name": "L_PCS_FEMMES-2-1-0",
+    "L_PCS_FEMMES-2-2-0": {
+      "id": "L_PCS_FEMMES-2-2-0",
+      "name": "L_PCS_FEMMES-2-2-0",
       "label": "Professions féminin",
       "parameters": {
         "version": 1,
@@ -320,7 +320,7 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-2-0:1",
       "codes": []
     },
     "L_DIPLOMES-2-0-0": {
@@ -783,6 +783,90 @@
         }
       },
       "urn": "urn:ddi:fr.insee:l_prodeap_instal_repar_2024:1",
+      "codes": []
+    },
+    "L_PRODIAA_VPI_2024": {
+      "id": "L_PRODIAA_VPI_2024",
+      "name": "L_PRODIAA_VPI_2024",
+      "label": "EAP - Produits - vente de produits industriels (dont IAA)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodiaa_vpi_2024:1",
+      "codes": []
+    },
+    "L_PRODIAA_VPIZ_2024": {
+      "id": "L_PRODIAA_VPIZ_2024",
+      "name": "L_PRODIAA_VPIZ_2024",
+      "label": "EAP - Produits - commerce (dont IAA)",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_prodiaa_vpiz_2024:1",
       "codes": []
     },
     "L_REGFRONT_BE-1-0-0": {
