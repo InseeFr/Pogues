@@ -86,6 +86,12 @@ const CalculatedVariables = ({
           required
           setDisableValidation={setDisableValidation}
         />
+        <Field name="scope" component={Select} label={Dictionary.Scope}>
+          <GenericOption key="" value="">
+            {Dictionary.selectScope}
+          </GenericOption>
+          {scopes}
+        </Field>
         <SelectorView
           label={Dictionary.responseType}
           selectorPath={selectorPath}
@@ -105,12 +111,6 @@ const CalculatedVariables = ({
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>
-        <Field name="scope" component={Select} label={Dictionary.Scope}>
-          <GenericOption key="" value="">
-            {Dictionary.selectScope}
-          </GenericOption>
-          {scopes}
-        </Field>
       </ListWithInputPanel>
     </FormSection>
   );

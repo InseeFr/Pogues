@@ -149,7 +149,7 @@ const dictionary = {
   },
   Scope: {
     en: 'Scope',
-    fr: 'Portée',
+    fr: 'Niveau de calcul',
   },
   question: {
     en: 'Question',
