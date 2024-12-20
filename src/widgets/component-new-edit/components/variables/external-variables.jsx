@@ -76,6 +76,12 @@ function ExternalVariables({
           label={Dictionary.name}
           required
         />
+        <Field name="scope" component={Select} label={Dictionary.Scope}>
+          <GenericOption key="" value="">
+            {Dictionary.selectScope}
+          </GenericOption>
+          {scopes}
+        </Field>
         <SelectorView
           label={Dictionary.responseType}
           selectorPath={selectorPath}
@@ -95,12 +101,6 @@ function ExternalVariables({
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
         </SelectorView>
-        <Field name="scope" component={Select} label={Dictionary.Scope}>
-          <GenericOption key="" value="">
-            {Dictionary.selectScope}
-          </GenericOption>
-          {scopes}
-        </Field>
       </ListWithInputPanel>
     </FormSection>
   );
