@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { remoteToStore, storeToRemote } from './external-variable';
-
 import { DATATYPE_NAME } from '../../constants/pogues-constants';
+import { remoteToStore, storeToRemote } from './external-variable';
 
 const { TEXT, NUMERIC } = DATATYPE_NAME;
 
