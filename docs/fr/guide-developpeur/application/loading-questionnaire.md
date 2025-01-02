@@ -15,7 +15,7 @@ Lorsqu'un utilisateur sélectionne un questionnaire au sein de la liste des ques
 7. La fonction `loadQuestionnaireStart` du reducer `questionnaire-by-id.js` met à jour la propriété loader avec la valeur `true`.
 8. Un spinner s'affiche à l'écran pour indiquer le chargement des données du questionnaire.
 9. L'action `LOAD_QUESTIONNAIRE` est envoyée. Elle contient l'identifiant du questionnaire dans le payload.
-10. La fonction [getQuestionnaire](https://github.com/InseeFr/Pogues/blob/main/src/utils/remote-api.js#L232) est appelée. Le navigateur lance la requête et retourne une Promesse.
+10. La fonction [getQuestionnaire](https://github.com/InseeFr/Pogues/blob/main/src/api/remote-api.js#L211) est appelée. Le navigateur lance la requête et retourne une Promesse.
 11. La requête est réussie et la Promesse renvoie une représentation en `JSON` du questionnaire.
 12. [La suite de la promesse](https://github.com/InseeFr/Pogues/blob/main/src/actions/questionnaire.js#L88) définie par le créateur d'actions est exécutée.
 13. Elle appelle la fonction [questionnaireRemoteToStores ](https://github.com/InseeFr/Pogues/blob/main/src/model/remote-to-stores.js) et envoie l'action `LOAD_QUESTIONNAIRE_SUCCESS` accompagnée du résultat retourné par cette fonction.

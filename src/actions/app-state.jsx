@@ -1,11 +1,11 @@
-import { TCM } from '../constants/pogues-constants';
-import { questionnaireRemoteToStores } from '../model/remote-to-stores';
-import * as Questionnaire from '../model/transformations/questionnaire';
 import {
   getContextFromCampaign,
   getVisualization,
   putQuestionnaire,
-} from '../utils/remote-api';
+} from '../api/remote-api';
+import { TCM } from '../constants/pogues-constants';
+import { questionnaireRemoteToStores } from '../model/remote-to-stores';
+import * as Questionnaire from '../model/transformations/questionnaire';
 import { addVisualizationError } from './errors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';

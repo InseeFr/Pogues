@@ -14,6 +14,7 @@ import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
 import { QuestionnaireEdit } from '../../questionnaire-edit';
+import { Versions } from '../../versions';
 import QuestionnaireComponent from './questionnaire-component';
 
 const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
@@ -49,6 +50,7 @@ const QuestionnaireListComponents = (props) => {
     setSelectedComponentId('');
   }, [setSelectedComponentId]);
 
+  const [showVersionsModal, setShowVersionsModal] = useState(false);
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
@@ -150,6 +152,12 @@ const QuestionnaireListComponents = (props) => {
               )}
               <button
                 className="btn-yellow"
+                onClick={() => setShowVersionsModal(true)}
+              >
+                {Dictionary.displayVersions}
+              </button>
+              <button
+                className="btn-yellow"
                 onClick={() => setShowQuestionnaireModal(true)}
               >
                 {Dictionary.showDetail}
@@ -238,6 +246,31 @@ const QuestionnaireListComponents = (props) => {
                   onCancel={() => setShowQuestionnaireModal(false)}
                   onSuccess={() => setShowQuestionnaireModal(false)}
                 />
+              </div>
+            </div>
+          </ReactModal>
+
+          {/* Versions */}
+
+          <ReactModal
+            ariaHideApp={false}
+            shouldCloseOnOverlayClick={false}
+            isOpen={showVersionsModal}
+            onRequestClose={() => setShowVersionsModal(false)}
+            contentLabel={Dictionary.displayVersions}
+          >
+            <div className="popup">
+              <div className="popup-header">
+                <h3>{Dictionary.displayVersions}</h3>
+                <button
+                  type="button"
+                  onClick={() => setShowVersionsModal(false)}
+                >
+                  <span>X</span>
+                </button>
+              </div>
+              <div className="popup-body">
+                <Versions token={token} />
               </div>
             </div>
           </ReactModal>

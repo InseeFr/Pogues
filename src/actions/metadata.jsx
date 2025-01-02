@@ -1,4 +1,3 @@
-import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 import {
   getCampaigns,
   getNomenclature,
@@ -8,7 +7,8 @@ import {
   getSeries,
   getUnitsList,
   getVariablesById,
-} from '../utils/remote-api';
+} from '../api/remote-api';
+import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 
 const { NON_DYNAMIC } = DIMENSION_LENGTH;
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';

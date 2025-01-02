@@ -4,7 +4,7 @@ Network requests are triggered by React components which need remote resources. 
 
 ## Network requests
 
-The network requests are written in the [src/js/utils/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) file. They rely on the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). A polyfill is provided for browsers which do not support it, via the [babel-polyfill](https://github.com/InseeFr/Pogues/blob/d28a7f67894479807f6b3d1c45b1b24883a556c4/src/js/main.js#L11).
+The network requests are written in the [src/api/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/api/remote-api.js) file. They rely on the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). A polyfill is provided for browsers which do not support it, via the [babel-polyfill](https://github.com/InseeFr/Pogues/blob/d28a7f67894479807f6b3d1c45b1b24883a556c4/src/js/main.js#L11).
 
 Example:
 
@@ -40,7 +40,7 @@ To trigger remote calls, we use action creators in combination with [Redux Thunk
 With Redux Thunk, action creators can return a function instead of a plain JavaScript object. Hence, we can write asynchronous actions with a function which:
 
 - synchronously dispatches a plain JavaScript object action to indicate that the request has been registered; action type follows the `LOAD_SOMETHING` naming convention;
-- sends the request (with functions from the aforementioned [src/js/utils/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/js/utils/remote-api.js) file, like `getQuestionnaire`);
+- sends the request (with functions from the aforementioned [src/api/remote-api.js](https://github.com/InseeFr/Pogues/blob/master/src/api/remote-api.js) file, like `getQuestionnaire`);
 - asynchronously dispatches a `LOAD_SOMETHING_SUCCESS` action if the Promise returned by the fetch call succeeds (`then` handler), or a `LOAD_SOMETHING_FAILURE` if it fails (`catch` handler);
 - returns the Promise for possible further processing.
 
