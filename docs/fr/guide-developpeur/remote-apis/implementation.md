@@ -4,7 +4,7 @@ Les requêtes sont déclenchées par les composants React qui requièrent des re
 
 ## Appels distants
 
-Les appels sont définis dans le fichier [src/utils/remote-api.js](https://github.com/InseeFr/Pogues/blob/main/src/utils/remote-api.js). Ils s'appuient sur l'[API fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Un polyfill est utilisé pour les navigateurs qui ne supportent pas cette API, grâce à [babel-polyfill](https://github.com/InseeFr/Pogues/blob/d28a7f67894479807f6b3d1c45b1b24883a556c4/src/js/main.js#L11).
+Les appels sont définis dans le fichier [src/api/remote-api.js](https://github.com/InseeFr/Pogues/blob/main/src/api/remote-api.js). Ils s'appuient sur l'[API fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Un polyfill est utilisé pour les navigateurs qui ne supportent pas cette API, grâce à [babel-polyfill](https://github.com/InseeFr/Pogues/blob/d28a7f67894479807f6b3d1c45b1b24883a556c4/src/js/main.js#L11).
 
 Exemple:
 
@@ -39,7 +39,7 @@ Pour déclencher un appel distant, nous utilisons les créateurs d'actions avec 
 Grâce à Redux Thunk, les créateurs d'actions peuvent retourner une fonction au lieu d'un objet `JavaScript`. Ainsi, on peut écrire des actions asyncrhones avec une fonction qui:
 
 - envoie immédiatement au store une action sous la forme d'un objet `JavaScript`, pour indiquer que la requête a bien été enregistrée; le type d'action prend la forme `LOAD_SOMETHING`;
-- envoie la requête (grâce aux [utilitaires](https://github.com/InseeFr/Pogues/blob/main/src/utils/remote-api.js) mentionnés plus haut, par exemple la fonction `getQuestionnaire`);
+- envoie la requête (grâce aux [utilitaires](https://github.com/InseeFr/Pogues/blob/main/src/api/remote-api.js) mentionnés plus haut, par exemple la fonction `getQuestionnaire`);
 - envoie au store de façon différée une action de la forme `LOAD_SOMTHING_SUCCESS` si la Promesse renvoyée par fetch a été résolue (le gestionnaire `then` défini dans la Promesse), ou une action de la forme `LOAD_QUESTIONNAIRE_FAILURE` si elle échoue (gestionnaire `catch`);
 - retourne la Promesse pour d'éventuelles valorisations ultérieures.
 

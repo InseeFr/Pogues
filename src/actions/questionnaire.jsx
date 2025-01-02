@@ -1,12 +1,12 @@
-import { COMPONENT_TYPE } from '../constants/pogues-constants';
-import { Component } from '../model';
-import { questionnaireRemoteToStores } from '../model/remote-to-stores';
-import * as Questionnaire from '../model/transformations/questionnaire';
 import {
   deleteQuestionnaire,
   getQuestionnaire,
   postQuestionnaire,
-} from '../utils/remote-api';
+} from '../api/remote-api';
+import { COMPONENT_TYPE } from '../constants/pogues-constants';
+import { Component } from '../model';
+import { questionnaireRemoteToStores } from '../model/remote-to-stores';
+import * as Questionnaire from '../model/transformations/questionnaire';
 import { getSupWeight, uuid } from '../utils/utils';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;

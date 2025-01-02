@@ -1,5 +1,5 @@
+import { getQuestionnaireList } from '../api/remote-api';
 import { questionnaireListRemoteToStores } from '../model/remote-to-stores';
-import { getQuestionnaireList } from '../utils/remote-api';
 
 export const LOAD_QLIST = 'LOAD_QLIST';
 export const LOAD_QLIST_SUCCESS = 'LOAD_QLIST_SUCCESS';

@@ -1,4 +1,4 @@
-import { getSearchResults } from '../utils/remote-api';
+import { getSearchResults } from '../api/remote-api';
 
 export const LOAD_SEARCH_RESULT = 'LOAD_SEARCH_RESULT';
 export const LOAD_SEARCH_RESULT_SUCCESS = 'LOAD_SEARCH_RESULT_SUCCESS';

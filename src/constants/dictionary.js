@@ -1535,6 +1535,10 @@ const dictionary = {
     fr: 'Personnaliser',
     en: 'Customize',
   },
+  displayVersions: {
+    fr: 'Versions',
+    en: 'Versions',
+  },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',

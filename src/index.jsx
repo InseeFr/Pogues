@@ -4,10 +4,11 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import { getInit } from './api/remote-api';
+import './index.css';
 import Router from './router';
 import configureStore from './store/configure-store';
 import { OidcProvider } from './utils/oidc';
-import { getInit } from './utils/remote-api';
 
 const renderApp = (init) => {
   const store = configureStore(init);

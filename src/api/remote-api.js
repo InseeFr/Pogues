@@ -1,23 +1,6 @@
-import getNomenclaturesContent from './codes-lists/__mocks__/get-nomenclatures.json';
-import { getEnvVar } from './env';
-import { getUrlFromCriterias } from './utils';
-
-const configurationURL = `${window.location.origin}/configuration.json`;
-
-let saveApiURL = '';
-
-const getBaseURI = () => {
-  if (saveApiURL) return Promise.resolve(saveApiURL);
-  return getEnvVar('INSEE')
-    ? fetch(configurationURL).then((res) => {
-        saveApiURL = res.json().then((config) => config.POGUES_API_BASE_HOST);
-        return saveApiURL;
-      })
-    : Promise.resolve(getEnvVar('API_URL')).then((u) => {
-        saveApiURL = u;
-        return u;
-      });
-};
+import getNomenclaturesContent from '../utils/codes-lists/__mocks__/get-nomenclatures.json';
+import { getUrlFromCriterias } from '../utils/utils';
+import { getBaseURI } from './utils';
 
 /**
  * Constructs a URL with the given base URL, path, reference, and optional context.
