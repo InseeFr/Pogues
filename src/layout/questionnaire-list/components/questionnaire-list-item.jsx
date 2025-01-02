@@ -67,7 +67,7 @@ function QuestionnaireListItem({
         ) ? (
           <button
             type="button"
-            className={BUTTON_DUPLICATE_CLASS}
+            className={`${BUTTON_DUPLICATE_CLASS} px-2 py-1 bg-[#E9E9ED] hover:bg-[#D0D0D7] hover:active:bg-[#B1B1B9] border rounded-lg border-[#a3a3a5] hover:border-[#727273] hover:active:border-[#414142]`}
             aria-label={actionLabel}
             onClick={(event) => {
               if (isHome) event.preventDefault();
