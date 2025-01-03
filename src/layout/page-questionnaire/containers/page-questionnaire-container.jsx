@@ -13,7 +13,7 @@ import {
   loadExternalQuestionnairesIfNeeded,
 } from '../../../actions/metadata';
 import { loadQuestionnaire } from '../../../actions/questionnaire';
-import { getCollectedVariablesByQuestion } from '../../../utils/collected-variables-utils';
+import { getCollectedVariablesByQuestion } from '../../../utils/variables/collected-variables-utils';
 import PageQuestionnaire from '../components/page-questionnaire';
 
 // Prop types and default props

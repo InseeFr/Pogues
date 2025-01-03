@@ -7,7 +7,7 @@ import { getVersion } from '../api/versions';
 import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
-import { getCollectedVariablesByQuestion } from '../utils/collected-variables-utils';
+import { getCollectedVariablesByQuestion } from '../utils/variables/collected-variables-utils';
 import { addVisualizationError } from './errors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
