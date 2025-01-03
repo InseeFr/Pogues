@@ -3,18 +3,11 @@ import {
   getQuestionnaire,
   postQuestionnaire,
 } from '../api/remote-api';
-import { getVersion } from '../api/versions';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { Component } from '../model';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
 import { getSupWeight, uuid } from '../utils/utils';
-import {
-  setActiveCodeLists,
-  setActiveComponents,
-  setActiveVariables,
-  updateActiveQuestionnaire,
-} from './app-state';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -103,43 +96,6 @@ export const loadQuestionnaire = (id, token) => async (dispatch) => {
     dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
   } catch (err) {
     dispatch(loadQuestionnaireFailure(id, err));
-  }
-};
-
-/**
- * Load questionnaire version
- *
- * Asyc action that fetch a questionnaire data from a version.
- *
- * @param   {string}    id  The version id.
- * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
- */
-export const loadQuestionnaireVersion = (id, token) => async (dispatch) => {
-  try {
-    const qr = await getVersion(id, token);
-    const newQr = questionnaireRemoteToStores(qr.data);
-    const questionnaireId = qr.data.id;
-    dispatch(
-      updateActiveQuestionnaire(newQr.questionnaireById[questionnaireId]),
-    );
-    dispatch(
-      setActiveComponents(newQr.componentByQuestionnaire[questionnaireId]),
-    );
-    dispatch(
-      setActiveCodeLists(newQr.codeListByQuestionnaire[questionnaireId]),
-    );
-    dispatch(
-      setActiveVariables({
-        activeCalculatedVariablesById:
-          newQr.calculatedVariableByQuestionnaire[questionnaireId],
-        activeExternalVariablesById:
-          newQr.externalVariableByQuestionnaire[questionnaireId],
-        collectedVariableByQuestion:
-          newQr.collectedVariableByQuestionnaire[questionnaireId],
-      }),
-    );
-  } catch (err) {
-    console.error(err);
   }
 };
 

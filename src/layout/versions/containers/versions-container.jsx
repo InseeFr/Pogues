@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { loadQuestionnaireVersion } from '../../../actions/questionnaire';
+import { loadQuestionnaireVersion } from '../../../actions/app-state';
 import Versions from '../components/Versions';
 
 const mapStateToProps = (state) => ({

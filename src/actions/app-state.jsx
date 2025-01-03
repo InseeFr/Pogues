@@ -3,9 +3,11 @@ import {
   getVisualization,
   putQuestionnaire,
 } from '../api/remote-api';
+import { getVersion } from '../api/versions';
 import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
+import { getCollectedVariablesByQuestion } from '../utils/collected-variables-utils';
 import { addVisualizationError } from './errors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
@@ -179,6 +181,42 @@ export const updateActiveQuestionnaire = (updatedState) => {
       formulaSpecified,
     },
   };
+};
+
+/**
+ * Load a questionnaire version as the active questionnaire.
+ *
+ * Async action that fetch a questionnaire data from a version.
+ */
+export const loadQuestionnaireVersion = (id, token) => async (dispatch) => {
+  try {
+    const qr = await getVersion(id, token);
+    const newQr = questionnaireRemoteToStores(qr.data);
+    const questionnaireId = qr.data.id;
+    dispatch(
+      updateActiveQuestionnaire(newQr.questionnaireById[questionnaireId]),
+    );
+    dispatch(
+      setActiveComponents(newQr.componentByQuestionnaire[questionnaireId]),
+    );
+    dispatch(
+      setActiveCodeLists(newQr.codeListByQuestionnaire[questionnaireId]),
+    );
+    dispatch(
+      setActiveVariables({
+        activeCalculatedVariablesById:
+          newQr.calculatedVariableByQuestionnaire[questionnaireId],
+        activeExternalVariablesById:
+          newQr.externalVariableByQuestionnaire[questionnaireId],
+        collectedVariableByQuestion: getCollectedVariablesByQuestion(
+          newQr.componentByQuestionnaire[questionnaireId],
+          newQr.collectedVariableByQuestionnaire[questionnaireId],
+        ),
+      }),
+    );
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 /**
