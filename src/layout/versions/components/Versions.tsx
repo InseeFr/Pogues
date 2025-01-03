@@ -12,9 +12,14 @@ type Questionnaire = {
 interface VersionsProps {
   questionnaire: Questionnaire;
   token: string;
+  loadQuestionnaireVersion: (id: string, token: string) => void;
 }
 
-export default function Versions({ questionnaire, token }: VersionsProps) {
+export default function Versions({
+  questionnaire,
+  token,
+  loadQuestionnaireVersion,
+}: VersionsProps) {
   const [versions, setVersions] = useState<Version[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,7 +40,11 @@ export default function Versions({ questionnaire, token }: VersionsProps) {
   ) : (
     <div className="space-y-2">
       {versions.map((version) => (
-        <VersionDetails key={version.id} version={version} token={token} />
+        <VersionDetails
+          key={version.id}
+          version={version}
+          onLoad={() => loadQuestionnaireVersion(version.id, token)}
+        />
       ))}
     </div>
   );

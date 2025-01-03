@@ -3,6 +3,7 @@ import {
   getQuestionnaire,
   postQuestionnaire,
 } from '../api/remote-api';
+import { getVersion } from '../api/versions';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { Component } from '../model';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
@@ -96,6 +97,40 @@ export const loadQuestionnaire = (id, token) => async (dispatch) => {
     dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
   } catch (err) {
     dispatch(loadQuestionnaireFailure(id, err));
+  }
+};
+
+/**
+ * Load questionnaire version
+ *
+ * Asyc action that fetch a questionnaire data from a version.
+ *
+ * @param   {string}    id  The version id.
+ * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
+ */
+export const loadQuestionnaireVersion = (id, token) => async (dispatch) => {
+  console.log('loadQuestionnaireVersion', id, token);
+  try {
+    const qr = await getVersion(id, token);
+    console.log('getVersion', qr);
+
+    dispatch(loadQuestionnaireStart());
+    dispatch({
+      type: LOAD_QUESTIONNAIRE,
+      payload: qr.poguesId,
+    });
+
+    try {
+      const newQr = questionnaireRemoteToStores(qr.data);
+      console.log(newQr);
+      dispatch(loadQuestionnaireSuccess(newQr));
+      console.log('DISPATCHED');
+    } catch (err) {
+      dispatch(loadQuestionnaireFailure(qr.poguesId, err));
+    }
+  } catch (err) {
+    console.error(err);
+    dispatch(loadQuestionnaireFailure(undefined, err));
   }
 };
 
