@@ -270,7 +270,10 @@ const QuestionnaireListComponents = (props) => {
                 </button>
               </div>
               <div className="popup-body">
-                <Versions token={token} />
+                <Versions
+                  token={token}
+                  onSuccess={() => setShowVersionsModal(false)}
+                />
               </div>
             </div>
           </ReactModal>

@@ -4,6 +4,7 @@ import { loadQuestionnaireVersion } from '../../../actions/questionnaire';
 import Versions from '../components/Versions';
 
 const mapStateToProps = (state) => ({
+  isQuestionnaireModified: state.appState.isQuestionnaireModified,
   questionnaire: state.appState.activeQuestionnaire,
 });
 const mapDispatchToProps = {

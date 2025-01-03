@@ -14,7 +14,9 @@ const {
   PRECISION_EDIT,
 } = CODELISTS_ACTIONS;
 
-const dictionary = {
+type Dictionary = { [key: string]: { en: string; fr: string } };
+
+const dictionary: Dictionary = {
   phLabel: {
     en: 'Enter a title for the questionnaire',
     fr: 'Entrez un titre pour le questionnaire',
@@ -202,6 +204,10 @@ const dictionary = {
   create: {
     en: 'Create',
     fr: 'Créer',
+  },
+  load: {
+    en: 'Load',
+    fr: 'Charger',
   },
   generateCollectedVariables: {
     en: 'Generate collected variables',
@@ -908,8 +914,12 @@ const dictionary = {
     en: 'Second information axis',
   },
   modification: {
-    en: 'Your modification is not saved ! Are you sure you want to leave ?',
+    en: 'Your modification is not saved! Are you sure you want to leave?',
     fr: "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
+  },
+  modificationsNotSaved: {
+    en: 'Your modifications are not saved!',
+    fr: 'Vos modifications ne sont pas sauvegardées !',
   },
   saveLower: {
     en: 'Thank you to validate all the actions on the page',

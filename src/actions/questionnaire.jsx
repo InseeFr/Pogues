@@ -9,6 +9,12 @@ import { Component } from '../model';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
 import { getSupWeight, uuid } from '../utils/utils';
+import {
+  setActiveCodeLists,
+  setActiveComponents,
+  setActiveVariables,
+  updateActiveQuestionnaire,
+} from './app-state';
 
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
@@ -109,28 +115,31 @@ export const loadQuestionnaire = (id, token) => async (dispatch) => {
  * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
  */
 export const loadQuestionnaireVersion = (id, token) => async (dispatch) => {
-  console.log('loadQuestionnaireVersion', id, token);
   try {
     const qr = await getVersion(id, token);
-    console.log('getVersion', qr);
-
-    dispatch(loadQuestionnaireStart());
-    dispatch({
-      type: LOAD_QUESTIONNAIRE,
-      payload: qr.poguesId,
-    });
-
-    try {
-      const newQr = questionnaireRemoteToStores(qr.data);
-      console.log(newQr);
-      dispatch(loadQuestionnaireSuccess(newQr));
-      console.log('DISPATCHED');
-    } catch (err) {
-      dispatch(loadQuestionnaireFailure(qr.poguesId, err));
-    }
+    const newQr = questionnaireRemoteToStores(qr.data);
+    const questionnaireId = qr.data.id;
+    dispatch(
+      updateActiveQuestionnaire(newQr.questionnaireById[questionnaireId]),
+    );
+    dispatch(
+      setActiveComponents(newQr.componentByQuestionnaire[questionnaireId]),
+    );
+    dispatch(
+      setActiveCodeLists(newQr.codeListByQuestionnaire[questionnaireId]),
+    );
+    dispatch(
+      setActiveVariables({
+        activeCalculatedVariablesById:
+          newQr.calculatedVariableByQuestionnaire[questionnaireId],
+        activeExternalVariablesById:
+          newQr.externalVariableByQuestionnaire[questionnaireId],
+        collectedVariableByQuestion:
+          newQr.collectedVariableByQuestionnaire[questionnaireId],
+      }),
+    );
   } catch (err) {
     console.error(err);
-    dispatch(loadQuestionnaireFailure(undefined, err));
   }
 };
 
