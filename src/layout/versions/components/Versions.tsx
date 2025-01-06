@@ -10,11 +10,20 @@ type Questionnaire = {
 };
 
 interface VersionsProps {
+  isQuestionnaireModified?: boolean;
+  loadQuestionnaireVersion: (id: string, token: string) => void;
+  onSuccess: () => void;
   questionnaire: Questionnaire;
   token: string;
 }
 
-export default function Versions({ questionnaire, token }: VersionsProps) {
+export default function Versions({
+  isQuestionnaireModified = false,
+  loadQuestionnaireVersion,
+  onSuccess,
+  questionnaire,
+  token,
+}: VersionsProps) {
   const [versions, setVersions] = useState<Version[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,9 +42,17 @@ export default function Versions({ questionnaire, token }: VersionsProps) {
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div className="space-y-2">
+    <div className="grid grid-cols-[auto_auto_1fr] gap-x-4 space-y-2 items-center">
       {versions.map((version) => (
-        <VersionDetails key={version.id} version={version} token={token} />
+        <VersionDetails
+          key={version.id}
+          isQuestionnaireModified={isQuestionnaireModified}
+          onLoad={() => {
+            loadQuestionnaireVersion(version.id, token);
+            onSuccess();
+          }}
+          version={version}
+        />
       ))}
     </div>
   );

@@ -1,4 +1,4 @@
-import type { Version } from '@/models/versions';
+import type { Version, VersionWithData } from '@/models/versions';
 
 import { getBaseURI } from './utils';
 
@@ -21,7 +21,7 @@ export const getVersions = async (
 export const getVersion = async (
   id: string,
   token: string,
-): Promise<Version> => {
+): Promise<VersionWithData> => {
   const b = await getBaseURI();
   return fetch(`${b}/persistence/version/${id}?withData=true`, {
     method: 'GET',
@@ -29,5 +29,5 @@ export const getVersion = async (
       Accept: 'application/json',
       Authorization: token ? `Bearer ${token}` : '',
     },
-  }).then((res) => res.json() as Promise<Version>);
+  }).then((res) => res.json() as Promise<VersionWithData>);
 };

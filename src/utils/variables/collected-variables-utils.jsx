@@ -1,4 +1,5 @@
 import {
+  COMPONENT_TYPE,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DIMENSION_FORMATS,
@@ -9,6 +10,7 @@ import { markdownVtlToString } from '../../forms/controls/rich-textarea';
 import { hasChild } from '../codes-lists/codes-lists-utils';
 import { uuid } from '../utils';
 
+const { QUESTION } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
@@ -367,4 +369,31 @@ export function generateCollectedVariables(
   }
 
   return generatedCollectedVariables;
+}
+
+/**
+ * Used to correctly load a questionnaire by pairing collected variables and
+ * questions on init.
+ */
+export function getCollectedVariablesByQuestion(
+  components = {},
+  collectedVariables = {},
+) {
+  return Object.keys(components)
+    .filter((key) => components[key].type === QUESTION)
+    .filter((key) => components[key].collectedVariables.length > 0)
+    .reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]: components[key].collectedVariables.reduce(
+          (accInner, keyInner) => {
+            return {
+              ...accInner,
+              [keyInner]: { ...collectedVariables[keyInner] },
+            };
+          },
+          {},
+        ),
+      };
+    }, {});
 }

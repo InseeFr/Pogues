@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -5,30 +7,60 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Clock } from 'iconoir-react';
 
 import type { Version } from '@/models/versions';
+import Dictionary from '@/utils/dictionary/dictionary';
+import { getEnvVar } from '@/utils/env';
+import ConfirmInline from '@/widgets/inlineConfirm';
 
 dayjs.locale('fr');
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 
 interface VersionProps {
+  isQuestionnaireModified?: boolean;
   version: Version;
-  token: string;
+  onLoad: () => void;
 }
 
-export default function VersionDetails({ version }: Readonly<VersionProps>) {
+export default function VersionDetails({
+  isQuestionnaireModified = false,
+  version,
+  onLoad,
+}: Readonly<VersionProps>) {
+  const [confirmLoad, setConfirmLoad] = useState<boolean>(false);
+
   const { author, timestamp } = version;
+
   return (
-    <div className="grid grid-cols-[auto_1fr] gap-x-4">
+    <>
       <div className="inline-flex gap-3 items-center">
-        <Clock height={18} />
+        <Clock height={18} width={18} />
         <span>{dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss')}</span>
       </div>
       <div className="first-letter:uppercase text-slate-400">
         <span className="italic" title={dayjs(timestamp).format('LLLL')}>
           {dayjs(timestamp).fromNow()},
         </span>{' '}
-        par <span>{author}</span>
+        {Dictionary.by}{' '}
+        <a href={`${getEnvVar('TROMBI_URL')}/${author}`} target="_blank">
+          {author}
+        </a>
       </div>
-    </div>
+      <div className="inline-flex gap-3 items-center">
+        <button className="btn-white" onClick={() => setConfirmLoad(true)}>
+          {Dictionary.load}
+        </button>
+        {confirmLoad ? (
+          <ConfirmInline
+            onConfirm={onLoad}
+            onCancel={() => setConfirmLoad(false)}
+            warningLabel={
+              isQuestionnaireModified
+                ? `${Dictionary.modificationsNotSaved}`
+                : undefined
+            }
+          />
+        ) : null}
+      </div>
+    </>
   );
 }

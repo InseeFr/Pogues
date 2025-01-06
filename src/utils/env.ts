@@ -15,11 +15,12 @@ type EnvKeys =
   | 'LOG_LEVEL'
   | 'OIDC_AUTHORITY'
   | 'OIDC_CLIENT_ID'
+  | 'TROMBI_URL'
   | 'PUBLIC_ENEMY_URL';
 
 /** Retrieve env var from custom window variable or from VITE otherwise. */
 export function getEnvVar(key: EnvKeys): string | undefined {
   const windowVar = window?._env_?.[key];
   if (windowVar) return windowVar;
-  return import.meta.env[`VITE_${key}`] as string;
+  return import.meta.env[`VITE_${key}`];
 }

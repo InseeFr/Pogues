@@ -13,35 +13,8 @@ import {
   loadExternalQuestionnairesIfNeeded,
 } from '../../../actions/metadata';
 import { loadQuestionnaire } from '../../../actions/questionnaire';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { getCollectedVariablesByQuestion } from '../../../utils/variables/collected-variables-utils';
 import PageQuestionnaire from '../components/page-questionnaire';
-
-const { QUESTION } = COMPONENT_TYPE;
-
-// Utils
-
-function getCollectedVariablesByQuestionnaire(
-  components = {},
-  collectedVariables = {},
-) {
-  return Object.keys(components)
-    .filter((key) => components[key].type === QUESTION)
-    .filter((key) => components[key].collectedVariables.length > 0)
-    .reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]: components[key].collectedVariables.reduce(
-          (accInner, keyInner) => {
-            return {
-              ...accInner,
-              [keyInner]: { ...collectedVariables[keyInner] },
-            };
-          },
-          {},
-        ),
-      };
-    }, {});
-}
 
 // Prop types and default props
 
@@ -73,7 +46,7 @@ const mapStateToProps = (
     codeLists: state.codeListByQuestionnaire[id],
     calculatedVariables: state.calculatedVariableByQuestionnaire[id],
     externalVariables: state.externalVariableByQuestionnaire[id],
-    collectedVariablesByQuestion: getCollectedVariablesByQuestionnaire(
+    collectedVariablesByQuestion: getCollectedVariablesByQuestion(
       state.componentByQuestionnaire[id],
       state.collectedVariableByQuestionnaire[id],
     ),
