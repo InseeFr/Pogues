@@ -8,6 +8,7 @@ import { Clock } from 'iconoir-react';
 
 import type { Version } from '@/models/versions';
 import Dictionary from '@/utils/dictionary/dictionary';
+import { getEnvVar } from '@/utils/env';
 import ConfirmInline from '@/widgets/inlineConfirm';
 
 dayjs.locale('fr');
@@ -39,8 +40,8 @@ export default function VersionDetails({
         <span className="italic" title={dayjs(timestamp).format('LLLL')}>
           {dayjs(timestamp).fromNow()},
         </span>{' '}
-        par{' '}
-        <a href={`https://trombi.insee.fr/${author}`} target="_blank">
+        {Dictionary.by}{' '}
+        <a href={`${getEnvVar('TROMBI_URL')}/${author}`} target="_blank">
           {author}
         </a>
       </div>

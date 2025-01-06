@@ -1093,6 +1093,10 @@ const dictionary: Dictionary = {
     fr: 'Obligatoire',
     en: 'Mandatory',
   },
+  by: {
+    fr: 'par',
+    en: 'by',
+  },
   durationformat1: {
     fr: 'heures/minutes',
     en: 'hours/minutes',
