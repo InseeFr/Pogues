@@ -1,10 +1,10 @@
 import { createMockReactOidc } from 'oidc-spa/mock/react';
 import { createReactOidc } from 'oidc-spa/react';
 
-import { getEnvVar } from '../env';
+import { getEnvVar } from '@/utils/env';
 
-const authority = getEnvVar('OIDC_AUTHORITY');
-const client_id = getEnvVar('OIDC_CLIENT_ID');
+const authority = getEnvVar('OIDC_AUTHORITY') ?? '';
+const client_id = getEnvVar('OIDC_CLIENT_ID') ?? '';
 const authType = getEnvVar('AUTH_TYPE');
 
 export const { OidcProvider, useOidc } =
@@ -12,6 +12,7 @@ export const { OidcProvider, useOidc } =
     ? createReactOidc({
         clientId: client_id,
         issuerUri: authority,
+        publicUrl: import.meta.env.BASE_URL,
       })
     : createMockReactOidc({
         isUserInitiallyLoggedIn: true,

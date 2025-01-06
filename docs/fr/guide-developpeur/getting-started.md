@@ -15,8 +15,6 @@ Vous serez uniquement en mesure de créer et d'éditer un questionnaire localeme
 
 Pour produire la version de production, lancez la commande `yarn build`. Vous pouvez désormais servir le contenu du dossier `dist` avec le serveur web de votre choix.
 
-Remarquez que vous aurez vraisemblablement besoin dans un premier temps de mettre à jour le [fichier de configuration](https://github.com/InseeFr/Pogues/blob/main/public/configuration.json) pour pointer vers la bonne URL de l'API qui sera utilisée par Pogues.
-
 ## Débuter avec JavaScript et Node.js
 
 Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node](https://nodejs.org/en/download/).

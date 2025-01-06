@@ -2,23 +2,6 @@ import getNomenclaturesContent from '../utils/codes-lists/__mocks__/get-nomencla
 import { getUrlFromCriterias } from '../utils/utils';
 import { getBaseURI } from './utils';
 
-/**
- * Constructs a URL with the given base URL, path, reference, and optional context.
- *
- * @param {string} baseUrl - Backend baseUrl.
- * @param {string} path - The specific path of the endpoint.
- * @param {boolean} ref - Indicates if the questionnaire contains a reference to another questionnaire.
- * @param {string} [context] - The optional context of the visualization (HOUSEHOLD or BUSINESS).
- * @returns {string} - The constructed URL with the provided parameters.
- */
-const buildUrl = (baseUrl, path, ref, context) => {
-  let url = `${baseUrl}/${path}?references=${ref}`;
-  if (context) {
-    url += `&context=${context}`;
-  }
-  return url;
-};
-
 const pathInit = 'init';
 const pathQuestionnaireList = 'persistence/questionnaires';
 const pathQuestionnaireListSearch = 'persistence/questionnaires/search/meta';
@@ -27,7 +10,6 @@ const pathSearch = 'search';
 const pathSeriesList = 'search/series';
 const pathOperationsList = 'search/operations';
 const pathMetadata = 'meta-data';
-const pathVisualisation = 'transform/visualize';
 
 /**
  * Mutualised getter
@@ -41,122 +23,6 @@ const mutualizedGet = async (address, token) => {
     headers: getHeaders({ Accept: 'application/json' }, token),
   }).then((res) => res.json());
 };
-
-/**
- * This method will call the endpoint of visualization
- * and render an url or a document
- * depending on the type of visualization called
- * @param {*} type : the type of visualisation called (cf. visualiseType underneath)
- * @param {*} qr : the questionnaire to visualize
- * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
- * @param {*} token : the token
- */
-export const getVisualization = async (type, qr, ref, token) => {
-  const visualiseType = {
-    pdf: { response: 'document', path: `-pdf` },
-    spec: { response: 'document', path: `-spec` },
-    ddi: { response: 'document', path: `-ddi` },
-    html: {
-      response: 'url',
-      path: `/${qr.DataCollection[0].id}/${qr.Name}`,
-    },
-    'web-household': {
-      response: 'url',
-      path: `-stromae-v3/${qr.Name}`,
-      context: 'HOUSEHOLD',
-    },
-    'web-business': {
-      response: 'url',
-      path: `-stromae-v3/${qr.Name}`,
-      context: 'BUSINESS',
-    },
-    'queen-capi': { response: 'url', path: `-queen/${qr.Name}` },
-    'queen-cati': { response: 'url', path: `-queen-telephone/${qr.Name}` },
-  };
-
-  if (visualiseType[type].response === 'document') {
-    return postVisualization(visualiseType[type].path, qr, ref, token).then(
-      openDocument,
-    );
-  }
-  if (visualiseType[type].response === 'url') {
-    return postVisualization(
-      visualiseType[type].path,
-      qr,
-      ref,
-      token,
-      visualiseType[type].context ? visualiseType[type].context : null,
-    )
-      .then((response) => response.text())
-      .then((url) => {
-        const a = document.createElement('a');
-        a.href = url;
-        a.setAttribute('target', '_blank');
-        document.body.appendChild(a);
-        a.click();
-      });
-  }
-  return null;
-};
-
-/**
- * mutualised call of the visualization endpoints
- * @param {*} path : the personalized part of the endpoint address
- * @param {*} qr : the questionnaire to visualize
- * @param {*} ref : a boolean that indicates if the questionnaire contains a reference to another questionnaire
- * @param {*} token : the token
- * @param {*} context : the context of the visualization (optional, houseold or business)
- * @returns a data to interpret
- */
-const postVisualization = async (path, qr, ref, token, context = null) => {
-  const b = await getBaseURI();
-  const url = buildUrl(b, pathVisualisation + path, ref, context);
-  return fetch(url, {
-    method: 'POST',
-    headers: getHeaders({ 'Content-Type': 'application/json' }, token),
-    body: JSON.stringify(qr),
-  }).then(async (response) => {
-    if (response.ok) {
-      return response;
-    }
-    if (response.status === 500) {
-      const { message } = await response.json();
-      throw new Error(message);
-    }
-    throw new Error('The error did not directly come from Eno');
-  });
-};
-
-/**
- * This method will emulate the download of file, received from a POST request.
- * We will dynamically create a A element linked to the downloaded content, and
- * will click on it programmatically.
- * @param {*} data Binary content sent by the server
- */
-function openDocument(data) {
-  let filename = '';
-  const disposition = data.headers.get('Content-Disposition');
-  if (disposition?.indexOf('attachment') !== -1) {
-    const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-    const matches = filenameRegex.exec(disposition);
-    if (matches != null && matches[1])
-      filename = matches[1].replace(/['"]/g, '');
-  }
-  data
-    .blob()
-    .then((blob) => (window.URL || window.webkitURL).createObjectURL(blob))
-    .then((downloadUrl) => {
-      if (filename) {
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-      } else {
-        window.location = downloadUrl;
-      }
-    });
-}
 
 /**
  * This method adds the OIDC token to the headers of the request

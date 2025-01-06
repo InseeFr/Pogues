@@ -1,7 +1,6 @@
 import { getEnvVar } from '../env';
 
 export const buildOidcConfiguration = (baseConfig) => {
-  if (getEnvVar('INSEE')) return baseConfig;
   const authority = getEnvVar('OIDC_AUTHORITY');
   const client_id = getEnvVar('OIDC_CLIENT_ID');
   const { origin } = window.location;
