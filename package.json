@@ -30,8 +30,9 @@
     }
   ],
   "scripts": {
-    "start": "vite",
+    "start": "vite --port 5145",
     "build": "npm run generate-entrypoint && vite build",
+    "preview": "vite preview --port 5145 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
@@ -87,6 +88,7 @@
     "@babel/eslint-parser": "^7.25.9",
     "@babel/plugin-syntax-jsx": "^7.25.9",
     "@eslint/js": "^9.15.0",
+    "@module-federation/vite": "^1.2.1",
     "@testing-library/dom": "^10.2.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.0",
