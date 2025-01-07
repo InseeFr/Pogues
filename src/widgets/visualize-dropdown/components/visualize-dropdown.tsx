@@ -101,12 +101,12 @@ export default function VisualizeDropdown({
 
   return (
     <div
-      className={`btn-group ${top ? ' dropup flex-column-reverse' : ' flex-column'} ${dropdownOpen ? ' open' : ''}`}
+      className={`btn-group${top ? ' dropup flex-column-reverse' : ' flex-column'}${dropdownOpen ? ' open' : ''}`}
       ref={wrapperRef}
     >
       <button
         id="visualize"
-        className={`btn dropdown-toggle btn-yellow ${disabled ? ' disabled' : ''}`}
+        className={`btn dropdown-toggle btn-yellow${disabled ? ' disabled' : ''}`}
         disabled={disabled}
         data-toggle="dropdown"
         aria-haspopup="true"

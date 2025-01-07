@@ -1,8 +1,8 @@
-import React from 'react';
-
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
+
+import { VisualizationKind } from '@/api/visualize';
 
 import VisualizeDropdown from './components/visualize-dropdown';
 
@@ -93,7 +93,7 @@ describe('Visualize Dropdown Component: ', () => {
     await userEvent.click(firstAnchor);
 
     expect(props.visualizeActiveQuestionnaire).toHaveBeenCalledWith(
-      'html',
+      VisualizationKind.HTML,
       props.componentId,
       props.token,
     );
