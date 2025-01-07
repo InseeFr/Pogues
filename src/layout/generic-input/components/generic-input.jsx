@@ -10,6 +10,7 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { domSelectorForModal } from '../../app/components/app';
 import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
 
@@ -154,6 +155,7 @@ function GenericInput(props) {
           if (isActive) {
             return (
               <ReactModal
+                parentSelector={domSelectorForModal}
                 isOpen
                 ariaHideApp={false}
                 shouldCloseOnOverlayClick={false}
@@ -269,6 +271,7 @@ function GenericInput(props) {
         />
       </div>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showNewComponentModal}
@@ -301,6 +304,7 @@ function GenericInput(props) {
         </div>
       </ReactModal>
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={showNewUnsavedModal}
         ariaHideApp={false}
         className="custom-modal"
@@ -311,6 +315,7 @@ function GenericInput(props) {
         </button>
       </ReactModal>
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={showVisualizationErrorPopup !== ''}
         ariaHideApp={false}
         className="custom-modal"
@@ -322,6 +327,7 @@ function GenericInput(props) {
         </button>
       </ReactModal>
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={showNewLoopModal}
         ariaHideApp={false}
         className="custom-modal"

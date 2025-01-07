@@ -10,6 +10,7 @@ import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getEnvVar } from '../../../utils/env';
+import { domSelectorForModal } from '../../app/components/app';
 import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
@@ -224,6 +225,7 @@ const QuestionnaireListComponents = (props) => {
           {/* Questionnaire edit */}
 
           <ReactModal
+            parentSelector={domSelectorForModal}
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showQuestionnaireModal}
@@ -253,6 +255,7 @@ const QuestionnaireListComponents = (props) => {
           {/* Versions */}
 
           <ReactModal
+            parentSelector={domSelectorForModal}
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showVersionsModal}
@@ -281,6 +284,7 @@ const QuestionnaireListComponents = (props) => {
           {/* Component edit */}
 
           <ReactModal
+            parentSelector={domSelectorForModal}
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showComponentModal}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import Dictionary from '../../utils/dictionary/dictionary';
+import { domSelectorForModal } from '../app/components/app';
 
 const ConfirmDialog = (props) => {
   const cancelButtonRef = useRef(null);
@@ -37,6 +38,7 @@ const ConfirmDialog = (props) => {
 
   return (
     <ReactModal
+      parentSelector={domSelectorForModal}
       ariaHideApp={false}
       shouldCloseOnOverlayClick={false}
       isOpen={showConfirmModal}

@@ -24,6 +24,7 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 import { getIntegrityErrors } from '../../../utils/integrity/utils';
 import { useOidc } from '../../../utils/oidc';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
+import { domSelectorForModal } from '../../app/components/app';
 import { ComponentEdit } from '../../component-edit';
 import DropZone from './drop-zone/drop-zone';
 
@@ -261,6 +262,7 @@ const QuestionnaireComponent = (props) => {
           {children}
         </div>
         <ReactModal
+          parentSelector={domSelectorForModal}
           ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
           isOpen={showComponentModal}

@@ -10,6 +10,8 @@ import Header from '../../header/header';
 
 const { COMPONENT_ID } = APP;
 
+export const domSelectorForModal = () => document.getElementById(COMPONENT_ID);
+
 const App = ({ children, loadUnitsIfNeeded }) => {
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;

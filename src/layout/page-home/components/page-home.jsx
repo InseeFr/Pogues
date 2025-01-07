@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
+import { domSelectorForModal } from '../../app/components/app';
 import { QuestionnaireList } from '../../questionnaire-list';
 import { QuestionnaireNew } from '../../questionnaire-new';
 
@@ -74,6 +75,7 @@ const PageHome = ({ history, deleteAppState }) => {
       {/* Create questionnaire modal */}
 
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showModal}

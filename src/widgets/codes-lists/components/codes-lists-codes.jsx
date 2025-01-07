@@ -7,6 +7,7 @@ import { formValueSelector } from 'redux-form';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
+import { domSelectorForModal } from '../../../layout/app/components/app';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import {
   fieldArrayFields,
@@ -334,6 +335,7 @@ function CodesListsCodes(props) {
         {showInputCode && !editing && renderInputCode()}
       </div>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showUploadCode}

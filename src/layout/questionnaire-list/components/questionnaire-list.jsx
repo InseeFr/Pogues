@@ -10,6 +10,7 @@ import { getWeight } from '../../../utils/component/generic-input-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import Dropdown from '../../../widgets/dropdown';
+import { domSelectorForModal } from '../../app/components/app';
 import Loader from '../../loader';
 import QuestionnaireListItem from './questionnaire-list-item';
 
@@ -249,6 +250,7 @@ const QuestionnaireList = (props) => {
         )}
       </div>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showPopup}

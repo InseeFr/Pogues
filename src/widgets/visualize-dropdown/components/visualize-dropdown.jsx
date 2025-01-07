@@ -5,6 +5,7 @@ import classSet from 'react-classset';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 
+import { domSelectorForModal } from '../../../layout/app/components/app';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { hasDuplicateVariables } from '../../../utils/variables/variables-utils';
 
@@ -150,6 +151,7 @@ function VisualizeDropdown({
         </ul>
       )}
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={
           allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables
         }

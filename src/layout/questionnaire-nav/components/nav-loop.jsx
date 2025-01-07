@@ -5,6 +5,7 @@ import ReactModal from 'react-modal';
 
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { domSelectorForModal } from '../../app/components/app';
 import { ComponentEdit } from '../../component-edit';
 
 const { LOOP } = COMPONENT_TYPE;
@@ -57,6 +58,7 @@ function NavLoop({
     <div>
       <ul>{options}</ul>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showComponentModal}
