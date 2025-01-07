@@ -1,3 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+#pogues-legacy {
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+}
