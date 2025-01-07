@@ -188,5 +188,5 @@ export const ERRORS_INTEGRITY = {
 };
 
 export const APP = {
-  COMPONENT_ID: 'app',
+  COMPONENT_ID: 'pogues-legacy',
 };
