@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
 
+import { APP } from '../../constants/dom-constants';
 import VisualizeDropdown from './components/visualize-dropdown';
 
 describe('Visualize Dropdown Component: ', () => {
@@ -16,7 +17,11 @@ describe('Visualize Dropdown Component: ', () => {
       componentId: 'component-id',
     };
 
-    const { container } = render(<VisualizeDropdown {...props} />);
+    const { container } = render(
+      <div id={APP.COMPONENT_ID}>
+        <VisualizeDropdown {...props} />
+      </div>,
+    );
 
     expect(container).toMatchSnapshot();
   });
@@ -30,7 +35,11 @@ describe('Visualize Dropdown Component: ', () => {
       componentId: 'component-id',
     };
 
-    const { container } = render(<VisualizeDropdown {...props} />);
+    const { container } = render(
+      <div id={APP.COMPONENT_ID}>
+        <VisualizeDropdown {...props} />
+      </div>,
+    );
 
     expect(container).toMatchSnapshot();
   });
@@ -44,7 +53,11 @@ describe('Visualize Dropdown Component: ', () => {
       componentId: 'component-id',
     };
 
-    const { container } = render(<VisualizeDropdown {...props} />);
+    const { container } = render(
+      <div id={APP.COMPONENT_ID}>
+        <VisualizeDropdown {...props} />
+      </div>,
+    );
 
     expect(container).toMatchSnapshot();
   });
@@ -58,7 +71,11 @@ describe('Visualize Dropdown Component: ', () => {
       componentId: 'component-id',
     };
 
-    render(<VisualizeDropdown {...props} />);
+    render(
+      <div id={APP.COMPONENT_ID}>
+        <VisualizeDropdown {...props} />
+      </div>,
+    );
 
     // screen.debug();
 
@@ -85,7 +102,11 @@ describe('Visualize Dropdown Component: ', () => {
       top: false,
       componentId: 'component-id',
     };
-    render(<VisualizeDropdown {...props} />);
+    render(
+      <div id={APP.COMPONENT_ID}>
+        <VisualizeDropdown {...props} />
+      </div>,
+    );
 
     const allAnchors = screen.getAllByRole('link');
     const firstAnchor = allAnchors[0];
