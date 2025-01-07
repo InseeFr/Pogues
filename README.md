@@ -12,3 +12,34 @@ Pogues is a questionnaire design and test tool.
 ---
 
 The developer documentation can be found in the [doc](https://github.com/InseeFr/Pogues/tree/master/docs) folder and [browsed online](https://inseefr.github.io/Bowie/pogues).
+
+## Developer
+
+There are currently two versions in this depot:
+
+- the **legacy** app, code base is located at root
+- the **next** app, code base is located at [next](./next/) folder.
+
+### How to dev ?
+
+- To develop the legacy version, simply continue developing in the code base.
+- To develop the next version, simply work in the next folder, as for a normal application.
+
+But if you want to see both at the same time, you'll need to build and serve both applications:
+
+1. Build and serve **legacy** app
+
+```bash
+yarn
+yarn build
+yarn preview
+```
+
+2. In another terminal : Build and serve **next** app
+
+```bash
+cd next
+yarn
+yarn build
+yarn preview
+```
