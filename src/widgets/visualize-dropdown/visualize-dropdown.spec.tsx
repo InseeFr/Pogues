@@ -60,8 +60,6 @@ describe('Visualize Dropdown Component: ', () => {
 
     render(<VisualizeDropdown {...props} />);
 
-    // screen.debug();
-
     const dropdownButton = screen.queryByRole('button', {
       name: /visualise/i,
     });

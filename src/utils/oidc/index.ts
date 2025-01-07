@@ -18,9 +18,9 @@ export const { OidcProvider, useOidc } =
         isUserInitiallyLoggedIn: true,
         mockedTokens: {
           decodedIdToken: {
-            preferred_username: getEnvVar('DEFAULT_USER_ID') || 'FAKEID',
-            name: getEnvVar('DEFAULT_USER_NAME') || 'Fake user',
-            timbre: getEnvVar('DEFAULT_USER_STAMP') || 'FAKEPERMISSION',
+            preferred_username: getEnvVar('DEFAULT_USER_ID') ?? 'FAKEID',
+            name: getEnvVar('DEFAULT_USER_NAME') ?? 'Fake user',
+            timbre: getEnvVar('DEFAULT_USER_STAMP') ?? 'FAKEPERMISSION',
           },
         },
       });
