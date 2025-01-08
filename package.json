@@ -74,7 +74,7 @@
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^4.0.0",
     "react-modal": "3.16.1",
-    "react-redux": "7.2.9",
+    "react-redux": "9.2.0",
     "react-router-dom": "^5.0.1",
     "react-router-navigation-prompt": "^1.8.10",
     "redux": "4.2.1",
