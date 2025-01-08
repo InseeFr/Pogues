@@ -5,7 +5,6 @@ declare global {
 }
 
 type EnvKeys =
-  | 'INSEE'
   | 'ACTIVE_NAMESPACES'
   | 'API_URL'
   | 'AUTH_TYPE'

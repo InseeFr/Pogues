@@ -1,9 +1,6 @@
-import {
-  getContextFromCampaign,
-  getVisualization,
-  putQuestionnaire,
-} from '../api/remote-api';
+import { getContextFromCampaign, putQuestionnaire } from '../api/remote-api';
 import { getVersion } from '../api/versions';
+import { getVisualization } from '../api/visualize';
 import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';

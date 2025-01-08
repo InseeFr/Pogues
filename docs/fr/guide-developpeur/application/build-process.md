@@ -27,7 +27,6 @@ Le projet fournit les scripts suivants afin de gérer au mieux le cycle du vie.
 - **test** : Exécute les tests unitaires
 - **testw** : Exécute les tests unitaires en mode watch
 - **start** : Lance l'application localement qui pointe vers l'API mockée
-- **start-insee** : Lance l'application localement en utilisant l'API définit dans [configuration.json](https://github.com/InseeFr/Pogues/blob/main/public/configuration.json)
 - **dev:server** : Lance les scripts `npm run start` et `npm run server`
 - **server** : Lance le fake serveur NodeJS
 - **build** : Génére le livrable de l'application, il est utilisé notamment pour la génération de l'image docker
