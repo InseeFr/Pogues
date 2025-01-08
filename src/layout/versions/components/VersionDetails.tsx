@@ -34,7 +34,7 @@ export default function VersionDetails({
     <>
       <div className="inline-flex gap-3 items-center">
         <Clock height={18} width={18} />
-        <span>{dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss')}</span>
+        <span>{dayjs(timestamp).format('DD-MM-YYYY HH:mm')}</span>
       </div>
       <div className="first-letter:uppercase text-slate-400">
         <span className="italic" title={dayjs(timestamp).format('LLLL')}>
@@ -46,19 +46,21 @@ export default function VersionDetails({
         </a>
       </div>
       <div className="inline-flex gap-3 items-center">
-        <button className="btn-white" onClick={() => setConfirmLoad(true)}>
+        <button className="btn-yellow" onClick={() => setConfirmLoad(true)}>
           {Dictionary.load}
         </button>
         {confirmLoad ? (
-          <ConfirmInline
-            onConfirm={onLoad}
-            onCancel={() => setConfirmLoad(false)}
-            warningLabel={
-              isQuestionnaireModified
-                ? `${Dictionary.modificationsNotSaved}`
-                : undefined
-            }
-          />
+          <div className="ml-3">
+            <ConfirmInline
+              onConfirm={onLoad}
+              onCancel={() => setConfirmLoad(false)}
+              warningLabel={
+                isQuestionnaireModified
+                  ? `${Dictionary.modificationsNotSaved}`
+                  : undefined
+              }
+            />
+          </div>
         ) : null}
       </div>
     </>
