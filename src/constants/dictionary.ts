@@ -1697,6 +1697,18 @@ const dictionary: Dictionary = {
     fr: 'Ouvrir',
     en: 'Open',
   },
+  versionsInfo: {
+    fr: 'Pour afficher une précédente version, choisissez "Charger" puis valider. Cette version peut ensuite être modifiée et sauvegardée comme une nouvelle version.',
+    en: 'To load a previous version, click "Load" and validate. That version can then be edited and saved as a new one.',
+  },
+  versionsLimitInfo: {
+    fr: 'Attention, seulement les 10 dernières versions de la journée la plus récente sont conservées, et la dernière des journées précédentes.',
+    en: 'Caution: only the latest 10 versions of the most recent day are stored, and the last one for the days before.',
+  },
+  documentationInfoLink: {
+    fr: 'Pour plus de précision, se référer à la documentation.',
+    en: 'For more information check the documentation.',
+  },
 };
 
 // Dynamic translations

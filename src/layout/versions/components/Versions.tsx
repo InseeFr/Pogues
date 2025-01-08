@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { getVersions } from '@/api/versions';
 import type { Version } from '@/models/versions';
+import Dictionary from '@/utils/dictionary/dictionary';
 
 import VersionDetails from './VersionDetails';
 
@@ -42,18 +43,33 @@ export default function Versions({
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <div className="grid grid-cols-[auto_auto_1fr] gap-x-4 space-y-2 items-center">
-      {versions.map((version) => (
-        <VersionDetails
-          key={version.id}
-          isQuestionnaireModified={isQuestionnaireModified}
-          onLoad={() => {
-            loadQuestionnaireVersion(version.id, token);
-            onSuccess();
-          }}
-          version={version}
-        />
-      ))}
-    </div>
+    <>
+      <div className="text-gray-400 mb-3">
+        <p>{Dictionary.versionsInfo}</p>
+        <p>{Dictionary.versionsLimitInfo}</p>
+        <p>
+          <a
+            className="text-lg"
+            target="_blank"
+            href="https://inseefr.github.io/Bowie/1._Pogues/Le%20guide/28-versionning/"
+          >
+            {Dictionary.documentationInfoLink}
+          </a>
+        </p>
+      </div>
+      <div className="grid grid-cols-[auto_auto_1fr] gap-x-4 space-y-2 items-center">
+        {versions.map((version) => (
+          <VersionDetails
+            key={version.id}
+            isQuestionnaireModified={isQuestionnaireModified}
+            onLoad={() => {
+              loadQuestionnaireVersion(version.id, token);
+              onSuccess();
+            }}
+            version={version}
+          />
+        ))}
+      </div>
+    </>
   );
 }
