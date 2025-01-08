@@ -40,9 +40,14 @@ export function nestedStoreToFlat(
   return storeToArray(joinedItems);
 }
 
-/** Generate a random uuid of 36 characters. */
+/**
+ * Generate a uid of 8 characters from current date and random number
+ * in base 36 (e.g. "m5noru0h").
+ *
+ * We cannot use a true uuid for now because of back-end limitations.
+ */
 export function uuid() {
-  return self.crypto.randomUUID();
+  return (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 }
 
 /** A label is made of 10 uppercased alphanumeric characters. */
