@@ -350,11 +350,15 @@ const dictionary: Dictionary = {
     en: 'Boolean',
     fr: 'Booléen',
   },
-  INSTRUCTION: {
-    en: 'Instruction',
-    fr: 'Consigne',
+  declarationHelp: {
+    en: 'Help for the respondent',
+    fr: "Aide à l'enquêté",
   },
-  CODECARD: {
+  declarationInstruction: {
+    en: 'Questioner instruction',
+    fr: 'Instruction enquêteur',
+  },
+  declarationCodeCard: {
     en: 'Code-Card',
     fr: 'Carte-Code',
   },
@@ -1635,11 +1639,11 @@ const dictionary: Dictionary = {
   },
   VISUALIZE_QUEEN_CAPI: {
     fr: 'Enquêteur face à face',
-    en: 'Interviewer face to face',
+    en: 'Questioner face to face',
   },
   VISUALIZE_QUEEN_CATI: {
     fr: 'Enquêteur téléphone',
-    en: 'Interviewer phone',
+    en: 'Questioner phone',
   },
   VISUALIZE_PDF: {
     fr: 'Papier',

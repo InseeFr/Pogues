@@ -11,6 +11,55 @@ export const COMPONENT_TYPE = {
   EXTERNAL_ELEMENT: 'EXTERNAL_ELEMENT',
 };
 
+/** Additional informations a survey designer can provide to the respondent or questioner. */
+export enum DECLARATION_TYPES {
+  /** Help for the respondent. */
+  HELP = 'HELP',
+  /** Instruction for the questioner. */
+  INSTRUCTION = 'INSTRUCTION',
+  /** Questioner must show a code card to the respondent. */
+  CODE_CARD = 'CODECARD',
+}
+
+/** Specify which gathering mode will be used to conduct the survey (e.g. paper, web...). */
+enum GATHERING_MODES {
+  /** Face to face. */
+  CAPI = 'CAPI',
+  /** Phone. */
+  CATI = 'CATI',
+  /** Web. */
+  CAWI = 'CAWI',
+  /** Paper. */
+  PAPI = 'PAPI',
+}
+
+/** Every gathering mode options by gathering mode */
+const GATHERING_MODES_OPTIONS: {
+  [key in GATHERING_MODES]: { value: string; label: string };
+} = {
+  [GATHERING_MODES.CAPI]: { value: 'CAPI', label: 'CAPI' },
+  [GATHERING_MODES.CATI]: { value: 'CATI', label: 'CATI' },
+  [GATHERING_MODES.CAWI]: { value: 'CAWI', label: 'CAWI' },
+  [GATHERING_MODES.PAPI]: { value: 'PAPI', label: 'PAPI' },
+};
+
+/** Available gathering modes for declarations */
+export const GATHERING_MODES_OPTIONS_BY_DECLARATION = {
+  [DECLARATION_TYPES.HELP]: [
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.CAPI],
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.CATI],
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.CAWI],
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.PAPI],
+  ],
+  [DECLARATION_TYPES.INSTRUCTION]: [
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.CAPI],
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.CATI],
+  ],
+  [DECLARATION_TYPES.CODE_CARD]: [
+    GATHERING_MODES_OPTIONS[GATHERING_MODES.CAPI],
+  ],
+};
+
 export const TargetMode = [
   { value: 'CAPI', label: 'CAPI' },
   { value: 'CATI', label: 'CATI' },
