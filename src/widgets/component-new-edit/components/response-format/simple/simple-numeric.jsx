@@ -25,6 +25,7 @@ function ResponseFormatDatatypeNumeric({
   readOnly,
   isDynamicUnit,
   setUnit,
+  enableSetUnit,
 }) {
   const handleDynamicUnitChange = () => {
     setUnit('');
@@ -59,37 +60,42 @@ function ResponseFormatDatatypeNumeric({
           label={Dictionary.decimals}
           disabled={readOnly}
         />
-        <Field
-          name="isDynamicUnit"
-          component={ListRadios}
-          label={Dictionary.dynamicUnit}
-          disabled={readOnly}
-          onChange={handleDynamicUnitChange}
-          required
-          // Convert string "true"/"false" to boolean true/false when storing in Redux form
-          parse={(value) => value === 'true'}
-          // Convert true/false/undefined to string "true"/"false" when displaying the form
-          format={(value) => (value === true ? 'true' : 'false')}
-        >
-          <GenericOption value="true">{Dictionary.yes}</GenericOption>
-          <GenericOption value="false">{Dictionary.no}</GenericOption>
-        </Field>
-        {isDynamicUnit ? (
-          <Field
-            name="unit"
-            component={RichEditorWithVariable}
-            label={Dictionary.dynamicUnitFormula}
-            disabled={readOnly}
-          />
-        ) : (
-          <SelectMetaDataContainer
-            type="units"
-            name="unit"
-            label={Dictionary.unit}
-            emptyValue={Dictionary.unitEmptySelect}
-            mapMetadataFunction={mapUnitData}
-            disabled={readOnly}
-          />
+        {enableSetUnit && (
+          <>
+            <Field
+              name="isDynamicUnit"
+              component={ListRadios}
+              label={Dictionary.dynamicUnit}
+              disabled={readOnly}
+              onChange={handleDynamicUnitChange}
+              required
+              // Convert string "true"/"false" to boolean true/false when storing in Redux form
+              parse={(value) => value === 'true'}
+              // Convert true/false/undefined to string "true"/"false" when displaying the form
+              format={(value) => (value === true ? 'true' : 'false')}
+            >
+              <GenericOption value="true">{Dictionary.yes}</GenericOption>
+              <GenericOption value="false">{Dictionary.no}</GenericOption>
+            </Field>
+
+            {isDynamicUnit ? (
+              <Field
+                name="unit"
+                component={RichEditorWithVariable}
+                label={Dictionary.dynamicUnitFormula}
+                disabled={readOnly}
+              />
+            ) : (
+              <SelectMetaDataContainer
+                type="units"
+                name="unit"
+                label={Dictionary.unit}
+                emptyValue={Dictionary.unitEmptySelect}
+                mapMetadataFunction={mapUnitData}
+                disabled={readOnly}
+              />
+            )}
+          </>
         )}
       </div>
     </FormSection>
@@ -100,6 +106,7 @@ ResponseFormatDatatypeNumeric.defaultProps = {
   name: NUMERIC,
   readOnly: false,
   required: true,
+  enableSetUnit: true,
 };
 
 // Container
