@@ -1,7 +1,7 @@
 name: Pogues docs publication
 on:
   push:
-    branches: ['main', '1.*']
+    branches: ['main', 'next']
     paths:
       - 'docs/**'
 jobs:
