@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
@@ -8,6 +9,7 @@ import { CONTROL_LIST_CHECKBOXES } from '../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
+  removeValueInList,
   toggleValueInList,
 } from '../../utils/widget-utils';
 
@@ -44,28 +46,57 @@ class ListCheckboxes extends Component {
   constructor(props) {
     super(props);
 
+    const values = props.input.value;
     this.state = {
-      listCheckValues: [],
+      listCheckValues:
+        values !== '' && values.length > 0 ? values.split(',') : [],
+      options: getValuesFromGenericOptions(props.children),
     };
 
     this.toggleCheck = this.toggleCheck.bind(this);
   }
 
-  UNSAFE_componentWillMount() {
-    const values = this.props.input.value;
-    this.setState({
-      listCheckValues:
-        values !== '' && values.length > 0 ? values.split(',') : [],
-    });
-  }
-
-  UNSAFE_componentWillUpdate(nextProps) {
-    const values = nextProps.input.value;
-    if (this.props.input.value !== values) {
+  componentDidUpdate(prevProps, prevState) {
+    const newValues = this.props.input.value;
+    if (prevProps.input.value !== newValues) {
+      // update the [] value into the string one we want to send to the form
       this.setState({
         listCheckValues:
-          values !== '' && values.length > 0 ? values.split(',') : [],
+          newValues !== '' && newValues.length > 0 ? newValues.split(',') : [],
       });
+    }
+
+    const options = getValuesFromGenericOptions(this.props.children);
+    if (!isEqual(prevState.options, options)) {
+      this.setState({
+        options,
+      });
+
+      // check if the options changed and we need to untoggle a value because
+      // it does not exist anymore
+      let newValues = [...this.state.listCheckValues];
+      let hasChanged = false;
+      for (const oldOption of prevState.options) {
+        // check if this previous option is still present
+        let optionStillExist = false;
+        for (const newOption of options) {
+          if (
+            oldOption.label === newOption.label &&
+            oldOption.value === newOption.value
+          ) {
+            optionStillExist = true;
+            break;
+          }
+        }
+        if (optionStillExist) continue;
+
+        // option has been removed -> remove it from values
+        newValues = removeValueInList(newValues, oldOption.value);
+        hasChanged = true;
+      }
+      if (hasChanged) {
+        this.props.input.onChange(newValues.join());
+      }
     }
   }
 
