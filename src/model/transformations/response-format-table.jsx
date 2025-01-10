@@ -318,6 +318,7 @@ function stateToResponseState(state) {
   } else {
     const {
       mandatory,
+      allowArbitrary,
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     } = measureTypeState;
@@ -327,6 +328,7 @@ function stateToResponseState(state) {
       typeName: TEXT,
       maxLength: 1,
       pattern: '',
+      allowArbitrary,
       visHint,
     };
   }
