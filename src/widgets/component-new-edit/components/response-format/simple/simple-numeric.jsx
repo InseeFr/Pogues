@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, FormSection, change, formValueSelector } from 'redux-form';
 
@@ -19,13 +20,18 @@ function mapUnitData(unit) {
   };
 }
 
+/**
+ * Give information for a numeric variable (collected, external, or calculated variable).
+ *
+ * - disableSetUnit : allows to disable the fields concerning the measurement unit, not wanted for calculated variables
+ */
 function ResponseFormatDatatypeNumeric({
-  name,
-  required,
-  readOnly,
+  name = NUMERIC,
+  required = true,
+  readOnly = false,
   isDynamicUnit,
   setUnit,
-  enableSetUnit,
+  disableSetUnit = false,
 }) {
   const handleDynamicUnitChange = () => {
     setUnit('');
@@ -60,7 +66,7 @@ function ResponseFormatDatatypeNumeric({
           label={Dictionary.decimals}
           disabled={readOnly}
         />
-        {enableSetUnit && (
+        {!disableSetUnit && (
           <>
             <Field
               name="isDynamicUnit"
@@ -102,11 +108,13 @@ function ResponseFormatDatatypeNumeric({
   );
 }
 
-ResponseFormatDatatypeNumeric.defaultProps = {
-  name: NUMERIC,
-  readOnly: false,
-  required: true,
-  enableSetUnit: true,
+ResponseFormatDatatypeNumeric.propTypes = {
+  name: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  isDynamicUnit: PropTypes.bool,
+  setUnit: PropTypes.func,
+  disableSetUnit: PropTypes.bool,
 };
 
 // Container

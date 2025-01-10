@@ -107,7 +107,7 @@ const CalculatedVariables = ({
             <ResponseFormatDatatypeNumeric
               selectorPath={selectorPath}
               required
-              enableSetUnit={false}
+              disableSetUnit={true}
             />
           </View>
           <View key={BOOLEAN} value={BOOLEAN} label={Dictionary.BOOLEAN} />
