@@ -2,7 +2,7 @@ name: Pogues Test CI
 
 on:
   push:
-    branches: ['main', '1.*']
+    branches: ['main', 'next']
   pull_request:
     types: [opened, synchronize, reopened]
 

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { getStampsList } from '../../../api/remote-api';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
 import { formatDate, getState } from '../../../utils/component/component-utils';
 import { getWeight } from '../../../utils/component/generic-input-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import Dropdown from '../../../widgets/dropdown';
-import { domSelectorForModal } from '../../app/components/app';
 import Loader from '../../loader';
 import QuestionnaireListItem from './questionnaire-list-item';
 

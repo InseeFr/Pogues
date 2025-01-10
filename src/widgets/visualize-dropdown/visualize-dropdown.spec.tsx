@@ -1,8 +1,8 @@
-import React from 'react';
-
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
+
+import { VisualizationKind } from '@/api/visualize';
 
 import { APP } from '../../constants/dom-constants';
 import VisualizeDropdown from './components/visualize-dropdown';
@@ -77,21 +77,17 @@ describe('Visualize Dropdown Component: ', () => {
       </div>,
     );
 
-    // screen.debug();
-
     const dropdownButton = screen.queryByRole('button', {
       name: /visualise/i,
     });
     expect(dropdownButton).not.toBeNull();
-    expect(dropdownButton.getAttribute('aria-expanded')).toBe('false');
+    expect(dropdownButton?.getAttribute('aria-expanded')).toBe('false');
 
-    await userEvent.click(dropdownButton);
+    if (dropdownButton) await userEvent.click(dropdownButton);
+    expect(dropdownButton?.getAttribute('aria-expanded')).toBe('true');
+    if (dropdownButton) await userEvent.click(dropdownButton);
 
-    expect(dropdownButton.getAttribute('aria-expanded')).toBe('true');
-
-    await userEvent.click(dropdownButton);
-
-    expect(dropdownButton.getAttribute('aria-expanded')).toBe('false');
+    expect(dropdownButton?.getAttribute('aria-expanded')).toBe('false');
   });
 
   test('Should call the visualizeActiveQuestionnaire method and hide the dropdown', async () => {
@@ -114,7 +110,7 @@ describe('Visualize Dropdown Component: ', () => {
     await userEvent.click(firstAnchor);
 
     expect(props.visualizeActiveQuestionnaire).toHaveBeenCalledWith(
-      'html',
+      VisualizationKind.HTML,
       props.componentId,
       props.token,
     );

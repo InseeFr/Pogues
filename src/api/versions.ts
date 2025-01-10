@@ -7,7 +7,7 @@ export const getVersions = async (
   id: string,
   token: string,
 ): Promise<Version[]> => {
-  const b = await getBaseURI();
+  const b = getBaseURI();
   return fetch(`${b}/persistence/questionnaire/${id}/versions`, {
     method: 'GET',
     headers: {
@@ -22,7 +22,7 @@ export const getVersion = async (
   id: string,
   token: string,
 ): Promise<VersionWithData> => {
-  const b = await getBaseURI();
+  const b = getBaseURI();
   return fetch(`${b}/persistence/version/${id}?withData=true`, {
     method: 'GET',
     headers: {

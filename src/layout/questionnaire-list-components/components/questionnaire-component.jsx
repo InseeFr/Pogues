@@ -7,7 +7,10 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 
-import { QUESTIONNAIRE_COMPONENT } from '../../../constants/dom-constants';
+import {
+  QUESTIONNAIRE_COMPONENT,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 import {
@@ -24,7 +27,6 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 import { getIntegrityErrors } from '../../../utils/integrity/utils';
 import { useOidc } from '../../../utils/oidc';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
-import { domSelectorForModal } from '../../app/components/app';
 import { ComponentEdit } from '../../component-edit';
 import DropZone from './drop-zone/drop-zone';
 

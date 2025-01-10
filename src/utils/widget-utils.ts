@@ -47,6 +47,18 @@ export function toggleValueInList(list: string[], value: string): string[] {
   return newList;
 }
 
+/** Remove a value from an array of string */
+export function removeValueInList(list: string[], value: string): string[] {
+  const newList = [...list];
+  const valuePosition = list.indexOf(value);
+
+  if (valuePosition !== -1) {
+    newList.splice(valuePosition, 1);
+  }
+
+  return newList;
+}
+
 export function getCurrentSelectorPath(selectorPath: string = ''): string {
   return selectorPath !== '' ? `${selectorPath}.` : selectorPath;
 }

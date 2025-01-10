@@ -350,11 +350,15 @@ const dictionary: Dictionary = {
     en: 'Boolean',
     fr: 'Booléen',
   },
-  INSTRUCTION: {
-    en: 'Instruction',
-    fr: 'Consigne',
+  declarationHelp: {
+    en: 'Help for the respondent',
+    fr: "Aide à l'enquêté",
   },
-  CODECARD: {
+  declarationInstruction: {
+    en: 'Questioner instruction',
+    fr: 'Instruction enquêteur',
+  },
+  declarationCodeCard: {
     en: 'Code-Card',
     fr: 'Carte-Code',
   },
@@ -367,8 +371,8 @@ const dictionary: Dictionary = {
     fr: 'Aide',
   },
   helpUrl: {
-    en: 'https://inseefr-github-io.translate.goog/Bowie/pogues/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=fr&_x_tr_pto=wapp',
-    fr: 'https://inseefr.github.io/Bowie/pogues/',
+    en: 'https://inseefr-github-io.translate.goog/Bowie/1._Pogues/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=fr&_x_tr_pto=wapp',
+    fr: 'https://inseefr.github.io/Bowie/1._Pogues/',
   },
   WARNING: {
     en: 'Warning',
@@ -1635,11 +1639,11 @@ const dictionary: Dictionary = {
   },
   VISUALIZE_QUEEN_CAPI: {
     fr: 'Enquêteur face à face',
-    en: 'Interviewer face to face',
+    en: 'Questioner face to face',
   },
   VISUALIZE_QUEEN_CATI: {
     fr: 'Enquêteur téléphone',
-    en: 'Interviewer phone',
+    en: 'Questioner phone',
   },
   VISUALIZE_PDF: {
     fr: 'Papier',
@@ -1696,6 +1700,18 @@ const dictionary: Dictionary = {
   openQuestionnaire: {
     fr: 'Ouvrir',
     en: 'Open',
+  },
+  versionsInfo: {
+    fr: 'Pour afficher une précédente version, choisissez "Charger" puis valider. Cette version peut ensuite être modifiée et sauvegardée comme une nouvelle version.',
+    en: 'To load a previous version, click "Load" and validate. That version can then be edited and saved as a new one.',
+  },
+  versionsLimitInfo: {
+    fr: 'Attention, seulement les 10 dernières versions de la journée la plus récente sont conservées, et la dernière des journées précédentes.',
+    en: 'Caution: only the latest 10 versions of the most recent day are stored, and the last one for the days before.',
+  },
+  documentationInfoLink: {
+    fr: 'Pour plus de précision, se référer à la documentation.',
+    en: 'For more information check the documentation.',
   },
 };
 

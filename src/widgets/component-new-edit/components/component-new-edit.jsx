@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
+import {
+  WIDGET_COMPONENT_NEW_EDIT,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
-import { domSelectorForModal } from '../../../layout/app/components/app';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 import { FilterNewEdit } from './filter-new-edit';

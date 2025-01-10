@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
 
-import { GENERIC_INPUT } from '../../../constants/dom-constants';
+import {
+  GENERIC_INPUT,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
 import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
-import { domSelectorForModal } from '../../app/components/app';
 import { ComponentNew } from '../../component-new';
 import Loader from '../../loader';
 

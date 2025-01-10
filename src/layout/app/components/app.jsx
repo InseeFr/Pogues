@@ -10,7 +10,6 @@ import Header from '../../header/header';
 
 const { COMPONENT_ID } = APP;
 
-export const domSelectorForModal = () => document.getElementById(COMPONENT_ID);
 const isOnlyLegacyApp =
   new URL(import.meta.url || '').origin === window.location.origin;
 

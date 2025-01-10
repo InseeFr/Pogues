@@ -190,3 +190,6 @@ export const ERRORS_INTEGRITY = {
 export const APP = {
   COMPONENT_ID: 'pogues-legacy',
 };
+
+export const domSelectorForModal = (): HTMLElement =>
+  document.getElementById(APP.COMPONENT_ID) ?? document.body;

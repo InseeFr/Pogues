@@ -5,9 +5,11 @@ import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
-import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import {
+  WIDGET_CODES_LISTS,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
-import { domSelectorForModal } from '../../../layout/app/components/app';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import {
   fieldArrayFields,

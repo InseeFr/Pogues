@@ -20,21 +20,21 @@ export default function ConfirmInline({
   warningLabel = '',
 }: Readonly<ConfirmInlineProps>) {
   return (
-    <span className="text-lg">
+    <div>
       <span className="align-middle">{Dictionary.confirmQuestionMessage}</span>{' '}
       <button
-        className="hover:text-green-400 align-middle"
+        className="hover:text-green-400 align-middle font-bold"
         title={`${Dictionary.yes}`}
         onClick={onConfirm}
       >
-        <Check height={16} width={16} />
+        <Check height={16} width={16} strokeWidth={2} />
       </button>{' '}
       <button
         className="hover:text-red-400 align-middle"
         title={`${Dictionary.no}`}
         onClick={onCancel}
       >
-        <Xmark height={16} width={16} />
+        <Xmark height={16} width={16} strokeWidth={2} />
       </button>
       {warningLabel ? (
         <span className="ml-3 gap-x-2 align-middle inline-flex text-red-500">
@@ -42,6 +42,6 @@ export default function ConfirmInline({
           <span>{warningLabel}</span>
         </span>
       ) : null}
-    </span>
+    </div>
   );
 }

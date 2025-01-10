@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
-import { domSelectorForModal } from '../../app/components/app';
 import { QuestionnaireList } from '../../questionnaire-list';
 import { QuestionnaireNew } from '../../questionnaire-new';
 

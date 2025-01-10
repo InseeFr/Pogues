@@ -5,12 +5,14 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
 
-import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
+import {
+  ERRORS_INTEGRITY,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getEnvVar } from '../../../utils/env';
-import { domSelectorForModal } from '../../app/components/app';
 import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';

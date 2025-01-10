@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { FieldArray } from 'redux-form';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
-import { domSelectorForModal } from '../../../layout/app/components/app';
+import {
+  WIDGET_LIST_WITH_INPUT_PANEL,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { ErrorsPanel } from '../../errors-panel';

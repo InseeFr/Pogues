@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { Field, FormSection, formValueSelector } from 'redux-form';
 
 import {
+  DECLARATION_TYPES,
   DEFAULT_FORM_NAME,
+  GATHERING_MODES_OPTIONS_BY_DECLARATION,
   TABS_PATHS,
-  TargetMode,
 } from '../../../constants/pogues-constants';
 import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../forms/controls/generic-option';
@@ -25,13 +26,23 @@ const validateForm = (addErrors, validate) => (values) => {
   return validate(values, addErrors);
 };
 
+/**
+ * Give additional informations about the question to the respondent or the
+ * questioner to help them answer the question.
+ *
+ * - "Help" can be selected for all gathering modes.
+ * - "Instruction" can be selected for CAPI and CATI.
+ * - "Code card" can be selected for CAPI (and a card code must be provided).
+ *
+ * @see {@link DECLARATION_TYPES} and {@link GATHERING_MODES_OPTIONS_BY_DECLARATION}
+ */
 const Declarations = ({
-  formName,
-  selectorPath,
-  errors,
-  showPosition,
+  formName = DEFAULT_FORM_NAME,
+  selectorPath = TABS_PATHS.DECLARATIONS,
+  errors = [],
+  showPosition = true,
   addErrors,
-  declarationType,
+  declarationType = '',
   activeQuestionnaire,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
@@ -52,7 +63,7 @@ const Declarations = ({
           id="declaration_text"
           component={RichEditorWithVariable}
           label={
-            declarationType === 'CODECARD'
+            declarationType === DECLARATION_TYPES.CODE_CARD
               ? Dictionary.declaration_label_code_card
               : Dictionary.declaration_label
           }
@@ -67,14 +78,14 @@ const Declarations = ({
           label={Dictionary.type}
           required
         >
-          <GenericOption key="HELP" value="HELP">
-            {Dictionary.HELP}
+          <GenericOption value={DECLARATION_TYPES.HELP}>
+            {Dictionary.declarationHelp}
           </GenericOption>
-          <GenericOption key="INSTRUCTION" value="INSTRUCTION">
-            {Dictionary.INSTRUCTION}
+          <GenericOption value={DECLARATION_TYPES.INSTRUCTION}>
+            {Dictionary.declarationInstruction}
           </GenericOption>
-          <GenericOption key="CODECARD" value="CODECARD">
-            {Dictionary.CODECARD}
+          <GenericOption value={DECLARATION_TYPES.CODE_CARD}>
+            {Dictionary.declarationCodeCard}
           </GenericOption>
         </Field>
 
@@ -86,16 +97,10 @@ const Declarations = ({
             label={Dictionary.declaration_position}
             required
           >
-            <GenericOption
-              key="AFTER_QUESTION_TEXT"
-              value="AFTER_QUESTION_TEXT"
-            >
+            <GenericOption value="AFTER_QUESTION_TEXT">
               {Dictionary.dclPosAfterQuestion}
             </GenericOption>
-            <GenericOption
-              key="BEFORE_QUESTION_TEXT"
-              value="BEFORE_QUESTION_TEXT"
-            >
+            <GenericOption value="BEFORE_QUESTION_TEXT">
               {Dictionary.dclPosBeforeText}
             </GenericOption>
           </Field>
@@ -106,7 +111,7 @@ const Declarations = ({
           label={Dictionary.collectionMode}
           inline
         >
-          {TargetMode.map((s) => (
+          {GATHERING_MODES_OPTIONS_BY_DECLARATION[declarationType].map((s) => (
             <GenericOption key={s.value} value={s.value}>
               {s.label}
             </GenericOption>
@@ -125,14 +130,6 @@ Declarations.propTypes = {
   addErrors: PropTypes.func.isRequired,
   declarationType: PropTypes.string,
   activeQuestionnaire: PropTypes.object.isRequired,
-};
-
-Declarations.defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.DECLARATIONS,
-  errors: [],
-  showPosition: true,
-  declarationType: '',
 };
 
 const mapStateToProps = (state) => {
