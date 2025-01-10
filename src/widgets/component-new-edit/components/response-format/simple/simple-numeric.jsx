@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, FormSection, change, formValueSelector } from 'redux-form';
 
@@ -19,12 +20,18 @@ function mapUnitData(unit) {
   };
 }
 
+/**
+ * Give information for a numeric variable (collected, external, or calculated variable).
+ *
+ * - disableSetUnit : allows to disable the fields concerning the measurement unit, not wanted for calculated variables
+ */
 function ResponseFormatDatatypeNumeric({
-  name,
-  required,
-  readOnly,
+  name = NUMERIC,
+  required = true,
+  readOnly = false,
   isDynamicUnit,
   setUnit,
+  disableSetUnit = false,
 }) {
   const handleDynamicUnitChange = () => {
     setUnit('');
@@ -59,47 +66,55 @@ function ResponseFormatDatatypeNumeric({
           label={Dictionary.decimals}
           disabled={readOnly}
         />
-        <Field
-          name="isDynamicUnit"
-          component={ListRadios}
-          label={Dictionary.dynamicUnit}
-          disabled={readOnly}
-          onChange={handleDynamicUnitChange}
-          required
-          // Convert string "true"/"false" to boolean true/false when storing in Redux form
-          parse={(value) => value === 'true'}
-          // Convert true/false/undefined to string "true"/"false" when displaying the form
-          format={(value) => (value === true ? 'true' : 'false')}
-        >
-          <GenericOption value="true">{Dictionary.yes}</GenericOption>
-          <GenericOption value="false">{Dictionary.no}</GenericOption>
-        </Field>
-        {isDynamicUnit ? (
-          <Field
-            name="unit"
-            component={RichEditorWithVariable}
-            label={Dictionary.dynamicUnitFormula}
-            disabled={readOnly}
-          />
-        ) : (
-          <SelectMetaDataContainer
-            type="units"
-            name="unit"
-            label={Dictionary.unit}
-            emptyValue={Dictionary.unitEmptySelect}
-            mapMetadataFunction={mapUnitData}
-            disabled={readOnly}
-          />
+        {!disableSetUnit && (
+          <>
+            <Field
+              name="isDynamicUnit"
+              component={ListRadios}
+              label={Dictionary.dynamicUnit}
+              disabled={readOnly}
+              onChange={handleDynamicUnitChange}
+              required
+              // Convert string "true"/"false" to boolean true/false when storing in Redux form
+              parse={(value) => value === 'true'}
+              // Convert true/false/undefined to string "true"/"false" when displaying the form
+              format={(value) => (value === true ? 'true' : 'false')}
+            >
+              <GenericOption value="true">{Dictionary.yes}</GenericOption>
+              <GenericOption value="false">{Dictionary.no}</GenericOption>
+            </Field>
+
+            {isDynamicUnit ? (
+              <Field
+                name="unit"
+                component={RichEditorWithVariable}
+                label={Dictionary.dynamicUnitFormula}
+                disabled={readOnly}
+              />
+            ) : (
+              <SelectMetaDataContainer
+                type="units"
+                name="unit"
+                label={Dictionary.unit}
+                emptyValue={Dictionary.unitEmptySelect}
+                mapMetadataFunction={mapUnitData}
+                disabled={readOnly}
+              />
+            )}
+          </>
         )}
       </div>
     </FormSection>
   );
 }
 
-ResponseFormatDatatypeNumeric.defaultProps = {
-  name: NUMERIC,
-  readOnly: false,
-  required: true,
+ResponseFormatDatatypeNumeric.propTypes = {
+  name: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  isDynamicUnit: PropTypes.bool,
+  setUnit: PropTypes.func,
+  disableSetUnit: PropTypes.bool,
 };
 
 // Container
