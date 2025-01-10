@@ -5,7 +5,10 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
 
-import { ERRORS_INTEGRITY } from '../../../constants/dom-constants';
+import {
+  ERRORS_INTEGRITY,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -224,6 +227,7 @@ const QuestionnaireListComponents = (props) => {
           {/* Questionnaire edit */}
 
           <ReactModal
+            parentSelector={domSelectorForModal}
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showQuestionnaireModal}
@@ -253,6 +257,7 @@ const QuestionnaireListComponents = (props) => {
           {/* Versions */}
 
           <ReactModal
+            parentSelector={domSelectorForModal}
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showVersionsModal}
@@ -281,6 +286,7 @@ const QuestionnaireListComponents = (props) => {
           {/* Component edit */}
 
           <ReactModal
+            parentSelector={domSelectorForModal}
             ariaHideApp={false}
             shouldCloseOnOverlayClick={false}
             isOpen={showComponentModal}

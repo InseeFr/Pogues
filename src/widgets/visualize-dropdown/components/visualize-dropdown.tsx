@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 
 import { VisualizationKind } from '@/api/visualize';
+import { domSelectorForModal } from '@/constants/dom-constants';
 import { useClickAway } from '@/hooks/useClickAway';
 import Dictionary from '@/utils/dictionary/dictionary';
 import { hasDuplicateVariables } from '@/utils/variables/variables-utils';
@@ -132,6 +133,7 @@ export default function VisualizeDropdown({
         </ul>
       )}
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={Boolean(
           allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables,
         )}

@@ -3,81 +3,88 @@
 exports[`Visualize Dropdown Component:  > Should disable the button 1`] = `
 <div>
   <div
-    class="btn-group flex-column"
+    id="pogues-legacy"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="true"
-      class="btn dropdown-toggle btn-yellow disabled"
-      data-toggle="dropdown"
-      disabled=""
-      id="visualize"
+    <div
+      class="btn-group flex-column"
     >
-      Visualise
-      <span
-        class="caret"
-      />
-    </button>
-    <ul
-      class="dropdown-menu"
-    >
-      <li>
-        <a
-          href="#"
-        >
-          Web V1
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web household
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web business
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Questioner face to face
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Questioner phone
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Paper
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Specification
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Metadata
-        </a>
-      </li>
-    </ul>
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn dropdown-toggle btn-yellow disabled"
+        data-toggle="dropdown"
+        disabled=""
+        id="visualize"
+      >
+        Visualise
+        <span
+          class="caret"
+        />
+      </button>
+      <ul
+        class="dropdown-menu"
+      >
+        <li>
+          <a
+            href="#"
+          >
+            Web V1
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Web household
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Web business
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Questioner face to face
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Questioner phone
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Paper
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Specification
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Metadata
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="ReactModalPortal"
+    />
   </div>
 </div>
 `;
@@ -85,80 +92,87 @@ exports[`Visualize Dropdown Component:  > Should disable the button 1`] = `
 exports[`Visualize Dropdown Component:  > Should display the dropdown on top 1`] = `
 <div>
   <div
-    class="btn-group dropup flex-column-reverse"
+    id="pogues-legacy"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="true"
-      class="btn dropdown-toggle btn-yellow"
-      data-toggle="dropdown"
-      id="visualize"
+    <div
+      class="btn-group dropup flex-column-reverse"
     >
-      Visualise
-      <span
-        class="caret"
-      />
-    </button>
-    <ul
-      class="dropdown-menu"
-    >
-      <li>
-        <a
-          href="#"
-        >
-          Web V1
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web household
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web business
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Questioner face to face
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Questioner phone
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Paper
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Specification
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Metadata
-        </a>
-      </li>
-    </ul>
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn dropdown-toggle btn-yellow"
+        data-toggle="dropdown"
+        id="visualize"
+      >
+        Visualise
+        <span
+          class="caret"
+        />
+      </button>
+      <ul
+        class="dropdown-menu"
+      >
+        <li>
+          <a
+            href="#"
+          >
+            Web V1
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Web household
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Web business
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Questioner face to face
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Questioner phone
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Paper
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Specification
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Metadata
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="ReactModalPortal"
+    />
   </div>
 </div>
 `;
@@ -166,80 +180,87 @@ exports[`Visualize Dropdown Component:  > Should display the dropdown on top 1`]
 exports[`Visualize Dropdown Component:  > Should return the right HTML 1`] = `
 <div>
   <div
-    class="btn-group flex-column"
+    id="pogues-legacy"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="true"
-      class="btn dropdown-toggle btn-yellow"
-      data-toggle="dropdown"
-      id="visualize"
+    <div
+      class="btn-group flex-column"
     >
-      Visualise
-      <span
-        class="caret"
-      />
-    </button>
-    <ul
-      class="dropdown-menu"
-    >
-      <li>
-        <a
-          href="#"
-        >
-          Web V1
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web household
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Web business
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Questioner face to face
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Questioner phone
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Paper
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Specification
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-        >
-          Metadata
-        </a>
-      </li>
-    </ul>
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn dropdown-toggle btn-yellow"
+        data-toggle="dropdown"
+        id="visualize"
+      >
+        Visualise
+        <span
+          class="caret"
+        />
+      </button>
+      <ul
+        class="dropdown-menu"
+      >
+        <li>
+          <a
+            href="#"
+          >
+            Web V1
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Web household
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Web business
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Questioner face to face
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Questioner phone
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Paper
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Specification
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Metadata
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="ReactModalPortal"
+    />
   </div>
 </div>
 `;
