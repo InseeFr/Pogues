@@ -10,6 +10,9 @@ import Header from '../../header/header';
 
 const { COMPONENT_ID } = APP;
 
+const isOnlyLegacyApp =
+  new URL(import.meta.url || '').origin === window.location.origin;
+
 const App = ({ children, loadUnitsIfNeeded }) => {
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
@@ -19,7 +22,7 @@ const App = ({ children, loadUnitsIfNeeded }) => {
 
   return (
     <div id={COMPONENT_ID}>
-      <Header />
+      {isOnlyLegacyApp && <Header />}
       {children}
       <Footer />
     </div>
