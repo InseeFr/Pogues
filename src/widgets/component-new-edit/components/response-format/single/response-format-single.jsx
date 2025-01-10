@@ -37,6 +37,7 @@ function ResponseFormatSingle({
   path,
   formName,
   allowPrecision,
+  disableSetArbitrary,
 }) {
   const selectorPath = responseFormatType;
 
@@ -170,19 +171,21 @@ function ResponseFormatSingle({
       {visHint === SUGGESTER ? (
         <>
           <SuggesterLists selectorPathParent={selectorPathComposed} />
-          <Field
-            name="allowArbitrary"
-            component={ListRadios}
-            label={Dictionary.allowArbitraryResponse}
-            required
-            // Convert string "true"/"false" to boolean true/false when storing in Redux form
-            parse={(value) => value === 'true'}
-            // Convert true/false/undefined to string "true"/"false" when displaying the form
-            format={(value) => (value === true ? 'true' : 'false')}
-          >
-            <GenericOption value="true">{Dictionary.yes}</GenericOption>
-            <GenericOption value="false">{Dictionary.no}</GenericOption>
-          </Field>
+          {!disableSetArbitrary && (
+            <Field
+              name="allowArbitrary"
+              component={ListRadios}
+              label={Dictionary.allowArbitraryResponse}
+              required
+              // Convert string "true"/"false" to boolean true/false when storing in Redux form
+              parse={(value) => value === 'true'}
+              // Convert true/false/undefined to string "true"/"false" when displaying the form
+              format={(value) => (value === true ? 'true' : 'false')}
+            >
+              <GenericOption value="true">{Dictionary.yes}</GenericOption>
+              <GenericOption value="false">{Dictionary.no}</GenericOption>
+            </Field>
+          )}
         </>
       ) : (
         <CodesLists
@@ -204,6 +207,7 @@ ResponseFormatSingle.propTypes = {
   path: PropTypes.string,
   formName: PropTypes.string,
   allowPrecision: PropTypes.bool,
+  disableSetArbitrary: PropTypes.bool,
 };
 
 ResponseFormatSingle.defaultProps = {
@@ -216,6 +220,7 @@ ResponseFormatSingle.defaultProps = {
   path: SINGLE_CHOICE,
   formName: DEFAULT_FORM_NAME,
   allowPrecision: true,
+  disableSetArbitrary: false,
 };
 
 const mapStateToProps = (state, { selectorPathParent, responseFormatType }) => {

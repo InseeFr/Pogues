@@ -66,7 +66,6 @@ export const defaultMeasureState = {
       cloneDeep(CodesListDefaultState),
       { id: uuid() },
     ),
-    allowArbitrary: false,
     visHint: RADIO,
   },
 };
@@ -168,17 +167,13 @@ export function formToStateMeasure(form, codesListMeasure) {
       [simpleType]: { ...simpleForm },
     };
   } else {
-    const {
-      allowArbitrary,
-      visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
-    } = measureForm;
+    const { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } =
+      measureForm;
     const codesList = codesListMeasure
       ? codesListMeasure.formToStateComponent(codesListForm)
       : CodesListFactory().formToState(codesListForm);
 
     state[SINGLE_CHOICE] = {
-      allowArbitrary,
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList,
     };
@@ -253,7 +248,6 @@ export function stateToFormMeasure(
     type,
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
-      allowArbitrary,
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
     },
@@ -274,7 +268,6 @@ export function stateToFormMeasure(
     type,
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
-      allowArbitrary,
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     },
@@ -284,7 +277,6 @@ export function stateToFormMeasure(
 export function stateToFormMeasureList(currentState, codesListsStore) {
   const {
     [SINGLE_CHOICE]: {
-      allowArbitrary,
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
     },
@@ -298,7 +290,6 @@ export function stateToFormMeasureList(currentState, codesListsStore) {
   return {
     ...currentState,
     [SINGLE_CHOICE]: {
-      allowArbitrary,
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     },
@@ -381,7 +372,6 @@ const Factory = (initialState = {}, codesListsStore) => {
         state[SINGLE_CHOICE] = {
           [DEFAULT_CODES_LIST_SELECTOR_PATH]:
             codesListsStore[measureState[DEFAULT_CODES_LIST_SELECTOR_PATH].id],
-          allowArbitrary: measureState.allowArbitrary,
           visHint: measureState.visHint,
         };
       } else {
