@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
+import { domSelectorForModal } from '../../constants/dom-constants';
 import Dictionary from '../../utils/dictionary/dictionary';
 
 const ConfirmDialog = (props) => {
@@ -37,6 +38,7 @@ const ConfirmDialog = (props) => {
 
   return (
     <ReactModal
+      parentSelector={domSelectorForModal}
       ariaHideApp={false}
       shouldCloseOnOverlayClick={false}
       isOpen={showConfirmModal}

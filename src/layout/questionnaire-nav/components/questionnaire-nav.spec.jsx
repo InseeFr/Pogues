@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { describe, expect, test, vi } from 'vitest';
 
-import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
+import { APP, QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
 import QuestionnaireNav from './questionnaire-nav';
 
@@ -34,9 +34,11 @@ describe('<QuestionnaireNav />', () => {
     };
 
     render(
-      <Router>
-        <QuestionnaireNav {...props} />
-      </Router>,
+      <div id={APP.COMPONENT_ID}>
+        <Router>
+          <QuestionnaireNav {...props} />
+        </Router>
+      </div>,
     );
 
     const questionnaireNav = document.querySelector(`.${COMPONENT_CLASS}`);

@@ -3,7 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import { WIDGET_COMPONENT_NEW_EDIT } from '../../../constants/dom-constants';
+import {
+  WIDGET_COMPONENT_NEW_EDIT,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -203,6 +206,7 @@ const ComponentNewEdit = ({
         </div>
       </form>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showPopup}

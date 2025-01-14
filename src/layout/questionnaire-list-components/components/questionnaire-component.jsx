@@ -7,7 +7,10 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 
-import { QUESTIONNAIRE_COMPONENT } from '../../../constants/dom-constants';
+import {
+  QUESTIONNAIRE_COMPONENT,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 import {
@@ -261,6 +264,7 @@ const QuestionnaireComponent = (props) => {
           {children}
         </div>
         <ReactModal
+          parentSelector={domSelectorForModal}
           ariaHideApp={false}
           shouldCloseOnOverlayClick={false}
           isOpen={showComponentModal}

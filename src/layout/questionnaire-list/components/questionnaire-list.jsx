@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { getStampsList } from '../../../api/remote-api';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
 import { formatDate, getState } from '../../../utils/component/component-utils';
 import { getWeight } from '../../../utils/component/generic-input-utils';
@@ -249,6 +250,7 @@ const QuestionnaireList = (props) => {
         )}
       </div>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showPopup}

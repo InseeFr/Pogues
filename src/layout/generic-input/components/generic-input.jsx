@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
 
-import { GENERIC_INPUT } from '../../../constants/dom-constants';
+import {
+  GENERIC_INPUT,
+  domSelectorForModal,
+} from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
@@ -154,6 +157,7 @@ function GenericInput(props) {
           if (isActive) {
             return (
               <ReactModal
+                parentSelector={domSelectorForModal}
                 isOpen
                 ariaHideApp={false}
                 shouldCloseOnOverlayClick={false}
@@ -269,6 +273,7 @@ function GenericInput(props) {
         />
       </div>
       <ReactModal
+        parentSelector={domSelectorForModal}
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
         isOpen={showNewComponentModal}
@@ -301,6 +306,7 @@ function GenericInput(props) {
         </div>
       </ReactModal>
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={showNewUnsavedModal}
         ariaHideApp={false}
         className="custom-modal"
@@ -311,6 +317,7 @@ function GenericInput(props) {
         </button>
       </ReactModal>
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={showVisualizationErrorPopup !== ''}
         ariaHideApp={false}
         className="custom-modal"
@@ -322,6 +329,7 @@ function GenericInput(props) {
         </button>
       </ReactModal>
       <ReactModal
+        parentSelector={domSelectorForModal}
         isOpen={showNewLoopModal}
         ariaHideApp={false}
         className="custom-modal"
