@@ -1,13 +1,11 @@
 import {
   getCampaigns,
-  getNomenclature,
-  getNomenclatures,
   getOperations,
-  getQuestionnaire,
   getSeries,
   getUnitsList,
-  getVariablesById,
-} from '../api/remote-api';
+} from '../api/metadata';
+import { getNomenclature, getNomenclatures } from '../api/nomenclatures';
+import { getQuestionnaire, getVariablesById } from '../api/questionnaires';
 import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 
 const { NON_DYNAMIC } = DIMENSION_LENGTH;

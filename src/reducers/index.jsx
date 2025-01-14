@@ -4,7 +4,6 @@ import { reducer as form } from 'redux-form';
 import checkers from '../utils/integrity/checkers';
 import integrityChecker from '../utils/integrity/integrity-checker';
 import appState from './app-state/app-state';
-import { authType } from './auth-type';
 import calculatedVariableByQuestionnaire from './calculated-variable-by-questionnaire';
 import codeListByQuestionnaire from './code-list-by-questionnaire';
 import collectedVariableByQuestionnaire from './collected-variable-by-questionnaire';
@@ -20,7 +19,6 @@ import searchResultById from './search-result-by-id';
 
 export default integrityChecker(
   combineReducers({
-    authType,
     isSearchDisable: (s = '') => s,
     form,
     locale,

@@ -1,4 +1,4 @@
-import { getSearchResults } from '../api/remote-api';
+import { getSearchResults } from '../api/search';
 
 export const LOAD_SEARCH_RESULT = 'LOAD_SEARCH_RESULT';
 export const LOAD_SEARCH_RESULT_SUCCESS = 'LOAD_SEARCH_RESULT_SUCCESS';
@@ -47,17 +47,17 @@ export const loadSearchResultFailure = (err) => ({
  * Load search results list
  * @param   {string} token   The user token.
  * @param   {string} typeItem   The type of item to search.
- * @param   {object} criterias  The list of criterias.
+ * @param   {object} criteria   The list of criteria.
  * @param   {string} filter     The text to filter.
  * @return  {object}  LOAD_SEARCH_RESULT action
  */
 export const loadSearchResult =
-  (token, typeItem, criterias, filter) => (dispatch) => {
+  (token, typeItem, criteria, filter) => (dispatch) => {
     dispatch({
       type: LOAD_SEARCH_RESULT,
       payload: null,
     });
-    return getSearchResults(token, typeItem, criterias, filter)
+    return getSearchResults(token, typeItem, criteria, filter)
       .then((resultsList) => dispatch(loadSearchResultSuccess(resultsList)))
       .catch((err) => dispatch(loadSearchResultFailure(err)));
   };

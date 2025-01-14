@@ -1,6 +1,4 @@
-import { getBaseURI } from './utils';
-
-const pathVisualisation = 'transform/visualize';
+import { computeAuthorizationHeader, getBaseURI } from './utils';
 
 type QuestionnaireData = {
   id: string;
@@ -135,14 +133,15 @@ const postVisualization = async (
   /** Cntext of the visualization (houseold or business). */
   context: VisualizationContext | undefined = undefined,
 ) => {
-  const b = getBaseURI();
-  const url = buildUrl(b, `${pathVisualisation}${path}`, ref, context);
+  const contextParam = context ? `&context=${context}` : '';
+  const url = `${getBaseURI()}/transform/visualize${path}?references=${ref}${contextParam}`;
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  headers.append('Authorization', computeAuthorizationHeader(token));
+
   return fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
-    },
+    headers,
     body: JSON.stringify(qr),
   }).then(async (response) => {
     if (response.ok) {
@@ -155,26 +154,6 @@ const postVisualization = async (
     throw new Error('The error did not directly come from Eno');
   });
 };
-
-/**
- * Construct an URL with the given base URL, path, reference, and optional context.
- */
-function buildUrl(
-  /** Backend baseUrl. */
-  baseUrl: string,
-  /** Specific path of the endpoint. */
-  path: string,
-  /** Indicates if the questionnaire contains a reference to another questionnaire. */
-  ref: boolean,
-  /** Optional context of the visualization (HOUSEHOLD or BUSINESS). */
-  context: VisualizationContext | undefined = undefined,
-): string {
-  let url = `${baseUrl}/${path}?references=${ref}`;
-  if (context !== undefined) {
-    url += `&context=${context}`;
-  }
-  return url;
-}
 
 /**
  * This method will emulate the download of file, received from a POST request.

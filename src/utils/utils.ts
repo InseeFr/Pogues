@@ -1,5 +1,5 @@
 /** Compute search parameters based on provided object. */
-export function getUrlFromCriterias(
+export function getUrlFromCriteria(
   criteria: { [key: string]: string | undefined } = {},
 ): string {
   let url = '';
@@ -7,9 +7,7 @@ export function getUrlFromCriterias(
   for (const key in criteria) {
     const v = criteria[key];
     if (v) {
-      if (url === '') {
-        url += '?';
-      } else {
+      if (url !== '') {
         url += '&';
       }
       url += `${key}=${encodeURIComponent(v)}`;
