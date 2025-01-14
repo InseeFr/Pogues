@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import { getStampsList } from '../../../api/remote-api';
+import { getStampsList } from '../../../api/questionnaires';
 import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE, TCM } from '../../../constants/pogues-constants';
 import { formatDate, getState } from '../../../utils/component/component-utils';

@@ -1,4 +1,5 @@
-import { getContextFromCampaign, putQuestionnaire } from '../api/remote-api';
+import { putQuestionnaire } from '../api/questionnaires';
+import { getContextFromCampaign } from '../api/search';
 import { getVersion } from '../api/versions';
 import { getVisualization } from '../api/visualize';
 import { TCM } from '../constants/pogues-constants';

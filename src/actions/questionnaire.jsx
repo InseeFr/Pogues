@@ -2,7 +2,7 @@ import {
   deleteQuestionnaire,
   getQuestionnaire,
   postQuestionnaire,
-} from '../api/remote-api';
+} from '../api/questionnaires';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { Component } from '../model';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
