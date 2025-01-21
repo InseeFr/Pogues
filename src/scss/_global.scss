@@ -153,6 +153,7 @@ a {
 
 .popup {
   @extend .modal-container;
+  margin: auto;
 
   .popup-header {
     @include make-row();

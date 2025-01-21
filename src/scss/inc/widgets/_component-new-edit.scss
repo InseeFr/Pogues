@@ -24,9 +24,8 @@
   }
   .widget-component-new-edit__footerloop {
     @include make-row();
-    text-align: center;
-    max-width: 60%;
-    margin: auto;
+    display: flex;
+    justify-content: center;
 
     button {
       @extend .btn;
