@@ -1,9 +1,8 @@
 .widget-component-new-edit {
   .widget-component-new-edit__footer {
     @include make-row();
-    text-align: center;
-    max-width: 40%;
-    margin: auto;
+    display: flex;
+    justify-content: center;
 
     button {
       @extend .btn;

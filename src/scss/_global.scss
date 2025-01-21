@@ -12,6 +12,11 @@ body {
   width: 1280px;
 }
 
+.modal-container {
+  max-width: none !important;
+  width: min(1280px, 100%);
+}
+
 // Common styles
 
 a {
@@ -147,7 +152,7 @@ a {
 // Modal/Pop-up styles
 
 .popup {
-  @extend .container;
+  @extend .modal-container;
 
   .popup-header {
     @include make-row();
@@ -265,7 +270,7 @@ a {
 }
 
 .custom-modal {
-  @extend .container;
+  @extend .modal-container;
   border: 1px solid black;
   position: absolute;
   text-align: center;
