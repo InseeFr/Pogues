@@ -197,11 +197,6 @@ describe('validCollectedVariables', () => {
           type: 'SINGLE_CHOICE',
           SINGLE_CHOICE: {
             mandatory: false,
-            hasSpecialCode: false,
-            specialLabel: '',
-            specialCode: '',
-            specialUiBehaviour: 'FIRST_INTENTION',
-            specialFollowUpMessage: '',
             visHint: 'CHECKBOX',
             CodesList: {
               id: 'jjjynmyp',
@@ -287,11 +282,6 @@ describe('validCollectedVariables', () => {
           type: 'SINGLE_CHOICE',
           SINGLE_CHOICE: {
             mandatory: false,
-            hasSpecialCode: false,
-            specialLabel: '',
-            specialCode: '',
-            specialUiBehaviour: 'FIRST_INTENTION',
-            specialFollowUpMessage: '',
             visHint: 'CHECKBOX',
             CodesList: {
               id: 'k4dwt1kq',

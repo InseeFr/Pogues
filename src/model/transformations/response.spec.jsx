@@ -1,10 +1,7 @@
 import { format } from 'url';
 import { describe, expect, test } from 'vitest';
 
-import {
-  DATATYPE_TYPE_FROM_NAME,
-  UI_BEHAVIOUR,
-} from '../../constants/pogues-constants';
+import { DATATYPE_TYPE_FROM_NAME } from '../../constants/pogues-constants';
 import { stateToRemote } from './response';
 
 describe('response tranformations', () => {
@@ -178,44 +175,7 @@ describe('response tranformations', () => {
     });
     expect(result.Datatype.Format).toEqual(format);
   });
-  test('when hasSpecialCode is defined ad specialUiBehavior == UI_BEHAVIOUR.FIRST_INTENTION ', () => {
-    const typeName = 'DATE';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      hasSpecialCode: true,
-      specialCode: 'specialCode',
-      specialLabel: 'specialLabel',
-      specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
-      specialFollowUpMessage: 'specialFollowUpMessage',
-    });
 
-    expect(result.nonResponseModality).toEqual({
-      value: 'specialCode',
-      label: 'specialLabel',
-      firstIntentionDisplay: true,
-      invite: 'specialFollowUpMessage',
-    });
-  });
-  test('when hasSpecialCode is defined ad specialUiBehavior != UI_BEHAVIOUR.FIRST_INTENTION ', () => {
-    const typeName = 'DATE';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      hasSpecialCode: true,
-      specialCode: 'specialCode',
-      specialLabel: 'specialLabel',
-      specialUiBehaviour: UI_BEHAVIOUR.SECOND_INTENTION,
-      specialFollowUpMessage: 'specialFollowUpMessage',
-    });
-
-    expect(result.nonResponseModality).toEqual({
-      value: 'specialCode',
-      label: 'specialLabel',
-      firstIntentionDisplay: false,
-      invite: 'specialFollowUpMessage',
-    });
-  });
   test('test when response is undefined ', () => {
     const response = undefined;
     const state = { collectedVariable: 'kgs406le', typeName: 'BOOLEAN' };

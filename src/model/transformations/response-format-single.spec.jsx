@@ -24,13 +24,8 @@ describe('response format single', () => {
     const output = remoteToState(remote);
     const expected = {
       CodesList: { id: 'jf0w3fab' },
-      hasSpecialCode: false,
       id: 'jf0w19iw',
       mandatory: true,
-      specialCode: '',
-      specialFollowUpMessage: '',
-      specialLabel: '',
-      specialUiBehaviour: 'FIRST_INTENTION',
       visHint: 'CHECKBOX',
     };
     expect(output).toEqual(expected);
@@ -40,11 +35,6 @@ describe('response format single', () => {
       id: 'jf0w19iw',
       mandatory: true,
       visHint: 'CHECKBOX',
-      hasSpecialCode: false,
-      specialLabel: '',
-      specialCode: '',
-      specialUiBehaviour: 'FIRST_INTENTION',
-      specialFollowUpMessage: '',
       CodesList: { id: 'jf0w3fab' },
     };
     const collectedVariables = ['jf0vqq4j'];
