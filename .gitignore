@@ -23,6 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.__mf__temp
 
 # Testing
 coverage
