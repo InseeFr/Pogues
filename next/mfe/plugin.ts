@@ -26,8 +26,7 @@ const runtimePlugin: () => FederationRuntimePlugin = function () {
         return devModeConfig;
       } else {
         const originalEntryFile = new URL(remoteInfo.entry).pathname;
-        const finalEntry = `${ENV.VITE_POGUES_LEGACY}/${originalEntryFile}`;
-        console.log('finalEntry', finalEntry);
+        const finalEntry = `${ENV.VITE_POGUES_LEGACY}${originalEntryFile}`;
         return await import(/* @vite-ignore */ finalEntry);
       }
     },
