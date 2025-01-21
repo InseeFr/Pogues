@@ -12,7 +12,7 @@ export const { OidcProvider, useOidc } =
     ? createReactOidc({
         clientId: client_id,
         issuerUri: authority,
-        publicUrl: import.meta.env.BASE_URL,
+        publicUrl: undefined,
       })
     : createMockReactOidc({
         isUserInitiallyLoggedIn: true,

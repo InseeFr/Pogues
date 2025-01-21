@@ -15,11 +15,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: yarn
-      - run: yarn build
+      - run: yarn && yarn build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues
+          path: dist
+      - run: cd ./next
+      - run: yarn && yarn build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pogues-next
           path: dist
 
   check_if_version_upgraded:
@@ -32,6 +37,9 @@ jobs:
       version: ${{ steps.version.outputs.prop }}
       is_version_changed: ${{ steps.check.outputs.exists == 'false' }}
       is_pre_release: ${{ contains(steps.version.outputs.prop, '-rc' ) }}
+      next_version: ${{ steps.next_version.outputs.prop }}
+      next_is_version_changed: ${{ steps.next_check.outputs.exists == 'false' }}
+      next_is_pre_release: ${{ contains(steps.next_check.outputs.prop, '-rc' ) }}
     steps:
       - uses: actions/checkout@v4
       - id: version
@@ -44,6 +52,17 @@ jobs:
         id: check
         with:
           tag: ${{ steps.version.outputs.prop }}
+      - uses: actions/checkout@v4
+      - id: next_version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'next/package.json'
+          prop_path: 'version'
+      ## we check if repo contains already this tag, if not version, has changed
+      - uses: mukunku/tag-exists-action@v1.6.0
+        id: next_check
+        with:
+          tag: ${{ steps.next_version.outputs.prop }}
 
   docker_pogues:
     needs: check_if_version_upgraded
@@ -59,10 +78,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/download-artifact@v4
-        with:
-          name: pogues
-          path: dist
       - uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -72,14 +87,37 @@ jobs:
             inseefr/pogues:latest,
             inseefr/pogues:${{ needs.check_if_version_upgraded.outputs.version }}
 
+  docker_pogues_next:
+    needs: check_if_version_upgraded
+    if: |
+      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.next_is_pre_release == 'true') && 
+      needs.check_if_version_upgraded.outputs.next_is_version_changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: './next'
+          push: true
+          tags: |
+            inseefr/pogues:latest,
+            inseefr/pogues:${{ needs.check_if_version_upgraded.outputs.next_version }}
+
   release:
     runs-on: ubuntu-latest
     needs: check_if_version_upgraded
     # We create release only if the version in the package.json have been upgraded and this CI is running against the main branch.
     # We allow branches with a PR open on main to publish pre-release (x.y.z-rc.u) but not actual releases.
     if: |
-      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.is_pre_release == 'true') && 
-      needs.check_if_version_upgraded.outputs.is_version_changed == 'true'
+      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.is_pre_release == 'true' || needs.check_if_version_upgraded.outputs.next_is_pre_release == 'true') && 
+      (needs.check_if_version_upgraded.outputs.is_version_changed == 'true' || needs.check_if_version_upgraded.outputs.next_is_version_changed == 'true')
     steps:
       - uses: actions/checkout@v4
         with:
