@@ -48,8 +48,9 @@ export default function CreateQuestionnaire() {
   const onSubmit = async () => {
     if (user) {
       const token = await getAccessToken();
-      if (!token) {
+      if (!token || user.stamp === undefined) {
         // 401 error
+        return;
       }
       const questionnaire = {
         id: uid(),

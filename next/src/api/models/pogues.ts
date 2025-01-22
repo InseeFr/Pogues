@@ -117,6 +117,7 @@ type ComponentGroup = {
   id: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type QuestionType = ComponentType & {
   Response: ResponseType[];
   ResponseStructure?: ResponseStructureType;
@@ -150,6 +151,7 @@ type DynamicIterationType = IterationType & {
   Filter?: ExpressionType;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Roundabout = ComponentType & {
   OccurrenceLabel: string;
   OccurrenceDescription?: string;
@@ -481,8 +483,10 @@ type DatatypeType = {
   visualizationHint?: VisualizationHintEnum;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type BooleanDatatypeType = DatatypeType;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type DateDatatypeType = DatatypeType & {
   Minimum?: string;
   Maximum?: string;
@@ -490,12 +494,14 @@ type DateDatatypeType = DatatypeType & {
   Format?: DateFormatEnum;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type DurationDatatypeType = DatatypeType & {
   Minimum?: string;
   Maximum?: string;
   Format?: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type NumericDatatypeType = DatatypeType & {
   Minimum?: number;
   Maximum?: number;
@@ -518,6 +524,7 @@ type NumericDatatypeType = DatatypeType & {
   Unit?: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type TextDatatypeType = DatatypeType & {
   /** Maximum text response size in number of characters */
   MaxLength?: number;

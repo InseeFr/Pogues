@@ -22,7 +22,9 @@ export default function TableQuestionnaires({
       <tbody className="text-default">
         {questionnaires
           .toSorted((a, b) => {
-            return b.lastUpdatedDate.getTime() - a.lastUpdatedDate.getTime();
+            return b.lastUpdatedDate && a.lastUpdatedDate
+              ? b.lastUpdatedDate.getTime() - a.lastUpdatedDate.getTime()
+              : 0;
           })
           .map((questionnaire) => (
             <QuestionnaireLine

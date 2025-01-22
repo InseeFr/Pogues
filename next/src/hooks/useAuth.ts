@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { useRouter } from '@tanstack/react-router';
-
-import { getOidc, useOidc } from '@/contexts/oidc';
+import { useOidc } from '@/contexts/oidc';
 
 export type User = {
   givenName?: string;
   familyName?: string;
   stamp?: string;
-  apiToken: string;
+  /** Token used for API calls */
+  token: string;
 };
 
 export function useAuth(): User | undefined {

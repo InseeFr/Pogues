@@ -11,7 +11,7 @@ export enum ButtonType {
 interface ButtonWrapperProps {
   children: React.ReactNode;
   type?: ButtonType;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function ButtonWrapper({

@@ -22,7 +22,7 @@ function useIsDarkMode() {
 interface SelectWrapperProps {
   children: React.ReactNode;
   label?: string;
-  onChange: (_, newValue: unknown) => void;
+  onChange: (_: unknown, newValue: unknown) => void;
   required?: boolean;
   value: unknown;
 }
