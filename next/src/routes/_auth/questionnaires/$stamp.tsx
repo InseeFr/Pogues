@@ -5,7 +5,7 @@ import { getAccessToken } from '@/api/utils';
 import Questionnaires from '@/components/questionnaires/Questionnaires';
 
 export const Route = createFileRoute('/_auth/questionnaires/$stamp')({
-  loader: async ({ context: { queryClient }, params: { stamp } }) => {
+  loader: async ({ /*context: { queryClient }, */ params: { stamp } }) => {
     const token = await getAccessToken();
     if (!token) {
       // 401 error

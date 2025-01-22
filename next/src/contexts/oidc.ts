@@ -3,11 +3,10 @@ import { createReactOidc } from 'oidc-spa/react';
 import { z } from 'zod';
 
 const decodedIdTokenSchema = z.object({
-  sid: z.string(),
-  sub: z.string(),
-  name: z.string(),
+  accessToken: z.string(),
+  family_name: z.string(),
+  given_name: z.string(),
   timbre: z.string(),
-  preferred_username: z.string(),
 });
 
 export const { OidcProvider, useOidc, getOidc } =
@@ -16,10 +15,9 @@ export const { OidcProvider, useOidc, getOidc } =
         isUserInitiallyLoggedIn: false,
         mockedTokens: {
           decodedIdToken: {
-            sid: `mock-${self.crypto.randomUUID()}`,
-            sub: 'mock-sub',
-            preferred_username: 'mock-user',
-            name: 'Fake user',
+            accessToken: 'token',
+            family_name: 'Threepwood',
+            given_name: 'Guybrush',
             timbre: 'FAKEPERMISSION',
           } satisfies z.infer<typeof decodedIdTokenSchema>,
         },

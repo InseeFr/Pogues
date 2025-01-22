@@ -4,10 +4,11 @@
   "version": "2.0.0-rc.0",
   "type": "module",
   "scripts": {
+    "prepare": "vite-envs update-types",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
