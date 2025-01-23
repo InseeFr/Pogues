@@ -1,46 +1,42 @@
-import * as React from 'react';
-
-import { Button as BaseButton, ButtonProps } from '@mui/base/Button';
-import clsx from 'clsx';
+import SpinnerIcon from './icons/SpinnerIcon';
 
 export enum ButtonType {
   Primary,
   Secondary,
 }
 
-interface ButtonWrapperProps {
+interface ButtonProps {
   children: React.ReactNode;
   type?: ButtonType;
   onClick?: () => void;
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 
-export default function ButtonWrapper({
+export default function Button({
   children,
   type = ButtonType.Secondary,
   onClick = () => {},
-}: Readonly<ButtonWrapperProps>) {
+  disabled = false,
+  isLoading = false,
+}: Readonly<ButtonProps>) {
   return (
-    <CustomButton
-      onClick={onClick}
-      className={`${type === ButtonType.Primary ? 'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active' : 'bg-white text-primary hover:bg-accent active:bg-active border-primary'}`}
+    <button
+      onClick={!disabled ? onClick : undefined}
+      disabled={disabled || isLoading}
+      className={`border font-semibold transition rounded px-4 py-3 min-w-40 disabled:cursor-not-allowed outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${type === ButtonType.Primary ? 'bg-primary text-negative hover:enabled:bg-primary-accent active:enabled:bg-primary-active' : 'bg-white text-primary hover:enabled:bg-accent active:enabled:bg-active border-primary'}`}
     >
-      {children}
-    </CustomButton>
+      {' '}
+      {isLoading ? (
+        <div className="flex">
+          <div className="mr-3 animate-spin fill-negative">
+            <SpinnerIcon />
+          </div>
+          <div>Loading...</div>
+        </div>
+      ) : (
+        children
+      )}
+    </button>
   );
 }
-
-const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
-    const { className, ...other } = props;
-    return (
-      <BaseButton
-        ref={ref}
-        className={clsx(
-          'cursor-pointer transition font-semibold leading-normal rounded px-4 py-3 border border-solid active:shadow-inner focus-visible:shadow-[0_0_0_4px_#ddd6fe] focus-visible:outline-none ui-disabled:text-disabled ui-disabled:bg-slate-200 ui-disabled:cursor-default ui-disabled:shadow-none ui-disabled:hover:bg-slate-200 ui-disabled:hover:dark:bg-slate-700 ui-disabled:border-none',
-          className,
-        )}
-        {...other}
-      />
-    );
-  },
-);

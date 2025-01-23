@@ -1,4 +1,4 @@
-import { User } from 'iconoir-react';
+import UserIcon from './icons/UserIcon';
 
 interface AvatarProps {
   initials?: string;
@@ -17,7 +17,9 @@ export default function Avatar({ initials }: Readonly<AvatarProps>) {
       {initials ? (
         <span className="text-negative font-semibold">{initials}</span>
       ) : (
-        <User className="size-7 center" />
+        <div className="*:m-auto">
+          <UserIcon />
+        </div>
       )}
     </div>
   );

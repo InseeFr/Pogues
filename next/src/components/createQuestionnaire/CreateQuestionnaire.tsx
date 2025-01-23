@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { FormControl } from '@mui/base/FormControl';
-import { Link, useRouteContext } from '@tanstack/react-router';
+import { useNavigate, useRouteContext } from '@tanstack/react-router';
 
 import { postQuestionnaire } from '@/api/questionnaires';
 import { getAccessToken } from '@/api/utils';
 import Button, { ButtonType } from '@/components/ui/Button';
+import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/Checkbox';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
@@ -39,7 +39,11 @@ export default function CreateQuestionnaire() {
     from: '__root__',
   });
 
-  const [titre, setTitre] = useState<string>('');
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [title, setTitle] = useState<string>('');
   const [isCAPI, setIsCAPI] = useState<boolean>(false);
   const [isCAWI, setIsCAWI] = useState<boolean>(false);
   const [isCATI, setIsCATI] = useState<boolean>(false);
@@ -47,17 +51,38 @@ export default function CreateQuestionnaire() {
 
   const onSubmit = async () => {
     if (user) {
+      setIsLoading(true);
       const token = await getAccessToken();
       if (!token || user.stamp === undefined) {
         // 401 error
+        setIsLoading(false);
+        // TODO display error
         return;
       }
+      const id = uid();
       const questionnaire = {
-        id: uid(),
-        title: titre,
+        id,
+        title,
         targetModes: computeTargetModes({ isCAPI, isCATI, isCAWI, isPAPI }),
       };
-      postQuestionnaire(questionnaire, user.stamp, token);
+      console.log(questionnaire);
+      const response = await postQuestionnaire(
+        questionnaire,
+        user.stamp,
+        token,
+      );
+      if (response.ok) {
+        console.info('Success');
+        // TODO display success
+        setIsLoading(false);
+        navigate({
+          to: '/questionnaire/$questionnaireId',
+          params: { questionnaireId: id },
+        });
+      } else {
+        console.error('Error', response.status);
+        // TODO display error
+      }
     }
   };
 
@@ -70,34 +95,32 @@ export default function CreateQuestionnaire() {
             <Input
               label={'Titre'}
               placeholder={'Titre'}
-              onChange={setTitre}
+              onChange={(v) => setTitle(v as string)}
               autoFocus
-              value={titre}
+              value={title}
               required
             />
             <div>
-              <FormControl required>
-                <Label>Mode de collecte</Label>
-              </FormControl>
+              <Label required>Mode de collecte</Label>
               <div className="flex gap-x-4">
                 <Checkbox
                   label={'CAPI'}
-                  onChange={() => setIsCAPI((v) => !v)}
+                  onChange={setIsCAPI}
                   checked={isCAPI}
                 />
                 <Checkbox
                   label={'CAWI'}
-                  onChange={() => setIsCAWI((v) => !v)}
+                  onChange={setIsCAWI}
                   checked={isCAWI}
                 />
                 <Checkbox
                   label={'CATI'}
-                  onChange={() => setIsCATI((v) => !v)}
+                  onChange={setIsCATI}
                   checked={isCATI}
                 />
                 <Checkbox
                   label={'PAPI'}
-                  onChange={() => setIsPAPI((v) => !v)}
+                  onChange={setIsPAPI}
                   checked={isPAPI}
                 />
               </div>
@@ -116,11 +139,13 @@ export default function CreateQuestionnaire() {
             />
           </div>
           <div className="flex gap-x-2 mt-6">
-            <Link to={'/questionnaires'}>
-              <Button>Annuler</Button>
-            </Link>
-            <Button type={ButtonType.Primary} onClick={onSubmit}>
-              Créer le questionnaire
+            <ButtonLink to={'/questionnaires'}>Annuler</ButtonLink>
+            <Button
+              type={ButtonType.Primary}
+              onClick={onSubmit}
+              isLoading={isLoading}
+            >
+              Valider
             </Button>
           </div>
         </div>

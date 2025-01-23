@@ -24,14 +24,19 @@ export default {
       textColor: {
         default: '#0A192E',
         disabled: '#797676',
+        placeholder: '#aeacac',
         error: '#C71A01',
         success: '#057345',
         negative: '#fff',
         primary: '#6750A4',
       },
       colors: {
+        primary: '#6750A4',
         actionPrimary: '#6750A4',
         red: '#C71A01',
+      },
+      fill: {
+        negative: '#fff',
       },
     },
   },

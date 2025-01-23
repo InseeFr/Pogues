@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
-import { OpenNewWindow } from 'iconoir-react';
 
+import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
 import { User as UserType } from '@/hooks/useAuth';
 
 import User from './User';
@@ -19,7 +19,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
   const appVersion = import.meta.env.APP_VERSION;
 
   return (
-    <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative items-center">
+    <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative fill-negative items-center">
       <div className="px-3 py-2">
         <h1>
           <Link to="/">Pogues</Link>
@@ -35,7 +35,9 @@ export default function Header({ user }: Readonly<HeaderProps>) {
           target="_blank"
         >
           Documentation
-          <OpenNewWindow height="16" width="16" />
+          <div>
+            <OpenInNewIcon height="16" width="16" />
+          </div>
         </a>
       </div>
       <div className="p-3">
