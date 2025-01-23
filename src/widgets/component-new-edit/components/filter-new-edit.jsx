@@ -2,12 +2,16 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
+import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 import Input from '../../../forms/controls/input';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { FilterLoopMembers } from './filter-loop-members';
 
-export const FilterNewEdit = ({ componentsStore, InitialMember }) => {
+export const FilterNewEdit = ({
+  componentsStore,
+  InitialMember,
+  handleDisableValidation,
+}) => {
   const { FILTER } = COMPONENT_TYPE;
   return (
     <div>
@@ -19,10 +23,11 @@ export const FilterNewEdit = ({ componentsStore, InitialMember }) => {
       />
       <Field
         name="filter"
-        type="text"
-        component={InputWithVariableAutoCompletion}
+        component={RichEditorWithVariable}
         label={Dictionary.expression}
         required
+        focusOnInit={false}
+        setDisableValidation={handleDisableValidation}
       />
       {componentsStore && (
         <FilterLoopMembers
@@ -38,6 +43,7 @@ export const FilterNewEdit = ({ componentsStore, InitialMember }) => {
 FilterNewEdit.propTypes = {
   componentsStore: PropTypes.object,
   InitialMember: PropTypes.string,
+  handleDisableValidation: PropTypes.func.isRequired,
 };
 
 FilterNewEdit.defaultProps = {

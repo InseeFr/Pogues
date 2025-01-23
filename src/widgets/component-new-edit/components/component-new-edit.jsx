@@ -140,6 +140,7 @@ const ComponentNewEdit = ({
         {componentType === FILTER && (
           <FilterNewEdit
             componentsStore={componentsStore}
+            handleDisableValidation={handleDisableValidation}
             InitialMember={InitialMember}
           />
         )}
