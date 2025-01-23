@@ -15,7 +15,6 @@ const defaultPlugin = [
 
 export const buildViteConf = (withFederation: boolean): UserConfig => {
   return {
-    base: './',
     plugins: withFederation
       ? [
           ...defaultPlugin,
@@ -37,18 +36,13 @@ export const buildViteConf = (withFederation: boolean): UserConfig => {
     },
     // https://vite.dev/guide/build.html#advanced-base-options
     experimental: {
-      renderBuiltUrl(filename, { hostType }) {
+      renderBuiltUrl(_filename, { hostType }) {
         /**
-         * For html file (only index.html),
-         * We need the urls to be absolute, not relative (fix issue when we load directly /questionnaire/{id}),
-         * because we set baseURl to "./" to make legacy and next work together
-         * But as for the rest, it must remain relative to allow application works in legacy and with the new application.
+         * For js files,
+         * We need the urls to be relative not absolute (fix issue when we load directly /questionnaire/{id}),
+         * But as for the rest, it must remain absolute to allow application works in legacy and with the new application.
          */
-        if (hostType === 'html') {
-          return `/${filename}`;
-        } else {
-          return { relative: true };
-        }
+        if (hostType === 'js') return { relative: true };
       },
     },
   };
