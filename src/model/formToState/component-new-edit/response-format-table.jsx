@@ -9,7 +9,6 @@ import {
   DIMENSION_LENGTH,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
-  UI_BEHAVIOUR,
 } from '../../../constants/pogues-constants';
 import { uuid, verifyVariable } from '../../../utils/utils';
 import {
@@ -76,11 +75,6 @@ export const defaultMeasureForm = {
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
-    hasSpecialCode: false,
-    specialLabel: '',
-    specialCode: '',
-    specialUiBehaviour: UI_BEHAVIOUR.FIRST_INTENTION,
-    specialFollowUpMessage: '',
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
     visHint: RADIO,
   },

@@ -1,7 +1,4 @@
-import {
-  DATATYPE_TYPE_FROM_NAME,
-  UI_BEHAVIOUR,
-} from '../../constants/pogues-constants';
+import { DATATYPE_TYPE_FROM_NAME } from '../../constants/pogues-constants';
 import { uuid } from '../../utils/utils';
 
 export function stateToRemote(state, response) {
@@ -27,11 +24,6 @@ export function stateToRemote(state, response) {
     mamonths: Mamonths,
     codesListId: CodeListReference,
     visHint: visualizationHint,
-    hasSpecialCode,
-    specialLabel,
-    specialCode,
-    specialUiBehaviour,
-    specialFollowUpMessage,
     collectedVariable: CollectedVariableReference,
   } = state;
   const find = response
@@ -74,14 +66,5 @@ export function stateToRemote(state, response) {
   if (Mayears !== undefined) model.Datatype.Mayears = Mayears;
   if (Mamonths !== undefined) model.Datatype.Mamonths = Mamonths;
 
-  if (hasSpecialCode) {
-    model.nonResponseModality = {
-      value: specialCode,
-      label: specialLabel,
-      firstIntentionDisplay:
-        specialUiBehaviour === UI_BEHAVIOUR.FIRST_INTENTION,
-      invite: specialFollowUpMessage,
-    };
-  }
   return model;
 }

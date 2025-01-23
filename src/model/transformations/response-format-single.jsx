@@ -1,7 +1,6 @@
 import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  UI_BEHAVIOUR,
 } from '../../constants/pogues-constants';
 import * as CodeList from './codes-list';
 import * as Response from './response';
@@ -14,7 +13,6 @@ export function remoteToState(remote) {
       {
         Datatype: { visualizationHint: visHint },
         mandatory,
-        nonResponseModality,
         CodeListReference,
         id,
       },
@@ -27,18 +25,6 @@ export function remoteToState(remote) {
     id,
     mandatory,
     visHint,
-    hasSpecialCode: !!nonResponseModality,
-    specialLabel:
-      nonResponseModality !== undefined ? nonResponseModality.label : '',
-    specialCode:
-      nonResponseModality !== undefined ? nonResponseModality.value : '',
-    specialUiBehaviour:
-      nonResponseModality && !nonResponseModality.firstIntentionDisplay
-        ? UI_BEHAVIOUR.SECOND_INTENTION
-        : UI_BEHAVIOUR.FIRST_INTENTION,
-    specialFollowUpMessage: nonResponseModality
-      ? nonResponseModality.invite
-      : '',
   };
 }
 

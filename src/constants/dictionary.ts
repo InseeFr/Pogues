@@ -1021,10 +1021,6 @@ const dictionary: Dictionary = {
     fr: 'Supprimer la condition',
     en: 'Remove condition',
   },
-  addSpecialCode: {
-    fr: "Ajout d'une modalité spécifique",
-    en: 'Add special code',
-  },
   addCode: {
     fr: 'Ajouter un code',
     en: 'Add a code',
