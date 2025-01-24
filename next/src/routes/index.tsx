@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div id="latest-pogues">
-      <img src={poguesLogo} className="logo" alt="Pogues" />
+      <img src={poguesLogo} className="logo " alt="Pogues" />
       <h2>Bienvenue sur la nouvelle interface de Pogues !</h2>
     </div>
   );

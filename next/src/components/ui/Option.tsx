@@ -1,51 +1,17 @@
-import * as React from 'react';
+import { Select } from '@base-ui-components/react/select';
 
-import {
-  Option as BaseOption,
-  OptionOwnerState,
-  OptionProps,
-} from '@mui/base/Option';
+interface OptionProps {
+  children: React.ReactNode;
+  value: unknown;
+}
 
-const getOptionColorClasses = ({
-  selected,
-  highlighted,
-  disabled,
-}: Partial<OptionOwnerState<number>>) => {
-  let classes = '';
-  if (disabled) {
-    classes += 'text-slate-400 dark:text-slate-700';
-  } else {
-    if (selected) {
-      classes +=
-        ' bg-purple-100 dark:bg-purple-950 text-purple-950 dark:text-purple-50';
-    } else if (highlighted) {
-      classes +=
-        ' bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-300';
-    }
-    classes +=
-      ' hover:dark:bg-slate-800 hover:bg-slate-100 hover:dark:text-slate-300 hover:text-slate-900';
-    classes +=
-      ' focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400 focus-visible:dark:outline-purple-300';
-  }
-  return classes;
-};
-
-const Option = React.forwardRef<HTMLLIElement, OptionProps<unknown>>(
-  (props, ref) => {
-    return (
-      <BaseOption
-        ref={ref}
-        {...props}
-        slotProps={{
-          root: ({ selected, highlighted, disabled }) => ({
-            className: `list-none p-2 rounded-lg cursor-default last-of-type:border-b-0 ${getOptionColorClasses(
-              { selected, highlighted, disabled },
-            )}`,
-          }),
-        }}
-      />
-    );
-  },
-);
-
-export default Option;
+export default function Option({ children, value }: OptionProps) {
+  return (
+    <Select.Item
+      className="rounded-lg min-w-[var(--anchor-width)] cursor-default items-center mx-1 px-2 py-2.5 text-sm leading-4 outline-none select-none group-data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-1 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:z-[-1] data-[highlighted]:bg-main"
+      value={value}
+    >
+      <Select.ItemText className="text-sm">{children}</Select.ItemText>
+    </Select.Item>
+  );
+}

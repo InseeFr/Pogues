@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
-import { NavArrowRight } from 'iconoir-react';
 
+import ChevronRightIcon from '@/components/ui/icons/ChevronRightIcon';
 import type { Questionnaire } from '@/models/questionnaires';
 
 interface QuestionnaireProps {
@@ -28,7 +28,7 @@ export default function QuestionnaireLine({
         <div>{questionnaire.lastUpdatedDate?.toLocaleDateString()}</div>
       </td>
       <td>
-        <NavArrowRight width={20} height={20} />
+        <ChevronRightIcon />
       </td>
     </Link>
   );

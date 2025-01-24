@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Link, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 
-import Button from '@/components/ui/Button';
+import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
@@ -13,36 +13,36 @@ import StampsSelector from './StampsSelector';
 import TableQuestionnaires from './TableQuestionnaires';
 
 interface QuestionnairesProps {
+  selectedStamp: string;
   stamps?: Stamp[];
   questionnaires?: Questionnaire[];
 }
 
 /** Display the page with the questionnaires and various filters options. */
 export default function Questionnaires({
+  selectedStamp,
   stamps = [],
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
-  const [selectedStamp, setSelectedStamp] = useState<string>('DR59-SNDI59');
   const [filter, setFilter] = useState<string>('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (selectedStamp) {
-      navigate({
-        to: '/questionnaires/$stamp',
-        params: { stamp: selectedStamp },
-      });
-    }
-  }, [navigate, selectedStamp]);
+  /** Change page based on stamp chosen from the selector. */
+  function handleStampSelection(stamp: string) {
+    navigate({
+      to: '/questionnaires/$stamp',
+      params: { stamp },
+    });
+  }
 
   return (
     <div>
       <ContentHeader
         title="Questionnaires"
         action={
-          <Link to="/questionnaires/new">
-            <Button>Créer un questionnaire</Button>
-          </Link>
+          <ButtonLink to="/questionnaires/new">
+            Créer un questionnaire
+          </ButtonLink>
         }
       />
       <ContentMain>
@@ -51,15 +51,15 @@ export default function Questionnaires({
             <StampsSelector
               selectedStamp={selectedStamp}
               stamps={stamps}
-              onSelect={(id) => setSelectedStamp(id)}
+              onSelect={(id) => handleStampSelection(id)}
             />
           </div>
           <div>
             <Input
               label={'Rechercher un questionnaire'}
               placeholder={'Rechercher un questionnaire'}
-              onChange={setFilter}
-              displaySearchIcon
+              value={filter}
+              onChange={(v) => setFilter(v as string)}
             />
           </div>
         </div>

@@ -1,163 +1,55 @@
-import * as React from 'react';
+import { Select as UISelect } from '@base-ui-components/react/select';
 
-import { FormControl } from '@mui/base/FormControl';
-import {
-  Select as BaseSelect,
-  SelectListboxSlotProps,
-  SelectProps,
-  SelectRootSlotProps,
-} from '@mui/base/Select';
-import { CssTransition } from '@mui/base/Transitions';
-import { PopupContext } from '@mui/base/Unstable_Popup';
-//import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
-import clsx from 'clsx';
-import { NavArrowDown } from 'iconoir-react';
+import ArrowDownIcon from './icons/ArrowDownIcon';
 
-import Label from './Label';
-
-function useIsDarkMode() {
-  return false;
-}
-
-interface SelectWrapperProps {
+interface SelectProps {
+  onChange?: (v: unknown) => void;
   children: React.ReactNode;
-  label?: string;
-  onChange: (_: unknown, newValue: unknown) => void;
-  required?: boolean;
   value: unknown;
 }
 
-export default function SelectWrapper({
+export default function Select({
+  onChange = () => {},
   children,
-  required = false,
-  label,
-  onChange,
   value,
-}: Readonly<SelectWrapperProps>) {
+}: Readonly<SelectProps>) {
   return (
-    <FormControl required={required}>
-      {label ? <Label>{label}</Label> : null}
-      <Select onChange={onChange} value={value}>
-        {children}
-      </Select>
-    </FormControl>
+    <UISelect.Root value={value} onValueChange={onChange}>
+      <UISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-[popup-open]:bg-accent">
+        <UISelect.Value />
+        <UISelect.Icon className="flex">
+          <ArrowDownIcon />
+        </UISelect.Icon>
+      </UISelect.Trigger>
+      <UISelect.Portal>
+        <UISelect.Positioner className="outline-none" sideOffset={8}>
+          <UISelect.Popup className="outline-none group origin-[var(--transform-origin)] rounded-lg bg-[canvas] py-1 text-default shadow-lg transition-[transform,scale,opacity] data-[ending-style]:scale-100 data-[ending-style]:opacity-100 data-[ending-style]:transition-none data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100 data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style]:transition-none">
+            <UISelect.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
+              <ArrowSvg />
+            </UISelect.Arrow>
+            {children}
+          </UISelect.Popup>
+        </UISelect.Positioner>
+      </UISelect.Portal>
+    </UISelect.Root>
   );
 }
 
-const Button = React.forwardRef(function Button<
-  TValue extends {},
-  Multiple extends boolean,
->(
-  props: SelectRootSlotProps<TValue, Multiple>,
-  ref: React.ForwardedRef<HTMLButtonElement>,
-) {
-  const { ownerState, ...other } = props;
+function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
   return (
-    <button type="button" {...other} ref={ref}>
-      {other.children}
-      <NavArrowDown />
-    </button>
+    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+      <path
+        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
+        className="fill-[canvas]"
+      />
+      <path
+        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
+        className="fill-gray-200 dark:fill-none"
+      />
+      <path
+        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
+        className="dark:fill-gray-300"
+      />
+    </svg>
   );
-});
-
-const AnimatedListbox = React.forwardRef(function AnimatedListbox<
-  Value extends {},
-  Multiple extends boolean,
->(
-  props: SelectListboxSlotProps<Value, Multiple>,
-  ref: React.ForwardedRef<HTMLUListElement>,
-) {
-  const { ownerState, ...other } = props;
-  const popupContext = React.useContext(PopupContext);
-
-  if (popupContext == null) {
-    throw new Error(
-      'The `AnimatedListbox` component cannot be rendered outside a `Popup` component',
-    );
-  }
-
-  const verticalPlacement = popupContext.placement.split('-')[0];
-
-  return (
-    <CssTransition
-      className={`placement-${verticalPlacement}`}
-      enterClassName="open"
-      exitClassName="closed"
-    >
-      <ul {...other} ref={ref} />
-    </CssTransition>
-  );
-});
-
-const resolveSlotProps = (fn: any, args: any) =>
-  typeof fn === 'function' ? fn(args) : fn;
-
-const Select = React.forwardRef(function CustomSelect<
-  TValue extends {},
-  Multiple extends boolean,
->(
-  props: SelectProps<TValue, Multiple>,
-  ref: React.ForwardedRef<HTMLButtonElement>,
-) {
-  // Replace this with your app logic for determining dark modes
-  const isDarkMode = useIsDarkMode();
-
-  return (
-    <BaseSelect
-      ref={ref}
-      {...props}
-      slots={{
-        root: Button,
-        listbox: AnimatedListbox,
-        ...props.slots,
-      }}
-      className={clsx('CustomSelect', props.className)}
-      slotProps={{
-        ...props.slotProps,
-        root: (ownerState) => {
-          const resolvedSlotProps = resolveSlotProps(
-            props.slotProps?.root,
-            ownerState,
-          );
-          return {
-            ...resolvedSlotProps,
-            className: clsx(
-              `relative text-sm font-sans box-border w-full p-4 truncate rounded-lg text-left bg-white dark:bg-neutral-900 border border-solid border-slate-200 dark:border-neutral-700 text-slate-900 dark:text-neutral-300 transition-all hover:bg-slate-50 dark:hover:bg-neutral-800 outline-0 shadow-md shadow-slate-100 dark:shadow-slate-900 ${
-                ownerState.focusVisible
-                  ? 'focus-visible:ring-4 ring-purple-500/30 focus-visible:border-purple-500 focus-visible:dark:border-purple-500'
-                  : ''
-              } [&>svg]:text-base	[&>svg]:absolute [&>svg]:h-full [&>svg]:top-0 [&>svg]:right-2.5`,
-              resolvedSlotProps?.className,
-            ),
-          };
-        },
-        listbox: (ownerState) => {
-          const resolvedSlotProps = resolveSlotProps(
-            props.slotProps?.listbox,
-            ownerState,
-          );
-          return {
-            ...resolvedSlotProps,
-            className: clsx(
-              `text-sm font-sans p-1.5 my-3 w-80 max-h-[calc(50vh-3rem)] rounded-xl overflow-auto outline-0 bg-white dark:bg-slate-900 border border-solid border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-300 shadow shadow-slate-200 dark:shadow-slate-900 [.open_&]:opacity-100 [.open_&]:scale-100 transition-[opacity,transform] [.closed_&]:opacity-0 [.closed_&]:scale-90 [.placement-top_&]:origin-bottom [.placement-bottom_&]:origin-top`,
-              resolvedSlotProps?.className,
-            ),
-          };
-        },
-        popup: (ownerState) => {
-          const resolvedSlotProps = resolveSlotProps(
-            props.slotProps?.popup,
-            ownerState,
-          );
-          return {
-            ...resolvedSlotProps,
-            className: clsx(
-              `${isDarkMode ? 'dark' : ''} z-10`,
-              resolvedSlotProps?.className,
-            ),
-          };
-        },
-      }}
-    />
-  );
-});
+}

@@ -1,64 +1,54 @@
-import { FormControl } from '@mui/base/FormControl';
-import { Input as MuiInput } from '@mui/base/Input';
-import { TextMagnifyingGlass } from 'iconoir-react';
-
-import HelperText from './HelperText';
-import Label from './Label';
+import { Field } from '@base-ui-components/react/field';
 
 interface InputProps {
   autoFocus?: boolean;
-  displaySearchIcon?: boolean;
-  label?: string;
-  onChange: (newValue: string) => void;
+  description?: string;
+  disabled?: boolean;
+  label: string;
+  onChange?: (v: string | number | readonly string[] | undefined) => void;
   placeholder?: string;
   required?: boolean;
-  value?: unknown;
-  disabled?: boolean;
-  type?: React.InputHTMLAttributes<HTMLInputElement>['type'];
+  value: string | number | readonly string[] | undefined;
 }
 
 export default function Input({
-  autoFocus = false,
-  displaySearchIcon = false,
-  label = '',
-  onChange,
-  placeholder = '',
-  required = false,
-  disabled = false,
+  autoFocus,
+  description,
+  disabled,
+  label,
+  onChange = () => {},
+  placeholder,
+  required,
   value,
-  type,
 }: Readonly<InputProps>) {
   return (
-    <FormControl
-      value={value}
-      required={required}
+    <Field.Root
       disabled={disabled}
-      onChange={(e) => onChange(e.target.value)}
+      className="flex w-full flex-col items-start gap-1"
     >
-      {label ? <Label>{label}</Label> : null}
-      <MuiInput
-        type={type}
+      {label ? (
+        <Field.Label className="text-sm ml-1">
+          {label}
+          {required ? ' *' : ''}
+        </Field.Label>
+      ) : null}
+      <Field.Control
         autoFocus={autoFocus}
-        slotProps={{
-          root: {
-            className: 'flex',
-          },
-          input: {
-            className:
-              'w-full text-sm font-sans font-normal leading-5 p-4 rounded-lg shadow-md shadow-slate-100 focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 focus:border-purple-500 bg-white text-slate-900 focus-visible:outline-0',
-          },
-        }}
-        aria-label={label}
+        onValueChange={(v, _) => onChange(v)}
+        value={value}
+        required={required}
         placeholder={placeholder}
-        endAdornment={
-          displaySearchIcon ? (
-            <div className="text-disabled inline-flex items-center text-center -ml-8">
-              <TextMagnifyingGlass />
-            </div>
-          ) : undefined
-        }
+        className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-sm border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
       />
-      <HelperText />
-    </FormControl>
+      <Field.Error className="text-sm text-error ml-1" match="valueMissing">
+        Ce champ est requis
+      </Field.Error>
+
+      {description ? (
+        <Field.Description className="text-sm text-default">
+          {description}
+        </Field.Description>
+      ) : null}
+    </Field.Root>
   );
 }
