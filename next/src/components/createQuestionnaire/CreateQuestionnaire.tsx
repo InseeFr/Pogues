@@ -65,7 +65,6 @@ export default function CreateQuestionnaire() {
         title,
         targetModes: computeTargetModes({ isCAPI, isCATI, isCAWI, isPAPI }),
       };
-      console.log(questionnaire);
       const response = await postQuestionnaire(
         questionnaire,
         user.stamp,

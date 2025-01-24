@@ -26,7 +26,6 @@ export default function Button({
       disabled={disabled || isLoading}
       className={`border font-semibold transition rounded px-4 py-3 min-w-40 disabled:cursor-not-allowed outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${type === ButtonType.Primary ? 'bg-primary text-negative hover:enabled:bg-primary-accent active:enabled:bg-primary-active' : 'bg-white text-primary hover:enabled:bg-accent active:enabled:bg-active border-primary'}`}
     >
-      {' '}
       {isLoading ? (
         <div className="flex">
           <div className="mr-3 animate-spin fill-negative">
