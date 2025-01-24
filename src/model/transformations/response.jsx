@@ -1,4 +1,7 @@
-import { DATATYPE_TYPE_FROM_NAME } from '../../constants/pogues-constants';
+import {
+  DATATYPE_TYPE_FROM_NAME,
+  DATATYPE_VIS_HINT,
+} from '../../constants/pogues-constants';
 import { uuid } from '../../utils/utils';
 
 export function stateToRemote(state, response) {
@@ -23,6 +26,7 @@ export function stateToRemote(state, response) {
     mayears: Mayears,
     mamonths: Mamonths,
     codesListId: CodeListReference,
+    allowArbitrary,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
   } = state;
@@ -47,6 +51,12 @@ export function stateToRemote(state, response) {
     model.CodeListReference = CodeListReference;
   if (mandatory !== undefined)
     model.mandatory = mandatory === '' ? false : mandatory;
+  if (allowArbitrary !== undefined)
+    // we keep allowArbitrary value only for suggester
+    model.Datatype.allowArbitrary =
+      visualizationHint === DATATYPE_VIS_HINT.SUGGESTER
+        ? allowArbitrary
+        : undefined;
   if (visualizationHint !== undefined)
     model.Datatype.visualizationHint = visualizationHint;
   if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;

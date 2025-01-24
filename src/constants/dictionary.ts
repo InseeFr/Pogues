@@ -889,6 +889,10 @@ const dictionary: Dictionary = {
     fr: 'Retrouver dans le questionnaire',
     en: 'Retrieve in the questionnaire',
   },
+  allowArbitraryResponse: {
+    fr: 'Autoriser une réponse libre',
+    en: 'Allow arbitrary response',
+  },
   list: {
     fr: 'Liste',
     en: 'List',

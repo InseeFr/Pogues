@@ -10,12 +10,14 @@ import {
 const { RADIO } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
+  allowArbitrary: false,
   mandatory: false,
   visHint: RADIO,
   // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
 export const defaultForm = {
+  allowArbitrary: false,
   mandatory: false,
   visHint: RADIO,
   // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
@@ -24,6 +26,7 @@ export const defaultForm = {
 export function formToState(form, transformers) {
   const {
     id,
+    allowArbitrary,
     mandatory,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
@@ -31,6 +34,7 @@ export function formToState(form, transformers) {
 
   return {
     id,
+    allowArbitrary,
     mandatory,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
@@ -39,10 +43,11 @@ export function formToState(form, transformers) {
 }
 
 export function stateToForm(currentState, transformers) {
-  const { id, visHint, mandatory } = currentState;
+  const { id, allowArbitrary, visHint, mandatory } = currentState;
 
   return {
     id,
+    allowArbitrary,
     mandatory,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
