@@ -57,7 +57,7 @@ export default function Questionnaires({
           <div>
             <Input
               label={'Rechercher un questionnaire'}
-              placeholder={'🔎︎ Rechercher un questionnaire'}
+              placeholder={'Rechercher un questionnaire'}
               value={filter}
               onChange={(v) => setFilter(v as string)}
             />
