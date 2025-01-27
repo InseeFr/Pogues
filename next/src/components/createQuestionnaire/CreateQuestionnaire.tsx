@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
+import toast from 'react-hot-toast';
 
 import { postQuestionnaire } from '@/api/questionnaires';
 import { getAccessToken } from '@/api/utils';
@@ -11,7 +13,7 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import { TargetModes } from '@/models/questionnaires';
+import { Questionnaire, TargetModes } from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
 
 const computeTargetModes = ({
@@ -39,6 +41,20 @@ export default function CreateQuestionnaire() {
     from: '__root__',
   });
 
+  const mutation = useMutation({
+    mutationFn: ({
+      questionnaire,
+      stamp,
+      token,
+    }: {
+      questionnaire: Questionnaire;
+      stamp: string;
+      token: string;
+    }) => {
+      return postQuestionnaire(questionnaire, stamp, token);
+    },
+  });
+
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -52,11 +68,12 @@ export default function CreateQuestionnaire() {
   const onSubmit = async () => {
     if (user) {
       setIsLoading(true);
+      // TODO get token from tanstack router
       const token = await getAccessToken();
+      // TODO should never happen and be handled in auth route
       if (!token || user.stamp === undefined) {
-        // 401 error
         setIsLoading(false);
-        // TODO display error
+        toast.error('Unauthorized.');
         return;
       }
       const id = uid();
@@ -65,23 +82,22 @@ export default function CreateQuestionnaire() {
         title,
         targetModes: computeTargetModes({ isCAPI, isCATI, isCAWI, isPAPI }),
       };
-      const response = await postQuestionnaire(
-        questionnaire,
-        user.stamp,
-        token,
+      const promise = mutation.mutateAsync(
+        { questionnaire, stamp: user.stamp, token: '123' },
+        {
+          onSuccess: () =>
+            void navigate({
+              to: '/questionnaire/$questionnaireId',
+              params: { questionnaireId: id },
+            }),
+          onSettled: () => setIsLoading(false),
+        },
       );
-      if (response.ok) {
-        console.info('Success');
-        // TODO display success
-        setIsLoading(false);
-        navigate({
-          to: '/questionnaire/$questionnaireId',
-          params: { questionnaireId: id },
-        });
-      } else {
-        console.error('Error', response.status);
-        // TODO display error
-      }
+      toast.promise(promise, {
+        loading: 'Loading',
+        success: 'Questionnaire created',
+        error: (err: Error) => err.toString(),
+      });
     }
   };
 
