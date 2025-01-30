@@ -244,7 +244,7 @@ describe('collected variable tranformations', () => {
             typeName: 'TEXT',
             MaxLength: 249,
           },
-          arbitraryOfVariable: 'm6aty8by',
+          arbitraryVariableOfVariableId: 'm6aty8by',
         },
       ];
       const arbitraryVariables = [
@@ -256,7 +256,7 @@ describe('collected variable tranformations', () => {
           },
           mandatory: false,
           CollectedVariableReference: 'm6atzjnb',
-          arbitraryOfVariable: 'm6aty8by',
+          arbitraryVariableOfVariableId: 'm6aty8by',
         },
       ];
       const responsesByVariable = { m6aty8by: {} };
@@ -284,7 +284,7 @@ describe('collected variable tranformations', () => {
           TEXT: {
             maxLength: 249,
           },
-          arbitraryOfVariable: 'm6aty8by',
+          arbitraryVariableOfVariableId: 'm6aty8by',
         },
       };
 

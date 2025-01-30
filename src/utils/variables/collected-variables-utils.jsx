@@ -87,7 +87,7 @@ export function getCollectedVariable(
   coordinates,
   reponseFormatValues = {},
   alternativeLabel = '',
-  arbitraryOfVariable = undefined,
+  arbitraryVariableOfVariableId = undefined,
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
@@ -99,10 +99,10 @@ export function getCollectedVariable(
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
   if (alternativeLabel)
     collectedVariable = { ...collectedVariable, ...alternativeLabel };
-  if (arbitraryOfVariable)
+  if (arbitraryVariableOfVariableId)
     collectedVariable = {
       ...collectedVariable,
-      arbitraryOfVariable: arbitraryOfVariable,
+      arbitraryVariableOfVariableId: arbitraryVariableOfVariableId,
     };
   return collectedVariable;
 }

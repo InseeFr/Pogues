@@ -209,9 +209,9 @@ const getArbitraryQuestions = (Children) => {
 /*
  * Get the list of arbitrary variables.
  * An arbitrary variable is the "ArbitraryResponse" object of a question,
- * adding "arbitraryOfVariable" which is the corresponding Response variable.
+ * extented with "arbitraryVariableOfVariableId" which is the corresponding Response variable id.
  */
-export const getArbitraryResponsesFromRemote = (Children) => {
+export const getArbitraryVariablesFromRemote = (Children) => {
   const arbitraryVariables = [];
   const arbitraryQuestions = getArbitraryQuestions(Children);
 
@@ -221,7 +221,7 @@ export const getArbitraryResponsesFromRemote = (Children) => {
 
     const arbitraryVariable = {
       ...question.ArbitraryResponse,
-      arbitraryOfVariable: responseVariableId,
+      arbitraryVariableOfVariableId: responseVariableId,
     };
     arbitraryVariables.push(arbitraryVariable);
   });
@@ -690,19 +690,20 @@ function getClarificationResponseTableQuestion(
 }
 
 function getArbitraryResponse(collectedVariablesStore, collectedVariables) {
-  const collectedvariablequestion = [];
+  const collectedVariableQuestions = [];
   Object.values(collectedVariablesStore).forEach((collec) => {
     if (collectedVariables !== undefined) {
       collectedVariables.forEach((variables) => {
         if (collec.id === variables) {
-          collectedvariablequestion.push(collec);
+          collectedVariableQuestions.push(collec);
         }
       });
     }
   });
 
-  for (const collected of collectedvariablequestion) {
-    const isArbitraryVariable = collected.arbitraryOfVariable !== undefined;
+  for (const collected of collectedVariableQuestions) {
+    const isArbitraryVariable =
+      collected.arbitraryVariableOfVariableId !== undefined;
     // we can have only one collected variable that is an arbitrary variable
     if (isArbitraryVariable) {
       const responseModel = {

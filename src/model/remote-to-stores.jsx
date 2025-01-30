@@ -45,7 +45,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     collectedVariables,
   );
 
-  const arbitraryVariables = Component.getArbitraryResponsesFromRemote(
+  const arbitraryVariables = Component.getArbitraryVariablesFromRemote(
     remote.Child,
     collectedVariables,
   );
