@@ -194,7 +194,10 @@ export function getCollectedVariablesSingle(questionName, form) {
   collectedVariables.push(mainCollectedVariable);
 
   // get arbitrary variable for suggester
-  if (form.allowArbitrary && form.visHint === DATATYPE_VIS_HINT.SUGGESTER) {
+  if (
+    form.allowArbitraryResponse &&
+    form.visHint === DATATYPE_VIS_HINT.SUGGESTER
+  ) {
     const arbitraryResponseName = `${questionName}_ARBITRARY`;
     collectedVariables.push(
       getCollectedVariable(

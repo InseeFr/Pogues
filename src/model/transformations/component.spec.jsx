@@ -52,7 +52,7 @@ describe('component tranformations', () => {
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
                       MaxLength: 1,
-                      allowArbitrary: true,
+                      allowArbitraryResponse: true,
                       visualizationHint: 'SUGGESTER',
                     },
                     id: 'm5qyf09t',
@@ -234,7 +234,7 @@ describe('component tranformations', () => {
             type: 'SINGLE_CHOICE',
             SINGLE_CHOICE: {
               visHint: 'SUGGESTER',
-              allowArbitrary: true,
+              allowArbitraryResponse: true,
               id: 'm5qyf09t',
               mandatory: false,
               CodesList: {

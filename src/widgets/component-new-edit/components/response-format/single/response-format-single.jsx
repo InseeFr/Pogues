@@ -173,7 +173,7 @@ function ResponseFormatSingle({
           <SuggesterLists selectorPathParent={selectorPathComposed} />
           {!disableSetArbitrary && (
             <Field
-              name="allowArbitrary"
+              name="allowArbitraryResponse"
               component={ListRadios}
               label={Dictionary.allowArbitraryResponse}
               required
@@ -232,7 +232,7 @@ const mapStateToProps = (state, { selectorPathParent, responseFormatType }) => {
     componentsStore: state.appState.activeComponentsById,
     collectedVariablesStore: state.appState.collectedVariableByQuestion,
     visHint: selector(state, `${path}visHint`),
-    allowArbitrary: selector(state, `${path}allowArbitrary`),
+    allowArbitraryResponse: selector(state, `${path}allowArbitraryResponse`),
     path,
   };
 };

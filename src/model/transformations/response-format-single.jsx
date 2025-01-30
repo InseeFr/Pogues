@@ -11,7 +11,7 @@ export function remoteToState(remote) {
   const {
     responses: [
       {
-        Datatype: { allowArbitrary, visualizationHint: visHint },
+        Datatype: { allowArbitraryResponse, visualizationHint: visHint },
         mandatory,
         CodeListReference,
         id,
@@ -24,7 +24,7 @@ export function remoteToState(remote) {
       CodeList.remoteToState(CodeListReference),
     id,
     mandatory,
-    allowArbitrary,
+    allowArbitraryResponse,
     visHint,
   };
 }
@@ -32,7 +32,7 @@ export function remoteToState(remote) {
 export function stateToRemote(state, collectedVariables) {
   const {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
-    allowArbitrary,
+    allowArbitraryResponse,
     visHint,
     mandatory,
     id,
@@ -42,7 +42,7 @@ export function stateToRemote(state, collectedVariables) {
       Response.stateToRemote({
         id,
         mandatory,
-        allowArbitrary,
+        allowArbitraryResponse,
         visHint,
         codesListId,
         typeName: TEXT,
