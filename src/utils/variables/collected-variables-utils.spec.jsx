@@ -151,10 +151,10 @@ describe('getCollectedVariablesSingle', () => {
     ]);
   });
 
-  test('should return suggester arbitrary variable if allowArbitrary', () => {
+  test('should return suggester arbitrary variable if allowArbitraryResponse', () => {
     const questionName = 'questionName';
     const form = {
-      allowArbitrary: true,
+      allowArbitraryResponse: true,
       visHint: 'SUGGESTER',
       CodesList: { id: 'id', label: 'label', codes: [] },
     };

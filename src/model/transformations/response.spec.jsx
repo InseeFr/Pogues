@@ -169,9 +169,9 @@ describe('response tranformations', () => {
     expect(result.Datatype.Unit).toEqual(unit);
   });
 
-  test('when allowArbitrary is defined', () => {
+  test('when allowArbitraryResponse is defined', () => {
     const typeName = 'TEXT';
-    const allowArbitrary = true;
+    const allowArbitraryResponse = true;
 
     // Get all values of DATATYPE_VIS_HINT except 'SUGGESTER'
     const nonSuggesterVisHints = Object.values(DATATYPE_VIS_HINT).filter(
@@ -182,10 +182,12 @@ describe('response tranformations', () => {
       typeName,
       id: '1',
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
-      allowArbitrary,
+      allowArbitraryResponse,
     });
 
-    expect(resultSuggester.Datatype.allowArbitrary).toEqual(allowArbitrary);
+    expect(resultSuggester.Datatype.allowArbitraryResponse).toEqual(
+      allowArbitraryResponse,
+    );
 
     // Test for all non-SUGGESTER visHint values
     nonSuggesterVisHints.forEach((visHint) => {
@@ -193,10 +195,10 @@ describe('response tranformations', () => {
         typeName,
         id: '1',
         visHint,
-        allowArbitrary,
+        allowArbitraryResponse,
       });
 
-      expect(result.Datatype.allowArbitrary).toEqual(undefined);
+      expect(result.Datatype.allowArbitraryResponse).toEqual(undefined);
     });
   });
 
