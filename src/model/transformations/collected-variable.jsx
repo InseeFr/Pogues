@@ -52,8 +52,8 @@ export function remoteToStore(
           arbitraryVariable.CollectedVariableReference === variable.id,
       );
       if (extendedArbitraryVariable) {
-        variable.arbitraryOfVariable =
-          extendedArbitraryVariable.arbitraryOfVariable;
+        variable.arbitraryVariableOfVariableId =
+          extendedArbitraryVariable.arbitraryVariableOfVariableId;
       }
     }
   });
@@ -64,7 +64,7 @@ export function remoteToStore(
       CodeListReference,
       z,
       mesureLevel,
-      arbitraryOfVariable,
+      arbitraryVariableOfVariableId,
     } = ev;
     const id = ev.id || uuid();
 
@@ -87,7 +87,7 @@ export function remoteToStore(
         ...responsesByVariable[id],
         z,
         mesureLevel,
-        arbitraryOfVariable,
+        arbitraryVariableOfVariableId,
       },
     };
   }, {});

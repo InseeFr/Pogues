@@ -177,7 +177,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'questionName_ARBITRARY label',
         type: 'TEXT',
         TEXT: { maxLength: 249 },
-        arbitraryOfVariable: result[0].id,
+        arbitraryVariableOfVariableId: result[0].id,
       },
     ]);
   });

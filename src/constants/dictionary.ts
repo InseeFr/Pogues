@@ -517,7 +517,7 @@ const dictionary: Dictionary = {
   },
   allowArbitraryResponse: {
     fr: 'Autoriser une réponse libre',
-    en: 'Allow arbitrary response',
+    en: 'Allow an arbitrary response',
   },
   list: {
     fr: 'Liste',
