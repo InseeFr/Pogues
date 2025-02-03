@@ -12,7 +12,7 @@ describe('QuestionnaireLine', () => {
           title: 'My questionnaire',
           id: 'my-id',
           lastUpdatedDate: new Date('02-01-2023'),
-          targetModes: [],
+          targetModes: new Set(),
         }}
       />,
     );

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "prepare": "vite-envs update-types",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
@@ -33,6 +34,7 @@
     "@module-federation/vite": "^1.2.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
