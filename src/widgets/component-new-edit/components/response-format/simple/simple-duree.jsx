@@ -64,6 +64,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.hours}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                     <Field
                       name="miminutes"
@@ -72,6 +76,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.minutes}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                   </div>
                 )}
@@ -84,6 +92,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.years}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                     <Field
                       name="mimonths"
@@ -92,6 +104,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.months}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                   </div>
                 )}
@@ -112,6 +128,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.hours}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                     <Field
                       name="maminutes"
@@ -120,6 +140,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.minutes}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                   </div>
                 )}
@@ -132,6 +156,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.years}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                     <Field
                       name="mamonths"
@@ -140,6 +168,10 @@ function ResponseFormatDatatypeDuree({
                       component={Input}
                       label={Dictionary.months}
                       disabled={readOnly}
+                      required
+                      validate={funcRequired({
+                        message: Dictionary.validationRequired,
+                      })}
                     />
                   </div>
                 )}
