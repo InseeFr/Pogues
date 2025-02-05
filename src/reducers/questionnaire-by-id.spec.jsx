@@ -7,6 +7,8 @@ import {
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_SUCCESS,
 } from '../actions/questionnaire';
+import { HttpResponseError } from '../errors/error';
+import Dictionary from '../utils/dictionary/dictionary';
 import reducer from './questionnaire-by-id';
 
 describe('questionnaire-by-id reducer', () => {
@@ -46,11 +48,34 @@ describe('questionnaire-by-id reducer', () => {
 
   test('should handle LOAD_QUESTIONNAIRE_FAILURE', () => {
     expect(
-      reducer({
-        type: LOAD_QUESTIONNAIRE_FAILURE,
-      }),
+      reducer(
+        {},
+        {
+          type: LOAD_QUESTIONNAIRE_FAILURE,
+          payload: { err: new HttpResponseError(404, 'Not Found'), id: '1' },
+        },
+      ),
     ).toEqual({
-      type: LOAD_QUESTIONNAIRE_FAILURE,
+      loader: false,
+      loadingError: `${Dictionary.pageSearchNoResultsForId} 1.`,
+    });
+  });
+
+  test('should handle LOAD_QUESTIONNAIRE_FAILURE', () => {
+    expect(
+      reducer(
+        {},
+        {
+          type: LOAD_QUESTIONNAIRE_FAILURE,
+          payload: {
+            err: new HttpResponseError(500, 'Unknown error'),
+            id: '1',
+          },
+        },
+      ),
+    ).toEqual({
+      loader: false,
+      loadingError: `${Dictionary.errorMessageQuest}.`,
     });
   });
 

@@ -16,6 +16,7 @@ import { getEnvVar } from '../../../utils/env';
 import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
+import Loader from '../../loader';
 import { QuestionnaireEdit } from '../../questionnaire-edit';
 import { Versions } from '../../versions';
 import QuestionnaireComponent from './questionnaire-component';
@@ -135,7 +136,7 @@ const QuestionnaireListComponents = (props) => {
   return (
     <div id="questionnaire">
       {!questionnaire.id ? (
-        <span className="fa fa-spinner fa-pulse fa-2x" />
+        <Loader />
       ) : (
         <div>
           {/* Questionnaire edit */}
