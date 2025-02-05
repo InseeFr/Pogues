@@ -53,7 +53,7 @@ const PageQuestionnaire = (props) => {
     externalVariables,
     collectedVariablesByQuestion,
     loading,
-    errorLoading,
+    loadingError,
     loadQuestionnaire,
     setActiveQuestionnaire,
     loadStatisticalContext,
@@ -115,14 +115,14 @@ const PageQuestionnaire = (props) => {
 
   return (
     <div id={COMPONENT_ID}>
-      {errorLoading && (
+      {loadingError && (
         <div>
           <QuestionnaireNav />
-          <LoaderError message={errorLoading} />
+          <LoaderError message={loadingError} />
         </div>
       )}
       {loading && <Loader />}
-      {!errorLoading && !loading && (
+      {!loadingError && !loading && (
         <div>
           <QuestionnaireListComponents navigate={history.push} token={token} />
           <GenericInput />

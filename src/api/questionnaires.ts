@@ -1,3 +1,5 @@
+import { HttpResponseError } from '@/errors/error';
+
 import { computeAuthorizationHeader, getBaseURI } from './utils';
 
 const pathQuestionnaire = 'persistence/questionnaire';
@@ -85,7 +87,7 @@ export async function getQuestionnaire(
     headers,
   }).then((res) => {
     if (res.ok) return res.json();
-    else throw new Error(`${res.status}`);
+    else throw new HttpResponseError(res.status, res.statusText);
   });
 }
 

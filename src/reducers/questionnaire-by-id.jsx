@@ -26,18 +26,15 @@ export function loadQuestionnaireSuccess(
   };
 }
 export function loadQuestionnaireFail(state, payload) {
-  const {
-    err: { message },
-    id,
-  } = payload;
+  const { err, id } = payload;
   const finalMessage =
-    message === '404'
+    err.statusCode === 404
       ? `${Dictionary.pageSearchNoResultsForId} ${id}.`
       : `${Dictionary.errorMessageQuest}.`;
 
   return {
     loader: false,
-    errorLoading: finalMessage,
+    loadingError: finalMessage,
   };
 }
 
