@@ -108,16 +108,21 @@ export default function CreateQuestionnaire() {
                   onChange={(v) => field.handleChange(v as string)}
                   autoFocus
                   value={field.state.value}
+                  error={
+                    field.state.meta.isTouched
+                      ? field.state.meta.errors.join(', ')
+                      : ''
+                  }
                   required
                 />
               )}
             </Field>
             <div>
               <Label required>Mode de collecte</Label>
-              <div className="flex gap-x-4">
-                <Field name="targetModes">
-                  {(field) => (
-                    <>
+              <Field name="targetModes">
+                {(field) => (
+                  <>
+                    <div className="flex gap-x-4">
                       <TargetModeCheckbox
                         label="CAPI"
                         value={TargetModes.CAPI}
@@ -138,10 +143,15 @@ export default function CreateQuestionnaire() {
                         value={TargetModes.PAPI}
                         field={field}
                       />
-                    </>
-                  )}
-                </Field>
-              </div>
+                    </div>
+                    {field.state.meta.isTouched ? (
+                      <div className="text-sm text-error ml-1">
+                        {field.state.meta.errors.join(', ')}
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </Field>
             </div>
             <Input
               label={'Spécification dynamique'}

@@ -4,6 +4,7 @@ interface InputProps {
   autoFocus?: boolean;
   description?: string;
   disabled?: boolean;
+  error?: string;
   label: string;
   onChange?: (v: string | number | readonly string[] | undefined) => void;
   placeholder?: string;
@@ -15,6 +16,7 @@ export default function Input({
   autoFocus,
   description,
   disabled,
+  error,
   label,
   onChange = () => {},
   placeholder,
@@ -23,6 +25,7 @@ export default function Input({
 }: Readonly<InputProps>) {
   return (
     <Field.Root
+      invalid={!!error}
       disabled={disabled}
       className="flex w-full flex-col items-start gap-1"
     >
@@ -40,8 +43,8 @@ export default function Input({
         placeholder={placeholder}
         className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-sm border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
       />
-      <Field.Error className="text-sm text-error ml-1" match="valueMissing">
-        Ce champ est requis
+      <Field.Error className="text-sm text-error ml-1" forceShow={!!error}>
+        {error}
       </Field.Error>
 
       {description ? (
