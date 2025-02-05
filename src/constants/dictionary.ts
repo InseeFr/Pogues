@@ -14,7 +14,12 @@ const {
   PRECISION_EDIT,
 } = CODELISTS_ACTIONS;
 
-type Dictionary = { [key: string]: { en: string; fr: string } };
+type Dictionary = {
+  [key: string]: {
+    en: string;
+    fr: string;
+  };
+};
 
 const dictionary: Dictionary = {
   phLabel: {
@@ -1568,6 +1573,10 @@ const dictionary: Dictionary = {
   pageSearchNoResults: {
     en: 'No questionnaire found',
     fr: 'Aucun questionnaire trouvé',
+  },
+  pageSearchNoResultsForId: {
+    en: 'No questionnaire found for identifier',
+    fr: "Aucun questionnaire trouvé pour l'identifiant",
   },
   codesListsNoResults: {
     en: 'No code list found',
