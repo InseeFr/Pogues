@@ -12,6 +12,9 @@ import Dictionary from '../../../../../utils/dictionary/dictionary';
 
 const { DURATION } = DATATYPE_NAME;
 
+const requiredValidationFunction = funcRequired({
+  message: Dictionary.validationRequired,
+});
 function ResponseFormatDatatypeDuree({
   format,
   type,
@@ -34,7 +37,7 @@ function ResponseFormatDatatypeDuree({
           label={Dictionary.date_format}
           required={required}
           disabled={readOnly}
-          validate={funcRequired({ message: Dictionary.validationRequired })}
+          validate={requiredValidationFunction}
         >
           <GenericOption key="" value="">
             {Dictionary.durationinitial}
@@ -65,9 +68,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.hours}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                     <Field
                       name="miminutes"
@@ -77,9 +78,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.minutes}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                   </div>
                 )}
@@ -93,9 +92,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.years}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                     <Field
                       name="mimonths"
@@ -105,9 +102,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.months}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                   </div>
                 )}
@@ -129,9 +124,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.hours}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                     <Field
                       name="maminutes"
@@ -141,9 +134,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.minutes}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                   </div>
                 )}
@@ -157,9 +148,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.years}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                     <Field
                       name="mamonths"
@@ -169,9 +158,7 @@ function ResponseFormatDatatypeDuree({
                       label={Dictionary.months}
                       disabled={readOnly}
                       required
-                      validate={funcRequired({
-                        message: Dictionary.validationRequired,
-                      })}
+                      validate={requiredValidationFunction}
                     />
                   </div>
                 )}
@@ -205,5 +192,6 @@ const mapStateToProps = (state) => {
     type: selector(state, 'responseFormat.type'),
   };
 };
+export { ResponseFormatDatatypeDuree };
 
 export default connect(mapStateToProps)(ResponseFormatDatatypeDuree);
