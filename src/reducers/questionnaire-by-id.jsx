@@ -5,6 +5,7 @@ import {
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_SUCCESS,
 } from '../actions/questionnaire';
+import Dictionary from '../utils/dictionary/dictionary';
 import { createActionHandlers } from '../utils/reducer/actions-handlers';
 
 const actionHandlers = {};
@@ -24,9 +25,19 @@ export function loadQuestionnaireSuccess(
     loader: false,
   };
 }
-export function loadQuestionnaireFail() {
+export function loadQuestionnaireFail(state, other) {
+  const {
+    err: { message },
+    id,
+  } = other;
+  const finalMessage =
+    message === '404'
+      ? `${Dictionary.pageSearchNoResultsForId} ${id}.`
+      : `${Dictionary.errorMessageQuest}.`;
+
   return {
     loader: false,
+    errorLoading: finalMessage,
   };
 }
 

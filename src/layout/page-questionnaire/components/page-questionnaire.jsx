@@ -6,6 +6,7 @@ import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { useOidc } from '../../../utils/oidc';
 import { GenericInput } from '../../generic-input';
 import Loader from '../../loader';
+import LoaderError from '../../loader-error';
 import { QuestionnaireListComponents } from '../../questionnaire-list-components';
 import { QuestionnaireNav } from '../../questionnaire-nav';
 
@@ -52,6 +53,7 @@ const PageQuestionnaire = (props) => {
     externalVariables,
     collectedVariablesByQuestion,
     loading,
+    errorLoading,
     loadQuestionnaire,
     setActiveQuestionnaire,
     loadStatisticalContext,
@@ -113,11 +115,15 @@ const PageQuestionnaire = (props) => {
 
   return (
     <div id={COMPONENT_ID}>
-      {loading ? (
-        <Loader />
-      ) : (
+      {errorLoading && (
         <div>
           <QuestionnaireNav />
+          <LoaderError message={errorLoading} />
+        </div>
+      )}
+      {loading && <Loader />}
+      {!errorLoading && !loading && (
+        <div>
           <QuestionnaireListComponents navigate={history.push} token={token} />
           <GenericInput />
         </div>

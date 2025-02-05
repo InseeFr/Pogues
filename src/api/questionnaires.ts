@@ -83,7 +83,10 @@ export async function getQuestionnaire(
 
   return fetch(url, {
     headers,
-  }).then((res) => res.json());
+  }).then((res) => {
+    if (res.ok) return res.json();
+    else throw new Error(`${res.status}`);
+  });
 }
 
 /**

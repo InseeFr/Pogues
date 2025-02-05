@@ -51,6 +51,7 @@ const mapStateToProps = (
       state.collectedVariableByQuestionnaire[id],
     ),
     loading: state.questionnaireById.loader,
+    errorLoading: state.questionnaireById.errorLoading,
   };
 };
 
