@@ -20,12 +20,11 @@ jobs:
         with:
           name: pogues
           path: dist
-      - run: cd ./next
-      - run: yarn && yarn build
+      - run: cd next && yarn && yarn build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues-next
-          path: dist
+          path: next/dist
 
   check_if_version_upgraded:
     needs: build
@@ -78,6 +77,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: pogues
+          path: dist
       - uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -101,6 +104,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: pogues-next
+          path: next/dist
       - uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -127,7 +134,7 @@ jobs:
           name: pogues
           path: dist
       - name: Zip bundle
-        run: cd dist && zip -r ../pogues.zip ./* && cd ..
+        run: cd dist && zip -r ../pogues.zip ./*
       - uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ needs.check_if_version_upgraded.outputs.version }}
@@ -155,9 +162,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: pogues-next
-          path: dist
+          path: next/dist
       - name: Zip bundle
-        run: cd dist && zip -r ../pogues.zip ./* && cd ..
+        run: cd next/dist && zip -r ../pogues.zip ./*
       - uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ needs.check_if_version_upgraded.outputs.next_version }}
@@ -166,6 +173,6 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: ${{ needs.check_if_version_upgraded.outputs.next_is_pre_release == 'true' }}
-          files: ./pogues.zip
+          files: ./next/pogues.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
