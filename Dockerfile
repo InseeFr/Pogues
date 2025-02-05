@@ -1,12 +1,3 @@
-# Stage 1: Build the React app
-FROM node:20 AS builder
-
-WORKDIR /app
-COPY . /app/
-RUN yarn && yarn build 
-
-
-# Stage 2: Package app in nginx
 FROM nginxinc/nginx-unprivileged:1.27-alpine
 
 # Non root user
@@ -17,7 +8,7 @@ ENV NGINX_USER=nginx
 USER $NGINX_USER_ID
 
 # Add dist to nginx root webapp
-COPY --chown=$NGINX_USER:$NGINX_USER --from=builder /app/dist /usr/share/nginx/html
+COPY --chown=$NGINX_USER:$NGINX_USER --from=builder dist /usr/share/nginx/html
 
 # Copy nginx configuration
 RUN rm etc/nginx/conf.d/default.conf
