@@ -7,6 +7,7 @@ import {
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_SUCCESS,
 } from '../actions/questionnaire';
+import Dictionary from '../utils/dictionary/dictionary';
 import reducer from './questionnaire-by-id';
 
 describe('questionnaire-by-id reducer', () => {
@@ -46,11 +47,31 @@ describe('questionnaire-by-id reducer', () => {
 
   test('should handle LOAD_QUESTIONNAIRE_FAILURE', () => {
     expect(
-      reducer({
-        type: LOAD_QUESTIONNAIRE_FAILURE,
-      }),
+      reducer(
+        {},
+        {
+          type: LOAD_QUESTIONNAIRE_FAILURE,
+          payload: { err: { message: '404' }, id: '1' },
+        },
+      ),
     ).toEqual({
-      type: LOAD_QUESTIONNAIRE_FAILURE,
+      loader: false,
+      errorLoading: `${Dictionary.pageSearchNoResultsForId} 1.`,
+    });
+  });
+
+  test('should handle LOAD_QUESTIONNAIRE_FAILURE', () => {
+    expect(
+      reducer(
+        {},
+        {
+          type: LOAD_QUESTIONNAIRE_FAILURE,
+          payload: { err: { message: '500' }, id: '1' },
+        },
+      ),
+    ).toEqual({
+      loader: false,
+      errorLoading: `${Dictionary.errorMessageQuest}.`,
     });
   });
 

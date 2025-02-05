@@ -25,11 +25,11 @@ export function loadQuestionnaireSuccess(
     loader: false,
   };
 }
-export function loadQuestionnaireFail(state, other) {
+export function loadQuestionnaireFail(state, payload) {
   const {
     err: { message },
     id,
-  } = other;
+  } = payload;
   const finalMessage =
     message === '404'
       ? `${Dictionary.pageSearchNoResultsForId} ${id}.`
