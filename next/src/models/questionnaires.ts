@@ -3,6 +3,8 @@ export type Questionnaire = {
   title: string;
   targetModes: Set<TargetModes>;
   lastUpdatedDate?: Date;
+  flowLogic?: FlowLogics;
+  formulasLanguage?: FormulasLanguages;
 };
 
 export enum TargetModes {
@@ -10,4 +12,14 @@ export enum TargetModes {
   CAPI,
   PAPI,
   CATI,
+}
+
+export enum FlowLogics {
+  Filter = 'FILTER',
+  Redirection = 'REDIRECTION',
+}
+
+export enum FormulasLanguages {
+  XPath = 'XPATH',
+  VTL = 'VTL',
 }

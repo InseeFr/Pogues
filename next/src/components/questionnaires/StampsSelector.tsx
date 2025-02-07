@@ -19,11 +19,13 @@ export default function StampsSelector({
     <>
       <Label>Timbre</Label>
       <Select onChange={(v) => onSelect(v as string)} value={selectedStamp}>
-        {stamps.map((stamp) => (
-          <Option key={stamp.id} value={stamp.id}>
-            {stamp.label}
-          </Option>
-        ))}
+        {stamps
+          .toSorted((a, b) => a.label.localeCompare(b.label))
+          .map((stamp) => (
+            <Option key={stamp.id} value={stamp.id}>
+              {stamp.label}
+            </Option>
+          ))}
       </Select>
     </>
   );

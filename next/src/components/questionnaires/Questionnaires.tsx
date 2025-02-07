@@ -30,8 +30,8 @@ export default function Questionnaires({
   /** Change page based on stamp chosen from the selector. */
   function handleStampSelection(stamp: string) {
     navigate({
-      to: '/questionnaires/$stamp',
-      params: { stamp },
+      to: '/questionnaires',
+      search: { stamp },
     });
   }
 
