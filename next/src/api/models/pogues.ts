@@ -399,7 +399,7 @@ type CodeLists = CodeList[];
  * The elements of the code list are those of the DDI. You can refer to their
  * definition in the  DDI documentation.
  */
-type CodeList = {
+export type CodeList = {
   Name: string;
   Label: string;
   Code?: CodeType[];
@@ -408,7 +408,7 @@ type CodeList = {
   Urn?: string;
 };
 
-type CodeType = {
+export type CodeType = {
   /** The value of the code. */
   Value: string;
   /** The label of the code. */

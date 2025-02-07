@@ -14,12 +14,12 @@
       @include make-row();
 
       h4 {
-        @include make-xs-column(6);
+        @include make-xs-column(4);
         color: $color-blue_02;
       }
 
       div {
-        @include make-xs-column(6);
+        @include make-xs-column(8);
         text-align: right;
         float: right;
         a,

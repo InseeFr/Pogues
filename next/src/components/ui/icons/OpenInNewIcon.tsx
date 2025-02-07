@@ -1,3 +1,4 @@
+/** Icon which should be used to indicate something will be opened in a new window. */
 export default function OpenInNewIcon({
   height = '24px',
   width = '24px',

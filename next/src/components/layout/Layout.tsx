@@ -12,7 +12,7 @@ export default function Layout({ children }: Readonly<LayoutProps>) {
     from: '__root__',
   });
   return (
-    <div className="bg-main">
+    <div className="grid grid-rows-[auto_1fr] h-screen bg-main">
       <Header user={user} />
       <main>{children}</main>
     </div>

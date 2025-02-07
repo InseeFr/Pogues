@@ -1,3 +1,13 @@
+/**
+ * Icon which should be used when something is loading.
+ *
+ * @example
+ * ```
+ * <div className="animate-spin">
+ *   <SpinnerIcon />
+ * </div>
+ * ```
+ */
 export default function SpinnerIcon({
   height = '24px',
   width = '24px',

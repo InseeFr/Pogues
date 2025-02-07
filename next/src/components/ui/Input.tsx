@@ -5,7 +5,7 @@ interface InputProps {
   description?: string;
   disabled?: boolean;
   error?: string;
-  label: string;
+  label?: string;
   onChange?: (v: string | number | readonly string[] | undefined) => void;
   placeholder?: string;
   required?: boolean;
