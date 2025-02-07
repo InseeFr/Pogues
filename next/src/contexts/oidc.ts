@@ -2,6 +2,7 @@ import { createMockReactOidc } from 'oidc-spa/mock/react';
 import { createReactOidc } from 'oidc-spa/react';
 import { z } from 'zod';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const decodedIdTokenSchema = z.object({
   accessToken: z.string(),
   family_name: z.string(),

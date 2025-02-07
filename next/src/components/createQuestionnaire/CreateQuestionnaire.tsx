@@ -13,12 +13,19 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import { Questionnaire, TargetModes } from '@/models/questionnaires';
+import {
+  FlowLogics,
+  FormulasLanguages,
+  Questionnaire,
+  TargetModes,
+} from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
 
 interface FormValues {
   title: string;
   targetModes: Set<TargetModes>;
+  flowLogic: FlowLogics;
+  formulasLanguage: FormulasLanguages;
 }
 
 const questionnaireSchema = z.object({
@@ -26,6 +33,8 @@ const questionnaireSchema = z.object({
   targetModes: z
     .set(z.nativeEnum(TargetModes))
     .min(1, 'You must select at least one target mode'),
+  flowLogic: z.nativeEnum(FlowLogics),
+  formulasLanguage: z.nativeEnum(FormulasLanguages),
 });
 
 /** Create a new questionnaire. */
@@ -53,16 +62,22 @@ export default function CreateQuestionnaire() {
     defaultValues: {
       title: '',
       targetModes: new Set(),
+      flowLogic: FlowLogics.Filter,
+      formulasLanguage: FormulasLanguages.VTL,
     },
     validators: { onMount: questionnaireSchema, onChange: questionnaireSchema },
     onSubmit: async ({ value }) => {
       // Handle form submission
       await submitQuestionnaire(value);
-      //submitQuestionnaire(value)
     },
   });
 
-  const submitQuestionnaire = async ({ title, targetModes }: FormValues) => {
+  const submitQuestionnaire = async ({
+    title,
+    targetModes,
+    flowLogic,
+    formulasLanguage,
+  }: FormValues) => {
     if (user) {
       // TODO get token from tanstack router
       const token = await getAccessToken();
@@ -76,6 +91,8 @@ export default function CreateQuestionnaire() {
         id,
         title,
         targetModes,
+        flowLogic,
+        formulasLanguage,
       };
       const promise = mutation.mutateAsync(
         { questionnaire, stamp: user.stamp, token },
@@ -153,18 +170,66 @@ export default function CreateQuestionnaire() {
                 )}
               </Field>
             </div>
-            <Input
-              label={'Spécification dynamique'}
-              value={'Filtres'}
-              disabled
-              onChange={() => {}}
-            />
-            <Input
-              label={'Spécification des formules'}
-              value={'VTL'}
-              disabled
-              onChange={() => {}}
-            />
+            <div>
+              <Label required>Spécification dynamique</Label>
+              <Field name="flowLogic">
+                {(field) => (
+                  <>
+                    <div className="flex gap-x-4">
+                      <Checkbox
+                        label={'Filtre'}
+                        checked={field.state.value === FlowLogics.Filter}
+                        onChange={(v) => {
+                          if (v) field.handleChange(FlowLogics.Filter);
+                        }}
+                      />
+                      <Checkbox
+                        label={'Redirection'}
+                        checked={field.state.value === FlowLogics.Redirection}
+                        onChange={(v) => {
+                          if (v) field.handleChange(FlowLogics.Redirection);
+                        }}
+                      />
+                    </div>
+                    {field.state.meta.isTouched ? (
+                      <div className="text-sm text-error ml-1">
+                        {field.state.meta.errors.join(', ')}
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </Field>
+            </div>
+            <div>
+              <Label required>Spécification des formules</Label>
+              <Field name="formulasLanguage">
+                {(field) => (
+                  <>
+                    <div className="flex gap-x-4">
+                      <Checkbox
+                        label={'VTL'}
+                        checked={field.state.value === FormulasLanguages.VTL}
+                        onChange={(v) => {
+                          if (v) field.handleChange(FormulasLanguages.VTL);
+                        }}
+                      />
+                      <Checkbox
+                        label={'XPath'}
+                        checked={field.state.value === FormulasLanguages.XPath}
+                        onChange={(v) => {
+                          if (v) field.handleChange(FormulasLanguages.XPath);
+                        }}
+                      />
+                    </div>
+                    {field.state.meta.isTouched ? (
+                      <div className="text-sm text-error ml-1">
+                        {field.state.meta.errors.join(', ')}
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </Field>
+            </div>
           </div>
           <div className="flex gap-x-2 mt-6">
             <ButtonLink to={'/questionnaires'}>Annuler</ButtonLink>

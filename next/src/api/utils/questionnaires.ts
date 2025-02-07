@@ -1,4 +1,9 @@
-import { type Questionnaire, TargetModes } from '@/models/questionnaires';
+import {
+  FlowLogics,
+  FormulasLanguages,
+  type Questionnaire,
+  TargetModes,
+} from '@/models/questionnaires';
 import { nameFromLabel } from '@/utils/utils';
 
 import {
@@ -35,6 +40,8 @@ export function computePoguesQuestionnaire(
     TargetMode: targetModes,
     id: datum.id,
     owner: stamp,
+    flowLogic: computeFlowLogic(datum.flowLogic),
+    formulasLanguage: computeFormulasLanguage(datum.formulasLanguage),
     ...computeLegacyPoguesParameters(targetModes),
   };
 }
@@ -44,8 +51,6 @@ function computeLegacyPoguesParameters(targetModes: SurveyModeEnum[]) {
   return {
     agency: 'fr.insee',
     genericName: GenericNameEnum.Questionnaire,
-    flowLogic: FlowLogicEnum.Filter,
-    formulasLanguage: FormulasLanguageEnum.VTL,
     DataCollection: [],
     lastUpdatedDate: new Date().toString(),
     Child: [
@@ -111,4 +116,26 @@ function computePoguesTargetModes(
     }
   }
   return res;
+}
+
+function computeFlowLogic(flowLogic?: FlowLogics): FlowLogicEnum {
+  switch (flowLogic) {
+    case FlowLogics.Redirection:
+      return FlowLogicEnum.Redirection;
+    case FlowLogics.Filter:
+    default:
+      return FlowLogicEnum.Filter;
+  }
+}
+
+function computeFormulasLanguage(
+  formulasLanguage?: FormulasLanguages,
+): FormulasLanguageEnum {
+  switch (formulasLanguage) {
+    case FormulasLanguages.XPath:
+      return FormulasLanguageEnum.XPath;
+    case FormulasLanguages.VTL:
+    default:
+      return FormulasLanguageEnum.VTL;
+  }
 }
