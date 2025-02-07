@@ -27,8 +27,6 @@ export default function Header({ user }: Readonly<HeaderProps>) {
         <div className="text-sm">v{appVersion}</div>
       </div>
       <div className="flex justify-center gap-x-4">
-        <Link to="/questionnaires">Questionnaires</Link>
-        <Link to="/questionnaires/new">New</Link>
         <a
           className="flex items-center hover:underline gap-x-1"
           href="https://inseefr.github.io/Bowie/1._Pogues/"
@@ -40,7 +38,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
           </div>
         </a>
       </div>
-      <div className="p-3">
+      <div className="p-3 grid grid-flow-col items-center gap-x-3">
         <User user={user} />
       </div>
     </div>

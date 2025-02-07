@@ -170,6 +170,12 @@ const QuestionnaireListComponents = (props) => {
                 className="btn-yellow"
                 onClick={() => setShowRemoveQuestionnaireDialog(true)}
               >
+                {Dictionary.duplicate}
+              </button>
+              <button
+                className="btn-yellow"
+                onClick={() => setShowRemoveQuestionnaireDialog(true)}
+              >
                 {Dictionary.remove}
                 <span className="glyphicon glyphicon-trash" />
               </button>

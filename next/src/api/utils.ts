@@ -9,7 +9,7 @@ export function computeAuthorizationHeader(token: string): string {
   return token ? `Bearer ${token}` : '';
 }
 
-export async function getAccessToken(): Promise<string> {
+export async function getAPIToken(): Promise<string> {
   const oidc = await getOidc();
 
   if (!oidc.isUserLoggedIn) return '';
