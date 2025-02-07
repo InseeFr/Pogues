@@ -16,6 +16,7 @@ export function useAuth(): User | undefined {
   console.log(oidc);
 
   useEffect(() => {
+    // TODO handle log out
     /*const unsubscribe = auth.onAuthStateChanged((user) => {
       //setUser(user);
       router.invalidate();
@@ -33,10 +34,6 @@ export function useAuth(): User | undefined {
     stamp: decodedIdToken?.timbre as string,
     token: decodedIdToken?.accessToken as string,
   };
-
-  //const router = useRouter();
-
-  console.log('user ->', user);
 
   return user;
 }
