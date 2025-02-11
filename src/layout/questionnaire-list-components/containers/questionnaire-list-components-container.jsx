@@ -11,7 +11,10 @@ import {
   removeComponent,
 } from '../../../actions/component';
 import { removeQuestionnaireRef } from '../../../actions/external-questionnaire';
-import { removeQuestionnaire } from '../../../actions/questionnaire';
+import {
+  duplicateQuestionnaire,
+  removeQuestionnaire,
+} from '../../../actions/questionnaire';
 import QuestionnaireListComponents from '../components/questionnaire-list-components';
 
 const mapStateToProps = (state) => ({
@@ -30,6 +33,7 @@ const mapDispatchToProps = {
   removeComponent,
   removeQuestionnaireRef,
   duplicateComponentAndVariables,
+  duplicateQuestionnaire,
   removeQuestionnaire,
   dragComponent,
 };
