@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest';
 import { decoreFormField } from '../../../../../utils/test/test-utils';
 import { ResponseFormatDatatypeDuree } from './simple-duree';
 
-describe('Visualize Dropdown Component: ', () => {
+describe('Visualize Duration Component: ', () => {
   test('Should return the right HTML according to format "PTnHnM" ', () => {
     const props = {
       componentId: 'component-id',
