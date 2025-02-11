@@ -32,7 +32,7 @@
   "scripts": {
     "start": "vite --port 5145",
     "build": "npm run generate-entrypoint && vite build",
-    "postbuild": "node scripts/remote-env.cjs remoteEntry.js",
+    "postbuild": "node scripts/remote-env.cjs remote-entry.js",
     "preview": "vite preview --port 5145",
     "test": "vitest run",
     "test:watch": "vitest",

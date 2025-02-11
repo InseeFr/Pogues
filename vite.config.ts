@@ -20,7 +20,7 @@ export const buildViteConf = (withFederation: boolean): UserConfig => {
           ...defaultPlugin,
           federation({
             name: '@pogues-legacy',
-            filename: 'remoteEntry.js',
+            filename: 'remote-entry.js',
             exposes: {
               './App': './src/main.jsx',
             },
