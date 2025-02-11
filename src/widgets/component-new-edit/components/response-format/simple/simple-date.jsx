@@ -71,7 +71,7 @@ function ResponseFormatDatatypeDate({
               }),
             ]}
             disabled={readOnly}
-            required={required}
+            required
           />
           <Field
             name="maximum"
@@ -87,7 +87,7 @@ function ResponseFormatDatatypeDate({
               }),
             ]}
             disabled={readOnly}
-            required={required}
+            required
           />
         </div>
       </div>
