@@ -1,0 +1,119 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Special validation for duration > should validate have right rules for duration (PTnHnM) question (required) 1`] = `
+[
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.maminutes",
+  },
+  {
+    "errors": [
+      "Must be at least 0",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.maminutes",
+  },
+  {
+    "errors": [
+      "Must be at most 59",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.maminutes",
+  },
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.miminutes",
+  },
+  {
+    "errors": [
+      "Must be at least 0",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.miminutes",
+  },
+  {
+    "errors": [
+      "Must be at most 59",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.miminutes",
+  },
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mahours",
+  },
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mihours",
+  },
+]
+`;
+
+exports[`Special validation for duration > should validate have right rules for duration (PnYnM) question (required) 1`] = `
+[
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mamonths",
+  },
+  {
+    "errors": [
+      "Must be at least 0",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mamonths",
+  },
+  {
+    "errors": [
+      "Must be at most 11",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mamonths",
+  },
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mimonths",
+  },
+  {
+    "errors": [
+      "Must be at least 0",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mimonths",
+  },
+  {
+    "errors": [
+      "Must be at most 11",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mimonths",
+  },
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mayears",
+  },
+  {
+    "errors": [
+      "Must be at least 0",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mayears",
+  },
+  {
+    "errors": [
+      "Must be at most 11",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.mayears",
+  },
+  {
+    "errors": [
+      "Mandatory field",
+    ],
+    "path": "responseFormat.SIMPLE.DURATION.miyears",
+  },
+]
+`;

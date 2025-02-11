@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Field, FormSection, formValueSelector } from 'redux-form';
-import { date } from 'redux-form-validators';
+import { date, required as funcRequired } from 'redux-form-validators';
 
 import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
@@ -11,6 +11,10 @@ import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 
 const { DATE } = DATATYPE_NAME;
+
+const requiredValidationFunction = funcRequired({
+  message: Dictionary.validationRequired,
+});
 
 function ResponseFormatDatatypeDate({
   format,
@@ -59,12 +63,15 @@ function ResponseFormatDatatypeDate({
             step="any"
             component={Input}
             label={Dictionary.minimum}
-            validate={date({
-              format: formatInit.toLowerCase(),
-              message: Dictionary.formatDate ? Dictionary.formatDate : '',
-              allowBlank: true,
-            })}
+            validate={[
+              requiredValidationFunction,
+              date({
+                format: formatInit.toLowerCase(),
+                message: Dictionary.formatDate ? Dictionary.formatDate : '',
+              }),
+            ]}
             disabled={readOnly}
+            required
           />
           <Field
             name="maximum"
@@ -72,12 +79,15 @@ function ResponseFormatDatatypeDate({
             step="any"
             component={Input}
             label={Dictionary.maximum}
-            validate={date({
-              format: formatInit.toLowerCase(),
-              message: Dictionary.formatDate ? Dictionary.formatDate : '',
-              allowBlank: true,
-            })}
+            validate={[
+              requiredValidationFunction,
+              date({
+                format: formatInit.toLowerCase(),
+                message: Dictionary.formatDate ? Dictionary.formatDate : '',
+              }),
+            ]}
             disabled={readOnly}
+            required
           />
         </div>
       </div>
@@ -107,5 +117,6 @@ const mapStateToProps = (state) => {
     type: selector(state, 'responseFormat.type'),
   };
 };
+export { ResponseFormatDatatypeDate };
 
 export default connect(mapStateToProps)(ResponseFormatDatatypeDate);

@@ -1,12 +1,20 @@
 // @TODO: Refactor to avoid similar validation functions
+import get from 'lodash.get';
 import { SubmissionError } from 'redux-form';
 
+import {
+  DATATYPE_NAME,
+  QUESTION_TYPE_ENUM,
+  TABS_PATHS,
+} from '../../constants/pogues-constants';
 import { Component } from '../../model';
 import {
   calculatedVariableRules,
   collectedVariableRules,
   controlRules,
   declarationRules,
+  durationRulesPTnHnM,
+  durationRulesPnYnM,
   externalVariableRules,
   filterRules,
   loopRules,
@@ -28,9 +36,31 @@ export function validateQuestionnaireForm(values, setErrors) {
   }
 }
 
-export function validateQuestionForm(values, setErrors, codesListsStore) {
-  const errors = validate(values, questionRules, { codesListsStore });
+const { SIMPLE } = QUESTION_TYPE_ENUM;
+const { DURATION } = DATATYPE_NAME;
+const { RESPONSE_FORMAT } = TABS_PATHS;
 
+export function validateQuestionForm(values, setErrors, codesListsStore) {
+  let errors;
+  const durationFormat = get(
+    values,
+    `${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.format`,
+  );
+  if (durationFormat === 'PTnHnM') {
+    errors = validate(
+      values,
+      { ...questionRules, ...durationRulesPTnHnM },
+      { codesListsStore },
+    );
+  } else if (durationFormat === 'PnYnM') {
+    errors = validate(
+      values,
+      { ...questionRules, ...durationRulesPnYnM },
+      { codesListsStore },
+    );
+  } else {
+    errors = validate(values, questionRules, { codesListsStore });
+  }
   if (errors.length > 0) {
     setErrors(errors);
     throw new SubmissionError(getErrorsObject(errors));

@@ -84,6 +84,46 @@ export const filterRules = {
   filter: [required],
 };
 
+export const durationRulesPTnHnM = {
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.maminutes`]: [
+    (value) => required(value),
+    (value) => minValue(0)(value),
+    (value) => maxValue(59)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miminutes`]: [
+    (value) => required(value),
+    (value) => minValue(0)(value),
+    (value) => maxValue(59)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mahours`]: [
+    (value) => required(value),
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mihours`]: [
+    (value) => required(value),
+  ],
+};
+
+export const durationRulesPnYnM = {
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mamonths`]: [
+    (value) => required(value),
+    (value) => minValue(0)(value),
+    (value) => maxValue(11)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mimonths`]: [
+    (value) => required(value),
+    (value) => minValue(0)(value),
+    (value) => maxValue(11)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mayears`]: [
+    (value) => required(value),
+    (value) => minValue(0)(value),
+    (value) => maxValue(11)(value),
+  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miyears`]: [
+    (value) => required(value),
+  ],
+};
+
 export const questionRules = {
   name: [required, name, letterStart],
   label: [required],
@@ -95,31 +135,9 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.minimum`]: [required],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.maximum`]: [required],
 
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.maminutes`]: [
-    (value) =>
-      value !== undefined && value !== '' ? minValue(0)(value) : false,
-    (value) =>
-      value !== undefined && value !== '' ? maxValue(59)(value) : false,
-  ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miminutes`]: [
-    (value) =>
-      value !== undefined && value !== '' ? minValue(0)(value) : false,
-    (value) =>
-      value !== undefined && value !== '' ? maxValue(59)(value) : false,
-  ],
-
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mamonths`]: [
-    (value) =>
-      value !== undefined && value !== '' ? minValue(0)(value) : false,
-    (value) =>
-      value !== undefined && value !== '' ? maxValue(11)(value) : false,
-  ],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mimonths`]: [
-    (value) =>
-      value !== undefined && value !== '' ? minValue(0)(value) : false,
-    (value) =>
-      value !== undefined && value !== '' ? maxValue(11)(value) : false,
-  ],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.minimum`]: [required],
+  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.maximum`]: [required],
 
   [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
     validCodesList,
@@ -141,8 +159,6 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.label`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
-
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
 
   [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
