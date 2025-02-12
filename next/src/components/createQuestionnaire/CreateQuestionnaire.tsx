@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
-import { getAccessToken } from '@/api/utils';
+import { getAPIToken } from '@/api/utils';
 import Button, { ButtonType } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/Checkbox';
@@ -20,6 +20,8 @@ import {
   TargetModes,
 } from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
+
+import { changeSetValue } from './utils/set';
 
 interface FormValues {
   title: string;
@@ -37,7 +39,16 @@ const questionnaireSchema = z.object({
   formulasLanguage: z.nativeEnum(FormulasLanguages),
 });
 
-/** Create a new questionnaire. */
+/**
+ * Create a new questionnaire.
+ *
+ * A questionnaire must have a title, target modes, a flow logic and a language
+ * formula.
+ *
+ * The latter two have default values whose use should be encouraged.
+ *
+ * {@link Questionnaire}
+ */
 export default function CreateQuestionnaire() {
   const { user } = useRouteContext({
     from: '__root__',
@@ -67,49 +78,40 @@ export default function CreateQuestionnaire() {
     },
     validators: { onMount: questionnaireSchema, onChange: questionnaireSchema },
     onSubmit: async ({ value }) => {
-      // Handle form submission
-      await submitQuestionnaire(value);
+      await submitForm(value);
     },
   });
 
-  const submitQuestionnaire = async ({
+  const submitForm = async ({
     title,
     targetModes,
     flowLogic,
     formulasLanguage,
   }: FormValues) => {
-    if (user) {
-      // TODO get token from tanstack router
-      const token = await getAccessToken();
-      // TODO should never happen and be handled in auth route
-      if (!token || user.stamp === undefined) {
-        toast.error('Unauthorized.');
-        return;
-      }
-      const id = uid();
-      const questionnaire = {
-        id,
-        title,
-        targetModes,
-        flowLogic,
-        formulasLanguage,
-      };
-      const promise = mutation.mutateAsync(
-        { questionnaire, stamp: user.stamp, token },
-        {
-          onSuccess: () =>
-            void navigate({
-              to: '/questionnaire/$questionnaireId',
-              params: { questionnaireId: id },
-            }),
-        },
-      );
-      toast.promise(promise, {
-        loading: 'Loading',
-        success: 'Questionnaire created',
-        error: (err: Error) => err.toString(),
-      });
-    }
+    const token = await getAPIToken();
+    const id = uid();
+    const questionnaire = {
+      id,
+      title,
+      targetModes,
+      flowLogic,
+      formulasLanguage,
+    };
+    const promise = mutation.mutateAsync(
+      { questionnaire, stamp: user!.stamp!, token },
+      {
+        onSuccess: () =>
+          void navigate({
+            to: '/questionnaire/$questionnaireId',
+            params: { questionnaireId: id },
+          }),
+      },
+    );
+    toast.promise(promise, {
+      loading: 'Loading',
+      success: 'Questionnaire created',
+      error: (err: Error) => err.toString(),
+    });
   };
 
   return (
@@ -278,23 +280,4 @@ function TargetModeCheckbox({
       }
     />
   );
-}
-
-function changeSetValue<T>(
-  set: Set<T>,
-  value: T,
-  shouldHaveValue: boolean,
-): Set<T> {
-  if (shouldHaveValue) return addSetValue(set, value);
-  return removeSetValue(set, value);
-}
-
-function addSetValue<T>(set: Set<T>, value: T): Set<T> {
-  return new Set(set).add(value);
-}
-
-function removeSetValue<T>(set: Set<T>, value: T): Set<T> {
-  const res = new Set(set);
-  res.delete(value);
-  return res;
 }

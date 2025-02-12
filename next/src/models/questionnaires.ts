@@ -1,3 +1,5 @@
+import { CodesList } from './codesLists';
+
 export type Questionnaire = {
   id: string;
   title: string;
@@ -5,6 +7,7 @@ export type Questionnaire = {
   lastUpdatedDate?: Date;
   flowLogic?: FlowLogics;
   formulasLanguage?: FormulasLanguages;
+  codesLists?: CodesList[];
 };
 
 export enum TargetModes {

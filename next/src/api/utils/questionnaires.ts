@@ -13,6 +13,7 @@ import {
   Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
 } from '../models/pogues';
+import { computeCodesLists } from './codesLists';
 
 /** Compute a questionnaire that can be used in our app from API data. */
 export function computeQuestionnaireFromPogues(
@@ -25,6 +26,7 @@ export function computeQuestionnaireFromPogues(
     lastUpdatedDate: datum.lastUpdatedDate
       ? new Date(datum.lastUpdatedDate)
       : undefined,
+    codesLists: computeCodesLists(datum.CodeLists?.CodeList),
   };
 }
 

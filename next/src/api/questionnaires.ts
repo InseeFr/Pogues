@@ -1,8 +1,10 @@
+import { CodesList } from '@/models/codesLists';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
 
 import { Questionnaire as PoguesQuestionnaire } from './models/pogues';
 import { computeAuthorizationHeader, getBaseURI } from './utils';
+import { computePoguesCodesLists } from './utils/codesLists';
 import {
   computePoguesQuestionnaire,
   computeQuestionnaireFromPogues,
@@ -69,6 +71,32 @@ export async function postQuestionnaire(
   });
 }
 
+/** Update the questionnaire of the provided id with a new code lists */
+export async function addQuestionnaireCodesList(
+  questionnaireId: string,
+  codesList: CodesList,
+  token: string,
+) {
+  const questionnaire = await getPoguesQuestionnaire(questionnaireId, token);
+  const codesLists = questionnaire.CodeLists?.CodeList || [];
+  codesLists.push(...computePoguesCodesLists([codesList]));
+  questionnaire.CodeLists = { CodeList: codesLists };
+
+  return putQuestionnaire(questionnaireId, questionnaire, token);
+}
+
+/** Update the questionnaire of the provided id with the new code lists */
+export async function updateQuestionnaireCodesLists(
+  questionnaireId: string,
+  codeLists: CodesList[],
+  token: string,
+) {
+  const questionnaire = await getPoguesQuestionnaire(questionnaireId, token);
+  questionnaire.CodeLists = { CodeList: computePoguesCodesLists(codeLists) };
+
+  return putQuestionnaire(questionnaireId, questionnaire, token);
+}
+
 /**
  * Update questionnaire by id
  */
@@ -93,9 +121,9 @@ export async function putQuestionnaire(
 }
 
 /**
- * Retrieve questionnaire by id
+ * Retrieve questionnaire by id with the pogues model
  */
-export async function getQuestionnaire(
+export async function getPoguesQuestionnaire(
   id: string,
   token: string,
 ): Promise<PoguesQuestionnaire> {
@@ -104,9 +132,27 @@ export async function getQuestionnaire(
   headers.append('Accept', 'application/json');
   headers.append('Authorization', computeAuthorizationHeader(token));
 
-  return fetch(url, {
-    headers,
-  }).then((res) => res.json());
+  const response = await fetch(url, { headers });
+  const json = (await response.json()) as Promise<PoguesQuestionnaire>;
+  return await json;
+}
+
+/**
+ * Retrieve questionnaire by id
+ */
+export async function getQuestionnaire(
+  id: string,
+  token: string,
+): Promise<Questionnaire> {
+  const url = `${getBaseURI()}/${pathQuestionnaire}/${id}`;
+  const headers = new Headers();
+  headers.append('Accept', 'application/json');
+  headers.append('Authorization', computeAuthorizationHeader(token));
+
+  const response = await fetch(url, { headers });
+  const json = (await response.json()) as Promise<PoguesQuestionnaire>;
+  const res = computeQuestionnaireFromPogues(await json);
+  return res;
 }
 
 /**

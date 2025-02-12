@@ -5,9 +5,10 @@ type LabelProps = React.ComponentProps<'label'> & {
 export default function Label({
   children,
   required = false,
+  className = '',
 }: Readonly<LabelProps>) {
   return (
-    <label className="text-sm mb-1 ml-1">
+    <label className={`text-sm mb-1 ml-1 ${className}`}>
       {children}
       {required ? ' *' : ''}
     </label>
