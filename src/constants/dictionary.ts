@@ -1,6 +1,7 @@
 import { declarationsDictionary } from './dictionary/declarations';
 import { loopDictionary } from './dictionary/loop';
 import { questionnaireDictionary } from './dictionary/questionnaire';
+import { tableDictionary } from './dictionary/table';
 import { validationDictionary } from './dictionary/validation';
 import { CODELISTS_ACTIONS, COMPONENT_TYPE } from './pogues-constants';
 
@@ -24,6 +25,7 @@ const dictionary: Dictionary = {
   ...declarationsDictionary,
   ...loopDictionary,
   ...questionnaireDictionary,
+  ...tableDictionary,
   ...validationDictionary,
   title: {
     en: 'Title',
