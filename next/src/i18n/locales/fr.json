@@ -1,0 +1,70 @@
+{
+  "common": {
+    "version": "Version",
+    "appName": "Pogues",
+    "questionnaire": "Questionnaire",
+    "documentation": "Documentation",
+    "legacy-link": "Retour à la version précédente",
+    "docs": "Documentation",
+    "loading": "Chargement...",
+    "edit": "Modifier",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "complete": "Completer",
+    "validate": "Valider",
+    "add": "Ajouter",
+    "delete": "Supprimer",
+    "help": "Aide",
+    "back-to-home": "Retourner à l'accueil",
+    "retry": "Réessayer",
+    "send": "Envoyer",
+    "title": "Titre",
+    "start": "Commencer",
+    "auth": {
+      "login": "Connexion",
+      "logout": "Déconnexion",
+      "message": "Veuillez vous connecter"
+    }
+  },
+  "home": {
+    "altImage": "Logo de Pogues",
+    "label": "Outil de conception de questionnaire.",
+    "transform-variables": "Transformez vos variables en <span className=\"text-orange-400\">questionnaires</span>.",
+    "pogues-intro": "Pogues est aujourd'hui le point d'entrée principal dans les services fournis par <span className=\"font-bold\">Bowie</span>.",
+    "interface-description": "C'est une interface graphique de conception de questionnaires permettant la création des <span className=\"font-bold\">éléments structurels</span> (séquences, questions) et des <span className=\"font-bold\">éléments dynamiques</span> (filtres, contrôles, boucles).",
+    "docsLabel": "La réponse à toutes vos questions.",
+    "docsLink": "Accéder à la documentation"
+  },
+  "external": {
+    "public-enemy": "Public Enemy",
+    "public-enemy-label": "Personnaliser son questionnaire."
+  },
+  "questionnaires": {
+    "title": "Questionnaires",
+    "create": "Créer un questionnaire",
+    "last-update": "Dernière modification",
+    "search": "Rechercher un questionnaire TEST ETS ",
+    "stamp": "Timbre"
+  },
+  "codesLists": {
+    "title": "Listes de codes",
+    "create": "Créer une liste de codes",
+    "new": "Nouvelle liste de codes",
+    "code": "Code",
+    "last-update": "Dernière modification",
+    "used-in": "Utilisée dans",
+    "add-list": "Ajouter une liste",
+    "add-code": "+ Ajouter un code",
+    "import-csv": "Importer une liste de code depuis un csv",
+    "value": "Valeur",
+    "label": "Label"
+  },
+  "create-questionnaire": {
+    "mode": "Mode de collecte",
+    "dynamic-field": "Spécification dynamique",
+    "formula-field": "Spécification des formules",
+    "create-sucess": "Le questionnaire a été créé "
+  }
+}

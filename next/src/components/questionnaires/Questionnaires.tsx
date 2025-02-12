@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useNavigate } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
 import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
@@ -24,6 +25,7 @@ export default function Questionnaires({
   stamps = [],
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<string>('');
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ export default function Questionnaires({
         title="Questionnaires"
         action={
           <ButtonLink to="/questionnaires/new">
-            Créer un questionnaire
+            {t('questionnaires.create')}
           </ButtonLink>
         }
       />
@@ -56,8 +58,8 @@ export default function Questionnaires({
           </div>
           <div>
             <Input
-              label={'Rechercher un questionnaire'}
-              placeholder={'Rechercher un questionnaire'}
+              label={t('questionnaires.search')}
+              placeholder={t('questionnaires.search')}
               value={filter}
               onChange={(v) => setFilter(v as string)}
             />
@@ -73,7 +75,7 @@ export default function Questionnaires({
             })}
           />
         ) : (
-          <div>Loading...</div>
+          <div>{t('common.loading')}</div>
         )}
       </ContentMain>
     </div>

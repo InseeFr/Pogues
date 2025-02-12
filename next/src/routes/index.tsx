@@ -1,4 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '@/components/ui/Button';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
@@ -18,11 +19,12 @@ export const Route = createFileRoute('/')({
 function App() {
   const oidc = useOidc();
   const { isUserLoggedIn, login } = oidc;
+  const { t } = useTranslation();
   if (!isUserLoggedIn) {
     login({
       doesCurrentHrefRequiresAuth: true,
     });
-    return <div>Please login</div>;
+    return <div>{t('common.auth.login-message')}</div>;
   }
 
   return (
@@ -31,62 +33,53 @@ function App() {
         <h2>
           <img src={poguesLogo} className="m-auto" alt="Pogues" />
         </h2>
-        <div className="text-center text-lg">
-          Outil de conception de questionnaire.
-        </div>
+        <div className="text-center text-lg">{t('home.label')}</div>
       </div>
       <div className="text-center m-auto grid grid-cols-2 gap-x-6 max-w-xs">
         <ButtonLink to="/questionnaires" buttonType={ButtonType.Primary}>
-          Commencer
+          {t('common.start')}
         </ButtonLink>
         <a href="https://inseefr.github.io/Bowie/1._Pogues/" target="_blank">
-          <Button>Documentation</Button>
+          <Button>{t('common.documentation')}</Button>
         </a>
       </div>
       <div className="space-y-8 px-12">
         <div className="text-3xl font-bold">
-          Transformez vos variables en{' '}
-          <span className="text-orange-400">questionnaires</span>.
+          <Trans i18nKey="transform-variables" />
         </div>
         <div className="space-y-2">
           <p>
-            Pogues est aujourd'hui le point d'entrée principal dans les services
-            fournis par <span className="font-bold">Bowie</span>.
+            <Trans i18nKey="pogues-intro" />
           </p>
           <p>
-            C'est une interface graphique de conception de questionnaires
-            permettant la création des{' '}
-            <span className="font-bold">éléments structurels</span> (séquences,
-            questions) et des{' '}
-            <span className="font-bold">éléments dynamiques</span> (filtres,
-            contrôles, boucles).
+            <Trans i18nKey="interface-description" />
           </p>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-x-8 w-3/4 m-auto">
         <div className="bg-default p-4 border border-default shadow-xl space-y-3 grid grid-rows-[1fr_auto_auto] overflow-hidden">
-          <h3>Documentation</h3>
-          <div>La réponse à toutes vos questions.</div>
+          <h3>{t('common.documentation')}</h3>
+          <div>{t('home.docsLabel')}</div>
           <div>
             <a
               href="https://inseefr.github.io/Bowie/1._Pogues/"
               className="text-primary underline"
               target="_blank"
             >
-              Accéder à la documentation
+              {t('home.docsLink')}
             </a>
           </div>
         </div>
         <div className="bg-default p-4 border border-default shadow-xl space-y-3 grid grid-rows-[1fr_auto_auto] overflow-hidden">
-          <h3>Public Enemy</h3>
-          <div>Personnaliser son questionnaire.</div>
+          <h3>{t('external.public-enemy')}</h3>
+          <div>{t('external.public-enemy-label')}</div>
           <div>
             <a
               href="https://personnalisation-conception-questionnaires.developpement.insee.fr/questionnaires"
               className="text-primary underline"
               target="_blank"
             >
-              Public Enemy
+              {t('external.public-enemy')}
             </a>
           </div>
         </div>
