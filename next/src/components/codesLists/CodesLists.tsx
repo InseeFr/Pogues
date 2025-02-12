@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
 import { useParams } from '@tanstack/react-router';
+//import MenuIcon from '@/components/ui/icons/MenuIcon';
+import { useTranslation } from 'react-i18next';
 
 import Accordion, { AccordionItem } from '@/components/ui/Accordion';
-import ButtonIcon, { ButtonIconType } from '@/components/ui/ButtonIcon';
+import ButtonIcon from '@/components/ui/ButtonIcon';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Menu from '@/components/ui/Menu';
-import DeleteIcon from '@/components/ui/icons/DeleteIcon';
+//import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import EditIcon from '@/components/ui/icons/EditIcon';
-import MenuIcon from '@/components/ui/icons/MenuIcon';
 import { type CodesList } from '@/models/codesLists';
 
 interface CodesListsProps {
@@ -19,17 +20,17 @@ interface CodesListsProps {
 
 export default function CodesLists({ codesLists }: Readonly<CodesListsProps>) {
   const { questionnaireId } = useParams({ strict: false });
-
+  const { t } = useTranslation();
   return (
     <div>
       <ContentHeader
-        title="Listes de codes"
+        title={t('codesLists.title')}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"
             params={{ questionnaireId: questionnaireId ?? '' }}
           >
-            Créer une liste de codes
+            {t('codesLists.create')}
           </ButtonLink>
         }
       />
@@ -57,6 +58,8 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
 
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false);
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="my-6 space-y-3">
@@ -69,7 +72,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-1 fill-gray-600">
                 <span>{code.value}</span>
                 <ButtonIcon
-                  title="éditer"
+                  title={t('common.edit')}
                   Icon={EditIcon}
                   onClick={() => setIsDirtyState(true)}
                 />
@@ -77,7 +80,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-1 fill-gray-600">
                 <span>{code.label}</span>
                 <ButtonIcon
-                  title="éditer"
+                  title={t('common.edit')}
                   Icon={EditIcon}
                   onClick={() => setIsDirtyState(true)}
                 />
@@ -98,7 +101,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
             codesListId: codesList.id,
           }}
         >
-          Valider
+          {t('common.validate')}
         </ButtonLink>
       ) : null}
     </>

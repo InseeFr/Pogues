@@ -2,6 +2,7 @@ import { FieldApi, useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
@@ -50,6 +51,7 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
+  const { t } = useTranslation();
   const { user } = useRouteContext({
     from: '__root__',
   });
@@ -116,14 +118,14 @@ export default function CreateQuestionnaire() {
 
   return (
     <div>
-      <ContentHeader title="Nouveau questionnaire" />
+      <ContentHeader title={t('questionnaires.create')} />
       <ContentMain>
         <div className="bg-default p-4 border border-default shadow-xl">
           <div className="grid gap-4">
             <Field name="title">
               {(field) => (
                 <Input
-                  label={'Titre'}
+                  label={t('common.title')}
                   onChange={(v) => field.handleChange(v as string)}
                   autoFocus
                   value={field.state.value}
@@ -137,7 +139,7 @@ export default function CreateQuestionnaire() {
               )}
             </Field>
             <div>
-              <Label required>Mode de collecte</Label>
+              <Label required>{t('create-questionnaire.mode')}</Label>
               <Field name="targetModes">
                 {(field) => (
                   <>
@@ -173,7 +175,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>Spécification dynamique</Label>
+              <Label required>{t('create-questionnaire.dynamic-field')}</Label>
               <Field name="flowLogic">
                 {(field) => (
                   <>
@@ -203,7 +205,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>Spécification des formules</Label>
+              <Label required>{t('create-questionnaire.formula-field')}</Label>
               <Field name="formulasLanguage">
                 {(field) => (
                   <>
@@ -234,7 +236,7 @@ export default function CreateQuestionnaire() {
             </div>
           </div>
           <div className="flex gap-x-2 mt-6">
-            <ButtonLink to={'/questionnaires'}>Annuler</ButtonLink>
+            <ButtonLink to={'/questionnaires'}>{t('common.cancel')}</ButtonLink>
             <Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
             >
