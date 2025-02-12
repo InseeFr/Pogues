@@ -48,10 +48,10 @@ const ConfirmDialog = (props) => {
     >
       <div className="popup">
         <div className="popup-header">
-          <h3>{Dictionary.confirmBodyTitle}</h3>
+          <h3>{props.title}</h3>
         </div>
         <div className="popup-body">
-          <p>{Dictionary.confirmBodyMessage}</p>
+          <p>{props.message}</p>
           <p>{Dictionary.confirmQuestionMessage}</p>
         </div>
         <div className="ok-cancel-buttons">
@@ -72,6 +72,8 @@ const ConfirmDialog = (props) => {
 };
 
 ConfirmDialog.propTypes = {
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
   confirm: PropTypes.func.isRequired,
   showConfirmModal: PropTypes.bool,
   closePopup: PropTypes.func.isRequired,

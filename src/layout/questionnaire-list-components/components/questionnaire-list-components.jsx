@@ -35,6 +35,7 @@ function withForwardRef(Component) {
 
 const QuestionnaireListComponents = (props) => {
   const {
+    duplicateQuestionnaire,
     forwardedRef,
     token,
     questionnaire,
@@ -54,6 +55,7 @@ const QuestionnaireListComponents = (props) => {
     setSelectedComponentId('');
   }, [setSelectedComponentId]);
 
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
   const [showVersionsModal, setShowVersionsModal] = useState(false);
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -165,6 +167,12 @@ const QuestionnaireListComponents = (props) => {
                 onClick={() => setShowQuestionnaireModal(true)}
               >
                 {Dictionary.showDetail}
+              </button>
+              <button
+                className="btn-yellow"
+                onClick={() => setShowDuplicateModal(true)}
+              >
+                {Dictionary.duplicate}
               </button>
               <button
                 className="btn-yellow"
@@ -313,16 +321,32 @@ const QuestionnaireListComponents = (props) => {
             </div>
           </ReactModal>
 
+          {/* Duplicate */}
+
+          <ConfirmDialog
+            showConfirmModal={showDuplicateModal}
+            closePopup={() => setShowRemoveQuestionnaireDialog(false)}
+            confirm={() =>
+              duplicateQuestionnaire(questionnaire.id, token).then(() =>
+                setShowDuplicateModal(false),
+              )
+            }
+            title={Dictionary.dupliquate}
+            message={`${Dictionary.duplicateQuestion}${questionnaire.label}`}
+          />
+
           {/* Remove dialog */}
 
           <ConfirmDialog
             showConfirmModal={showRemoveQuestionnaireDialog}
+            closePopup={() => setShowRemoveQuestionnaireDialog(false)}
             confirm={() =>
               removeQuestionnaire(questionnaire.id, token).then(() =>
                 navigate('/'),
               )
             }
-            closePopup={() => setShowRemoveQuestionnaireDialog(false)}
+            title={Dictionary.confirmBodyTitle}
+            message={Dictionary.confirmBodyMessage}
           />
         </div>
       )}
@@ -344,6 +368,7 @@ QuestionnaireListComponents.propTypes = {
   removeQuestionnaireRef: PropTypes.func.isRequired,
   dragComponent: PropTypes.func.isRequired,
   duplicateComponentAndVariables: PropTypes.func.isRequired,
+  duplicateQuestionnaire: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
   activeCalculatedVariables: PropTypes.object,

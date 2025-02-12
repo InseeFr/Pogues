@@ -5,6 +5,7 @@
 @layer base {
   body {
     font-family: 'Open Sans Variable', sans-serif;
+    background-color: #f7f7f7;
   }
   h1 {
     @apply text-4xl;
@@ -18,29 +19,4 @@
     @apply text-2xl;
     @apply font-semibold;
   }
-}
-
-body {
-  background-color: #f7f7f7;
-}
-
-#latest-pogues {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 13em;
-  margin: auto;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
 }

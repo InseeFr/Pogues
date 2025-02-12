@@ -2,36 +2,33 @@ import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { getQuestionnaires, getStamps } from '@/api/questionnaires';
-import { getAccessToken } from '@/api/utils';
+import { getAPIToken } from '@/api/utils';
 import Questionnaires from '@/components/questionnaires/Questionnaires';
 
 const questionnairesSchema = z.object({
   stamp: z.string().optional(),
 });
 
-export const Route = createFileRoute('/_auth/questionnaires/')({
-  validateSearch: questionnairesSchema,
+export const Route = createFileRoute('/_auth/_layout/questionnaires/')({
+  component: RouteComponent,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
   loader: async ({ context: { user }, deps: { stamp } }) => {
-    const token = await getAccessToken();
+    const token = await getAPIToken();
     if (!token) {
-      // 401 error
+      throw new Error('Token not found');
     }
-    const selectedStamp = (stamp ?? user!.stamp) || '';
+    const selectedStamp = stamp ?? user!.stamp ?? '';
 
-    /*return queryClient.ensureQueryData({
-      queryKey: ['questionnaires', { stamp }],
-      queryFn: () => getQuestionnaires(stamp, token),
-    });*/
     const questionnaires = await getQuestionnaires(selectedStamp, token);
     const stamps = await getStamps(token);
+
     return { questionnaires, stamps, selectedStamp };
   },
-  component: QuestionnairesWrapper,
+  validateSearch: questionnairesSchema,
 });
 
-function QuestionnairesWrapper() {
-  const routeApi = getRouteApi('/_auth/questionnaires/');
+function RouteComponent() {
+  const routeApi = getRouteApi('/_auth/_layout/questionnaires/');
   const { questionnaires, stamps, selectedStamp } = routeApi.useLoaderData();
   return (
     <Questionnaires
