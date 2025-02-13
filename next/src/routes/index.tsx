@@ -2,7 +2,6 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import Button from '@/components/ui/Button';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
-import { useOidc } from '@/contexts/oidc';
 
 import poguesLogo from '/pogues-logo.png';
 
@@ -16,15 +15,6 @@ export const Route = createFileRoute('/')({
 });
 
 function App() {
-  const oidc = useOidc();
-  const { isUserLoggedIn, login } = oidc;
-  if (!isUserLoggedIn) {
-    login({
-      doesCurrentHrefRequiresAuth: true,
-    });
-    return <div>Please login</div>;
-  }
-
   return (
     <div className="p-4 space-y-10 gradient min-h-screen bg-default">
       <div className="p-4 space-y-2 my-12">

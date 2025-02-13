@@ -23,7 +23,22 @@ declare module '@tanstack/react-router' {
 
 export default function App() {
   return (
-    <OidcProvider>
+    <OidcProvider
+      ErrorFallback={({ initializationError }) => (
+        <h1 className="text-error">
+          {initializationError.isAuthServerLikelyDown ? (
+            <>
+              Sorry our authentication server is currently down, please try
+              again later
+            </>
+          ) : (
+            // NOTE: Check initializationError.message for debug information.
+            // It's an error on your end no need to show it to the user.
+            <>Unexpected authentication error </>
+          )}
+        </h1>
+      )}
+    >
       <InnerApp />
     </OidcProvider>
   );
