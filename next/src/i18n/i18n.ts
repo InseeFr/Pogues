@@ -6,7 +6,7 @@ export { declareComponentKeys };
 
 const languages = ['fr', 'en'] as const;
 
-export const fallbackLanguage = 'fr';
+export const fallbackLanguage = 'en';
 
 export type Language = (typeof languages)[number];
 
