@@ -45,8 +45,8 @@ export default function Versions({
   ) : (
     <>
       <div className="text-gray-400 mb-3">
-        <p>{Dictionary.versionsInfo}</p>
-        <p>{Dictionary.versionsLimitInfo}</p>
+        <p>{Dictionary.saveHistoryInfo}</p>
+        <p>{Dictionary.saveHistoryLimitInfo}</p>
         <p>
           <a
             className="text-lg"
