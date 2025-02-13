@@ -1,0 +1,76 @@
+{
+  "common": {
+    "version": "Version",
+    "appName": "Pogues",
+    "questionnaire": "Questionnaire",
+    "documentation": "Documentation",
+    "legacyLink": "Back to previous version",
+    "docs": "Documentation",
+    "loading": "Loading...",
+    "edit": "Edit",
+    "previous": "Previous",
+    "next": "Next",
+    "close": "Close",
+    "cancel": "Cancel",
+    "complete": "Complete",
+    "validate": "Validate",
+    "add": "Add",
+    "delete": "Delete",
+    "help": "Help",
+    "backToHome": "Back to home",
+    "retry": "Retry",
+    "send": "Send",
+    "title": "Title",
+    "start": "Start"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "message": "Please login"
+  },
+  "home": {
+    "altImage": "Pogues Logo",
+    "label": "Questionnaire design tool.",
+    "transformVariables": "Transform your variables into questionnaires.",
+    "poguesIntro": "Pogues is the main entry point into the services provided by Bowie.",
+    "interfaceDescription": "It is a graphical interface for designing questionnaires, enabling the creation of structural elements (sequences, questions) and dynamic elements (filters, controls, loops).",
+    "docsLabel": "Answers to all your questions.",
+    "docsLink": "Go to documentation"
+  },
+  "external": {
+    "publicEnemy": "Public Enemy",
+    "publicEnemyLabel": "Customize your questionnaire."
+  },
+  "questionnaires": {
+    "title": "Questionnaires",
+    "create": "Create a questionnaire",
+    "lastUpdate": "Last modified",
+    "search": "Search for a questionnaire",
+    "stamp": "Stamp"
+  },
+  "codesLists": {
+    "title": "Code Lists",
+    "create": "Create a code list",
+    "new": "New code list",
+    "code": "Code",
+    "lastUpdate": "Last modified",
+    "usedIn": "Used in",
+    "addList": "Add a list",
+    "addCode": "+ Add a code",
+    "importCsv": "Import a code list from a CSV file",
+    "value": "Value",
+    "label": "Label"
+  },
+  "createQuestionnaire": {
+    "mode": "Collection mode",
+    "create": "Create a questionnaire",
+    "dynamicField": "Dynamic specification",
+    "formulaField": "Formula specification",
+    "createSuccess": "The questionnaire has been created",
+    "filter": "Filter",
+    "redirect": "Redirect",
+    "title": "You must provide a title",
+    "target": "You must select at least one target mode",
+    "loading": "Loading..."
+  }
+}

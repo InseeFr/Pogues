@@ -1,29 +1,26 @@
-import { createI18nApi, declareComponentKeys } from 'i18nifty';
+import i18next from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
 
-import type { ComponentKey } from './types';
+import en from './locales/en.json';
+import fr from './locales/fr.json';
 
-export { declareComponentKeys };
+i18next
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    resources: {
+      fr: {
+        translation: fr,
+      },
+      en: {
+        translation: en,
+      },
+    },
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
-const languages = ['fr', 'en'] as const;
-
-export const fallbackLanguage = 'en';
-
-export type Language = (typeof languages)[number];
-
-export const {
-  useTranslation,
-  resolveLocalizedString,
-  useLang,
-  $lang,
-  useResolveLocalizedString,
-  getTranslation,
-} = createI18nApi<ComponentKey>()(
-  {
-    languages,
-    fallbackLanguage,
-  },
-  {
-    en: () => import('./locales/en').then(({ translations }) => translations),
-    fr: () => import('./locales/fr').then(({ translations }) => translations),
-  },
-);
+export default i18next;

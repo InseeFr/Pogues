@@ -2,6 +2,7 @@ import { FieldApi, useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
@@ -13,7 +14,6 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import { getTranslation, useTranslation } from '@/i18n';
 import {
   FlowLogics,
   FormulasLanguages,
@@ -24,7 +24,6 @@ import { uid } from '@/utils/utils';
 
 import { changeSetValue } from './utils/set';
 
-const { t } = getTranslation('createQuestionnaireMessage');
 interface FormValues {
   title: string;
   targetModes: Set<TargetModes>;
@@ -33,8 +32,10 @@ interface FormValues {
 }
 
 const questionnaireSchema = z.object({
-  title: z.string().min(1, t('titleMessage')),
-  targetModes: z.set(z.nativeEnum(TargetModes)).min(1, t('targetMessage')),
+  title: z.string().min(1, 'You must provide a title'),
+  targetModes: z
+    .set(z.nativeEnum(TargetModes))
+    .min(1, 'You must select at least one target mode'),
   flowLogic: z.nativeEnum(FlowLogics),
   formulasLanguage: z.nativeEnum(FormulasLanguages),
 });
@@ -50,7 +51,7 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
-  const { t: tCommon } = useTranslation('commonMessage');
+  const { t } = useTranslation();
   const { user } = useRouteContext({
     from: '__root__',
   });
@@ -109,22 +110,22 @@ export default function CreateQuestionnaire() {
       },
     );
     toast.promise(promise, {
-      loading: t('loading'),
-      success: t('createSuccess'),
+      loading: 'Loading',
+      success: 'Questionnaire created',
       error: (err: Error) => err.toString(),
     });
   };
 
   return (
     <div>
-      <ContentHeader title={t('create')} />
+      <ContentHeader title={t('questionnaires.create')} />
       <ContentMain>
         <div className="bg-default p-4 border border-default shadow-xl">
           <div className="grid gap-4">
             <Field name="title">
               {(field) => (
                 <Input
-                  label={tCommon('title')}
+                  label={t('common.title')}
                   onChange={(v) => field.handleChange(v as string)}
                   autoFocus
                   value={field.state.value}
@@ -138,7 +139,7 @@ export default function CreateQuestionnaire() {
               )}
             </Field>
             <div>
-              <Label required>{t('mode')}</Label>
+              <Label required>{t('create-questionnaire.mode')}</Label>
               <Field name="targetModes">
                 {(field) => (
                   <>
@@ -174,20 +175,20 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>{t('dynamicField')}</Label>
+              <Label required>{t('create-questionnaire.dynamic-field')}</Label>
               <Field name="flowLogic">
                 {(field) => (
                   <>
                     <div className="flex gap-x-4">
                       <Checkbox
-                        label={t('filter')}
+                        label={'Filtre'}
                         checked={field.state.value === FlowLogics.Filter}
                         onChange={(v) => {
                           if (v) field.handleChange(FlowLogics.Filter);
                         }}
                       />
                       <Checkbox
-                        label={t('redirect')}
+                        label={'Redirection'}
                         checked={field.state.value === FlowLogics.Redirection}
                         onChange={(v) => {
                           if (v) field.handleChange(FlowLogics.Redirection);
@@ -204,7 +205,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>{t('formulaField')}</Label>
+              <Label required>{t('create-questionnaire.formula-field')}</Label>
               <Field name="formulasLanguage">
                 {(field) => (
                   <>
@@ -235,7 +236,7 @@ export default function CreateQuestionnaire() {
             </div>
           </div>
           <div className="flex gap-x-2 mt-6">
-            <ButtonLink to={'/questionnaires'}>{tCommon('cancel')}</ButtonLink>
+            <ButtonLink to={'/questionnaires'}>{t('common.cancel')}</ButtonLink>
             <Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
             >
