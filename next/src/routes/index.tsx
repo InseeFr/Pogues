@@ -35,14 +35,14 @@ function App() {
       </div>
       <div className="space-y-8 px-12">
         <div className="text-3xl font-bold">
-          <Trans i18nKey="" />
+          <Trans i18nKey="home.transformVariables" />
         </div>
         <div className="space-y-2">
           <p>
-            <Trans i18nKey="poguesIntro" />
+            <Trans i18nKey="home.poguesIntro" />
           </p>
           <p>
-            <Trans i18nKey="interfaceDescription" />
+            <Trans i18nKey="home.interfaceDescription" />
           </p>
         </div>
       </div>

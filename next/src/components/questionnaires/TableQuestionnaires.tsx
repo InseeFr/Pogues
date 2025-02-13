@@ -18,7 +18,7 @@ export default function TableQuestionnaires({
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
           <th>{t('questionnaires.title')}</th>
-          <th>{t('questionnaires.last-update')}</th>
+          <th>{t('questionnaires.lastUpdate')}</th>
           <th className="w-0" />
         </tr>
       </thead>
