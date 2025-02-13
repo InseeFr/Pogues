@@ -15,15 +15,15 @@ export default function Select({
 }: Readonly<SelectProps>) {
   return (
     <UISelect.Root value={value} onValueChange={onChange}>
-      <UISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-[popup-open]:bg-accent">
+      <UISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-popup-open:bg-accent">
         <UISelect.Value />
         <UISelect.Icon className="flex">
           <ArrowDownIcon height="17.5" width="17.5" />
         </UISelect.Icon>
       </UISelect.Trigger>
       <UISelect.Portal>
-        <UISelect.Positioner className="outline-none" sideOffset={8}>
-          <UISelect.Popup className="outline-none group origin-[var(--transform-origin)] rounded-lg bg-[canvas] py-1 text-default shadow-lg transition-[transform,scale,opacity] data-[ending-style]:scale-100 data-[ending-style]:opacity-100 data-[ending-style]:transition-none data-[starting-style]:scale-90 data-[starting-style]:opacity-0 data-[side=none]:data-[starting-style]:scale-100 data-[side=none]:data-[starting-style]:opacity-100 data-[side=none]:data-[starting-style]:transition-none">
+        <UISelect.Positioner className="outline-hidden" sideOffset={8}>
+          <UISelect.Popup className="outline-hidden group origin-[var(--transform-origin)] rounded-lg bg-[canvas] py-1 text-default shadow-lg transition-[transform,scale,opacity] data-ending-style:scale-100 data-ending-style:opacity-100 data-ending-style:transition-none data-starting-style:scale-90 data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 data-[side=none]:data-starting-style:transition-none">
             <UISelect.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
               <ArrowSvg />
             </UISelect.Arrow>

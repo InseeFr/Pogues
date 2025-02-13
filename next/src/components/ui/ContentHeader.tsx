@@ -12,7 +12,7 @@ export default function ContentHeader({
   title,
 }: Readonly<ContentHeaderProps>) {
   return (
-    <div className="grid grid-cols-[1fr_auto] px-12 py-6 space-y-4 bg-default border-b border-default items-end">
+    <div className="grid grid-cols-[1fr_auto] px-12 py-6 bg-default border-b border-default items-end">
       <div>
         <Breadcrumb />
         <h1>{title}</h1>

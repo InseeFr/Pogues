@@ -170,7 +170,7 @@ export default function CreateQuestionnaire() {
                       })}
                     </div>
                     <button
-                      className="my-3 p-2 text-primary font-bold cursor-pointer hover:bg-accent rounded"
+                      className="my-3 p-2 text-primary font-bold cursor-pointer hover:bg-accent rounded-sm"
                       onClick={() => field.pushValue({ label: '', value: '' })}
                       type="button"
                     >
