@@ -1,7 +1,8 @@
 import { createFileRoute, getRouteApi } from '@tanstack/react-router';
 import { z } from 'zod';
 
-import { getQuestionnaires, getStamps } from '@/api/questionnaires';
+import { questionnairesQueryOptions } from '@/api/questionnaires';
+import { stampsQueryOptions } from '@/api/stamps';
 import { getAPIToken } from '@/api/utils';
 import Questionnaires from '@/components/questionnaires/Questionnaires';
 
@@ -12,15 +13,14 @@ const questionnairesSchema = z.object({
 export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
-  loader: async ({ context: { user }, deps: { stamp } }) => {
+  loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
     const token = await getAPIToken();
-    if (!token) {
-      throw new Error('Token not found');
-    }
     const selectedStamp = stamp ?? user!.stamp ?? '';
 
-    const questionnaires = await getQuestionnaires(selectedStamp, token);
-    const stamps = await getStamps(token);
+    const questionnaires = await queryClient.ensureQueryData(
+      questionnairesQueryOptions(selectedStamp, token),
+    );
+    const stamps = await queryClient.ensureQueryData(stampsQueryOptions(token));
 
     return { questionnaires, stamps, selectedStamp };
   },
