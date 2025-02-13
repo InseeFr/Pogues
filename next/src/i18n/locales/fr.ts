@@ -50,7 +50,7 @@ export const translations: Translations<'fr'> = {
     title: 'Questionnaires',
     create: 'Créer un questionnaire',
     lastUpdate: 'Dernière modification',
-    search: 'Rechercher un questionnaire TEST ETS ',
+    search: 'Rechercher un questionnaires',
     stamp: 'Timbre',
   },
   codesListsMessage: {
