@@ -1,7 +1,6 @@
-import { useTranslation } from 'react-i18next';
-
 import type { Questionnaire } from '@/models/questionnaires';
 
+import { useTranslation } from '../../i18n';
 import QuestionnaireLine from './QuestionnaireLine';
 
 interface TableQuestionnaireProps {
@@ -12,13 +11,13 @@ interface TableQuestionnaireProps {
 export default function TableQuestionnaires({
   questionnaires,
 }: Readonly<TableQuestionnaireProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('questionnairesMessage');
   return (
     <table className="table-auto border border-default w-full shadow-xl">
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
-          <th>{t('questionnaires.title')}</th>
-          <th>{t('questionnaires.last-update')}</th>
+          <th>{t('title')}</th>
+          <th>{t('lastUpdate')}</th>
           <th className="w-0" />
         </tr>
       </thead>

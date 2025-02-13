@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import { useParams } from '@tanstack/react-router';
-//import MenuIcon from '@/components/ui/icons/MenuIcon';
-import { useTranslation } from 'react-i18next';
 
+//import MenuIcon from '@/components/ui/icons/MenuIcon';
 import Accordion, { AccordionItem } from '@/components/ui/Accordion';
 import ButtonIcon from '@/components/ui/ButtonIcon';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
@@ -14,23 +13,25 @@ import Menu from '@/components/ui/Menu';
 import EditIcon from '@/components/ui/icons/EditIcon';
 import { type CodesList } from '@/models/codesLists';
 
+import { useTranslation } from '../../i18n';
+
 interface CodesListsProps {
   codesLists: CodesList[];
 }
 
 export default function CodesLists({ codesLists }: Readonly<CodesListsProps>) {
   const { questionnaireId } = useParams({ strict: false });
-  const { t } = useTranslation();
+  const { t } = useTranslation('codesListsMessage');
   return (
     <div>
       <ContentHeader
-        title={t('codesLists.title')}
+        title={t('title')}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"
             params={{ questionnaireId: questionnaireId ?? '' }}
           >
-            {t('codesLists.create')}
+            {t('create')}
           </ButtonLink>
         }
       />
@@ -58,7 +59,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
 
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false);
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('commonMessage');
 
   return (
     <>
@@ -72,7 +73,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-1 fill-gray-600">
                 <span>{code.value}</span>
                 <ButtonIcon
-                  title={t('common.edit')}
+                  title={t('edit')}
                   Icon={EditIcon}
                   onClick={() => setIsDirtyState(true)}
                 />
@@ -80,7 +81,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-1 fill-gray-600">
                 <span>{code.label}</span>
                 <ButtonIcon
-                  title={t('common.edit')}
+                  title={t('edit')}
                   Icon={EditIcon}
                   onClick={() => setIsDirtyState(true)}
                 />
@@ -101,7 +102,7 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
             codesListId: codesList.id,
           }}
         >
-          {t('common.validate')}
+          {t('validate')}
         </ButtonLink>
       ) : null}
     </>

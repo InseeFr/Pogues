@@ -2,7 +2,6 @@ import { FieldApi, useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
@@ -22,6 +21,7 @@ import {
 } from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
 
+import { useTranslation } from '../../i18n';
 import { changeSetValue } from './utils/set';
 
 interface FormValues {
@@ -51,7 +51,10 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
-  const { t } = useTranslation();
+  const { t: tCreateQuestionnaireMessage } = useTranslation(
+    'createQuestionnaireMessage',
+  );
+  const { t: tCommon } = useTranslation('commonMessage');
   const { user } = useRouteContext({
     from: '__root__',
   });
@@ -118,14 +121,14 @@ export default function CreateQuestionnaire() {
 
   return (
     <div>
-      <ContentHeader title={t('questionnaires.create')} />
+      <ContentHeader title={tCreateQuestionnaireMessage('create')} />
       <ContentMain>
         <div className="bg-default p-4 border border-default shadow-xl">
           <div className="grid gap-4">
             <Field name="title">
               {(field) => (
                 <Input
-                  label={t('common.title')}
+                  label={tCommon('title')}
                   onChange={(v) => field.handleChange(v as string)}
                   autoFocus
                   value={field.state.value}
@@ -139,7 +142,7 @@ export default function CreateQuestionnaire() {
               )}
             </Field>
             <div>
-              <Label required>{t('create-questionnaire.mode')}</Label>
+              <Label required>{tCreateQuestionnaireMessage('mode')}</Label>
               <Field name="targetModes">
                 {(field) => (
                   <>
@@ -175,20 +178,22 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>{t('create-questionnaire.dynamic-field')}</Label>
+              <Label required>
+                {tCreateQuestionnaireMessage('dynamicField')}
+              </Label>
               <Field name="flowLogic">
                 {(field) => (
                   <>
                     <div className="flex gap-x-4">
                       <Checkbox
-                        label={'Filtre'}
+                        label={tCreateQuestionnaireMessage('filter')}
                         checked={field.state.value === FlowLogics.Filter}
                         onChange={(v) => {
                           if (v) field.handleChange(FlowLogics.Filter);
                         }}
                       />
                       <Checkbox
-                        label={'Redirection'}
+                        label={tCreateQuestionnaireMessage('redirect')}
                         checked={field.state.value === FlowLogics.Redirection}
                         onChange={(v) => {
                           if (v) field.handleChange(FlowLogics.Redirection);
@@ -205,7 +210,9 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>{t('create-questionnaire.formula-field')}</Label>
+              <Label required>
+                {tCreateQuestionnaireMessage('formulaField')}
+              </Label>
               <Field name="formulasLanguage">
                 {(field) => (
                   <>
@@ -236,7 +243,7 @@ export default function CreateQuestionnaire() {
             </div>
           </div>
           <div className="flex gap-x-2 mt-6">
-            <ButtonLink to={'/questionnaires'}>{t('common.cancel')}</ButtonLink>
+            <ButtonLink to={'/questionnaires'}>{tCommon('cancel')}</ButtonLink>
             <Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
             >

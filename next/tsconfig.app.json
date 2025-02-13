@@ -29,5 +29,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "mfe"]
+  "include": ["src", "mfe", "src/i18n"]
 }

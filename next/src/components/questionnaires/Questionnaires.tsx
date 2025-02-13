@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { useNavigate } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
@@ -10,6 +9,7 @@ import Input from '@/components/ui/Input';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
 
+import { useTranslation } from '../../i18n';
 import StampsSelector from './StampsSelector';
 import TableQuestionnaires from './TableQuestionnaires';
 
@@ -25,7 +25,8 @@ export default function Questionnaires({
   stamps = [],
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
-  const { t } = useTranslation();
+  const { t: tQuestionnaires } = useTranslation('questionnairesMessage');
+  const { t: tCommon } = useTranslation('commonMessage');
   const [filter, setFilter] = useState<string>('');
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export default function Questionnaires({
         title="Questionnaires"
         action={
           <ButtonLink to="/questionnaires/new">
-            {t('questionnaires.create')}
+            {tQuestionnaires('create')}
           </ButtonLink>
         }
       />
@@ -58,8 +59,8 @@ export default function Questionnaires({
           </div>
           <div>
             <Input
-              label={t('questionnaires.search')}
-              placeholder={t('questionnaires.search')}
+              label={tQuestionnaires('search')}
+              placeholder={tQuestionnaires('search')}
               value={filter}
               onChange={(v) => setFilter(v as string)}
             />
@@ -75,7 +76,7 @@ export default function Questionnaires({
             })}
           />
         ) : (
-          <div>{t('common.loading')}</div>
+          <div>{tCommon('loading')}</div>
         )}
       </ContentMain>
     </div>

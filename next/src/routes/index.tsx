@@ -1,10 +1,10 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '@/components/ui/Button';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
 import { useOidc } from '@/contexts/oidc';
 
+import { useTranslation } from '../i18n';
 import poguesLogo from '/pogues-logo.png';
 
 export const Route = createFileRoute('/')({
@@ -19,12 +19,15 @@ export const Route = createFileRoute('/')({
 function App() {
   const oidc = useOidc();
   const { isUserLoggedIn, login } = oidc;
-  const { t } = useTranslation();
+  const { t: tAuth } = useTranslation('authMessage');
+  const { t: tHome } = useTranslation('homeMessage');
+  const { t: tCommon } = useTranslation('commonMessage');
+  const { t: tExternal } = useTranslation('externalMessage');
   if (!isUserLoggedIn) {
     login({
       doesCurrentHrefRequiresAuth: true,
     });
-    return <div>{t('common.auth.login-message')}</div>;
+    return <div>{tAuth('message')}</div>;
   }
 
   return (
@@ -33,53 +36,47 @@ function App() {
         <h2>
           <img src={poguesLogo} className="m-auto" alt="Pogues" />
         </h2>
-        <div className="text-center text-lg">{t('home.label')}</div>
+        <div className="text-center text-lg">{tHome('label')}</div>
       </div>
       <div className="text-center m-auto grid grid-cols-2 gap-x-6 max-w-xs">
         <ButtonLink to="/questionnaires" buttonType={ButtonType.Primary}>
-          {t('common.start')}
+          {tCommon('start')}
         </ButtonLink>
         <a href="https://inseefr.github.io/Bowie/1._Pogues/" target="_blank">
-          <Button>{t('common.documentation')}</Button>
+          <Button>{tCommon('documentation')}</Button>
         </a>
       </div>
       <div className="space-y-8 px-12">
-        <div className="text-3xl font-bold">
-          <Trans i18nKey="transform-variables" />
-        </div>
+        <div className="text-3xl font-bold">{tHome('transformVariables')}</div>
         <div className="space-y-2">
-          <p>
-            <Trans i18nKey="pogues-intro" />
-          </p>
-          <p>
-            <Trans i18nKey="interface-description" />
-          </p>
+          <p>{tHome('poguesIntro')}</p>
+          <p>{tHome('interfaceDescription')}</p>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-x-8 w-3/4 m-auto">
         <div className="bg-default p-4 border border-default shadow-xl space-y-3 grid grid-rows-[1fr_auto_auto] overflow-hidden">
-          <h3>{t('common.documentation')}</h3>
-          <div>{t('home.docsLabel')}</div>
+          <h3>{tCommon('documentation')}</h3>
+          <div>{tHome('docsLabel')}</div>
           <div>
             <a
               href="https://inseefr.github.io/Bowie/1._Pogues/"
               className="text-primary underline"
               target="_blank"
             >
-              {t('home.docsLink')}
+              {tHome('docsLink')}
             </a>
           </div>
         </div>
         <div className="bg-default p-4 border border-default shadow-xl space-y-3 grid grid-rows-[1fr_auto_auto] overflow-hidden">
-          <h3>{t('external.public-enemy')}</h3>
-          <div>{t('external.public-enemy-label')}</div>
+          <h3>{tExternal('publicEnemy')}</h3>
+          <div>{tExternal('publicEnemyLabel')}</div>
           <div>
             <a
               href="https://personnalisation-conception-questionnaires.developpement.insee.fr/questionnaires"
               className="text-primary underline"
               target="_blank"
             >
-              {t('external.public-enemy')}
+              {tExternal('publicEnemy')}
             </a>
           </div>
         </div>

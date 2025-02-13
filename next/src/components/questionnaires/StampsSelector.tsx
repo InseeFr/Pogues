@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
-
 import Label from '@/components/ui/Label';
 import Option from '@/components/ui/Option';
 import Select from '@/components/ui/Select';
 import type { Stamp } from '@/models/stamps';
+
+import { useTranslation } from '../../i18n';
 
 interface StampsSelectorProps {
   stamps?: Stamp[];
@@ -17,11 +17,10 @@ export default function StampsSelector({
   selectedStamp,
   onSelect,
 }: Readonly<StampsSelectorProps>) {
-  const { t } = useTranslation();
-  console.log('stamps', t('questionnaires.stamp'));
+  const { t } = useTranslation('questionnairesMessage');
   return (
     <>
-      <Label>{t('questionnaires.stamp')}</Label>
+      <Label>{t('stamp')}</Label>
       <Select onChange={(v) => onSelect(v as string)} value={selectedStamp}>
         {stamps
           .toSorted((a, b) => a.label.localeCompare(b.label))

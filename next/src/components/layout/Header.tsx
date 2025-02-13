@@ -1,9 +1,9 @@
 import { Link } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
 import { User as UserType } from '@/hooks/useAuth';
 
+import { useTranslation } from '../../i18n';
 import User from './User';
 
 interface HeaderProps {
@@ -17,14 +17,14 @@ interface HeaderProps {
  * same use globally (e.g. create new questionnaire, see documentation...).
  */
 export default function Header({ user }: Readonly<HeaderProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('commonMessage');
   const appVersion = import.meta.env.APP_VERSION;
 
   return (
     <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative fill-negative items-center">
       <div className="px-3 py-2">
         <h1>
-          <Link to="/">{t('common.appName')}</Link>
+          <Link to="/">{t('appName')}</Link>
         </h1>{' '}
         <div className="text-sm">v{appVersion}</div>
       </div>
@@ -34,7 +34,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
           href="https://inseefr.github.io/Bowie/1._Pogues/"
           target="_blank"
         >
-          {t('common.documentation')}
+          {t('documentation')}
           <div>
             <OpenInNewIcon height="16" width="16" />
           </div>
