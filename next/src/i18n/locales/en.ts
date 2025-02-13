@@ -76,5 +76,6 @@ export const translations: Translations<'en'> = {
     redirect: 'Redirect',
     titleMessage: 'You must provide a title',
     targetMessage: 'You must select at least one target mode',
+    loading: 'Loading...',
   },
 };

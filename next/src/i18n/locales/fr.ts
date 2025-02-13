@@ -76,5 +76,6 @@ export const translations: Translations<'fr'> = {
     redirect: 'Redirect',
     titleMessage: 'Vous devez renseigner un titre',
     targetMessage: 'Vous devez sélectionner au moins un mode de collecte',
+    loading: 'Chargement...',
   },
 };

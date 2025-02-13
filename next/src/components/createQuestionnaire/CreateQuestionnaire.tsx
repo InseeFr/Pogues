@@ -21,9 +21,10 @@ import {
 } from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
 
-import { useTranslation } from '../../i18n';
+import { getTranslation, useTranslation } from '../../i18n';
 import { changeSetValue } from './utils/set';
 
+const { t } = getTranslation('createQuestionnaireMessage');
 interface FormValues {
   title: string;
   targetModes: Set<TargetModes>;
@@ -32,10 +33,8 @@ interface FormValues {
 }
 
 const questionnaireSchema = z.object({
-  title: z.string().min(1, 'You must provide a title'),
-  targetModes: z
-    .set(z.nativeEnum(TargetModes))
-    .min(1, 'You must select at least one target mode'),
+  title: z.string().min(1, t('titleMessage')),
+  targetModes: z.set(z.nativeEnum(TargetModes)).min(1, t('targetMessage')),
   flowLogic: z.nativeEnum(FlowLogics),
   formulasLanguage: z.nativeEnum(FormulasLanguages),
 });
@@ -51,9 +50,6 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
-  const { t: tCreateQuestionnaireMessage } = useTranslation(
-    'createQuestionnaireMessage',
-  );
   const { t: tCommon } = useTranslation('commonMessage');
   const { user } = useRouteContext({
     from: '__root__',
@@ -113,15 +109,15 @@ export default function CreateQuestionnaire() {
       },
     );
     toast.promise(promise, {
-      loading: 'Loading',
-      success: 'Questionnaire created',
+      loading: t('loading'),
+      success: t('createSuccess'),
       error: (err: Error) => err.toString(),
     });
   };
 
   return (
     <div>
-      <ContentHeader title={tCreateQuestionnaireMessage('create')} />
+      <ContentHeader title={t('create')} />
       <ContentMain>
         <div className="bg-default p-4 border border-default shadow-xl">
           <div className="grid gap-4">
@@ -142,7 +138,7 @@ export default function CreateQuestionnaire() {
               )}
             </Field>
             <div>
-              <Label required>{tCreateQuestionnaireMessage('mode')}</Label>
+              <Label required>{t('mode')}</Label>
               <Field name="targetModes">
                 {(field) => (
                   <>
@@ -178,22 +174,20 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>
-                {tCreateQuestionnaireMessage('dynamicField')}
-              </Label>
+              <Label required>{t('dynamicField')}</Label>
               <Field name="flowLogic">
                 {(field) => (
                   <>
                     <div className="flex gap-x-4">
                       <Checkbox
-                        label={tCreateQuestionnaireMessage('filter')}
+                        label={t('filter')}
                         checked={field.state.value === FlowLogics.Filter}
                         onChange={(v) => {
                           if (v) field.handleChange(FlowLogics.Filter);
                         }}
                       />
                       <Checkbox
-                        label={tCreateQuestionnaireMessage('redirect')}
+                        label={t('redirect')}
                         checked={field.state.value === FlowLogics.Redirection}
                         onChange={(v) => {
                           if (v) field.handleChange(FlowLogics.Redirection);
@@ -210,9 +204,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>
-                {tCreateQuestionnaireMessage('formulaField')}
-              </Label>
+              <Label required>{t('formulaField')}</Label>
               <Field name="formulasLanguage">
                 {(field) => (
                   <>

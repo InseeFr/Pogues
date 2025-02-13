@@ -89,6 +89,7 @@ export type CreateQuestionnaireTranslation = {
   redirect: string;
   titleMessage: string;
   targetMessage: string;
+  loading: string;
 };
 
 export type CommonMessage = keyof CommonTranslation;
