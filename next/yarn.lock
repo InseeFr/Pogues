@@ -3469,10 +3469,10 @@ object-assign@^4.1.1:
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
 
-oidc-spa@^5.6.2:
-  version "5.6.2"
-  resolved "https://registry.yarnpkg.com/oidc-spa/-/oidc-spa-5.6.2.tgz#8bcb6812cad869e17e3f863ddb5d0a756c001fa3"
-  integrity sha512-yx6iwCAU8OAvYxK6rzhvAKnD4xgZZljk/PWo4tDMgMyPvHyU1mGLWJVml6Z992yKTxduiWdvZFeRnn6GblS1vQ==
+oidc-spa@^6.1.9:
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/oidc-spa/-/oidc-spa-6.1.9.tgz#dcb75dbd2b327a5df08be2d5628f9f316db5d123"
+  integrity sha512-hY24iWtCo/MP8LU0HXTMKkFVHsasXZH6/VY3+iO98Ucz65N5CvKygpv7scB1r0Q7LWTBLWU1A6TPaOhELYZxUg==
 
 on-finished@^2.3.0:
   version "2.4.1"

@@ -11,8 +11,5 @@ export function computeAuthorizationHeader(token: string): string {
 
 export async function getAPIToken(): Promise<string> {
   const oidc = await getOidc();
-
-  if (!oidc.isUserLoggedIn) return '';
-
   return oidc.getTokens().accessToken;
 }
