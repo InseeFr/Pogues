@@ -50,9 +50,7 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
-  const { user } = useRouteContext({
-    from: '__root__',
-  });
+  const { queryClient, user } = useRouteContext({ from: '__root__' });
   const navigate = useNavigate();
 
   const mutation = useMutation({
@@ -67,6 +65,10 @@ export default function CreateQuestionnaire() {
     }) => {
       return postQuestionnaire(questionnaire, stamp, token);
     },
+    onSuccess: (stamp) =>
+      queryClient.invalidateQueries({
+        queryKey: ['questionnaires', { stamp }],
+      }),
   });
 
   const { Field, Subscribe, handleSubmit } = useForm<FormValues>({
@@ -77,9 +79,7 @@ export default function CreateQuestionnaire() {
       formulasLanguage: FormulasLanguages.VTL,
     },
     validators: { onMount: questionnaireSchema, onChange: questionnaireSchema },
-    onSubmit: async ({ value }) => {
-      await submitForm(value);
-    },
+    onSubmit: async ({ value }) => await submitForm(value),
   });
 
   const submitForm = async ({
@@ -97,8 +97,9 @@ export default function CreateQuestionnaire() {
       flowLogic,
       formulasLanguage,
     };
+    const stamp = user!.stamp!;
     const promise = mutation.mutateAsync(
-      { questionnaire, stamp: user!.stamp!, token },
+      { questionnaire, stamp, token },
       {
         onSuccess: () =>
           void navigate({

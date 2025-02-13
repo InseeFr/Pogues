@@ -1,6 +1,10 @@
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useParams } from '@tanstack/react-router';
+import {
+  useNavigate,
+  useParams,
+  useRouteContext,
+} from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
@@ -42,6 +46,7 @@ const questionnaireSchema = z.object({
  * {@link CodesList}
  */
 export default function CreateQuestionnaire() {
+  const { queryClient } = useRouteContext({ from: '__root__' });
   const { questionnaireId } = useParams({ strict: false });
   const navigate = useNavigate();
 
@@ -57,6 +62,10 @@ export default function CreateQuestionnaire() {
     }) => {
       return addQuestionnaireCodesList(questionnaireId, codesList, token);
     },
+    onSuccess: (questionnaireId) =>
+      queryClient.invalidateQueries({
+        queryKey: ['questionnaire', { questionnaireId }],
+      }),
   });
 
   const { Field, Subscribe, handleSubmit } = useForm<FormValues>({
@@ -65,9 +74,7 @@ export default function CreateQuestionnaire() {
       codes: [],
     },
     validators: { onMount: questionnaireSchema, onChange: questionnaireSchema },
-    onSubmit: async ({ value }) => {
-      await submitForm(value);
-    },
+    onSubmit: async ({ value }) => await submitForm(value),
   });
 
   const submitForm = async ({ label, codes }: FormValues) => {
