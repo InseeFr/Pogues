@@ -9,7 +9,7 @@ const questionnairesSchema = z.object({
   stamp: z.string().optional(),
 });
 
-export const Route = createFileRoute('/_auth/_layout/questionnaires/')({
+export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
   loader: async ({ context: { user }, deps: { stamp } }) => {
@@ -28,7 +28,7 @@ export const Route = createFileRoute('/_auth/_layout/questionnaires/')({
 });
 
 function RouteComponent() {
-  const routeApi = getRouteApi('/_auth/_layout/questionnaires/');
+  const routeApi = getRouteApi('/_layout/questionnaires/');
   const { questionnaires, stamps, selectedStamp } = routeApi.useLoaderData();
   return (
     <Questionnaires
