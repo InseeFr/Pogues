@@ -1,6 +1,6 @@
+import { useTranslation } from '@/i18n';
 import type { Questionnaire } from '@/models/questionnaires';
 
-import { useTranslation } from '../../i18n';
 import QuestionnaireLine from './QuestionnaireLine';
 
 interface TableQuestionnaireProps {

@@ -11,9 +11,8 @@ import ContentMain from '@/components/ui/ContentMain';
 import Menu from '@/components/ui/Menu';
 //import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import EditIcon from '@/components/ui/icons/EditIcon';
+import { useTranslation } from '@/i18n';
 import { type CodesList } from '@/models/codesLists';
-
-import { useTranslation } from '../../i18n';
 
 interface CodesListsProps {
   codesLists: CodesList[];

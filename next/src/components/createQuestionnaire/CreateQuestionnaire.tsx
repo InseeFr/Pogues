@@ -13,6 +13,7 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
+import { getTranslation, useTranslation } from '@/i18n';
 import {
   FlowLogics,
   FormulasLanguages,
@@ -21,7 +22,6 @@ import {
 } from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
 
-import { getTranslation, useTranslation } from '../../i18n';
 import { changeSetValue } from './utils/set';
 
 const { t } = getTranslation('createQuestionnaireMessage');

@@ -2,8 +2,8 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import Button from '@/components/ui/Button';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
+import { useTranslation } from '@/i18n';
 
-import { useTranslation } from '../i18n';
 import poguesLogo from '/pogues-logo.png';
 
 export const Route = createFileRoute('/')({
@@ -16,6 +16,9 @@ export const Route = createFileRoute('/')({
 });
 
 function App() {
+  const { t: tHome } = useTranslation('homeMessage');
+  const { t: tCommon } = useTranslation('commonMessage');
+  const { t: tExternal } = useTranslation('externalMessage');
   return (
     <div className="p-4 space-y-10 gradient min-h-screen bg-default">
       <div className="p-4 space-y-2 my-12">

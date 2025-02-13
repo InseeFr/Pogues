@@ -2,8 +2,8 @@ import { Link } from '@tanstack/react-router';
 
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
 import { User as UserType } from '@/hooks/useAuth';
+import { useTranslation } from '@/i18n';
 
-import { useTranslation } from '../../i18n';
 import User from './User';
 
 interface HeaderProps {

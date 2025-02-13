@@ -6,10 +6,10 @@ import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
+import { useTranslation } from '@/i18n';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
 
-import { useTranslation } from '../../i18n';
 import StampsSelector from './StampsSelector';
 import TableQuestionnaires from './TableQuestionnaires';
 
