@@ -1,6 +1,55 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --background-color-negative: #0a192e;
+  --background-color-default: #fff;
+  --background-color-primary: #6750a4;
+  --background-color-primary-accent: #5c4893;
+  --background-color-primary-active: #524083;
+  --background-color-primary-disabled: #b3a7d1;
+  --background-color-info: #cce5ff;
+  --background-color-disabled: #e7e8e9;
+  --background-color-warning: #fddbc3;
+  --background-color-success: #d0e6d4;
+  --background-color-main: #f5f7fa;
+  --background-color-accent: #ebeff5;
+  --background-color-active: #d3d7dc;
+
+  --border-color-primary: #6750a4;
+  --border-color-default: #e7e8e9;
+
+  --text-color-default: #0a192e;
+  --text-color-disabled: #797676;
+  --text-color-placeholder: #aeacac;
+  --text-color-error: #c71a01;
+  --text-color-success: #057345;
+  --text-color-negative: #fff;
+  --text-color-primary: #6750a4;
+
+  --color-primary: #6750a4;
+  --color-action-primary: #6750a4;
+  --color-red: #c71a01;
+
+  --fill-negative: #fff;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @layer base {
   body {

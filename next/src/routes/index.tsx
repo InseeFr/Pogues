@@ -2,7 +2,6 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import Button from '@/components/ui/Button';
 import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
-import { useOidc } from '@/contexts/oidc';
 
 import { useTranslation } from '../i18n';
 import poguesLogo from '/pogues-logo.png';
@@ -17,19 +16,6 @@ export const Route = createFileRoute('/')({
 });
 
 function App() {
-  const oidc = useOidc();
-  const { isUserLoggedIn, login } = oidc;
-  const { t: tAuth } = useTranslation('authMessage');
-  const { t: tHome } = useTranslation('homeMessage');
-  const { t: tCommon } = useTranslation('commonMessage');
-  const { t: tExternal } = useTranslation('externalMessage');
-  if (!isUserLoggedIn) {
-    login({
-      doesCurrentHrefRequiresAuth: true,
-    });
-    return <div>{tAuth('message')}</div>;
-  }
-
   return (
     <div className="p-4 space-y-10 gradient min-h-screen bg-default">
       <div className="p-4 space-y-2 my-12">

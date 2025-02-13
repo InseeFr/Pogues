@@ -41,7 +41,7 @@ export default function Input({
         value={value}
         required={required}
         placeholder={placeholder}
-        className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-sm border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
+        className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-xs border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
       />
       <Field.Error className="text-sm text-error ml-1" forceShow={!!error}>
         {error}
