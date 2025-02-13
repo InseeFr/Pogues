@@ -819,9 +819,9 @@ const dictionary: Dictionary = {
     fr: 'Personnaliser',
     en: 'Customize',
   },
-  displayVersions: {
-    fr: 'Versions',
-    en: 'Versions',
+  displaySaveHistory: {
+    fr: 'Sauvegardes',
+    en: 'Save history',
   },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
@@ -851,9 +851,9 @@ const dictionary: Dictionary = {
     en: 'Reset',
     fr: 'Réinitialiser',
   },
-  searchResultVersion: {
-    fr: 'Version',
-    en: 'Version',
+  searchResultSaveHistory: {
+    fr: 'Sauvegarde',
+    en: 'Save history',
   },
   searchResultId: {
     fr: 'Identifiant',
@@ -955,13 +955,13 @@ const dictionary: Dictionary = {
     fr: 'Ouvrir',
     en: 'Open',
   },
-  versionsInfo: {
-    fr: 'Pour afficher une précédente version, choisissez "Charger" puis valider. Cette version peut ensuite être modifiée et sauvegardée comme une nouvelle version.',
-    en: 'To load a previous version, click "Load" and validate. That version can then be edited and saved as a new one.',
+  saveHistoryInfo: {
+    fr: 'Pour afficher une précédente sauvegarde, choisissez "Charger" puis valider. Cette sauvegarde peut ensuite être modifiée et sauvegardée.',
+    en: 'To load a previous backup, click "Load" and validate. That backup can then be edited and saved as a new one.',
   },
-  versionsLimitInfo: {
-    fr: 'Attention, seulement les 10 dernières versions de la journée la plus récente sont conservées, et la dernière des journées précédentes.',
-    en: 'Caution: only the latest 10 versions of the most recent day are stored, and the last one for the days before.',
+  saveHistoryLimitInfo: {
+    fr: 'Attention, seulement les 10 dernières sauvegardes de la journée la plus récente sont conservées, et la dernière des journées précédentes.',
+    en: 'Caution: only the latest 10 backup of the most recent day are stored, and the last one for the days before.',
   },
   documentationInfoLink: {
     fr: 'Pour plus de précision, se référer à la documentation.',

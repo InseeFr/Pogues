@@ -160,7 +160,7 @@ const QuestionnaireListComponents = (props) => {
                 className="btn-yellow"
                 onClick={() => setShowVersionsModal(true)}
               >
-                {Dictionary.displayVersions}
+                {Dictionary.displaySaveHistory}
               </button>
               <button
                 className="btn-yellow"
@@ -271,11 +271,11 @@ const QuestionnaireListComponents = (props) => {
             shouldCloseOnOverlayClick={false}
             isOpen={showVersionsModal}
             onRequestClose={() => setShowVersionsModal(false)}
-            contentLabel={Dictionary.displayVersions}
+            contentLabel={Dictionary.displaySaveHistory}
           >
             <div className="popup">
               <div className="popup-header">
-                <h3>{Dictionary.displayVersions}</h3>
+                <h3>{Dictionary.displaySaveHistory}</h3>
                 <button
                   type="button"
                   onClick={() => setShowVersionsModal(false)}
