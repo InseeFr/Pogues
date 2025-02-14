@@ -81,7 +81,7 @@ export async function putQuestionnaire(
   id: string,
   qr: PoguesQuestionnaire,
 ): Promise<Response> {
-  return instance.put(`/peristence/questionnaire/${id}`, qr, {
+  return instance.put(`/persistence/questionnaire/${id}`, qr, {
     headers: { 'Content-Type': 'application/json' },
   });
 }
