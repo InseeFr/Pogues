@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 import { addQuestionnaireCodesList } from '@/api/questionnaires';
-import { getAPIToken } from '@/api/utils';
 import Button, { ButtonType } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
@@ -54,13 +53,11 @@ export default function CreateQuestionnaire() {
     mutationFn: ({
       questionnaireId,
       codesList,
-      token,
     }: {
       questionnaireId: string;
       codesList: CodesList;
-      token: string;
     }) => {
-      return addQuestionnaireCodesList(questionnaireId, codesList, token);
+      return addQuestionnaireCodesList(questionnaireId, codesList);
     },
     onSuccess: (questionnaireId) =>
       queryClient.invalidateQueries({
@@ -78,11 +75,10 @@ export default function CreateQuestionnaire() {
   });
 
   const submitForm = async ({ label, codes }: FormValues) => {
-    const token = await getAPIToken();
     const id = uid();
     const codesList = { id, label, codes };
     const promise = mutation.mutateAsync(
-      { questionnaireId: questionnaireId!, codesList, token },
+      { questionnaireId: questionnaireId!, codesList },
       {
         onSuccess: () =>
           void navigate({
