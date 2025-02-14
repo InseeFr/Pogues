@@ -2,29 +2,24 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { Stamp } from '@/models/stamps';
 
-import { computeAuthorizationHeader, getBaseURI } from './utils';
+import { instance } from './instance';
 
 /**
- * Used to retrieve available stamps.
+ * Used to retrieve stamps.
  *
  * @see {@link getStamps}
  */
-export const stampsQueryOptions = (token: string) =>
+export const stampsQueryOptions = () =>
   queryOptions({
     queryKey: ['stamps'],
-    queryFn: () => getStamps(token),
+    queryFn: () => getStamps(),
   });
 
-/**
- * Retrieve stamps which allow to fetch questionnaires associated to one.
- */
-async function getStamps(token: string): Promise<Stamp[]> {
-  const url = `${getBaseURI()}/persistence/questionnaires/stamps`;
-  const headers = new Headers();
-  headers.append('Accept', 'application/json');
-  headers.append('Authorization', computeAuthorizationHeader(token));
-
-  const response = await fetch(url, { headers });
-  const json = (await response.json()) as Promise<Stamp[]>;
-  return json;
+/** Retrieve stamps which allow to fetch questionnaires associated to one. */
+async function getStamps(): Promise<Stamp[]> {
+  return instance
+    .get('/persistence/questionnaires/stamps', {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }) => data as Stamp[]);
 }

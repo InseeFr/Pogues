@@ -1,11 +1,10 @@
 import { FieldApi, useForm } from '@tanstack/react-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
-import { getAPIToken } from '@/api/utils';
 import Button, { ButtonType } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/Checkbox';
@@ -50,20 +49,19 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
-  const { queryClient, user } = useRouteContext({ from: '__root__' });
+  const { user } = useRouteContext({ from: '__root__' });
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: ({
       questionnaire,
       stamp,
-      token,
     }: {
       questionnaire: Questionnaire;
       stamp: string;
-      token: string;
     }) => {
-      return postQuestionnaire(questionnaire, stamp, token);
+      return postQuestionnaire(questionnaire, stamp);
     },
     onSuccess: (stamp) =>
       queryClient.invalidateQueries({
@@ -88,7 +86,6 @@ export default function CreateQuestionnaire() {
     flowLogic,
     formulasLanguage,
   }: FormValues) => {
-    const token = await getAPIToken();
     const id = uid();
     const questionnaire = {
       id,
@@ -99,7 +96,7 @@ export default function CreateQuestionnaire() {
     };
     const stamp = user!.stamp!;
     const promise = mutation.mutateAsync(
-      { questionnaire, stamp, token },
+      { questionnaire, stamp },
       {
         onSuccess: () =>
           void navigate({

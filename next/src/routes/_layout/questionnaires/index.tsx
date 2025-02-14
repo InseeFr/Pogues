@@ -1,9 +1,9 @@
-import { createFileRoute, getRouteApi } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { questionnairesQueryOptions } from '@/api/questionnaires';
 import { stampsQueryOptions } from '@/api/stamps';
-import { getAPIToken } from '@/api/utils';
 import Questionnaires from '@/components/questionnaires/Questionnaires';
 
 const questionnairesSchema = z.object({
@@ -14,22 +14,23 @@ export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
   loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
-    const token = await getAPIToken();
     const selectedStamp = stamp ?? user!.stamp ?? '';
 
-    const questionnaires = await queryClient.ensureQueryData(
-      questionnairesQueryOptions(selectedStamp, token),
-    );
-    const stamps = await queryClient.ensureQueryData(stampsQueryOptions(token));
+    queryClient.ensureQueryData(questionnairesQueryOptions(selectedStamp));
+    queryClient.ensureQueryData(stampsQueryOptions());
 
-    return { questionnaires, stamps, selectedStamp };
+    return { selectedStamp };
   },
   validateSearch: questionnairesSchema,
 });
 
 function RouteComponent() {
-  const routeApi = getRouteApi('/_layout/questionnaires/');
-  const { questionnaires, stamps, selectedStamp } = routeApi.useLoaderData();
+  const { selectedStamp } = Route.useLoaderData();
+  const { data: questionnaires } = useSuspenseQuery(
+    questionnairesQueryOptions(selectedStamp),
+  );
+  const { data: stamps } = useSuspenseQuery(stampsQueryOptions());
+
   return (
     <Questionnaires
       selectedStamp={selectedStamp}
