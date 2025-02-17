@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-import { useParams } from '@tanstack/react-router';
-//import MenuIcon from '@/components/ui/icons/MenuIcon';
 import { useTranslation } from 'react-i18next';
 
 import Accordion, { AccordionItem } from '@/components/ui/Accordion';
@@ -10,16 +7,18 @@ import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import Menu from '@/components/ui/Menu';
-//import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import EditIcon from '@/components/ui/icons/EditIcon';
 import { type CodesList } from '@/models/codesLists';
 
 interface CodesListsProps {
-  codesLists: CodesList[];
+  codesLists?: CodesList[];
+  questionnaireId?: string;
 }
 
-export default function CodesLists({ codesLists }: Readonly<CodesListsProps>) {
-  const { questionnaireId } = useParams({ strict: false });
+export default function CodesLists({
+  codesLists = [],
+  questionnaireId = '',
+}: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
   return (
     <div>
@@ -28,7 +27,7 @@ export default function CodesLists({ codesLists }: Readonly<CodesListsProps>) {
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"
-            params={{ questionnaireId: questionnaireId ?? '' }}
+            params={{ questionnaireId }}
           >
             {t('codesLists.create')}
           </ButtonLink>
@@ -39,7 +38,10 @@ export default function CodesLists({ codesLists }: Readonly<CodesListsProps>) {
           <Accordion>
             {codesLists.map((codesList) => (
               <AccordionItem key={codesList.id} title={codesList.label}>
-                <CodesListWrapper codesList={codesList} />
+                <CodesListWrapper
+                  questionnaireId={questionnaireId}
+                  codesList={codesList}
+                />
               </AccordionItem>
             ))}
           </Accordion>
@@ -51,11 +53,13 @@ export default function CodesLists({ codesLists }: Readonly<CodesListsProps>) {
 
 interface CodesListProps {
   codesList: CodesList;
+  questionnaireId: string;
 }
 
-function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
-  const { questionnaireId } = useParams({ strict: false });
-
+function CodesListWrapper({
+  codesList,
+  questionnaireId,
+}: Readonly<CodesListProps>) {
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false);
 
   const { t } = useTranslation();
@@ -94,12 +98,9 @@ function CodesListWrapper({ codesList }: Readonly<CodesListProps>) {
       </div>
       {isDirtyState ? (
         <ButtonLink
-          to="/questionnaire/$questionnaireId/codes-list/$codesListId"
+          to="/questionnaire/$questionnaireId/codes-lists"
           buttonType={ButtonType.Primary}
-          params={{
-            questionnaireId: questionnaireId!,
-            codesListId: codesList.id,
-          }}
+          params={{ questionnaireId }}
         >
           {t('common.validate')}
         </ButtonLink>

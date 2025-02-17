@@ -2,9 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 // This is used only for the crumb part, ignore it
 export const Route = createFileRoute(
-  '/_auth/_layout/questionnaire/$questionnaireId',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists',
 )({
-  loader: ({ params: { questionnaireId } }) => ({
-    crumb: `Questionnaire ${questionnaireId}`,
-  }),
+  loader: () => ({ crumb: 'Listes de codes' }),
 });

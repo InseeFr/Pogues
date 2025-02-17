@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import Layout from '@/components/layout/Layout';
 
 /** Display the global layout of the app, available on every pages. */
-export const Route = createFileRoute('/_auth/_layout')({
+export const Route = createFileRoute('/_layout')({
   component: () => (
     <Layout>
       <Outlet />

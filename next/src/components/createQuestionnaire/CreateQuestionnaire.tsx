@@ -1,5 +1,5 @@
 import { FieldApi, useForm } from '@tanstack/react-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import i18next from 'i18next';
 import toast from 'react-hot-toast';
@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
-import { getAPIToken } from '@/api/utils';
 import Button, { ButtonType } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/Checkbox';
@@ -53,23 +52,25 @@ const questionnaireSchema = z.object({
  */
 export default function CreateQuestionnaire() {
   const { t } = useTranslation();
-  const { user } = useRouteContext({
-    from: '__root__',
-  });
+  const { user } = useRouteContext({ from: '__root__' });
+  const queryClient = useQueryClient();
+
   const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: ({
       questionnaire,
       stamp,
-      token,
     }: {
       questionnaire: Questionnaire;
       stamp: string;
-      token: string;
     }) => {
-      return postQuestionnaire(questionnaire, stamp, token);
+      return postQuestionnaire(questionnaire, stamp);
     },
+    onSuccess: (stamp) =>
+      queryClient.invalidateQueries({
+        queryKey: ['questionnaires', { stamp }],
+      }),
   });
 
   const { Field, Subscribe, handleSubmit } = useForm<FormValues>({
@@ -80,9 +81,7 @@ export default function CreateQuestionnaire() {
       formulasLanguage: FormulasLanguages.VTL,
     },
     validators: { onMount: questionnaireSchema, onChange: questionnaireSchema },
-    onSubmit: async ({ value }) => {
-      await submitForm(value);
-    },
+    onSubmit: async ({ value }) => await submitForm(value),
   });
 
   const submitForm = async ({
@@ -91,7 +90,6 @@ export default function CreateQuestionnaire() {
     flowLogic,
     formulasLanguage,
   }: FormValues) => {
-    const token = await getAPIToken();
     const id = uid();
     const questionnaire = {
       id,
@@ -100,8 +98,9 @@ export default function CreateQuestionnaire() {
       flowLogic,
       formulasLanguage,
     };
+    const stamp = user!.stamp!;
     const promise = mutation.mutateAsync(
-      { questionnaire, stamp: user!.stamp!, token },
+      { questionnaire, stamp },
       {
         onSuccess: () =>
           void navigate({

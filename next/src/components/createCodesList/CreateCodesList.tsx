@@ -1,13 +1,17 @@
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useParams } from '@tanstack/react-router';
-import i18next from 'i18next';
+
+import {
+  useNavigate,
+  useParams,
+  useRouteContext,
+} from '@tanstack/react-router';
+        import i18next from 'i18next';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { addQuestionnaireCodesList } from '@/api/questionnaires';
-import { getAPIToken } from '@/api/utils';
 import Button, { ButtonType } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
@@ -45,6 +49,7 @@ const questionnaireSchema = z.object({
  */
 export default function CreateQuestionnaire() {
   const { t } = useTranslation();
+  const { queryClient } = useRouteContext({ from: '__root__' });
   const { questionnaireId } = useParams({ strict: false });
   const navigate = useNavigate();
 
@@ -52,14 +57,16 @@ export default function CreateQuestionnaire() {
     mutationFn: ({
       questionnaireId,
       codesList,
-      token,
     }: {
       questionnaireId: string;
       codesList: CodesList;
-      token: string;
     }) => {
-      return addQuestionnaireCodesList(questionnaireId, codesList, token);
+      return addQuestionnaireCodesList(questionnaireId, codesList);
     },
+    onSuccess: (questionnaireId) =>
+      queryClient.invalidateQueries({
+        queryKey: ['questionnaire', { questionnaireId }],
+      }),
   });
 
   const { Field, Subscribe, handleSubmit } = useForm<FormValues>({
@@ -68,18 +75,15 @@ export default function CreateQuestionnaire() {
       codes: [],
     },
     validators: { onMount: questionnaireSchema, onChange: questionnaireSchema },
-    onSubmit: async ({ value }) => {
-      await submitForm(value);
-    },
+    onSubmit: async ({ value }) => await submitForm(value),
   });
 
   const submitForm = async ({ label, codes }: FormValues) => {
-    const token = await getAPIToken();
     const id = uid();
     const codesList = { id, label, codes };
 
     const promise = mutation.mutateAsync(
-      { questionnaireId: questionnaireId!, codesList, token },
+      { questionnaireId: questionnaireId!, codesList },
       {
         onSuccess: () =>
           void navigate({
