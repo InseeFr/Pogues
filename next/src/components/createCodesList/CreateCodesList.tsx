@@ -1,7 +1,9 @@
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useParams } from '@tanstack/react-router';
+import i18next from 'i18next';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { addQuestionnaireCodesList } from '@/api/questionnaires';
@@ -42,6 +44,7 @@ const questionnaireSchema = z.object({
  * {@link CodesList}
  */
 export default function CreateQuestionnaire() {
+  const { t } = useTranslation();
   const { questionnaireId } = useParams({ strict: false });
   const navigate = useNavigate();
 
@@ -74,6 +77,7 @@ export default function CreateQuestionnaire() {
     const token = await getAPIToken();
     const id = uid();
     const codesList = { id, label, codes };
+
     const promise = mutation.mutateAsync(
       { questionnaireId: questionnaireId!, codesList, token },
       {
@@ -85,8 +89,8 @@ export default function CreateQuestionnaire() {
       },
     );
     toast.promise(promise, {
-      loading: 'Loading',
-      success: 'Code list created',
+      loading: i18next.t('common.loading'),
+      success: i18next.t('createCodeList.created'),
       error: (err: Error) => err.toString(),
     });
   };
@@ -95,7 +99,7 @@ export default function CreateQuestionnaire() {
     <div>
       <ContentHeader title="Nouvelle liste de code" />
       <ContentMain>
-        <Button>Importer une liste de code depuis un csv</Button>
+        <Button>{t('createCodeList.importCsv')}</Button>
         <div className="bg-default p-4 border border-default shadow-xl">
           <div className="grid gap-4">
             <Field name="label">
@@ -120,8 +124,12 @@ export default function CreateQuestionnaire() {
                 {(field) => (
                   <>
                     <div className="grid grid-cols-[1fr_1fr_auto] gap-3">
-                      <Label className="mb-0 mt-3">Valeur</Label>
-                      <Label className="mb-0 mt-3">Label</Label>
+                      <Label className="mb-0 mt-3">
+                        {t('createCodeList.value')}
+                      </Label>
+                      <Label className="mb-0 mt-3">
+                        {t('createCodeList.label')}
+                      </Label>
                       <div></div>
                       {field.state.value.map((_, i) => {
                         return (
@@ -163,7 +171,7 @@ export default function CreateQuestionnaire() {
                               }}
                             </Field>
                             <button onClick={() => field.removeValue(i)}>
-                              Remove
+                              {t('common.delete')}
                             </button>
                           </>
                         );
@@ -174,7 +182,7 @@ export default function CreateQuestionnaire() {
                       onClick={() => field.pushValue({ label: '', value: '' })}
                       type="button"
                     >
-                      + Ajouter un code
+                      {t('createCodeList.add')}
                     </button>
                     {field.state.meta.isTouched ? (
                       <div className="text-sm text-error ml-1">
@@ -191,7 +199,7 @@ export default function CreateQuestionnaire() {
               to={'/questionnaire/$questionnaireId/codes-lists'}
               params={{ questionnaireId: questionnaireId! }}
             >
-              Annuler
+              {t('common.cancel')}
             </ButtonLink>
             <Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
@@ -203,7 +211,7 @@ export default function CreateQuestionnaire() {
                   isLoading={isSubmitting}
                   disabled={!canSubmit}
                 >
-                  Valider
+                  {t('common.validate')}
                 </Button>
               )}
             </Subscribe>

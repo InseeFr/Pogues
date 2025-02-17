@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Menu as UIMenu } from '@base-ui-components/react/menu';
+import i18next from 'i18next';
 
 import ButtonIcon from './ButtonIcon';
 import DeleteIcon from './icons/DeleteIcon';
@@ -25,7 +26,7 @@ export default function Menu() {
             </UIMenu.Arrow>
             <UIMenu.Item className="flex cursor-pointer py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200">
               <DeleteIcon width="12.5px" height="12.5px" className="mr-1" />{' '}
-              Supprimer
+              {i18next.t('common.delete')}
             </UIMenu.Item>
           </UIMenu.Popup>
         </UIMenu.Positioner>

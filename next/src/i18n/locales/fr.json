@@ -23,6 +23,9 @@
     "title": "Titre",
     "start": "Commencer"
   },
+  "error": {
+    "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
+  },
   "auth": {
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -46,18 +49,22 @@
     "create": "Créer un questionnaire",
     "lastUpdate": "Dernière modification",
     "search": "Rechercher un questionnaire",
-    "stamp": "Timbre"
+    "stamp": "Timbre",
+    "navigation": {
+      "overview": "Vue d'ensemble",
+      "variables": "Variables",
+      "codeList": "Liste de codes",
+      "history": "Historique",
+      "metadata": "Métadonnées"
+    }
   },
   "codesLists": {
     "title": "Listes de codes",
     "create": "Créer une liste de codes",
-    "new": "Nouvelle liste de codes",
     "code": "Code",
     "lastUpdate": "Dernière modification",
     "usedIn": "Utilisée dans",
     "addList": "Ajouter une liste",
-    "addCode": "+ Ajouter un code",
-    "importCsv": "Importer une liste de code depuis un csv",
     "value": "Valeur",
     "label": "Label"
   },
@@ -69,8 +76,19 @@
     "createSuccess": "Le questionnaire a été créé ",
     "filter": "Filtre",
     "redirect": "Redirect",
-    "title": "Vous devez renseigner un titre",
-    "target": "Vous devez sélectionner au moins un mode de collecte",
+    "mustProvideTitle": "Vous devez renseigner un titre",
+    "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
     "loading": "Chargement..."
+  },
+  "createCodeList": {
+    "title": "Nouvelle liste de codes",
+    "label": "Label",
+    "value": "Valeur",
+    "add": "+ Ajouter un code",
+    "importCsv": "Importer une liste de codes depuis un fichier CSV",
+    "created": "La liste de codes a été créée",
+    "mustProvideLabel": "Votre code doit avoir un label",
+    "mustProvideValue": "Votre code doit avoir une valeur",
+    "mustProvideCodes": "Vous devez renseigner au moins un code"
   }
 }

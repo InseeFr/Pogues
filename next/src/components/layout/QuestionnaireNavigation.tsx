@@ -1,4 +1,5 @@
 import { Link, useMatchRoute, useParams } from '@tanstack/react-router';
+import i18next from 'i18next';
 
 import DashboardIcon from '../ui/icons/DashboardIcon';
 import DescriptionIcon from '../ui/icons/DescriptionIcon';
@@ -8,29 +9,29 @@ import VariableIcon from '../ui/icons/VariableIcon';
 
 const navigationItems = [
   {
-    label: 'Overview',
+    label: i18next.t('questionnaires.navigation.overview'),
     icon: <DashboardIcon className="m-auto" />,
     path: '/questionnaire/$questionnaireId',
   },
   {
-    label: 'Variables',
+    label: i18next.t('questionnaires.navigation.variables'),
     icon: <VariableIcon className="m-auto" />,
     path: '/',
     isDisabled: true,
   },
   {
-    label: 'Liste de codes',
+    label: i18next.t('questionnaires.navigation.codeList'),
     icon: <ListIcon className="m-auto" />,
     path: '/questionnaire/$questionnaireId/codes-lists',
   },
   {
-    label: 'Historique',
+    label: i18next.t('questionnaires.navigation.history'),
     icon: <HistoryIcon className="m-auto" />,
     path: '/',
     isDisabled: true,
   },
   {
-    label: 'Metadata',
+    label: i18next.t('questionnaires.navigation.metadata'),
     icon: <DescriptionIcon className="m-auto" />,
     path: '/',
     isDisabled: true,

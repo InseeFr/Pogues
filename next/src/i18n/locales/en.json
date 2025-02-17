@@ -23,6 +23,9 @@
     "title": "Title",
     "start": "Start"
   },
+  "error": {
+    "boundary": "An error occurred, if the problem persists, please contact support."
+  },
   "auth": {
     "login": "Login",
     "logout": "Logout",
@@ -46,18 +49,22 @@
     "create": "Create a questionnaire",
     "lastUpdate": "Last modified",
     "search": "Search for a questionnaire",
-    "stamp": "Stamp"
+    "stamp": "Stamp",
+    "navigation": {
+      "overview": "Overview",
+      "variables": "Variables",
+      "codeList": "Code list",
+      "history": "History",
+      "metadata": "Metadata"
+    }
   },
   "codesLists": {
     "title": "Code Lists",
     "create": "Create a code list",
-    "new": "New code list",
     "code": "Code",
     "lastUpdate": "Last modified",
     "usedIn": "Used in",
     "addList": "Add a list",
-    "addCode": "+ Add a code",
-    "importCsv": "Import a code list from a CSV file",
     "value": "Value",
     "label": "Label"
   },
@@ -69,8 +76,19 @@
     "createSuccess": "The questionnaire has been created",
     "filter": "Filter",
     "redirect": "Redirect",
-    "title": "You must provide a title",
-    "target": "You must select at least one target mode",
+    "mustProvideTitle": "You must provide a title",
+    "mustProvideTarget": "You must select at least one target mode",
     "loading": "Loading..."
+  },
+  "createCodeList": {
+    "title": "New code list",
+    "label": "Label",
+    "value": "Value",
+    "add": "+ Add a code",
+    "importCsv": "Import a code list from a CSV file",
+    "created": "The code list has been created",
+    "mustProvideLabel": "Your code must have a label",
+    "mustProvideValue": "Your code must have a value",
+    "mustProvideCodes": "You must provide at least one code"
   }
 }

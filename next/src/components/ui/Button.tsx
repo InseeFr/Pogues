@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import SpinnerIcon from './icons/SpinnerIcon';
 
 export enum ButtonType {
@@ -38,7 +40,7 @@ export default function Button({
           <div className="mr-3 animate-spin fill-negative">
             <SpinnerIcon />
           </div>
-          <div>Loading...</div>
+          <div>{i18next.t('common.loading')}</div>
         </div>
       ) : (
         children

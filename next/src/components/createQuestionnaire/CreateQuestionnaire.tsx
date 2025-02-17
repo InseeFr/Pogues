@@ -1,6 +1,7 @@
 import { FieldApi, useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
+import i18next from 'i18next';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -32,10 +33,10 @@ interface FormValues {
 }
 
 const questionnaireSchema = z.object({
-  title: z.string().min(1, 'You must provide a title'),
+  title: z.string().min(1, i18next.t('createQuestionnaire.mustProvideTitle')),
   targetModes: z
     .set(z.nativeEnum(TargetModes))
-    .min(1, 'You must select at least one target mode'),
+    .min(1, i18next.t('createQuestionnaire.mustProvideTarget')),
   flowLogic: z.nativeEnum(FlowLogics),
   formulasLanguage: z.nativeEnum(FormulasLanguages),
 });
@@ -139,7 +140,7 @@ export default function CreateQuestionnaire() {
               )}
             </Field>
             <div>
-              <Label required>{t('create-questionnaire.mode')}</Label>
+              <Label required>{t('createQuestionnaire.mode')}</Label>
               <Field name="targetModes">
                 {(field) => (
                   <>
@@ -175,7 +176,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>{t('create-questionnaire.dynamic-field')}</Label>
+              <Label required>{t('createQuestionnaire.dynamicField')}</Label>
               <Field name="flowLogic">
                 {(field) => (
                   <>
@@ -205,7 +206,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>{t('create-questionnaire.formula-field')}</Label>
+              <Label required>{t('createQuestionnaire.formulaField')}</Label>
               <Field name="formulasLanguage">
                 {(field) => (
                   <>

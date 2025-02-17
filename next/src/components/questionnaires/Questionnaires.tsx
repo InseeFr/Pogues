@@ -40,7 +40,7 @@ export default function Questionnaires({
   return (
     <div>
       <ContentHeader
-        title="Questionnaires"
+        title={t('questionnaires.title')}
         action={
           <ButtonLink to="/questionnaires/new">
             {t('questionnaires.create')}
