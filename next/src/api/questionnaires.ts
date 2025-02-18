@@ -101,6 +101,28 @@ export async function addQuestionnaireCodesList(
   return putQuestionnaire(questionnaireId, questionnaire);
 }
 
+/** Update the questionnaire of the provided id with a new codes list. */
+export async function updateCodesList(
+  questionnaireId: string,
+  newCodesList: CodesList,
+): Promise<Response> {
+  const newCodesLists = [];
+  const questionnaire = await getPoguesQuestionnaire(questionnaireId);
+  const codesLists = questionnaire.CodeLists?.CodeList || [];
+  let i = 0;
+  for (const codesList of codesLists) {
+    if (codesList.id === newCodesList.id) {
+      newCodesLists.push(
+        ...codesLists.splice(i, 1, ...computePoguesCodesLists([newCodesList])),
+      );
+    }
+    i++;
+  }
+  questionnaire.CodeLists = { CodeList: newCodesLists };
+
+  return putQuestionnaire(questionnaireId, questionnaire);
+}
+
 /** Retrieve a questionnaire by id with the pogues model. */
 async function getPoguesQuestionnaire(
   id: string,

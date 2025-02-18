@@ -11,27 +11,50 @@ export function computeCodesLists(
 ): CodesList[] {
   const res: CodesList[] = [];
   for (const codesList of codesLists) {
+    if (!codesList.Urn) {
+      const datum = {
+        id: codesList.id,
+        label: codesList.Label,
+        codes: computeRootCodes(codesList.Code),
+      };
+      res.push(datum);
+    }
+  }
+  return res;
+}
+
+// compute codes at the root of the list: they should not have a parent
+function computeRootCodes(codes: PoguesCode[] = []): Code[] {
+  const res: Code[] = [];
+  for (const code of codes) {
+    if (code.Parent) continue;
     const datum = {
-      id: codesList.id,
-      label: codesList.Label,
-      codes: computeCodes(codesList.Code),
+      label: code.Label,
+      value: code.Value,
+      codes: getSubCodes(codes, code.Value),
     };
     res.push(datum);
   }
   return res;
 }
 
-function computeCodes(codes: PoguesCode[] = []): Code[] {
-  const res: Code[] = [];
+// compute a subcode: they have a parent and we should get their children too
+function getSubCodes(
+  codes: PoguesCode[],
+  parentValue: string,
+): Code[] | undefined {
+  const subCodes = [];
   for (const code of codes) {
-    const datum = {
-      label: code.Label,
-      value: code.Value,
-      // TODO subcodes
-    };
-    res.push(datum);
+    if (code.Parent === parentValue) {
+      const datum = {
+        label: code.Label,
+        value: code.Value,
+        codes: getSubCodes(codes, code.Value),
+      };
+      subCodes.push(datum);
+    }
   }
-  return res;
+  return subCodes.length > 0 ? subCodes : undefined;
 }
 
 /** Compute codes lists that can be sent to the API from our app data. */
@@ -51,15 +74,16 @@ export function computePoguesCodesLists(
   return res;
 }
 
-function computePoguesCodes(codes: Code[] = []): PoguesCode[] {
+function computePoguesCodes(codes: Code[] = [], parent?: Code): PoguesCode[] {
   const res: PoguesCode[] = [];
   for (const code of codes) {
     const datum = {
       Label: code.label,
       Value: code.value,
-      // TODO subcodes
+      Parent: parent ? parent.value : undefined,
     };
     res.push(datum);
+    res.push(...computePoguesCodes(code.codes, code));
   }
   return res;
 }
