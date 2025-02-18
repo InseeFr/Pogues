@@ -1,7 +1,9 @@
 import { FieldApi, useForm } from '@tanstack/react-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
+import i18next from 'i18next';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
@@ -30,10 +32,10 @@ interface FormValues {
 }
 
 const questionnaireSchema = z.object({
-  title: z.string().min(1, 'You must provide a title'),
+  title: z.string().min(1, i18next.t('createQuestionnaire.mustProvideTitle')),
   targetModes: z
     .set(z.nativeEnum(TargetModes))
-    .min(1, 'You must select at least one target mode'),
+    .min(1, i18next.t('createQuestionnaire.mustProvideTarget')),
   flowLogic: z.nativeEnum(FlowLogics),
   formulasLanguage: z.nativeEnum(FormulasLanguages),
 });
@@ -49,8 +51,10 @@ const questionnaireSchema = z.object({
  * {@link Questionnaire}
  */
 export default function CreateQuestionnaire() {
+  const { t } = useTranslation();
   const { user } = useRouteContext({ from: '__root__' });
   const queryClient = useQueryClient();
+
   const navigate = useNavigate();
 
   const mutation = useMutation({
@@ -114,14 +118,14 @@ export default function CreateQuestionnaire() {
 
   return (
     <div>
-      <ContentHeader title="Nouveau questionnaire" />
+      <ContentHeader title={t('questionnaires.create')} />
       <ContentMain>
         <div className="bg-default p-4 border border-default shadow-xl">
           <div className="grid gap-4">
             <Field name="title">
               {(field) => (
                 <Input
-                  label={'Titre'}
+                  label={t('common.title')}
                   onChange={(v) => field.handleChange(v as string)}
                   autoFocus
                   value={field.state.value}
@@ -135,7 +139,7 @@ export default function CreateQuestionnaire() {
               )}
             </Field>
             <div>
-              <Label required>Mode de collecte</Label>
+              <Label required>{t('createQuestionnaire.mode')}</Label>
               <Field name="targetModes">
                 {(field) => (
                   <>
@@ -171,7 +175,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>Spécification dynamique</Label>
+              <Label required>{t('createQuestionnaire.dynamicField')}</Label>
               <Field name="flowLogic">
                 {(field) => (
                   <>
@@ -201,7 +205,7 @@ export default function CreateQuestionnaire() {
               </Field>
             </div>
             <div>
-              <Label required>Spécification des formules</Label>
+              <Label required>{t('createQuestionnaire.formulaField')}</Label>
               <Field name="formulasLanguage">
                 {(field) => (
                   <>
@@ -232,7 +236,7 @@ export default function CreateQuestionnaire() {
             </div>
           </div>
           <div className="flex gap-x-2 mt-6">
-            <ButtonLink to={'/questionnaires'}>Annuler</ButtonLink>
+            <ButtonLink to={'/questionnaires'}>{t('common.cancel')}</ButtonLink>
             <Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
             >
