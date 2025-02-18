@@ -1,14 +1,14 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { CodesList } from '@/models/codesLists';
-import { Questionnaire } from '@/models/questionnaires';
+import type { CodesList } from '@/models/codesLists';
+import type { Questionnaire } from '@/models/questionnaires';
 
 import { instance } from './instance';
-import { Questionnaire as PoguesQuestionnaire } from './models/pogues';
+import type { Questionnaire as PoguesQuestionnaire } from './models/pogues';
 import { computePoguesCodesLists } from './utils/codesLists';
 import {
-  computePoguesQuestionnaire,
-  computeQuestionnaireFromPogues,
+  computeNewPoguesQuestionnaire,
+  computeQuestionnaire,
 } from './utils/questionnaires';
 
 /**
@@ -36,7 +36,9 @@ export const questionnaireQueryOptions = (questionnaireId: string) =>
 /**
  * Retrieve questionnaires associated to the provided stamp (e.g. "DR59-SNDI59").
  */
-async function getQuestionnaires(stamp: string): Promise<Questionnaire[]> {
+export async function getQuestionnaires(
+  stamp: string,
+): Promise<Questionnaire[]> {
   return instance
     .get('/persistence/questionnaires/search/meta', {
       params: { owner: stamp },
@@ -45,20 +47,20 @@ async function getQuestionnaires(stamp: string): Promise<Questionnaire[]> {
     .then(({ data }: { data: PoguesQuestionnaire[] }) => {
       const res: Questionnaire[] = [];
       for (const datum of data) {
-        res.push(computeQuestionnaireFromPogues(datum));
+        res.push(computeQuestionnaire(datum));
       }
       return res;
     });
 }
 
 /** Retrieve a questionnaire by id. */
-async function getQuestionnaire(id: string): Promise<Questionnaire> {
+export async function getQuestionnaire(id: string): Promise<Questionnaire> {
   return instance
     .get(`/persistence/questionnaire/${id}`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: PoguesQuestionnaire }) => {
-      return computeQuestionnaireFromPogues(data);
+      return computeQuestionnaire(data);
     });
 }
 
@@ -69,7 +71,7 @@ export async function postQuestionnaire(
 ): Promise<Response> {
   return instance.post(
     '/persistence/questionnaires',
-    computePoguesQuestionnaire(qr, stamp),
+    computeNewPoguesQuestionnaire(qr, stamp),
     {
       headers: { 'Content-Type': 'application/json' },
     },
