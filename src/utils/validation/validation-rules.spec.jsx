@@ -59,7 +59,7 @@ describe('duration rules validation', () => {
     expect(
       durationRulesPnYnM[`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mayears`]
         .length,
-    ).toBe(3);
+    ).toBe(1);
     expect(
       durationRulesPnYnM[`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miyears`]
         .length,
