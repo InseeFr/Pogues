@@ -99,18 +99,6 @@ exports[`Special validation for duration > should validate have right rules for 
   },
   {
     "errors": [
-      "Must be at least 0",
-    ],
-    "path": "responseFormat.SIMPLE.DURATION.mayears",
-  },
-  {
-    "errors": [
-      "Must be at most 11",
-    ],
-    "path": "responseFormat.SIMPLE.DURATION.mayears",
-  },
-  {
-    "errors": [
       "Mandatory field",
     ],
     "path": "responseFormat.SIMPLE.DURATION.miyears",

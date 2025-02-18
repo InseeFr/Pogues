@@ -116,8 +116,6 @@ export const durationRulesPnYnM = {
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.mayears`]: [
     (value) => required(value),
-    (value) => minValue(0)(value),
-    (value) => maxValue(11)(value),
   ],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.miyears`]: [
     (value) => required(value),
