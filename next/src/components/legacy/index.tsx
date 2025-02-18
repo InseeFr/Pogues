@@ -2,17 +2,12 @@
 //@ts-ignore
 import { Main } from '@pogues-legacy/App';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useTranslation } from 'react-i18next';
 
 export const LegacyComponent = () => {
+  const { t } = useTranslation();
   return (
-    <ErrorBoundary
-      fallback={
-        <div>
-          Un problème est survenu, si le problème persiste, veuillez contacter
-          l'assistance.
-        </div>
-      }
-    >
+    <ErrorBoundary fallback={<div>{t('error.boundary')}</div>}>
       <Main />
     </ErrorBoundary>
   );

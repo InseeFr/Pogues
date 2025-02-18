@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Accordion, { AccordionItem } from '@/components/ui/Accordion';
 import ButtonIcon from '@/components/ui/ButtonIcon';
@@ -18,16 +19,17 @@ export default function CodesLists({
   codesLists = [],
   questionnaireId = '',
 }: Readonly<CodesListsProps>) {
+  const { t } = useTranslation();
   return (
     <div>
       <ContentHeader
-        title="Listes de codes"
+        title={t('codesLists.title')}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"
             params={{ questionnaireId }}
           >
-            Créer une liste de codes
+            {t('codesLists.create')}
           </ButtonLink>
         }
       />
@@ -60,6 +62,8 @@ function CodesListWrapper({
 }: Readonly<CodesListProps>) {
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false);
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="my-6 space-y-3">
@@ -72,7 +76,7 @@ function CodesListWrapper({
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-1 fill-gray-600">
                 <span>{code.value}</span>
                 <ButtonIcon
-                  title="éditer"
+                  title={t('common.edit')}
                   Icon={EditIcon}
                   onClick={() => setIsDirtyState(true)}
                 />
@@ -80,7 +84,7 @@ function CodesListWrapper({
               <div className="grid grid-cols-[1fr_auto] items-center gap-x-1 fill-gray-600">
                 <span>{code.label}</span>
                 <ButtonIcon
-                  title="éditer"
+                  title={t('common.edit')}
                   Icon={EditIcon}
                   onClick={() => setIsDirtyState(true)}
                 />
@@ -98,7 +102,7 @@ function CodesListWrapper({
           buttonType={ButtonType.Primary}
           params={{ questionnaireId }}
         >
-          Valider
+          {t('common.validate')}
         </ButtonLink>
       ) : null}
     </>
