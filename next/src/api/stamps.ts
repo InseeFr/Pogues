@@ -16,7 +16,7 @@ export const stampsQueryOptions = () =>
   });
 
 /** Retrieve stamps which allow to fetch questionnaires associated to one. */
-async function getStamps(): Promise<Stamp[]> {
+export async function getStamps(): Promise<Stamp[]> {
   return instance
     .get('/persistence/questionnaires/stamps', {
       headers: { Accept: 'application/json' },

@@ -1,12 +1,13 @@
 import { Code, CodesList } from '@/models/codesLists';
 
 import {
-  CodeType as PogueCode,
-  CodeList as PogueCodesList,
+  CodeType as PoguesCode,
+  CodeList as PoguesCodesList,
 } from '../models/pogues';
 
+/** Compute codes lists that can be used in our app from API data. */
 export function computeCodesLists(
-  codesLists: PogueCodesList[] = [],
+  codesLists: PoguesCodesList[] = [],
 ): CodesList[] {
   const res: CodesList[] = [];
   for (const codesList of codesLists) {
@@ -20,7 +21,7 @@ export function computeCodesLists(
   return res;
 }
 
-function computeCodes(codes: PogueCode[] = []): Code[] {
+function computeCodes(codes: PoguesCode[] = []): Code[] {
   const res: Code[] = [];
   for (const code of codes) {
     const datum = {
@@ -33,10 +34,11 @@ function computeCodes(codes: PogueCode[] = []): Code[] {
   return res;
 }
 
+/** Compute codes lists that can be sent to the API from our app data. */
 export function computePoguesCodesLists(
   codesLists: CodesList[] = [],
-): PogueCodesList[] {
-  const res: PogueCodesList[] = [];
+): PoguesCodesList[] {
+  const res: PoguesCodesList[] = [];
   for (const codesList of codesLists) {
     const datum = {
       id: codesList.id,
@@ -49,8 +51,8 @@ export function computePoguesCodesLists(
   return res;
 }
 
-function computePoguesCodes(codes: Code[] = []): PogueCode[] {
-  const res: PogueCode[] = [];
+function computePoguesCodes(codes: Code[] = []): PoguesCode[] {
+  const res: PoguesCode[] = [];
   for (const code of codes) {
     const datum = {
       Label: code.label,
