@@ -2,6 +2,7 @@ import { Field } from '@base-ui-components/react/field';
 
 interface InputProps {
   autoFocus?: boolean;
+  className?: string;
   description?: string;
   disabled?: boolean;
   error?: string;
@@ -9,11 +10,13 @@ interface InputProps {
   onChange?: (v: string | number | readonly string[] | undefined) => void;
   placeholder?: string;
   required?: boolean;
+  style?: object;
   value: string | number | readonly string[] | undefined;
 }
 
 export default function Input({
   autoFocus,
+  className = '',
   description,
   disabled,
   error,
@@ -21,13 +24,15 @@ export default function Input({
   onChange = () => {},
   placeholder,
   required,
+  style = {},
   value,
 }: Readonly<InputProps>) {
   return (
     <Field.Root
       invalid={!!error}
       disabled={disabled}
-      className="flex w-full flex-col items-start gap-1"
+      className={`${className} flex w-full flex-col items-start gap-1`}
+      style={style}
     >
       {label ? (
         <Field.Label className="text-sm ml-1">

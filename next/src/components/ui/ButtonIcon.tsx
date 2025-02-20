@@ -1,31 +1,40 @@
 // eslint-disable-next-line react-refresh/only-export-components
-export enum ButtonIconType {
+export enum ButtonIconStyle {
   Delete,
 }
 
-interface ButtonIconProps {
+interface ButtonIconProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   Icon: React.FC<React.ComponentProps<'svg'>>;
   title?: string;
-  type?: ButtonIconType;
+  buttonStyle?: ButtonIconStyle;
   onClick?: () => void;
 }
 
 /** Display a clickable icon. */
 export default function ButtonIcon({
+  className,
   Icon,
   title = '',
-  type,
+  buttonStyle,
   onClick = () => {},
+  ...props
 }: Readonly<ButtonIconProps>) {
   return (
     <button
       title={title}
-      className={`fill-gray-600 cursor-pointer hover:bg-slate-200 w-fit p-0.5 rounded
-        ${type === ButtonIconType.Delete ? 'hover:fill-red' : ''}
+      type="button"
+      className={`${className} enabled:cursor-pointer enabled:hover:bg-slate-200 w-fit p-0.5 rounded
+        ${
+          buttonStyle === ButtonIconStyle.Delete
+            ? 'fill-red-600 hover:fill-red'
+            : 'fill-slate-400 hover:fill-slate-900 disabled:fill-slate-200'
+        }
       `}
       onClick={onClick}
+      {...props}
     >
-      <Icon width="12.5px" height="12.5px" />
+      <Icon />
     </button>
   );
 }

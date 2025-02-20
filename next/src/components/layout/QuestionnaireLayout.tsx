@@ -1,4 +1,4 @@
-//import QuestionnaireNavigation from './QuestionnaireNavigation';
+import QuestionnaireNavigation from './QuestionnaireNavigation';
 
 interface QuestionnaireLayoutProps {
   children: React.ReactNode;
@@ -7,12 +7,10 @@ interface QuestionnaireLayoutProps {
 export default function QuestionnaireLayout({
   children,
 }: Readonly<QuestionnaireLayoutProps>) {
-  return children;
-  // TODO uncomment once we add the new layout
-  /*return (
+  return (
     <div className="grid grid-cols-[auto_1fr] h-full">
       <QuestionnaireNavigation />
       <div>{children}</div>
     </div>
-  );*/
+  );
 }
