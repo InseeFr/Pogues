@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { postQuestionnaire } from '@/api/questionnaires';
-import Button, { ButtonType } from '@/components/ui/Button';
+import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/Checkbox';
 import ContentHeader from '@/components/ui/ContentHeader';
@@ -242,7 +242,7 @@ export default function CreateQuestionnaire() {
             >
               {([canSubmit, isSubmitting]) => (
                 <Button
-                  type={ButtonType.Primary}
+                  buttonStyle={ButtonStyle.Primary}
                   onClick={handleSubmit}
                   isLoading={isSubmitting}
                   disabled={!canSubmit}

@@ -8,8 +8,23 @@ const codesLists: CodesList[] = [
     id: 'id-1',
     label: 'label-1',
     codes: [
-      { label: 'code-1', value: 'code-value-1' },
-      { label: 'code-2', value: 'code-value-2' },
+      {
+        label: 'code-1',
+        value: 'value-1',
+        codes: [
+          {
+            label: 'sub-code-1',
+            value: 'sub-value-1',
+            codes: [
+              {
+                label: 'sub-sub-code-1',
+                value: 'sub-sub-value-1',
+              },
+            ],
+          },
+        ],
+      },
+      { label: 'code-2', value: 'value-2' },
     ],
   },
 ];
@@ -20,8 +35,18 @@ const poguesCodesLists: PoguesCodesList[] = [
     Name: 'label-1',
     Label: 'label-1',
     Code: [
-      { Label: 'code-1', Value: 'code-value-1' },
-      { Label: 'code-2', Value: 'code-value-2' },
+      { Label: 'code-1', Value: 'value-1' },
+      {
+        Label: 'sub-code-1',
+        Value: 'sub-value-1',
+        Parent: 'value-1',
+      },
+      {
+        Label: 'sub-sub-code-1',
+        Value: 'sub-sub-value-1',
+        Parent: 'sub-value-1',
+      },
+      { Label: 'code-2', Value: 'value-2' },
     ],
   },
 ];

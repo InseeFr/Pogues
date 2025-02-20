@@ -6,7 +6,7 @@ import { renderWithRouter } from '@/utils/tests';
 import CreateQuestionnaire from './CreateQuestionnaire';
 
 describe('CreateQuestionnaire', () => {
-  it('is disabled on mount', () => {
+  it('is disabled on mount', async () => {
     const { getByText } = renderWithRouter(<CreateQuestionnaire />);
     expect(getByText('Valider')).toBeInTheDocument();
     expect(getByText('Valider')).toBeDisabled();

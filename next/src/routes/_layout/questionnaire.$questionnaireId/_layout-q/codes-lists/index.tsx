@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
-import CodesLists from '@/components/codesLists/CodesLists';
+import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
 
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/',
@@ -19,6 +19,9 @@ function RouteComponent() {
   } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId));
 
   return (
-    <CodesLists questionnaireId={questionnaireId} codesLists={codesLists} />
+    <CodesListsOverview
+      questionnaireId={questionnaireId}
+      codesLists={codesLists}
+    />
   );
 }

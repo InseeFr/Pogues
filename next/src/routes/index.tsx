@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '@/components/ui/Button';
-import ButtonLink, { ButtonType } from '@/components/ui/ButtonLink';
+import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
 
 import poguesLogo from '/pogues-logo.png';
 
@@ -26,7 +26,7 @@ function App() {
         <div className="text-center text-lg">{t('home.label')}</div>
       </div>
       <div className="text-center m-auto grid grid-cols-2 gap-x-6 max-w-xs">
-        <ButtonLink to="/questionnaires" buttonType={ButtonType.Primary}>
+        <ButtonLink to="/questionnaires" buttonStyle={ButtonStyle.Primary}>
           {t('common.start')}
         </ButtonLink>
         <a href="https://inseefr.github.io/Bowie/1._Pogues/" target="_blank">

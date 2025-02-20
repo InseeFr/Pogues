@@ -12,6 +12,7 @@
     "next": "Suivant",
     "close": "Fermer",
     "cancel": "Annuler",
+    "create": "Créer",
     "complete": "Completer",
     "validate": "Valider",
     "add": "Ajouter",
@@ -58,15 +59,38 @@
       "metadata": "Métadonnées"
     }
   },
-  "codesLists": {
-    "title": "Listes de codes",
-    "create": "Créer une liste de codes",
-    "code": "Code",
-    "lastUpdate": "Dernière modification",
-    "usedIn": "Utilisée dans",
-    "addList": "Ajouter une liste",
-    "value": "Valeur",
-    "label": "Label"
+  "codesList": {
+    "common": {
+      "code": "Code",
+      "code_other": "Codes",
+      "label": "Label",
+      "value": "Valeur"
+    },
+    "overview": {
+      "create": "Créer une liste de codes",
+      "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
+      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
+      "deleteSuccess": "Liste de codes {{label}} supprimée",
+      "title": "Listes de codes"
+    },
+    "create": {
+      "importCSV": "Importer une liste de codes depuis un fichier CSV",
+      "success": "La liste de codes a été créée",
+      "title": "Nouvelle liste de codes"
+    },
+    "edit": {
+      "success": "La liste de codes {{label}} a été modifiée",
+      "title": "Editer la liste de codes : {{label}}"
+    },
+    "form": {
+      "addCode": "+ Ajouter un code",
+      "addSubCode": "Ajouter un sous-code",
+      "mustProvideLabel": "Votre code doit avoir un label",
+      "mustProvideValue": "Votre code doit avoir une valeur",
+      "mustProvideCodes": "Vous devez renseigner au moins un code",
+      "moveUp": "Monter d'un niveau",
+      "moveDown": "Descendre d'un niveau"
+    }
   },
   "createQuestionnaire": {
     "mode": "Mode de collecte",
@@ -79,16 +103,5 @@
     "mustProvideTitle": "Vous devez renseigner un titre",
     "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
     "loading": "Chargement..."
-  },
-  "createCodeList": {
-    "title": "Nouvelle liste de codes",
-    "label": "Label",
-    "value": "Valeur",
-    "add": "+ Ajouter un code",
-    "importCsv": "Importer une liste de codes depuis un fichier CSV",
-    "created": "La liste de codes a été créée",
-    "mustProvideLabel": "Votre code doit avoir un label",
-    "mustProvideValue": "Votre code doit avoir une valeur",
-    "mustProvideCodes": "Vous devez renseigner au moins un code"
   }
 }

@@ -15,6 +15,7 @@
     "complete": "Complete",
     "validate": "Validate",
     "add": "Add",
+    "create": "Create",
     "delete": "Delete",
     "help": "Help",
     "backToHome": "Back to home",
@@ -58,15 +59,38 @@
       "metadata": "Metadata"
     }
   },
-  "codesLists": {
-    "title": "Code Lists",
-    "create": "Create a code list",
-    "code": "Code",
-    "lastUpdate": "Last modified",
-    "usedIn": "Used in",
-    "addList": "Add a list",
-    "value": "Value",
-    "label": "Label"
+  "codesList": {
+    "common": {
+      "code": "Code",
+      "code_other": "Codes",
+      "label": "Label",
+      "value": "Value"
+    },
+    "overview": {
+      "create": "Create a code list",
+      "deleteDialogTitle": "Delete the codes list: {{label}}",
+      "deleteDialogConfirm": "Are you sure you want to delete this codes list?",
+      "deleteSuccess": "Codes list {{label}} deleted",
+      "title": "Codes Lists"
+    },
+    "create": {
+      "importCSV": "Import a codes list from a CSV file",
+      "success": "The code list has been created",
+      "title": "New codes list"
+    },
+    "edit": {
+      "success": "The codes list {{label}} has been edited",
+      "title": "Edit the codes list: {{label}}"
+    },
+    "form": {
+      "addCode": "+ Add a code",
+      "addSubCode": "Add a subcode",
+      "mustProvideLabel": "Your code must have a label",
+      "mustProvideValue": "Your code must have a value",
+      "mustProvideCodes": "You must provide at least one code",
+      "moveUp": "Move up",
+      "moveDown": "Move down"
+    }
   },
   "createQuestionnaire": {
     "mode": "Collection mode",
@@ -79,16 +103,5 @@
     "mustProvideTitle": "You must provide a title",
     "mustProvideTarget": "You must select at least one target mode",
     "loading": "Loading..."
-  },
-  "createCodeList": {
-    "title": "New code list",
-    "label": "Label",
-    "value": "Value",
-    "add": "+ Add a code",
-    "importCsv": "Import a code list from a CSV file",
-    "created": "The code list has been created",
-    "mustProvideLabel": "Your code must have a label",
-    "mustProvideValue": "Your code must have a value",
-    "mustProvideCodes": "You must provide at least one code"
   }
 }

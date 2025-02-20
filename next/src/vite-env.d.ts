@@ -13,7 +13,7 @@ export type ImportMetaEnv = {
   MODE: string;
   DEV: boolean;
   PROD: boolean;
-  APP_VERSION: any;
+  APP_VERSION: string;
   // @user-defined-start
   /*
    *  You can use this section to explicitly extend the type definition of `import.meta.env`
