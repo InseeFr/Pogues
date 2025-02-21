@@ -127,7 +127,7 @@ function CodesFields({ control }: Readonly<CodesFieldsProps>) {
     <>
       {fields.map((v, index) => (
         <CodesField
-          key={v.value}
+          key={v.id}
           control={control}
           index={index}
           remove={remove}
