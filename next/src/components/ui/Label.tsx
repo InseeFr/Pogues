@@ -6,9 +6,10 @@ export default function Label({
   children,
   required = false,
   className = '',
+  ...props
 }: Readonly<LabelProps>) {
   return (
-    <label className={`text-sm mb-1 ml-1 ${className}`}>
+    <label className={`text-sm mb-1 ml-1 ${className}`} {...props}>
       {children}
       {required ? ' *' : ''}
     </label>

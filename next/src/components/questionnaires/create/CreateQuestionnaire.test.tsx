@@ -7,14 +7,18 @@ import CreateQuestionnaire from './CreateQuestionnaire';
 
 describe('CreateQuestionnaire', () => {
   it('is disabled on mount', async () => {
-    const { getByText } = renderWithRouter(<CreateQuestionnaire />);
+    const { getByText } = renderWithRouter(
+      <CreateQuestionnaire userStamp="my-stamp" />,
+    );
     expect(getByText('Valider')).toBeInTheDocument();
     expect(getByText('Valider')).toBeDisabled();
   });
 
   it('can be submitted when form is filled with mandatory values', async () => {
     const user = userEvent.setup();
-    const { getByText } = renderWithRouter(<CreateQuestionnaire />);
+    const { getByText } = renderWithRouter(
+      <CreateQuestionnaire userStamp="my-stamp" />,
+    );
 
     expect(getByText('Valider')).toBeDisabled();
 

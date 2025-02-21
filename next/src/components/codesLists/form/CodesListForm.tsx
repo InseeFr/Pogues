@@ -24,27 +24,33 @@ import { type CodesList } from '@/models/codesLists';
 
 interface CodesListFormProps {
   /** In an update case, initial codes list value. */
-  codesList?: CodesList;
+  codesList?: Omit<CodesList, 'id'>;
   /** Related questionnaire id. */
   questionnaireId: string;
   /** Function that will be called with form data when the user submit the form. */
-  onSubmit: SubmitHandler<z.infer<typeof schema>>;
+  onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
   submitLabel: string;
 }
 
-const codeSchema = z.object({
-  value: z.string().min(1, 'Your code must have a value'),
-  label: z.string().min(1, 'Your code must have a label'),
+const baseCodeSchema = z.object({
+  value: z.string().min(1, { message: 'Your code must have a value' }),
+  label: z.string().min(1, { message: 'Your code must have a label' }),
 });
 
-const codesSchema = codeSchema.extend({
-  codes: z.lazy(() => codeSchema.array()).optional(),
+type ZCodeSchema = z.infer<typeof baseCodeSchema> & {
+  codes: ZCodeSchema[];
+};
+
+const codesSchema: z.ZodType<ZCodeSchema> = baseCodeSchema.extend({
+  codes: z.lazy(() => codesSchema.array()),
 });
 
 const schema = z.object({
-  label: z.string().min(1, 'You must provide a label'),
-  codes: codesSchema.array().min(1, 'You must provide at least one code'),
+  label: z.string().min(1, { message: 'You must provide a label' }),
+  codes: codesSchema
+    .array()
+    .min(1, { message: 'You must provide at least one code' }),
 });
 
 export type FormValues = z.infer<typeof schema>;
@@ -59,7 +65,10 @@ export type FormValues = z.infer<typeof schema>;
  * {@link CodesList}
  */
 export default function CodesListForm({
-  codesList = undefined,
+  codesList = {
+    label: '',
+    codes: [],
+  },
   questionnaireId,
   onSubmit,
   submitLabel,
@@ -68,7 +77,8 @@ export default function CodesListForm({
     control,
     handleSubmit,
     formState: { isDirty, isValid },
-  } = useForm<z.infer<typeof schema>>({
+  } = useForm<FormValues>({
+    mode: 'onChange',
     defaultValues: codesList,
     resolver: zodResolver(schema),
   });
@@ -78,11 +88,10 @@ export default function CodesListForm({
       <Controller
         name="label"
         control={control}
-        rules={{ required: true }}
-        render={({ field, fieldState: { isTouched, error } }) => (
+        render={({ field, fieldState: { error } }) => (
           <Input
             label={t('codesList.common.label')}
-            error={isTouched ? error?.message : undefined}
+            error={error?.message}
             {...field}
             required
           />
@@ -140,7 +149,7 @@ function CodesFields({ control }: Readonly<CodesFieldsProps>) {
       <button
         type="button"
         className="col-span-full text-left cursor-pointer text-action-primary font-semibold w-fit hover:bg-accent p-0.5 rounded"
-        onClick={() => append({ label: '', value: '' })}
+        onClick={() => append({ label: '', value: '', codes: [] })}
       >
         {t('codesList.form.addCode')}
       </button>
@@ -206,8 +215,8 @@ function CodesField({
           name={`${namePrefix}.value` as `codes.${number}.value`}
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { isTouched, error } }) => (
-            <Input error={isTouched ? error?.message : undefined} {...field} />
+          render={({ field, fieldState: { error } }) => (
+            <Input error={error?.message} {...field} />
           )}
         />
       </div>
@@ -215,19 +224,15 @@ function CodesField({
         name={`${namePrefix}.label` as `codes.${number}.label`}
         control={control}
         rules={{ required: true }}
-        render={({ field, fieldState: { isTouched, error } }) => (
-          <Input
-            className="col-start-2"
-            error={isTouched ? error?.message : undefined}
-            {...field}
-          />
+        render={({ field, fieldState: { error } }) => (
+          <Input className="col-start-2" error={error?.message} {...field} />
         )}
       />
       <ButtonIcon
         className="col-start-3 h-12"
         Icon={AddIcon}
         title={t('codesList.form.addSubCode')}
-        onClick={() => appendSubCode({ label: '', value: '' })}
+        onClick={() => appendSubCode({ label: '', value: '', codes: [] })}
       />
       <ButtonIcon
         className="col-start-4 h-12"

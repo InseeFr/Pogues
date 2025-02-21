@@ -61,7 +61,7 @@ export default function Questionnaires({
               label={t('questionnaires.search')}
               placeholder={t('questionnaires.search')}
               value={filter}
-              onChange={(v) => setFilter(v as string)}
+              onChange={(e) => setFilter(e.target.value)}
             />
           </div>
         </div>
