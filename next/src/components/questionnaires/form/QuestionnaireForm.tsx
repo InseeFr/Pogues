@@ -59,7 +59,6 @@ export default function QuestionnaireForm({
   submitLabel,
 }: Readonly<QuestionnaireFormProps>) {
   const {
-    watch,
     control,
     handleSubmit,
     formState: { isDirty, isValid },
@@ -68,8 +67,6 @@ export default function QuestionnaireForm({
     defaultValues: questionnaire,
     resolver: zodResolver(schema),
   });
-  const formValues = watch();
-  console.log(formValues);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
