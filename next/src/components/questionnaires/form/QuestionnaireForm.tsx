@@ -75,6 +75,7 @@ export default function QuestionnaireForm({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Input
+            autoFocus
             label={t('common.title')}
             error={error?.message}
             {...field}

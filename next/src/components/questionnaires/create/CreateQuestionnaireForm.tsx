@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { t } from 'i18next';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 import { postQuestionnaire } from '@/api/questionnaires';
 import { type Questionnaire } from '@/models/questionnaires';
@@ -18,6 +18,7 @@ interface CreateQuestionnaireFormProps {
 export default function CreateQuestionnaireForm({
   stamp,
 }: Readonly<CreateQuestionnaireFormProps>) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
