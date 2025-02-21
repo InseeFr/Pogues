@@ -167,7 +167,7 @@ function CollectedVariables({
               type="text"
               disabled
               component={Input}
-              label={Dictionary.cl}
+              label={Dictionary.codeList}
             />
           )}
         </div>

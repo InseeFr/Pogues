@@ -13,8 +13,6 @@ import { ComponentWithValidation } from '../../component-with-validation';
 
 const {
   CODE_INPUT_CLASS,
-  CODE_INPUT_CODE_CLASS,
-  CODE_INPUT_LABEL_CLASS,
   CODE_INPUT_ACTIONS_CLASS,
   CODE_INPUT_ERRORS_CLASS,
   CODE_INPUT_CODE_CLASS_PRECISION,
@@ -36,6 +34,8 @@ export const propTypes = {
   close: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
+  precisionShow: PropTypes.bool,
+  filterShow: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -50,6 +50,7 @@ const defaultProps = {
 
 // Componet
 
+/** Add, update or remove a precision for a code. */
 class CodesListInputCode extends ComponentWithValidation {
   static propTypes = propTypes;
 
@@ -61,10 +62,10 @@ class CodesListInputCode extends ComponentWithValidation {
     this.state = parent.state;
 
     this.addCodeIfIsValid = this.addCodeIfIsValid.bind(this);
-    this.addCodeIfIsValid1 = this.addCodeIfIsValid1.bind(this);
     this.addCode = this.addCode.bind(this);
-    this.addCode1 = this.addCode1.bind(this);
     this.initInputCode = this.initInputCode.bind(this);
+
+    this.initInputCode(props.code);
   }
 
   initInputCode(code) {
@@ -88,19 +89,16 @@ class CodesListInputCode extends ComponentWithValidation {
     }
   }
 
-  UNSAFE_componentWillMount() {
-    this.initInputCode(this.props.code);
-  }
-
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
+    const { code } = this.props;
     if (
-      nextProps.code.label !== this.props.code.label ||
-      nextProps.code.value !== this.props.code.value ||
-      nextProps.code.precisionid !== this.props.code.precisionid ||
-      nextProps.code.precisionlabel !== this.props.code.precisionlabel ||
-      nextProps.code.precisionsize !== this.props.code.precisionsize
+      prevProps.code.label !== code.label ||
+      prevProps.code.value !== code.value ||
+      prevProps.code.precisionid !== code.precisionid ||
+      prevProps.code.precisionlabel !== code.precisionlabel ||
+      prevProps.code.precisionsize !== code.precisionsize
     ) {
-      this.initInputCode(nextProps.code);
+      this.initInputCode(code);
     }
   }
 
@@ -108,77 +106,18 @@ class CodesListInputCode extends ComponentWithValidation {
     this.executeIfValid(this.addCode);
   }
 
-  addCodeIfIsValid1() {
-    this.executeIfValid(this.addCode1);
-  }
-
-  addCode1() {
-    const { push, clear } = this.props;
-
-    this.firstField.focus();
-    push();
-    clear();
-  }
-
   addCode() {
     const { push, clear } = this.props;
-
-    this.firstField.focus();
     push();
     clear();
   }
 
   render() {
     const { close, precisionShow, remove } = this.props;
+
     return (
       <div className={CODE_INPUT_CLASS}>
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
-
-        <div
-          className="Precision"
-          style={{ display: precisionShow ? 'none' : 'block' }}
-        >
-          <Field
-            className={CODE_INPUT_CODE_CLASS}
-            name="input-code.value"
-            type="text"
-            component={Input}
-            label={Dictionary.code}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') this.addCodeIfIsValid();
-            }}
-            reference={(node) => {
-              this.firstField = node;
-            }}
-            focusOnInit
-          />
-          <Field
-            className={CODE_INPUT_LABEL_CLASS}
-            name="input-code.label"
-            type="text"
-            component={RichEditorWithVariable}
-            label={Dictionary.label}
-            onEnter={this.addCodeIfIsValid}
-          />
-          <Field name="input-code.parent" type="hidden" component="input" />
-          <div className={CODE_INPUT_ACTIONS_CLASS}>
-            <button
-              className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-              onClick={close}
-            >
-              {Dictionary.cancel}
-            </button>
-            <button
-              className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
-              onClick={(e) => {
-                e.preventDefault();
-                this.addCodeIfIsValid();
-              }}
-            >
-              {Dictionary.validate}
-            </button>
-          </div>
-        </div>
         {precisionShow ? (
           <div className="Precision">
             <Field
@@ -187,7 +126,7 @@ class CodesListInputCode extends ComponentWithValidation {
               type="text"
               component={Input}
               label={Dictionary.precisionId}
-              onEnter={this.addCodeIfIsValid1}
+              onEnter={this.addCodeIfIsValid}
             />
             <Field
               className={CODE_INPUT_CODE_CLASS_PRECISION}
@@ -195,7 +134,7 @@ class CodesListInputCode extends ComponentWithValidation {
               type="text"
               component={RichEditorWithVariable}
               label={Dictionary.label}
-              onEnter={this.addCodeIfIsValid1}
+              onEnter={this.addCodeIfIsValid}
             />
             <Field
               className={CODE_INPUT_CODE_CLASS_PRECISION}
@@ -203,7 +142,7 @@ class CodesListInputCode extends ComponentWithValidation {
               type="number"
               component={Input}
               label={Dictionary.maxLength}
-              onEnter={this.addCodeIfIsValid1}
+              onEnter={this.addCodeIfIsValid}
             />
             <button
               className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
@@ -224,16 +163,14 @@ class CodesListInputCode extends ComponentWithValidation {
                 className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
                 onClick={(e) => {
                   e.preventDefault();
-                  this.addCodeIfIsValid1();
+                  this.addCodeIfIsValid();
                 }}
               >
                 {Dictionary.validate}
               </button>
             </div>
           </div>
-        ) : (
-          false
-        )}
+        ) : null}
       </div>
     );
   }

@@ -81,6 +81,10 @@ export const customModalbuttonStyles = {
   marginRight: '10px',
 };
 
+/**
+ * Display a navbar on top of the questionnaire which allow to add elements to
+ * the questionnaire, save the questionnaire and visualize it.
+ */
 function GenericInput(props) {
   const {
     activeQuestionnaire,

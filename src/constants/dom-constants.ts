@@ -72,12 +72,6 @@ export const WIDGET_STATISTICAL_CONTEXT_CRITERIA = {
   HORIZONTAL_CLASS: 'widget-statistical-context-criteria-horizontal',
 };
 
-export const WIDGET_SEARCH_CODES_LISTS = {
-  COMPONENT_CLASS: 'widget-search-codes-lists',
-  SEARCH_CLASS: 'widget-search-codes-lists__search',
-  SEARCH_RESULTS_CLASS: 'widget-search-codes-lists__results',
-};
-
 export const WIDGET_DROPDOWN = {
   COMPONENT_CLASS: 'widget-dropdown',
   SELECT_CLASS: 'widget-dropdown__select',
@@ -87,8 +81,6 @@ export const WIDGET_CODES_LISTS = {
   COMPONENT_CLASS: 'widget-codes-lists',
   CODES_CLASS: 'widget-codes-lists__codes',
   LIST_CLASS: 'widget-codes-lists__codes__list',
-  LIST_ITEM_CLASS: 'widget-codes-lists__codes__list-item',
-  ACTIONS_CLASS: 'widget-codes-lists__codes__actions',
   CODE_INPUT_CLASS: 'widget-codes-lists__codes__input',
   CODE_INPUT_CODE_CLASS: 'widget-codes-lists__codes__input-code',
   CODE_INPUT_CODE_CLASS_PRECISION:
