@@ -42,6 +42,12 @@ a {
 
 // Button styles
 
+.btn {
+  &:disabled {
+    opacity: 0.25;
+  }
+}
+
 .btn-yellow {
   @extend .btn;
   text-align: center;

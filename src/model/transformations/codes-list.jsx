@@ -16,12 +16,14 @@ export function sortByWeight(codes) {
 }
 export function remoteToCodesState(codes, parent = '', depth = 1) {
   return codes
-    .filter((c) => c.Parent === parent)
+    .filter(
+      (c) => c.Parent === parent || (parent === '' && c.Parent === undefined),
+    )
     .reduce((acc, c, index) => {
       const codeState = {
         value: c.Value,
         label: c.Label,
-        parent: c.Parent,
+        parent: c.Parent || '',
         depth,
         weight: index + 1,
       };
@@ -135,7 +137,7 @@ export function storeToRemote(store) {
               return {
                 Label: labelCode,
                 Value: value,
-                Parent: parent,
+                Parent: parent || '',
               };
             }),
           }

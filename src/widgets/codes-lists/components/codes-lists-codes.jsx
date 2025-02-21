@@ -1,14 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
 import PropTypes from 'prop-types';
-import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
-import {
-  WIDGET_CODES_LISTS,
-  domSelectorForModal,
-} from '../../../constants/dom-constants';
+import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import {
@@ -16,16 +12,14 @@ import {
   fieldArrayMeta,
 } from '../../../utils/proptypes-utils';
 import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
-import { ACTIONS } from '../constants';
 import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
-import { getDisabledActions } from '../utils/actions';
-import { moveDown, moveLeft, moveRight, moveUp } from '../utils/movement';
-import { getNewCodeWeight, resetListCodes } from '../utils/utils';
-import CodesListsActions from './codes-lists-actions';
-import UploadCSV from './upload-csv';
+import { getNewCodeWeight } from '../utils/utils';
+import FilterAction from './FilterAction';
+import SpecifyAction from './SpecifyAction';
 
-const { CODES_CLASS, LIST_CLASS, LIST_ITEM_CLASS } = WIDGET_CODES_LISTS;
+const { CODES_CLASS, LIST_CLASS } = WIDGET_CODES_LISTS;
 
+/** Display codes of a codes list in a table. */
 function CodesListsCodes(props) {
   const {
     inputCodePath,
@@ -37,18 +31,15 @@ function CodesListsCodes(props) {
     currentPrecisionlabel,
     currentPrecisionsize,
     meta,
-    Type,
-    fields: { getAll, removeAll, push, remove, get },
+    fields: { getAll, push, remove, get },
     allowPrecision,
+    allowFilter,
   } = props;
 
-  const [showInputCode, setShowInputCode] = useState(false);
   const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
   const [editing, setEditing] = useState(false);
   const [showPrecision, setShowPrecision] = useState(false);
-  const [showUploadCode, setShowUploadCode] = useState(false);
-
-  const closeUpload = useCallback(() => setShowUploadCode(false), []);
+  const [showFilter, setShowFilter] = useState(false);
 
   const clearInputCode = useCallback(() => {
     change(formName, `${inputCodePath}value`, '');
@@ -58,27 +49,7 @@ function CodesListsCodes(props) {
     change(formName, `${inputCodePath}precisionsize`, '');
   }, [change, formName, inputCodePath]);
 
-  const getFileCodes = useCallback(
-    (codes) => {
-      const allCodes = getAll() || [];
-      if (codes && codes.length > 0) {
-        removeAll();
-        codes.forEach((code, index) => {
-          code.value = code.value.toString();
-          code.weight = index + 1;
-          code.depth = allCodes[0]?.depth || 1;
-          code.parent = code.parent || '';
-          push(code);
-        });
-      }
-      closeUpload();
-      clearInputCode();
-    },
-    [clearInputCode, closeUpload, getAll, push, removeAll],
-  );
-
   const removePrecision = useCallback(() => {
-    setShowInputCode(false);
     setActiveCodeIndex(undefined);
     setShowPrecision(false);
 
@@ -93,7 +64,6 @@ function CodesListsCodes(props) {
       weight: code.weight,
       depth: code.depth,
     };
-    setShowInputCode(false);
     setActiveCodeIndex(undefined);
     setShowPrecision(false);
     remove(activeCodeIndex);
@@ -120,7 +90,6 @@ function CodesListsCodes(props) {
         precisionlabel: currentPrecisionlabel,
         precisionsize: currentPrecisionsize,
       };
-      setShowInputCode(false);
       setActiveCodeIndex(undefined);
       setEditing(false);
 
@@ -179,7 +148,6 @@ function CodesListsCodes(props) {
         meta={meta}
         close={() => {
           clearInputCode();
-          setShowInputCode(false);
           setActiveCodeIndex(undefined);
           setShowPrecision(false);
         }}
@@ -191,6 +159,7 @@ function CodesListsCodes(props) {
         formName={formName}
         code={code}
         precisionShow={showPrecision}
+        filterShow={showFilter}
         codes={allCodes}
         editing={editing}
       />
@@ -201,83 +170,68 @@ function CodesListsCodes(props) {
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
     const actions = {
-      remove: () => {
-        remove(indexCode);
-      },
-      edit: () => {
-        setShowInputCode(true);
-        setShowPrecision(false);
-        setActiveCodeIndex(indexCode);
-        setEditing(true);
-      },
-      duplicate: () => {
-        setShowInputCode(true);
-        setActiveCodeIndex(indexCode);
-      },
-      moveUp: () => {
-        resetListCodes(moveUp(code.value, allCodes), removeAll, push);
-      },
-      moveDown: () => {
-        resetListCodes(moveDown(code.value, allCodes), removeAll, push);
-      },
-      moveLeft: () => {
-        resetListCodes(moveLeft(code.value, allCodes), removeAll, push);
-      },
-      moveRight: () => {
-        resetListCodes(moveRight(code.value, allCodes), removeAll, push);
-      },
-      // pour precision et setPrecision, il y avait rajout dans le setState d'un () => {}
-      precision: () => {
+      updatePrecision: () => {
         setShowPrecision(true);
         setActiveCodeIndex(indexCode);
         setEditing(true);
       },
-      setPrecision: () => {
-        setShowPrecision(true);
+      updateFilter: () => {
+        setShowFilter(true);
         setActiveCodeIndex(indexCode);
         setEditing(true);
       },
     };
 
     return (
-      <div key={code.value}>
-        {showInputCode && editing && activeCodeIndex === indexCode ? (
-          renderInputCode()
-        ) : (
-          <div
-            className={`${LIST_ITEM_CLASS} ${LIST_ITEM_CLASS}-${code.depth}`}
-          >
-            {/* Code data */}
-            <div>{code.depth}</div>
-            <div>{code.value}</div>
-            {code.label && (
+      <React.Fragment key={code.value}>
+        <tr className="*:py-2">
+          {/* Code data */}
+          <td className="py-2">{code.depth}</td>
+          <td className="py-2">{code.value}</td>
+          {code.label && (
+            <td className="py-2">
               <div
                 dangerouslySetInnerHTML={{
                   __html: markdownVtlToHtml(code.label),
                 }}
               />
-            )}
-            {/* Code Actions */}
-            <CodesListsActions
-              disabledActions={getDisabledActions(
-                allCodes,
-                code,
-                ACTIONS,
-                Type,
-              )}
-              actions={actions}
-              allowPrecision={allowPrecision}
-            />
-            {showPrecision &&
-              editing &&
-              activeCodeIndex === indexCode &&
-              renderInputCode()}
-          </div>
+            </td>
+          )}
+          {/* Code Actions */}
+          {allowFilter ? (
+            <td className="py-2">
+              <FilterAction updateFilter={actions.updateFilter} />
+            </td>
+          ) : null}
+          {allowPrecision ? (
+            <td className="py-2">
+              <SpecifyAction
+                updatePrecision={actions.updatePrecision}
+                precisionLabel={code.precisionlabel}
+              />
+            </td>
+          ) : null}
+        </tr>
+        {/* Filter update */}
+        {showFilter && editing && activeCodeIndex === indexCode && (
+          <tr>
+            <td colSpan="6" className="py-2">
+              {renderInputCode()}
+            </td>
+          </tr>
+        )}
+        {/* Precision update */}
+        {showPrecision && editing && activeCodeIndex === indexCode && (
+          <tr>
+            <td colSpan="6" className="py-2">
+              {renderInputCode()}
+            </td>
+          </tr>
         )}
 
         {/* Children codes */}
         {renderCodes(code.value)}
-      </div>
+      </React.Fragment>
     );
   }
 
@@ -295,66 +249,27 @@ function CodesListsCodes(props) {
 
   return (
     <div className={CODES_CLASS}>
-      {/* Show input code button */}
-      {!showInputCode && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            setShowInputCode(true);
-            setActiveCodeIndex(undefined);
-            setEditing(false);
-            setShowPrecision(false);
-          }}
-        >
-          <span className="glyphicon glyphicon-plus" />
-          {Dictionary.addCode}
-        </button>
-      )}
-
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          setShowUploadCode(true);
-        }}
-      >
-        <span className="glyphicon glyphicon-plus" />
-        {Dictionary.uploadCode}
-      </button>
-      <div className={`${LIST_CLASS}`}>
+      <table className={`${LIST_CLASS} table-auto w-full`}>
         {props.fields.length > 0 && (
-          <div className={`${LIST_ITEM_CLASS}`}>
-            <div>{Dictionary.level}</div>
-            <div>{Dictionary.code}</div>
-            <div>{Dictionary.label}</div>
-            <div>{Dictionary.actions}</div>
-          </div>
+          <thead>
+            <tr className="border-b border-b-[#e0e0e0]">
+              <th className="py-2">{Dictionary.level}</th>
+              <th className="py-2">{Dictionary.code}</th>
+              <th className="py-2">{Dictionary.label}</th>
+              {allowFilter ? (
+                <th className="py-2">{Dictionary.filtre}</th>
+              ) : null}
+              {allowPrecision ? (
+                <th className="py-2">{Dictionary.codePrecision}</th>
+              ) : null}
+            </tr>
+          </thead>
         )}
-        {/* List of codes */}
-        {renderCodes()}
-        {/* Input code without a parent code */}
-        {showInputCode && !editing && renderInputCode()}
-      </div>
-      <ReactModal
-        parentSelector={domSelectorForModal}
-        ariaHideApp={false}
-        shouldCloseOnOverlayClick={false}
-        isOpen={showUploadCode}
-        onRequestClose={closeUpload}
-      >
-        <div className="popup">
-          <div className="popup-header">
-            <h3>{Dictionary.uploadCode}</h3>
-            <button type="button" onClick={closeUpload}>
-              <span>X</span>
-            </button>
-          </div>
-          <div className="popup-body">
-            <UploadCSV closeUpload={closeUpload} getFileCodes={getFileCodes} />
-          </div>
-        </div>
-      </ReactModal>
+        <tbody>
+          {/* List of codes */}
+          {renderCodes()}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -374,6 +289,7 @@ CodesListsCodes.propTypes = {
   inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
   allowPrecision: PropTypes.bool,
+  allowFilter: PropTypes.bool,
 };
 
 CodesListsCodes.defaultProps = {
@@ -383,6 +299,7 @@ CodesListsCodes.defaultProps = {
   currentPrecisionlabel: '',
   currentPrecisionsize: undefined,
   allowPrecision: true,
+  allowFilter: false,
 };
 
 const mapStateToProps = (state) => {
