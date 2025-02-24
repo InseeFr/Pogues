@@ -80,6 +80,13 @@ exports[`Visualize Dropdown Component:  > Should disable the button 1`] = `
             Metadata
           </a>
         </li>
+        <li>
+          <a
+            href="#"
+          >
+            Documentation (DDI)
+          </a>
+        </li>
       </ul>
     </div>
     <div
@@ -168,6 +175,13 @@ exports[`Visualize Dropdown Component:  > Should display the dropdown on top 1`]
             Metadata
           </a>
         </li>
+        <li>
+          <a
+            href="#"
+          >
+            Documentation (DDI)
+          </a>
+        </li>
       </ul>
     </div>
     <div
@@ -254,6 +268,13 @@ exports[`Visualize Dropdown Component:  > Should return the right HTML 1`] = `
             href="#"
           >
             Metadata
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+          >
+            Documentation (DDI)
           </a>
         </li>
       </ul>
