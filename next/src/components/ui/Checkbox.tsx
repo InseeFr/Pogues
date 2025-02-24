@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Checkbox as UICheckbox } from '@base-ui-components/react/checkbox';
 
+import Label from './Label';
+
 interface CheckboxProps {
   label?: string;
   onChange: (v: boolean) => void;
@@ -18,7 +20,7 @@ export default function Checkbox({
   onChange,
 }: Readonly<CheckboxProps>) {
   return (
-    <label className="flex items-center m-2 gap-2 text-default">
+    <Label className="flex items-center m-2 gap-2 text-default">
       <UICheckbox.Root
         checked={checked}
         disabled={disabled}
@@ -31,7 +33,7 @@ export default function Checkbox({
         </UICheckbox.Indicator>
       </UICheckbox.Root>
       <span className="text-sm ml-1">{label}</span>
-    </label>
+    </Label>
   );
 }
 

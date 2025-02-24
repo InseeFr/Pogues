@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { questionnairesQueryOptions } from '@/api/questionnaires';
 import { stampsQueryOptions } from '@/api/stamps';
-import Questionnaires from '@/components/questionnaires/Questionnaires';
+import Questionnaires from '@/components/questionnaires/overview/Questionnaires';
 
 const questionnairesSchema = z.object({
   stamp: z.string().optional(),

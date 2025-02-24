@@ -18,7 +18,7 @@ export default function StampsSelector({
   onSelect,
 }: Readonly<StampsSelectorProps>) {
   const { t } = useTranslation();
-  console.log('stamps', t('questionnaires.stamp'));
+
   return (
     <>
       <Label>{t('questionnaires.stamp')}</Label>

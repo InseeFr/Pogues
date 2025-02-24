@@ -92,16 +92,21 @@
       "moveDown": "Descendre d'un niveau"
     }
   },
-  "createQuestionnaire": {
-    "mode": "Mode de collecte",
-    "create": "Créer un questionnaire",
-    "dynamicField": "Spécification dynamique",
-    "formulaField": "Spécification des formules",
-    "createSuccess": "Le questionnaire a été créé ",
-    "filter": "Filtre",
-    "redirect": "Redirect",
-    "mustProvideTitle": "Vous devez renseigner un titre",
-    "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
-    "loading": "Chargement..."
+  "questionnaire": {
+    "common": {
+      "dynamicField": "Spécification dynamique",
+      "filter": "Filtre",
+      "formulaField": "Spécification des formules",
+      "redirect": "Redirect",
+      "targetMode": "Mode de collecte"
+    },
+    "create": {
+      "success": "Le questionnaire {{title}} a été crée",
+      "title": "Nouveau questionnaire"
+    },
+    "form": {
+      "mustProvideTitle": "Vous devez renseigner un titre",
+      "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte"
+    }
   }
 }
