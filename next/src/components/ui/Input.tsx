@@ -1,31 +1,26 @@
-import { Field } from '@base-ui-components/react/field';
+import { Ref } from 'react';
 
-interface InputProps {
-  autoFocus?: boolean;
-  className?: string;
+import { Field } from '@base-ui-components/react/field';
+import { Input as UIInput } from '@base-ui-components/react/input';
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   description?: string;
-  disabled?: boolean;
   error?: string;
   label?: string;
-  onChange?: (v: string | number | readonly string[] | undefined) => void;
-  placeholder?: string;
-  required?: boolean;
-  style?: object;
-  value: string | number | readonly string[] | undefined;
+  ref?: Ref<HTMLInputElement>;
 }
 
 export default function Input({
-  autoFocus,
   className = '',
   description,
   disabled,
   error,
   label,
-  onChange = () => {},
-  placeholder,
   required,
   style = {},
-  value,
+  ref,
+  defaultValue,
+  ...props
 }: Readonly<InputProps>) {
   return (
     <Field.Root
@@ -33,6 +28,7 @@ export default function Input({
       disabled={disabled}
       className={`${className} flex w-full flex-col items-start gap-1`}
       style={style}
+      defaultValue={defaultValue}
     >
       {label ? (
         <Field.Label className="text-sm ml-1">
@@ -40,13 +36,11 @@ export default function Input({
           {required ? ' *' : ''}
         </Field.Label>
       ) : null}
-      <Field.Control
-        autoFocus={autoFocus}
-        onValueChange={(v, _) => onChange(v)}
-        value={value}
+      <UIInput
+        ref={ref}
         required={required}
-        placeholder={placeholder}
         className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-xs border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
+        {...props}
       />
       <Field.Error className="text-sm text-error ml-1" forceShow={!!error}>
         {error}

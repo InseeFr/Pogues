@@ -92,16 +92,21 @@
       "moveDown": "Move down"
     }
   },
-  "createQuestionnaire": {
-    "mode": "Collection mode",
-    "create": "Create a questionnaire",
-    "dynamicField": "Dynamic specification",
-    "formulaField": "Formula specification",
-    "createSuccess": "The questionnaire has been created",
-    "filter": "Filter",
-    "redirect": "Redirect",
-    "mustProvideTitle": "You must provide a title",
-    "mustProvideTarget": "You must select at least one target mode",
-    "loading": "Loading..."
+  "questionnaire": {
+    "common": {
+      "dynamicField": "Dynamic specification",
+      "filter": "Filtre",
+      "formulaField": "Formula specification",
+      "redirect": "Redirect",
+      "targetMode": "Collection mode"
+    },
+    "create": {
+      "success": "The questionnaire {{title}} has been created",
+      "title": "New questionnaire"
+    },
+    "form": {
+      "mustProvideTitle": "You must provide a title",
+      "mustProvideTarget": "You must select at least one target mode"
+    }
   }
 }
