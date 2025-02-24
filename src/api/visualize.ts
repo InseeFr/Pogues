@@ -1,10 +1,15 @@
-import { computeAuthorizationHeader, getBaseURI } from './utils';
+import {
+  computeAuthorizationHeader,
+  downloadAsJson,
+  getBaseURI,
+} from './utils';
 
 type QuestionnaireData = {
   id: string;
 };
 
 type Questionnaire = {
+  id: string;
   DataCollection: QuestionnaireData[];
   Name: string;
 };
@@ -13,6 +18,7 @@ export const enum VisualizationKind {
   PDF,
   Spec,
   DDI,
+  PoguesModel,
   HTML,
   Household,
   Business,
@@ -116,6 +122,11 @@ export async function getVisualization(
           document.body.appendChild(a);
           a.click();
         });
+    case VisualizationKind.PoguesModel:
+      downloadAsJson({
+        data: qr,
+        filename: `model_${qr.id}.json`,
+      });
   }
 
   return null;

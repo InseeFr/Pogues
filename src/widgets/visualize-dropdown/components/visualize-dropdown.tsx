@@ -184,6 +184,10 @@ const dropdownOptions = [
     label: Dictionary.VISUALIZE_SPECIFICATION,
   },
   {
+    type: VisualizationKind.PoguesModel,
+    label: Dictionary.VISUALIZE_POGUES_MODEL,
+  },
+  {
     type: VisualizationKind.DDI,
     label: Dictionary.VISUALIZE_DDI,
   },
