@@ -125,7 +125,7 @@ export async function getVisualization(
     case VisualizationKind.PoguesModel:
       downloadAsJson({
         data: qr,
-        filename: `model_${qr.id}.json`,
+        filename: `pogues_${qr.id}.json`,
       });
   }
 

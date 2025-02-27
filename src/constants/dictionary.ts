@@ -928,8 +928,8 @@ const dictionary: Dictionary = {
     en: 'Specification',
   },
   VISUALIZE_POGUES_MODEL: {
-    fr: 'Métadonnées',
-    en: 'Metadata',
+    fr: 'Métadonnées (Pogues)',
+    en: 'Metadata (Pogues)',
   },
   VISUALIZE_DDI: {
     fr: 'Documentation (DDI)',
