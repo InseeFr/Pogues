@@ -21,7 +21,7 @@ describe('getVisualization', () => {
 
     expect(downloadAsJson).toHaveBeenCalledWith({
       data: questionnaire,
-      filename: `model_${questionnaire.id}.json`,
+      filename: `pogues_${questionnaire.id}.json`,
     });
   });
 });
