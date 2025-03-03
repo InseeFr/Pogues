@@ -33,7 +33,7 @@ export default function EditCodesListForm({
     }) => {
       return putCodesList(questionnaireId, codesList.id, codesList);
     },
-    onSuccess: (questionnaireId) =>
+    onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: ['questionnaire', { questionnaireId }],
       }),

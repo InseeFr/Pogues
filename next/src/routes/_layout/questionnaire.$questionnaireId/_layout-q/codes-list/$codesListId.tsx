@@ -22,6 +22,7 @@ function RouteComponent() {
   const {
     data: { codesLists },
   } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId));
+
   let codesList;
   if (codesLists) {
     for (const element of codesLists) {

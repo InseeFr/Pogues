@@ -71,6 +71,10 @@
       "deleteDialogTitle": "Delete the codes list: {{label}}",
       "deleteDialogConfirm": "Are you sure you want to delete this codes list?",
       "deleteSuccess": "Codes list {{label}} deleted",
+      "duplicate": "Duplicate",
+      "duplicateDialogTitle": "Duplicate the codes list: {{label}}",
+      "duplicateDialogConfirm": "Do you want to create a copy of this codes list?",
+      "duplicateSuccess": "Codes list {{label}} duplicated",
       "title": "Codes Lists"
     },
     "create": {

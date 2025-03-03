@@ -32,7 +32,7 @@ export default function CreateQuestionnaireForm({
     }) => {
       return postQuestionnaire(questionnaire, stamp);
     },
-    onSuccess: (stamp) =>
+    onSuccess: (_, { stamp }) =>
       queryClient.invalidateQueries({
         queryKey: ['questionnaires', { stamp }],
       }),
