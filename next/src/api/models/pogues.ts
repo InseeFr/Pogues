@@ -22,6 +22,15 @@ type DataCollection = {
   agency?: string;
 };
 
+export type Variable =
+  | CollectedVariableType
+  | CalculatedVariableType
+  | ExternalVariableType;
+
+export type VariablesObject = {
+  Variable?: Variable[];
+};
+
 /**
  * A questionnaire in the sense of Pogues is an entire questionnaire template
  * or an independent part of an questionnaire.
@@ -36,13 +45,7 @@ export type Questionnaire = Sequence & {
   ComponentGroup?: ComponentGroup[];
   CodeLists?: { CodeList: CodeLists };
   /** Variables contain all questionnaire's variables (external, collected, etc) */
-  Variables?: {
-    Variable?: (
-      | CollectedVariableType
-      | CalculatedVariableType
-      | ExternalVariableType
-    )[];
-  };
+  Variables?: VariablesObject;
   /**
    * A loop is an iteration (according to one criterion) on a group of questions.
    *
@@ -167,7 +170,12 @@ type Roundabout = ComponentType & {
 type VariableType = {
   CodeListReference?: string;
   /** Variable representation type to characterize the variable (numeric, boolean, text, etc) */
-  Datatype: DatatypeType;
+  Datatype:
+    | BooleanDatatypeType
+    | DateDatatypeType
+    | DurationDatatypeType
+    | NumericDatatypeType
+    | TextDatatypeType;
   Name: string;
   Label: string;
   /** Iteration reference (in which the variable has a local scope) */
@@ -175,18 +183,27 @@ type VariableType = {
   id: string;
 };
 
+export enum VariableTypeType {
+  CalculatedVariableType = 'CalculatedVariableType',
+  CollectedVariableType = 'CollectedVariableType',
+  ExternalVariableType = 'ExternalVariableType',
+}
+
 /**
  * A collected variable is a statistical variable collected within a
  * questionnaire for the survey need.
  */
-type CollectedVariableType = VariableType;
+export type CollectedVariableType = VariableType & {
+  type: VariableTypeType.CollectedVariableType;
+};
 
 /**
  * A calculated variable is a variable calculated from others variables
  * including the calculated variables.
  */
-type CalculatedVariableType = VariableType & {
+export type CalculatedVariableType = VariableType & {
   Formula: ExpressionType;
+  type: VariableTypeType.CalculatedVariableType;
 };
 
 /**
@@ -195,7 +212,9 @@ type CalculatedVariableType = VariableType & {
  * number for filtering questions, a date to be displayed in the wording of a
  * question, etc.
  */
-type ExternalVariableType = VariableType;
+export type ExternalVariableType = VariableType & {
+  type: VariableTypeType.ExternalVariableType;
+};
 
 type ResponseStructureType = {
   Dimension: DimensionType[];
@@ -483,30 +502,32 @@ type DatatypeType = {
   visualizationHint?: VisualizationHintEnum;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type BooleanDatatypeType = DatatypeType;
+type BooleanDatatypeType = DatatypeType & {
+  type: 'BooleanDatatypeType';
+};
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type DateDatatypeType = DatatypeType & {
+  type: 'DateDatatypeType';
   Minimum?: string;
   Maximum?: string;
   /** date output format among YYYY-MM-DD, YYYY-MM and YYYY. */
   Format?: DateFormatEnum;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type DurationDatatypeType = DatatypeType & {
+  type: 'DurationDatatypeType';
   Minimum?: string;
   Maximum?: string;
   Format?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type NumericDatatypeType = DatatypeType & {
-  Minimum?: number;
-  Maximum?: number;
-  /** Number of decimal places. */
-  Decimals?: number;
+  type: 'NumericDatatypeType';
+  /** Both Minimum and Maximum are string containing a number */
+  Minimum?: string;
+  Maximum?: string;
+  /** Number of decimal places. It is a string containing a number */
+  Decimals?: string;
   /**
    * default value is false
    *
@@ -524,8 +545,8 @@ type NumericDatatypeType = DatatypeType & {
   Unit?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type TextDatatypeType = DatatypeType & {
+  type: 'TextDatatypeType';
   /** Maximum text response size in number of characters */
   MaxLength?: number;
   /**
@@ -538,7 +559,7 @@ type TextDatatypeType = DatatypeType & {
   Pattern?: string;
 };
 
-enum DatatypeTypeEnum {
+export enum DatatypeTypeEnum {
   Boolean = 'BOOLEAN',
   Date = 'DATE',
   Duration = 'DURATION',
@@ -659,7 +680,7 @@ export enum GenericNameEnum {
   Submodule = 'SUBMODULE',
 }
 
-enum DateFormatEnum {
+export enum DateFormatEnum {
   YearMonthDay = 'YYYY-MM-DD',
   YearMonth = 'YYYY-MM',
   Year = 'YYYY',
