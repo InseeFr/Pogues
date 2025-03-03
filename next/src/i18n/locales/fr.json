@@ -72,7 +72,7 @@
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
       "deleteSuccess": "Liste de codes {{label}} supprimée",
       "duplicate": "Dupliquer",
-      "duplicateDialogTitle": "Dupliquer la liste d codes : {{label}}",
+      "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
       "title": "Listes de codes"
