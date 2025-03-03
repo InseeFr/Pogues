@@ -13,6 +13,7 @@ import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexImport
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsNewImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/codes-lists/new';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/codes-lists/route';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCompositionImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/composition';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/duplicate-variables';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQIndexImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/index';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQMergeImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/merge';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/tcm-composition';
@@ -84,6 +85,13 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQMergeImport.update({
     id: '/merge',
     path: '/merge',
+    getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
+  } as any);
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesImport.update({
+    id: '/duplicate-variables',
+    path: '/duplicate-variables',
     getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
   } as any);
 
@@ -191,6 +199,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionImport;
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
     };
+    '/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables';
+      path: '/duplicate-variables';
+      fullPath: '/questionnaire/$questionnaireId/duplicate-variables';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
+    };
     '/_layout/questionnaire/$questionnaireId/_layout-q/merge': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/merge';
       path: '/merge';
@@ -275,6 +290,7 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren 
 interface LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren {
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren;
   LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
+  LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute;
@@ -287,6 +303,8 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren: LayoutQuestionnair
       LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute:
@@ -340,6 +358,7 @@ export interface FileRoutesByFullPath {
   '/questionnaires/': typeof LayoutQuestionnairesIndexRoute;
   '/questionnaire/$questionnaireId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren;
   '/questionnaire/$questionnaireId/composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
+  '/questionnaire/$questionnaireId/duplicate-variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   '/questionnaire/$questionnaireId/merge': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   '/questionnaire/$questionnaireId/tcm-composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
   '/questionnaire/$questionnaireId/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute;
@@ -355,6 +374,7 @@ export interface FileRoutesByTo {
   '/questionnaires/new': typeof LayoutQuestionnairesNewRoute;
   '/questionnaires': typeof LayoutQuestionnairesIndexRoute;
   '/questionnaire/$questionnaireId/composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
+  '/questionnaire/$questionnaireId/duplicate-variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   '/questionnaire/$questionnaireId/merge': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   '/questionnaire/$questionnaireId/tcm-composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
   '/questionnaire/$questionnaireId/codes-list/$codesListId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute;
@@ -373,6 +393,7 @@ export interface FileRoutesById {
   '/_layout/questionnaire/$questionnaireId/_layout-q': typeof LayoutQuestionnaireQuestionnaireIdLayoutQRouteWithChildren;
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren;
   '/_layout/questionnaire/$questionnaireId/_layout-q/composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/merge': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/tcm-composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute;
@@ -392,6 +413,7 @@ export interface FileRouteTypes {
     | '/questionnaires/'
     | '/questionnaire/$questionnaireId/codes-lists'
     | '/questionnaire/$questionnaireId/composition'
+    | '/questionnaire/$questionnaireId/duplicate-variables'
     | '/questionnaire/$questionnaireId/merge'
     | '/questionnaire/$questionnaireId/tcm-composition'
     | '/questionnaire/$questionnaireId/'
@@ -406,6 +428,7 @@ export interface FileRouteTypes {
     | '/questionnaires/new'
     | '/questionnaires'
     | '/questionnaire/$questionnaireId/composition'
+    | '/questionnaire/$questionnaireId/duplicate-variables'
     | '/questionnaire/$questionnaireId/merge'
     | '/questionnaire/$questionnaireId/tcm-composition'
     | '/questionnaire/$questionnaireId/codes-list/$codesListId'
@@ -422,6 +445,7 @@ export interface FileRouteTypes {
     | '/_layout/questionnaire/$questionnaireId/_layout-q'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/composition'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/merge'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/tcm-composition'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/'
@@ -494,6 +518,7 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists",
         "/_layout/questionnaire/$questionnaireId/_layout-q/composition",
+        "/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables",
         "/_layout/questionnaire/$questionnaireId/_layout-q/merge",
         "/_layout/questionnaire/$questionnaireId/_layout-q/tcm-composition",
         "/_layout/questionnaire/$questionnaireId/_layout-q/",
@@ -510,6 +535,10 @@ export const routeTree = rootRoute
     },
     "/_layout/questionnaire/$questionnaireId/_layout-q/composition": {
       "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/composition.tsx",
+      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q"
+    },
+    "/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables": {
+      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/duplicate-variables.tsx",
       "parent": "/_layout/questionnaire/$questionnaireId/_layout-q"
     },
     "/_layout/questionnaire/$questionnaireId/_layout-q/merge": {
