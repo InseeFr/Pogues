@@ -4,10 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteCodesList } from '@/api/codesLists';
+import { deleteCodesList, putCodesList } from '@/api/codesLists';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
 import type { Code, CodesList } from '@/models/codesLists';
+import { uid } from '@/utils/utils';
 
 interface CodesListProps {
   codesList: CodesList;
@@ -22,7 +23,25 @@ export default function CodesListOverviewItem({
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  const duplicateMutation = useMutation({
+    mutationFn: ({
+      questionnaireId,
+      codesListId,
+      codesList,
+    }: {
+      questionnaireId: string;
+      codesListId: string;
+      codesList: CodesList;
+    }) => {
+      return putCodesList(questionnaireId, codesListId, codesList);
+    },
+    onSuccess: (_, { questionnaireId }) =>
+      queryClient.invalidateQueries({
+        queryKey: ['questionnaire', { questionnaireId }],
+      }),
+  });
+
+  const deleteMutation = useMutation({
     mutationFn: ({
       questionnaireId,
       codesListId,
@@ -32,14 +51,36 @@ export default function CodesListOverviewItem({
     }) => {
       return deleteCodesList(questionnaireId, codesListId);
     },
-    onSuccess: (questionnaireId) =>
+    onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: ['questionnaire', { questionnaireId }],
       }),
   });
 
+  function onDuplicate() {
+    const id = uid();
+    const newCodesList = {
+      ...codesList,
+      id,
+      label: `${codesList.label} (copie)`,
+    };
+
+    const promise = duplicateMutation.mutateAsync({
+      questionnaireId,
+      codesListId: id,
+      codesList: newCodesList,
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('codesList.overview.duplicateSuccess', {
+        label: codesList.label,
+      }),
+      error: (err: Error) => err.toString(),
+    });
+  }
+
   function onDelete() {
-    const promise = mutation.mutateAsync({
+    const promise = deleteMutation.mutateAsync({
       questionnaireId,
       codesListId: codesList.id,
     });
@@ -79,6 +120,14 @@ export default function CodesListOverviewItem({
         >
           {t('common.edit')}
         </ButtonLink>
+        <Dialog
+          label={t('codesList.overview.duplicate')}
+          title={t('codesList.overview.duplicateDialogTitle', {
+            label: codesList.label,
+          })}
+          body={t('codesList.overview.duplicateDialogConfirm')}
+          onValidate={onDuplicate}
+        />
         <Dialog
           label={t('common.delete')}
           title={t('codesList.overview.deleteDialogTitle', {
