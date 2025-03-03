@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useRouteContext } from '@tanstack/react-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +18,7 @@ export default function CreateCodesListForm({
   questionnaireId,
 }: Readonly<CreateCodesListFormProps>) {
   const { t } = useTranslation();
-  const { queryClient } = useRouteContext({ from: '__root__' });
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const mutation = useMutation({
@@ -31,7 +31,7 @@ export default function CreateCodesListForm({
     }) => {
       return putCodesList(questionnaireId, codesList.id, codesList);
     },
-    onSuccess: (questionnaireId) =>
+    onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: ['questionnaire', { questionnaireId }],
       }),
