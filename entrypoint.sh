@@ -3,6 +3,7 @@ echo "window._env_['API_URL'] = '$API_URL';" >> /usr/share/nginx/html/env-config
 echo "window._env_['ACTIVE_NAMESPACES'] = '$ACTIVE_NAMESPACES';" >> /usr/share/nginx/html/env-config.js
 echo "window._env_['PUBLIC_ENEMY_URL'] = '$PUBLIC_ENEMY_URL';" >> /usr/share/nginx/html/env-config.js
 echo "window._env_['TROMBI_URL'] = '$TROMBI_URL';" >> /usr/share/nginx/html/env-config.js
+echo "window._env_['METADATA_DOWNLOAD_ENABLED'] = '$METADATA_DOWNLOAD_ENABLED';" >> /usr/share/nginx/html/env-config.js
 echo "window._env_['AUTH_TYPE'] = '$AUTH_TYPE';" >> /usr/share/nginx/html/env-config.js
 echo "window._env_['OIDC_AUTHORITY'] = '$OIDC_AUTHORITY';" >> /usr/share/nginx/html/env-config.js
 echo "window._env_['OIDC_CLIENT_ID'] = '$OIDC_CLIENT_ID';" >> /usr/share/nginx/html/env-config.js

@@ -9,6 +9,7 @@ interface ImportMetaEnv {
   readonly VITE_DEFAULT_USER_NAME: string;
   readonly VITE_DEFAULT_USER_STAMP: string;
   readonly VITE_LOG_LEVEL: string;
+  readonly VITE_METADATA_DOWNLOAD_ENABLED: string;
   readonly VITE_OIDC_AUTHORITY: string;
   readonly VITE_OIDC_CLIENT_ID: string;
   readonly VITE_PUBLIC_ENEMY_URL: string;
