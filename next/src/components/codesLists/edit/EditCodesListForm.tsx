@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 
 import { putCodesList } from '@/api/codesLists';
 import { CodesList } from '@/models/codesLists';
+import { FormulasLanguages } from '@/models/questionnaires';
+import { Variable } from '@/models/variables/variables';
 
 import CodesListForm, { FormValues } from '../form/CodesListForm';
 
@@ -13,12 +15,16 @@ interface EditCodesListFormProps {
   codesList: CodesList;
   /** Related questionnaire id. */
   questionnaireId: string;
+  formulasLanguage?: FormulasLanguages;
+  variables: Variable[];
 }
 
 /** Form to edit an existing code list. */
 export default function EditCodesListForm({
   codesList,
   questionnaireId,
+  formulasLanguage,
+  variables,
 }: Readonly<EditCodesListFormProps>) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -64,6 +70,8 @@ export default function EditCodesListForm({
     <CodesListForm
       codesList={codesList}
       questionnaireId={questionnaireId}
+      formulasLanguage={formulasLanguage}
+      variables={variables}
       onSubmit={onSubmit}
       submitLabel={t('common.edit')}
     />

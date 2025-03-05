@@ -798,6 +798,30 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@making-sense/antlr-editor@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@making-sense/antlr-editor/-/antlr-editor-2.0.0.tgz#fc21060c0667873f1f5c3adde0868fd3dd898f3e"
+  integrity sha512-Hq5gkM6LXeH1LVaLUax/XXDhFu81exboSEVQbIExIXVwzjiVgYNBoCC93MNY6iIR9Rk9Jc6W+nI+9Pw5EP2TAw==
+  dependencies:
+    "@making-sense/antlr4ng" "^3.0.4"
+    "@monaco-editor/react" "^4.6.0"
+    monaco-editor "^0.47.0"
+
+"@making-sense/antlr4ng@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@making-sense/antlr4ng/-/antlr4ng-3.0.4.tgz#0669cfe4b8b0dccde1deebfb658e13595410034b"
+  integrity sha512-grrhXCk7f5On2xC+xenRjPmb7b+Z10mnrSD7aa19Pn4cMv19HJuW2eAJNSWqgX++4zjvCHOovwiyBufEQVfcxg==
+
+"@making-sense/vtl-2-0-antlr-tools-ts@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@making-sense/vtl-2-0-antlr-tools-ts/-/vtl-2-0-antlr-tools-ts-2.0.1.tgz#00312fa71a6bf35f39405268b57e339901f63ace"
+  integrity sha512-FIuIVgfPt0IUfDdhwWiaEi8bDVr1SltafiNONj+2iosTi6JPb1VZTkv1wb7qm1IZ+ylFoz5qeW0y52gJKPYSzQ==
+
+"@making-sense/vtl-2-0-monaco-tools-ts@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@making-sense/vtl-2-0-monaco-tools-ts/-/vtl-2-0-monaco-tools-ts-0.1.0.tgz#1c5e9740b0af5837a236924eca737a7e447cd238"
+  integrity sha512-q+k3A+TaHRXDR0bxh0wdb7xuTc8dG1CBn6ljzGcJwE9t3GppXJB69uoMGZyNRHz3NMaxsJTP61Gt3mjBFKHswQ==
+
 "@module-federation/bridge-react-webpack-plugin@0.8.8":
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/@module-federation/bridge-react-webpack-plugin/-/bridge-react-webpack-plugin-0.8.8.tgz#7434c7fec1145d2f786f7e148c05509edfe772ef"
@@ -959,6 +983,20 @@
   dependencies:
     "@module-federation/runtime" "0.8.8"
     "@module-federation/sdk" "0.8.8"
+
+"@monaco-editor/loader@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/loader/-/loader-1.5.0.tgz#dcdbc7fe7e905690fb449bed1c251769f325c55d"
+  integrity sha512-hKoGSM+7aAc7eRTRjpqAZucPmoNOC4UUbknb/VNoTkEIkCPhqV8LfbsgM1webRM7S/z21eHEx9Fkwx8Z/C/+Xw==
+  dependencies:
+    state-local "^1.0.6"
+
+"@monaco-editor/react@^4.6.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/react/-/react-4.7.0.tgz#35a1ec01bfe729f38bfc025df7b7bac145602a60"
+  integrity sha512-cyzXQCtO47ydzxpQtCGSQGOC8Gk3ZUeBXFAxD+CWXYFo5OqZyZUonFl0DwUlTyAfRHntBfw2p3w4s9R6oe1eCA==
+  dependencies:
+    "@monaco-editor/loader" "^1.5.0"
 
 "@mswjs/interceptors@^0.37.3":
   version "0.37.6"
@@ -3312,6 +3350,11 @@ minimatch@^9.0.4:
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.1.2.tgz#93a9626ce5e5e66bd4db86849e7515e92340a707"
   integrity sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==
 
+monaco-editor@^0.47.0:
+  version "0.47.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.47.0.tgz#39865d67e0c9fb8c6b49e760bf9caf6a6650d28e"
+  integrity sha512-VabVvHvQ9QmMwXu4du008ZDuyLnHs9j7ThVFsiJoXSOQk18+LF89N4ADzPbFenm0W4V2bGHnFBztIRQTgBfxzw==
+
 ms@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
@@ -3812,6 +3855,11 @@ stackback@0.0.2:
   resolved "https://registry.yarnpkg.com/stackback/-/stackback-0.0.2.tgz#1ac8a0d9483848d1695e418b6d031a3c3ce68e3b"
   integrity sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==
 
+state-local@^1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/state-local/-/state-local-1.0.7.tgz#da50211d07f05748d53009bee46307a37db386d5"
+  integrity sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==
+
 "statuses@>= 1.5.0 < 2", statuses@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
@@ -4115,10 +4163,10 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-vite-envs@^4.4.10:
-  version "4.4.10"
-  resolved "https://registry.yarnpkg.com/vite-envs/-/vite-envs-4.4.10.tgz#ded3d2669585efe09fe4f0b9960fad271435bb16"
-  integrity sha512-x2Cbud8UCIz6fO3d8e3UGot7QxXXctA6ULyzTMcn3jZkS+uedo374P/delh3lUHCnuY1Dw2MLfOcFrRzBcaFwA==
+vite-envs@^4.4.11:
+  version "4.4.11"
+  resolved "https://registry.yarnpkg.com/vite-envs/-/vite-envs-4.4.11.tgz#86e394cb4791dd563839b5d9931284566612ff8e"
+  integrity sha512-uJtnRYu+tB7dhmjvYDU8dgsCCGZet+O0Yh4P3HlTYGOhfqYyG/nFVEY3eZcS1/GH2hpKXTTB4NHX6v6xT5Dqzg==
 
 vite-node@3.0.0:
   version "3.0.0"
