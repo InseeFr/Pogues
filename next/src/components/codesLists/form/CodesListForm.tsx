@@ -16,17 +16,23 @@ import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
+import VTLEditor from '@/components/ui/VTLEditor';
 import AddIcon from '@/components/ui/icons/AddIcon';
 import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
 import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import { type CodesList } from '@/models/codesLists';
+import { FormulasLanguages } from '@/models/questionnaires';
+import { Variable } from '@/models/variables/variables';
 
 interface CodesListFormProps {
   /** In an update case, initial codes list value. */
   codesList?: Omit<CodesList, 'id'>;
   /** Related questionnaire id. */
   questionnaireId: string;
+  formulasLanguage?: FormulasLanguages;
+  /** Variables of the questionnaire */
+  variables: Variable[];
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
@@ -70,6 +76,8 @@ export default function CodesListForm({
     codes: [],
   },
   questionnaireId,
+  formulasLanguage,
+  variables,
   onSubmit,
   submitLabel,
 }: Readonly<CodesListFormProps>) {
@@ -100,7 +108,11 @@ export default function CodesListForm({
       <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
         <Label className="col-start-1">{t('codesList.common.value')}</Label>
         <Label className="col-start-2">{t('codesList.common.label')}</Label>
-        <CodesFields control={control} />
+        <CodesFields
+          control={control}
+          formulasLanguage={formulasLanguage}
+          variables={variables}
+        />
       </div>
       <div className="flex gap-x-2 mt-6">
         <ButtonLink
@@ -123,9 +135,15 @@ export default function CodesListForm({
 
 interface CodesFieldsProps {
   control: Control<FormValues>;
+  formulasLanguage?: FormulasLanguages;
+  variables: Variable[];
 }
 
-function CodesFields({ control }: Readonly<CodesFieldsProps>) {
+function CodesFields({
+  control,
+  formulasLanguage,
+  variables,
+}: Readonly<CodesFieldsProps>) {
   const name = 'codes';
   const { fields, append, remove, move } = useFieldArray({
     control,
@@ -138,6 +156,8 @@ function CodesFields({ control }: Readonly<CodesFieldsProps>) {
         <CodesField
           key={v.id}
           control={control}
+          formulasLanguage={formulasLanguage}
+          variables={variables}
           index={index}
           remove={remove}
           move={move}
@@ -159,6 +179,8 @@ function CodesFields({ control }: Readonly<CodesFieldsProps>) {
 
 interface CodesFieldProps {
   control: Control<FormValues>;
+  formulasLanguage?: FormulasLanguages;
+  variables: Variable[];
   index: number;
   remove: UseFieldArrayRemove;
   move: UseFieldArrayMove;
@@ -170,6 +192,8 @@ interface CodesFieldProps {
 
 function CodesField({
   control,
+  formulasLanguage,
+  variables,
   index,
   remove,
   move,
@@ -224,9 +248,18 @@ function CodesField({
         name={`${namePrefix}.label` as `codes.${number}.label`}
         control={control}
         rules={{ required: true }}
-        render={({ field, fieldState: { error } }) => (
-          <Input className="col-start-2" error={error?.message} {...field} />
-        )}
+        render={({ field, fieldState: { error } }) =>
+          formulasLanguage === FormulasLanguages.VTL ? (
+            <VTLEditor
+              className="col-start-2 h-20"
+              suggestionsVariables={variables}
+              error={error?.message}
+              {...field}
+            />
+          ) : (
+            <Input className="col-start-2" error={error?.message} {...field} />
+          )
+        }
       />
       <ButtonIcon
         className="col-start-3 h-12"
@@ -245,6 +278,8 @@ function CodesField({
         <CodesField
           key={v.id}
           control={control}
+          formulasLanguage={formulasLanguage}
+          variables={variables}
           index={index}
           remove={removeSubCode}
           move={moveSubCode}

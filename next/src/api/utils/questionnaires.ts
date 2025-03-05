@@ -8,7 +8,10 @@ import {
 } from '../models/pogues';
 import { computeCodesLists, computePoguesCodesLists } from './codesLists';
 import { computePoguesFlowLogic } from './flowLogic';
-import { computePoguesFormulasLanguage } from './formulasLanguage';
+import {
+  computeFormulasLanguage,
+  computePoguesFormulasLanguage,
+} from './formulasLanguage';
 import { computePoguesTargetModes, computeTargetModes } from './targetModes';
 
 /** Compute a questionnaire that can be used in our app from API data. */
@@ -23,6 +26,7 @@ export function computeQuestionnaire(
       ? new Date(datum.lastUpdatedDate)
       : undefined,
     codesLists: computeCodesLists(datum.CodeLists?.CodeList),
+    formulasLanguage: computeFormulasLanguage(datum.formulasLanguage),
   };
 }
 

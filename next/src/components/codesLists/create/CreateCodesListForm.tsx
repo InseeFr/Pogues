@@ -5,17 +5,23 @@ import { useTranslation } from 'react-i18next';
 
 import { putCodesList } from '@/api/codesLists';
 import { CodesList } from '@/models/codesLists';
+import { FormulasLanguages } from '@/models/questionnaires';
+import { Variable } from '@/models/variables/variables';
 import { uid } from '@/utils/utils';
 
 import CodesListForm, { FormValues } from '../form/CodesListForm';
 
 interface CreateCodesListFormProps {
   questionnaireId: string;
+  formulasLanguage?: FormulasLanguages;
+  variables: Variable[];
 }
 
 /** Create a new code list. */
 export default function CreateCodesListForm({
   questionnaireId,
+  formulasLanguage,
+  variables,
 }: Readonly<CreateCodesListFormProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -60,6 +66,8 @@ export default function CreateCodesListForm({
   return (
     <CodesListForm
       questionnaireId={questionnaireId}
+      formulasLanguage={formulasLanguage}
+      variables={variables}
       onSubmit={submitForm}
       submitLabel={t('common.create')}
     />
