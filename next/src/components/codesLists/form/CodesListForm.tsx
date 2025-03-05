@@ -56,12 +56,17 @@ const codesSchema: z.ZodType<ZCodeSchema> = baseCodeSchema.extend({
   codes: z.lazy(() => codesSchema.array()),
 });
 
-const schema = z.object({
-  label: z.string().min(1, { message: t('codesList.form.mustProvideLabel') }),
-  codes: codesSchema
-    .array()
-    .min(1, { message: t('codesList.form.mustProvideCodes') }),
-});
+const schema = z
+  .object({
+    label: z.string().min(1, { message: t('codesList.form.mustProvideLabel') }),
+    codes: codesSchema
+      .array()
+      .min(1, { message: t('codesList.form.mustProvideCodes') }),
+  })
+  .superRefine((data, ctx) => {
+    // Handle duplicate on code values
+    validateDuplicateValues(data.codes, 'codes', ctx);
+  });
 
 export type FormValues = z.infer<typeof schema>;
 
@@ -89,11 +94,18 @@ export default function CodesListForm({
     control,
     handleSubmit,
     formState: { isDirty, isValid },
+    trigger,
+    setValue,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: codesList,
     resolver: zodResolver(schema),
   });
+
+  const handleFieldChange = async (name: string, value: string) => {
+    setValue(name, value);
+    await trigger(); // Trigger revalidation to check for duplicates and other errors
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -116,6 +128,7 @@ export default function CodesListForm({
           control={control}
           formulasLanguage={formulasLanguage}
           variables={variables}
+          handleFieldChange={handleFieldChange}
         />
       </div>
       <div className="flex gap-x-2 mt-6">
@@ -141,12 +154,14 @@ interface CodesFieldsProps {
   control: Control<FormValues>;
   formulasLanguage?: FormulasLanguages;
   variables: Variable[];
+  handleFieldChange: (name: string, value: string) => void;
 }
 
 function CodesFields({
   control,
   formulasLanguage,
   variables,
+  handleFieldChange,
 }: Readonly<CodesFieldsProps>) {
   const name = 'codes';
   const { fields, append, remove, move } = useFieldArray({
@@ -168,6 +183,7 @@ function CodesFields({
           isFirst={index === 0}
           isLast={index === fields.length - 1}
           parentName={name}
+          handleFieldChange={handleFieldChange}
         />
       ))}
       <button
@@ -192,6 +208,7 @@ interface CodesFieldProps {
   isLast?: boolean;
   parentName: string;
   subCodeIteration?: number;
+  handleFieldChange: (name: string, value: string) => void;
 }
 
 function CodesField({
@@ -205,6 +222,7 @@ function CodesField({
   isLast = false,
   parentName,
   subCodeIteration = 0,
+  handleFieldChange,
 }: Readonly<CodesFieldProps>) {
   const namePrefix = `${parentName}.${index}`;
   const {
@@ -244,7 +262,11 @@ function CodesField({
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
-            <Input error={error?.message} {...field} />
+            <Input
+              error={error?.message}
+              {...field}
+              onChange={(e) => handleFieldChange(field.name, e.target.value)}
+            />
           )}
         />
       </div>
@@ -291,8 +313,59 @@ function CodesField({
           isLast={index === fields.length - 1}
           parentName={`${namePrefix}.codes`}
           subCodeIteration={subCodeIteration + 1}
+          handleFieldChange={handleFieldChange}
         />
       ))}
     </>
   );
+}
+
+// Helper function to check for duplicate values and add errors
+function validateDuplicateValues(
+  codes: ZCodeSchema[],
+  pathPrefix: string,
+  ctx: z.RefinementCtx,
+) {
+  const valuePaths: { value: string; paths: string[] }[] = [];
+
+  // Function to collect values and their paths recursively
+  const collectValues = (codes: ZCodeSchema[], pathPrefix: string) => {
+    codes.forEach((code, index) => {
+      const currentPath = `${pathPrefix}.${index}.value`; // Path to the value field
+
+      // Add the value and path to the valuePaths array
+      const existingValue = valuePaths.find(
+        (item) => item.value === code.value,
+      );
+      if (existingValue) {
+        // If value exists, push the path
+        existingValue.paths.push(currentPath);
+      } else {
+        // If value does not exist, create a new entry
+        valuePaths.push({ value: code.value, paths: [currentPath] });
+      }
+
+      // If the code has subcodes, we add them recursively
+      if (code.codes?.length) {
+        collectValues(code.codes, `${pathPrefix}.${index}.codes`);
+      }
+    });
+  };
+
+  // Collect all values and their paths
+  collectValues(codes, pathPrefix);
+
+  // Check for duplicates and add validation issues for duplicate values
+  valuePaths.forEach(({ value, paths }) => {
+    if (paths.length > 1) {
+      // If the value appears more than once, it's a duplicate
+      paths.forEach((path) => {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Duplicate value: "${value}"`,
+          path: path.split('.'), // Add issue to all paths where the value appears
+        });
+      });
+    }
+  });
 }
