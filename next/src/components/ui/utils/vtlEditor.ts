@@ -6,7 +6,7 @@ import {
 } from '@making-sense/antlr-editor/model';
 
 import { DatatypeType } from '@/models/variables/datatype';
-import { Variable, VariableType } from '@/models/variables/variables';
+import { Variable } from '@/models/variables/variables';
 
 export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
   const antlrVariablesArray = variables.map((variable) => {
@@ -24,20 +24,11 @@ export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
         type = AntlrVariableType.STRING;
     }
 
-    // Determine the role (MEASURE, IDENTIFIER) based on the variable type
-    let role: AntlrVariableRole;
-    if (variable.type === VariableType.Collected) {
-      role = AntlrVariableRole.MEASURE;
-    } else {
-      // External and Calculated variables
-      role = AntlrVariableRole.IDENTIFIER;
-    }
-
     return [
       variable.name,
       {
         type,
-        role,
+        role: AntlrVariableRole.IDENTIFIER,
         name: variable.name,
         label: variable.label,
       },
