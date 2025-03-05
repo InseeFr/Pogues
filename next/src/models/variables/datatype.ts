@@ -31,31 +31,11 @@ export enum DateFormat {
   Year = 'YYYY',
 }
 
-export interface YearDate {
-  year: number;
-}
-
-export interface YearMonthDate extends YearDate {
-  month: number;
-}
-
-export interface YearMonthDayDate extends YearMonthDate {
-  day: number;
-}
-
-type Date<F extends DateFormat> = F extends DateFormat.Year
-  ? YearDate
-  : F extends DateFormat.YearMonth
-    ? YearMonthDate
-    : F extends DateFormat.YearMonthDay
-      ? YearMonthDayDate
-      : never;
-
 type DateDatatype<F extends DateFormat> = {
   typeName: DatatypeType.Date;
   format: F;
-  minimum?: Date<F>;
-  maximum?: Date<F>;
+  minimum?: Date;
+  maximum?: Date;
 };
 
 /**

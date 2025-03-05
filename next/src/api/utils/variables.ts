@@ -4,9 +4,6 @@ import {
   DateFormat,
   DurationFormat,
   MinuteSecondDuration,
-  YearDate,
-  YearMonthDate,
-  YearMonthDayDate,
   YearMonthDuration,
 } from '@/models/variables/datatype';
 import {
@@ -112,36 +109,6 @@ function computeDuration(
   }
 }
 
-/** Provides a date object from API concatenated string value, depending on the date format.
- *
- *  Examples : P5Y2M -> {years: 5, months: 2} ; P5H2M -> {hours: 5, minutes: 2}
- */
-function computeDate(
-  value: string,
-  format: DateFormat,
-): YearMonthDayDate | YearMonthDate | YearDate {
-  switch (format) {
-    case DateFormat.YearMonthDay: {
-      const match = matchRegex(/^(\d{4})-(\d{2})-(\d{2})$/, value, format);
-      return {
-        year: parseInt(match[1]),
-        month: parseInt(match[2]),
-        day: parseInt(match[3]),
-      };
-    }
-    case DateFormat.YearMonth: {
-      const match = matchRegex(/^(\d{4})-(\d{2})$/, value, format);
-      return { year: parseInt(match[1]), month: parseInt(match[2]) };
-    }
-    case DateFormat.Year: {
-      const match = matchRegex(/^(\d{4})$/, value, format);
-      return { year: parseInt(match[1]) };
-    }
-    default:
-      throw new Error(`Unknown date format: ${format}`);
-  }
-}
-
 function computeDatatype(datatype: PoguesVariable['Datatype']): DataType {
   switch (datatype.type) {
     case 'BooleanDatatypeType':
@@ -152,12 +119,8 @@ function computeDatatype(datatype: PoguesVariable['Datatype']): DataType {
       return {
         typeName: DatatypeType.Date,
         format,
-        minimum: datatype.Minimum
-          ? computeDate(datatype.Minimum, format)
-          : undefined,
-        maximum: datatype.Maximum
-          ? computeDate(datatype.Maximum, format)
-          : undefined,
+        minimum: datatype.Minimum ? new Date(datatype.Minimum) : undefined,
+        maximum: datatype.Maximum ? new Date(datatype.Maximum) : undefined,
       };
     }
 

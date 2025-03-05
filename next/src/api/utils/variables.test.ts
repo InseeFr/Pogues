@@ -158,8 +158,8 @@ describe('computeVariable', () => {
         datatype: {
           typeName: DatatypeType.Date,
           format: DateFormat.YearMonthDay,
-          minimum: { year: 1900, month: 1, day: 10 },
-          maximum: { year: 2020, month: 12, day: 20 },
+          minimum: new Date('1900-01-10'),
+          maximum: new Date('2020-12-20'),
         },
         codeListReference: 'ref',
         scope: 'scope',
@@ -193,8 +193,8 @@ describe('computeVariable', () => {
         datatype: {
           typeName: DatatypeType.Date,
           format: DateFormat.YearMonth,
-          minimum: { year: 1900, month: 1 },
-          maximum: { year: 2020, month: 12 },
+          minimum: new Date('1900-01'),
+          maximum: new Date('2020-12'),
         },
         codeListReference: 'ref',
         scope: 'scope',
@@ -228,8 +228,8 @@ describe('computeVariable', () => {
         datatype: {
           typeName: DatatypeType.Date,
           format: DateFormat.Year,
-          minimum: { year: 1900 },
-          maximum: { year: 2020 },
+          minimum: new Date('1900'),
+          maximum: new Date('2020'),
         },
         codeListReference: 'ref',
         scope: 'scope',
