@@ -1,11 +1,11 @@
 import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+
 /**
- *
  * @param {*} codes The list of codes
  */
-export function sortByWeight(codes) {
+function sortByWeight(codes) {
   return (code1, code2) => {
     const weight1 = codes[code1].weight;
     const weight2 = codes[code2].weight;
@@ -14,8 +14,9 @@ export function sortByWeight(codes) {
     return 0;
   };
 }
+
 export function remoteToCodesState(codes, parent = '', depth = 1) {
-  return codes
+  const res = codes
     .filter(
       (c) => c.Parent === parent || (parent === '' && c.Parent === undefined),
     )
@@ -38,7 +39,10 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         ...remoteToCodesState(codes, codeState.value, depth + 1),
       };
     }, {});
+  console.debug('[remoteToCodesState]', codes, res);
+  return res;
 }
+
 export function getcodelistwithclarification(remote, variableclarification) {
   remote.forEach((codelist) => {
     variableclarification.forEach((clarif) => {
@@ -62,12 +66,25 @@ export function getcodelistwithclarification(remote, variableclarification) {
   });
   return remote;
 }
+
+/**
+ * Transform API codes list from a codes list.
+ *
+ * Our codes list get the precision information if a related calculated variable exists.
+ */
 export function remoteToStore(remote, variableclarification) {
-  const remotecode = getcodelistwithclarification(
+  const remoteCodesList = getcodelistwithclarification(
     remote,
     variableclarification,
   );
-  return remotecode.reduce((acc, codesList) => {
+  console.debug(
+    '[remoteToStore]',
+    remote,
+    variableclarification,
+    remoteCodesList,
+  );
+  const res = {};
+  for (const codesList of remoteCodesList) {
     const {
       id,
       Label: label,
@@ -76,28 +93,28 @@ export function remoteToStore(remote, variableclarification) {
       Urn: urn,
       SuggesterParameters: suggesterParameters,
     } = codesList;
-    return {
-      ...acc,
-      [id]: urn
-        ? {
-            id,
-            label,
-            name,
-            urn,
-            suggesterParameters,
-          }
-        : {
-            id,
-            label,
-            codes: remoteToCodesState(codes),
-            name: name || '',
-          },
-    };
-  }, {});
+    res[id] = urn
+      ? {
+          id,
+          label,
+          name,
+          urn,
+          suggesterParameters,
+        }
+      : {
+          id,
+          label,
+          codes: remoteToCodesState(codes),
+          name: name || '',
+        };
+  }
+  return res;
 }
+
 export function remoteToState(remote) {
   return { id: remote };
 }
+
 /**
  * @param {*} codes The list of codes
  * @param {*} depth The depth of a code
@@ -117,6 +134,7 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
       [],
     );
 }
+
 export function storeToRemote(store) {
   return Object.keys(store).reduce((acc, key) => {
     const {

@@ -1,5 +1,4 @@
 import { VARIABLES_TYPES } from '../constants/pogues-constants';
-import { removeOrphansCodesLists } from '../utils/codes-lists/codes-lists-utils';
 import * as CalculatedVariable from './transformations/calculated-variable';
 import * as CodesList from './transformations/codes-list';
 import * as CollectedVariable from './transformations/collected-variable';
@@ -75,20 +74,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
       filters,
     ),
   };
-  const condListLinked = removeOrphansCodesLists(
-    codesListsStore,
-    componentByQuestionnaire[id],
-  );
-  if (
-    Object.values(condListLinked).length !==
-    Object.values(codesListsStore).length
-  ) {
-    Object.values(codesListsStore).forEach((code) => {
-      if (!condListLinked[code.id]) {
-        code.isDuplicated = true;
-      }
-    });
-  }
   const codeListByQuestionnaire = {
     [id]: codesListsStore,
   };
