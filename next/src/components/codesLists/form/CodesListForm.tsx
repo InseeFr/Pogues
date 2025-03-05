@@ -250,14 +250,14 @@ function CodesField({
         rules={{ required: true }}
         render={({ field, fieldState: { error } }) =>
           formulasLanguage === FormulasLanguages.VTL ? (
-            <Input className="col-start-2" error={error?.message} {...field} />
-          ) : (
             <VTLEditor
               className="col-start-2 h-20"
               suggestionsVariables={variables}
               error={error?.message}
               {...field}
             />
+          ) : (
+            <Input className="col-start-2" error={error?.message} {...field} />
           )
         }
       />
