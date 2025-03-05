@@ -90,7 +90,8 @@ function computeDurationFormat(format?: string): DurationFormat {
   }
 }
 
-/** Provides a duration object from API concatenated string value, depending on the duration format.
+/**
+ * Provides a duration object from API concatenated string value, depending on the duration format.
  *
  *  Examples : P5Y2M -> {years: 5, months: 2} ; P5H2M -> {hours: 5, minutes: 2}
  */

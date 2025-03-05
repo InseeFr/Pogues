@@ -523,8 +523,9 @@ type DurationDatatypeType = DatatypeType & {
 
 type NumericDatatypeType = DatatypeType & {
   type: 'NumericDatatypeType';
-  /** Both Minimum and Maximum are string containing a number */
+  /** Minimum is a string containing a number */
   Minimum?: string;
+  /** Maximum is a string containing a number */
   Maximum?: string;
   /** Number of decimal places. It is a string containing a number */
   Decimals?: string;
