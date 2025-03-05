@@ -8,9 +8,9 @@ import { describe, expect, it } from 'vitest';
 import { DatatypeType } from '@/models/variables/datatype';
 import { Variable, VariableType } from '@/models/variables/variables';
 
-import { getAntlrVariables } from './vtlEditor';
+import { computeAntlrVariables } from './vtlEditor';
 
-describe('getAntlrVariables', () => {
+describe('computeAntlrVariables', () => {
   it('should convert boolean variables correctly', () => {
     const input = [
       {
@@ -54,7 +54,7 @@ describe('getAntlrVariables', () => {
       },
     };
 
-    expect(getAntlrVariables(input)).toEqual(expectedOutput);
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
   });
 
   it('should convert numeric variables correctly', () => {
@@ -100,7 +100,7 @@ describe('getAntlrVariables', () => {
       },
     };
 
-    expect(getAntlrVariables(input)).toEqual(expectedOutput);
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
   });
 
   it('should convert text variables correctly', () => {
@@ -146,7 +146,7 @@ describe('getAntlrVariables', () => {
       },
     };
 
-    expect(getAntlrVariables(input)).toEqual(expectedOutput);
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
   });
 
   it('should convert date variables correctly', () => {
@@ -192,7 +192,7 @@ describe('getAntlrVariables', () => {
       },
     };
 
-    expect(getAntlrVariables(input)).toEqual(expectedOutput);
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
   });
 
   it('should convert duration variables correctly', () => {
@@ -238,10 +238,10 @@ describe('getAntlrVariables', () => {
       },
     };
 
-    expect(getAntlrVariables(input)).toEqual(expectedOutput);
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
   });
 
   it('should return an empty object when given an empty array', () => {
-    expect(getAntlrVariables([])).toEqual({});
+    expect(computeAntlrVariables([])).toEqual({});
   });
 });

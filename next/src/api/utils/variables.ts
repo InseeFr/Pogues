@@ -81,10 +81,9 @@ function computeDateFormat(format?: PoguesDateFormat): DateFormat {
 /** Compute date format from API data. It's simply typed as a string in API data. */
 function computeDurationFormat(format?: string): DurationFormat {
   switch (format) {
-    case 'PnYnM':
-      return DurationFormat.YearMonth;
     case 'PTnHnM':
       return DurationFormat.MinuteSecond;
+    case 'PnYnM':
     default:
       return DurationFormat.YearMonth;
   }

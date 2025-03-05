@@ -16,7 +16,7 @@ import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import VTLEditor from '@/components/ui/VtlEditor';
+import VTLEditor from '@/components/ui/VTLEditor';
 import AddIcon from '@/components/ui/icons/AddIcon';
 import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
 import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';

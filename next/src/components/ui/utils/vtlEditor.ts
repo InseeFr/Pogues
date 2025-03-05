@@ -8,7 +8,7 @@ import {
 import { DatatypeType } from '@/models/variables/datatype';
 import { Variable, VariableType } from '@/models/variables/variables';
 
-export function getAntlrVariables(variables: Variable[]): AntlrVariables {
+export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
   const antlrVariablesArray = variables.map((variable) => {
     // Determine the type (BOOLEAN, NUMBER, STRING) based on datatype
     let type: AntlrVariableType;

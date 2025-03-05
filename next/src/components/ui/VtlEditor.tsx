@@ -11,7 +11,7 @@ import {
 
 import { Variable } from '@/models/variables/variables';
 
-import { getAntlrVariables } from './utils/vtlEditor';
+import { computeAntlrVariables } from './utils/vtlEditor';
 
 interface VTLEditorProps {
   value: string;
@@ -39,7 +39,7 @@ export default function VTLEditor({
   const [vtlErrors, setVtlErrors] = useState<Error[]>([]);
   const isError = !!error || vtlErrors.length > 0;
 
-  const antlrVariables = getAntlrVariables(suggestionsVariables);
+  const antlrVariables = computeAntlrVariables(suggestionsVariables);
 
   const customTools: Tools = {
     ...tools,
