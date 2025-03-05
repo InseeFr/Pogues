@@ -3,7 +3,7 @@ import { queryOptions } from '@tanstack/react-query';
 import { Variable } from '@/models/variables/variables';
 
 import { instance } from './instance';
-import { Variables as PoguesVariables } from './models/pogues';
+import { VariablesObject as PoguesVariables } from './models/pogues';
 import { computeVariables } from './utils/variables';
 
 /**
