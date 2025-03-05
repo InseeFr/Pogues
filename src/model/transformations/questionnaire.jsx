@@ -4,7 +4,6 @@ import {
   QUESTIONNAIRE_TYPE,
   QUESTION_END_CHILD,
 } from '../../constants/pogues-constants';
-import { removeOrphansCodesLists } from '../../utils/codes-lists/codes-lists-utils';
 import { getOrderedComponents } from '../../utils/model/redirections-utils';
 import { uuid } from '../../utils/utils';
 import {
@@ -174,17 +173,12 @@ export function stateToRemote(state, stores) {
     return { ...acc, ...collectedVariableByQuestionStore[key] };
   }, {});
 
-  // We remove from the stores the elements no associated to a component before saving
-  const codesListsWihoutOrphans = removeOrphansCodesLists(
-    codesListsStore,
-    componentsStore,
-  );
   const codesListDuplicated = Object.values(codesListsStore).filter(
     (code) => code.isDuplicated,
   );
   if (codesListDuplicated.length > 0) {
     codesListDuplicated.forEach((element) => {
-      codesListsWihoutOrphans[element.id] = element;
+      codesListsStore[element.id] = element;
     });
   }
 
@@ -241,7 +235,7 @@ export function stateToRemote(state, stores) {
   const questionEnd = QUESTION_END_CHILD;
   questionEnd.TargetMode = TargetMode;
   componentsRemote.push(QUESTION_END_CHILD);
-  const codesListsRemote = CodesList.storeToRemote(codesListsWihoutOrphans);
+  const codesListsRemote = CodesList.storeToRemote(codesListsStore);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
   );
