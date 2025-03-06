@@ -258,7 +258,6 @@ function GenericInput(props) {
             selectedComponent.type !== SEQUENCE &&
             selectedComponent.type !== EXTERNAL_ELEMENT
           }
-          top
         />
         <button
           className="btn-yellow"
@@ -270,7 +269,6 @@ function GenericInput(props) {
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
         <VisualizeDropdown
-          top
           disabled={!isQuestionnaireValid}
           questionnaireId={activeQuestionnaire.id}
           token={token}
