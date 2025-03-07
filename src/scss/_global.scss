@@ -9,7 +9,7 @@ body {
 
 .container {
   max-width: none !important;
-  width: 1280px;
+  width: min(1280px, 100%);
 }
 
 .modal-container {

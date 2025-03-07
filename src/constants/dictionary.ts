@@ -674,10 +674,6 @@ const dictionary: Dictionary = {
     fr: 'Annuler',
     en: 'Cancel',
   },
-  addObject: {
-    fr: 'Ajouter un objet',
-    en: 'Add object',
-  },
   dropHere: {
     fr: 'Déposer ici !',
     en: 'Drop here !',

@@ -181,7 +181,6 @@ function GenericInput(props) {
         }}
       </NavigationPrompt>
       <div className="actionBar">
-        <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
           className="btn-white"

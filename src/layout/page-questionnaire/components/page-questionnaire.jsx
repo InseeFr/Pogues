@@ -123,10 +123,15 @@ const PageQuestionnaire = (props) => {
       )}
       {loading && <Loader />}
       {!loadingError && !loading && (
-        <div className="absolute w-[1280px]">
+        <div>
           <GenericInput />
-          <QuestionnaireNav />
-          <QuestionnaireListComponents navigate={history.push} token={token} />
+          <div className="questionnaire-content">
+            <QuestionnaireNav />
+            <QuestionnaireListComponents
+              navigate={history.push}
+              token={token}
+            />
+          </div>
         </div>
       )}
     </div>

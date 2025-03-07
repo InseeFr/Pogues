@@ -80,8 +80,7 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
         aria-expanded={dropdownOpen}
         onClick={(e) => openDropDown(e)}
       >
-        {Dictionary.externalElement}
-        <span className="caret" />
+        {Dictionary.externalElement} <span className="caret" />
       </button>
 
       <ul className="dropdown-menu">
