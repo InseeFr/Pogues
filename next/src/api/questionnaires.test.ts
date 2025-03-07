@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import { TargetModes } from '@/models/questionnaires';
+import { FormulasLanguages, TargetModes } from '@/models/questionnaires';
 
 import {
   type Questionnaire as PoguesQuestionnaire,
@@ -31,6 +31,7 @@ const questionnaire = {
   targetModes: new Set([TargetModes.CAPI]),
   lastUpdatedDate: new Date('2024-11-19T10:36:56Z'),
   codesLists: [],
+  formulasLanguage: FormulasLanguages.VTL,
 };
 
 it('Get questionnaires works', async () => {

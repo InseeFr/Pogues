@@ -36,7 +36,7 @@ describe('computeAntlrVariables', () => {
     const expectedOutput: AntlrVariables = {
       collectedBoolean: {
         type: AntlrVariableType.BOOLEAN,
-        role: AntlrVariableRole.MEASURE,
+        role: AntlrVariableRole.IDENTIFIER,
         name: 'collectedBoolean',
         label: 'collected boolean variable',
       },
@@ -82,7 +82,7 @@ describe('computeAntlrVariables', () => {
     const expectedOutput: AntlrVariables = {
       collectedNumeric: {
         type: AntlrVariableType.NUMBER,
-        role: AntlrVariableRole.MEASURE,
+        role: AntlrVariableRole.IDENTIFIER,
         name: 'collectedNumeric',
         label: 'collected numeric variable',
       },
@@ -128,7 +128,7 @@ describe('computeAntlrVariables', () => {
     const expectedOutput: AntlrVariables = {
       collectedText: {
         type: AntlrVariableType.STRING,
-        role: AntlrVariableRole.MEASURE,
+        role: AntlrVariableRole.IDENTIFIER,
         name: 'collectedText',
         label: 'collected text variable',
       },
@@ -174,7 +174,7 @@ describe('computeAntlrVariables', () => {
     const expectedOutput: AntlrVariables = {
       collectedDate: {
         type: AntlrVariableType.STRING,
-        role: AntlrVariableRole.MEASURE,
+        role: AntlrVariableRole.IDENTIFIER,
         name: 'collectedDate',
         label: 'collected date variable',
       },
@@ -220,7 +220,7 @@ describe('computeAntlrVariables', () => {
     const expectedOutput: AntlrVariables = {
       collectedDuration: {
         type: AntlrVariableType.STRING,
-        role: AntlrVariableRole.MEASURE,
+        role: AntlrVariableRole.IDENTIFIER,
         name: 'collectedDuration',
         label: 'collected duration variable',
       },
