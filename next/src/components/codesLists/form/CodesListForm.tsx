@@ -40,8 +40,12 @@ interface CodesListFormProps {
 }
 
 const baseCodeSchema = z.object({
-  value: z.string().min(1, { message: 'Your code must have a value' }),
-  label: z.string().min(1, { message: 'Your code must have a label' }),
+  value: z
+    .string()
+    .min(1, { message: t('codesList.form.mustProvideCodeValue') }),
+  label: z
+    .string()
+    .min(1, { message: t('codesList.form.mustProvideCodeLabel') }),
 });
 
 type ZCodeSchema = z.infer<typeof baseCodeSchema> & {
@@ -53,10 +57,10 @@ const codesSchema: z.ZodType<ZCodeSchema> = baseCodeSchema.extend({
 });
 
 const schema = z.object({
-  label: z.string().min(1, { message: 'You must provide a label' }),
+  label: z.string().min(1, { message: t('codesList.form.mustProvideLabel') }),
   codes: codesSchema
     .array()
-    .min(1, { message: 'You must provide at least one code' }),
+    .min(1, { message: t('codesList.form.mustProvideCodes') }),
 });
 
 export type FormValues = z.infer<typeof schema>;
