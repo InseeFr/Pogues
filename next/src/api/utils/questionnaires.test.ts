@@ -58,6 +58,7 @@ it('computeQuestionnaire works', () => {
     targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
     codesLists: [{ id: 'idcl', label: 'cl', codes: [] }],
     lastUpdatedDate: new Date('2024-11-19T10:36:56Z'),
+    formulasLanguage: FormulasLanguages.XPath,
   };
 
   expect(computeQuestionnaire(poguesQuestionnaire)).toEqual(questionnaire);
