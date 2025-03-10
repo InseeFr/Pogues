@@ -69,14 +69,39 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   initInputCode(code) {
-    const { path, formName, change, precisionShow, Question } = this.props;
+    const {
+      path,
+      formName,
+      change,
+      precisionShow,
+      Question,
+      collectedVariablesIds,
+    } = this.props;
+
+    // Check if we have a "precision" related to our current component collected variables
+    let precisionId = '';
+    let precisionLabel = '';
+    let precisionSize = '';
+    if (code.precisionByCollectedVariableId) {
+      for (const [key, values] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (collectedVariablesIds.has(key)) {
+          precisionId = values.precisionid;
+          precisionLabel = values.precisionlabel;
+          precisionSize = values.precisionsize;
+          break;
+        }
+      }
+    }
+
     if (code) {
       change(formName, `${path}value`, code.value);
       change(formName, `${path}label`, code.label);
-      if (code.precisionid !== undefined && code.precisionid !== '') {
-        change(formName, `${path}precisionid`, code.precisionid);
-        change(formName, `${path}precisionlabel`, code.precisionlabel);
-        change(formName, `${path}precisionsize`, code.precisionsize);
+      if (precisionId) {
+        change(formName, `${path}precisionid`, precisionId);
+        change(formName, `${path}precisionlabel`, precisionLabel);
+        change(formName, `${path}precisionsize`, precisionSize);
       } else if (precisionShow) {
         change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
         change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
@@ -177,7 +202,16 @@ class CodesListInputCode extends ComponentWithValidation {
 }
 const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
+
+  const collectedVariables =
+    selector(state, `collectedVariables.collectedVariables`) || [];
+  const collectedVariablesIds = new Set();
+  for (const collectedVariable of collectedVariables) {
+    collectedVariablesIds.add(collectedVariable.id);
+  }
+
   return {
+    collectedVariablesIds,
     Question: selector(state, 'name'),
   };
 };
