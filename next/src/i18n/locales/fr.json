@@ -89,8 +89,9 @@
     "form": {
       "addCode": "+ Ajouter un code",
       "addSubCode": "Ajouter un sous-code",
-      "mustProvideLabel": "Votre code doit avoir un label",
-      "mustProvideValue": "Votre code doit avoir une valeur",
+      "mustProvideLabel": "Vous devez renseigner un label",
+      "mustProvideCodeLabel": "Votre code doit avoir un label",
+      "mustProvideCodeValue": "Votre code doit avoir une valeur",
       "mustProvideCodes": "Vous devez renseigner au moins un code",
       "moveUp": "Monter d'un niveau",
       "moveDown": "Descendre d'un niveau"

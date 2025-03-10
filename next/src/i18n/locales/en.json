@@ -89,8 +89,9 @@
     "form": {
       "addCode": "+ Add a code",
       "addSubCode": "Add a subcode",
-      "mustProvideLabel": "Your code must have a label",
-      "mustProvideValue": "Your code must have a value",
+      "mustProvideLabel": "You must provide a label",
+      "mustProvideCodeLabel": "Your code must have a label",
+      "mustProvideCodeValue": "Your code must have a value",
       "mustProvideCodes": "You must provide at least one code",
       "moveUp": "Move up",
       "moveDown": "Move down"
