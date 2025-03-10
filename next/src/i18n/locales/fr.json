@@ -22,7 +22,8 @@
     "retry": "Réessayer",
     "send": "Envoyer",
     "title": "Titre",
-    "start": "Commencer"
+    "start": "Commencer",
+    "unsavedModification": "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?"
   },
   "error": {
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."

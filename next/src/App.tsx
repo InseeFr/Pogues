@@ -4,6 +4,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { OidcProvider } from '@/contexts/oidc';
 import { useAuth } from '@/hooks/useAuth';
 
+import { DirtyStateProvider } from './hooks/useDirtyState';
 import './i18n/i18n';
 import { routeTree } from './routeTree.gen';
 
@@ -44,7 +45,9 @@ export default function App() {
         </h1>
       )}
     >
-      <InnerApp />
+      <DirtyStateProvider>
+        <InnerApp />
+      </DirtyStateProvider>
     </OidcProvider>
   );
 }

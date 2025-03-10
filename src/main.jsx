@@ -6,13 +6,13 @@ import Router from './router';
 import configureStore from './store/configure-store';
 import { OidcProvider } from './utils/oidc';
 
-export const Main = () => {
-  const store = configureStore({});
+export const Main = ({ setIsDirtyState }) => {
+  const store = configureStore({}, setIsDirtyState);
   return (
     <Provider store={store}>
       <OidcProvider>
         <BrowserRouter>
-          <Router />
+          <Router setIsDirtyState={setIsDirtyState} />
         </BrowserRouter>
       </OidcProvider>
     </Provider>
