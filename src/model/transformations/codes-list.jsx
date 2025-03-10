@@ -28,10 +28,9 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         depth,
         weight: index + 1,
       };
-      if (c.Precisionid) {
-        codeState.precisionid = c.Precisionid;
-        codeState.precisionlabel = c.Precisionlabel;
-        codeState.precisionsize = c.Precisionsize;
+      if (c.precisionByCollectedVariableId) {
+        codeState.precisionByCollectedVariableId =
+          c.precisionByCollectedVariableId;
       }
       return {
         ...acc,
@@ -39,32 +38,57 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         ...remoteToCodesState(codes, codeState.value, depth + 1),
       };
     }, {});
-  console.debug('[remoteToCodesState]', codes, res);
   return res;
 }
 
-export function getcodelistwithclarification(remote, variableclarification) {
-  remote.forEach((codelist) => {
-    variableclarification.forEach((clarif) => {
-      if (clarif.codelistid === codelist.id) {
+/** Add precision information to the provided codes lists. */
+function computeCodesListsClarifications(
+  remoteCodesLists,
+  clarificationVariables,
+) {
+  remoteCodesLists.forEach((codesList) => {
+    clarificationVariables.forEach((variable) => {
+      if (variable.codelistid === codesList.id) {
         let index = 0;
-        if (clarif.type === MULTIPLE_CHOICE) {
-          index = parseInt(clarif.position, 10);
+        if (variable.type === MULTIPLE_CHOICE) {
+          index = parseInt(variable.position, 10);
         } else {
-          index = codelist.Code.findIndex(
-            (code) => code.Value === clarif.position,
+          index = codesList.Code.findIndex(
+            (code) => code.Value === variable.position,
           );
         }
-        codelist.Code[parseInt(index, 10)] = {
-          ...codelist.Code[parseInt(index, 10)],
-          Precisionid: clarif.responseclar.Name,
-          Precisionlabel: clarif.responseclar.Label,
-          Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
+
+        const variableId =
+          variable.responseclar.Response[0].CollectedVariableReference;
+        const precision = {
+          precisionid: variable.responseclar.Name,
+          precisionlabel: variable.responseclar.Label,
+          precisionsize: variable.responseclar.Response[0].Datatype.MaxLength,
+        };
+
+        let precisionByCollectedVariableId;
+        if (
+          codesList.Code[parseInt(index, 10)].precisionByCollectedVariableId
+        ) {
+          precisionByCollectedVariableId = {
+            ...codesList.Code[parseInt(index, 10)]
+              .precisionByCollectedVariableId,
+            [variableId]: precision,
+          };
+        } else {
+          precisionByCollectedVariableId = {
+            [variableId]: precision,
+          };
+        }
+
+        codesList.Code[parseInt(index, 10)] = {
+          ...codesList.Code[parseInt(index, 10)],
+          precisionByCollectedVariableId,
         };
       }
     });
   });
-  return remote;
+  return remoteCodesLists;
 }
 
 /**
@@ -72,19 +96,13 @@ export function getcodelistwithclarification(remote, variableclarification) {
  *
  * Our codes list get the precision information if a related calculated variable exists.
  */
-export function remoteToStore(remote, variableclarification) {
-  const remoteCodesList = getcodelistwithclarification(
-    remote,
-    variableclarification,
-  );
-  console.debug(
-    '[remoteToStore]',
-    remote,
-    variableclarification,
-    remoteCodesList,
+export function remoteToStore(remoteCodesLists, clarificationVariables = []) {
+  const remoteCodesListsWithClarification = computeCodesListsClarifications(
+    remoteCodesLists,
+    clarificationVariables,
   );
   const res = {};
-  for (const codesList of remoteCodesList) {
+  for (const codesList of remoteCodesListsWithClarification) {
     const {
       id,
       Label: label,

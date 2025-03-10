@@ -30,6 +30,7 @@ function CodesListsCodes(props) {
     currentPrecisionid,
     currentPrecisionlabel,
     currentPrecisionsize,
+    collectedVariablesIds,
     meta,
     fields: { getAll, push, remove, get },
     allowPrecision,
@@ -182,6 +183,19 @@ function CodesListsCodes(props) {
       },
     };
 
+    // Check if we have a "precision" related to our current component collected variables
+    let precisionLabel = '';
+    if (code.precisionByCollectedVariableId) {
+      for (const [key, values] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (collectedVariablesIds.has(key)) {
+          precisionLabel = values.precisionlabel;
+          break;
+        }
+      }
+    }
+
     return (
       <React.Fragment key={code.value}>
         <tr className="*:py-2">
@@ -207,7 +221,7 @@ function CodesListsCodes(props) {
             <td className="py-2">
               <SpecifyAction
                 updatePrecision={actions.updatePrecision}
-                precisionLabel={code.precisionlabel}
+                precisionLabel={precisionLabel}
               />
             </td>
           ) : null}
@@ -290,6 +304,8 @@ CodesListsCodes.propTypes = {
   change: PropTypes.func.isRequired,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
+
+  collectedVariablesIds: PropTypes.isRequired,
 };
 
 CodesListsCodes.defaultProps = {

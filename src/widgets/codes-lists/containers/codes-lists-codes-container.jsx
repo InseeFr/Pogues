@@ -16,7 +16,15 @@ const propTypes = {
 export const mapStateToProps = (state, { inputCodePath, formName }) => {
   const selector = formValueSelector(formName);
 
+  const collectedVariables =
+    selector(state, `collectedVariables.collectedVariables`) || [];
+  const collectedVariablesIds = new Set();
+  for (const collectedVariable of collectedVariables) {
+    collectedVariablesIds.add(collectedVariable.id);
+  }
+
   return {
+    collectedVariablesIds,
     currentValue: selector(state, `${inputCodePath}value`),
     currentLabel: selector(state, `${inputCodePath}label`),
     currentPrecisionid: selector(state, `${inputCodePath}precisionid`),
