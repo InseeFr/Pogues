@@ -62,7 +62,7 @@ export default function VTLEditor({
         </Field.Label>
       )}
       <div
-        className={`${className} w-full text-sm font-sans font-normal p-2 rounded-lg border border-default hover:border-primary focus-within:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-within:outline focus-within:outline-1 focus-within:outline-primary`}
+        className={`${className} w-full resize-y overflow-auto text-sm font-sans font-normal p-2 rounded-lg border border-default hover:border-primary focus-within:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-within:outline focus-within:outline-1 focus-within:outline-primary`}
       >
         <AntlrEditor
           script={value}
