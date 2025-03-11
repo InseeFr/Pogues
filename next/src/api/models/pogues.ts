@@ -487,6 +487,7 @@ type SuggesterQueryParserParams = {
   language?: string;
   min?: number;
   stemmer?: boolean;
+  pattern?: string;
 };
 
 type DatatypeType = {

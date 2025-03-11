@@ -227,6 +227,7 @@ describe('collected variable tranformations', () => {
           Datatype: {
             type: 'TextDatatypeType',
             MaxLength: 1,
+            typeName: 'TEXT',
           },
           CodeListReference: 'id',
         },
@@ -902,6 +903,7 @@ describe('collected variable tranformations', () => {
     const input = {
       k23bk67e: {
         id: 'kawknt1k',
+        TEXT: { maxLength: 249 },
         codeListReference: undefined,
         codeListReferenceLabel: '',
         label: 'QUESTION1 label',
@@ -1012,7 +1014,7 @@ describe('collected variable tranformations', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
-
+        TEXT: { maxLength: 249 },
         codeListReference: '',
         codeListReferenceLabel: '',
         id: 'kawkrelo',
@@ -1143,6 +1145,7 @@ describe('collected variable tranformations', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
+        TEXT: { maxLength: 249 },
         codeListReference: '',
         codeListReferenceLabel: '',
         id: 'kawkrelo',
