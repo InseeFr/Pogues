@@ -19,8 +19,14 @@ export const LegacyComponent = () => {
       // Display confirm modal if we are in dirty state
       const shouldLeave = confirm(t('common.unsavedModification'));
 
-      // If user cancels we block navigation, otherwise we allow it
-      return !shouldLeave;
+      // The user confirms, so we pursue navigation and reset dirty state
+      if (shouldLeave) {
+        setIsDirtyState(false);
+        return false;
+      }
+
+      // The user cancels, we only block navigation
+      return true;
     },
   });
 
