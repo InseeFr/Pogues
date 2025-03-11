@@ -34,31 +34,6 @@ exports[`Simple Text > with default props 1`] = `
       />
     </div>
   </div>
-  <div
-    className="ctrl-input "
-  >
-    <label
-      htmlFor="input-TEXT.pattern"
-    >
-      Pattern
-    </label>
-    <div>
-      <input
-        disabled={false}
-        id="input-TEXT.pattern"
-        name="TEXT.pattern"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onDragStart={[Function]}
-        onDrop={[Function]}
-        onFocus={[Function]}
-        onKeyPress={[Function]}
-        placeholder="Pattern"
-        type="text"
-        value=""
-      />
-    </div>
-  </div>
 </div>
 `;
 
@@ -96,31 +71,6 @@ exports[`Simple Text > with readOnly 1`] = `
       />
     </div>
   </div>
-  <div
-    className="ctrl-input "
-  >
-    <label
-      htmlFor="input-TEXT.pattern"
-    >
-      Pattern
-    </label>
-    <div>
-      <input
-        disabled={true}
-        id="input-TEXT.pattern"
-        name="TEXT.pattern"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onDragStart={[Function]}
-        onDrop={[Function]}
-        onFocus={[Function]}
-        onKeyPress={[Function]}
-        placeholder="Pattern"
-        type="text"
-        value=""
-      />
-    </div>
-  </div>
 </div>
 `;
 
@@ -154,31 +104,6 @@ exports[`Simple Text > with required 1`] = `
         onKeyPress={[Function]}
         placeholder="Length"
         type="number"
-        value=""
-      />
-    </div>
-  </div>
-  <div
-    className="ctrl-input "
-  >
-    <label
-      htmlFor="input-TEXT.pattern"
-    >
-      Pattern
-    </label>
-    <div>
-      <input
-        disabled={false}
-        id="input-TEXT.pattern"
-        name="TEXT.pattern"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onDragStart={[Function]}
-        onDrop={[Function]}
-        onFocus={[Function]}
-        onKeyPress={[Function]}
-        placeholder="Pattern"
-        type="text"
         value=""
       />
     </div>

@@ -100,7 +100,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 250,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -123,7 +123,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 150,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -308,7 +308,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 200,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -342,7 +342,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 200,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -425,7 +425,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -529,7 +529,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'RADIO',
                 },
@@ -554,7 +554,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'DROPDOWN',
                 },
@@ -579,7 +579,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'CHECKBOX',
                 },
@@ -619,7 +619,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -650,7 +650,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -681,7 +681,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -760,7 +760,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'RADIO',
                 },
@@ -770,7 +770,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'RADIO',
                 },
@@ -780,7 +780,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'RADIO',
                 },
@@ -790,7 +790,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'RADIO',
                 },
@@ -800,7 +800,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'RADIO',
                 },
@@ -840,7 +840,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'DROPDOWN',
                 },
@@ -850,7 +850,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'DROPDOWN',
                 },
@@ -860,7 +860,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'DROPDOWN',
                 },
@@ -870,7 +870,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'DROPDOWN',
                 },
@@ -880,7 +880,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'DROPDOWN',
                 },
@@ -914,7 +914,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'CHECKBOX',
                 },
@@ -924,7 +924,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'CHECKBOX',
                 },
@@ -934,7 +934,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'CHECKBOX',
                 },
@@ -944,7 +944,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'CHECKBOX',
                 },
@@ -954,7 +954,7 @@ const questionnaires = [
                 datatype: {
                   typeName: 'TEXT',
                   maxLength: 1,
-                  pattern: '',
+
                   type: 'TextDatatypeType',
                   visHint: 'CHECKBOX',
                 },
@@ -1003,7 +1003,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -1013,7 +1013,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -1023,7 +1023,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -1137,7 +1137,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 20,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1145,7 +1145,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 20,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1153,7 +1153,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 20,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1161,7 +1161,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 20,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1169,7 +1169,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 20,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1236,7 +1236,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1246,7 +1246,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1256,7 +1256,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1266,7 +1266,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1276,7 +1276,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1368,7 +1368,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 50,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1522,7 +1522,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 50,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                     },
                   },
@@ -1531,7 +1531,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'CHECKBOX',
                     },
@@ -1802,7 +1802,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1812,7 +1812,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1822,7 +1822,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1832,7 +1832,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1842,7 +1842,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1852,7 +1852,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1862,7 +1862,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1872,7 +1872,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1882,7 +1882,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1892,7 +1892,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1902,7 +1902,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1912,7 +1912,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1922,7 +1922,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1932,7 +1932,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1942,7 +1942,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1952,7 +1952,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1962,7 +1962,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1972,7 +1972,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1982,7 +1982,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },
@@ -1992,7 +1992,7 @@ const questionnaires = [
                     datatype: {
                       typeName: 'TEXT',
                       maxLength: 1,
-                      pattern: '',
+
                       type: 'TextDatatypeType',
                       visHint: 'RADIO',
                     },

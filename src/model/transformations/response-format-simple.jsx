@@ -8,7 +8,6 @@ export function remoteToState(remote) {
         Datatype: {
           typeName,
           MaxLength: maxLength,
-          Pattern: pattern,
           Minimum: minimum,
           Maximum: maximum,
           Decimals: decimals,
@@ -23,7 +22,6 @@ export function remoteToState(remote) {
   } = remote;
   const datatype = {};
   if (maxLength !== undefined) datatype.maxLength = maxLength;
-  if (pattern !== undefined) datatype.pattern = pattern;
   if (minimum !== undefined) datatype.minimum = minimum;
   if (maximum !== undefined) datatype.maximum = maximum;
   if (decimals !== undefined) datatype.decimals = decimals;

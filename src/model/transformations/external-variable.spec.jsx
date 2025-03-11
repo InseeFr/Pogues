@@ -17,7 +17,6 @@ describe('external variable transformation', () => {
         type: 'TextDatatypeType',
         typeName: TEXT,
         MaxLength: 'maxLength',
-        Pattern: 'pattern',
       },
     },
     {
@@ -60,7 +59,6 @@ describe('external variable transformation', () => {
       scope: 'jqqchose',
       [TEXT]: {
         maxLength: 'maxLength',
-        pattern: 'pattern',
       },
     },
     2: {

@@ -494,7 +494,6 @@ describe('duplicateComponentAndVars', () => {
           mandatory: false,
           TEXT: {
             maxLength: 255,
-            pattern: '',
           },
         },
       },
@@ -523,7 +522,6 @@ describe('duplicateComponentAndVars', () => {
       codeListReferenceLabel: '',
       TEXT: {
         maxLength: 255,
-        pattern: '',
       },
     },
   };
