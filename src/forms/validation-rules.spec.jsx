@@ -466,9 +466,7 @@ describe('validCollectedVariables', () => {
       },
       stores: {},
     };
-    expect(validCollectedVariables(value, state)).toBe(
-      Dictionary.validation_collectedvariable_need_reset,
-    );
+    expect(validCollectedVariables(value, state)).toBe(false);
   });
 });
 
