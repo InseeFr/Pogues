@@ -51,7 +51,7 @@ export function stateToRemote(state) {
       criticity,
       during_collect,
       post_collect,
-      scope: scope === 'OCCURRENCE' && 'occurrence',
+      scope: scope === 'OCCURRENCE' ? 'occurrence' : 'whole',
     };
   });
 }
