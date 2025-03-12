@@ -68,7 +68,7 @@
     "lodash.takewhile": "4.6.0",
     "lodash.uniq": "4.5.0",
     "monaco-editor": "^0.51.0",
-    "oidc-spa": "^5.0.0",
+    "oidc-spa": "^6.8.2",
     "prop-types": "15.8.1",
     "react": "^18.2.0",
     "react-csv-reader": "^3.1.2",

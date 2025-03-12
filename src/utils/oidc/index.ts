@@ -12,7 +12,7 @@ export const { OidcProvider, useOidc } =
     ? createReactOidc({
         clientId: client_id,
         issuerUri: authority,
-        publicUrl: undefined,
+        homeUrl: '/',
       })
     : createMockReactOidc({
         isUserInitiallyLoggedIn: true,
@@ -23,4 +23,5 @@ export const { OidcProvider, useOidc } =
             timbre: getEnvVar('DEFAULT_USER_STAMP') ?? 'FAKEPERMISSION',
           },
         },
+        homeUrl: '/',
       });
