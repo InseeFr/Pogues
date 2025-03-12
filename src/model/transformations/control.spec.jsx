@@ -12,7 +12,7 @@ describe('control tramsformation', () => {
       criticity: 'criticity 1',
       during_collect: 'during_collect 1',
       post_collect: 'post_collect 1',
-      scope: false,
+      scope: 'whole',
     },
     {
       id: '2',
