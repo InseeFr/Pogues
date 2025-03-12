@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -12,9 +13,13 @@ export const Main = ({ setIsDirtyState }) => {
     <Provider store={store}>
       <OidcProvider>
         <BrowserRouter>
-          <Router setIsDirtyState={setIsDirtyState} />
+          <Router />
         </BrowserRouter>
       </OidcProvider>
     </Provider>
   );
+};
+
+Main.propTypes = {
+  setIsDirtyState: PropTypes.func,
 };
