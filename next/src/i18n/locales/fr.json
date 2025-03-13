@@ -23,7 +23,7 @@
     "send": "Envoyer",
     "title": "Titre",
     "start": "Commencer",
-    "unsavedModification": "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?"
+    "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?"
   },
   "error": {
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
