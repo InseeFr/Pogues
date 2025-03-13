@@ -524,8 +524,8 @@ const dictionary: Dictionary = {
     en: 'List',
   },
   modification: {
-    en: 'Your modification is not saved! Are you sure you want to leave?',
-    fr: "Votre modification n'est pas sauvegardée ! Êtes-vous sûr de vouloir quitter ?",
+    en: "You didn't save your changes. Are you sure you want to leave?",
+    fr: "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
   },
   modificationsNotSaved: {
     en: 'Your modifications are not saved!',
