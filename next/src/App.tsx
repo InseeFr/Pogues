@@ -3,8 +3,8 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { OidcProvider } from '@/contexts/oidc';
 import { useAuth } from '@/hooks/useAuth';
+import '@/i18n/i18n';
 
-import './i18n/i18n';
 import { routeTree } from './routeTree.gen';
 
 const queryClient = new QueryClient();
