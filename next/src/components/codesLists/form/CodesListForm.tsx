@@ -6,6 +6,7 @@ import {
   type SubmitHandler,
   type UseFieldArrayMove,
   type UseFieldArrayRemove,
+  UseFormTrigger,
   useFieldArray,
   useForm,
 } from 'react-hook-form';
@@ -31,12 +32,12 @@ interface CodesListFormProps {
   /** Related questionnaire id. */
   questionnaireId: string;
   formulasLanguage?: FormulasLanguages;
-  /** Variables of the questionnaire */
-  variables: Variable[];
+  /** Variables of the questionnaire used for the VTL Editor. */
+  variables?: Variable[];
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
-  /** Label to display on the submit button */
-  submitLabel: string;
+  /** Label to display on the submit button (will be "create" by default). */
+  submitLabel?: string;
 }
 
 const baseCodeSchema = z.object({
@@ -82,11 +83,11 @@ export type FormValues = z.infer<typeof schema>;
 export default function CodesListForm({
   codesList = {
     label: '',
-    codes: [],
+    codes: [{ label: '', value: '', codes: [] }],
   },
   questionnaireId,
   formulasLanguage,
-  variables,
+  variables = [],
   onSubmit,
   submitLabel,
 }: Readonly<CodesListFormProps>) {
@@ -95,17 +96,11 @@ export default function CodesListForm({
     handleSubmit,
     formState: { isDirty, isValid },
     trigger,
-    setValue,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: codesList,
     resolver: zodResolver(schema),
   });
-
-  const handleFieldChange = async (name: string, value: string) => {
-    setValue(name, value);
-    await trigger(); // Trigger revalidation to check for duplicates and other errors
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -128,7 +123,7 @@ export default function CodesListForm({
           control={control}
           formulasLanguage={formulasLanguage}
           variables={variables}
-          handleFieldChange={handleFieldChange}
+          trigger={trigger}
         />
       </div>
       <div className="flex gap-x-2 mt-6">
@@ -143,7 +138,7 @@ export default function CodesListForm({
           buttonStyle={ButtonStyle.Primary}
           disabled={!isDirty || !isValid}
         >
-          {submitLabel}
+          {submitLabel ?? t('common.create')}
         </Button>
       </div>
     </form>
@@ -154,14 +149,14 @@ interface CodesFieldsProps {
   control: Control<FormValues>;
   formulasLanguage?: FormulasLanguages;
   variables: Variable[];
-  handleFieldChange: (name: string, value: string) => void;
+  trigger: UseFormTrigger<FormValues>;
 }
 
 function CodesFields({
   control,
   formulasLanguage,
   variables,
-  handleFieldChange,
+  trigger,
 }: Readonly<CodesFieldsProps>) {
   const name = 'codes';
   const { fields, append, remove, move } = useFieldArray({
@@ -183,7 +178,7 @@ function CodesFields({
           isFirst={index === 0}
           isLast={index === fields.length - 1}
           parentName={name}
-          handleFieldChange={handleFieldChange}
+          trigger={trigger}
         />
       ))}
       <button
@@ -208,7 +203,7 @@ interface CodesFieldProps {
   isLast?: boolean;
   parentName: string;
   subCodeIteration?: number;
-  handleFieldChange: (name: string, value: string) => void;
+  trigger: UseFormTrigger<FormValues>;
 }
 
 function CodesField({
@@ -222,7 +217,7 @@ function CodesField({
   isLast = false,
   parentName,
   subCodeIteration = 0,
-  handleFieldChange,
+  trigger,
 }: Readonly<CodesFieldProps>) {
   const namePrefix = `${parentName}.${index}`;
   const {
@@ -263,9 +258,13 @@ function CodesField({
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
             <Input
+              data-testid={`${namePrefix}.value`}
               error={error?.message}
               {...field}
-              onChange={(e) => handleFieldChange(field.name, e.target.value)}
+              onChange={(e) => {
+                field.onChange(e);
+                trigger();
+              }}
             />
           )}
         />
@@ -277,13 +276,19 @@ function CodesField({
         render={({ field, fieldState: { error } }) =>
           formulasLanguage === FormulasLanguages.VTL ? (
             <VTLEditor
+              data-testid={`${namePrefix}.label`}
               className="col-start-2 h-20"
               suggestionsVariables={variables}
               error={error?.message}
               {...field}
             />
           ) : (
-            <Input className="col-start-2" error={error?.message} {...field} />
+            <Input
+              data-testid={`${namePrefix}.label`}
+              className="col-start-2"
+              error={error?.message}
+              {...field}
+            />
           )
         }
       />
@@ -313,7 +318,7 @@ function CodesField({
           isLast={index === fields.length - 1}
           parentName={`${namePrefix}.codes`}
           subCodeIteration={subCodeIteration + 1}
-          handleFieldChange={handleFieldChange}
+          trigger={trigger}
         />
       ))}
     </>
@@ -362,7 +367,7 @@ function validateDuplicateValues(
       paths.forEach((path) => {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `Duplicate value: "${value}"`,
+          message: t('codesList.form.mustProvideUniqueValue', { value }),
           path: path.split('.'), // Add issue to all paths where the value appears
         });
       });
