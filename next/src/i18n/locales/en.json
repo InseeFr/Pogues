@@ -93,6 +93,7 @@
       "mustProvideCodeLabel": "Your code must have a label",
       "mustProvideCodeValue": "Your code must have a value",
       "mustProvideCodes": "You must provide at least one code",
+      "mustProvideUniqueValue": "Value must be unique: \"{{value}}\"",
       "moveUp": "Move up",
       "moveDown": "Move down"
     }
