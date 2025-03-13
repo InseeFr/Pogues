@@ -1,15 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { Field } from '@base-ui-components/react/field';
 import { Input as UIInput } from '@base-ui-components/react/input';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
   description?: string;
   error?: string;
   label?: string;
 }
 
-const Input = React.forwardRef<HTMLInputElement>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className = '',
@@ -44,7 +45,11 @@ const Input = React.forwardRef<HTMLInputElement>(
           className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-xs border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
           {...props}
         />
-        <Field.Error className="text-sm text-error ml-1" forceShow={!!error}>
+        <Field.Error
+          className="text-sm text-error ml-1"
+          forceShow={!!error}
+          role="alert"
+        >
           {error}
         </Field.Error>
 
