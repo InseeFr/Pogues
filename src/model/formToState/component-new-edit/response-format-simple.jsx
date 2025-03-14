@@ -12,7 +12,6 @@ export const defaultForm = {
   type: TEXT,
   [TEXT]: {
     maxLength: 249,
-    pattern: '',
   },
   [NUMERIC]: {
     minimum: '',

@@ -326,7 +326,6 @@ function stateToResponseState(state) {
       codesListId,
       typeName: TEXT,
       maxLength: 1,
-      pattern: '',
       visHint,
     };
   }

@@ -55,7 +55,6 @@ function getReponsesValues(measure) {
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
-        pattern: '',
       },
     };
   }
@@ -135,7 +134,6 @@ export function getCollectedVariablesMultiple(
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
-        pattern: '',
       },
     };
   }
@@ -163,7 +161,6 @@ export function getCollectedVariablesMultiple(
             type: TEXT,
             [TEXT]: {
               maxLength: code.precisionsize,
-              pattern: '',
             },
           },
         ),
@@ -186,7 +183,6 @@ export function getCollectedVariablesSingle(questionName, form) {
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
-        pattern: '',
       },
     },
   );
@@ -229,7 +225,6 @@ export function getCollectedVariablesSingle(questionName, form) {
             codeListReference: undefined,
             [TEXT]: {
               maxLength: code.precisionsize,
-              pattern: '',
             },
           },
         ),
@@ -359,7 +354,6 @@ export function getCollectedVariablesTable(questionName, form) {
                     type: 'TEXT',
                     TEXT: {
                       maxLength: code.precisionsize,
-                      pattern: '',
                     },
                   },
                 ),

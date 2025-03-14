@@ -47,7 +47,6 @@ export function stateToRemote(state, collectedVariables) {
         codesListId,
         typeName: TEXT,
         maxLength: 1,
-        pattern: '',
         collectedVariable: collectedVariables[0],
       }),
     ],

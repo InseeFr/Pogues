@@ -29,7 +29,6 @@ export const defaultMeasureSimpleState = {
   type: TEXT,
   [TEXT]: {
     maxLength: 249,
-    pattern: '',
   },
   [NUMERIC]: {
     maximum: '',

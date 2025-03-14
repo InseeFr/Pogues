@@ -81,7 +81,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReference: form.CodesList.id,
         codeListReferenceLabel: form.CodesList.label,
         type: 'TEXT',
-        TEXT: { maxLength: 1, pattern: '' },
+        TEXT: { maxLength: 1 },
         id: result[0].id,
         name: 'questionName',
         label: 'questionName label',
@@ -131,7 +131,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReference: form.CodesList.id,
         codeListReferenceLabel: form.CodesList.label,
         type: 'TEXT',
-        TEXT: { maxLength: 1, pattern: '' },
+        TEXT: { maxLength: 1 },
         id: result[0].id,
         name: 'questionName',
         label: 'questionName label',
@@ -140,7 +140,6 @@ describe('getCollectedVariablesSingle', () => {
         type: 'TEXT',
         TEXT: {
           maxLength: 249,
-          pattern: '',
         },
         id: result[1].id,
         isCollected: '1',
@@ -169,7 +168,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReference: form.CodesList.id,
         codeListReferenceLabel: form.CodesList.label,
         type: 'TEXT',
-        TEXT: { maxLength: 1, pattern: '' },
+        TEXT: { maxLength: 1 },
       },
       {
         id: result[1].id,
@@ -226,7 +225,6 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 249,
-            pattern: '',
           },
           NUMERIC: {
             maximum: '',
@@ -261,7 +259,6 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 249,
-                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
@@ -291,7 +288,6 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 249,
-                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
@@ -323,7 +319,6 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 249,
-            pattern: '',
           },
           NUMERIC: {
             maximum: '',
@@ -388,7 +383,6 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 249,
-            pattern: '',
           },
           NUMERIC: {
             maximum: '',
@@ -418,7 +412,6 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 249,
-                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
@@ -448,7 +441,6 @@ describe('getCollectedVariablesTable', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 249,
-                pattern: '',
               },
               NUMERIC: {
                 maximum: '',
@@ -480,7 +472,6 @@ describe('getCollectedVariablesTable', () => {
           type: 'TEXT',
           TEXT: {
             maxLength: 249,
-            pattern: '',
           },
           NUMERIC: {
             maximum: '',

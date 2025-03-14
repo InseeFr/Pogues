@@ -102,17 +102,6 @@ describe('response tranformations', () => {
 
     expect(result.Datatype.MaxLength).toEqual(maxLength);
   });
-  test('when Pattern is defined', () => {
-    const typeName = 'DATE';
-    const pattern = 1;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      pattern,
-    });
-
-    expect(result.Datatype.Pattern).toEqual(pattern);
-  });
   test('when Minimum is defined', () => {
     const typeName = 'DATE';
     const minimum = 1;
