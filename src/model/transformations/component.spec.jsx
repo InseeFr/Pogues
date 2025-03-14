@@ -26,7 +26,6 @@ describe('component tranformations', () => {
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
                       MaxLength: 249,
-                      Pattern: '',
                     },
                     id: 'khj4qhmd',
                     mandatory: false,
@@ -128,7 +127,6 @@ describe('component tranformations', () => {
                 typeName: 'TEXT',
                 type: 'TextDatatypeType',
                 MaxLength: 249,
-                Pattern: '',
               },
               Label: 'QUESTION label',
               Name: 'QUESTION',
@@ -142,7 +140,6 @@ describe('component tranformations', () => {
               Label: 'SUGGESTER label',
               Datatype: {
                 type: 'TextDatatypeType',
-                Pattern: '',
                 typeName: 'TEXT',
                 MaxLength: 1,
               },
@@ -207,7 +204,7 @@ describe('component tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
+              TEXT: { maxLength: 249 },
               id: 'khj4qhmd',
               mandatory: false,
               type: 'TEXT',
@@ -336,7 +333,6 @@ describe('component tranformations', () => {
               mandatory: false,
               TEXT: {
                 maxLength: 249,
-                pattern: '',
               },
             },
           },
@@ -380,7 +376,7 @@ describe('component tranformations', () => {
           DATE: undefined,
           DURATION: undefined,
           NUMERIC: undefined,
-          TEXT: { maxLength: 249, pattern: '' },
+          TEXT: { maxLength: 249 },
           codeListReference: undefined,
           codeListReferenceLabel: '',
           id: 'khj4uvok',
@@ -412,7 +408,6 @@ describe('component tranformations', () => {
                     typeName: 'TEXT',
                     type: 'TextDatatypeType',
                     MaxLength: 249,
-                    Pattern: '',
                   },
                   id: 'khj4qhmd',
                   mandatory: false,

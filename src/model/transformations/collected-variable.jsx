@@ -222,7 +222,6 @@ export function storeToRemote(store, componentsStore) {
       codeListReference,
       [typeName]: {
         maxLength: MaxLength,
-        pattern: Pattern,
         minimum: Minimum,
         maximum: Maximum,
         decimals: Decimals,
@@ -284,8 +283,6 @@ export function storeToRemote(store, componentsStore) {
     }
 
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
-
-    if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
 
     if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
       if (Format === 'PnYnM') {

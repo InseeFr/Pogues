@@ -6,7 +6,6 @@ export const defaultTypageForm = {
   type: TEXT,
   [TEXT]: {
     maxLength: 249,
-    pattern: '',
   },
   [NUMERIC]: {
     minimum: '',

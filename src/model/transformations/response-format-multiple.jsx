@@ -88,7 +88,6 @@ export function stateToRemote(
       typeName: TEXT,
       visHint,
       maxLength: 1,
-      pattern: '',
     };
   } else {
     responseState = { typeName: BOOLEAN };

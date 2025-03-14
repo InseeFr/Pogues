@@ -21,7 +21,6 @@ describe('calculated variables tranformations', () => {
           Formula: 'formula 1',
           Datatype: {
             MaxLength: 2,
-            Pattern: '',
             type: 'TextDatatypeType',
             typeName: TEXT,
           },
@@ -69,7 +68,6 @@ describe('calculated variables tranformations', () => {
           type: TEXT,
           [TEXT]: {
             maxLength: 2,
-            pattern: '',
           },
         },
         2: {
@@ -112,7 +110,6 @@ describe('calculated variables tranformations', () => {
           Formula: 'formula 1',
           Datatype: {
             MaxLength: 3,
-            Pattern: '',
             Minimum: '',
             Maximum: '',
             Decimals: '',

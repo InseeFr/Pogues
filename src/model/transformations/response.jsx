@@ -10,7 +10,6 @@ export function stateToRemote(state, response) {
     mandatory,
     typeName,
     maxLength: MaxLength,
-    pattern: Pattern,
     minimum: Minimum,
     maximum: Maximum,
     decimals: Decimals,
@@ -60,7 +59,6 @@ export function stateToRemote(state, response) {
   if (visualizationHint !== undefined)
     model.Datatype.visualizationHint = visualizationHint;
   if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
-  if (Pattern !== undefined) model.Datatype.Pattern = Pattern;
   if (Minimum !== undefined) model.Datatype.Minimum = Minimum;
   if (Maximum !== undefined) model.Datatype.Maximum = Maximum;
   if (Decimals !== undefined) model.Datatype.Decimals = Decimals;

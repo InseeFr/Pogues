@@ -22,7 +22,6 @@ describe('collected variable tranformations', () => {
           Datatype: {
             typeName: TEXT,
             MaxLength: 100,
-            Pattern: 'pattern',
           },
         },
       ];
@@ -39,7 +38,6 @@ describe('collected variable tranformations', () => {
           [TEXT]: {
             decimals: undefined,
             maxLength: 100,
-            pattern: 'pattern',
             maximum: undefined,
             minimum: undefined,
             unit: undefined,
@@ -228,9 +226,8 @@ describe('collected variable tranformations', () => {
           Label: 'SUGGESTER label',
           Datatype: {
             type: 'TextDatatypeType',
-            Pattern: '',
-            typeName: 'TEXT',
             MaxLength: 1,
+            typeName: 'TEXT',
           },
           CodeListReference: 'id',
         },
@@ -272,7 +269,6 @@ describe('collected variable tranformations', () => {
           codeListReferenceLabel: 'label',
           TEXT: {
             maxLength: 1,
-            pattern: '',
           },
         },
         m6atzjnb: {
@@ -306,7 +302,6 @@ describe('collected variable tranformations', () => {
           CollectedVariableReference: 'jbcggt4x',
           Datatype: {
             MaxLength: 249,
-            Pattern: '',
             type: 'TextDatatypeType',
             typeName: 'TEXT',
           },
@@ -332,7 +327,6 @@ describe('collected variable tranformations', () => {
           [TEXT]: {
             decimals: undefined,
             maxLength: 100,
-            pattern: 'pattern',
             maximum: undefined,
             minimum: undefined,
             unit: undefined,
@@ -362,7 +356,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
+              TEXT: { maxLength: 249 },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -398,7 +392,6 @@ describe('collected variable tranformations', () => {
             type: 'TextDatatypeType',
             typeName: TEXT,
             MaxLength: 100,
-            Pattern: 'pattern',
           },
         },
       ];
@@ -436,7 +429,7 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              NUMERIC: { maxLength: 249, pattern: '' },
+              NUMERIC: { maxLength: 249 },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'NUMERIC',
@@ -494,7 +487,6 @@ describe('collected variable tranformations', () => {
           [DATE]: {
             decimals: undefined,
             maxLength: undefined,
-            pattern: undefined,
             format: 'yyyy',
             minimum: '2090',
             maximum: '',
@@ -525,7 +517,6 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -580,7 +571,6 @@ describe('collected variable tranformations', () => {
           [DURATION]: {
             decimals: undefined,
             maxLength: undefined,
-            pattern: undefined,
             format: 'PTnHnM',
             minimum: undefined,
             maximum: undefined,
@@ -611,7 +601,6 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -666,8 +655,6 @@ describe('collected variable tranformations', () => {
           type: DURATION,
           [DURATION]: {
             decimals: undefined,
-            maxLength: undefined,
-            pattern: undefined,
             format: 'PnYnM',
             minimum: undefined,
             maximum: undefined,
@@ -698,7 +685,6 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -755,7 +741,6 @@ describe('collected variable tranformations', () => {
           [DURATION]: {
             decimals: undefined,
             maxLength: undefined,
-            pattern: undefined,
             format: 'PnYnM',
             minimum: undefined,
             maximum: undefined,
@@ -786,7 +771,6 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -841,7 +825,6 @@ describe('collected variable tranformations', () => {
           [DURATION]: {
             decimals: undefined,
             maxLength: undefined,
-            pattern: undefined,
             format: 'PTnHnM',
             minimum: undefined,
             maximum: undefined,
@@ -873,7 +856,6 @@ describe('collected variable tranformations', () => {
           responseFormat: {
             type: 'SIMPLE',
             SIMPLE: {
-              TEXT: { maxLength: 249, pattern: '' },
               id: 'kaph6l3y',
               mandatory: false,
               type: 'TEXT',
@@ -921,7 +903,7 @@ describe('collected variable tranformations', () => {
     const input = {
       k23bk67e: {
         id: 'kawknt1k',
-        TEXT: { maxLength: 249, pattern: '' },
+        TEXT: { maxLength: 249 },
         codeListReference: undefined,
         codeListReferenceLabel: '',
         label: 'QUESTION1 label',
@@ -946,7 +928,6 @@ describe('collected variable tranformations', () => {
         responseFormat: {
           type: 'SIMPLE',
           SIMPLE: {
-            TEXT: { maxLength: 249, pattern: '' },
             id: 'kawknyfn',
             mandatory: false,
             type: 'TEXT',
@@ -1015,7 +996,6 @@ describe('collected variable tranformations', () => {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
           MaxLength: 249,
-          Pattern: '',
         },
         Label: 'QUESTION1 label',
         Name: 'QUESTION1',
@@ -1034,7 +1014,7 @@ describe('collected variable tranformations', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
-        TEXT: { maxLength: 249, pattern: '' },
+        TEXT: { maxLength: 249 },
         codeListReference: '',
         codeListReferenceLabel: '',
         id: 'kawkrelo',
@@ -1086,7 +1066,6 @@ describe('collected variable tranformations', () => {
                   mandatory: undefined,
                   TEXT: {
                     maxLength: 249,
-                    pattern: '',
                   },
                 },
               },
@@ -1148,7 +1127,6 @@ describe('collected variable tranformations', () => {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
           MaxLength: 249,
-          Pattern: '',
         },
         Label: 'tab',
         Name: 'QUESTION21',
@@ -1167,7 +1145,7 @@ describe('collected variable tranformations', () => {
         DATE: undefined,
         DURATION: undefined,
         NUMERIC: undefined,
-        TEXT: { maxLength: 249, pattern: '' },
+        TEXT: { maxLength: 249 },
         codeListReference: '',
         codeListReferenceLabel: '',
         id: 'kawkrelo',
@@ -1219,7 +1197,6 @@ describe('collected variable tranformations', () => {
                   mandatory: undefined,
                   TEXT: {
                     maxLength: 249,
-                    pattern: '',
                   },
                 },
               },
@@ -1259,7 +1236,6 @@ describe('collected variable tranformations', () => {
           typeName: 'TEXT',
           type: 'TextDatatypeType',
           MaxLength: 249,
-          Pattern: '',
         },
         Label: 'tab',
         Name: 'QUESTION21',

@@ -463,7 +463,6 @@ function getClarificationresponseSingleChoiseQuestion(
         mandatory: false,
         typeName: collected.type,
         maxLength: collected.TEXT.maxLength,
-        pattern: '',
         collectedVariable: collected.id,
       };
       if (findResponse?.Response) {
@@ -548,7 +547,6 @@ function getClarificationResponseMultipleChoiceQuestion(
           mandatory: false,
           typeName: collected.type,
           maxLength: collected.TEXT.maxLength,
-          pattern: '',
           collectedVariable: collected.id,
         };
         if (findResponse?.Response[0]) {
@@ -649,7 +647,6 @@ function getClarificationResponseTableQuestion(
                 mandatory: false,
                 typeName: varib.type,
                 maxLength: code.precisionsize,
-                pattern: '',
                 collectedVariable: varib.id,
               };
               if (findResponse?.Response[0]) {

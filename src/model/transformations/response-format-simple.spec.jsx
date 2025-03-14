@@ -14,7 +14,6 @@ describe('redirection transformation', () => {
               Datatype: {
                 typeName: 'typeName',
                 MaxLength: 'maxLength',
-                Pattern: 'pattern',
                 Minimum: 'minimum',
                 Maximum: 'maximum',
                 Decimals: 'decimals',
@@ -33,7 +32,6 @@ describe('redirection transformation', () => {
         type: 'typeName',
         typeName: {
           maxLength: 'maxLength',
-          pattern: 'pattern',
           minimum: 'minimum',
           maximum: 'maximum',
           decimals: 'decimals',

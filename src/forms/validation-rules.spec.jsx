@@ -185,7 +185,6 @@ describe('validCollectedVariables', () => {
         type: 'TEXT',
         TEXT: {
           maxLength: 1,
-          pattern: '',
         },
       },
     ];
@@ -230,7 +229,6 @@ describe('validCollectedVariables', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 1,
-                pattern: '',
               },
             },
           ],
@@ -270,7 +268,6 @@ describe('validCollectedVariables', () => {
         type: 'TEXT',
         TEXT: {
           maxLength: 1,
-          pattern: '',
         },
       },
     ];
@@ -318,7 +315,6 @@ describe('validCollectedVariables', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 1,
-                pattern: '',
               },
             },
           ],
@@ -358,7 +354,6 @@ describe('validCollectedVariables', () => {
         type: 'TEXT',
         TEXT: {
           maxLength: 1,
-          pattern: '',
         },
       },
     ];
@@ -372,7 +367,6 @@ describe('validCollectedVariables', () => {
             type: 'TEXT',
             TEXT: {
               maxLength: 249,
-              pattern: '',
             },
           },
         },
@@ -392,7 +386,6 @@ describe('validCollectedVariables', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 1,
-                pattern: '',
               },
             },
           ],
@@ -432,7 +425,6 @@ describe('validCollectedVariables', () => {
         type: 'TEXT',
         TEXT: {
           maxLength: 249,
-          pattern: '',
         },
       },
     ];
@@ -446,7 +438,6 @@ describe('validCollectedVariables', () => {
             type: 'TEXT',
             TEXT: {
               maxLength: 249,
-              pattern: 222,
             },
           },
         },
@@ -466,7 +457,6 @@ describe('validCollectedVariables', () => {
               type: 'TEXT',
               TEXT: {
                 maxLength: 249,
-                pattern: '',
               },
             },
           ],
@@ -476,9 +466,7 @@ describe('validCollectedVariables', () => {
       },
       stores: {},
     };
-    expect(validCollectedVariables(value, state)).toBe(
-      Dictionary.validation_collectedvariable_need_reset,
-    );
+    expect(validCollectedVariables(value, state)).toBe(false);
   });
 });
 

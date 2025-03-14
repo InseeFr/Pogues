@@ -20,13 +20,6 @@ function ResponseFormatDatatypeText({ name, required, readOnly }) {
           required={required}
           disabled={readOnly}
         />
-        <Field
-          name="pattern"
-          type="text"
-          component={Input}
-          label={Dictionary.pattern}
-          disabled={readOnly}
-        />
       </div>
     </FormSection>
   );

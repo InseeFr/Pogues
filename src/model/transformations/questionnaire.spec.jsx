@@ -167,7 +167,7 @@ describe('questionnaire', () => {
               name: 'QUESTION',
               label: 'QUESTION label',
               type: 'TEXT',
-              TEXT: { maxLength: 1, pattern: '' },
+              TEXT: { maxLength: 1 },
               codeListReference: 'jf0w3fab',
               codeListReferenceLabel: 'code list 1',
             },
@@ -206,7 +206,6 @@ describe('questionnaire', () => {
                     CollectedVariableReference: 'jf0vqq4j',
                     Datatype: {
                       MaxLength: 1,
-                      Pattern: '',
                       type: 'TextDatatypeType',
                       typeName: 'TEXT',
                       visualizationHint: 'CHECKBOX',
@@ -280,7 +279,6 @@ describe('questionnaire', () => {
               CodeListReference: 'jf0w3fab',
               Datatype: {
                 MaxLength: 1,
-                Pattern: '',
                 type: 'TextDatatypeType',
                 typeName: 'TEXT',
               },
@@ -346,7 +344,7 @@ describe('questionnaire', () => {
             responseFormat: {
               type: 'SIMPLE',
               SIMPLE: {
-                TEXT: { maxLength: 249, pattern: '' },
+                TEXT: { maxLength: 249 },
                 id: 'kgs4v6eo',
                 mandatory: false,
                 type: 'TEXT',
@@ -431,7 +429,7 @@ describe('questionnaire', () => {
               label: 'QUESTION1 label',
               name: 'QUESTION1',
               type: 'TEXT',
-              TEXT: { maxLength: 249, pattern: '' },
+              TEXT: { maxLength: 249 },
             },
           },
         },
@@ -468,7 +466,6 @@ describe('questionnaire', () => {
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
                       MaxLength: 249,
-                      Pattern: '',
                     },
                     id: 'kgs4v6eo',
                     mandatory: false,
@@ -543,7 +540,6 @@ describe('questionnaire', () => {
                 typeName: 'TEXT',
                 type: 'TextDatatypeType',
                 MaxLength: 249,
-                Pattern: '',
               },
               Label: 'QUESTION1 label',
               Name: 'QUESTION1',

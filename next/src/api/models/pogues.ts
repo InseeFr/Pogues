@@ -486,8 +486,8 @@ type SuggesterQueryParser = {
 type SuggesterQueryParserParams = {
   language?: string;
   min?: number;
-  pattern?: string;
   stemmer?: boolean;
+  pattern?: string;
 };
 
 type DatatypeType = {
@@ -550,14 +550,6 @@ type TextDatatypeType = DatatypeType & {
   type: 'TextDatatypeType';
   /** Maximum text response size in number of characters */
   MaxLength?: number;
-  /**
-   * NOT FUNCTIONAL
-   *
-   * The pattern allows you to specify regular expressions.
-   *
-   * Pattern should perhaps be attached to the answer rather than the question.
-   */
-  Pattern?: string;
 };
 
 export enum DatatypeTypeEnum {

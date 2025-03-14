@@ -13,7 +13,6 @@ describe('response format single', () => {
             type: 'TextDatatypeType',
             visualizationHint: 'CHECKBOX',
             MaxLength: 1,
-            Pattern: '',
           },
           CollectedVariableReference: 'jf0vqq4j',
           CodeListReference: 'jf0w3fab',
@@ -46,7 +45,6 @@ describe('response format single', () => {
           CollectedVariableReference: 'jf0vqq4j',
           Datatype: {
             MaxLength: 1,
-            Pattern: '',
             type: 'TextDatatypeType',
             typeName: 'TEXT',
             visualizationHint: 'CHECKBOX',
