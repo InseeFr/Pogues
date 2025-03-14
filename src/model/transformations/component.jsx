@@ -686,6 +686,7 @@ function getClarificationResponseTableQuestion(
   };
 }
 
+/** Compute the arbitrary response form the store and our collected variables. */
 function getArbitraryResponse(collectedVariablesStore, collectedVariables) {
   const collectedVariableQuestions = [];
   Object.values(collectedVariablesStore).forEach((collec) => {

@@ -48,8 +48,6 @@ const defaultProps = {
   },
 };
 
-// Componet
-
 /** Add, update or remove a precision for a code. */
 class CodesListInputCode extends ComponentWithValidation {
   static propTypes = propTypes;
@@ -98,11 +96,18 @@ class CodesListInputCode extends ComponentWithValidation {
     if (code) {
       change(formName, `${path}value`, code.value);
       change(formName, `${path}label`, code.label);
-      if (precisionId) {
+      if (code.precisionid) {
+        // redux form data
+        change(formName, `${path}precisionid`, code.precisionid);
+        change(formName, `${path}precisionlabel`, code.precisionlabel);
+        change(formName, `${path}precisionsize`, code.precisionsize);
+      } else if (precisionId) {
+        // state data
         change(formName, `${path}precisionid`, precisionId);
         change(formName, `${path}precisionlabel`, precisionLabel);
         change(formName, `${path}precisionsize`, precisionSize);
       } else if (precisionShow) {
+        // default value on create
         change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
         change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
         change(formName, `${path}precisionsize`, 249);
@@ -172,7 +177,7 @@ class CodesListInputCode extends ComponentWithValidation {
             <button
               className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
               onClick={remove}
-              aria-label={Dictionary.remove}
+              title={Dictionary.remove}
             >
               <span className="glyphicon glyphicon-trash" aria-hidden="true" />
             </button>
