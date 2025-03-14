@@ -7,7 +7,7 @@ import { CodesLists } from '../../../../codes-lists';
 function ResponseFormatTableSecondaryOptional({ selectorPath }) {
   return (
     <div>
-      <CodesLists selectorPathParent={selectorPath} />
+      <CodesLists selectorPathParent={selectorPath} allowPrecision={false} />
     </div>
   );
 }

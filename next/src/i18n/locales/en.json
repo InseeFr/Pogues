@@ -64,6 +64,8 @@
     "common": {
       "code": "Code",
       "code_other": "Codes",
+      "codeLabel": "Modality label",
+      "codeValue": "Modality code",
       "label": "Label",
       "value": "Value"
     },

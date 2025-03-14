@@ -117,8 +117,8 @@ export default function CodesListForm({
         )}
       />
       <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
-        <Label className="col-start-1">{t('codesList.common.value')}</Label>
-        <Label className="col-start-2">{t('codesList.common.label')}</Label>
+        <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
+        <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>
         <CodesFields
           control={control}
           formulasLanguage={formulasLanguage}

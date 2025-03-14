@@ -329,38 +329,6 @@ export function getCollectedVariablesTable(questionName, form) {
     );
   }
 
-  // In all cases : add additional variables due to precision
-  form.LIST_MEASURE?.measures.SINGLE_CHOICE?.CodesList?.codes.map(
-    ({ id, codes }) =>
-      codes
-        .filter((code) => code.precisionid && code.precisionid !== '')
-        .map((code) =>
-          collectedVariables
-            .filter(
-              (variable) =>
-                variable.codeListReference && variable.codeListReference === id,
-            )
-            .map((variable) =>
-              collectedVariables.push(
-                getCollectedVariable(
-                  `${variable.name}${code.value}CL`,
-                  `${variable.name}${code.value}CL label`,
-                  {
-                    z: code.weight,
-                    mesureLevel: variable.x,
-                    isCollected: '1',
-                  },
-                  {
-                    type: 'TEXT',
-                    TEXT: {
-                      maxLength: code.precisionsize,
-                    },
-                  },
-                ),
-              ),
-            ),
-        ),
-  );
   return collectedVariables.sort(sortByYXAndZ());
 }
 
