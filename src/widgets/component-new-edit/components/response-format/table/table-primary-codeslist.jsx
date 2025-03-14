@@ -16,7 +16,10 @@ const ResponseFormatTablePrincipalCodeslist = ({ selectorPathParent }) => {
   return (
     <div className="axis-primary__panel">
       <FormSection name={selectorPath}>
-        <CodesLists selectorPathParent={selectorPathComposed} />
+        <CodesLists
+          selectorPathParent={selectorPathComposed}
+          allowPrecision={false}
+        />
       </FormSection>
     </div>
   );

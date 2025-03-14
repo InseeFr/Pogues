@@ -468,20 +468,20 @@ function getClarificationresponseSingleChoiseQuestion(
       if (findResponse?.Response) {
         responseModel.id = findResponse.Response[0].id;
       }
-      const clafication = {
+      const clarification = {
         id: findResponse ? findResponse.id : uuid(),
         questionType: QUESTION_TYPE_ENUM.SIMPLE,
-        Name: code.precisionid,
-        Label: code.precisionlabel,
+        Name: code.precisionByCollectedVariableId[collected.id].precisionid,
+        Label: code.precisionByCollectedVariableId[collected.id].precisionlabel,
         TargetMode: TargetMode,
         Response: [Response.stateToRemote(responseModel)],
       };
-      ClarificationQuestion.push(clafication);
+      ClarificationQuestion.push(clarification);
       const clarficationredirection = {
         id: findFlow ? findFlow.id : uuid(),
         label: `$${collectedvariablequestion[0].name}$ = '${code.value}' : ${collected.name}`,
         condition: `$${collectedvariablequestion[0].name}$ = '${code.value}'`,
-        cible: clafication.id,
+        cible: clarification.id,
         flowControlType: 'CLARIFICATION',
       };
       const clarficationredirectionid = clarficationredirection.id;
@@ -552,20 +552,21 @@ function getClarificationResponseMultipleChoiceQuestion(
         if (findResponse?.Response[0]) {
           responseModel.id = findResponse.Response[0].id;
         }
-        const clafication = {
+        const clarification = {
           id: findResponse ? findResponse.id : uuid(),
           questionType: QUESTION_TYPE_ENUM.SIMPLE,
-          Name: code.precisionid,
-          Label: code.precisionlabel,
+          Name: code.precisionByCollectedVariableId[collected.id].precisionid,
+          Label:
+            code.precisionByCollectedVariableId[collected.id].precisionlabel,
           TargetMode: TargetMode,
           Response: [Response.stateToRemote(responseModel)],
         };
-        ClarificationQuestion.push(clafication);
+        ClarificationQuestion.push(clarification);
         const clarficationredirection = {
           id: findFlow ? findFlow.id : uuid(),
           label: `$${collectedVar.name}$ = '1' : ${collected.name}`,
           condition: `$${collectedVar.name}$ = '1'`,
-          cible: clafication.id,
+          cible: clarification.id,
           flowControlType: 'CLARIFICATION',
         };
         const clarficationredirectionid = clarficationredirection.id;
@@ -588,9 +589,7 @@ function getClarificationResponseTableQuestion(
   codesListsStore,
   responseFormat,
   FlowControl,
-  TargetMode,
   responsesClarification,
-  flowControl,
 ) {
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
@@ -626,23 +625,11 @@ function getClarificationResponseTableQuestion(
                 (varibale) => varibale.z === code.weight,
               );
             collectedvariablequestionPrecision.forEach((varib) => {
-              const variableTable = collectedvariablequestion.find(
-                (varTab) =>
-                  varTab.x === varib.mesureLevel &&
-                  varTab.codeListReference ===
-                    mesure.SINGLE_CHOICE.CodesList.id,
-              );
               const findResponse = responsesClarification
                 ? responsesClarification.find(
                     (element) => element.Name === varib.name,
                   )
                 : undefined;
-              const findFlow =
-                flowControl && findResponse
-                  ? flowControl.find(
-                      (element) => element.IfTrue === findResponse.id,
-                    )
-                  : undefined;
               const responseModel = {
                 mandatory: false,
                 typeName: varib.type,
@@ -652,27 +639,6 @@ function getClarificationResponseTableQuestion(
               if (findResponse?.Response[0]) {
                 responseModel.id = findResponse.Response[0].id;
               }
-              const clafication = {
-                id: findResponse ? findResponse.id : uuid(),
-                questionType: QUESTION_TYPE_ENUM.SIMPLE,
-                Name: varib.name,
-                Label: code.precisionlabel,
-                TargetMode: TargetMode,
-                Response: [Response.stateToRemote(responseModel)],
-              };
-              ClarificationQuestion.push(clafication);
-              const clarficationredirection = {
-                id: findFlow ? findFlow.id : uuid(),
-                label: `$${variableTable.name}$ = '${code.value}' : ${varib.name}`,
-                condition: `$${variableTable.name}$ = '${code.value}'`,
-                cible: clafication.id,
-                flowControlType: 'CLARIFICATION',
-              };
-              const clarficationredirectionid = clarficationredirection.id;
-              const flow = Redirection.stateToRemote({
-                [clarficationredirectionid]: clarficationredirection,
-              });
-              flowcontrolefinal.push(flow[0]);
             });
           }
         });
@@ -813,9 +779,7 @@ function storeToRemoteNested(
         codesListsStore,
         responseFormat,
         remote.FlowControl,
-        TargetMode,
         responsesClarification,
-        flowControl,
       );
       remote.FlowControl = remoteclarification.flowcontrolefinal;
       remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;

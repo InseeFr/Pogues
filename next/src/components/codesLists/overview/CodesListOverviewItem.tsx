@@ -100,8 +100,8 @@ export default function CodesListOverviewItem({
         <table className="table-auto border border-default w-full shadow-sm">
           <thead className="bg-accent">
             <tr className="*:font-semibold *:p-4 text-left">
-              <th>{t('codesList.common.value')}</th>
-              <th>{t('codesList.common.label')}</th>
+              <th>{t('codesList.common.codeValue')}</th>
+              <th>{t('codesList.common.codeLabel')}</th>
             </tr>
           </thead>
           <tbody className="text-default">
