@@ -33,7 +33,6 @@
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.1",
     "react-i18next": "^15.4.0",
-    "vite-envs": "^4.6.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -60,6 +59,7 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
+    "vite-envs": "^4.6.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.0"
   }
