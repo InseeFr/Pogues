@@ -22,14 +22,14 @@ const poguesQuestionnaire = {
   TargetMode: [SurveyModeEnum.CAPI],
   DataCollection: [],
   lastUpdatedDate:
-    'Tue Nov 19 2024 11:36:56 GMT+0100 (heure normale d’Europe centrale)',
+    'Tue Nov 19 2024 11:36:56 GMT+0000 (Coordinated Universal Time)',
 };
 
 const questionnaire = {
   id: 'id',
   title: 'title',
   targetModes: new Set([TargetModes.CAPI]),
-  lastUpdatedDate: new Date('2024-11-19T10:36:56Z'),
+  lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
   codesLists: [],
   formulasLanguage: FormulasLanguages.VTL,
 };

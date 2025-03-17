@@ -44,7 +44,7 @@ export function computeNewPoguesQuestionnaire(
     owner: stamp,
     flowLogic: computePoguesFlowLogic(datum.flowLogic),
     formulasLanguage: computePoguesFormulasLanguage(datum.formulasLanguage),
-    lastUpdatedDate: new Date().toString(),
+    lastUpdatedDate: new Date().toISOString(),
     CodeLists: { CodeList: [] },
     ...computeLegacyPoguesParameters(targetModes),
   };
@@ -62,7 +62,7 @@ export function computePoguesQuestionnaire(
     id: datum.id,
     flowLogic: computePoguesFlowLogic(datum.flowLogic),
     formulasLanguage: computePoguesFormulasLanguage(datum.formulasLanguage),
-    lastUpdatedDate: datum.lastUpdatedDate?.toString(),
+    lastUpdatedDate: datum.lastUpdatedDate?.toISOString(),
     CodeLists: { CodeList: computePoguesCodesLists(datum.codesLists) },
     ...computeLegacyPoguesParameters(targetModes),
   };

@@ -26,7 +26,7 @@ it('computeQuestionnaire works', () => {
     TargetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
     DataCollection: [],
     lastUpdatedDate:
-      "Tue Nov 19 2024 11:36:56 GMT+0100 (heure normale d'Europe centrale)",
+      'Tue Nov 19 2024 11:36:56 GMT+0000 (Coordinated Universal Time)',
     Variables: { Variable: [] },
     agency: 'fr.insee',
     childQuestionnaireRef: [],
@@ -57,7 +57,7 @@ it('computeQuestionnaire works', () => {
     title: 'title',
     targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
     codesLists: [{ id: 'idcl', label: 'cl', codes: [] }],
-    lastUpdatedDate: new Date('2024-11-19T10:36:56Z'),
+    lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
     formulasLanguage: FormulasLanguages.XPath,
   };
 
@@ -100,8 +100,7 @@ describe('computeNewPoguesQuestionnaire', () => {
       },
     ],
     CodeLists: { CodeList: [] },
-    lastUpdatedDate:
-      'Tue Feb 01 2000 13:00:00 GMT+0100 (heure normale d’Europe centrale)',
+    lastUpdatedDate: '2000-02-01T13:00:00.000Z',
   };
 
   it('works', () => {
@@ -158,8 +157,7 @@ it('computePoguesQuestionnaire works', () => {
     Label: ['title'],
     TargetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
     DataCollection: [],
-    lastUpdatedDate:
-      'Tue Nov 19 2024 11:36:56 GMT+0100 (heure normale d’Europe centrale)',
+    lastUpdatedDate: '2024-11-19T10:36:56.000Z',
     Variables: { Variable: [] },
     agency: 'fr.insee',
     childQuestionnaireRef: [],
