@@ -3,8 +3,10 @@ name: Pogues Test CI
 on:
   push:
     branches: ['main', 'next']
+    paths-ignore: ['next/**']
   pull_request:
     types: [opened, synchronize, reopened]
+    paths-ignore: ['next/**']
 
 jobs:
   test:
