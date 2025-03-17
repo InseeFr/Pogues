@@ -38,7 +38,7 @@ jobs:
       is_pre_release: ${{ contains(steps.version.outputs.prop, '-rc' ) }}
       next_version: ${{ steps.next_version.outputs.prop }}
       next_is_version_changed: ${{ steps.next_check.outputs.exists == 'false' }}
-      next_is_pre_release: ${{ contains(steps.next_check.outputs.prop, '-rc' ) }}
+      next_is_pre_release: ${{ contains(steps.next_version.outputs.prop, '-rc' ) }}
     steps:
       - uses: actions/checkout@v4
       - id: version
