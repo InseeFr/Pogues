@@ -80,7 +80,6 @@
       "title": "Listes de codes"
     },
     "create": {
-      "importCSV": "Importer une liste de codes depuis un fichier CSV",
       "success": "La liste de codes a été créée",
       "title": "Nouvelle liste de codes"
     },

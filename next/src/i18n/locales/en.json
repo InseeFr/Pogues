@@ -66,8 +66,7 @@
       "code_other": "Codes",
       "codeLabel": "Modality label",
       "codeValue": "Modality code",
-      "label": "Label",
-      "value": "Value"
+      "label": "Label"
     },
     "overview": {
       "create": "Create a code list",
@@ -81,7 +80,6 @@
       "title": "Codes Lists"
     },
     "create": {
-      "importCSV": "Import a codes list from a CSV file",
       "success": "The code list has been created",
       "title": "New codes list"
     },
