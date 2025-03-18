@@ -62,7 +62,10 @@ function computeCodesListsClarifications(
           variable.responseclar.Response[0].CollectedVariableReference;
         const precision = {
           precisionid: variable.responseclar.Name,
-          precisionlabel: variable.responseclar.Label[0],
+          precisionlabel:
+            typeof variable.responseclar.Label === 'string'
+              ? variable.responseclar.Label
+              : variable.responseclar.Label[0],
           precisionsize: variable.responseclar.Response[0].Datatype.MaxLength,
         };
 

@@ -78,7 +78,6 @@ function CodesListsCodes(props) {
     };
     setActiveCodeIndex(undefined);
 
-    console.debug(values);
     push(values);
     clearInputCode();
   }, [

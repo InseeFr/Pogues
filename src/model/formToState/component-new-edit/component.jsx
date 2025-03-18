@@ -1,5 +1,6 @@
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { nameFromLabel, uuid, verifyVariable } from '../../../utils/utils';
+import CodesList from '../codes-lists/codes-list';
 import CalculatedVariable from './calculated-variable';
 import CollectedVariable from './collected-variable';
 import Control from './control';
@@ -73,13 +74,16 @@ export function formToState(form, transformers) {
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
-  return {
+  const res = {
     name: newName,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
     label: verifyVariable(label),
-    responseFormat: transformers.responseFormat.formToState(responseFormat),
+    responseFormat: transformers.responseFormat.formToState(
+      responseFormat,
+      collectedVariables.collectedVariables,
+    ),
     collectedVariables:
       transformers.collectedVariable.formToComponentState(collectedVariables),
     TargetMode: TargetMode.split(','),
@@ -97,6 +101,10 @@ export function formToState(form, transformers) {
     occurrenceDescription: occurrenceDescription,
     locked: locked,
   };
+  transformers.codesList.formToComponentState(
+    res.responseFormat[res.responseFormat.type].CodesList,
+  );
+  return res;
 }
 
 export function stateToForm(currentState, transformers, activeQuestionnaire) {
@@ -191,6 +199,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     ),
     calculatedVariable: CalculatedVariable(calculatedVariablesStore),
     externalVariable: ExternalVariable(externalVariablesStore),
+    codesList: CodesList(currentState.codesList, codesListsStore),
   };
 
   return {

@@ -28,24 +28,62 @@ export const defaultForm = {
   type: '',
 };
 
-export function formToState(form, transformers) {
+export function formToState(form, collectedVariables, transformers) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
+  const { CodesList } = responseFormatForm;
+  const newCodes = [];
+  for (const code of CodesList.codes) {
+    const { precisionid, precisionlabel, precisionsize } = code;
+    if (precisionid) {
+      for (const collectedVariable of collectedVariables) {
+        if (precisionid === collectedVariable.name) {
+          const newCode = {
+            ...code,
+            precisionByCollectedVariableId: {
+              ...code.precisionByCollectedVariableId,
+              [collectedVariable.id]: {
+                precisionid,
+                precisionlabel,
+                precisionsize,
+              },
+            },
+          };
+          delete newCode.precisionid;
+          delete newCode.precisionlabel;
+          delete newCode.precisionsize;
+          newCodes.push(newCode);
+        }
+      }
+    } else {
+      newCodes.push(code);
+    }
+  }
+  const formWithNewCodes = {
+    ...responseFormatForm,
+    CodesList: { ...responseFormatForm.CodesList, codes: newCodes },
+    [type]: {
+      ...responseFormatForm[type],
+      CodesList: { ...responseFormatForm.CodesList, codes: newCodes },
+    },
+  };
+
   if (type === SINGLE_CHOICE) {
-    state[type] = transformers.single.formToState(responseFormatForm);
+    state[type] = transformers.single.formToState(formWithNewCodes);
   } else if (type === MULTIPLE_CHOICE) {
-    state[type] = transformers.multiple.formToState(responseFormatForm);
+    state[type] = transformers.multiple.formToState(formWithNewCodes);
   } else if (type === TABLE) {
-    state[type] = transformers.table.formToState(responseFormatForm);
+    state[type] = transformers.table.formToState(formWithNewCodes);
   } else if (type === PAIRING) {
-    state[type] = transformers.pairing.formToState(responseFormatForm);
+    state[type] = transformers.pairing.formToState(formWithNewCodes);
   } else {
-    state[type] = transformers.simple.formToState(responseFormatForm);
+    state[type] = transformers.simple.formToState(formWithNewCodes);
   }
 
+  state[type].CodesList = { ...CodesList, codes: newCodes };
   return state;
 }
 
@@ -74,9 +112,9 @@ const Factory = (initialState = {}, codesListsStore) => {
   };
 
   return {
-    formToState: (form) => {
+    formToState: (form, collectedVariables) => {
       if (form) {
-        const state = formToState(form, transformers);
+        const state = formToState(form, collectedVariables, transformers);
         currentState = merge(cloneDeep(currentState), state);
         return state;
       }
