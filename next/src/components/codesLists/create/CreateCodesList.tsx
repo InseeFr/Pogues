@@ -5,7 +5,6 @@ import ContentMain from '@/components/ui/ContentMain';
 import { FormulasLanguages } from '@/models/questionnaires';
 import { Variable } from '@/models/variables/variables';
 
-import CreateCodesListCSVImport from './CreateCodesListCSVImport';
 import CreateCodesListForm from './CreateCodesListForm';
 
 interface CreateCodesListProps {
@@ -29,7 +28,6 @@ export default function CreateCodesList({
     <div>
       <ContentHeader title={t('codesList.create.title')} />
       <ContentMain>
-        <CreateCodesListCSVImport />
         <div className="bg-default p-4 border border-default shadow-xl">
           <CreateCodesListForm
             questionnaireId={questionnaireId}
