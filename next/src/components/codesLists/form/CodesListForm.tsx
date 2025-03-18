@@ -126,7 +126,7 @@ export default function CodesListForm({
           trigger={trigger}
         />
       </div>
-      <div className="flex gap-x-2 mt-6">
+      <div className="flex gap-x-2 mt-6 justify-end">
         <ButtonLink
           to="/questionnaire/$questionnaireId/codes-lists"
           params={{ questionnaireId }}
