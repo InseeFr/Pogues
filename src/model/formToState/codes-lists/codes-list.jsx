@@ -28,12 +28,10 @@ export function formToState(form) {
     urn = '',
     suggesterParameters = {},
   } = form;
-  const codesStore = codes.reduce((acc, c) => {
-    return {
-      ...acc,
-      [c.value]: { ...c },
-    };
-  }, {});
+  const codesStore = {};
+  for (const code of codes) {
+    codesStore[code.value] = code;
+  }
   return urn === ''
     ? {
         id: id || uuid(),
@@ -85,9 +83,11 @@ export const Factory = (currentState = {}, codesListsStore) => {
   return {
     formToStateComponent: (form) => {
       if (form) currentState = formToState(form);
-      return {
-        id: currentState.id,
-      };
+      return currentState;
+    },
+    formToComponentState: (form) => {
+      if (form) currentState = formToState(form);
+      return currentState;
     },
     formToState: (form) => {
       if (form) currentState = formToState(form);
@@ -103,3 +103,5 @@ export const Factory = (currentState = {}, codesListsStore) => {
     },
   };
 };
+
+export default Factory;

@@ -448,7 +448,11 @@ function getClarificationresponseSingleChoiseQuestion(
       ? false
       : Object.values(
           codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
-        ).find((code) => code.weight === collected.z);
+        ).find(
+          (code) =>
+            code.precisionByCollectedVariableId &&
+            code.precisionByCollectedVariableId[collected.id],
+        );
     if (code) {
       const findResponse = responsesClarification
         ? responsesClarification.find(
