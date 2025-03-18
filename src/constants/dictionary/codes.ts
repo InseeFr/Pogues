@@ -7,8 +7,8 @@ export const codesDictionary: Dictionary = {
     en: 'Codes list',
   },
   selectCodesListType: {
-    fr: 'Spécifier la liste de codes',
-    en: 'Specify the codes list',
+    fr: 'Choisir une liste de codes',
+    en: 'Select a codes list',
   },
   code: {
     fr: 'Code de la modalité',
