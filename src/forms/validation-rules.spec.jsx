@@ -343,6 +343,187 @@ describe('validCollectedVariables', () => {
     );
   });
 
+  it("should return an error when precision's collected variable does not exist", () => {
+    const value = [
+      {
+        id: 'var1',
+        name: 'Q1',
+        label: 'Q1 label',
+        codeListReference: 'cl-1',
+        codeListReferenceLabel: 'ma code list',
+        type: 'TEXT',
+      },
+    ];
+    const state = {
+      form: {
+        name: 'Q1',
+        label: 'ma question',
+        responseFormat: {
+          type: 'SINGLE_CHOICE',
+          SINGLE_CHOICE: {
+            CodesList: {
+              id: 'cl-1',
+              label: 'ma code list',
+              codes: [
+                {
+                  value: 'A',
+                  label: 'A',
+                  precisionid: 'Q1ACL',
+                  precisionlabel: 'Préciser :',
+                  precisionsize: 249,
+                },
+                {
+                  value: 'B',
+                  label: 'B',
+                },
+              ],
+            },
+          },
+        },
+        collectedVariables: {
+          type: 'TEXT',
+          collectedVariables: [
+            {
+              id: 'var1',
+              name: 'Q1',
+              label: 'Q1 label',
+              codeListReference: 'cl-1',
+              codeListReferenceLabel: 'ma code list',
+              type: 'TEXT',
+            },
+          ],
+        },
+      },
+      stores: {
+        'cl-1': {
+          id: 'cl-1',
+          label: 'ma code list',
+          codes: {
+            A: {
+              value: 'A',
+              label: 'A',
+            },
+            B: {
+              value: 'B',
+              label: 'B',
+            },
+          },
+        },
+      },
+    };
+    expect(validCollectedVariables(value, state)).toBe(
+      Dictionary.validation_collectedvariable_need_reset,
+    );
+  });
+
+  it("should be valid when precision's collected variable exists", () => {
+    const value = [
+      {
+        id: 'var1',
+        name: 'Q1',
+        label: 'Q1 label',
+        codeListReference: 'cl-1',
+        codeListReferenceLabel: 'ma code list',
+        type: 'TEXT',
+      },
+      {
+        id: 'var2',
+        name: 'Q1ACL',
+        label: 'Q1ACL label',
+        codeListReference: undefined,
+        codeListReferenceLabel: '',
+        type: 'TEXT',
+      },
+    ];
+    const state = {
+      form: {
+        name: 'Q1',
+        label: 'ma question',
+        responseFormat: {
+          type: 'SINGLE_CHOICE',
+          SINGLE_CHOICE: {
+            CodesList: {
+              id: 'cl-1',
+              label: 'ma code list',
+              codes: [
+                {
+                  value: 'A',
+                  label: 'A',
+                  precisionByCollectedVariableId: {
+                    var2: {
+                      precisionid: 'Q1ACL',
+                      precisionlabel: 'Préciser :',
+                      precisionsize: 249,
+                    },
+                    var3: {
+                      precisionid: 'Q2ACL',
+                      precisionlabel: 'Préciser :',
+                      precisionsize: 249,
+                    },
+                  },
+                },
+                {
+                  value: 'B',
+                  label: 'B',
+                },
+              ],
+            },
+          },
+        },
+        collectedVariables: {
+          type: 'TEXT',
+          collectedVariables: [
+            {
+              id: 'var1',
+              name: 'Q1',
+              label: 'Q1 label',
+              codeListReference: 'cl-1',
+              codeListReferenceLabel: 'ma code list',
+              type: 'TEXT',
+            },
+            {
+              id: 'var2',
+              name: 'Q1ACL',
+              label: 'Q1ACL label',
+              codeListReference: undefined,
+              codeListReferenceLabel: '',
+              type: 'TEXT',
+            },
+          ],
+        },
+      },
+      stores: {
+        'cl-1': {
+          id: 'cl-1',
+          label: 'ma code list',
+          codes: {
+            A: {
+              value: 'A',
+              label: 'A',
+              precisionByCollectedVariableId: {
+                var2: {
+                  precisionid: 'Q1ACL',
+                  precisionlabel: 'Préciser :',
+                  precisionsize: 249,
+                },
+                var3: {
+                  precisionid: 'Q2ACL',
+                  precisionlabel: 'Préciser :',
+                  precisionsize: 249,
+                },
+              },
+            },
+            B: {
+              value: 'B',
+              label: 'B',
+            },
+          },
+        },
+      },
+    };
+    expect(validCollectedVariables(value, state)).toBe(undefined);
+  });
+
   it('should return an error if the codeListReference is not undefined if type === SIMPLE', () => {
     const value = [
       {

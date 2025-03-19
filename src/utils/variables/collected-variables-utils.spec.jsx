@@ -39,7 +39,7 @@ describe('generateCollectedVariables', () => {
 });
 
 describe('getCollectedVariablesSingle', () => {
-  test('should return collected variables for QCU without precision in codesList', () => {
+  test('works for QCU without precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
       CodesList: {
@@ -49,33 +49,19 @@ describe('getCollectedVariablesSingle', () => {
           {
             value: 'value1',
             label: 'label1',
-            depth: 1,
             weight: 1,
-            parent: '',
-            precisionid: '',
-            precisionlabel: '',
-            precisionsize: '',
           },
           {
             value: 'value2',
             label: 'label2',
-            depth: 1,
             weight: 2,
-            parent: '',
-            precisionid: '',
-            precisionlabel: '',
-            precisionsize: '',
           },
         ],
       },
     };
-    const codesListStore = {};
-    const result = getCollectedVariablesSingle(
-      questionName,
-      form,
-      codesListStore,
-    );
+    const result = getCollectedVariablesSingle(questionName, form);
 
+    expect(result).toHaveLength(1);
     expect(result).toEqual([
       {
         codeListReference: form.CodesList.id,
@@ -89,7 +75,7 @@ describe('getCollectedVariablesSingle', () => {
     ]);
   });
 
-  test('should return collected variables for QCU with precision in codesList', () => {
+  test('computes needed new variable when there is a new precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
       CodesList: {
@@ -99,9 +85,7 @@ describe('getCollectedVariablesSingle', () => {
           {
             value: 'value1',
             label: 'label1',
-            depth: 1,
             weight: 1,
-            parent: '',
             precisionid: 'precision',
             precisionlabel: 'precisionlabel',
             precisionsize: 249,
@@ -109,23 +93,73 @@ describe('getCollectedVariablesSingle', () => {
           {
             value: 'value2',
             label: 'label2',
-            depth: 1,
             weight: 2,
-            parent: '',
-            precisionid: '',
-            precisionlabel: '',
-            precisionsize: '',
           },
         ],
       },
     };
-    const codesListStore = {};
+    const result = getCollectedVariablesSingle(questionName, form);
+
+    expect(result).toHaveLength(2);
+    expect(result).toEqual([
+      {
+        codeListReference: form.CodesList.id,
+        codeListReferenceLabel: form.CodesList.label,
+        type: 'TEXT',
+        TEXT: { maxLength: 1 },
+        id: result[0].id,
+        name: 'questionName',
+        label: 'questionName label',
+      },
+      {
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 249,
+        },
+        id: result[1].id,
+        isCollected: '1',
+        name: 'precision',
+        label: 'precision label',
+        z: 1,
+      },
+    ]);
+  });
+
+  test('computes existing precision variable when there is an existing precision in codesList', () => {
+    const questionName = 'questionName';
+    const form = {
+      CodesList: {
+        id: 'id',
+        label: 'label',
+        codes: [
+          {
+            value: 'value1',
+            label: 'label1',
+            weight: 1,
+            precisionByCollectedVariableId: {
+              var2: {
+                precisionid: 'precision',
+                precisionlabel: 'precisionlabel',
+                precisionsize: 249,
+              },
+            },
+          },
+          {
+            value: 'value2',
+            label: 'label2',
+            weight: 2,
+          },
+        ],
+      },
+    };
+    const existingVariableIds = new Set(['var1', 'var2']);
     const result = getCollectedVariablesSingle(
       questionName,
       form,
-      codesListStore,
+      existingVariableIds,
     );
 
+    expect(result).toHaveLength(2);
     expect(result).toEqual([
       {
         codeListReference: form.CodesList.id,

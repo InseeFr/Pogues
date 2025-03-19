@@ -170,7 +170,11 @@ export function getCollectedVariablesMultiple(
   return collectedVariables;
 }
 
-export function getCollectedVariablesSingle(questionName, form) {
+export function getCollectedVariablesSingle(
+  questionName,
+  form,
+  existingVariableIds = new Set(),
+) {
   const collectedVariables = [];
 
   const mainCollectedVariable = getCollectedVariable(
@@ -212,7 +216,7 @@ export function getCollectedVariablesSingle(questionName, form) {
     );
   }
 
-  // get clarification variables for codes lists
+  // get new clarification variables for codes lists
   form.CodesList.codes?.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
@@ -229,6 +233,32 @@ export function getCollectedVariablesSingle(questionName, form) {
           },
         ),
       );
+    }
+  });
+
+  // get existing clarification variables for codes lists
+  form.CodesList.codes?.forEach((code) => {
+    if (code.precisionByCollectedVariableId) {
+      for (const [variableId, precision] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (existingVariableIds.has(variableId)) {
+          collectedVariables.push(
+            getCollectedVariable(
+              precision.precisionid,
+              `${precision.precisionid} label`,
+              { z: code.weight, isCollected: '1' },
+              {
+                type: TEXT,
+                codeListReference: undefined,
+                [TEXT]: {
+                  maxLength: precision.precisionsize,
+                },
+              },
+            ),
+          );
+        }
+      }
     }
   });
 
@@ -337,6 +367,7 @@ export function generateCollectedVariables(
   questionName,
   form,
   codesListStore,
+  existingVariableIds = new Set(),
 ) {
   let generatedCollectedVariables = [];
 
@@ -353,6 +384,7 @@ export function generateCollectedVariables(
     generatedCollectedVariables = getCollectedVariablesSingle(
       questionName,
       form,
+      existingVariableIds,
     );
   } else if (responseFormat === MULTIPLE_CHOICE) {
     generatedCollectedVariables = getCollectedVariablesMultiple(
