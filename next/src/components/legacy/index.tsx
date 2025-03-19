@@ -14,6 +14,8 @@ export const LegacyComponent = () => {
 
   // Block navigation if we are in dirty state
   useBlocker({
+    // enable blocker only if we are in dirty state
+    enableBeforeUnload: isDirtyState,
     shouldBlockFn: () => {
       if (!isDirtyState) return false;
 
