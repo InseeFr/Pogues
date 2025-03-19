@@ -175,7 +175,7 @@ describe('getCollectedVariablesSingle', () => {
         TEXT: {
           maxLength: 249,
         },
-        id: result[1].id,
+        id: 'var2',
         isCollected: '1',
         name: 'precision',
         label: 'precision label',

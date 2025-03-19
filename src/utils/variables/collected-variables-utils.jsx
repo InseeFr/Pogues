@@ -87,10 +87,11 @@ export function getCollectedVariable(
   reponseFormatValues = {},
   alternativeLabel = '',
   arbitraryVariableOfVariableId = undefined,
+  id = undefined,
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
-    id: uuid(),
+    id: id ?? uuid(),
     name,
     label,
   };
@@ -255,6 +256,9 @@ export function getCollectedVariablesSingle(
                   maxLength: precision.precisionsize,
                 },
               },
+              undefined,
+              undefined,
+              variableId,
             ),
           );
         }

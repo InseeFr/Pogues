@@ -33,6 +33,7 @@ const validateForm = (addErrors, validate) => (values, state) => {
 
 function CollectedVariables({
   componentName,
+  collectedVariablesIds = new Set(),
   responseFormatType,
   reponseFormatValues,
   codesListsStore,
@@ -52,6 +53,7 @@ function CollectedVariables({
       componentName,
       reponseFormatValues,
       codesListsStore,
+      collectedVariablesIds,
     );
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');

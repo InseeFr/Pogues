@@ -29,8 +29,17 @@ export const defaultProps = {
 const mapStateToProps = (state, { formName }) => {
   const selector = formValueSelector(formName);
   const responseFormatType = selector(state, 'responseFormat.type');
+
+  const collectedVariables =
+    selector(state, `collectedVariables.collectedVariables`) || [];
+  const collectedVariablesIds = new Set();
+  for (const collectedVariable of collectedVariables) {
+    collectedVariablesIds.add(collectedVariable.id);
+  }
+
   return {
     componentName: selector(state, 'name'),
+    collectedVariablesIds,
     responseFormatType,
     reponseFormatValues: selector(
       state,

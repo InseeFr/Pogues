@@ -51,8 +51,22 @@ function CodesListsCodes(props) {
     setShowPrecision(false);
 
     const code = get(activeCodeIndex);
+
+    // Check if we have a "precision" related to our current collected variables
+    const newPrecisionByCollectedVariableId = {
+      ...code.precisionByCollectedVariableId,
+    };
+    if (code.precisionByCollectedVariableId) {
+      for (const key of Object.keys(code.precisionByCollectedVariableId)) {
+        if (collectedVariablesIds.has(key)) {
+          delete newPrecisionByCollectedVariableId[key];
+        }
+      }
+    }
+
     const values = {
       ...code,
+      precisionByCollectedVariableId: newPrecisionByCollectedVariableId,
       precisionid: undefined,
       precisionlabel: undefined,
       precisionsize: undefined,
