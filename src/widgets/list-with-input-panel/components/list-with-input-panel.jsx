@@ -49,7 +49,7 @@ function getFormValuesToValidate(formValues, item, selectorPath, name) {
 
 const ListWithInputPanel = ({
   formValues,
-  currentValues,
+  currentValues = {},
   arrayPush,
   arrayRemove,
   arrayInsert,
