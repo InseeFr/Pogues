@@ -18,6 +18,7 @@ const navigationItems = [
     icon: <VariableIcon className="m-auto" />,
     path: '/',
     isDisabled: true,
+    isHidden: true,
   },
   {
     label: i18next.t('questionnaires.navigation.codeList'),
@@ -29,12 +30,14 @@ const navigationItems = [
     icon: <HistoryIcon className="m-auto" />,
     path: '/',
     isDisabled: true,
+    isHidden: true,
   },
   {
     label: i18next.t('questionnaires.navigation.metadata'),
     icon: <DescriptionIcon className="m-auto" />,
     path: '/',
     isDisabled: true,
+    isHidden: true,
   },
 ];
 
@@ -44,21 +47,23 @@ export default function QuestionnaireNavigation() {
 
   return (
     <div className="bg-default w-24 items-center h-full space-y-3 py-6 border-r border-default text-center">
-      {navigationItems.map(({ label, icon, isDisabled, path }) => (
-        <Link
-          key={label}
-          to={path}
-          params={{ questionnaireId: questionnaireId ?? '' }}
-          disabled={isDisabled}
-          className={isDisabled ? 'opacity-25 pointer-events-none' : ''}
-        >
-          <NavigationIcon
-            icon={icon}
-            label={label}
-            active={!!matchRoute({ to: path })}
-          />
-        </Link>
-      ))}
+      {navigationItems.map(({ label, icon, isDisabled, path, isHidden }) =>
+        !isHidden ? (
+          <Link
+            key={label}
+            to={path}
+            params={{ questionnaireId: questionnaireId ?? '' }}
+            disabled={isDisabled}
+            className={isDisabled ? 'opacity-25 pointer-events-none' : ''}
+          >
+            <NavigationIcon
+              icon={icon}
+              label={label}
+              active={!!matchRoute({ to: path })}
+            />
+          </Link>
+        ) : null,
+      )}
     </div>
   );
 }
