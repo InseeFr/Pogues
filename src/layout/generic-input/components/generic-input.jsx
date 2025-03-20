@@ -81,6 +81,10 @@ export const customModalbuttonStyles = {
   marginRight: '10px',
 };
 
+/**
+ * Display a navbar on top of the questionnaire which allow to add elements to
+ * the questionnaire, save the questionnaire and visualize it.
+ */
 function GenericInput(props) {
   const {
     activeQuestionnaire,
@@ -177,7 +181,6 @@ function GenericInput(props) {
         }}
       </NavigationPrompt>
       <div className="actionBar">
-        <span>{Dictionary.addObject}</span>
         <button
           id="add-question"
           className="btn-white"
@@ -254,7 +257,6 @@ function GenericInput(props) {
             selectedComponent.type !== SEQUENCE &&
             selectedComponent.type !== EXTERNAL_ELEMENT
           }
-          top
         />
         <button
           className="btn-yellow"
@@ -266,7 +268,6 @@ function GenericInput(props) {
           <span className="glyphicon glyphicon-floppy-disk" />
         </button>
         <VisualizeDropdown
-          top
           disabled={!isQuestionnaireValid}
           questionnaireId={activeQuestionnaire.id}
           token={token}

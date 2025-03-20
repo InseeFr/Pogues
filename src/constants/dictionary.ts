@@ -1,27 +1,18 @@
+import { codesDictionary } from './dictionary/codes';
 import { declarationsDictionary } from './dictionary/declarations';
 import { loopDictionary } from './dictionary/loop';
 import { questionnaireDictionary } from './dictionary/questionnaire';
 import { tableDictionary } from './dictionary/table';
 import { validationDictionary } from './dictionary/validation';
-import { CODELISTS_ACTIONS, COMPONENT_TYPE } from './pogues-constants';
+import { COMPONENT_TYPE } from './pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, ROUNDABOUT, FILTER } =
   COMPONENT_TYPE;
-const {
-  EDIT,
-  DUPLICATE,
-  REMOVE,
-  MOVE_UP,
-  MOVE_DOWN,
-  MOVE_LEFT,
-  MOVE_RIGHT,
-  PRECISION,
-  PRECISION_EDIT,
-} = CODELISTS_ACTIONS;
 
 export type Dictionary = { [key: string]: { en: string; fr: string } };
 
 const dictionary: Dictionary = {
+  ...codesDictionary,
   ...declarationsDictionary,
   ...loopDictionary,
   ...questionnaireDictionary,
@@ -359,14 +350,6 @@ const dictionary: Dictionary = {
     en: 'New code',
     fr: 'Nouvelle catégorie',
   },
-  cl: {
-    en: 'Code list',
-    fr: 'Liste de codes',
-  },
-  newCl: {
-    en: 'New code list',
-    fr: 'Nouvelle liste de codes',
-  },
   placeholderDeclarationText: {
     en: 'Here, your statement',
     fr: 'Ici, votre déclaration',
@@ -487,34 +470,6 @@ const dictionary: Dictionary = {
     fr: "Axe d'information",
     en: 'Information axis',
   },
-  codeList: {
-    fr: 'Liste de codes',
-    en: 'Code list',
-  },
-  selectCodesListType: {
-    fr: 'Spécifier la liste de codes',
-    en: 'Specify the code list',
-  },
-  duplicateCodeList: {
-    fr: 'Dupliquer la liste de codes',
-    en: 'Duplicate the code list',
-  },
-  selectSuggesterList: {
-    fr: 'Sélectionner une liste',
-    en: 'Select a list',
-  },
-  newCodesList: {
-    fr: 'Créer une liste',
-    en: 'Create a list',
-  },
-  refCodesList: {
-    fr: 'Retrouver dans le référentiel',
-    en: 'Retrieve in the repository',
-  },
-  questionnaireCodesList: {
-    fr: 'Retrouver dans le questionnaire',
-    en: 'Retrieve in the questionnaire',
-  },
   allowArbitraryResponse: {
     fr: 'Autoriser une réponse libre',
     en: 'Allow an arbitrary response',
@@ -598,42 +553,6 @@ const dictionary: Dictionary = {
   condition: {
     fr: 'Condition',
     en: 'Condition',
-  },
-  addCode: {
-    fr: 'Ajouter un code',
-    en: 'Add a code',
-  },
-  uploadCode: {
-    fr: "Import d'une liste de codes",
-    en: 'Import a code list',
-  },
-  invalidFile: {
-    fr: "Fichier invalide : merci d'importer un fichier valide",
-    en: 'Invalid file: please import a valid file',
-  },
-  codeNumber: {
-    fr: 'modalités importées',
-    en: 'code found',
-  },
-  fileImport: {
-    fr: 'Fichier à importer',
-    en: 'File to import',
-  },
-  editCode: {
-    fr: 'Editer un code',
-    en: 'Edit a code',
-  },
-  codeLabel: {
-    fr: 'Libellé de la modalité',
-    en: 'Code label',
-  },
-  code: {
-    fr: 'Code de la modalité',
-    en: 'Code',
-  },
-  precisionId: {
-    fr: 'Identifiant',
-    en: 'Identifiant',
   },
   dupliquate: {
     fr: 'dupliquer un questionnaire',
@@ -755,10 +674,6 @@ const dictionary: Dictionary = {
     fr: 'Annuler',
     en: 'Cancel',
   },
-  addObject: {
-    fr: 'Ajouter un objet',
-    en: 'Add object',
-  },
   dropHere: {
     fr: 'Déposer ici !',
     en: 'Drop here !',
@@ -831,10 +746,6 @@ const dictionary: Dictionary = {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',
   },
-  searchInputCodesListsLabel: {
-    en: 'Code list label',
-    fr: 'Libellé de la liste de code',
-  },
   searchInputButton: {
     en: 'Search',
     fr: 'Rechercher',
@@ -846,10 +757,6 @@ const dictionary: Dictionary = {
   pageSearchNoResultsForId: {
     en: 'No questionnaire found for identifier',
     fr: "Aucun questionnaire trouvé pour l'identifiant",
-  },
-  codesListsNoResults: {
-    en: 'No code list found',
-    fr: 'Aucune liste de codes trouvée',
   },
   reset: {
     en: 'Reset',
@@ -1037,44 +944,6 @@ dictionary[`componentEdit${ROUNDABOUT}`] = {
 dictionary[`componentEdit${FILTER}`] = {
   fr: 'Modifier le filtre',
   en: 'Edit filter',
-};
-
-dictionary[`componentCodeList${EDIT.name}`] = {
-  fr: 'Modifier',
-  en: 'Modify',
-};
-
-dictionary[`componentCodeList${DUPLICATE.name}`] = {
-  fr: 'Dupliquer',
-  en: 'Copy',
-};
-dictionary[`componentCodeList${REMOVE.name}`] = {
-  fr: 'Supprimer',
-  en: 'Delete',
-};
-dictionary[`componentCodeList${MOVE_UP.name}`] = {
-  fr: 'Monter',
-  en: 'Up',
-};
-dictionary[`componentCodeList${MOVE_DOWN.name}`] = {
-  fr: 'Descendre',
-  en: 'Down',
-};
-dictionary[`componentCodeList${MOVE_LEFT.name}`] = {
-  fr: 'Mettre au niveau inférieur',
-  en: 'Level down',
-};
-dictionary[`componentCodeList${MOVE_RIGHT.name}`] = {
-  fr: 'Mettre au niveau supérieur',
-  en: 'Level up',
-};
-dictionary[`componentCodeList${PRECISION.name}`] = {
-  fr: `Ajouter un "Préciser"`,
-  en: `Add a "Specify"`,
-};
-dictionary[`componentCodeList${PRECISION_EDIT.name}`] = {
-  fr: `Modifier le "Préciser"`,
-  en: `Modify "Specify"`,
 };
 
 export default dictionary;

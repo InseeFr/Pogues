@@ -42,7 +42,7 @@ const Declarations = ({
   errors = [],
   showPosition = true,
   addErrors,
-  declarationType = '',
+  declarationType = DECLARATION_TYPES.HELP,
   activeQuestionnaire,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);

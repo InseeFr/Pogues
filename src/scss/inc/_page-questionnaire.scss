@@ -1,6 +1,11 @@
 #page-questionnaire {
   @extend .container;
 
+  .questionnaire-content {
+    display: flex;
+    gap: 20px;
+  }
+
   #questionnaire {
     @include make-xs-column(10);
     margin-top: 20px;

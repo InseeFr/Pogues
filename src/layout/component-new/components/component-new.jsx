@@ -54,17 +54,24 @@ function validateAndSubmit(
   onSuccess,
 ) {
   return function (values) {
-    if (type === QUESTION) {
-      validateQuestion(transformer.getNormalizedValues(values));
-    } else if (type === LOOP) {
-      validateLoop(values);
-    } else if (type === FILTER) {
-      validateFilter(values);
-    } else if (type === ROUNDABOUT) {
-      validateRoundabout(values);
-    } else {
-      validateSequence(values);
+    switch (type) {
+      case QUESTION:
+        validateQuestion(transformer.getNormalizedValues(values));
+        break;
+      case LOOP:
+        validateLoop(values);
+        break;
+      case FILTER:
+        validateFilter(values);
+        break;
+      case ROUNDABOUT:
+        validateRoundabout(values);
+        break;
+      default:
+        validateSequence(values);
+        break;
     }
+
     const componentState = transformer.formToState(values);
     const updatedCodesListsStore = transformer.getCodesListStore();
     const updatedCalculatedVariablesStore =
@@ -73,6 +80,7 @@ function validateAndSubmit(
       transformer.getExternalVariablesStore();
     const updatedCollectedlVariablesStore =
       transformer.getCollectedVariablesStore();
+
     actions
       .createComponent(
         componentState,

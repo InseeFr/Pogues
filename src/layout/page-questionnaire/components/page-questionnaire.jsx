@@ -124,9 +124,14 @@ const PageQuestionnaire = (props) => {
       {loading && <Loader />}
       {!loadingError && !loading && (
         <div>
-          <QuestionnaireNav />
-          <QuestionnaireListComponents navigate={history.push} token={token} />
           <GenericInput />
+          <div className="questionnaire-content">
+            <QuestionnaireNav />
+            <QuestionnaireListComponents
+              navigate={history.push}
+              token={token}
+            />
+          </div>
         </div>
       )}
     </div>

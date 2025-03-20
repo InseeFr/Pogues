@@ -1,5 +1,6 @@
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { nameFromLabel, uuid, verifyVariable } from '../../../utils/utils';
+import CodesList from '../codes-lists/codes-list';
 import CalculatedVariable from './calculated-variable';
 import CollectedVariable from './collected-variable';
 import Control from './control';
@@ -57,29 +58,32 @@ export function formToState(form, transformers) {
   } = form;
 
   let newName;
-  // roundabout
   if (name && nameLoop) {
+    // roundabout
     newName = name;
-    // sequence or question with name
   } else if (name && !initialMember) {
+    // sequence or question with name
     newName = name;
-    // alternative without name
   } else if (label) {
+    // alternative with no name
     newName = nameFromLabel(label);
-    // loop or filter
   } else if (initialMember) {
+    // loop or filter
     newName = nameFromLabel(nameLoop);
   }
 
   transformers.calculatedVariable.formToStore(form.calculatedVariables);
   transformers.externalVariable.formToStore(form.externalVariables);
-  return {
+  const res = {
     name: newName,
     declarations: transformers.declaration.formToComponentState(declarations),
     controls: transformers.control.formToComponentState(controls),
     redirections: transformers.redirection.formToComponentState(redirections),
     label: verifyVariable(label),
-    responseFormat: transformers.responseFormat.formToState(responseFormat),
+    responseFormat: transformers.responseFormat.formToState(
+      responseFormat,
+      collectedVariables?.collectedVariables,
+    ),
     collectedVariables:
       transformers.collectedVariable.formToComponentState(collectedVariables),
     TargetMode: TargetMode.split(','),
@@ -97,6 +101,12 @@ export function formToState(form, transformers) {
     occurrenceDescription: occurrenceDescription,
     locked: locked,
   };
+  if (res.responseFormat.type) {
+    transformers.codesList.formToComponentState(
+      res.responseFormat[res.responseFormat.type].CodesList,
+    );
+  }
+  return res;
 }
 
 export function stateToForm(currentState, transformers, activeQuestionnaire) {
@@ -191,6 +201,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     ),
     calculatedVariable: CalculatedVariable(calculatedVariablesStore),
     externalVariable: ExternalVariable(externalVariablesStore),
+    codesList: CodesList(currentState.codesList, codesListsStore),
   };
 
   return {

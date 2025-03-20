@@ -33,6 +33,7 @@ const validateForm = (addErrors, validate) => (values, state) => {
 
 function CollectedVariables({
   componentName,
+  collectedVariablesIds = new Set(),
   responseFormatType,
   reponseFormatValues,
   codesListsStore,
@@ -52,6 +53,7 @@ function CollectedVariables({
       componentName,
       reponseFormatValues,
       codesListsStore,
+      collectedVariablesIds,
     );
 
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
@@ -167,7 +169,7 @@ function CollectedVariables({
               type="text"
               disabled
               component={Input}
-              label={Dictionary.cl}
+              label={Dictionary.codeList}
             />
           )}
         </div>

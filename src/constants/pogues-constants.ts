@@ -225,32 +225,6 @@ export const SEARCH_RESULTS_COLUMNS = {
   ],
 };
 
-export const CODES_LISTS_PANELS = [
-  {
-    dictionary: 'newCodesList',
-    value: CODES_LIST_INPUT_ENUM.NEW,
-  },
-  {
-    dictionary: 'refCodesList',
-    value: CODES_LIST_INPUT_ENUM.REF,
-  },
-  {
-    dictionary: 'questionnaireCodesList',
-    value: CODES_LIST_INPUT_ENUM.QUEST,
-  },
-];
-
-export const CODES_LISTS_PANELS_SEARCH_DISABLE = [
-  {
-    dictionary: 'newCodesList',
-    value: CODES_LIST_INPUT_ENUM.NEW,
-  },
-  {
-    dictionary: 'questionnaireCodesList',
-    value: CODES_LIST_INPUT_ENUM.QUEST,
-  },
-];
-
 export const INTEGRITY_TYPES = {
   QUESTIONNAIRE_LENGTH: 'QUESTIONNAIRE_LENGTH',
   UNIQUE_COMPONENT_NAME: 'UNIQUE_COMPONENT_NAME',
@@ -308,47 +282,6 @@ export const QUESTIONNAIRE_TYPE = {
 export const FORMULA_LANGUAGE = {
   XPATH: 'XPATH',
   VTL: 'VTL',
-};
-
-export const CODELISTS_ACTIONS = {
-  EDIT: {
-    name: 'edit',
-    icon: 'glyphicon-edit',
-  },
-  DUPLICATE: {
-    name: 'duplicate',
-    icon: 'glyphicon-duplicate',
-  },
-  REMOVE: {
-    name: 'remove',
-    icon: 'glyphicon-trash',
-  },
-  MOVE_UP: {
-    name: 'moveUp',
-    icon: 'glyphicon-arrow-up',
-  },
-  MOVE_DOWN: {
-    name: 'moveDown',
-    icon: 'glyphicon-arrow-down',
-  },
-  MOVE_LEFT: {
-    name: 'moveLeft',
-    icon: 'glyphicon-arrow-left',
-  },
-  MOVE_RIGHT: {
-    name: 'moveRight',
-    icon: 'glyphicon-arrow-right',
-  },
-
-  PRECISION: {
-    name: 'precision',
-    icon: 'glyphicon-plus-sign',
-  },
-
-  PRECISION_EDIT: {
-    name: 'setPrecision',
-    icon: 'glyphicon-option-horizontal',
-  },
 };
 
 export const TCM = {

@@ -87,10 +87,11 @@ export function getCollectedVariable(
   reponseFormatValues = {},
   alternativeLabel = '',
   arbitraryVariableOfVariableId = undefined,
+  id = undefined,
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
-    id: uuid(),
+    id: id ?? uuid(),
     name,
     label,
   };
@@ -109,7 +110,8 @@ export function getCollectedVariable(
 export function getCollectedVariablesMultiple(
   questionName,
   form,
-  codesListStore,
+  codesListStore = {},
+  existingVariableIds = new Set(),
 ) {
   const {
     [PRIMARY]: {
@@ -147,7 +149,9 @@ export function getCollectedVariablesMultiple(
       reponseFormatValues,
     ),
   );
-  form.PRIMARY.CodesList.codes.forEach((code) => {
+
+  // get new clarification variable from current form
+  form.PRIMARY.CodesList.codes?.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollectedVariable(
@@ -167,10 +171,43 @@ export function getCollectedVariablesMultiple(
       );
     }
   });
+
+  // get existing clarification variables
+  form.PRIMARY.CodesList.codes?.forEach((code) => {
+    if (code.precisionByCollectedVariableId) {
+      for (const [variableId, precision] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (existingVariableIds.has(variableId)) {
+          collectedVariables.push(
+            getCollectedVariable(
+              precision.precisionid,
+              `${precision.precisionid} label`,
+              { z: code.weight, isCollected: '1' },
+              {
+                type: TEXT,
+                [TEXT]: {
+                  maxLength: precision.precisionsize,
+                },
+              },
+              undefined,
+              undefined,
+              variableId,
+            ),
+          );
+        }
+      }
+    }
+  });
+
   return collectedVariables;
 }
 
-export function getCollectedVariablesSingle(questionName, form) {
+export function getCollectedVariablesSingle(
+  questionName,
+  form,
+  existingVariableIds = new Set(),
+) {
   const collectedVariables = [];
 
   const mainCollectedVariable = getCollectedVariable(
@@ -212,7 +249,7 @@ export function getCollectedVariablesSingle(questionName, form) {
     );
   }
 
-  // get clarification variables for codes lists
+  // get new clarification variables for codes lists
   form.CodesList.codes?.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
@@ -229,6 +266,35 @@ export function getCollectedVariablesSingle(questionName, form) {
           },
         ),
       );
+    }
+  });
+
+  // get existing clarification variables for codes lists
+  form.CodesList.codes?.forEach((code) => {
+    if (code.precisionByCollectedVariableId) {
+      for (const [variableId, precision] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (existingVariableIds.has(variableId)) {
+          collectedVariables.push(
+            getCollectedVariable(
+              precision.precisionid,
+              `${precision.precisionid} label`,
+              { z: code.weight, isCollected: '1' },
+              {
+                type: TEXT,
+                codeListReference: undefined,
+                [TEXT]: {
+                  maxLength: precision.precisionsize,
+                },
+              },
+              undefined,
+              undefined,
+              variableId,
+            ),
+          );
+        }
+      }
     }
   });
 
@@ -329,38 +395,6 @@ export function getCollectedVariablesTable(questionName, form) {
     );
   }
 
-  // In all cases : add additional variables due to precision
-  form.LIST_MEASURE?.measures.SINGLE_CHOICE?.CodesList?.codes.map(
-    ({ id, codes }) =>
-      codes
-        .filter((code) => code.precisionid && code.precisionid !== '')
-        .map((code) =>
-          collectedVariables
-            .filter(
-              (variable) =>
-                variable.codeListReference && variable.codeListReference === id,
-            )
-            .map((variable) =>
-              collectedVariables.push(
-                getCollectedVariable(
-                  `${variable.name}${code.value}CL`,
-                  `${variable.name}${code.value}CL label`,
-                  {
-                    z: code.weight,
-                    mesureLevel: variable.x,
-                    isCollected: '1',
-                  },
-                  {
-                    type: 'TEXT',
-                    TEXT: {
-                      maxLength: code.precisionsize,
-                    },
-                  },
-                ),
-              ),
-            ),
-        ),
-  );
   return collectedVariables.sort(sortByYXAndZ());
 }
 
@@ -369,6 +403,7 @@ export function generateCollectedVariables(
   questionName,
   form,
   codesListStore,
+  existingVariableIds = new Set(),
 ) {
   let generatedCollectedVariables = [];
 
@@ -385,12 +420,14 @@ export function generateCollectedVariables(
     generatedCollectedVariables = getCollectedVariablesSingle(
       questionName,
       form,
+      existingVariableIds,
     );
   } else if (responseFormat === MULTIPLE_CHOICE) {
     generatedCollectedVariables = getCollectedVariablesMultiple(
       questionName,
       form,
       codesListStore,
+      existingVariableIds,
     );
   } else if (responseFormat === TABLE) {
     generatedCollectedVariables = getCollectedVariablesTable(

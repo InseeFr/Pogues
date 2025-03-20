@@ -64,8 +64,9 @@
     "common": {
       "code": "Code",
       "code_other": "Codes",
-      "label": "Label",
-      "value": "Valeur"
+      "codeLabel": "Libellé de la modalité",
+      "codeValue": "Code de la modalité",
+      "label": "Libellé"
     },
     "overview": {
       "create": "Créer une liste de codes",
@@ -79,7 +80,6 @@
       "title": "Listes de codes"
     },
     "create": {
-      "importCSV": "Importer une liste de codes depuis un fichier CSV",
       "success": "La liste de codes a été créée",
       "title": "Nouvelle liste de codes"
     },
@@ -90,8 +90,8 @@
     "form": {
       "addCode": "+ Ajouter un code",
       "addSubCode": "Ajouter un sous-code",
-      "mustProvideLabel": "Vous devez renseigner un label",
-      "mustProvideCodeLabel": "Votre code doit avoir un label",
+      "mustProvideLabel": "Vous devez renseigner un libellé",
+      "mustProvideCodeLabel": "Votre code doit avoir un libellé",
       "mustProvideCodeValue": "Votre code doit avoir une valeur",
       "mustProvideCodes": "Vous devez renseigner au moins un code",
       "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",

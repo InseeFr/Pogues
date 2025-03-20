@@ -194,8 +194,12 @@ function collectedVariableCompare(object1, object2) {
   return equal;
 }
 
+/**
+ * Check if the current collected variables are valid with the provided form
+ * or if the user needs to regenerate them.
+ */
 export function validCollectedVariables(
-  value,
+  currentVariables,
   { form, stores: { codesListsStore } },
 ) {
   // @TODO: Improve this validation testing the coordinates of the variables
@@ -205,14 +209,18 @@ export function validCollectedVariables(
   } = form;
   let expectedVariables;
 
-  if (nameComponent !== '' && type !== '') {
-    expectedVariables = generateCollectedVariables(
-      type,
-      nameComponent,
-      responseFormatValues,
-      codesListsStore,
-    );
+  const existingVariableIds = new Set();
+  for (const variable of currentVariables) {
+    existingVariableIds.add(variable.id);
   }
+
+  expectedVariables = generateCollectedVariables(
+    type,
+    nameComponent,
+    responseFormatValues,
+    codesListsStore,
+    existingVariableIds,
+  );
 
   /**
    * for Single Choice Response, we check if the codeListReference for each
@@ -220,28 +228,32 @@ export function validCollectedVariables(
    */
   const isCodesTheSame = checkIfCodesListTheSame(
     expectedVariables.map((e) => e.codeListReference),
-    value.map((e) => e.codeListReference),
+    currentVariables.map((e) => e.codeListReference),
   );
 
-  if (value[0] && expectedVariables.length !== value.length) {
+  if (
+    currentVariables[0] &&
+    expectedVariables.length !== currentVariables.length
+  ) {
     return Dictionary.validation_collectedvariable_need_reset;
   }
   if (
     (type === SINGLE_CHOICE || type === PAIRING || type === MULTIPLE_CHOICE) &&
-    value[0] &&
-    ((value[0].codeListReference !== expectedVariables[0].codeListReference &&
-      (!!value[0].codeListReference ||
+    currentVariables[0] &&
+    ((currentVariables[0].codeListReference !==
+      expectedVariables[0].codeListReference &&
+      (!!currentVariables[0].codeListReference ||
         !!expectedVariables[0].codeListReference)) ||
-      (value[0].codeListReferenceLabel !==
+      (currentVariables[0].codeListReferenceLabel !==
         expectedVariables[0].codeListReferenceLabel &&
-        (!!value[0].codeListReferenceLabel ||
+        (!!currentVariables[0].codeListReferenceLabel ||
           !!expectedVariables[0].codeListReferenceLabel)))
   ) {
     return Dictionary.validation_collectedvariable_need_reset;
   }
 
-  if ((type === TABLE || type === SIMPLE) && value[0]) {
-    if (!collectedVariableCompare(expectedVariables, value)) {
+  if ((type === TABLE || type === SIMPLE) && currentVariables[0]) {
+    if (!collectedVariableCompare(expectedVariables, currentVariables)) {
       return Dictionary.validation_collectedvariable_need_reset;
     }
   }
@@ -252,12 +264,16 @@ export function validCollectedVariables(
    */
   const isTheSameOrder = true;
 
-  if (expectedVariables && value.length === 0 && expectedVariables.length > 0) {
+  if (
+    expectedVariables &&
+    currentVariables.length === 0 &&
+    expectedVariables.length > 0
+  ) {
     return Dictionary.validation_collectedvariable_need_creation;
   }
   if (
     expectedVariables &&
-    value.length === 1 &&
+    currentVariables.length === 1 &&
     expectedVariables.length === 1
   ) {
     return false;
@@ -265,7 +281,7 @@ export function validCollectedVariables(
   return isCodesTheSame &&
     isTheSameOrder &&
     expectedVariables &&
-    value.length === expectedVariables.length
+    currentVariables.length === expectedVariables.length
     ? undefined
     : Dictionary.validation_collectedvariable_need_reset;
 }

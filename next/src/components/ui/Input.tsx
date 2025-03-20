@@ -8,6 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   description?: string;
   error?: string;
   label?: string;
+  required?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -18,7 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       disabled,
       error,
       label,
-      required,
+      required = false,
       style = {},
       defaultValue,
       ...props

@@ -1,13 +1,7 @@
 import * as rules from '../../../forms/validation-rules';
 import Dictionary from '../../../utils/dictionary/dictionary';
 
-export const validationSchema = {
-  value: [
-    { name: 'required', dictionary: 'validationCodeListCode' },
-    { name: 'uniqueCodeAttr', dictionary: 'codeUnicity' },
-  ],
-  label: [{ name: 'required', dictionary: 'validationCodeListLabel' }],
-};
+export const validationSchema = {};
 
 function validate(scheme, values, path) {
   return Object.keys(scheme).reduce((acc, name) => {

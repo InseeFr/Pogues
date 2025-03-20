@@ -115,8 +115,7 @@ export default function VisualizeDropdown({
         aria-expanded={dropdownOpen}
         onClick={(e) => openDropDown(e)}
       >
-        {Dictionary.visualise}
-        <span className="caret" />
+        {Dictionary.visualise} <span className="caret" />
       </button>
       {!(
         allowDuplicateVariablesModal && hasQuestionnaireDuplicateVariables

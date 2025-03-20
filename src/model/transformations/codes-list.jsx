@@ -1,11 +1,11 @@
 import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+
 /**
- *
  * @param {*} codes The list of codes
  */
-export function sortByWeight(codes) {
+function sortByWeight(codes) {
   return (code1, code2) => {
     const weight1 = codes[code1].weight;
     const weight2 = codes[code2].weight;
@@ -14,21 +14,23 @@ export function sortByWeight(codes) {
     return 0;
   };
 }
+
 export function remoteToCodesState(codes, parent = '', depth = 1) {
-  return codes
-    .filter((c) => c.Parent === parent)
+  const res = codes
+    .filter(
+      (c) => c.Parent === parent || (parent === '' && c.Parent === undefined),
+    )
     .reduce((acc, c, index) => {
       const codeState = {
         value: c.Value,
         label: c.Label,
-        parent: c.Parent,
+        parent: c.Parent || '',
         depth,
         weight: index + 1,
       };
-      if (c.Precisionid) {
-        codeState.precisionid = c.Precisionid;
-        codeState.precisionlabel = c.Precisionlabel;
-        codeState.precisionsize = c.Precisionsize;
+      if (c.precisionByCollectedVariableId) {
+        codeState.precisionByCollectedVariableId =
+          c.precisionByCollectedVariableId;
       }
       return {
         ...acc,
@@ -36,36 +38,74 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         ...remoteToCodesState(codes, codeState.value, depth + 1),
       };
     }, {});
+  return res;
 }
-export function getcodelistwithclarification(remote, variableclarification) {
-  remote.forEach((codelist) => {
-    variableclarification.forEach((clarif) => {
-      if (clarif.codelistid === codelist.id) {
+
+/** Add precision information to the provided codes lists. */
+function computeCodesListsClarifications(
+  remoteCodesLists,
+  clarificationVariables,
+) {
+  remoteCodesLists.forEach((codesList) => {
+    clarificationVariables.forEach((variable) => {
+      if (variable.codelistid === codesList.id) {
         let index = 0;
-        if (clarif.type === MULTIPLE_CHOICE) {
-          index = parseInt(clarif.position, 10);
+        if (variable.type === MULTIPLE_CHOICE) {
+          index = parseInt(variable.position, 10);
         } else {
-          index = codelist.Code.findIndex(
-            (code) => code.Value === clarif.position,
+          index = codesList.Code.findIndex(
+            (code) => code.Value === variable.position,
           );
         }
-        codelist.Code[parseInt(index, 10)] = {
-          ...codelist.Code[parseInt(index, 10)],
-          Precisionid: clarif.responseclar.Name,
-          Precisionlabel: clarif.responseclar.Label,
-          Precisionsize: clarif.responseclar.Response[0].Datatype.MaxLength,
+
+        const variableId =
+          variable.responseclar.Response[0].CollectedVariableReference;
+        const precision = {
+          precisionid: variable.responseclar.Name,
+          precisionlabel:
+            typeof variable.responseclar.Label === 'string'
+              ? variable.responseclar.Label
+              : variable.responseclar.Label[0],
+          precisionsize: variable.responseclar.Response[0].Datatype.MaxLength,
+        };
+
+        let precisionByCollectedVariableId;
+        if (
+          codesList.Code[parseInt(index, 10)].precisionByCollectedVariableId
+        ) {
+          precisionByCollectedVariableId = {
+            ...codesList.Code[parseInt(index, 10)]
+              .precisionByCollectedVariableId,
+            [variableId]: precision,
+          };
+        } else {
+          precisionByCollectedVariableId = {
+            [variableId]: precision,
+          };
+        }
+
+        codesList.Code[parseInt(index, 10)] = {
+          ...codesList.Code[parseInt(index, 10)],
+          precisionByCollectedVariableId,
         };
       }
     });
   });
-  return remote;
+  return remoteCodesLists;
 }
-export function remoteToStore(remote, variableclarification) {
-  const remotecode = getcodelistwithclarification(
-    remote,
-    variableclarification,
+
+/**
+ * Transform API codes list from a codes list.
+ *
+ * Our codes list get the precision information if a related calculated variable exists.
+ */
+export function remoteToStore(remoteCodesLists, clarificationVariables = []) {
+  const remoteCodesListsWithClarification = computeCodesListsClarifications(
+    remoteCodesLists,
+    clarificationVariables,
   );
-  return remotecode.reduce((acc, codesList) => {
+  const res = {};
+  for (const codesList of remoteCodesListsWithClarification) {
     const {
       id,
       Label: label,
@@ -74,28 +114,28 @@ export function remoteToStore(remote, variableclarification) {
       Urn: urn,
       SuggesterParameters: suggesterParameters,
     } = codesList;
-    return {
-      ...acc,
-      [id]: urn
-        ? {
-            id,
-            label,
-            name,
-            urn,
-            suggesterParameters,
-          }
-        : {
-            id,
-            label,
-            codes: remoteToCodesState(codes),
-            name: name || '',
-          },
-    };
-  }, {});
+    res[id] = urn
+      ? {
+          id,
+          label,
+          name,
+          urn,
+          suggesterParameters,
+        }
+      : {
+          id,
+          label,
+          codes: remoteToCodesState(codes),
+          name: name || '',
+        };
+  }
+  return res;
 }
+
 export function remoteToState(remote) {
   return { id: remote };
 }
+
 /**
  * @param {*} codes The list of codes
  * @param {*} depth The depth of a code
@@ -115,6 +155,7 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
       [],
     );
 }
+
 export function storeToRemote(store) {
   return Object.keys(store).reduce((acc, key) => {
     const {
@@ -135,7 +176,7 @@ export function storeToRemote(store) {
               return {
                 Label: labelCode,
                 Value: value,
-                Parent: parent,
+                Parent: parent || '',
               };
             }),
           }
