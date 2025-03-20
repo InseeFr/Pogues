@@ -6,6 +6,14 @@ import QuestionnaireLine from './QuestionnaireLine';
 
 describe('QuestionnaireLine', () => {
   it('display the main questionnaire information', async () => {
+    const origDate = Date.prototype.toLocaleDateString;
+    vi.spyOn(Date.prototype, 'toLocaleDateString').mockImplementationOnce(
+      function () {
+        // @ts-expect-error vitest locale shenanigans
+        return origDate.call(this, 'fr-FR');
+      },
+    );
+
     const { getByText } = renderWithRouter(
       <QuestionnaireLine
         questionnaire={{
