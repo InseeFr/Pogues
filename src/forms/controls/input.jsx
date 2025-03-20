@@ -57,6 +57,7 @@ class Input extends Component {
       // eslint-disable-next-line no-unused-vars
       focusOnInit,
       meta: { touched, error },
+      onEnter,
       ...otherProps
     } = this.props;
     const id = getControlId('input', input.name);
@@ -78,9 +79,9 @@ class Input extends Component {
             ref={(node) => {
               this.input = node;
             }}
-            onKeyPress={(event) => {
-              if (event.charCode === 13 && this.props.onEnter) {
-                this.props.onEnter(event);
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && onEnter) {
+                onEnter(event);
               }
             }}
           />

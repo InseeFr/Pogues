@@ -82,7 +82,7 @@ export function formToState(form, transformers) {
     label: verifyVariable(label),
     responseFormat: transformers.responseFormat.formToState(
       responseFormat,
-      collectedVariables.collectedVariables,
+      collectedVariables?.collectedVariables,
     ),
     collectedVariables:
       transformers.collectedVariable.formToComponentState(collectedVariables),
@@ -101,9 +101,11 @@ export function formToState(form, transformers) {
     occurrenceDescription: occurrenceDescription,
     locked: locked,
   };
-  transformers.codesList.formToComponentState(
-    res.responseFormat[res.responseFormat.type].CodesList,
-  );
+  if (res.responseFormat.type) {
+    transformers.codesList.formToComponentState(
+      res.responseFormat[res.responseFormat.type].CodesList,
+    );
+  }
   return res;
 }
 
