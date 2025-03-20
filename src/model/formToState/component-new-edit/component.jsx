@@ -58,17 +58,17 @@ export function formToState(form, transformers) {
   } = form;
 
   let newName;
-  // roundabout
   if (name && nameLoop) {
+    // roundabout
     newName = name;
-    // sequence or question with name
   } else if (name && !initialMember) {
+    // sequence or question with name
     newName = name;
-    // alternative without name
   } else if (label) {
+    // alternative with no name
     newName = nameFromLabel(label);
-    // loop or filter
   } else if (initialMember) {
+    // loop or filter
     newName = nameFromLabel(nameLoop);
   }
 

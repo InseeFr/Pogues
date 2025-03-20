@@ -151,9 +151,7 @@ function ComponentNew({
     },
     activeQuestionnaire,
   );
-  console.debug('activeQuestionnaire ->', activeQuestionnaire);
   const initialValues = componentTransformer.stateToForm(activeQuestionnaire);
-  console.debug('initialValues ->', initialValues);
 
   // Validation and submit
   return (

@@ -28,41 +28,59 @@ export const defaultForm = {
   type: '',
 };
 
+function computeCodesByCollectedVariableId(codesList, collectedVariables) {
+  const newCodes = [];
+  for (const code of codesList.codes) {
+    const { precisionid, precisionlabel, precisionsize } = code;
+    if (precisionid) {
+      for (const collectedVariable of collectedVariables) {
+        if (precisionid === collectedVariable.name) {
+          const newCode = {
+            ...code,
+            precisionByCollectedVariableId: {
+              ...code.precisionByCollectedVariableId,
+              [collectedVariable.id]: {
+                precisionid,
+                precisionlabel,
+                precisionsize,
+              },
+            },
+          };
+          delete newCode.precisionid;
+          delete newCode.precisionlabel;
+          delete newCode.precisionsize;
+          newCodes.push(newCode);
+        }
+      }
+    } else {
+      newCodes.push(code);
+    }
+  }
+  return newCodes;
+}
+
 export function formToState(form, collectedVariables, transformers) {
   const { type, [type]: responseFormatForm } = form;
   const state = {
     type,
   };
 
+  if (type === TABLE) {
+    state[type] = transformers.table.formToState(responseFormatForm);
+    return state;
+  }
+
+  if (type === PAIRING) {
+    state[type] = transformers.pairing.formToState(responseFormatForm);
+    return state;
+  }
+
   if (type === SINGLE_CHOICE) {
     const { CodesList } = responseFormatForm;
-    const newCodes = [];
-    for (const code of CodesList.codes) {
-      const { precisionid, precisionlabel, precisionsize } = code;
-      if (precisionid) {
-        for (const collectedVariable of collectedVariables) {
-          if (precisionid === collectedVariable.name) {
-            const newCode = {
-              ...code,
-              precisionByCollectedVariableId: {
-                ...code.precisionByCollectedVariableId,
-                [collectedVariable.id]: {
-                  precisionid,
-                  precisionlabel,
-                  precisionsize,
-                },
-              },
-            };
-            delete newCode.precisionid;
-            delete newCode.precisionlabel;
-            delete newCode.precisionsize;
-            newCodes.push(newCode);
-          }
-        }
-      } else {
-        newCodes.push(code);
-      }
-    }
+    const newCodes = computeCodesByCollectedVariableId(
+      CodesList,
+      collectedVariables,
+    );
     const formWithNewCodes = {
       ...responseFormatForm,
       CodesList: { ...responseFormatForm.CodesList, codes: newCodes },
@@ -73,16 +91,31 @@ export function formToState(form, collectedVariables, transformers) {
     };
     state[type] = transformers.single.formToState(formWithNewCodes);
     state[type].CodesList = { ...CodesList, codes: newCodes };
-  } else if (type === MULTIPLE_CHOICE) {
-    state[type] = transformers.multiple.formToState(responseFormatForm);
-  } else if (type === TABLE) {
-    state[type] = transformers.table.formToState(responseFormatForm);
-  } else if (type === PAIRING) {
-    state[type] = transformers.pairing.formToState(responseFormatForm);
-  } else {
-    state[type] = transformers.simple.formToState(responseFormatForm);
+    return state;
   }
 
+  if (type === MULTIPLE_CHOICE) {
+    const { CodesList } = responseFormatForm.PRIMARY;
+    const newCodes = computeCodesByCollectedVariableId(
+      CodesList,
+      collectedVariables,
+    );
+    const formWithNewCodes = {
+      ...responseFormatForm,
+      PRIMARY: {
+        ...responseFormatForm.PRIMARY,
+        CodesList: {
+          ...responseFormatForm.PRIMARY.CodesList,
+          codes: newCodes,
+        },
+      },
+    };
+    state[type] = transformers.multiple.formToState(formWithNewCodes);
+    state[type].PRIMARY.CodesList = { ...CodesList, codes: newCodes };
+    return state;
+  }
+
+  state[type] = transformers.simple.formToState(responseFormatForm);
   return state;
 }
 

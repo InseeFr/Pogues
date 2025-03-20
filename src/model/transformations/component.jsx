@@ -533,7 +533,11 @@ function getClarificationResponseMultipleChoiceQuestion(
       const code = Object.values(
         codesListsStore[responseFormat.MULTIPLE_CHOICE.PRIMARY.CodesList.id]
           .codes,
-      ).find((code) => code.weight === collected.z);
+      ).find(
+        (code) =>
+          code.precisionByCollectedVariableId &&
+          code.precisionByCollectedVariableId[collected.id],
+      );
       if (code) {
         const collectedVar = collectedvariablequestion.find(
           (collectedVarible) => collectedVarible.x === code.weight,

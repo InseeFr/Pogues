@@ -110,7 +110,8 @@ export function getCollectedVariable(
 export function getCollectedVariablesMultiple(
   questionName,
   form,
-  codesListStore,
+  codesListStore = {},
+  existingVariableIds = new Set(),
 ) {
   const {
     [PRIMARY]: {
@@ -148,7 +149,9 @@ export function getCollectedVariablesMultiple(
       reponseFormatValues,
     ),
   );
-  form.PRIMARY.CodesList.codes.forEach((code) => {
+
+  // get new clarification variable from current form
+  form.PRIMARY.CodesList.codes?.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       collectedVariables.push(
         getCollectedVariable(
@@ -168,6 +171,35 @@ export function getCollectedVariablesMultiple(
       );
     }
   });
+
+  // get existing clarification variables
+  form.PRIMARY.CodesList.codes?.forEach((code) => {
+    if (code.precisionByCollectedVariableId) {
+      for (const [variableId, precision] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (existingVariableIds.has(variableId)) {
+          collectedVariables.push(
+            getCollectedVariable(
+              precision.precisionid,
+              `${precision.precisionid} label`,
+              { z: code.weight, isCollected: '1' },
+              {
+                type: TEXT,
+                [TEXT]: {
+                  maxLength: precision.precisionsize,
+                },
+              },
+              undefined,
+              undefined,
+              variableId,
+            ),
+          );
+        }
+      }
+    }
+  });
+
   return collectedVariables;
 }
 
@@ -395,6 +427,7 @@ export function generateCollectedVariables(
       questionName,
       form,
       codesListStore,
+      existingVariableIds,
     );
   } else if (responseFormat === TABLE) {
     generatedCollectedVariables = getCollectedVariablesTable(
