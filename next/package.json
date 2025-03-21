@@ -7,7 +7,7 @@
     "prepare": "vite-envs update-types",
     "test": "vitest run",
     "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
+    "test:coverage": "vitest --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
