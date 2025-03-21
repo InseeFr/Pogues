@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { change, formValueSelector } from 'redux-form';
 
 import withErrorValidation from '../../../hoc/with-error-validation';
-import CodesListsInputCode from '../components/codes-lists-input-code';
+import PrecisionInput from '../components/PrecisionInput';
 import { validateCode, validationSchema } from '../utils/validation';
 
 // PropTypes and defaultProps
@@ -29,11 +29,11 @@ const mapDispatchToProps = {
   change: change,
 };
 
-const CodesListsInputCodeContainer = connect(
+const PrecisionInputContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withErrorValidation(CodesListsInputCode, validateCode, validationSchema));
+)(withErrorValidation(PrecisionInput, validateCode, validationSchema));
 
-CodesListsInputCodeContainer.propTypes = propTypes;
+PrecisionInputContainer.propTypes = propTypes;
 
-export default CodesListsInputCodeContainer;
+export default PrecisionInputContainer;

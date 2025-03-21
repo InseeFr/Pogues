@@ -37,6 +37,7 @@ function ResponseFormatSingle({
   path,
   formName,
   allowPrecision,
+  allowFilter,
   disableSetArbitrary,
 }) {
   const selectorPath = responseFormatType;
@@ -191,6 +192,7 @@ function ResponseFormatSingle({
         <CodesLists
           selectorPathParent={selectorPathComposed}
           allowPrecision={allowPrecision}
+          allowFilter={allowFilter}
         />
       )}
     </FormSection>
@@ -207,6 +209,7 @@ ResponseFormatSingle.propTypes = {
   path: PropTypes.string,
   formName: PropTypes.string,
   allowPrecision: PropTypes.bool,
+  allowFilter: PropTypes.bool,
   disableSetArbitrary: PropTypes.bool,
 };
 
@@ -220,6 +223,7 @@ ResponseFormatSingle.defaultProps = {
   path: SINGLE_CHOICE,
   formName: DEFAULT_FORM_NAME,
   allowPrecision: true,
+  allowFilter: true,
   disableSetArbitrary: false,
 };
 

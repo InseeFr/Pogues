@@ -15,7 +15,11 @@ function ResponseFormatMultiplePrimary({ selectorPathParent }) {
 
   return (
     <FormSection name={selectorPath}>
-      <CodesLists selectorPathParent={selectorPathComposed} />
+      <CodesLists
+        selectorPathParent={selectorPathComposed}
+        allowPrecision={true}
+        allowFilter={true}
+      />
     </FormSection>
   );
 }

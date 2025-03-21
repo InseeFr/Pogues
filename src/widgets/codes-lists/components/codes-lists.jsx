@@ -36,7 +36,7 @@ export const defaultProps = {
   currentId: '',
   codesListsStore: {},
   currentCodesListsStore: {},
-  allowPrecision: true,
+  allowPrecision: false,
   allowFilter: false,
 };
 
@@ -51,7 +51,7 @@ const CodesLists = ({
   clearSearchResult,
   change,
   arrayRemoveAll,
-  allowPrecision = true,
+  allowPrecision = false,
   allowFilter = false,
 }) => {
   const refDiv = useRef(null);

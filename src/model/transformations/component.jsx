@@ -295,6 +295,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     OccurrenceDescription: occurrenceDescription,
     Locked: locked,
     Loop: loop,
+    codeFilters: codeFilters,
   } = remote;
   const redirectionClar =
     redirections !== undefined && Array.isArray(redirections) && questionType
@@ -328,6 +329,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     flowControl,
     dynamiqueSpecified:
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
+    codeFilters,
   };
   if (genericName) {
     state.label = label;

@@ -22,10 +22,7 @@ function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent }) {
 
   return (
     <FormSection name={selectorPath}>
-      <CodesLists
-        selectorPathParent={selectorPathComposed}
-        allowPrecision={false}
-      />
+      <CodesLists selectorPathParent={selectorPathComposed} />
       <Field
         name="visHint"
         component={Select}

@@ -12,7 +12,8 @@ import {
   fieldArrayMeta,
 } from '../../../utils/proptypes-utils';
 import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
-import CodesListsInputCodeContainer from '../containers/codes-lists-input-code-container';
+import FilterInputContainer from '../containers/filter-input-container';
+import PrecisionInputContainer from '../containers/precision-input-container';
 import FilterAction from './FilterAction';
 import SpecifyAction from './SpecifyAction';
 
@@ -32,7 +33,10 @@ function CodesListsCodes(props) {
     fields: { getAll, push, remove, get },
     allowPrecision,
     allowFilter,
+    codeFilters = [],
   } = props;
+
+  console.debug('codeFilters', codeFilters);
 
   const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
   const [showPrecision, setShowPrecision] = useState(false);
@@ -76,7 +80,14 @@ function CodesListsCodes(props) {
     remove(activeCodeIndex);
     push(values);
     clearInputCode();
-  }, [activeCodeIndex, clearInputCode, get, push, remove]);
+  }, [
+    activeCodeIndex,
+    clearInputCode,
+    collectedVariablesIds,
+    get,
+    push,
+    remove,
+  ]);
 
   const pushCode = useCallback(() => {
     let values;
@@ -105,11 +116,35 @@ function CodesListsCodes(props) {
     remove,
   ]);
 
-  function renderInputCode() {
+  function renderPrecisionInput() {
     const code = get(activeCodeIndex);
 
     return (
-      <CodesListsInputCodeContainer
+      <PrecisionInputContainer
+        meta={meta}
+        close={() => {
+          clearInputCode();
+          setActiveCodeIndex(undefined);
+          setShowPrecision(false);
+        }}
+        clear={clearInputCode}
+        push={pushCode}
+        remove={removePrecision}
+        change={change}
+        path={inputCodePath}
+        formName={formName}
+        code={code}
+        precisionShow={showPrecision}
+        filterShow={showFilter}
+      />
+    );
+  }
+
+  function renderFilterInput() {
+    const code = get(activeCodeIndex);
+
+    return (
+      <FilterInputContainer
         meta={meta}
         close={() => {
           clearInputCode();
@@ -159,6 +194,14 @@ function CodesListsCodes(props) {
       }
     }
 
+    let conditionFilter = '';
+    for (const codeFilter of codeFilters) {
+      if (codeFilter.codeValue === code.value) {
+        conditionFilter = codeFilter.conditionFilter;
+        break;
+      }
+    }
+
     return (
       <React.Fragment key={code.value}>
         <tr className="*:py-2">
@@ -175,11 +218,6 @@ function CodesListsCodes(props) {
             </td>
           )}
           {/* Code Actions */}
-          {allowFilter ? (
-            <td className="py-2">
-              <FilterAction updateFilter={actions.updateFilter} />
-            </td>
-          ) : null}
           {allowPrecision ? (
             <td className="py-2">
               <SpecifyAction
@@ -188,12 +226,20 @@ function CodesListsCodes(props) {
               />
             </td>
           ) : null}
+          {allowFilter ? (
+            <td className="py-2">
+              <FilterAction
+                updateFilter={actions.updateFilter}
+                conditionFilter={conditionFilter}
+              />
+            </td>
+          ) : null}
         </tr>
         {/* Filter update */}
         {showFilter && activeCodeIndex === indexCode && (
           <tr>
             <td colSpan="6" className="py-2">
-              {renderInputCode()}
+              {renderFilterInput()}
             </td>
           </tr>
         )}
@@ -201,7 +247,7 @@ function CodesListsCodes(props) {
         {showPrecision && activeCodeIndex === indexCode && (
           <tr>
             <td colSpan="6" className="py-2">
-              {renderInputCode()}
+              {renderPrecisionInput()}
             </td>
           </tr>
         )}
@@ -231,10 +277,10 @@ function CodesListsCodes(props) {
             <th className="py-2">{Dictionary.level}</th>
             <th className="py-2">{Dictionary.code}</th>
             <th className="py-2">{Dictionary.label}</th>
-            {allowFilter ? <th className="py-2">{Dictionary.filtre}</th> : null}
             {allowPrecision ? (
               <th className="py-2">{Dictionary.codePrecision}</th>
             ) : null}
+            {allowFilter ? <th className="py-2">{Dictionary.filtre}</th> : null}
           </tr>
         </thead>
         <tbody>
@@ -274,8 +320,9 @@ CodesListsCodes.defaultProps = {
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
+
   return {
-    Type: selector(state, 'responseFormat.type'),
+    codeFilters: selector(state, 'codeFilters'),
   };
 };
 

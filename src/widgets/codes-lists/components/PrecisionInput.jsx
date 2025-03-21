@@ -34,7 +34,6 @@ export const propTypes = {
   close: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
   clear: PropTypes.func.isRequired,
-  precisionShow: PropTypes.bool,
   filterShow: PropTypes.bool,
 };
 
@@ -49,7 +48,7 @@ const defaultProps = {
 };
 
 /** Add, update or remove a precision for a code. */
-class CodesListInputCode extends ComponentWithValidation {
+class PrecisionInput extends ComponentWithValidation {
   static propTypes = propTypes;
 
   static defaultProps = defaultProps;
@@ -67,14 +66,8 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   initInputCode(code) {
-    const {
-      path,
-      formName,
-      change,
-      precisionShow,
-      Question,
-      collectedVariablesIds,
-    } = this.props;
+    const { path, formName, change, Question, collectedVariablesIds } =
+      this.props;
 
     // Check if we have a "precision" related to our current component collected variables
     let precisionId = '';
@@ -106,15 +99,11 @@ class CodesListInputCode extends ComponentWithValidation {
         change(formName, `${path}precisionid`, precisionId);
         change(formName, `${path}precisionlabel`, precisionLabel);
         change(formName, `${path}precisionsize`, precisionSize);
-      } else if (precisionShow) {
+      } else {
         // default value on create
         change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
         change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
         change(formName, `${path}precisionsize`, 249);
-      } else {
-        change(formName, `${path}precisionid`, '');
-        change(formName, `${path}precisionlabel`, '');
-        change(formName, `${path}precisionsize`, '');
       }
     }
   }
@@ -143,64 +132,62 @@ class CodesListInputCode extends ComponentWithValidation {
   }
 
   render() {
-    const { close, precisionShow, remove } = this.props;
+    const { close, remove } = this.props;
 
     return (
       <div className={CODE_INPUT_CLASS}>
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
-        {precisionShow ? (
-          <div className="Precision">
-            <Field
-              className={CODE_INPUT_CODE_CLASS_PRECISION}
-              name="input-code.precisionid"
-              type="text"
-              component={Input}
-              label={Dictionary.precisionId}
-              onEnter={this.addCodeIfIsValid}
-            />
-            <Field
-              className={CODE_INPUT_CODE_CLASS_PRECISION}
-              name="input-code.precisionlabel"
-              type="text"
-              component={RichEditorWithVariable}
-              label={Dictionary.label}
-              onEnter={this.addCodeIfIsValid}
-            />
-            <Field
-              className={CODE_INPUT_CODE_CLASS_PRECISION}
-              name="input-code.precisionsize"
-              type="number"
-              component={Input}
-              label={Dictionary.maxLength}
-              onEnter={this.addCodeIfIsValid}
-            />
+        <div className="Precision">
+          <Field
+            className={CODE_INPUT_CODE_CLASS_PRECISION}
+            name="input-code.precisionid"
+            type="text"
+            component={Input}
+            label={Dictionary.precisionId}
+            onEnter={this.addCodeIfIsValid}
+          />
+          <Field
+            className={CODE_INPUT_CODE_CLASS_PRECISION}
+            name="input-code.precisionlabel"
+            type="text"
+            component={RichEditorWithVariable}
+            label={Dictionary.label}
+            onEnter={this.addCodeIfIsValid}
+          />
+          <Field
+            className={CODE_INPUT_CODE_CLASS_PRECISION}
+            name="input-code.precisionsize"
+            type="number"
+            component={Input}
+            label={Dictionary.maxLength}
+            onEnter={this.addCodeIfIsValid}
+          />
+          <button
+            className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+            onClick={remove}
+            title={Dictionary.remove}
+          >
+            <span className="glyphicon glyphicon-trash" aria-hidden="true" />
+          </button>
+
+          <div className={CODE_INPUT_ACTIONS_CLASS}>
             <button
               className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-              onClick={remove}
-              title={Dictionary.remove}
+              onClick={close}
             >
-              <span className="glyphicon glyphicon-trash" aria-hidden="true" />
+              {Dictionary.cancel}
             </button>
-
-            <div className={CODE_INPUT_ACTIONS_CLASS}>
-              <button
-                className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-                onClick={close}
-              >
-                {Dictionary.cancel}
-              </button>
-              <button
-                className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  this.addCodeIfIsValid();
-                }}
-              >
-                {Dictionary.validate}
-              </button>
-            </div>
+            <button
+              className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
+              onClick={(e) => {
+                e.preventDefault();
+                this.addCodeIfIsValid();
+              }}
+            >
+              {Dictionary.validate}
+            </button>
           </div>
-        ) : null}
+        </div>
       </div>
     );
   }
@@ -221,4 +208,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CodesListInputCode);
+export default connect(mapStateToProps)(PrecisionInput);

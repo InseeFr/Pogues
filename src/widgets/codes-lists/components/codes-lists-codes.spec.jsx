@@ -13,7 +13,16 @@ import CodesListCodes from './codes-lists-codes';
 
 // We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
 
-vi.mock('../containers/codes-lists-input-code-container', () => {
+vi.mock('../containers/precision-input-container', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      // if you exporting component as default
+      return <div />;
+    },
+  };
+});
+vi.mock('../containers/filter-input-container', () => {
   return {
     __esModule: true,
     default: () => {

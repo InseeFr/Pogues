@@ -2,7 +2,7 @@ import Dictionary from '@/utils/dictionary/dictionary';
 
 interface FilterActionProps {
   updateFilter: () => void;
-  filterLabel?: string;
+  conditionFilter?: string;
 }
 
 /**
@@ -12,9 +12,9 @@ interface FilterActionProps {
  */
 export default function FilterAction({
   updateFilter,
-  filterLabel = '',
+  conditionFilter = '',
 }: Readonly<FilterActionProps>) {
-  return filterLabel && filterLabel !== '' ? (
+  return conditionFilter && conditionFilter !== '' ? (
     <div>
       <button
         className="btn-white mr-2"
@@ -24,7 +24,7 @@ export default function FilterAction({
       >
         <span className={`glyphicon glyphicon-edit !mr-0`} />
       </button>
-      {filterLabel}
+      {conditionFilter}
     </div>
   ) : (
     <div>
