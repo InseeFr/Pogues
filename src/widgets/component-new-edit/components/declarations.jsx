@@ -12,6 +12,7 @@ import {
 } from '../../../constants/pogues-constants';
 import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../forms/controls/generic-option';
+import Input from '../../../forms/controls/input';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import Select from '../../../forms/controls/select';
 import {
@@ -58,18 +59,26 @@ const Declarations = ({
         resetObject={defaultCustum(activeQuestionnaire, defaultDeclaration)}
         disableValidation={disableValidation}
       >
-        <Field
-          name="label"
-          id="declaration_text"
-          component={RichEditorWithVariable}
-          label={
-            declarationType === DECLARATION_TYPES.CODE_CARD
-              ? Dictionary.declaration_label_code_card
-              : Dictionary.declaration_label
-          }
-          required
-          setDisableValidation={setDisableValidation}
-        />
+        {declarationType === DECLARATION_TYPES.CODE_CARD ? (
+          <Field
+            name="label"
+            id="declaration_text"
+            type="text"
+            component={Input}
+            label={Dictionary.declaration_label_code_card}
+            required
+            setDisableValidation={setDisableValidation}
+          />
+        ) : (
+          <Field
+            name="label"
+            id="declaration_text"
+            component={RichEditorWithVariable}
+            label={Dictionary.declaration_label}
+            required
+            setDisableValidation={setDisableValidation}
+          />
+        )}
 
         <Field
           name="declarationType"
