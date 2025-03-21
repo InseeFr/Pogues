@@ -36,7 +36,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage
-          path: coverage
+          path: next/coverage
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         with:
