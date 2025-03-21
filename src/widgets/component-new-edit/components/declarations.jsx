@@ -85,7 +85,6 @@ const Declarations = ({
             component={Input}
             label={Dictionary.declaration_label_code_card}
             required
-            setDisableValidation={setDisableValidation}
           />
         ) : (
           <Field
