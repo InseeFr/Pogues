@@ -73,6 +73,9 @@
       "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
       "deleteSuccess": "Liste de codes {{label}} supprimée",
+      "deleteError": {
+        "usedInQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
+      },
       "duplicate": "Dupliquer",
       "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",

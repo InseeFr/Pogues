@@ -1,10 +1,17 @@
 import React from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteCodesList, putCodesList } from '@/api/codesLists';
+import {
+  CodeListError,
+  CodeListRelatedQuestionError,
+  ERROR_CODES,
+  deleteCodesList,
+  putCodesList,
+} from '@/api/codesLists';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
 import type { Code, CodesList } from '@/models/codesLists';
@@ -89,7 +96,18 @@ export default function CodesListOverviewItem({
       success: t('codesList.overview.deleteSuccess', {
         label: codesList.label,
       }),
-      error: (err: Error) => err.toString(),
+      error: (err: AxiosError<CodeListError>) => {
+        if (
+          err.response?.data.errorCode === ERROR_CODES.RELATED_QUESTION_NAMES
+        ) {
+          const { relatedQuestionNames } = err.response
+            .data as CodeListRelatedQuestionError;
+          return t('codesList.overview.deleteError.usedInQuestions', {
+            questions: relatedQuestionNames.join('\n'),
+          });
+        }
+        return err.toString();
+      },
     });
   }
 
