@@ -97,7 +97,6 @@ export default function CodesListOverviewItem({
         label: codesList.label,
       }),
       error: (err: AxiosError<CodeListError>) => {
-        console.log(err);
         if (
           err.response?.data.errorCode === ERROR_CODES.RELATED_QUESTION_NAMES
         ) {
