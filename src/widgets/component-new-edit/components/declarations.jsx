@@ -59,6 +59,24 @@ const Declarations = ({
         resetObject={defaultCustum(activeQuestionnaire, defaultDeclaration)}
         disableValidation={disableValidation}
       >
+        <Field
+          name="declarationType"
+          id="declaration_type"
+          component={Select}
+          label={Dictionary.type}
+          required
+        >
+          <GenericOption value={DECLARATION_TYPES.HELP}>
+            {Dictionary.declarationHelp}
+          </GenericOption>
+          <GenericOption value={DECLARATION_TYPES.INSTRUCTION}>
+            {Dictionary.declarationInstruction}
+          </GenericOption>
+          <GenericOption value={DECLARATION_TYPES.CODE_CARD}>
+            {Dictionary.declarationCodeCard}
+          </GenericOption>
+        </Field>
+
         {declarationType === DECLARATION_TYPES.CODE_CARD ? (
           <Field
             name="label"
@@ -79,24 +97,6 @@ const Declarations = ({
             setDisableValidation={setDisableValidation}
           />
         )}
-
-        <Field
-          name="declarationType"
-          id="declaration_type"
-          component={Select}
-          label={Dictionary.type}
-          required
-        >
-          <GenericOption value={DECLARATION_TYPES.HELP}>
-            {Dictionary.declarationHelp}
-          </GenericOption>
-          <GenericOption value={DECLARATION_TYPES.INSTRUCTION}>
-            {Dictionary.declarationInstruction}
-          </GenericOption>
-          <GenericOption value={DECLARATION_TYPES.CODE_CARD}>
-            {Dictionary.declarationCodeCard}
-          </GenericOption>
-        </Field>
 
         {showPosition && (
           <Field
