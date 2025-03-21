@@ -14,6 +14,10 @@ export default mergeConfig(
       globalSetup: 'tests/globalSetup.ts',
       setupFiles: 'tests/setup.ts',
       environment: 'jsdom',
+      include: ['src/**/*.{test,spec}.{ts,tsx}'],
+      coverage: {
+        reporter: ['text', 'lcov'],
+      },
     },
   }),
 );
