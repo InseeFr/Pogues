@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -47,6 +47,13 @@ const Declarations = ({
   activeQuestionnaire,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
+
+  useEffect(() => {
+    // Reset validation state when switching to code card, since we don't keep VTL editor
+    if (declarationType === DECLARATION_TYPES.CODE_CARD) {
+      setDisableValidation(false);
+    }
+  }, [declarationType]);
 
   return (
     <FormSection name={selectorPath}>
