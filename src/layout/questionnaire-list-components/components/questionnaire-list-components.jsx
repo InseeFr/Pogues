@@ -151,7 +151,7 @@ const QuestionnaireListComponents = (props) => {
                   className="btn-blue"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://${publicEnemyBaseUri}/questionnaires/check/${questionnaire.id}`}
+                  href={`${publicEnemyBaseUri}/questionnaires/check/${questionnaire.id}`}
                 >
                   {Dictionary.customize}
                 </a>
