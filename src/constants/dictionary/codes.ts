@@ -10,9 +10,17 @@ export const codesDictionary: Dictionary = {
     fr: 'Choisir une liste de codes',
     en: 'Select a codes list',
   },
-  code: {
+  codeLevel: {
+    fr: 'Niveau',
+    en: 'Level',
+  },
+  codeValue: {
     fr: 'Code de la modalité',
-    en: 'Code',
+    en: 'Modality code',
+  },
+  codeLabel: {
+    fr: 'Libellé de la modalité',
+    en: 'Modality label',
   },
   precisionId: {
     fr: 'Identifiant',

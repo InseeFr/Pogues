@@ -15,13 +15,14 @@ import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
 import FilterInputContainer from '../containers/filter-input-container';
 import PrecisionInputContainer from '../containers/precision-input-container';
 import FilterAction from './FilterAction';
-import SpecifyAction from './SpecifyAction';
+import PrecisionAction from './PrecisionAction';
 
 const { CODES_CLASS, LIST_CLASS } = WIDGET_CODES_LISTS;
 
 /** Display codes of a codes list in a table. */
 function CodesListsCodes(props) {
   const {
+    codeListId = '',
     inputCodePath,
     formName,
     change,
@@ -35,9 +36,6 @@ function CodesListsCodes(props) {
     allowFilter,
     codeFilters = [],
   } = props;
-
-  console.debug('codeFilters', codeFilters);
-
   const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
   const [showPrecision, setShowPrecision] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -145,21 +143,15 @@ function CodesListsCodes(props) {
 
     return (
       <FilterInputContainer
-        meta={meta}
+        change={change}
         close={() => {
           clearInputCode();
           setActiveCodeIndex(undefined);
-          setShowPrecision(false);
+          setShowFilter(false);
         }}
-        clear={clearInputCode}
-        push={pushCode}
-        remove={removePrecision}
-        change={change}
-        path={inputCodePath}
-        formName={formName}
         code={code}
-        precisionShow={showPrecision}
-        filterShow={showFilter}
+        codeListId={codeListId}
+        formName={formName}
       />
     );
   }
@@ -170,9 +162,11 @@ function CodesListsCodes(props) {
     const actions = {
       updatePrecision: () => {
         setShowPrecision(true);
+        setShowFilter(false);
         setActiveCodeIndex(indexCode);
       },
       updateFilter: () => {
+        setShowPrecision(false);
         setShowFilter(true);
         setActiveCodeIndex(indexCode);
       },
@@ -220,7 +214,7 @@ function CodesListsCodes(props) {
           {/* Code Actions */}
           {allowPrecision ? (
             <td className="py-2">
-              <SpecifyAction
+              <PrecisionAction
                 updatePrecision={actions.updatePrecision}
                 precisionLabel={precisionLabel}
               />
@@ -274,9 +268,9 @@ function CodesListsCodes(props) {
       <table className={`${LIST_CLASS} table-auto w-full`}>
         <thead>
           <tr className="border-b border-b-[#e0e0e0]">
-            <th className="py-2">{Dictionary.level}</th>
-            <th className="py-2">{Dictionary.code}</th>
-            <th className="py-2">{Dictionary.label}</th>
+            <th className="py-2">{Dictionary.codeLevel}</th>
+            <th className="py-2">{Dictionary.codeValue}</th>
+            <th className="py-2">{Dictionary.codeLabel}</th>
             {allowPrecision ? (
               <th className="py-2">{Dictionary.codePrecision}</th>
             ) : null}
@@ -304,6 +298,7 @@ CodesListsCodes.propTypes = {
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
+  codeListId: PropTypes.string,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
 

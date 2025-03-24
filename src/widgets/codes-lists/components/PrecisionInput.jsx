@@ -137,7 +137,7 @@ class PrecisionInput extends ComponentWithValidation {
     return (
       <div className={CODE_INPUT_CLASS}>
         <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
-        <div className="Precision">
+        <div>
           <Field
             className={CODE_INPUT_CODE_CLASS_PRECISION}
             name="input-code.precisionid"

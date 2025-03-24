@@ -1,21 +1,21 @@
 import Dictionary from '@/utils/dictionary/dictionary';
 
-interface SpecifyActionProps {
+interface PrecisionActionProps {
   updatePrecision: () => void;
   precisionLabel?: string;
 }
 
 /**
- * Display a specify button which allow to upsert a specification for the code.
+ * Display a clarification button which allow to upsert a specification for the code.
  *
- * The specify button will display the specify label if it has already been set.
+ * The clarification button will display the clarification label if it has already been set.
  */
-export default function SpecifyAction({
+export default function PrecisionAction({
   updatePrecision,
   precisionLabel = '',
-}: Readonly<SpecifyActionProps>) {
+}: Readonly<PrecisionActionProps>) {
   return precisionLabel && precisionLabel !== '' ? (
-    <div>
+    <div className="grid grid-cols-[auto_1fr] items-center">
       <button
         className="btn-white mr-2"
         onClick={updatePrecision}

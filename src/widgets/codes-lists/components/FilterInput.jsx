@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { fieldArrayMeta } from '../../../utils/proptypes-utils';
-import { ComponentWithValidation } from '../../component-with-validation';
 
 const {
   CODE_INPUT_CLASS,
@@ -16,22 +13,12 @@ const {
   CODE_INPUT_CODE_CLASS_PRECISION,
 } = WIDGET_CODES_LISTS;
 
-// PropTypes and defaultProps
-
-export const propTypes = {
+const propTypes = {
+  change: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
   code: PropTypes.shape({
     value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
   }),
-  meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
-    .isRequired,
-  path: PropTypes.string.isRequired,
-  formName: PropTypes.string.isRequired,
-  change: PropTypes.func.isRequired,
-  push: PropTypes.func.isRequired,
-  close: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
-  clear: PropTypes.func.isRequired,
   codeFilters: PropTypes.arrayOf(
     PropTypes.shape({
       codeValue: PropTypes.string.isRequired,
@@ -39,103 +26,111 @@ export const propTypes = {
       conditionFilter: PropTypes.string.isRequired,
     }),
   ).isRequired,
-};
-
-const defaultProps = {
-  code: {
-    value: '',
-  },
+  codeListId: PropTypes.string,
+  formName: PropTypes.string,
 };
 
 /** Add, update or remove a filter for a code. */
-class FilterInput extends ComponentWithValidation {
-  static propTypes = propTypes;
+function FilterInput({
+  change,
+  close,
+  code = { value: '' },
+  codeFilters = [],
+  codeListId = '',
+  formName = 'component',
+}) {
+  const [value, setValue] = useState('');
 
-  static defaultProps = defaultProps;
-
-  constructor(props) {
-    const parent = super(props);
-
-    this.state = parent.state;
-
-    this.addCodeIfIsValid = this.addCodeIfIsValid.bind(this);
-    this.addCode = this.addCode.bind(this);
-    this.initInputCode = this.initInputCode.bind(this);
-
-    this.initInputCode();
-  }
-
-  initInputCode() {
-    const { formName, change, codeFilters } = this.props;
-
-    change(formName, `codeFilters`, codeFilters);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { code } = this.props;
-    if (prevProps.code.value !== code.value) {
-      this.initInputCode(code);
+  useEffect(() => {
+    const found = codeFilters.find(
+      (codeFilter) => codeFilter.codeValue === code.value,
+    );
+    if (found) {
+      setValue(found.conditionFilter);
+    } else {
+      setValue('');
     }
+  }, [codeFilters, code]);
+
+  function deleteFilter() {
+    const newCodeFilters = [...codeFilters];
+    const index = newCodeFilters.findIndex(
+      (codeFilter) => codeFilter.codeValue === code.value,
+    );
+    if (index > -1) {
+      newCodeFilters.splice(index, 1);
+      change(formName, 'codeFilters', newCodeFilters);
+    } else {
+      setValue('');
+    }
+    close();
   }
 
-  addCodeIfIsValid() {
-    this.executeIfValid(this.addCode);
+  function setFilter() {
+    const newCodeFilters = [...codeFilters];
+    const found = newCodeFilters.find(
+      (codeFilter) => codeFilter.codeValue === code.value,
+    );
+    if (found) {
+      found.conditionFilter = value;
+    } else {
+      newCodeFilters.push({
+        codeValue: code.value,
+        codeListId,
+        conditionFilter: value,
+      });
+    }
+
+    change(formName, 'codeFilters', newCodeFilters);
   }
 
-  addCode() {
-    const { push, clear } = this.props;
-    push();
-    clear();
-  }
-
-  render() {
-    console.debug(this.props);
-    const { close, remove } = this.props;
-
-    return (
-      <div className={CODE_INPUT_CLASS}>
-        <div className={CODE_INPUT_ERRORS_CLASS}>{super.render()}</div>
-        <div className="Precision">
-          <div>
-            La modalité ne s'affichera que si la condition suivante est vraie :
-          </div>
-          <Field
-            className={CODE_INPUT_CODE_CLASS_PRECISION}
-            name="input-code.conditionFilter"
-            type="text"
-            component={RichEditorWithVariable}
-            label={Dictionary.label}
-            onEnter={this.addCodeIfIsValid}
+  return (
+    <div className={CODE_INPUT_CLASS}>
+      <div className={CODE_INPUT_ERRORS_CLASS} />
+      <div className="w-2/3 m-auto">
+        <div className={`${CODE_INPUT_CODE_CLASS_PRECISION} !w-full`}>
+          <RichEditorWithVariable
+            label={Dictionary.filtre}
+            input={{ value, onChange: setValue, name: 'condition-filter' }}
           />
-          <button
-            className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-            onClick={remove}
-            title={Dictionary.remove}
-          >
-            <span className="glyphicon glyphicon-trash" aria-hidden="true" />
-          </button>
-
-          <div className={CODE_INPUT_ACTIONS_CLASS}>
+          <div className="text-center">
             <button
               className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
-              onClick={close}
+              type="button"
+              onClick={deleteFilter}
+              title={Dictionary.remove}
             >
-              {Dictionary.cancel}
-            </button>
-            <button
-              className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
-              onClick={(e) => {
-                e.preventDefault();
-                this.addCodeIfIsValid();
-              }}
-            >
-              {Dictionary.validate}
+              <span className="glyphicon glyphicon-trash" aria-hidden="true" />
             </button>
           </div>
         </div>
+
+        <div
+          className={`${CODE_INPUT_ACTIONS_CLASS} col-span-full !w-full text-center !mt-6`}
+        >
+          <button
+            className={`${CODE_INPUT_ACTIONS_CLASS}-cancel`}
+            type="button"
+            onClick={close}
+          >
+            {Dictionary.cancel}
+          </button>
+          <button
+            className={`${CODE_INPUT_ACTIONS_CLASS}-validate`}
+            onClick={(e) => {
+              e.preventDefault();
+              setFilter();
+              close();
+            }}
+          >
+            {Dictionary.validate}
+          </button>
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+FilterInput.propTypes = propTypes;
 
 export default FilterInput;

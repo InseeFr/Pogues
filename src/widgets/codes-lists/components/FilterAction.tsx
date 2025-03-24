@@ -15,7 +15,7 @@ export default function FilterAction({
   conditionFilter = '',
 }: Readonly<FilterActionProps>) {
   return conditionFilter && conditionFilter !== '' ? (
-    <div>
+    <div className="grid grid-cols-[auto_1fr] items-center">
       <button
         className="btn-white mr-2"
         onClick={updateFilter}

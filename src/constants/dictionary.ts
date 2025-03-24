@@ -802,10 +802,6 @@ const dictionary: Dictionary = {
     fr: 'Actions',
     en: 'Actions',
   },
-  level: {
-    fr: 'Niveau',
-    en: 'Level',
-  },
   VISUALIZE_WEB: {
     fr: 'Web V1',
     en: 'Web V1',

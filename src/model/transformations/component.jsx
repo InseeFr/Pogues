@@ -717,6 +717,7 @@ function storeToRemoteNested(
     response,
     responsesClarification,
     flowControl,
+    codeFilters,
   } = state;
 
   if (type === LOOP || type === FILTER) return {};
@@ -731,6 +732,7 @@ function storeToRemoteNested(
     // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: [],
     TargetMode,
+    codeFilters,
   };
   if (dynamiqueSpecified !== Filtres) {
     remote.FlowControl = Redirection.stateToRemote(redirections);
