@@ -10,14 +10,12 @@ import {
 const { DROPDOWN } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
-  mandatory: false,
   scope: '',
   visHint: DROPDOWN,
   // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
 export const defaultForm = {
-  mandatory: false,
   scope: '',
   visHint: DROPDOWN,
   // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
@@ -26,7 +24,6 @@ export const defaultForm = {
 export function formToState(form, transformers) {
   const {
     id,
-    mandatory,
     visHint,
     scope,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
@@ -34,7 +31,6 @@ export function formToState(form, transformers) {
 
   return {
     id,
-    mandatory,
     visHint,
     scope,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
@@ -43,11 +39,10 @@ export function formToState(form, transformers) {
 }
 
 export function stateToForm(currentState, transformers) {
-  const { id, visHint, scope, mandatory } = currentState;
+  const { id, visHint, scope } = currentState;
 
   return {
     id,
-    mandatory,
     visHint,
     scope,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:

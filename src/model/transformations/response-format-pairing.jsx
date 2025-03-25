@@ -6,7 +6,6 @@ export function remoteToState(remote) {
     responses: [
       {
         Datatype: { visualizationHint: visHint },
-        mandatory,
         CodeListReference,
         id,
       },
@@ -17,7 +16,6 @@ export function remoteToState(remote) {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       CodeList.remoteToState(CodeListReference),
     id,
-    mandatory,
     scope,
     visHint,
   };
