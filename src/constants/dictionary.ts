@@ -882,6 +882,10 @@ const dictionary: Dictionary = {
     fr: 'Pour plus de précision, se référer à la documentation.',
     en: 'For more information check the documentation.',
   },
+  loopMinMaxHouseholdContextWarning: {
+    fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
+    en: 'Reminder: for business surveys, the min and max number of occurences of a loop must be equal.',
+  },
 };
 
 // Dynamic translations
