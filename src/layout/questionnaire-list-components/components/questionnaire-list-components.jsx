@@ -49,7 +49,7 @@ const QuestionnaireListComponents = (props) => {
     navigate,
   } = props;
 
-  const publicEnemyBaseUri = getEnvVar('PUBLIC_ENEMY_URL');
+  const customizeUrl = getEnvVar('CUSTOMIZE_URL');
 
   useEffect(() => {
     setSelectedComponentId('');
@@ -146,12 +146,12 @@ const QuestionnaireListComponents = (props) => {
           <div id="questionnaire-head">
             <h4>{questionnaire.label}</h4>
             <div>
-              {publicEnemyBaseUri && (
+              {customizeUrl && (
                 <a
                   className="btn-blue"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`${publicEnemyBaseUri}/questionnaires/check/${questionnaire.id}`}
+                  href={`${customizeUrl}/questionnaires/check/${questionnaire.id}`}
                 >
                   {Dictionary.customize}
                 </a>
