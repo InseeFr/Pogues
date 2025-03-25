@@ -3,18 +3,12 @@ import { createReactOidc } from 'oidc-spa/react';
 
 import { getEnvVar } from '@/utils/env';
 
-const authority = getEnvVar('OIDC_AUTHORITY') ?? '';
+const authority = getEnvVar('OIDC_ISSUER') ?? '';
 const client_id = getEnvVar('OIDC_CLIENT_ID') ?? '';
-const authType = getEnvVar('AUTH_TYPE');
 
 export const { OidcProvider, useOidc } =
-  authType === 'OIDC'
-    ? createReactOidc({
-        clientId: client_id,
-        issuerUri: authority,
-        homeUrl: '/',
-      })
-    : createMockReactOidc({
+  getEnvVar('OIDC_ENABLED') === 'false'
+    ? createMockReactOidc({
         isUserInitiallyLoggedIn: true,
         mockedTokens: {
           decodedIdToken: {
@@ -23,5 +17,10 @@ export const { OidcProvider, useOidc } =
             timbre: getEnvVar('DEFAULT_USER_STAMP') ?? 'FAKEPERMISSION',
           },
         },
+        homeUrl: '/',
+      })
+    : createReactOidc({
+        clientId: client_id,
+        issuerUri: authority,
         homeUrl: '/',
       });
