@@ -732,7 +732,6 @@ function storeToRemoteNested(
     // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: [],
     TargetMode,
-    codeFilters,
   };
   if (dynamiqueSpecified !== Filtres) {
     remote.FlowControl = Redirection.stateToRemote(redirections);
@@ -762,6 +761,8 @@ function storeToRemoteNested(
         collectedVariables,
       );
       remote.ArbitraryResponse = remoteArbitrary;
+
+      remote.codeFilters = codeFilters;
     }
     if (
       responseFormat.type === MULTIPLE_CHOICE &&
@@ -780,6 +781,8 @@ function storeToRemoteNested(
         );
       remote.FlowControl = remoteclarification.flowcontrolefinal;
       remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
+
+      remote.codeFilters = codeFilters;
     }
     if (
       responseFormat.type === TABLE &&
