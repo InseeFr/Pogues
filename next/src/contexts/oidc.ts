@@ -9,16 +9,8 @@ const decodedIdTokenSchema = z.object({
 });
 
 export const { OidcProvider, useOidc, getOidc } =
-  import.meta.env.VITE_OIDC_ENABLED !== 'false' &&
-  import.meta.env.VITE_AUTH_TYPE === 'OIDC'
-    ? createReactOidc({
-        autoLogin: true,
-        clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
-        issuerUri: import.meta.env.VITE_OIDC_ISSUER,
-        homeUrl: import.meta.env.BASE_URL,
-        decodedIdTokenSchema,
-      })
-    : createMockReactOidc({
+  import.meta.env.VITE_OIDC_ENABLED === 'false'
+    ? createMockReactOidc({
         autoLogin: true,
         isUserInitiallyLoggedIn: true,
         homeUrl: import.meta.env.BASE_URL,
@@ -29,4 +21,11 @@ export const { OidcProvider, useOidc, getOidc } =
             timbre: import.meta.env.VITE_DEFAULT_USER_STAMP ?? 'FAKEPERMISSION',
           } satisfies z.infer<typeof decodedIdTokenSchema>,
         },
+      })
+    : createReactOidc({
+        autoLogin: true,
+        clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
+        issuerUri: import.meta.env.VITE_OIDC_ISSUER,
+        homeUrl: import.meta.env.BASE_URL,
+        decodedIdTokenSchema,
       });
