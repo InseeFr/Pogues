@@ -12,7 +12,6 @@ import {
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { getEnvVar } from '../../../utils/env';
 import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
@@ -49,7 +48,7 @@ const QuestionnaireListComponents = (props) => {
     navigate,
   } = props;
 
-  const customizeUrl = getEnvVar('CUSTOMIZE_URL');
+  const customizeUrl = import.meta.env.VITE_CUSTOMIZE_URL;
 
   useEffect(() => {
     setSelectedComponentId('');

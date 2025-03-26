@@ -3,10 +3,9 @@
  Manage remote or local logging, levels and namespacing.
  'Beauty is in the eye of the beholder'
  */
-import { getEnvVar } from '../env';
 
-const level = getEnvVar('LOG_LEVEL');
-const activeNamespaces = getEnvVar('ACTIVE_NAMESPACES');
+const level = import.meta.env.VITE_LOG_LEVEL;
+const activeNamespaces = import.meta.env.VITE_ACTIVE_NAMESPACES;
 
 const LEVELS = {
   DEBUG: 0,

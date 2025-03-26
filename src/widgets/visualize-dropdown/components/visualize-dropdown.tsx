@@ -7,7 +7,6 @@ import { VisualizationKind } from '@/api/visualize';
 import { domSelectorForModal } from '@/constants/dom-constants';
 import { useClickAway } from '@/hooks/useClickAway';
 import Dictionary from '@/utils/dictionary/dictionary';
-import { getEnvVar } from '@/utils/env';
 import { hasDuplicateVariables } from '@/utils/variables/variables-utils';
 
 interface VisualizeDropdownProps {
@@ -155,7 +154,7 @@ export default function VisualizeDropdown({
 }
 
 const enableDownloadMetadata =
-  getEnvVar('METADATA_DOWNLOAD_ENABLED') === 'true';
+  import.meta.env.VITE_METADATA_DOWNLOAD_ENABLED === 'true';
 
 const dropdownOptions = [
   {
