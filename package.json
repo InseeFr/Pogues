@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "start": "vite --port 5145",
-    "build": "npm run generate-entrypoint && vite build",
+    "build": "vite build",
     "postbuild": "node scripts/remote-env.cjs remote-entry.js",
     "preview": "vite preview --port 5145",
     "test": "vitest run",
@@ -41,7 +41,6 @@
     "_format": "prettier --ignore-unknown .",
     "format": "npm run _format -- --write",
     "format:check": "npm run _format -- --list-different",
-    "generate-entrypoint": "node scripts/generate-entrypoint.js",
     "postinstall": "shx cp src/bootstrap-custom/_variables.scss node_modules/bootstrap-sass/assets/stylesheets/bootstrap/",
     "prepare": "husky"
   },
@@ -146,6 +145,7 @@
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.10.0",
     "vite": "^5.4.9",
+    "vite-envs": "^4.6.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.2"
   },
