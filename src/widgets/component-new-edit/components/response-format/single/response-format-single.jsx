@@ -124,17 +124,6 @@ function ResponseFormatSingle({
 
   return (
     <FormSection name={selectorPath} className="response-format__single">
-      <div className="ctrl-checkbox" style={styleMandatory}>
-        <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
-        <div>
-          <Field
-            name="mandatory"
-            id="rf-single-mandatory"
-            component="input"
-            type="checkbox"
-          />
-        </div>
-      </div>
       {responseFormatType === PAIRING ? (
         <Field
           name="scope"
@@ -148,25 +137,38 @@ function ResponseFormatSingle({
           {pairingSourceVariable}
         </Field>
       ) : (
-        <Field
-          name="visHint"
-          component={ListRadios}
-          label={Dictionary.visHint}
-          required
-        >
-          <GenericOption key={RADIO} value={RADIO}>
-            {Dictionary.radio}
-          </GenericOption>
-          <GenericOption key={DROPDOWN} value={DROPDOWN}>
-            {Dictionary.dropdown}
-          </GenericOption>
-          <GenericOption key={CHECKBOX} value={CHECKBOX}>
-            {Dictionary.checkbox}
-          </GenericOption>
-          <GenericOption key={SUGGESTER} value={SUGGESTER}>
-            {Dictionary.suggester}
-          </GenericOption>
-        </Field>
+        <>
+          <div className="ctrl-checkbox" style={styleMandatory}>
+            <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
+            <div>
+              <Field
+                name="mandatory"
+                id="rf-single-mandatory"
+                component="input"
+                type="checkbox"
+              />
+            </div>
+          </div>
+          <Field
+            name="visHint"
+            component={ListRadios}
+            label={Dictionary.visHint}
+            required
+          >
+            <GenericOption key={RADIO} value={RADIO}>
+              {Dictionary.radio}
+            </GenericOption>
+            <GenericOption key={DROPDOWN} value={DROPDOWN}>
+              {Dictionary.dropdown}
+            </GenericOption>
+            <GenericOption key={CHECKBOX} value={CHECKBOX}>
+              {Dictionary.checkbox}
+            </GenericOption>
+            <GenericOption key={SUGGESTER} value={SUGGESTER}>
+              {Dictionary.suggester}
+            </GenericOption>
+          </Field>
+        </>
       )}
       {visHint === SUGGESTER ? (
         <>

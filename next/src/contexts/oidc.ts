@@ -2,8 +2,6 @@ import { createMockReactOidc } from 'oidc-spa/mock/react';
 import { createReactOidc } from 'oidc-spa/react';
 import { z } from 'zod';
 
-import { getEnvVar } from '@/utils/env';
-
 const decodedIdTokenSchema = z.object({
   family_name: z.string().optional(),
   given_name: z.string(),
@@ -11,23 +9,23 @@ const decodedIdTokenSchema = z.object({
 });
 
 export const { OidcProvider, useOidc, getOidc } =
-  getEnvVar('OIDC_ENABLED') !== 'false' && getEnvVar('AUTH_TYPE') === 'OIDC'
-    ? createReactOidc({
-        autoLogin: true,
-        clientId: getEnvVar('OIDC_CLIENT_ID') ?? '',
-        issuerUri: getEnvVar('OIDC_ISSUER') ?? '',
-        homeUrl: import.meta.env.BASE_URL,
-        decodedIdTokenSchema,
-      })
-    : createMockReactOidc({
+  import.meta.env.VITE_OIDC_ENABLED === 'false'
+    ? createMockReactOidc({
         autoLogin: true,
         isUserInitiallyLoggedIn: true,
         homeUrl: import.meta.env.BASE_URL,
         mockedTokens: {
           decodedIdToken: {
-            given_name: getEnvVar('DEFAULT_USER_NAME') ?? 'Guybrush',
+            given_name: import.meta.env.VITE_DEFAULT_USER_NAME ?? 'Guybrush',
             family_name: '',
-            timbre: getEnvVar('DEFAULT_USER_STAMP') ?? 'FAKEPERMISSION',
+            timbre: import.meta.env.VITE_DEFAULT_USER_STAMP ?? 'FAKEPERMISSION',
           } satisfies z.infer<typeof decodedIdTokenSchema>,
         },
+      })
+    : createReactOidc({
+        autoLogin: true,
+        clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
+        issuerUri: import.meta.env.VITE_OIDC_ISSUER,
+        homeUrl: import.meta.env.BASE_URL,
+        decodedIdTokenSchema,
       });

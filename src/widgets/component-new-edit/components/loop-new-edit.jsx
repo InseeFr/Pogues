@@ -50,6 +50,11 @@ const LoopNewEdit = ({
       )}
       {!loopBasedOn && componentType !== ROUNDABOUT && (
         <>
+          <div className="grid grid-cols-[25%_75%] text-red-500">
+            <div className="col-start-2 px-3 pb-3">
+              {Dictionary.loopMinMaxHouseholdContextWarning}
+            </div>
+          </div>
           <Field
             name="minimum"
             type="text"
