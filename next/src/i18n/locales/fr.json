@@ -66,7 +66,7 @@
       "code_other": "Codes",
       "codeLabel": "Libellé de la modalité",
       "codeValue": "Code de la modalité",
-      "label": "Libellé"
+      "label": "Nom de la liste de codes"
     },
     "overview": {
       "create": "Créer une liste de codes",

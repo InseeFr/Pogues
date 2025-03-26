@@ -73,7 +73,6 @@ export default function EditCodesListForm({
       formulasLanguage={formulasLanguage}
       variables={variables}
       onSubmit={onSubmit}
-      submitLabel={t('common.edit')}
     />
   );
 }

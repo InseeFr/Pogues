@@ -9,30 +9,21 @@ vi.mock('@/components/ui/VTLEditor');
 it('should enable the button only when all fields are filled', async () => {
   const submitFn = vi.fn();
   renderWithRouter(
-    <CodesListForm
-      questionnaireId="q-id"
-      onSubmit={submitFn}
-      variables={[]}
-      submitLabel="Submit label"
-    />,
+    <CodesListForm questionnaireId="q-id" onSubmit={submitFn} variables={[]} />,
   );
 
   await waitFor(() => {
-    expect(
-      screen.getByRole('button', { name: /Submit label/i }),
-    ).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
   });
 
-  fireEvent.input(screen.getByRole('textbox', { name: /Label/i }), {
+  fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
     target: {
       value: 'my label',
     },
   });
 
   await waitFor(() => {
-    expect(
-      screen.getByRole('button', { name: /Submit label/i }),
-    ).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
   });
 
   fireEvent.input(screen.getByTestId('codes.0.value'), {
@@ -47,28 +38,22 @@ it('should enable the button only when all fields are filled', async () => {
   });
 
   await waitFor(() => {
-    expect(screen.getByRole('button', { name: /Submit label/i })).toBeEnabled();
+    expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled();
   });
 
-  fireEvent.submit(screen.getByRole('button', { name: /Submit label/i }));
+  fireEvent.submit(screen.getByRole('button', { name: /Validate/i }));
   await waitFor(() => {
     expect(submitFn).toBeCalled();
   });
 });
 
 it('should display "must have label" error when empty', async () => {
-  renderWithRouter(
-    <CodesListForm
-      questionnaireId="q-id"
-      onSubmit={vi.fn()}
-      submitLabel="Submit label"
-    />,
-  );
+  renderWithRouter(<CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />);
 
-  fireEvent.input(screen.getByRole('textbox', { name: /Label/i }), {
+  fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
     target: { value: 'my label' },
   });
-  fireEvent.input(screen.getByRole('textbox', { name: /Label/i }), {
+  fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
     target: { value: '' },
   });
 
@@ -77,13 +62,7 @@ it('should display "must have label" error when empty', async () => {
 });
 
 it('should display "code must have value" error when empty', async () => {
-  renderWithRouter(
-    <CodesListForm
-      questionnaireId="q-id"
-      onSubmit={vi.fn()}
-      submitLabel="Submit label"
-    />,
-  );
+  renderWithRouter(<CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />);
 
   fireEvent.input(screen.getByTestId('codes.0.value'), {
     target: { value: 'my code value' },
@@ -99,13 +78,7 @@ it('should display "code must have value" error when empty', async () => {
 });
 
 it('should display "code must have label" error when empty', async () => {
-  renderWithRouter(
-    <CodesListForm
-      questionnaireId="q-id"
-      onSubmit={vi.fn()}
-      submitLabel="Submit label"
-    />,
-  );
+  renderWithRouter(<CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />);
 
   fireEvent.input(screen.getByTestId('codes.0.label'), {
     target: { value: 'my code value' },
@@ -119,13 +92,7 @@ it('should display "code must have label" error when empty', async () => {
 });
 
 it('should display "value must be unique" error when duplicate value', async () => {
-  renderWithRouter(
-    <CodesListForm
-      questionnaireId="q-id"
-      onSubmit={vi.fn()}
-      submitLabel="Submit label"
-    />,
-  );
+  renderWithRouter(<CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />);
 
   fireEvent.click(screen.getByRole('button', { name: /Add a code/i }));
   fireEvent.input(screen.getByTestId('codes.0.value'), {
