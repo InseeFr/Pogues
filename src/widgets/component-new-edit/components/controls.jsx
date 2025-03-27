@@ -72,14 +72,14 @@ const Controls = ({
           label={Dictionary.criticity}
           required
         >
-          <GenericOption key="INFO" value="INFO">
-            {Dictionary.INFO}
-          </GenericOption>
           <GenericOption key="WARN" value="WARN">
             {Dictionary.WARN}
           </GenericOption>
           <GenericOption key="ERROR" value="ERROR">
             {Dictionary.ERROR}
+          </GenericOption>
+          <GenericOption key="INFO" value="INFO">
+            {Dictionary.INFO}
           </GenericOption>
         </Field>
         {isDynamicArray && (

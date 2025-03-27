@@ -415,12 +415,12 @@ const dictionary: Dictionary = {
     fr: 'Information',
   },
   WARN: {
-    en: 'Warning',
-    fr: 'Avertissement',
+    en: 'Warning (Non-blocking)',
+    fr: 'Avertissement (Non bloquant)',
   },
   ERROR: {
-    en: 'Error',
-    fr: 'Erreur',
+    en: 'Error (Blocking)',
+    fr: 'Erreur (Bloquant)',
   },
   control_scope: {
     en: 'Level',
