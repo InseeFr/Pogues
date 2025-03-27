@@ -14,7 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@base-ui-components/react": "^1.0.0-alpha.6",
+    "@base-ui-components/react": "^1.0.0-alpha.7",
     "@fontsource-variable/open-sans": "^5.1.1",
     "@hookform/resolvers": "^4.1.0",
     "@making-sense/antlr-editor": "2.0.0",

@@ -1,5 +1,3 @@
-import i18next from 'i18next';
-
 import SpinnerIcon from './icons/SpinnerIcon';
 
 export enum ButtonStyle {
@@ -31,17 +29,23 @@ export default function Button({
         ${
           buttonStyle === ButtonStyle.Primary
             ? 'bg-primary text-negative disabled:bg-primary-disabled hover:enabled:bg-primary-accent active:enabled:bg-primary-active'
-            : 'bg-white text-primary hover:enabled:bg-accent active:enabled:bg-active border-primary'
-        }
-          `}
+            : 'bg-white text-primary disabled:bg-disabled disabled:text-disabled hover:enabled:bg-accent active:enabled:bg-active disabled:border-default border-primary'
+        }`}
       {...props}
     >
       {isLoading ? (
         <div className="flex">
-          <div className="mr-3 animate-spin fill-negative">
+          <div
+            className={`mr-3 animate-spin
+              ${
+                buttonStyle === ButtonStyle.Primary
+                  ? 'fill-negative'
+                  : 'fill-primary'
+              }`}
+          >
             <SpinnerIcon />
           </div>
-          <div>{i18next.t('common.loading')}</div>
+          <div>{children}</div>
         </div>
       ) : (
         children
