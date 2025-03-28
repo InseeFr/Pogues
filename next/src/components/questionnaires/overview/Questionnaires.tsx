@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
+import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
@@ -27,6 +28,9 @@ export default function Questionnaires({
 }: Readonly<QuestionnairesProps>) {
   const { t } = useTranslation();
   const [filter, setFilter] = useState<string>('');
+  const [filters, setFilters] = useState<
+    { filterType: string; filterContent: string }[]
+  >([]);
   const navigate = useNavigate();
 
   /** Change page based on stamp chosen from the selector. */
@@ -65,6 +69,7 @@ export default function Questionnaires({
             />
           </div>
         </div>
+        <FilterList filters={filters} setFilters={setFilters} />
         {questionnaires ? (
           <TableQuestionnaires
             questionnaires={questionnaires.filter((q) => {

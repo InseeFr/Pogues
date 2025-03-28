@@ -23,7 +23,8 @@
     "send": "Send",
     "title": "Title",
     "start": "Start",
-    "unsavedModification": "You didn't save your changes. Are you sure you want to leave?"
+    "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
+    "clearFilters": "Clear filters"
   },
   "error": {
     "boundary": "An error occurred, if the problem persists, please contact support."
