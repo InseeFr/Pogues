@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { CodesList } from '@/models/codesLists';
 
-import { CodeLine } from './CodeLine';
+import CodeLine from './CodeLine';
 
 interface CodesTableProps {
   codesList: CodesList;

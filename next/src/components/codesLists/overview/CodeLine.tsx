@@ -8,7 +8,7 @@ interface CodeLineProps {
 /**
  * Display a line with code information to be used in the codes list overview table.
  */
-export function CodeLine({
+export default function CodeLine({
   code,
   subCodeIteration = 0,
 }: Readonly<CodeLineProps>) {

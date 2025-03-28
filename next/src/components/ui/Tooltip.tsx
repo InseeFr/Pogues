@@ -8,7 +8,10 @@ interface TooltipProps {
   title: React.ReactNode;
 }
 
-/** Display a tooltip when hovering its content. */
+/**
+ * Display a tooltip when hovering its content. Should be used to display
+ * information to sighted users (i.e. display the content of an aria label).
+ */
 export default function Tooltip({ children, title }: Readonly<TooltipProps>) {
   return (
     <UITooltip.Provider>

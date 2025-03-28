@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import Tooltip from '@/components/ui/Tooltip';
+import Popover from '@/components/ui/Popover';
 
 interface CodesListQuestionsProps {
   relatedQuestionNames?: string[];
@@ -20,19 +20,19 @@ export default function CodesListQuestions({
 
   if (relatedQuestionNames.length === 0) {
     return (
-      <Tooltip title={t('codesList.overview.notUsedByQuestions')}>
-        <div className="text-error">
+      <Popover description={t('codesList.overview.notUsedByQuestions')}>
+        <div className="min-w-28 text-error">
           {t('codesList.overview.question', {
             count: 0,
           })}
         </div>
-      </Tooltip>
+      </Popover>
     );
   }
 
   return (
-    <Tooltip
-      title={
+    <Popover
+      description={
         <div>
           <div>
             {t('codesList.overview.usedByQuestion', {
@@ -47,9 +47,11 @@ export default function CodesListQuestions({
         </div>
       }
     >
-      {t('codesList.overview.question', {
-        count: relatedQuestionNames.length,
-      })}
-    </Tooltip>
+      <div className="min-w-28">
+        {t('codesList.overview.question', {
+          count: relatedQuestionNames.length,
+        })}
+      </div>
+    </Popover>
   );
 }
