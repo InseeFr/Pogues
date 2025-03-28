@@ -23,6 +23,7 @@
     "send": "Send",
     "title": "Title",
     "start": "Start",
+    "clearInput": "Clear input",
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?"
   },
   "error": {
@@ -80,7 +81,8 @@
       "duplicateDialogTitle": "Duplicate code list: {{label}}",
       "duplicateDialogConfirm": "Do you want to create a copy of this code list?",
       "duplicateSuccess": "Code list {{label}} duplicated",
-      "title": "Code Lists"
+      "title": "Code Lists",
+      "search": "Search a code list"
     },
     "create": {
       "success": "The code list has been created",

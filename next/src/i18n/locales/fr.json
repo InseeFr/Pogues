@@ -23,6 +23,7 @@
     "send": "Envoyer",
     "title": "Titre",
     "start": "Commencer",
+    "clearInput": "Effacer la recherche",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?"
   },
   "error": {
@@ -80,7 +81,8 @@
       "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
-      "title": "Listes de codes"
+      "title": "Listes de codes",
+      "search": "Rechercher une liste de codes"
     },
     "create": {
       "success": "La liste de codes a été créée",

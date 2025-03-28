@@ -62,6 +62,8 @@ export default function Questionnaires({
               placeholder={t('questionnaires.search')}
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
+              onClear={() => setFilter('')}
+              showClearButton={filter.length > 0}
             />
           </div>
         </div>

@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
+import Input from '@/components/ui/Input';
 import { type CodesList } from '@/models/codesLists';
 
 import CodesListOverviewItem from './CodesListOverviewItem';
@@ -22,6 +25,8 @@ export default function CodesListsOverview({
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
+  const [filter, setFilter] = useState<string>('');
+
   return (
     <div>
       <ContentHeader
@@ -38,13 +43,30 @@ export default function CodesListsOverview({
       <ContentMain>
         {codesLists.length > 0 ? (
           <>
-            {codesLists.map((codesList) => (
-              <CodesListOverviewItem
-                key={codesList.id}
-                questionnaireId={questionnaireId}
-                codesList={codesList}
+            <div>
+              <Input
+                label={t('codesList.overview.search')}
+                placeholder={t('codesList.overview.search')}
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                onClear={() => setFilter('')}
+                showClearButton={filter.length > 0}
               />
-            ))}
+            </div>
+            {codesLists
+              .filter((c) => {
+                return (
+                  c.id.toLowerCase().includes(filter.toLowerCase()) ||
+                  c.label.toLowerCase().includes(filter.toLowerCase())
+                );
+              })
+              .map((codesList) => (
+                <CodesListOverviewItem
+                  key={codesList.id}
+                  questionnaireId={questionnaireId}
+                  codesList={codesList}
+                />
+              ))}
           </>
         ) : (
           <ButtonLink
