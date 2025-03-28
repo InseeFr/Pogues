@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next';
 import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
+import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
 import { type CodesList } from '@/models/codesLists';
+import { type Filter, FilterEnum } from '@/models/filter';
 
 import CodesListOverviewItem from './CodesListOverviewItem';
 
@@ -25,7 +27,24 @@ export default function CodesListsOverview({
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
-  const [filter, setFilter] = useState<string>('');
+  const [filters, setFilters] = useState<Filter[]>([
+    {
+      filterType: FilterEnum.Search,
+      filterContent: '',
+      clearFilterFunction: () =>
+        setFilters((prevFilters) =>
+          prevFilters.map((f) =>
+            f.filterType === FilterEnum.Search
+              ? { ...f, filterContent: '' }
+              : f,
+          ),
+        ),
+    },
+  ]);
+
+  const searchFilterContent =
+    filters.find((f) => f.filterType === FilterEnum.Search)?.filterContent ||
+    '';
 
   return (
     <div>
@@ -47,17 +66,38 @@ export default function CodesListsOverview({
               <Input
                 label={t('codesList.overview.search')}
                 placeholder={t('codesList.overview.search')}
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-                onClear={() => setFilter('')}
-                showClearButton={filter.length > 0}
+                value={searchFilterContent}
+                onChange={(e) =>
+                  setFilters((prevFilters) =>
+                    prevFilters.map((f) =>
+                      f.filterType === FilterEnum.Search
+                        ? { ...f, filterContent: e.target.value }
+                        : f,
+                    ),
+                  )
+                }
+                onClear={() =>
+                  setFilters((prevFilters) =>
+                    prevFilters.map((f) =>
+                      f.filterType === FilterEnum.Search
+                        ? { ...f, filterContent: '' }
+                        : f,
+                    ),
+                  )
+                }
+                showClearButton={searchFilterContent.length > 0}
               />
             </div>
+            <FilterList filters={filters} />
             {codesLists
               .filter((c) => {
                 return (
-                  c.id.toLowerCase().includes(filter.toLowerCase()) ||
-                  c.label.toLowerCase().includes(filter.toLowerCase())
+                  c.id
+                    .toLowerCase()
+                    .includes(filters[0].filterContent.toLowerCase()) ||
+                  c.label
+                    .toLowerCase()
+                    .includes(filters[0].filterContent.toLowerCase())
                 );
               })
               .map((codesList) => (

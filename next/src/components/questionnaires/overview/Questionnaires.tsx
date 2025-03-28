@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import ButtonLink from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
+import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
+import { type Filter, FilterEnum } from '@/models/filter';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
 
@@ -26,16 +28,56 @@ export default function Questionnaires({
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState<string>('');
+  const searchParams = new URLSearchParams(window.location.search);
+  const stampFromUrl = searchParams.get('stamp') || '';
+
+  const [filters, setFilters] = useState<Filter[]>([
+    {
+      filterType: FilterEnum.Stamp,
+      filterContent: stampFromUrl,
+      clearFilterFunction: (): void => {
+        setFilters((prevFilters: Filter[]) =>
+          prevFilters.map((f: Filter) =>
+            f.filterType === FilterEnum.Stamp ? { ...f, filterContent: '' } : f,
+          ),
+        );
+        navigate({
+          to: '/questionnaires',
+        });
+      },
+    },
+    {
+      filterType: FilterEnum.Search,
+      filterContent: '',
+      clearFilterFunction: () =>
+        setFilters((prevFilters) =>
+          prevFilters.map((f) =>
+            f.filterType === FilterEnum.Search
+              ? { ...f, filterContent: '' }
+              : f,
+          ),
+        ),
+    },
+  ]);
+
   const navigate = useNavigate();
 
   /** Change page based on stamp chosen from the selector. */
   function handleStampSelection(stamp: string) {
+    setFilters((prevFilters) =>
+      prevFilters.map((f) =>
+        f.filterType === FilterEnum.Stamp ? { ...f, filterContent: stamp } : f,
+      ),
+    );
     navigate({
       to: '/questionnaires',
       search: { stamp },
     });
   }
+
+  const searchFilterContent =
+    filters.find((f) => f.filterType === FilterEnum.Search)?.filterContent ||
+    '';
 
   return (
     <div>
@@ -60,19 +102,38 @@ export default function Questionnaires({
             <Input
               label={t('questionnaires.search')}
               placeholder={t('questionnaires.search')}
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              onClear={() => setFilter('')}
-              showClearButton={filter.length > 0}
+              value={searchFilterContent}
+              onChange={(e) =>
+                setFilters((prevFilters) =>
+                  prevFilters.map((f) =>
+                    f.filterType === FilterEnum.Search
+                      ? { ...f, filterContent: e.target.value }
+                      : f,
+                  ),
+                )
+              }
+              onClear={() =>
+                setFilters((prevFilters) =>
+                  prevFilters.map((f) =>
+                    f.filterType === FilterEnum.Search
+                      ? { ...f, filterContent: '' }
+                      : f,
+                  ),
+                )
+              }
+              showClearButton={searchFilterContent.length > 0}
             />
           </div>
         </div>
+        <FilterList filters={filters} />
         {questionnaires ? (
           <TableQuestionnaires
             questionnaires={questionnaires.filter((q) => {
               return (
-                q.title.toLowerCase().includes(filter.toLowerCase()) ||
-                q.id.toLowerCase().includes(filter.toLowerCase())
+                q.title
+                  .toLowerCase()
+                  .includes(searchFilterContent.toLowerCase()) ||
+                q.id.toLowerCase().includes(searchFilterContent.toLowerCase())
               );
             })}
           />

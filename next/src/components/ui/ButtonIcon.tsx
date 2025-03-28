@@ -9,6 +9,7 @@ interface ButtonIconProps
   title?: string;
   buttonStyle?: ButtonIconStyle;
   onClick?: () => void;
+  iconProps?: React.SVGProps<SVGSVGElement>; // Props to pass to the Icon
 }
 
 /** Display a clickable icon. */
@@ -18,6 +19,7 @@ export default function ButtonIcon({
   title = '',
   buttonStyle,
   onClick = () => {},
+  iconProps = {},
   ...props
 }: Readonly<ButtonIconProps>) {
   return (
@@ -34,7 +36,7 @@ export default function ButtonIcon({
       onClick={onClick}
       {...props}
     >
-      <Icon />
+      <Icon {...iconProps} />
     </button>
   );
 }

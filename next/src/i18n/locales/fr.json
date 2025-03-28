@@ -120,5 +120,12 @@
       "mustProvideTitle": "Vous devez renseigner un titre",
       "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte"
     }
+  },
+  "filter": {
+    "active": "Filtres actifs: {{count}}",
+    "clearFilters": "Supprimer les filtres",
+    "clear": "Suprimer le filtre",
+    "search": "Label",
+    "stamp": "Timbre"
   }
 }
