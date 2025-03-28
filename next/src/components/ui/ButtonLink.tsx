@@ -9,7 +9,6 @@ export enum ButtonStyle {
 
 interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   // Add any additional props you want to pass to the anchor element
-  disabled: boolean;
   buttonStyle?: ButtonStyle;
 }
 
@@ -20,10 +19,10 @@ const AnchorButtonComponent = React.forwardRef<
   <a
     ref={ref}
     {...props}
-    className={`text-center border font-semibold transition rounded px-4 py-3 min-w-40 disabled:cursor-not-allowed outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary ${
+    className={`text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary ${
       buttonStyle === ButtonStyle.Primary
-        ? 'bg-primary text-negative disabled:bg-primary-disabled hover:enabled:bg-primary-accent active:enabled:bg-primary-active border-none'
-        : 'bg-white text-primary hover:enabled:bg-accent active:enabled:bg-active border-primary'
+        ? 'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none'
+        : 'bg-white text-primary hover:bg-accent active:bg-active border-primary'
     }
                 `}
   >

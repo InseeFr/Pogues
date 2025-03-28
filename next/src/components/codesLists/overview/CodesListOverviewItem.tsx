@@ -19,8 +19,8 @@ import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
 import type { CodesList } from '@/models/codesLists';
 import { uid } from '@/utils/utils';
 
-import { CodeLine } from './CodeLine';
 import CodesListQuestions from './CodesListQuestions';
+import CodesTable from './CodesTable';
 
 interface CodesListProps {
   codesList: CodesList;
@@ -122,33 +122,21 @@ export default function CodesListOverviewItem({
   }
 
   return (
-    <div className="bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] space-y-3">
+    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
       <div className="grid grid-cols-[1fr_auto]">
         <h3>{codesList.label}</h3>
         <CodesListQuestions
           relatedQuestionNames={codesList.relatedQuestionNames}
         />
       </div>
-      {isExpanded ? (
-        <>
-          <div>
-            <table className="border border-default w-full shadow-sm">
-              <thead className="bg-accent">
-                <tr className="*:font-semibold *:p-4 text-left">
-                  <th className="w-1/4">{t('codesList.common.codeValue')}</th>
-                  <th className="w-3/4">{t('codesList.common.codeLabel')}</th>
-                </tr>
-              </thead>
-              <tbody className="text-default">
-                {codesList.codes.map((code) => (
-                  <React.Fragment key={code.value}>
-                    <CodeLine code={code} />
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
+      <div
+        className={`grid overflow-hidden ${isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} transition-all`}
+      >
+        <div className="overflow-hidden space-y-3">
+          <div className="pt-3">
+            <CodesTable codesList={codesList} />
           </div>
-          <div className="flex gap-x-2 mt-3">
+          <div className="flex gap-x-2">
             <ButtonLink
               to="/questionnaire/$questionnaireId/codes-list/$codesListId"
               params={{ questionnaireId, codesListId: codesList.id }}
@@ -178,15 +166,27 @@ export default function CodesListOverviewItem({
               disabled={hasRelatedQuestion}
             />
           </div>
-          <button onClick={() => setIsExpanded(false)}>
-            <ArrowUpIcon />
-          </button>
-        </>
-      ) : (
-        <button onClick={() => setIsExpanded(true)}>
-          <ArrowDownIcon />
-        </button>
-      )}
+        </div>
+      </div>
+      <div className="text-center absolute bottom-0 left-1/2">
+        <ExpandButton isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+      </div>
     </div>
+  );
+}
+
+interface ExpandButtonProps {
+  isExpanded: boolean;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ExpandButton({
+  isExpanded,
+  setIsExpanded,
+}: Readonly<ExpandButtonProps>) {
+  return (
+    <button className="cursor-pointer" onClick={() => setIsExpanded((v) => !v)}>
+      {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
+    </button>
   );
 }

@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
-import { questionnaireQueryOptions } from '@/api/questionnaires';
+import { codesListsQueryOptions } from '@/api/codesLists';
 import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
 
 export const Route = createFileRoute(
@@ -9,14 +9,14 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
-    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId)),
+    queryClient.ensureQueryData(codesListsQueryOptions(questionnaireId)),
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
-  const {
-    data: { codesLists },
-  } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId));
+  const { data: codesLists } = useSuspenseQuery(
+    codesListsQueryOptions(questionnaireId),
+  );
 
   return (
     <CodesListsOverview
