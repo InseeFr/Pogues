@@ -56,34 +56,3 @@ function getSubCodes(
   }
   return subCodes.length > 0 ? subCodes : undefined;
 }
-
-/** Compute codes lists that can be sent to the API from our app data. */
-export function computePoguesCodesLists(
-  codesLists: CodesList[] = [],
-): PoguesCodesList[] {
-  const res: PoguesCodesList[] = [];
-  for (const codesList of codesLists) {
-    const datum = {
-      id: codesList.id,
-      Name: codesList.label,
-      Label: codesList.label,
-      Code: computePoguesCodes(codesList.codes),
-    };
-    res.push(datum);
-  }
-  return res;
-}
-
-function computePoguesCodes(codes: Code[] = [], parent?: Code): PoguesCode[] {
-  const res: PoguesCode[] = [];
-  for (const code of codes) {
-    const datum = {
-      Label: code.label,
-      Value: code.value,
-      Parent: parent ? parent.value : undefined,
-    };
-    res.push(datum);
-    res.push(...computePoguesCodes(code.codes, code));
-  }
-  return res;
-}
