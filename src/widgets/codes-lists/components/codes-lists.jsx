@@ -126,7 +126,6 @@ const CodesLists = ({
           <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
           <FieldArray
             name="codes"
-            codeListId={currentIdState}
             component={CodesListsCodesContainer}
             inputCodePath={`${path}input-code.`}
             formName={formName}

@@ -22,7 +22,6 @@ const { CODES_CLASS, LIST_CLASS } = WIDGET_CODES_LISTS;
 /** Display codes of a codes list in a table. */
 function CodesListsCodes(props) {
   const {
-    codeListId = '',
     inputCodePath,
     formName,
     change,
@@ -150,7 +149,6 @@ function CodesListsCodes(props) {
           setShowFilter(false);
         }}
         code={code}
-        codeListId={codeListId}
         formName={formName}
       />
     );
@@ -298,7 +296,6 @@ CodesListsCodes.propTypes = {
   formName: PropTypes.string.isRequired,
   inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
-  codeListId: PropTypes.string,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
 

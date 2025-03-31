@@ -76,7 +76,6 @@ describe('component tranformations', () => {
                 codeFilters: [
                   {
                     codeValue: 'v1',
-                    codeListId: 'listId',
                     conditionFilter: '$AGE$ > 18',
                   },
                 ],
@@ -249,7 +248,6 @@ describe('component tranformations', () => {
           codeFilters: [
             {
               codeValue: 'v1',
-              codeListId: 'listId',
               conditionFilter: '$AGE$ > 18',
             },
           ],

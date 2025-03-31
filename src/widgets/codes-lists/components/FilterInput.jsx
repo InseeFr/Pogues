@@ -22,11 +22,9 @@ const propTypes = {
   codeFilters: PropTypes.arrayOf(
     PropTypes.shape({
       codeValue: PropTypes.string.isRequired,
-      codeListId: PropTypes.string.isRequired,
       conditionFilter: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  codeListId: PropTypes.string,
   formName: PropTypes.string,
 };
 
@@ -36,7 +34,6 @@ function FilterInput({
   close,
   code = { value: '' },
   codeFilters = [],
-  codeListId = '',
   formName = 'component',
 }) {
   const [value, setValue] = useState('');
@@ -76,7 +73,6 @@ function FilterInput({
     } else {
       newCodeFilters.push({
         codeValue: code.value,
-        codeListId,
         conditionFilter: value,
       });
     }
