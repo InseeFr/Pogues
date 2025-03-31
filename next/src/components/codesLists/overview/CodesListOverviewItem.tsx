@@ -130,6 +130,7 @@ export default function CodesListOverviewItem({
         />
       </div>
       <div
+        aria-hidden={!isExpanded}
         className={`grid overflow-hidden ${isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} transition-all`}
       >
         <div className="overflow-hidden space-y-3">
@@ -138,12 +139,14 @@ export default function CodesListOverviewItem({
           </div>
           <div className="flex gap-x-2">
             <ButtonLink
+              tabIndex={isExpanded ? 0 : -1}
               to="/questionnaire/$questionnaireId/codes-list/$codesListId"
               params={{ questionnaireId, codesListId: codesList.id }}
             >
               {t('common.edit')}
             </ButtonLink>
             <Dialog
+              tabIndex={isExpanded ? 0 : -1}
               label={t('codesList.overview.duplicate')}
               title={t('codesList.overview.duplicateDialogTitle', {
                 label: codesList.label,
@@ -152,6 +155,7 @@ export default function CodesListOverviewItem({
               onValidate={onDuplicate}
             />
             <Dialog
+              tabIndex={isExpanded ? 0 : -1}
               label={t('common.delete')}
               title={t('codesList.overview.deleteDialogTitle', {
                 label: codesList.label,
