@@ -8,7 +8,7 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
-import { type Filter, FilterEnum } from '@/models/filter';
+import { type Filter, FilterType } from '@/models/filter';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
 
@@ -28,17 +28,15 @@ export default function Questionnaires({
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
   const { t } = useTranslation();
-  const searchParams = new URLSearchParams(window.location.search);
-  const stampFromUrl = searchParams.get('stamp') || '';
 
   const [filters, setFilters] = useState<Filter[]>([
     {
-      filterType: FilterEnum.Stamp,
-      filterContent: stampFromUrl,
-      clearFilterFunction: (): void => {
+      type: FilterType.Stamp,
+      filterContent: selectedStamp,
+      clear: (): void => {
         setFilters((prevFilters: Filter[]) =>
           prevFilters.map((f: Filter) =>
-            f.filterType === FilterEnum.Stamp ? { ...f, filterContent: '' } : f,
+            f.type === FilterType.Stamp ? { ...f, filterContent: '' } : f,
           ),
         );
         navigate({
@@ -47,14 +45,12 @@ export default function Questionnaires({
       },
     },
     {
-      filterType: FilterEnum.Search,
+      type: FilterType.Search,
       filterContent: '',
-      clearFilterFunction: () =>
+      clear: () =>
         setFilters((prevFilters) =>
           prevFilters.map((f) =>
-            f.filterType === FilterEnum.Search
-              ? { ...f, filterContent: '' }
-              : f,
+            f.type === FilterType.Search ? { ...f, filterContent: '' } : f,
           ),
         ),
     },
@@ -66,7 +62,7 @@ export default function Questionnaires({
   function handleStampSelection(stamp: string) {
     setFilters((prevFilters) =>
       prevFilters.map((f) =>
-        f.filterType === FilterEnum.Stamp ? { ...f, filterContent: stamp } : f,
+        f.type === FilterType.Stamp ? { ...f, filterContent: stamp } : f,
       ),
     );
     navigate({
@@ -76,8 +72,7 @@ export default function Questionnaires({
   }
 
   const searchFilterContent =
-    filters.find((f) => f.filterType === FilterEnum.Search)?.filterContent ||
-    '';
+    filters.find((f) => f.type === FilterType.Search)?.filterContent || '';
 
   return (
     <div>
@@ -106,7 +101,7 @@ export default function Questionnaires({
               onChange={(e) =>
                 setFilters((prevFilters) =>
                   prevFilters.map((f) =>
-                    f.filterType === FilterEnum.Search
+                    f.type === FilterType.Search
                       ? { ...f, filterContent: e.target.value }
                       : f,
                   ),
@@ -115,7 +110,7 @@ export default function Questionnaires({
               onClear={() =>
                 setFilters((prevFilters) =>
                   prevFilters.map((f) =>
-                    f.filterType === FilterEnum.Search
+                    f.type === FilterType.Search
                       ? { ...f, filterContent: '' }
                       : f,
                   ),

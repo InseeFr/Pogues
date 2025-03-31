@@ -9,7 +9,8 @@ interface ButtonIconProps
   title?: string;
   buttonStyle?: ButtonIconStyle;
   onClick?: () => void;
-  iconProps?: React.SVGProps<SVGSVGElement>; // Props to pass to the Icon
+  /** Props to pass to the Icon */
+  iconProps?: React.SVGProps<SVGSVGElement>;
 }
 
 /** Display a clickable icon. */

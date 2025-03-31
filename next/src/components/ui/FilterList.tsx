@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import ButtonIcon from '@/components/ui/ButtonIcon';
@@ -10,7 +8,8 @@ interface FilterListProps {
   filters: Filter[];
 }
 
-const FilterList: React.FC<FilterListProps> = ({ filters = [] }) => {
+/** Display active filters and allow the user to clear them */
+export default function FilterList({ filters = [] }: FilterListProps) {
   const { t } = useTranslation();
 
   const activeFilterCount = filters.filter(
@@ -36,7 +35,7 @@ const FilterList: React.FC<FilterListProps> = ({ filters = [] }) => {
               >
                 <div className="flex items-center ml-2">
                   <span className="font-medium text-sm">
-                    {t(`filter.${filter.filterType}`)}:&nbsp;
+                    {t(`filter.${filter.type}`)}:&nbsp;
                   </span>
                   <span className="font-normal text-xs">
                     {filter.filterContent}
@@ -46,7 +45,7 @@ const FilterList: React.FC<FilterListProps> = ({ filters = [] }) => {
                     Icon={CloseIcon}
                     iconProps={{ height: '16px', width: '16px' }}
                     title={t('filter.clear')}
-                    onClick={filter.clearFilterFunction}
+                    onClick={filter.clear}
                   />
                 </div>
               </div>
@@ -55,6 +54,4 @@ const FilterList: React.FC<FilterListProps> = ({ filters = [] }) => {
       </div>
     </>
   );
-};
-
-export default FilterList;
+}

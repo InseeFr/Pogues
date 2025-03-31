@@ -8,7 +8,7 @@ import ContentMain from '@/components/ui/ContentMain';
 import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
 import { type CodesList } from '@/models/codesLists';
-import { type Filter, FilterEnum } from '@/models/filter';
+import { type Filter, FilterType } from '@/models/filter';
 
 import CodesListOverviewItem from './CodesListOverviewItem';
 
@@ -29,22 +29,19 @@ export default function CodesListsOverview({
 
   const [filters, setFilters] = useState<Filter[]>([
     {
-      filterType: FilterEnum.Search,
+      type: FilterType.Search,
       filterContent: '',
-      clearFilterFunction: () =>
+      clear: () =>
         setFilters((prevFilters) =>
           prevFilters.map((f) =>
-            f.filterType === FilterEnum.Search
-              ? { ...f, filterContent: '' }
-              : f,
+            f.type === FilterType.Search ? { ...f, filterContent: '' } : f,
           ),
         ),
     },
   ]);
 
   const searchFilterContent =
-    filters.find((f) => f.filterType === FilterEnum.Search)?.filterContent ||
-    '';
+    filters.find((f) => f.type === FilterType.Search)?.filterContent || '';
 
   return (
     <div>
@@ -70,7 +67,7 @@ export default function CodesListsOverview({
                 onChange={(e) =>
                   setFilters((prevFilters) =>
                     prevFilters.map((f) =>
-                      f.filterType === FilterEnum.Search
+                      f.type === FilterType.Search
                         ? { ...f, filterContent: e.target.value }
                         : f,
                     ),
@@ -79,7 +76,7 @@ export default function CodesListsOverview({
                 onClear={() =>
                   setFilters((prevFilters) =>
                     prevFilters.map((f) =>
-                      f.filterType === FilterEnum.Search
+                      f.type === FilterType.Search
                         ? { ...f, filterContent: '' }
                         : f,
                     ),

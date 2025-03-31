@@ -1,3 +1,4 @@
+/** Icon of an 'X' which should be used when one wants to close something or remove an item in a badge. */
 export default function CloseIcon({
   height = '24px',
   width = '24px',

@@ -1,3 +1,4 @@
+/**  Filter icon with an "X" which should be used when the user want to remove filter params */
 export default function FilterOffIcon({
   height = '24px',
   width = '24px',

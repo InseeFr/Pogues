@@ -1,3 +1,4 @@
+/**  Search icon with an "X" which should be used when the user want to remove search params */
 export default function SearchOffIcon({
   height = '24px',
   width = '24px',

@@ -13,6 +13,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   label?: string;
   required?: boolean;
+  /**
+   * Function to clear the input value. It is only used in search components.
+   */
   onClear?: () => void;
   showClearButton?: boolean;
 }
@@ -31,9 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onClear,
       showClearButton = false,
       ...props
-    }: Readonly<
-      InputProps & { onClear?: () => void; showClearButton?: boolean }
-    >,
+    }: Readonly<InputProps>,
     ref,
   ) => {
     const { t } = useTranslation();
@@ -63,8 +64,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               className="absolute right-3 top-1/2 transform -translate-y-1/2"
               Icon={SearchOffIcon}
               title={t('common.clearInput')}
-              onClick={onClear}
-              disabled={disabled}
+              onClick={onClear ? onClear : undefined}
+              disabled={disabled || !onClear}
             />
           )}
         </div>

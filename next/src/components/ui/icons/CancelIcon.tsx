@@ -1,3 +1,4 @@
+/** Round Icon of an 'X' which should be used when one wants to cancel an action. */
 export default function CancelIcon({
   height = '24px',
   width = '24px',

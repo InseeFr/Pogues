@@ -1,11 +1,11 @@
 // To be completed once we have more filters
-export enum FilterEnum {
+export enum FilterType {
   Search = 'search',
   Stamp = 'stamp',
 }
 
 export type Filter = {
-  filterType: FilterEnum;
+  type: FilterType;
   filterContent: string;
-  clearFilterFunction?: () => void;
+  clear?: () => void;
 };
