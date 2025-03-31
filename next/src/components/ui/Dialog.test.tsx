@@ -1,23 +1,24 @@
-//import { render, screen } from '@testing-library/react';
-//import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-//import Dialog from './Dialog';
+import { renderWithRouter } from '@/utils/tests';
+
+import Dialog from './Dialog';
 
 describe('Dialog', () => {
-  it.skip('can be opened and closed', async () => {
-    // TODO fix
+  it('can be opened and closed', async () => {
     expect(true).toBeTruthy();
-    /*const user = userEvent.setup();
-    const { getByText } = render(
+    const user = userEvent.setup();
+    const { queryByText, getByText } = renderWithRouter(
       <Dialog body="body" label="label" title="title" />,
     );
     expect(getByText('label')).toBeInTheDocument();
     await user.click(screen.getByText('label'));
     expect(getByText('title')).toBeInTheDocument();
     expect(getByText('body')).toBeInTheDocument();
-    expect(getByText('close')).toBeInTheDocument();
-    await user.click(screen.getByText('close'));
-    expect(getByText('title')).not.toBeInTheDocument();
-    expect(getByText('body')).not.toBeInTheDocument();*/
+    expect(getByText('Cancel')).toBeInTheDocument();
+    await user.click(screen.getByText('Cancel'));
+    expect(queryByText('title')).toBeNull();
+    expect(queryByText('body')).toBeNull();
   });
 });

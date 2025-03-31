@@ -56,33 +56,40 @@
     "navigation": {
       "overview": "Overview",
       "variables": "Variables",
-      "codeList": "Code list",
+      "codeLists": "Code lists",
       "history": "History",
       "metadata": "Metadata"
     }
   },
   "codesList": {
     "common": {
-      "code": "Code",
-      "code_other": "Codes",
       "codeLabel": "Modality label",
       "codeValue": "Modality code",
       "label": "Code list name"
     },
     "overview": {
       "create": "Create a code list",
-      "deleteDialogTitle": "Delete code list: {{label}}",
       "deleteDialogConfirm": "Are you sure you want to delete this code list?",
-      "deleteSuccess": "Code list {{label}} deleted",
-      "deleteError": {
-        "usedInQuestions": "The code list is used in questions: {{questions}}"
+      "deleteDialogTitle": "Delete code list: {{label}}",
+      "deleteDisabled": {
+        "usedByQuestions": "Code list cannot be deleted if it used by a question."
       },
+      "deleteError": {
+        "usedByQuestions": "The code list is used by questions: {{questions}}"
+      },
+      "deleteSuccess": "Code list {{label}} deleted",
       "duplicate": "Duplicate",
-      "duplicateDialogTitle": "Duplicate code list: {{label}}",
       "duplicateDialogConfirm": "Do you want to create a copy of this code list?",
+      "duplicateDialogTitle": "Duplicate code list: {{label}}",
       "duplicateSuccess": "Code list {{label}} duplicated",
+      "search": "Search a code list",
+      "question": "{{count}} question",
+      "question_other": "{{count}} questions",
+      "question_zero": "{{count}} questions",
       "title": "Code Lists",
-      "search": "Search a code list"
+      "usedByQuestion": "Used by question:",
+      "usedByQuestion_other": "Used by questions:",
+      "notUsedByQuestions": "Not used by any questions."
     },
     "create": {
       "success": "The code list has been created",

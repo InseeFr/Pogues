@@ -6,7 +6,7 @@ import {
   type Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
 } from '../models/pogues';
-import { computeCodesLists, computePoguesCodesLists } from './codesLists';
+import { computeCodesLists } from './codesLists';
 import { computePoguesFlowLogic } from './flowLogic';
 import {
   computeFormulasLanguage,
@@ -46,24 +46,6 @@ export function computeNewPoguesQuestionnaire(
     formulasLanguage: computePoguesFormulasLanguage(datum.formulasLanguage),
     lastUpdatedDate: new Date().toISOString(),
     CodeLists: { CodeList: [] },
-    ...computeLegacyPoguesParameters(targetModes),
-  };
-}
-
-/** Compute a questionnaire that can be sent to the API from our app data. */
-export function computePoguesQuestionnaire(
-  datum: Questionnaire,
-): PoguesQuestionnaire {
-  const targetModes = computePoguesTargetModes(datum.targetModes);
-  return {
-    Name: nameFromLabel(datum.title),
-    Label: [datum.title],
-    TargetMode: targetModes,
-    id: datum.id,
-    flowLogic: computePoguesFlowLogic(datum.flowLogic),
-    formulasLanguage: computePoguesFormulasLanguage(datum.formulasLanguage),
-    lastUpdatedDate: datum.lastUpdatedDate?.toISOString(),
-    CodeLists: { CodeList: computePoguesCodesLists(datum.codesLists) },
     ...computeLegacyPoguesParameters(targetModes),
   };
 }

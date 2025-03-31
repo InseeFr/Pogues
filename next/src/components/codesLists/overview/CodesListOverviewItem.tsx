@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -14,8 +14,13 @@ import {
 } from '@/api/codesLists';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
-import type { Code, CodesList } from '@/models/codesLists';
+import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
+import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
+import type { CodesList } from '@/models/codesLists';
 import { uid } from '@/utils/utils';
+
+import CodesListQuestions from './CodesListQuestions';
+import CodesTable from './CodesTable';
 
 interface CodesListProps {
   codesList: CodesList;
@@ -29,6 +34,11 @@ export default function CodesListOverviewItem({
 }: Readonly<CodesListProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const hasRelatedQuestion =
+    codesList.relatedQuestionNames && codesList.relatedQuestionNames.length > 0;
 
   const duplicateMutation = useMutation({
     mutationFn: ({
@@ -102,7 +112,7 @@ export default function CodesListOverviewItem({
         ) {
           const { relatedQuestionNames } = err.response
             .data as CodeListRelatedQuestionError;
-          return t('codesList.overview.deleteError.usedInQuestions', {
+          return t('codesList.overview.deleteError.usedByQuestions', {
             questions: relatedQuestionNames.join('\n'),
           });
         }
@@ -112,76 +122,71 @@ export default function CodesListOverviewItem({
   }
 
   return (
-    <div className="bg-default p-4 border border-default shadow-xl">
-      <div className="space-y-3">
-        <h2>{codesList.label}</h2>
-        <table className="table-auto border border-default w-full shadow-sm">
-          <thead className="bg-accent">
-            <tr className="*:font-semibold *:p-4 text-left">
-              <th>{t('codesList.common.codeValue')}</th>
-              <th>{t('codesList.common.codeLabel')}</th>
-            </tr>
-          </thead>
-          <tbody className="text-default">
-            {codesList.codes.map((code) => (
-              <React.Fragment key={code.value}>
-                <CodeLine code={code} />
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
+    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
+      <div className="grid grid-cols-[1fr_auto]">
+        <h3>{codesList.label}</h3>
+        <CodesListQuestions
+          relatedQuestionNames={codesList.relatedQuestionNames}
+        />
       </div>
-      <div className="flex gap-x-2 mt-3">
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/codes-list/$codesListId"
-          params={{ questionnaireId, codesListId: codesList.id }}
-        >
-          {t('common.edit')}
-        </ButtonLink>
-        <Dialog
-          label={t('codesList.overview.duplicate')}
-          title={t('codesList.overview.duplicateDialogTitle', {
-            label: codesList.label,
-          })}
-          body={t('codesList.overview.duplicateDialogConfirm')}
-          onValidate={onDuplicate}
-        />
-        <Dialog
-          label={t('common.delete')}
-          title={t('codesList.overview.deleteDialogTitle', {
-            label: codesList.label,
-          })}
-          body={t('codesList.overview.deleteDialogConfirm')}
-          onValidate={onDelete}
-        />
+      <div
+        className={`grid overflow-hidden ${isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} transition-all`}
+      >
+        <div className="overflow-hidden space-y-3">
+          <div className="pt-3">
+            <CodesTable codesList={codesList} />
+          </div>
+          <div className="flex gap-x-2">
+            <ButtonLink
+              to="/questionnaire/$questionnaireId/codes-list/$codesListId"
+              params={{ questionnaireId, codesListId: codesList.id }}
+            >
+              {t('common.edit')}
+            </ButtonLink>
+            <Dialog
+              label={t('codesList.overview.duplicate')}
+              title={t('codesList.overview.duplicateDialogTitle', {
+                label: codesList.label,
+              })}
+              body={t('codesList.overview.duplicateDialogConfirm')}
+              onValidate={onDuplicate}
+            />
+            <Dialog
+              label={t('common.delete')}
+              title={t('codesList.overview.deleteDialogTitle', {
+                label: codesList.label,
+              })}
+              body={t('codesList.overview.deleteDialogConfirm')}
+              onValidate={onDelete}
+              buttonTitle={
+                hasRelatedQuestion
+                  ? t('codesList.overview.deleteDisabled.usedByQuestions')
+                  : undefined
+              }
+              disabled={hasRelatedQuestion}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="text-center absolute bottom-0 left-1/2">
+        <ExpandButton isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       </div>
     </div>
   );
 }
 
-interface CodeLineProps {
-  code: Code;
-  subCodeIteration?: number;
+interface ExpandButtonProps {
+  isExpanded: boolean;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CodeLine({ code, subCodeIteration = 0 }: Readonly<CodeLineProps>) {
+function ExpandButton({
+  isExpanded,
+  setIsExpanded,
+}: Readonly<ExpandButtonProps>) {
   return (
-    <>
-      <tr className="bg-default odd:bg-main *:p-4">
-        <td>
-          <div style={{ marginLeft: `${subCodeIteration * 1.5}rem` }}>
-            {code.value}
-          </div>
-        </td>
-        <td>{code.label}</td>
-      </tr>
-      {code.codes?.map((code) => (
-        <CodeLine
-          code={code}
-          key={code.value}
-          subCodeIteration={subCodeIteration + 1}
-        />
-      ))}
-    </>
+    <button className="cursor-pointer" onClick={() => setIsExpanded((v) => !v)}>
+      {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
+    </button>
   );
 }

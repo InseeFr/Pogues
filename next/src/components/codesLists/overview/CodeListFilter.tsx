@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
+import { useSearchFilter } from '@/hooks/useSearchFilter';
 import { CodesList } from '@/models/codesLists';
 import { Filter, FilterType } from '@/models/filter';
 
@@ -22,21 +23,20 @@ export default function CodesListFilter({
 }: CodesListFilterProps) {
   const { t } = useTranslation();
 
-  const [filters, setFilters] = useState<Filter[]>([
-    {
-      type: FilterType.Search,
-      filterContent: '',
-      clear: () =>
-        setFilters((prevFilters) =>
-          prevFilters.map((f) =>
-            f.type === FilterType.Search ? { ...f, filterContent: '' } : f,
-          ),
-        ),
-    },
-  ]);
+  const { searchFilter, updateSearchFilter } = useSearchFilter();
+  const [filters, setFilters] = useState<Filter[]>([searchFilter]);
 
   const searchFilterContent =
     filters.find((f) => f.type === FilterType.Search)?.filterContent || '';
+
+  useEffect(() => {
+    setFilters((prevFilters) => {
+      const otherFilters = prevFilters.filter(
+        (f) => f.type !== FilterType.Search,
+      );
+      return [...otherFilters, searchFilter];
+    });
+  }, [searchFilter]);
 
   useEffect(() => {
     const filteredCodesLists = codesLists.filter((c) => {
@@ -55,22 +55,8 @@ export default function CodesListFilter({
         label={t('codesList.overview.search')}
         placeholder={t('codesList.overview.search')}
         value={searchFilterContent}
-        onChange={(e) =>
-          setFilters((prevFilters) =>
-            prevFilters.map((f) =>
-              f.type === FilterType.Search
-                ? { ...f, filterContent: e.target.value }
-                : f,
-            ),
-          )
-        }
-        onClear={() =>
-          setFilters((prevFilters) =>
-            prevFilters.map((f) =>
-              f.type === FilterType.Search ? { ...f, filterContent: '' } : f,
-            ),
-          )
-        }
+        onChange={(e) => updateSearchFilter(e.target.value)}
+        onClear={searchFilter.clear}
         showClearButton={searchFilterContent.length > 0}
       />
       <FilterList filters={filters} />

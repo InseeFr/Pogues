@@ -14,7 +14,6 @@ import {
 } from '../models/pogues';
 import {
   computeNewPoguesQuestionnaire,
-  computePoguesQuestionnaire,
   computeQuestionnaire,
 } from './questionnaires';
 
@@ -138,51 +137,4 @@ describe('computeNewPoguesQuestionnaire', () => {
       formulasLanguage: FormulasLanguageEnum.VTL,
     });
   });
-});
-
-it('computePoguesQuestionnaire works', () => {
-  const questionnaire: Questionnaire = {
-    id: 'id',
-    title: 'title',
-    targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
-    codesLists: [{ id: 'idcl', label: 'cl', codes: [] }],
-    lastUpdatedDate: new Date('2024-11-19T10:36:56Z'),
-    flowLogic: FlowLogics.Filter,
-    formulasLanguage: FormulasLanguages.VTL,
-  };
-
-  const poguesQuestionnaire: PoguesQuestionnaire = {
-    id: 'id',
-    Name: 'TITLE',
-    Label: ['title'],
-    TargetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
-    DataCollection: [],
-    lastUpdatedDate: '2024-11-19T10:36:56.000Z',
-    Variables: { Variable: [] },
-    agency: 'fr.insee',
-    childQuestionnaireRef: [],
-    flowLogic: FlowLogicEnum.Filter,
-    formulasLanguage: FormulasLanguageEnum.VTL,
-    genericName: GenericNameEnum.Questionnaire,
-    FlowControl: [],
-    ComponentGroup: [],
-    CodeLists: {
-      CodeList: [{ id: 'idcl', Name: 'cl', Label: 'cl', Code: [] }],
-    },
-    Child: [
-      {
-        Name: 'QUESTIONNAIRE_END',
-        Label: ['QUESTIONNAIRE_END'],
-        id: 'idendquest',
-        type: 'SequenceType',
-        depth: 1,
-        TargetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
-        genericName: GenericNameEnum.Module,
-      },
-    ],
-  };
-
-  expect(computePoguesQuestionnaire(questionnaire)).toEqual(
-    poguesQuestionnaire,
-  );
 });

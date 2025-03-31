@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
+import { useSearchFilter } from '@/hooks/useSearchFilter';
 import { type Filter, FilterType } from '@/models/filter';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
@@ -28,6 +29,9 @@ export default function Questionnaires({
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { searchFilter, updateSearchFilter } = useSearchFilter();
 
   const [filters, setFilters] = useState<Filter[]>([
     {
@@ -44,19 +48,17 @@ export default function Questionnaires({
         });
       },
     },
-    {
-      type: FilterType.Search,
-      filterContent: '',
-      clear: () =>
-        setFilters((prevFilters) =>
-          prevFilters.map((f) =>
-            f.type === FilterType.Search ? { ...f, filterContent: '' } : f,
-          ),
-        ),
-    },
+    searchFilter,
   ]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    setFilters((prevFilters) => {
+      const otherFilters = prevFilters.filter(
+        (f) => f.type !== FilterType.Search,
+      );
+      return [...otherFilters, searchFilter];
+    });
+  }, [searchFilter]);
 
   /** Change page based on stamp chosen from the selector. */
   function handleStampSelection(stamp: string) {
@@ -98,24 +100,8 @@ export default function Questionnaires({
               label={t('questionnaires.search')}
               placeholder={t('questionnaires.search')}
               value={searchFilterContent}
-              onChange={(e) =>
-                setFilters((prevFilters) =>
-                  prevFilters.map((f) =>
-                    f.type === FilterType.Search
-                      ? { ...f, filterContent: e.target.value }
-                      : f,
-                  ),
-                )
-              }
-              onClear={() =>
-                setFilters((prevFilters) =>
-                  prevFilters.map((f) =>
-                    f.type === FilterType.Search
-                      ? { ...f, filterContent: '' }
-                      : f,
-                  ),
-                )
-              }
+              onChange={(e) => updateSearchFilter(e.target.value)}
+              onClear={searchFilter.clear}
               showClearButton={searchFilterContent.length > 0}
             />
           </div>
