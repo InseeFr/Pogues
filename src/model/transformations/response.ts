@@ -1,10 +1,20 @@
 import {
   DATATYPE_TYPE_FROM_NAME,
   DATATYPE_VIS_HINT,
-} from '../../constants/pogues-constants';
-import { uuid } from '../../utils/utils';
+} from '@/constants/pogues-constants';
+import { uuid } from '@/utils/utils';
 
-export function stateToRemote(state, response) {
+import { RemoteResponse, StateResponse } from './types';
+
+export type Response = {
+  id: string;
+  CollectedVariableReference: unknown;
+};
+
+export function stateToRemote(
+  state: StateResponse,
+  response?: Response[],
+): RemoteResponse {
   const {
     id,
     mandatory,
@@ -29,6 +39,7 @@ export function stateToRemote(state, response) {
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
   } = state;
+
   const find = response
     ? response.find(
         (element) =>
@@ -36,11 +47,11 @@ export function stateToRemote(state, response) {
       )
     : undefined;
 
-  const model = {
-    id: find ? find.id : id || uuid(),
+  const model: RemoteResponse = {
+    id: find ? find.id : (id ?? uuid()),
     Datatype: {
-      typeName,
-      type: DATATYPE_TYPE_FROM_NAME[typeName],
+      typeName: typeName!,
+      type: DATATYPE_TYPE_FROM_NAME[typeName!],
     },
   };
 

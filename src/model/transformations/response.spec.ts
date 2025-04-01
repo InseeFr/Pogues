@@ -203,7 +203,10 @@ describe('response tranformations', () => {
 
   test('test when response is undefined ', () => {
     const response = undefined;
-    const state = { collectedVariable: 'kgs406le', typeName: 'BOOLEAN' };
+    const state = {
+      collectedVariable: 'kgs406le',
+      typeName: 'BOOLEAN' as keyof typeof DATATYPE_TYPE_FROM_NAME,
+    };
     const result = stateToRemote(state, response);
     expect(result.Datatype).toEqual({
       typeName: 'BOOLEAN',
@@ -219,7 +222,10 @@ describe('response tranformations', () => {
         id: 'kgs3mlsd',
       },
     ];
-    const state = { collectedVariable: 'kgs406le', typeName: 'BOOLEAN' };
+    const state = {
+      collectedVariable: 'kgs406le',
+      typeName: 'BOOLEAN' as keyof typeof DATATYPE_TYPE_FROM_NAME,
+    };
     const result = stateToRemote(state, response);
 
     expect(result).toEqual({
