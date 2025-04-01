@@ -1,29 +1,24 @@
 import {
   COMPONENT_TYPE,
   DATATYPE_NAME,
-  DATATYPE_VIS_HINT,
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DIMENSION_FORMATS,
-  DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
-import { markdownVtlToString } from '../../forms/controls/rich-textarea';
-import { hasChild } from '../codes-lists/codes-lists-utils';
 import { uuid } from '../utils';
+import { getCollectedVariablesMultiple } from './collected-variables-multiple';
+import { getCollectedVariablesSingle } from './collected-variables-single';
+import { getCollectedVariablesTable } from './collected-variables-table';
 
 const { QUESTION } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
-const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
-const { CODES_LIST } = DIMENSION_FORMATS;
-const { TEXT, BOOLEAN } = DATATYPE_NAME;
+const { TEXT } = DATATYPE_NAME;
 
 /**
  * This method will recursively sort an array of code.
  * A code has a depth, a weight and maybe a parent.
  * We will first sort codes with the depth=1, and recursively for each code, sort its direct children.
  */
-function sortCodes(codes = [], depth = 1, parent = '') {
+export function sortCodes(codes = [], depth = 1, parent = '') {
   const filtered = codes.filter(
     (code) => code.depth === depth && code.parent === parent,
   );
@@ -36,7 +31,7 @@ function sortCodes(codes = [], depth = 1, parent = '') {
     .reduce((acc, res) => [...acc, ...res], []);
 }
 
-function getReponsesValues(measure) {
+export function getReponsesValues(measure) {
   let reponseFormatValues = {};
 
   if (measure.type === SIMPLE) {
@@ -107,297 +102,6 @@ export function getCollectedVariable(
   return collectedVariable;
 }
 
-export function getCollectedVariablesMultiple(
-  questionName,
-  form,
-  codesListStore = {},
-  existingVariableIds = new Set(),
-) {
-  const {
-    [PRIMARY]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { codes, id },
-    },
-    [MEASURE]: { type: typeMeasure },
-  } = form;
-  let listCodes = sortCodes(codes);
-  if (listCodes.length === 0 && codesListStore[id]) {
-    const codesStore = codesListStore[id].codes;
-    listCodes = Object.keys(codesStore).map((key) => codesStore[key]);
-  }
-
-  let reponseFormatValues = {
-    type: BOOLEAN,
-    [BOOLEAN]: {},
-  };
-  if (typeMeasure === CODES_LIST) {
-    reponseFormatValues = {
-      codeListReference: form[MEASURE][CODES_LIST].CodesList.id,
-      codeListReferenceLabel: form[MEASURE][CODES_LIST].CodesList.label,
-      type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-      },
-    };
-  }
-
-  const listFiltered = listCodes.filter((code) => !hasChild(code, listCodes));
-  const collectedVariables = listFiltered.map((c, index) =>
-    getCollectedVariable(
-      `${questionName}${index + 1}`,
-      `${c.value} - ${c.label}`,
-      { x: index + 1, isCollected: '1', alternativeLabel: '' },
-      reponseFormatValues,
-    ),
-  );
-
-  // get new clarification variable from current form
-  form.PRIMARY.CodesList.codes?.forEach((code) => {
-    if (code.precisionid && code.precisionid !== '') {
-      collectedVariables.push(
-        getCollectedVariable(
-          code.precisionid,
-          `${code.precisionid} label`,
-          {
-            z: code.weight,
-            isCollected: '1',
-          },
-          {
-            type: TEXT,
-            [TEXT]: {
-              maxLength: code.precisionsize,
-            },
-          },
-        ),
-      );
-    }
-  });
-
-  // get existing clarification variables
-  form.PRIMARY.CodesList.codes?.forEach((code) => {
-    if (code.precisionByCollectedVariableId) {
-      for (const [variableId, precision] of Object.entries(
-        code.precisionByCollectedVariableId,
-      )) {
-        if (existingVariableIds.has(variableId)) {
-          collectedVariables.push(
-            getCollectedVariable(
-              precision.precisionid,
-              `${precision.precisionid} label`,
-              { z: code.weight, isCollected: '1' },
-              {
-                type: TEXT,
-                [TEXT]: {
-                  maxLength: precision.precisionsize,
-                },
-              },
-              undefined,
-              undefined,
-              variableId,
-            ),
-          );
-        }
-      }
-    }
-  });
-
-  return collectedVariables;
-}
-
-export function getCollectedVariablesSingle(
-  questionName,
-  form,
-  existingVariableIds = new Set(),
-) {
-  const collectedVariables = [];
-
-  const mainCollectedVariable = getCollectedVariable(
-    questionName,
-    `${questionName} label`,
-    undefined,
-    {
-      codeListReference: form.CodesList.id,
-      codeListReferenceLabel: form.CodesList.label,
-      type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-      },
-    },
-  );
-
-  collectedVariables.push(mainCollectedVariable);
-
-  // get arbitrary variable for suggester
-  if (
-    form.allowArbitraryResponse &&
-    form.visHint === DATATYPE_VIS_HINT.SUGGESTER
-  ) {
-    const arbitraryResponseName = `${questionName}_ARBITRARY`;
-    collectedVariables.push(
-      getCollectedVariable(
-        arbitraryResponseName,
-        `${arbitraryResponseName} label`,
-        undefined,
-        {
-          type: TEXT,
-          [TEXT]: {
-            maxLength: 249,
-          },
-        },
-        undefined,
-        mainCollectedVariable.id,
-      ),
-    );
-  }
-
-  // get new clarification variables for codes lists
-  form.CodesList.codes?.forEach((code) => {
-    if (code.precisionid && code.precisionid !== '') {
-      collectedVariables.push(
-        getCollectedVariable(
-          code.precisionid,
-          `${code.precisionid} label`,
-          { z: code.weight, isCollected: '1' },
-          {
-            type: TEXT,
-            codeListReference: undefined,
-            [TEXT]: {
-              maxLength: code.precisionsize,
-            },
-          },
-        ),
-      );
-    }
-  });
-
-  // get existing clarification variables for codes lists
-  form.CodesList.codes?.forEach((code) => {
-    if (code.precisionByCollectedVariableId) {
-      for (const [variableId, precision] of Object.entries(
-        code.precisionByCollectedVariableId,
-      )) {
-        if (existingVariableIds.has(variableId)) {
-          collectedVariables.push(
-            getCollectedVariable(
-              precision.precisionid,
-              `${precision.precisionid} label`,
-              { z: code.weight, isCollected: '1' },
-              {
-                type: TEXT,
-                codeListReference: undefined,
-                [TEXT]: {
-                  maxLength: precision.precisionsize,
-                },
-              },
-              undefined,
-              undefined,
-              variableId,
-            ),
-          );
-        }
-      }
-    }
-  });
-
-  return collectedVariables;
-}
-
-export function getCollectedVariablesTable(questionName, form) {
-  const collectedVariables = [];
-  const {
-    [PRIMARY]: primaryState,
-    [SECONDARY]: secondaryState,
-    [MEASURE]: measureState,
-    [LIST_MEASURE]: listMeasuresState,
-  } = form;
-
-  if (primaryState.type === CODES_LIST) {
-    const {
-      [CODES_LIST]: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
-          codes: componentCodesStatePrimary,
-        },
-      },
-    } = primaryState;
-
-    const codesStatePrimary = sortCodes(componentCodesStatePrimary);
-
-    // 2 dimensions with a codelist each
-    if (secondaryState?.showSecondaryAxis) {
-      const {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: {
-          codes: componentCodesStateSecondary,
-        },
-      } = secondaryState;
-
-      const codesStateSecondary = sortCodes(componentCodesStateSecondary);
-      codesStatePrimary
-        .filter((code) => !hasChild(code, codesStatePrimary))
-        .map((codePrimary, i) =>
-          codesStateSecondary
-            .filter((code) => !hasChild(code, codesStateSecondary))
-            .map((codeSecondary, j) =>
-              collectedVariables.push(
-                getCollectedVariable(
-                  `${questionName}${i + 1}${j + 1}`,
-                  markdownVtlToString(
-                    `${codePrimary.label}-${codeSecondary.label}-${measureState.label}`,
-                  ).replace(/"/g, ''),
-                  {
-                    x: i + 1,
-                    y: j + 1,
-                    isCollected: '1',
-                  },
-                  getReponsesValues(measureState),
-                ),
-              ),
-            ),
-        );
-    }
-    // 1 dimension from a codelist ; 1 or several measures ; if several, it becomes a second dimension
-    if (!secondaryState?.showSecondaryAxis) {
-      codesStatePrimary
-        .filter((code) => !hasChild(code, codesStatePrimary))
-        .map((codePrimary, i) =>
-          listMeasuresState.measures.map((measure, j) =>
-            collectedVariables.push(
-              getCollectedVariable(
-                `${questionName}${i + 1}${j + 1}`,
-                markdownVtlToString(
-                  `${codePrimary.label}-${measure.label}`,
-                ).replace(/"/g, ''),
-                {
-                  x: i + 1,
-                  y: j + 1,
-                  isCollected: '1',
-                },
-                getReponsesValues(measure),
-              ),
-            ),
-          ),
-        );
-    }
-  }
-  // dynamic array
-  if (primaryState.type !== CODES_LIST) {
-    listMeasuresState.measures.map((measure, j) =>
-      collectedVariables.push(
-        getCollectedVariable(
-          `${questionName}${j + 1}`,
-          markdownVtlToString(`${measure.label}`).replace(/"/g, ''),
-          {
-            x: 1,
-            y: j + 1,
-            isCollected: '1',
-          },
-          getReponsesValues(measure),
-        ),
-      ),
-    );
-  }
-
-  return collectedVariables.sort(sortByYXAndZ());
-}
-
 export function generateCollectedVariables(
   responseFormat,
   questionName,
@@ -405,38 +109,35 @@ export function generateCollectedVariables(
   codesListStore,
   existingVariableIds = new Set(),
 ) {
-  let generatedCollectedVariables = [];
-
-  if (responseFormat === SIMPLE) {
-    generatedCollectedVariables = [
-      getCollectedVariable(
+  switch (responseFormat) {
+    case SIMPLE:
+      return [
+        getCollectedVariable(
+          questionName,
+          `${questionName} label`,
+          undefined,
+          form,
+        ),
+      ];
+    case SINGLE_CHOICE:
+    case PAIRING:
+      return getCollectedVariablesSingle(
         questionName,
-        `${questionName} label`,
-        undefined,
         form,
-      ),
-    ];
-  } else if (responseFormat === SINGLE_CHOICE || responseFormat === PAIRING) {
-    generatedCollectedVariables = getCollectedVariablesSingle(
-      questionName,
-      form,
-      existingVariableIds,
-    );
-  } else if (responseFormat === MULTIPLE_CHOICE) {
-    generatedCollectedVariables = getCollectedVariablesMultiple(
-      questionName,
-      form,
-      codesListStore,
-      existingVariableIds,
-    );
-  } else if (responseFormat === TABLE) {
-    generatedCollectedVariables = getCollectedVariablesTable(
-      questionName,
-      form,
-    );
+        existingVariableIds,
+      );
+    case MULTIPLE_CHOICE:
+      return getCollectedVariablesMultiple(
+        questionName,
+        form,
+        codesListStore,
+        existingVariableIds,
+      );
+    case TABLE:
+      return getCollectedVariablesTable(questionName, form);
+    default:
+      return [];
   }
-
-  return generatedCollectedVariables;
 }
 
 /**
@@ -447,21 +148,21 @@ export function getCollectedVariablesByQuestion(
   components = {},
   collectedVariables = {},
 ) {
-  return Object.keys(components)
+  const componentIds = Object.keys(components)
     .filter((key) => components[key].type === QUESTION)
-    .filter((key) => components[key].collectedVariables.length > 0)
-    .reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]: components[key].collectedVariables.reduce(
-          (accInner, keyInner) => {
-            return {
-              ...accInner,
-              [keyInner]: { ...collectedVariables[keyInner] },
-            };
-          },
-          {},
-        ),
+    .filter((key) => components[key].collectedVariables.length > 0);
+
+  const res = {};
+  for (const componentId of componentIds) {
+    const innerRes = {};
+    for (const collectedVariableId of components[componentId]
+      .collectedVariables) {
+      innerRes[collectedVariableId] = {
+        ...collectedVariables[collectedVariableId],
       };
-    }, {});
+    }
+    res[componentId] = innerRes;
+  }
+
+  return res;
 }
