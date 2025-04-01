@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import Dictionary from '../utils/dictionary/dictionary';
 import {
   cartCodeModeCollecte,
-  email,
   emptyCodes,
   emptyMeasures,
   letterStart,
@@ -14,9 +13,7 @@ import {
   minimumRequired,
   name,
   nameSize,
-  requiredListCheckboxes,
   requiredSelect,
-  requiredSelectMultiple,
   validCollectedVariables,
   validateDuplicates,
   validateExistingTarget,
@@ -67,43 +64,12 @@ describe('maxValue', () => {
   });
 });
 
-describe('email', () => {
-  it('should return the error message', () => {
-    expect(email('name with space')).toEqual('Invalid email address');
-  });
-  it('should return undefined', () => {
-    expect(email('value@gmail.com')).toBeUndefined();
-  });
-});
-
 describe('requiredSelect', () => {
   it('should return the error message', () => {
     expect(requiredSelect()).toEqual(Dictionary.validationRequired);
   });
   it('should return undefined', () => {
     expect(requiredSelect(['value'])).toBeUndefined();
-  });
-});
-
-describe('requiredSelectMultiple', () => {
-  it('should return the error message', () => {
-    expect(requiredSelectMultiple()).toEqual(
-      Dictionary.validationRequiredMultiple,
-    );
-  });
-  it('should return undefined', () => {
-    expect(requiredSelectMultiple(['value'])).toBeUndefined();
-  });
-});
-
-describe('requiredListCheckboxes', () => {
-  it('should return the error message', () => {
-    expect(requiredListCheckboxes('')).toEqual(
-      Dictionary.validationRequiredMultiple,
-    );
-  });
-  it('should return undefined', () => {
-    expect(requiredListCheckboxes('value')).toBeUndefined();
   });
 });
 

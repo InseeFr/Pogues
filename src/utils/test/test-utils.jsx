@@ -4,18 +4,6 @@ import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import { reducer as form, reduxForm } from 'redux-form';
 
-import dictionary from '../../constants/dictionary';
-import { DEFAULT_LANG } from '../../constants/pogues-constants';
-
-export function getLocale(lang) {
-  if (!lang) lang = DEFAULT_LANG;
-
-  return Object.keys(dictionary).reduce((locale, k) => {
-    locale[k] = dictionary[k][lang];
-    return locale;
-  }, {});
-}
-
 export function decoreFormField(Field) {
   function createForm() {
     return Field;
