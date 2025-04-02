@@ -22,7 +22,6 @@ interface DialogProps {
   buttonTitle?: string;
   /** Whether or not the button to open the dialog is disabled. */
   disabled?: boolean;
-  tabIndex?: number;
 }
 
 /** Display a button that opens a confirmation dialog. */
@@ -33,7 +32,6 @@ export default function Dialog({
   title,
   buttonTitle = '',
   disabled = false,
-  tabIndex = 0,
 }: Readonly<DialogProps>) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -42,7 +40,7 @@ export default function Dialog({
     <UIDialog.Root open={open} onOpenChange={setOpen}>
       <UIDialog.Trigger
         render={
-          <Button tabIndex={tabIndex} title={buttonTitle} disabled={disabled}>
+          <Button title={buttonTitle} disabled={disabled}>
             {label}
           </Button>
         }

@@ -67,6 +67,7 @@
       "label": "Nom de la liste de codes"
     },
     "overview": {
+      "collapse": "Réduire",
       "create": "Créer une liste de codes",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
       "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
@@ -81,6 +82,7 @@
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
+      "expand": "Étendre",
       "question": "{{count}} question",
       "question_other": "{{count}} questions",
       "question_zero": "{{count}} question",

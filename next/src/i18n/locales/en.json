@@ -67,6 +67,7 @@
       "label": "Code list name"
     },
     "overview": {
+      "collapse": "Collapse",
       "create": "Create a code list",
       "deleteDialogConfirm": "Are you sure you want to delete this code list?",
       "deleteDialogTitle": "Delete code list: {{label}}",
@@ -81,6 +82,7 @@
       "duplicateDialogConfirm": "Do you want to create a copy of this code list?",
       "duplicateDialogTitle": "Duplicate code list: {{label}}",
       "duplicateSuccess": "Code list {{label}} duplicated",
+      "expand": "Expand",
       "question": "{{count}} question",
       "question_other": "{{count}} questions",
       "question_zero": "{{count}} questions",
