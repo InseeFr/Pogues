@@ -153,9 +153,6 @@ export default function VisualizeDropdown({
   );
 }
 
-const enableDownloadMetadata =
-  import.meta.env.VITE_METADATA_DOWNLOAD_ENABLED === 'true';
-
 const dropdownOptions = [
   {
     type: VisualizationKind.HTML,
@@ -185,14 +182,10 @@ const dropdownOptions = [
     type: VisualizationKind.Spec,
     label: Dictionary.VISUALIZE_SPECIFICATION,
   },
-  ...(enableDownloadMetadata
-    ? [
-        {
-          type: VisualizationKind.PoguesModel,
-          label: Dictionary.VISUALIZE_POGUES_MODEL,
-        },
-      ]
-    : []),
+  {
+    type: VisualizationKind.PoguesModel,
+    label: Dictionary.VISUALIZE_POGUES_MODEL,
+  },
   {
     type: VisualizationKind.DDI,
     label: Dictionary.VISUALIZE_DDI,

@@ -6,7 +6,6 @@ type ImportMetaEnv = {
   VITE_ACTIVE_NAMESPACES: string;
   VITE_CUSTOMIZE_URL: string;
   VITE_TROMBI_URL: string;
-  VITE_METADATA_DOWNLOAD_ENABLED: string;
   VITE_OIDC_ENABLED: string;
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_CLIENT_ID: string;
