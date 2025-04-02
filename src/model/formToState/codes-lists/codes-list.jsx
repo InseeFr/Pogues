@@ -28,9 +28,13 @@ export function formToState(form) {
     urn = '',
     suggesterParameters = {},
   } = form;
-  const codesStore = {};
-  for (const code of codes) {
-    codesStore[code.value] = code;
+  let codesStore = {};
+  if (Array.isArray(codes)) {
+    for (const code of codes) {
+      codesStore[code.value] = code;
+    }
+  } else {
+    codesStore = codes;
   }
   return urn === ''
     ? {

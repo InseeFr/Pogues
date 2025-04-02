@@ -415,12 +415,12 @@ const dictionary: Dictionary = {
     fr: 'Information',
   },
   WARN: {
-    en: 'Warning',
-    fr: 'Avertissement',
+    en: 'Warning (Non-blocking)',
+    fr: 'Avertissement (Non bloquant)',
   },
   ERROR: {
-    en: 'Error',
-    fr: 'Erreur',
+    en: 'Error (Blocking soon)',
+    fr: 'Erreur (Bientôt bloquant)',
   },
   control_scope: {
     en: 'Level',
@@ -877,6 +877,10 @@ const dictionary: Dictionary = {
   documentationInfoLink: {
     fr: 'Pour plus de précision, se référer à la documentation.',
     en: 'For more information check the documentation.',
+  },
+  loopMinMaxHouseholdContextWarning: {
+    fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
+    en: 'Reminder: for business surveys, the min and max number of occurences of a loop must be equal.',
   },
 };
 

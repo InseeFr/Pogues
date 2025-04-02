@@ -8,7 +8,6 @@ import { computeVariables } from './utils/variables';
 
 /**
  * Used to retrieve questionnaire variables associated to its id.
- *
  */
 export const variablesQueryOptions = (questionnaireId: string) =>
   queryOptions({

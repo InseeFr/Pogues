@@ -1,7 +1,7 @@
 import { CodesList } from '@/models/codesLists';
 
 import { CodeList as PoguesCodesList } from '../models/pogues';
-import { computeCodesLists, computePoguesCodesLists } from './codesLists';
+import { computeCodesLists } from './codesLists';
 
 const codesLists: CodesList[] = [
   {
@@ -54,15 +54,6 @@ const poguesCodesLists: PoguesCodesList[] = [
 describe('computeCodesLists', () => {
   it('works', () => {
     expect(computeCodesLists(poguesCodesLists)).toEqual(codesLists);
-  });
-  it('works with empty list', () => {
-    expect(computeCodesLists([])).toEqual([]);
-  });
-});
-
-describe('computePoguesCodesLists', () => {
-  it('works', () => {
-    expect(computePoguesCodesLists(codesLists)).toEqual(poguesCodesLists);
   });
   it('works with empty list', () => {
     expect(computeCodesLists([])).toEqual([]);

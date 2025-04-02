@@ -1,3 +1,7 @@
+/**
+ * Icon of an arrow pointing ip which should be used when an item can be
+ * collapsed by clicking on it, or when an item can be moved up.
+ */
 export default function ArrowUpIcon({
   height = '24px',
   width = '24px',

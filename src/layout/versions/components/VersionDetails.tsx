@@ -8,7 +8,6 @@ import { Clock } from 'iconoir-react';
 
 import type { Version } from '@/models/versions';
 import Dictionary from '@/utils/dictionary/dictionary';
-import { getEnvVar } from '@/utils/env';
 import ConfirmInline from '@/widgets/inlineConfirm';
 
 dayjs.locale('fr');
@@ -41,7 +40,10 @@ export default function VersionDetails({
           {dayjs(timestamp).fromNow()},
         </span>{' '}
         {Dictionary.by}{' '}
-        <a href={`${getEnvVar('TROMBI_URL')}/${author}`} target="_blank">
+        <a
+          href={`${import.meta.env.VITE_TROMBI_URL}/${author}`}
+          target="_blank"
+        >
           {author}
         </a>
       </div>

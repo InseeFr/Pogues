@@ -21,7 +21,7 @@ const navigationItems = [
     isHidden: true,
   },
   {
-    label: i18next.t('questionnaires.navigation.codeList'),
+    label: i18next.t('questionnaires.navigation.codeLists'),
     icon: <ListIcon className="m-auto" />,
     path: '/questionnaire/$questionnaireId/codes-lists',
   },

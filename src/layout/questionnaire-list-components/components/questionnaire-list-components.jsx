@@ -12,7 +12,6 @@ import {
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { getEnvVar } from '../../../utils/env';
 import { ComponentEdit } from '../../component-edit';
 import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
@@ -49,7 +48,7 @@ const QuestionnaireListComponents = (props) => {
     navigate,
   } = props;
 
-  const publicEnemyBaseUri = getEnvVar('PUBLIC_ENEMY_URL');
+  const customizeUrl = import.meta.env.VITE_CUSTOMIZE_URL;
 
   useEffect(() => {
     setSelectedComponentId('');
@@ -146,12 +145,12 @@ const QuestionnaireListComponents = (props) => {
           <div id="questionnaire-head">
             <h4>{questionnaire.label}</h4>
             <div>
-              {publicEnemyBaseUri && (
+              {customizeUrl && (
                 <a
                   className="btn-blue"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://${publicEnemyBaseUri}/questionnaires/check/${questionnaire.id}`}
+                  href={`${customizeUrl}/questionnaires/check/${questionnaire.id}`}
                 >
                   {Dictionary.customize}
                 </a>

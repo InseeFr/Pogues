@@ -12,7 +12,7 @@ const log = {
 
 log.blue(`MFE manage env for remote (micro-frontend)`);
 
-const nameOfMfeEnv = 'env-config.js';
+const nameOfMfeEnv = 'swEnv.js';
 const entryScriptPath = path.resolve(
   `${process.cwd()}/dist/${process.argv[2]}`,
 );

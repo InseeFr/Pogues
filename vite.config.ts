@@ -1,11 +1,18 @@
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
 import type { UserConfig } from 'vite';
+import { viteEnvs } from 'vite-envs';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 const defaultPlugin = [
   react(),
+  viteEnvs({
+    nameOfTheGlobal: '__POGUES_LEGACY_ENVS',
+    computedEnv: () => ({
+      APP_VERSION: process.env.npm_package_version,
+    }),
+  }),
   tsconfigPaths({
     projects: [
       './tsconfig.json', // To avoid tsconfigPaths read website tsconfig path

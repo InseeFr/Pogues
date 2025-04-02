@@ -1,3 +1,7 @@
+/**
+ * Icon of an arrow pointing down which should be used when an item can be
+ * expanded by clicking on it, or when an item can be moved down.
+ */
 export default function ArrowDownIcon({
   height = '24px',
   width = '24px',

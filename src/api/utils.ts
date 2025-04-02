@@ -1,7 +1,5 @@
-import { getEnvVar } from '@/utils/env';
-
 export function getBaseURI(): string {
-  return getEnvVar('API_URL') ?? '';
+  return import.meta.env.VITE_API_URL;
 }
 
 export function computeAuthorizationHeader(token: string): string {

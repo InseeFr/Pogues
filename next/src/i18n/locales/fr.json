@@ -55,32 +55,39 @@
     "navigation": {
       "overview": "Vue d'ensemble",
       "variables": "Variables",
-      "codeList": "Liste de codes",
+      "codeLists": "Listes de codes",
       "history": "Historique",
       "metadata": "Métadonnées"
     }
   },
   "codesList": {
     "common": {
-      "code": "Code",
-      "code_other": "Codes",
       "codeLabel": "Libellé de la modalité",
       "codeValue": "Code de la modalité",
-      "label": "Libellé"
+      "label": "Nom de la liste de codes"
     },
     "overview": {
       "create": "Créer une liste de codes",
-      "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
-      "deleteSuccess": "Liste de codes {{label}} supprimée",
-      "deleteError": {
-        "usedInQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
+      "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
+      "deleteDisabled": {
+        "usedByQuestions": "La liste de codes ne peut pas être supprimée si elle est utilisée dans une question."
       },
+      "deleteError": {
+        "usedByQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
+      },
+      "deleteSuccess": "Liste de codes {{label}} supprimée",
       "duplicate": "Dupliquer",
-      "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
+      "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
-      "title": "Listes de codes"
+      "question": "{{count}} question",
+      "question_other": "{{count}} questions",
+      "question_zero": "{{count}} question",
+      "title": "Listes de codes",
+      "usedByQuestion": "Utilisé dans la question :",
+      "usedByQuestion_other": "Utilisé dans les questions :",
+      "notUsedByQuestions": "Utilisé par aucune question."
     },
     "create": {
       "success": "La liste de codes a été créée",

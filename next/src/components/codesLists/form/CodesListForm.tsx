@@ -36,8 +36,6 @@ interface CodesListFormProps {
   variables?: Variable[];
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
-  /** Label to display on the submit button (will be "create" by default). */
-  submitLabel?: string;
 }
 
 const baseCodeSchema = z.object({
@@ -138,7 +136,7 @@ export default function CodesListForm({
           buttonStyle={ButtonStyle.Primary}
           disabled={!isDirty || !isValid}
         >
-          {submitLabel ?? t('common.create')}
+          {t('common.validate')}
         </Button>
       </div>
     </form>

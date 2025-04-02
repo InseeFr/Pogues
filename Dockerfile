@@ -7,16 +7,15 @@ ENV NGINX_USER=nginx
 
 USER $NGINX_USER_ID
 
-# Add dist to nginx root webapp
+# Add build to nginx root webapp
 COPY --chown=$NGINX_USER:$NGINX_USER dist /usr/share/nginx/html
 
 # Copy nginx configuration
 RUN rm etc/nginx/conf.d/default.conf
 COPY --chown=$NGINX_USER:$NGINX_USER nginx.conf etc/nginx/conf.d/
+RUN chmod 755 /usr/share/nginx/html/vite-envs.sh
 
-# Add entrypoint
-COPY --chown=$NGINX_USER:$NGINX_USER entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
-ENTRYPOINT [ "/entrypoint.sh" ]
+USER $NGINX_USER_ID
+EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT sh -c "/usr/share/nginx/html/vite-envs.sh && nginx -g 'daemon off;'"
