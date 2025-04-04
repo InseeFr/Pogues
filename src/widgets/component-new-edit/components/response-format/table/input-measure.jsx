@@ -23,14 +23,6 @@ function InputMeasure({ selectorPath, disableSetConditionFilter = false }) {
         toolbar={toolbarConfigTooltip}
         required
       />
-      {!disableSetConditionFilter && (
-        <Field
-          name="conditionFilter"
-          component={RichEditorWithVariable}
-          label={Dictionary.conditionFilter}
-          toolbar={toolbarConfigTooltip}
-        />
-      )}
       <SelectorView label={Dictionary.typeMeasure} selectorPath={selectorPath}>
         <View
           key={SIMPLE}
@@ -56,6 +48,14 @@ function InputMeasure({ selectorPath, disableSetConditionFilter = false }) {
           />
         </View>
       </SelectorView>
+      {!disableSetConditionFilter && (
+        <Field
+          name="conditionFilter"
+          component={RichEditorWithVariable}
+          label={Dictionary.conditionFilter}
+          toolbar={toolbarConfigTooltip}
+        />
+      )}
     </div>
   );
 }
