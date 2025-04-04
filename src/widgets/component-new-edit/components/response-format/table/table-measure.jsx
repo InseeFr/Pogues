@@ -8,20 +8,27 @@ import InputMeasure from './input-measure';
 
 const { MEASURE: selectorPath } = DIMENSION_TYPE;
 
-function ResponseFormatTableMeasure({ selectorPathParent }) {
+function ResponseFormatTableMeasure({
+  selectorPathParent,
+  disableSetConditionFilter,
+}) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
 
   return (
     <FormSection name={selectorPath}>
-      <InputMeasure selectorPath={selectorPathComposed} />
+      <InputMeasure
+        selectorPath={selectorPathComposed}
+        disableSetConditionFilter={disableSetConditionFilter}
+      />
     </FormSection>
   );
 }
 
 ResponseFormatTableMeasure.propTypes = {
   selectorPathParent: PropTypes.string,
+  disableSetConditionFilter: PropTypes.bool,
 };
 
 ResponseFormatTableMeasure.defaultProps = {
