@@ -1042,10 +1042,12 @@ describe('stateToRemote', () => {
     const outputResponse = result.Response;
 
     expect(outputMapping.length).toEqual(outputResponse.length);
-    expect(outputResponse[0].conditionFilter).toEqual('my condition');
-    expect(outputResponse[1].conditionFilter).toEqual('my condition');
-    expect(outputResponse[2].conditionFilter).toBeUndefined();
-    expect(outputResponse[3].conditionFilter).toBeUndefined();
+
+    // conditionFilter is saved only for table with list as primary type
+    outputResponse.forEach((item) => {
+      expect(item.conditionFilter).toBeUndefined();
+    });
+
     expect(outputResponse[0].Datatype).toEqual({
       MaxLength: 249,
       type: 'TextDatatypeType',
