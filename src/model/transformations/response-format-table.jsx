@@ -253,13 +253,18 @@ export function remoteToState(remote, codesListsStore) {
 
 // STATE TO REMOTE
 
-function stateToResponseState(state) {
+function stateToResponseState(state, primaryType) {
   const {
     type: measureType,
     [measureType]: measureTypeState,
     conditionFilter,
   } = state;
-  let responseState = { conditionFilter };
+  let responseState = {};
+
+  // we keep response conditionFilter only in dynamic tables
+  if (primaryType === 'LIST') {
+    responseState = { ...responseState, conditionFilter };
+  }
 
   if (measureType === SIMPLE) {
     const {
@@ -392,7 +397,7 @@ export function stateToRemote(
     dimensionsModel.push(
       Dimension.stateToRemote({ type: MEASURE, label: measureState.label }),
     );
-    responsesState = [stateToResponseState(measureState)];
+    responsesState = [stateToResponseState(measureState, type)];
   } else {
     for (let i = 0; i < listMeasuresState.length; i += 1) {
       dimensionsModel.push(
@@ -401,7 +406,7 @@ export function stateToRemote(
           label: listMeasuresState[i].label,
         }),
       );
-      responsesState.push(stateToResponseState(listMeasuresState[i]));
+      responsesState.push(stateToResponseState(listMeasuresState[i], type));
     }
   }
 
