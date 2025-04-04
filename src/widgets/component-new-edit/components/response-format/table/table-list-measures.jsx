@@ -13,7 +13,12 @@ const validateForm = (addErrors, validate) => (values) => {
   return validate(values, addErrors);
 };
 
-function TableListMeasures({ formName, selectorPath, addErrors }) {
+function TableListMeasures({
+  formName,
+  selectorPath,
+  addErrors,
+  disableSetConditionFilter,
+}) {
   return (
     <FormSection name="LIST_MEASURE">
       <ListWithInputPanel
@@ -23,7 +28,10 @@ function TableListMeasures({ formName, selectorPath, addErrors }) {
         validateForm={validateForm(addErrors, validateTableListMeasuresForm)}
         resetObject={defaultMeasureState}
       >
-        <InputMeasure selectorPath={selectorPath} />
+        <InputMeasure
+          selectorPath={selectorPath}
+          disableSetConditionFilter={disableSetConditionFilter}
+        />
       </ListWithInputPanel>
     </FormSection>
   );
@@ -33,6 +41,7 @@ TableListMeasures.propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string.isRequired,
   addErrors: PropTypes.func.isRequired,
+  disableSetConditionFilter: PropTypes.bool,
 };
 
 TableListMeasures.defaultProps = {

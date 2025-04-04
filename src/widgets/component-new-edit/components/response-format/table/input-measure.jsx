@@ -13,7 +13,7 @@ import ResponseFormatSingle from '../single/response-format-single';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
-function InputMeasure({ selectorPath }) {
+function InputMeasure({ selectorPath, disableSetConditionFilter = false }) {
   return (
     <div>
       <Field
@@ -23,12 +23,14 @@ function InputMeasure({ selectorPath }) {
         toolbar={toolbarConfigTooltip}
         required
       />
-      <Field
-        name="conditionFilter"
-        component={RichEditorWithVariable}
-        label={Dictionary.conditionFilter}
-        toolbar={toolbarConfigTooltip}
-      />
+      {!disableSetConditionFilter && (
+        <Field
+          name="conditionFilter"
+          component={RichEditorWithVariable}
+          label={Dictionary.conditionFilter}
+          toolbar={toolbarConfigTooltip}
+        />
+      )}
       <SelectorView label={Dictionary.typeMeasure} selectorPath={selectorPath}>
         <View
           key={SIMPLE}
@@ -60,6 +62,7 @@ function InputMeasure({ selectorPath }) {
 
 InputMeasure.propTypes = {
   selectorPath: PropTypes.string.isRequired,
+  disableSetConditionFilter: PropTypes.bool,
 };
 
 export default InputMeasure;
