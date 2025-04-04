@@ -189,7 +189,7 @@ function remoteToStateSecondary(remote) {
 function remoteToStateMeasure(remote) {
   const {
     Label: label,
-    response: { CodeListReference, Datatype },
+    response: { CodeListReference, Datatype, conditionFilter },
   } = remote;
   const state = {};
 
@@ -207,7 +207,7 @@ function remoteToStateMeasure(remote) {
 
   return {
     label,
-    conditionFilter: Datatype.conditionFilter,
+    conditionFilter,
     ...state,
   };
 }
