@@ -42,6 +42,10 @@ export const tableDictionary: Dictionary = {
     fr: 'Information mesurée',
     en: 'Measure information',
   },
+  collectionFilter: {
+    fr: 'Filtre de collecte',
+    en: 'Collection filter',
+  },
   conditionFilter: {
     fr: 'Condition de collecte',
     en: 'Collection condition',

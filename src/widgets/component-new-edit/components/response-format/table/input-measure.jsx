@@ -1,10 +1,13 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, change, formValueSelector } from 'redux-form';
 
 import { QUESTION_TYPE_ENUM } from '../../../../../constants/pogues-constants';
 import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
+import GenericOption from '../../../../../forms/controls/generic-option';
+import ListRadios from '../../../../../forms/controls/list-radios';
 import { toolbarConfigTooltip } from '../../../../../forms/controls/rich-textarea';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { SelectorView, View } from '../../../../selector-view';
@@ -13,7 +16,16 @@ import ResponseFormatSingle from '../single/response-format-single';
 
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 
-function InputMeasure({ selectorPath, disableSetConditionFilter = false }) {
+function InputMeasure({
+  selectorPath,
+  disableSetConditionFilter = false,
+  hasFilter,
+  setConditionFilter,
+}) {
+  const handleFilterChange = () => {
+    setConditionFilter(undefined);
+  };
+
   return (
     <div>
       <Field
@@ -49,12 +61,31 @@ function InputMeasure({ selectorPath, disableSetConditionFilter = false }) {
         </View>
       </SelectorView>
       {!disableSetConditionFilter && (
-        <Field
-          name="conditionFilter"
-          component={RichEditorWithVariable}
-          label={Dictionary.conditionFilter}
-          toolbar={toolbarConfigTooltip}
-        />
+        <>
+          <Field
+            name="hasFilter"
+            component={ListRadios}
+            label={Dictionary.collectionFilter}
+            required
+            // Reset condition filter to undefined value on change
+            onChange={handleFilterChange}
+            // Convert string "true"/"false" to boolean true/false when storing in Redux form
+            parse={(value) => value === 'true'}
+            // Convert true/false/undefined to string "true"/"false" when displaying the form
+            format={(value) => (value === true ? 'true' : 'false')}
+          >
+            <GenericOption value="true">{Dictionary.yes}</GenericOption>
+            <GenericOption value="false">{Dictionary.no}</GenericOption>
+          </Field>
+          {hasFilter && (
+            <Field
+              name="conditionFilter"
+              component={RichEditorWithVariable}
+              label={Dictionary.conditionFilter}
+              toolbar={toolbarConfigTooltip}
+            />
+          )}
+        </>
       )}
     </div>
   );
@@ -63,6 +94,23 @@ function InputMeasure({ selectorPath, disableSetConditionFilter = false }) {
 InputMeasure.propTypes = {
   selectorPath: PropTypes.string.isRequired,
   disableSetConditionFilter: PropTypes.bool,
+  hasFilter: PropTypes.bool,
+  setConditionFilter: PropTypes.func,
 };
 
-export default InputMeasure;
+// Container
+const mapStateToProps = (state, { selectorPath }) => {
+  const selector = formValueSelector('component');
+  return {
+    hasFilter: selector(state, `${selectorPath}.hasFilter`),
+    conditionFilter: selector(state, `${selectorPath}.conditionFilter`),
+  };
+};
+
+// Dispatch actions to change form values
+const mapDispatchToProps = (dispatch, { selectorPath }) => ({
+  setConditionFilter: (value) =>
+    dispatch(change('component', `${selectorPath}.conditionFilter`, value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputMeasure);
