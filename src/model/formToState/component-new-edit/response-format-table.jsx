@@ -58,6 +58,7 @@ export const defaultMeasureSimpleState = {
 
 export const defaultMeasureState = {
   label: '',
+  conditionFilter: undefined,
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
@@ -71,6 +72,7 @@ export const defaultMeasureState = {
 
 export const defaultMeasureForm = {
   label: '',
+  conditionFilter: undefined,
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
@@ -152,9 +154,12 @@ export function formToStateSecondary(form, codesListSecondary) {
 }
 
 export function formToStateMeasure(form, codesListMeasure) {
-  const { label, type, [type]: measureForm } = form;
+  const { label, conditionFilter, type, [type]: measureForm } = form;
   const state = {
     label: verifyVariable(label),
+    conditionFilter: conditionFilter
+      ? verifyVariable(conditionFilter)
+      : conditionFilter,
     type,
   };
 
@@ -244,6 +249,7 @@ export function stateToFormMeasure(
 ) {
   const {
     label,
+    conditionFilter,
     type,
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
@@ -264,6 +270,7 @@ export function stateToFormMeasure(
 
   return {
     label,
+    conditionFilter,
     type,
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
@@ -361,10 +368,11 @@ const Factory = (initialState = {}, codesListsStore) => {
   });
   currentState[LIST_MEASURE].measures = currentState[LIST_MEASURE].measures.map(
     (m) => {
-      const { type, label, [type]: measureState } = m;
+      const { type, label, conditionFilter, [type]: measureState } = m;
       const state = {
         type,
         label,
+        conditionFilter,
       };
 
       if (type === SINGLE_CHOICE) {
