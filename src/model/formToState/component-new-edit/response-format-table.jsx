@@ -58,6 +58,7 @@ export const defaultMeasureSimpleState = {
 
 export const defaultMeasureState = {
   label: '',
+  hasFilter: false,
   conditionFilter: undefined,
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
@@ -72,6 +73,7 @@ export const defaultMeasureState = {
 
 export const defaultMeasureForm = {
   label: '',
+  hasFilter: false,
   conditionFilter: undefined,
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
@@ -257,6 +259,10 @@ export function stateToFormMeasure(
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
     },
   } = currentState;
+
+  // since we do not have hasFilter in the model, we create the boolean here : true if conditionFilter has a value
+  const hasFilter = !!conditionFilter;
+
   let codesListForm;
 
   if (codesListMeasure) {
@@ -270,6 +276,7 @@ export function stateToFormMeasure(
 
   return {
     label,
+    hasFilter,
     conditionFilter,
     type,
     [SIMPLE]: simpleState,
