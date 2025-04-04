@@ -171,6 +171,7 @@ describe('remoteToState', () => {
             type: 'TextDatatypeType',
             MaxLength: 249,
           },
+          conditionFilter: 'my condition',
           CollectedVariableReference: 'joxzq5qe',
         },
         {
@@ -262,6 +263,7 @@ describe('remoteToState', () => {
       LIST_MEASURE: [
         {
           label: 'mes1',
+          conditionFilter: 'my condition',
           type: 'SIMPLE',
           SIMPLE: {
             type: 'TEXT',
@@ -800,7 +802,7 @@ describe('remoteToState', () => {
 });
 
 describe('stateToRemote', () => {
-  it('without secondary axes', () => {
+  it('with list as primary type', () => {
     const state = {
       PRIMARY: {
         type: 'LIST',
@@ -815,12 +817,120 @@ describe('stateToRemote', () => {
       LIST_MEASURE: [
         {
           label: 'measure 1',
+          conditionFilter: 'my condition',
+          type: 'SIMPLE',
+          SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249 } },
+        },
+        {
+          label: 'measure 2',
           type: 'SIMPLE',
           SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249 } },
         },
       ],
     };
     const collectedVariables = ['jf0v461m', 'jf0v6ywk'];
+    const collectedVariablesStore = {
+      jf0v461m: {
+        id: 'jf0v461m',
+        name: 'QUESTION11',
+        label: 'Line1-measure 1',
+        x: 1,
+        y: 1,
+        type: 'TEXT',
+        TEXT: { maxLength: 249 },
+        NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        DURATION: { maximum: '', minimum: '', format: '' },
+        DATE: { maximum: '', minimum: '', format: '' },
+        BOOLEAN: {},
+        isCollected: '1',
+        codeListReference: '',
+        codeListReferenceLabel: '',
+      },
+      jf0v6ywk: {
+        id: 'jf0v6ywk',
+        name: 'QUESTION21',
+        label: 'Line2-measure 1',
+        x: 1,
+        y: 2,
+        type: 'TEXT',
+        TEXT: { maxLength: 249 },
+        NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        DURATION: { maximum: '', minimum: '', format: '' },
+        DATE: { maximum: '', minimum: '', format: '' },
+        BOOLEAN: {},
+        isCollected: '1',
+        codeListReference: '',
+        codeListReferenceLabel: '',
+      },
+    };
+    const result = stateToRemote(
+      state,
+      collectedVariables,
+      collectedVariablesStore,
+    );
+
+    expect(result.Dimension).toEqual([
+      {
+        dimensionType: 'PRIMARY',
+        dynamic: 'DYNAMIC_LENGTH',
+        MinLines: 2,
+        MaxLines: 3,
+      },
+      {
+        Label: 'measure 1',
+        dimensionType: 'MEASURE',
+      },
+      {
+        Label: 'measure 2',
+        dimensionType: 'MEASURE',
+      },
+    ]);
+
+    expect(result.Attribute).toEqual([]);
+
+    const outputMapping = result.Mapping;
+    const outputResponse = result.Response;
+
+    expect(outputMapping.length).toEqual(outputResponse.length);
+    expect(outputResponse[0].conditionFilter).toEqual('my condition');
+    expect(outputResponse[1].conditionFilter).toBeUndefined();
+    expect(outputResponse[0].Datatype).toEqual({
+      MaxLength: 249,
+
+      type: 'TextDatatypeType',
+      typeName: 'TEXT',
+    });
+    expect(outputResponse[1].Datatype).toEqual({
+      MaxLength: 249,
+
+      type: 'TextDatatypeType',
+      typeName: 'TEXT',
+    });
+    expect(outputMapping[0].MappingTarget).toEqual('1 1');
+    expect(outputMapping[1].MappingTarget).toEqual('1 2');
+  });
+
+  it('with code list as primary type, without secondary axes', () => {
+    const state = {
+      PRIMARY: {
+        type: 'CODES_LIST',
+        CODES_LIST: { CodesList: { id: 'jf0vbzj9' } },
+      },
+      LIST_MEASURE: [
+        {
+          label: 'measure 1',
+          conditionFilter: 'my condition',
+          type: 'SIMPLE',
+          SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249 } },
+        },
+        {
+          label: 'measure 2',
+          type: 'SIMPLE',
+          SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249 } },
+        },
+      ],
+    };
+    const collectedVariables = ['jf0v461m', 'jf0v6ywk', 'jg4v561m', 'jk8h32gm'];
     const collectedVariablesStore = {
       jf0v461m: {
         id: 'jf0v461m',
@@ -854,6 +964,38 @@ describe('stateToRemote', () => {
         codeListReference: '',
         codeListReferenceLabel: '',
       },
+      jg4v561m: {
+        id: 'jg4v561m',
+        name: 'QUESTION12',
+        label: 'Line1-measure 2',
+        x: 1,
+        y: 2,
+        type: 'TEXT',
+        TEXT: { maxLength: 249 },
+        NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        DURATION: { maximum: '', minimum: '', format: '' },
+        DATE: { maximum: '', minimum: '', format: '' },
+        BOOLEAN: {},
+        isCollected: '0',
+        codeListReference: '',
+        codeListReferenceLabel: '',
+      },
+      jk8h32gm: {
+        id: 'jk8h32gm',
+        name: 'QUESTION22',
+        label: 'Line2-measure 2',
+        x: 2,
+        y: 2,
+        type: 'TEXT',
+        TEXT: { maxLength: 249 },
+        NUMERIC: { maximum: '', minimum: '', decimals: '' },
+        DURATION: { maximum: '', minimum: '', format: '' },
+        DATE: { maximum: '', minimum: '', format: '' },
+        BOOLEAN: {},
+        isCollected: '0',
+        codeListReference: '',
+        codeListReferenceLabel: '',
+      },
     };
     const result = stateToRemote(
       state,
@@ -863,13 +1005,16 @@ describe('stateToRemote', () => {
 
     expect(result.Dimension).toEqual([
       {
+        CodeListReference: 'jf0vbzj9',
         dimensionType: 'PRIMARY',
-        dynamic: 'DYNAMIC_LENGTH',
-        MinLines: 2,
-        MaxLines: 3,
+        dynamic: 'NON_DYNAMIC',
       },
       {
         Label: 'measure 1',
+        dimensionType: 'MEASURE',
+      },
+      {
+        Label: 'measure 2',
         dimensionType: 'MEASURE',
       },
     ]);
@@ -883,15 +1028,26 @@ describe('stateToRemote', () => {
         AttributeValue: 'NoDataByDefinition',
         AttributeTarget: '2 1',
       },
+      {
+        AttributeTarget: '1 2',
+        AttributeValue: 'NoDataByDefinition',
+      },
+      {
+        AttributeTarget: '2 2',
+        AttributeValue: 'NoDataByDefinition',
+      },
     ]);
 
     const outputMapping = result.Mapping;
     const outputResponse = result.Response;
 
     expect(outputMapping.length).toEqual(outputResponse.length);
+    expect(outputResponse[0].conditionFilter).toEqual('my condition');
+    expect(outputResponse[1].conditionFilter).toEqual('my condition');
+    expect(outputResponse[2].conditionFilter).toBeUndefined();
+    expect(outputResponse[3].conditionFilter).toBeUndefined();
     expect(outputResponse[0].Datatype).toEqual({
       MaxLength: 249,
-
       type: 'TextDatatypeType',
       typeName: 'TEXT',
     });
@@ -905,7 +1061,7 @@ describe('stateToRemote', () => {
     expect(outputMapping[1].MappingTarget).toEqual('2 1');
   });
 
-  it('with secondary axes', () => {
+  it('with code list as primary type, with secondary axes', () => {
     const state = {
       PRIMARY: {
         type: 'CODES_LIST',
