@@ -42,4 +42,8 @@ export const tableDictionary: Dictionary = {
     fr: 'Information mesurée',
     en: 'Measure information',
   },
+  conditionFilter: {
+    fr: 'Condition de non collecte',
+    en: 'Non-collection condition',
+  },
 };

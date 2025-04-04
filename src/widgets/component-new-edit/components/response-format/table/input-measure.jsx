@@ -23,7 +23,12 @@ function InputMeasure({ selectorPath }) {
         toolbar={toolbarConfigTooltip}
         required
       />
-
+      <Field
+        name="conditionFilter"
+        component={RichEditorWithVariable}
+        label={Dictionary.conditionFilter}
+        toolbar={toolbarConfigTooltip}
+      />
       <SelectorView label={Dictionary.typeMeasure} selectorPath={selectorPath}>
         <View
           key={SIMPLE}

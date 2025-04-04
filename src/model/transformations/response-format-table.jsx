@@ -207,6 +207,7 @@ function remoteToStateMeasure(remote) {
 
   return {
     label,
+    conditionFilter: Datatype.conditionFilter,
     ...state,
   };
 }
@@ -253,8 +254,12 @@ export function remoteToState(remote, codesListsStore) {
 // STATE TO REMOTE
 
 function stateToResponseState(state) {
-  const { type: measureType, [measureType]: measureTypeState } = state;
-  let responseState = {};
+  const {
+    type: measureType,
+    [measureType]: measureTypeState,
+    conditionFilter,
+  } = state;
+  let responseState = { conditionFilter };
 
   if (measureType === SIMPLE) {
     const {
@@ -314,7 +319,12 @@ function stateToResponseState(state) {
       customsimpleState = durationDataType;
     }
 
-    responseState = { mandatory, typeName, ...customsimpleState };
+    responseState = {
+      ...responseState,
+      mandatory,
+      typeName,
+      ...customsimpleState,
+    };
   } else {
     const {
       mandatory,
@@ -322,6 +332,7 @@ function stateToResponseState(state) {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
     } = measureTypeState;
     responseState = {
+      ...responseState,
       mandatory,
       codesListId,
       typeName: TEXT,
