@@ -20,14 +20,6 @@ export function useFilters(initialFilters: Filter[]) {
     [],
   );
 
-  const clearFilter = useCallback((filterType: FilterEnum) => {
-    setFilters((prevFilters) =>
-      prevFilters.map((f) =>
-        f.filterType === filterType ? { ...f, filterContent: '' } : f,
-      ),
-    );
-  }, []);
-
   const getFilterContent = useCallback(
     (filterType: FilterEnum) =>
       filters.find((f) => f.filterType === filterType)?.filterContent || '',
@@ -37,7 +29,6 @@ export function useFilters(initialFilters: Filter[]) {
   return {
     filters,
     updateFilterContent,
-    clearFilter,
     getFilterContent,
   };
 }

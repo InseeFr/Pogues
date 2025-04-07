@@ -32,22 +32,21 @@ export default function Questionnaires({
   const searchParams = new URLSearchParams(window.location.search);
   const stampFromUrl = searchParams.get('stamp') || '';
 
-  const { filters, updateFilterContent, clearFilter, getFilterContent } =
-    useFilters([
-      {
-        filterType: FilterEnum.Stamp,
-        filterContent: stampFromUrl,
-        clearFilterFunction: () => {
-          clearFilter(FilterEnum.Stamp);
-          navigate({ to: '/questionnaires' });
-        },
+  const { filters, updateFilterContent, getFilterContent } = useFilters([
+    {
+      filterType: FilterEnum.Stamp,
+      filterContent: stampFromUrl,
+      clearFilterFunction: () => {
+        updateFilterContent(FilterEnum.Stamp, '');
+        navigate({ to: '/questionnaires' });
       },
-      {
-        filterType: FilterEnum.Search,
-        filterContent: '',
-        clearFilterFunction: () => clearFilter(FilterEnum.Search),
-      },
-    ]);
+    },
+    {
+      filterType: FilterEnum.Search,
+      filterContent: '',
+      clearFilterFunction: () => updateFilterContent(FilterEnum.Search, ''),
+    },
+  ]);
 
   /** Change page based on stamp chosen from the selector. */
   function handleStampSelection(stamp: string) {
@@ -87,7 +86,7 @@ export default function Questionnaires({
               onChange={(e) =>
                 updateFilterContent(FilterEnum.Search, e.target.value)
               }
-              onClear={() => clearFilter(FilterEnum.Search)}
+              onClear={() => updateFilterContent(FilterEnum.Search, '')}
               showClearButton={searchFilterContent.length > 0}
             />
           </div>

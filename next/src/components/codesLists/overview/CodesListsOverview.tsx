@@ -26,14 +26,13 @@ export default function CodesListsOverview({
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
-  const { filters, updateFilterContent, clearFilter, getFilterContent } =
-    useFilters([
-      {
-        filterType: FilterEnum.Search,
-        filterContent: '',
-        clearFilterFunction: () => clearFilter(FilterEnum.Search),
-      },
-    ]);
+  const { filters, updateFilterContent, getFilterContent } = useFilters([
+    {
+      filterType: FilterEnum.Search,
+      filterContent: '',
+      clearFilterFunction: () => updateFilterContent(FilterEnum.Search, ''),
+    },
+  ]);
 
   const searchFilterContent = getFilterContent(FilterEnum.Search);
 
@@ -61,7 +60,7 @@ export default function CodesListsOverview({
                 onChange={(e) =>
                   updateFilterContent(FilterEnum.Search, e.target.value)
                 }
-                onClear={() => clearFilter(FilterEnum.Search)}
+                onClear={() => updateFilterContent(FilterEnum.Search, '')}
                 showClearButton={searchFilterContent.length > 0}
               />
             </div>
