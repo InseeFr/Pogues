@@ -128,13 +128,13 @@
     "form": {
       "mustProvideTitle": "You must provide a title",
       "mustProvideTarget": "You must select at least one target mode"
-    },
-    "filter": {
-      "active": "Active filters: {{count}}",
-      "clearFilters": "Clear filters",
-      "clear": "Clear",
-      "search": "Label",
-      "stamp": "Stamp"
     }
+  },
+  "filter": {
+    "active": "Active filters: {{count}}",
+    "clearFilters": "Clear filters",
+    "clear": "Clear",
+    "search": "Label",
+    "stamp": "Stamp"
   }
 }
