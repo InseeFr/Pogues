@@ -36,10 +36,17 @@ export default function CodesListsOverview({
 
   const searchFilterContent = getFilterContent(FilterEnum.Search);
 
+  const filteredCodesLists = codesLists.filter((c) => {
+    return (
+      c.id.toLowerCase().includes(searchFilterContent.toLowerCase()) ||
+      c.label.toLowerCase().includes(searchFilterContent.toLowerCase())
+    );
+  });
+
   return (
     <div>
       <ContentHeader
-        title={t('codesList.overview.title')}
+        title={`${t('codesList.overview.title')} : ${codesLists.length}`}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"
@@ -64,25 +71,17 @@ export default function CodesListsOverview({
                 showClearButton={searchFilterContent.length > 0}
               />
             </div>
-            <FilterList filters={filters} />
-            {codesLists
-              .filter((c) => {
-                return (
-                  c.id
-                    .toLowerCase()
-                    .includes(searchFilterContent.toLowerCase()) ||
-                  c.label
-                    .toLowerCase()
-                    .includes(searchFilterContent.toLowerCase())
-                );
-              })
-              .map((codesList) => (
-                <CodesListOverviewItem
-                  key={codesList.id}
-                  questionnaireId={questionnaireId}
-                  codesList={codesList}
-                />
-              ))}
+            <FilterList
+              filters={filters}
+              resultCount={filteredCodesLists.length}
+            />
+            {filteredCodesLists.map((codesList) => (
+              <CodesListOverviewItem
+                key={codesList.id}
+                questionnaireId={questionnaireId}
+                codesList={codesList}
+              />
+            ))}
           </>
         ) : (
           <ButtonLink
