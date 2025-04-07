@@ -131,7 +131,8 @@
     }
   },
   "filter": {
-    "active": "Filtres actifs: {{count}}",
+    "active": "Filtres actifs : {{count}}",
+    "result": "Resultat : {{count}}",
     "clearFilters": "Supprimer les filtres",
     "clear": "Suprimer le filtre",
     "search": "Label",

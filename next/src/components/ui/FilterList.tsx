@@ -8,9 +8,13 @@ import { Filter } from '@/models/filter';
 
 interface FilterListProps {
   filters: Filter[];
+  resultCount?: number;
 }
 
-const FilterList: React.FC<FilterListProps> = ({ filters = [] }) => {
+const FilterList: React.FC<FilterListProps> = ({
+  filters = [],
+  resultCount,
+}) => {
   const { t } = useTranslation();
 
   const activeFilterCount = filters.filter(
@@ -20,10 +24,15 @@ const FilterList: React.FC<FilterListProps> = ({ filters = [] }) => {
   return (
     <>
       {activeFilterCount > 0 && (
-        <div className="flex flex-row gap-1">
+        <div className="flex flex-row gap-10">
           <span className="font-medium text-md">
             {t('filter.active', { count: activeFilterCount })}&nbsp;
           </span>
+          {resultCount !== undefined && (
+            <span className="font-medium text-md">
+              {t('filter.result', { count: resultCount })}&nbsp;
+            </span>
+          )}
         </div>
       )}
       <div className="flex flex-row gap-4 mv-4">
