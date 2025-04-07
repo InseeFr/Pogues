@@ -9,6 +9,7 @@ interface ButtonIconProps
   title?: string;
   buttonStyle?: ButtonIconStyle;
   onClick?: () => void;
+  iconProps?: React.SVGProps<SVGSVGElement>;
 }
 
 /** Display a clickable icon. */
