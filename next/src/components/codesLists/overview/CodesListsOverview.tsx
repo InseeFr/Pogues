@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
 import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
+import FilterList from '@/components/ui/FilterList';
+import Input from '@/components/ui/Input';
+import { useFilters } from '@/hooks/useFilter';
 import { type CodesList } from '@/models/codesLists';
+import { FilterEnum } from '@/models/filter';
 
 import CodesListOverviewItem from './CodesListOverviewItem';
 
@@ -22,6 +26,17 @@ export default function CodesListsOverview({
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
+  const { filters, updateFilterContent, clearFilter, getFilterContent } =
+    useFilters([
+      {
+        filterType: FilterEnum.Search,
+        filterContent: '',
+        clearFilterFunction: () => clearFilter(FilterEnum.Search),
+      },
+    ]);
+
+  const searchFilterContent = getFilterContent(FilterEnum.Search);
+
   return (
     <div>
       <ContentHeader
@@ -38,13 +53,37 @@ export default function CodesListsOverview({
       <ContentMain>
         {codesLists.length > 0 ? (
           <>
-            {codesLists.map((codesList) => (
-              <CodesListOverviewItem
-                key={codesList.id}
-                questionnaireId={questionnaireId}
-                codesList={codesList}
+            <div>
+              <Input
+                label={t('codesList.overview.search')}
+                placeholder={t('codesList.overview.search')}
+                value={searchFilterContent}
+                onChange={(e) =>
+                  updateFilterContent(FilterEnum.Search, e.target.value)
+                }
+                onClear={() => clearFilter(FilterEnum.Search)}
+                showClearButton={searchFilterContent.length > 0}
               />
-            ))}
+            </div>
+            <FilterList filters={filters} />
+            {codesLists
+              .filter((c) => {
+                return (
+                  c.id
+                    .toLowerCase()
+                    .includes(searchFilterContent.toLowerCase()) ||
+                  c.label
+                    .toLowerCase()
+                    .includes(searchFilterContent.toLowerCase())
+                );
+              })
+              .map((codesList) => (
+                <CodesListOverviewItem
+                  key={codesList.id}
+                  questionnaireId={questionnaireId}
+                  codesList={codesList}
+                />
+              ))}
           </>
         ) : (
           <ButtonLink

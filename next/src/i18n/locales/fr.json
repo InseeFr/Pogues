@@ -23,6 +23,7 @@
     "send": "Envoyer",
     "title": "Titre",
     "start": "Commencer",
+    "clearInput": "Effacer la recherche",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?"
   },
   "error": {
@@ -55,41 +56,33 @@
     "navigation": {
       "overview": "Vue d'ensemble",
       "variables": "Variables",
-      "codeLists": "Listes de codes",
+      "codeList": "Liste de codes",
       "history": "Historique",
       "metadata": "Métadonnées"
     }
   },
   "codesList": {
     "common": {
+      "code": "Code",
+      "code_other": "Codes",
       "codeLabel": "Libellé de la modalité",
       "codeValue": "Code de la modalité",
       "label": "Nom de la liste de codes"
     },
     "overview": {
-      "collapse": "Réduire",
       "create": "Créer une liste de codes",
-      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
       "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
-      "deleteDisabled": {
-        "usedByQuestions": "La liste de codes ne peut pas être supprimée si elle est utilisée dans une question."
-      },
-      "deleteError": {
-        "usedByQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
-      },
+      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
       "deleteSuccess": "Liste de codes {{label}} supprimée",
+      "deleteError": {
+        "usedInQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
+      },
       "duplicate": "Dupliquer",
-      "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
+      "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
-      "expand": "Étendre",
-      "question": "{{count}} question",
-      "question_other": "{{count}} questions",
-      "question_zero": "{{count}} question",
       "title": "Listes de codes",
-      "usedByQuestion": "Utilisé dans la question :",
-      "usedByQuestion_other": "Utilisé dans les questions :",
-      "notUsedByQuestions": "Utilisé par aucune question."
+      "search": "Rechercher une liste de codes"
     },
     "create": {
       "success": "La liste de codes a été créée",
@@ -127,5 +120,12 @@
       "mustProvideTitle": "Vous devez renseigner un titre",
       "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte"
     }
+  },
+  "filter": {
+    "active": "Filtres actifs: {{count}}",
+    "clearFilters": "Supprimer les filtres",
+    "clear": "Suprimer le filtre",
+    "search": "Label",
+    "stamp": "Timbre"
   }
 }
