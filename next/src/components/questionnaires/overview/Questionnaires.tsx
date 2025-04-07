@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +6,8 @@ import ContentHeader from '@/components/ui/ContentHeader';
 import ContentMain from '@/components/ui/ContentMain';
 import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
-import { type Filter, FilterEnum } from '@/models/filter';
+import { useFilters } from '@/hooks/useFilter';
+import { FilterEnum } from '@/models/filter';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
 
@@ -28,56 +27,38 @@ export default function Questionnaires({
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const searchParams = new URLSearchParams(window.location.search);
   const stampFromUrl = searchParams.get('stamp') || '';
 
-  const [filters, setFilters] = useState<Filter[]>([
-    {
-      filterType: FilterEnum.Stamp,
-      filterContent: stampFromUrl,
-      clearFilterFunction: (): void => {
-        setFilters((prevFilters: Filter[]) =>
-          prevFilters.map((f: Filter) =>
-            f.filterType === FilterEnum.Stamp ? { ...f, filterContent: '' } : f,
-          ),
-        );
-        navigate({
-          to: '/questionnaires',
-        });
+  const { filters, updateFilterContent, clearFilter, getFilterContent } =
+    useFilters([
+      {
+        filterType: FilterEnum.Stamp,
+        filterContent: stampFromUrl,
+        clearFilterFunction: () => {
+          clearFilter(FilterEnum.Stamp);
+          navigate({ to: '/questionnaires' });
+        },
       },
-    },
-    {
-      filterType: FilterEnum.Search,
-      filterContent: '',
-      clearFilterFunction: () =>
-        setFilters((prevFilters) =>
-          prevFilters.map((f) =>
-            f.filterType === FilterEnum.Search
-              ? { ...f, filterContent: '' }
-              : f,
-          ),
-        ),
-    },
-  ]);
-
-  const navigate = useNavigate();
+      {
+        filterType: FilterEnum.Search,
+        filterContent: '',
+        clearFilterFunction: () => clearFilter(FilterEnum.Search),
+      },
+    ]);
 
   /** Change page based on stamp chosen from the selector. */
   function handleStampSelection(stamp: string) {
-    setFilters((prevFilters) =>
-      prevFilters.map((f) =>
-        f.filterType === FilterEnum.Stamp ? { ...f, filterContent: stamp } : f,
-      ),
-    );
+    updateFilterContent(FilterEnum.Stamp, stamp);
     navigate({
       to: '/questionnaires',
       search: { stamp },
     });
   }
 
-  const searchFilterContent =
-    filters.find((f) => f.filterType === FilterEnum.Search)?.filterContent ||
-    '';
+  const searchFilterContent = getFilterContent(FilterEnum.Search);
 
   return (
     <div>
@@ -104,23 +85,9 @@ export default function Questionnaires({
               placeholder={t('questionnaires.search')}
               value={searchFilterContent}
               onChange={(e) =>
-                setFilters((prevFilters) =>
-                  prevFilters.map((f) =>
-                    f.filterType === FilterEnum.Search
-                      ? { ...f, filterContent: e.target.value }
-                      : f,
-                  ),
-                )
+                updateFilterContent(FilterEnum.Search, e.target.value)
               }
-              onClear={() =>
-                setFilters((prevFilters) =>
-                  prevFilters.map((f) =>
-                    f.filterType === FilterEnum.Search
-                      ? { ...f, filterContent: '' }
-                      : f,
-                  ),
-                )
-              }
+              onClear={() => clearFilter(FilterEnum.Search)}
               showClearButton={searchFilterContent.length > 0}
             />
           </div>
