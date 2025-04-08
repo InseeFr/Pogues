@@ -78,9 +78,6 @@ const Controls = ({
           <GenericOption key="ERROR" value="ERROR">
             {Dictionary.ERROR}
           </GenericOption>
-          <GenericOption key="INFO" value="INFO">
-            {Dictionary.INFO}
-          </GenericOption>
         </Field>
         {isDynamicArray && (
           <Field
