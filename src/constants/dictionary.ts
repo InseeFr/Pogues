@@ -410,10 +410,6 @@ const dictionary: Dictionary = {
     en: 'Criticity',
     fr: 'Criticité',
   },
-  INFO: {
-    en: 'Information',
-    fr: 'Information',
-  },
   WARN: {
     en: 'Warning (Non-blocking)',
     fr: 'Avertissement (Non bloquant)',
