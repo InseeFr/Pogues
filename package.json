@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.8.9-rc.0",
+  "version": "1.8.9-rc-table-disabled-cell.0",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
