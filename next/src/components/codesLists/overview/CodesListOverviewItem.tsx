@@ -54,7 +54,7 @@ export default function CodesListOverviewItem({
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
-        queryKey: ['questionnaire', { questionnaireId }],
+        queryKey: ['codesLists', { questionnaireId }],
       }),
   });
 
@@ -70,7 +70,7 @@ export default function CodesListOverviewItem({
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
-        queryKey: ['questionnaire', { questionnaireId }],
+        queryKey: ['codesLists', { questionnaireId }],
       }),
   });
 

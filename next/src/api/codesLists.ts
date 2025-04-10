@@ -23,7 +23,7 @@ export type CodeListRelatedQuestionError = {
  */
 export const codesListsQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['codeslists', { questionnaireId }],
+    queryKey: ['codesLists', { questionnaireId }],
     queryFn: () => getCodesLists(questionnaireId),
   });
 
