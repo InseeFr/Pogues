@@ -41,8 +41,16 @@ const FilterList: React.FC<FilterListProps> = ({
                   ? 'bg-primary text-white'
                   : 'bg-slate-200 text-black'
               }`}
+              tabIndex={0}
+              role="button"
               onClick={() => {
                 updateFilterContent(filter.filterType, !filter.filterContent);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  updateFilterContent(filter.filterType, !filter.filterContent);
+                }
               }}
             >
               <div className="flex items-center ml-2 mr-2">
