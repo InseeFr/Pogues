@@ -131,11 +131,12 @@
     }
   },
   "filter": {
-    "active": "Filtres actifs : {{count}}",
+    "active": "Filtrer par:",
     "result": "Resultat : {{count}}",
     "clearFilters": "Supprimer les filtres",
     "clear": "Suprimer le filtre",
     "search": "Label",
-    "stamp": "Timbre"
+    "stamp": "Timbre",
+    "questionUsed": "Non utilisées"
   }
 }

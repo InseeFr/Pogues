@@ -131,11 +131,12 @@
     }
   },
   "filter": {
-    "active": "Active filters: {{count}}",
+    "active": "Filter by:",
     "result": "Result: {{count}}",
     "clearFilters": "Clear filters",
     "clear": "Clear",
     "search": "Label",
-    "stamp": "Stamp"
+    "stamp": "Stamp",
+    "questionUsed": "Not used"
   }
 }

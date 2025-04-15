@@ -28,19 +28,30 @@ export default function CodesListsOverview({
 
   const { filters, updateFilterContent, getFilterContent } = useFilters([
     {
+      filterType: FilterEnum.QuestionUsed,
+      filterContent: false,
+      clearFilterFunction: () =>
+        updateFilterContent(FilterEnum.QuestionUsed, false),
+    },
+    {
       filterType: FilterEnum.Search,
       filterContent: '',
       clearFilterFunction: () => updateFilterContent(FilterEnum.Search, ''),
     },
   ]);
 
-  const searchFilterContent = getFilterContent(FilterEnum.Search);
+  const searchFilterContent = getFilterContent(FilterEnum.Search).toString();
+  const questionUsedFilterContent = getFilterContent(FilterEnum.QuestionUsed);
 
   const filteredCodesLists = codesLists.filter((c) => {
-    return (
+    const matchesSearchFilter =
       c.id.toLowerCase().includes(searchFilterContent.toLowerCase()) ||
-      c.label.toLowerCase().includes(searchFilterContent.toLowerCase())
-    );
+      c.label.toLowerCase().includes(searchFilterContent.toLowerCase());
+
+    const matchesQuestionUsedFilter =
+      !questionUsedFilterContent || c.relatedQuestionNames!.length === 0;
+
+    return matchesSearchFilter && matchesQuestionUsedFilter;
   });
 
   return (
@@ -74,6 +85,7 @@ export default function CodesListsOverview({
             <FilterList
               filters={filters}
               resultCount={filteredCodesLists.length}
+              updateFilterContent={updateFilterContent}
             />
             {filteredCodesLists.map((codesList) => (
               <CodesListOverviewItem

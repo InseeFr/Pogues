@@ -10,7 +10,7 @@ export function useFilters(initialFilters: Filter[]) {
   const [filters, setFilters] = useState<Filter[]>(initialFilters);
 
   const updateFilterContent = useCallback(
-    (filterType: FilterEnum, content: string) => {
+    (filterType: FilterEnum, content: string | boolean) => {
       setFilters((prevFilters) =>
         prevFilters.map((f) =>
           f.filterType === filterType ? { ...f, filterContent: content } : f,

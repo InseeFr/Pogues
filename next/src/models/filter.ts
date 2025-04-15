@@ -2,10 +2,11 @@
 export enum FilterEnum {
   Search = 'search',
   Stamp = 'stamp',
+  QuestionUsed = 'questionUsed',
 }
 
 export type Filter = {
   filterType: FilterEnum;
-  filterContent: string;
+  filterContent: string | boolean;
   clearFilterFunction?: () => void;
 };
