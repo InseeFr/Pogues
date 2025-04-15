@@ -46,7 +46,7 @@ export default function QuestionnaireNavigation() {
   const { questionnaireId } = useParams({ strict: false });
 
   return (
-    <div className="bg-default w-24 items-center h-full space-y-3 py-6 border-r border-default text-center">
+    <div className="bg-default w-24 h-screen flex flex-col items-center space-y-3 py-6 border-r border-default text-center sticky top-0">
       {navigationItems.map(({ label, icon, isDisabled, path, isHidden }) =>
         !isHidden ? (
           <Link
