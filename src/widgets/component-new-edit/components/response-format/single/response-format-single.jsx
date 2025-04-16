@@ -139,17 +139,6 @@ function ResponseFormatSingle({
         </Field>
       ) : (
         <>
-          <div className="ctrl-checkbox" style={styleMandatory}>
-            <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
-            <div>
-              <Field
-                name="mandatory"
-                id="rf-single-mandatory"
-                component="input"
-                type="checkbox"
-              />
-            </div>
-          </div>
           <Field
             name="visHint"
             component={ListRadios}
@@ -169,6 +158,21 @@ function ResponseFormatSingle({
               {Dictionary.suggester}
             </GenericOption>
           </Field>
+          {visHint !== SUGGESTER && (
+            <div className="ctrl-checkbox" style={styleMandatory}>
+              <label htmlFor="rf-single-mandatory">
+                {Dictionary.mandatory}
+              </label>
+              <div>
+                <Field
+                  name="mandatory"
+                  id="rf-single-mandatory"
+                  component="input"
+                  type="checkbox"
+                />
+              </div>
+            </div>
+          )}
         </>
       )}
       {visHint === SUGGESTER ? (

@@ -7,7 +7,7 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 
-const { RADIO } = DATATYPE_VIS_HINT;
+const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
   allowArbitraryResponse: false,
@@ -35,7 +35,8 @@ export function formToState(form, transformers) {
   return {
     id,
     allowArbitraryResponse,
-    mandatory,
+    // for suggester we do not handle mandatory question
+    mandatory: visHint !== SUGGESTER ? mandatory : false,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
