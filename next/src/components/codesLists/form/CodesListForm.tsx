@@ -274,6 +274,7 @@ function CodesField({
         render={({ field, fieldState: { error } }) =>
           formulasLanguage === FormulasLanguages.VTL ? (
             <VTLEditor
+              key={`${namePrefix}.label`}
               data-testid={`${namePrefix}.label`}
               className="col-start-2 h-20"
               suggestionsVariables={variables}
