@@ -109,3 +109,25 @@ it('should display "value must be unique" error when duplicate value', async () 
     await screen.findAllByText('Value must be unique: "abc"'),
   ).toHaveLength(2);
 });
+
+it('should add and remove a code correctly', async () => {
+  renderWithRouter(
+    <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} variables={[]} />,
+  );
+
+  // Adding a code
+  fireEvent.click(screen.getByRole('button', { name: /Add a code/i }));
+  fireEvent.input(screen.getByTestId('codes.1.value'), {
+    target: { value: 'code1' },
+  });
+  fireEvent.input(screen.getByTestId('codes.1.label'), {
+    target: { value: 'label1' },
+  });
+
+  // Remove the code
+  fireEvent.click(screen.getAllByTitle('Delete')[1]);
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('codes.1.value')).toBeNull();
+  });
+});
