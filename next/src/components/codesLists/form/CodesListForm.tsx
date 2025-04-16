@@ -87,7 +87,6 @@ export default function CodesListForm({
   formulasLanguage,
   variables = [],
   onSubmit,
-  submitLabel,
 }: Readonly<CodesListFormProps>) {
   const {
     control,
