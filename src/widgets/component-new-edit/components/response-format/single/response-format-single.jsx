@@ -70,6 +70,10 @@ function ResponseFormatSingle({
 
   // gets the ids of the responses of dynamic arrays and questions in loops
   const RosterVariablesId = Object.values(componentsStore)
+    // keep only component (remove root questionnaire, i.e the component where parent is equal to "")
+    .filter(
+      (component) => component.parent !== '' && component.parent !== undefined,
+    )
     .filter(
       (component) =>
         component.type === QUESTION &&
@@ -79,7 +83,7 @@ function ResponseFormatSingle({
           // questions directly depending on loop loopSequences
           loopSequences.includes(component.parent) ||
           // questions indirectly depending on loop loopSequences
-          loopSequences.includes(componentsStore[component.parent].parent)),
+          loopSequences.includes(componentsStore[component.parent]?.parent)),
     )
     .map((q) => q.collectedVariables)
     .flat();
