@@ -144,5 +144,31 @@
     "noNomenclatures": "Aucune nomenclature trouvée",
     "search": "Rechercher une nomenclature",
     "version": "Version"
+  },
+  "version": {
+    "title": "Historique",
+    "saveCurrent": "Créer une sauvegarder à partir du questionnaire actuel",
+    "saveCurrentTitle": "Enregistrer la version actuelle",
+    "saveCurrentDialogConfirm": "Êtes-vous sûr de vouloir enregistrer la version actuelle ?",
+    "saveCurrentSuccess": "Sauvegarde enregistrée",
+    "delete": "Supprimer",
+    "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
+    "deleteDialogTitle": "Supprimer toutes les sauvegardes",
+    "deleteSuccess": "Version de {{timestamp}} supprimée",
+    "deleteError": "La version n'a pas pu être supprimée",
+    "deleteAll": "Supprimer toutes les sauvegardes",
+    "duplicate": "Dupliquer",
+    "versionsCount": "{{count}} sauvegardes",
+    "version_today": "{{count}} sauvegardes aujourd'hui",
+    "old_versions": "{{count}} sauvegardes plus anciennes",
+    "search": "Rechercher une version",
+    "restore": "Restaurer",
+    "restoreDialogConfirm": "Êtes-vous sûr de vouloir restaurer cette sauvegarde ?",
+    "restoreDialogTitle": "Restaurer la sauvegarde du {{timestamp}}",
+    "restoreSuccess": "Sauvegarde de {{timestamp}} restaurée",
+    "timestamp": "Date",
+    "author": "Auteur",
+    "actions": "Actions",
+    "no_versions": "Aucune sauvegarde disponible"
   }
 }

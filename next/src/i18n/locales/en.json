@@ -145,5 +145,31 @@
     "noNomenclatures": "No nomenclatures available",
     "search": "Search for a nomenclature",
     "version": "Version"
+  },
+  "version": {
+    "title": "History",
+    "saveCurrent": "Create a version from the current questionnaire",
+    "saveCurrentTitle": "Save current version",
+    "saveCurrentDialogConfirm": "Are you sure you want to save the current version?",
+    "saveCurrentSuccess": "Save from {{timestamp}} saved",
+    "delete": "Delete",
+    "deleteDialogConfirm": "Are you sure you want to delete all saves?",
+    "deleteDialogTitle": "Delete all saved versions",
+    "deleteSuccess": "Version from{{timestamp}} deleted",
+    "deleteError": "Save could not be deleted ",
+    "deleteAll": "Delete all saves",
+    "duplicate": "Duplicate",
+    "versionsCount": "{{count}} versions",
+    "version_today": "{{count}} version today",
+    "old_versions": "{{count}} older versions",
+    "search": "Search for a saved questionnaire",
+    "restore": "Restore",
+    "restoreDialogConfirm": "Are you sure you want to restore this save?",
+    "restoreDialogTitle": "Restore save from: {{timestamp}}",
+    "restoreSuccess": "Save from {{timestamp}} restored",
+    "timestamp": "Timestamp",
+    "author": "Author",
+    "actions": "Actions",
+    "no_versions": "No saves were found"
   }
 }

@@ -58,7 +58,7 @@ export default function QuestionnaireNavigation() {
     {
       label: i18next.t('questionnaires.navigation.history'),
       icon: <HistoryIcon className="m-auto" />,
-      path: '/',
+      path: '/questionnaire/$questionnaireId/versions',
       isDisabled: true,
       isHidden: true,
     },
