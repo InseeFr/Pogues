@@ -48,7 +48,7 @@ const baseCodeSchema = z.object({
 });
 
 type ZCodeSchema = z.infer<typeof baseCodeSchema> & {
-  codes: ZCodeSchema[];
+  codes?: ZCodeSchema[];
 };
 
 const codesSchema: z.ZodType<ZCodeSchema> = baseCodeSchema.extend({
@@ -95,7 +95,11 @@ export default function CodesListForm({
     trigger,
   } = useForm<FormValues>({
     mode: 'onChange',
-    defaultValues: codesList,
+    defaultValues: {
+      label: '',
+      codes: [{ label: '', value: '', codes: [] }],
+    },
+    values: codesList,
     resolver: zodResolver(schema),
   });
 
