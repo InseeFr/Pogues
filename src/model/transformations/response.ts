@@ -39,6 +39,7 @@ export function stateToRemote(
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
     conditionFilter,
+    conditionReadonly,
   } = state;
 
   const find = response
@@ -86,6 +87,8 @@ export function stateToRemote(
   if (Mayears !== undefined) model.Datatype.Mayears = Mayears;
   if (Mamonths !== undefined) model.Datatype.Mamonths = Mamonths;
   if (conditionFilter !== undefined) model.conditionFilter = conditionFilter;
+  if (conditionReadonly !== undefined)
+    model.conditionReadonly = conditionReadonly;
 
   return model;
 }

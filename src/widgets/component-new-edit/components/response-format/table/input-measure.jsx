@@ -21,9 +21,14 @@ function InputMeasure({
   disableSetConditionFilter = false,
   hasFilter,
   setConditionFilter,
+  isReadonly = false,
+  setConditionReadonly,
 }) {
   const handleFilterChange = () => {
     setConditionFilter(undefined);
+  };
+  const handleReadonlyChange = () => {
+    setConditionReadonly(undefined);
   };
 
   return (
@@ -87,6 +92,29 @@ function InputMeasure({
           )}
         </>
       )}
+      <Field
+        name="isReadonly"
+        component={ListRadios}
+        label={Dictionary.readonlyCells}
+        required
+        // Reset condition filter to undefined value on change
+        onChange={handleReadonlyChange}
+        // Convert string "true"/"false" to boolean true/false when storing in Redux form
+        parse={(value) => value === 'true'}
+        // Convert true/false/undefined to string "true"/"false" when displaying the form
+        format={(value) => (value === true ? 'true' : 'false')}
+      >
+        <GenericOption value="true">{Dictionary.yes}</GenericOption>
+        <GenericOption value="false">{Dictionary.no}</GenericOption>
+      </Field>
+      {isReadonly && (
+        <Field
+          name="conditionReadonly"
+          component={RichEditorWithVariable}
+          label={Dictionary.conditionReadonly}
+          toolbar={toolbarConfigTooltip}
+        />
+      )}
     </div>
   );
 }
@@ -96,6 +124,8 @@ InputMeasure.propTypes = {
   disableSetConditionFilter: PropTypes.bool,
   hasFilter: PropTypes.bool,
   setConditionFilter: PropTypes.func,
+  isReadonly: PropTypes.bool,
+  setConditionReadonly: PropTypes.func,
 };
 
 // Container
@@ -104,6 +134,8 @@ const mapStateToProps = (state, { selectorPath }) => {
   return {
     hasFilter: selector(state, `${selectorPath}.hasFilter`),
     conditionFilter: selector(state, `${selectorPath}.conditionFilter`),
+    isReadonly: selector(state, `${selectorPath}.isReadonly`),
+    conditionReadonly: selector(state, `${selectorPath}.conditionReadonly`),
   };
 };
 
@@ -111,6 +143,8 @@ const mapStateToProps = (state, { selectorPath }) => {
 const mapDispatchToProps = (dispatch, { selectorPath }) => ({
   setConditionFilter: (value) =>
     dispatch(change('component', `${selectorPath}.conditionFilter`, value)),
+  setConditionReadonly: (value) =>
+    dispatch(change('component', `${selectorPath}.conditionReadonly`, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputMeasure);

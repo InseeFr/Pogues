@@ -172,6 +172,7 @@ describe('remoteToState', () => {
             MaxLength: 249,
           },
           conditionFilter: 'my condition',
+          conditionReadonly: 'readonly condition',
           CollectedVariableReference: 'joxzq5qe',
         },
         {
@@ -264,6 +265,7 @@ describe('remoteToState', () => {
         {
           label: 'mes1',
           conditionFilter: 'my condition',
+          conditionReadonly: 'readonly condition',
           type: 'SIMPLE',
           SIMPLE: {
             type: 'TEXT',

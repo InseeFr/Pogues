@@ -189,7 +189,12 @@ function remoteToStateSecondary(remote) {
 function remoteToStateMeasure(remote) {
   const {
     Label: label,
-    response: { CodeListReference, Datatype, conditionFilter },
+    response: {
+      CodeListReference,
+      Datatype,
+      conditionFilter,
+      conditionReadonly,
+    },
   } = remote;
   const state = {};
 
@@ -208,6 +213,7 @@ function remoteToStateMeasure(remote) {
   return {
     label,
     conditionFilter,
+    conditionReadonly,
     ...state,
   };
 }
@@ -258,12 +264,13 @@ function stateToResponseState(state, primaryType) {
     type: measureType,
     [measureType]: measureTypeState,
     conditionFilter,
+    conditionReadonly,
   } = state;
   let responseState = {};
 
-  // we keep response conditionFilter only in dynamic tables
+  // we keep response conditionFilter and conditionReadonly only in dynamic tables
   if (primaryType === 'LIST') {
-    responseState = { ...responseState, conditionFilter };
+    responseState = { ...responseState, conditionFilter, conditionReadonly };
   }
 
   if (measureType === SIMPLE) {
