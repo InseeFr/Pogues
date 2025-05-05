@@ -867,8 +867,8 @@ const dictionary: Dictionary = {
     en: 'To load a previous backup, click "Load" and validate. That backup can then be edited and saved as a new one.',
   },
   saveHistoryLimitInfo: {
-    fr: 'Attention, pour les jours précédents, seulement les 10 sauvegardes les plus récentes sont conservées, puis la dernière pour les autres journées.',
-    en: 'Caution: only the latest 10 backup for the days before are stored, and the last one for the days before.',
+    fr: 'Tous les soirs, toutes les sauvegardes du jour, puis les 10 précédentes sont conservées. Au-delà, la dernière de chaque jour est conservée.',
+    en: `Every evening, all the day's backups, then the 10 previous ones, are stored. Beyond that, the last one of each day is stored.`,
   },
   documentationInfoLink: {
     fr: 'Pour plus de précision, se référer à la documentation.',
