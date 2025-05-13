@@ -416,7 +416,7 @@ const dictionary: Dictionary = {
   },
   ERROR: {
     en: 'Error (Blocking)',
-    fr: 'Erreur (Bientôt)',
+    fr: 'Erreur (Bloquant)',
   },
   control_scope: {
     en: 'Level',
