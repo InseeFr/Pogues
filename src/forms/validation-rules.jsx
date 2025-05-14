@@ -15,13 +15,27 @@ const { NUMERIC } = DATATYPE_NAME;
 const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE, PAIRING } =
   QUESTION_TYPE_ENUM;
 
+/**
+ * Validates that a form field has a meaningful, non-empty value.
+ *
+ * It returns an error message if the value is:
+ *  - `null` or `undefined`
+ *  - An empty string, or a string that contains only special characters or whitespace
+ *
+ * It accepts `0`, `false`, and other falsy but valid inputs.
+ */
 export function required(value = '') {
-  const val = value.trim ? value.trim().replace(/[^\w\s]/gi, '') : value;
-
-  if (typeof val === 'string' || val instanceof String) {
-    return val.length > 0 ? undefined : Dictionary.validationRequired;
+  if (value === null || value === undefined) {
+    return Dictionary.validationRequired;
   }
-  return val ? undefined : Dictionary.validationRequired;
+
+  if (typeof value === 'string') {
+    // we clean the string to ensure this is not a fake non empty string (for example ' ')
+    const cleanedValue = value.trim().replace(/[^\w\s]/gi, '');
+    return cleanedValue === '' ? Dictionary.validationRequired : undefined;
+  }
+
+  return undefined;
 }
 
 export function maxLength(max) {

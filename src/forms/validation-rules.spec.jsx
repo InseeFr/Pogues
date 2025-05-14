@@ -13,11 +13,28 @@ import {
   minimumRequired,
   name,
   nameSize,
+  required,
   requiredSelect,
   validCollectedVariables,
   validateDuplicates,
   validateExistingTarget,
 } from './validation-rules';
+
+describe('required', () => {
+  it('should return required field message if value is null or undefined', () => {
+    expect(required(null)).toEqual(Dictionary.validationRequired);
+    expect(required(undefined)).toEqual(Dictionary.validationRequired);
+  });
+  it('should handle string value, returning required field message only if empty string', () => {
+    expect(required('')).toEqual(Dictionary.validationRequired);
+    expect(required('my value')).toBeUndefined();
+  });
+  it('should accept numeric value', () => {
+    expect(required(2)).toBeUndefined();
+    expect(required(-2)).toBeUndefined();
+    expect(required(0)).toBeUndefined();
+  });
+});
 
 describe('maxLength', () => {
   const max = 5;
