@@ -28,7 +28,7 @@ export type StateResponse = {
   visHint?: unknown;
   collectedVariable?: string;
   conditionFilter?: string;
-  conditionReadonly?: string;
+  conditionReadOnly?: string;
 };
 
 export type RemoteResponse = {
@@ -58,5 +58,5 @@ export type RemoteResponse = {
   CodeListReference?: unknown;
   mandatory?: unknown;
   conditionFilter?: string;
-  conditionReadonly?: string;
+  conditionReadOnly?: string;
 };

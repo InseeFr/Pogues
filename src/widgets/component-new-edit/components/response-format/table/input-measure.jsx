@@ -21,14 +21,14 @@ function InputMeasure({
   disableSetConditionFilter = false,
   hasFilter,
   setConditionFilter,
-  isReadonly = false,
-  setConditionReadonly,
+  isReadOnly = false,
+  setConditionReadOnly,
 }) {
   const handleFilterChange = () => {
     setConditionFilter(undefined);
   };
-  const handleReadonlyChange = () => {
-    setConditionReadonly(undefined);
+  const handleReadOnlyChange = () => {
+    setConditionReadOnly(undefined);
   };
 
   return (
@@ -93,12 +93,12 @@ function InputMeasure({
         </>
       )}
       <Field
-        name="isReadonly"
+        name="isReadOnly"
         component={ListRadios}
-        label={Dictionary.readonlyCells}
+        label={Dictionary.readOnlyCells}
         required
         // Reset condition filter to undefined value on change
-        onChange={handleReadonlyChange}
+        onChange={handleReadOnlyChange}
         // Convert string "true"/"false" to boolean true/false when storing in Redux form
         parse={(value) => value === 'true'}
         // Convert true/false/undefined to string "true"/"false" when displaying the form
@@ -107,11 +107,11 @@ function InputMeasure({
         <GenericOption value="true">{Dictionary.yes}</GenericOption>
         <GenericOption value="false">{Dictionary.no}</GenericOption>
       </Field>
-      {isReadonly && (
+      {isReadOnly && (
         <Field
-          name="conditionReadonly"
+          name="conditionReadOnly"
           component={RichEditorWithVariable}
-          label={Dictionary.conditionReadonly}
+          label={Dictionary.conditionReadOnly}
           toolbar={toolbarConfigTooltip}
         />
       )}
@@ -124,8 +124,8 @@ InputMeasure.propTypes = {
   disableSetConditionFilter: PropTypes.bool,
   hasFilter: PropTypes.bool,
   setConditionFilter: PropTypes.func,
-  isReadonly: PropTypes.bool,
-  setConditionReadonly: PropTypes.func,
+  isReadOnly: PropTypes.bool,
+  setConditionReadOnly: PropTypes.func,
 };
 
 // Container
@@ -134,8 +134,8 @@ const mapStateToProps = (state, { selectorPath }) => {
   return {
     hasFilter: selector(state, `${selectorPath}.hasFilter`),
     conditionFilter: selector(state, `${selectorPath}.conditionFilter`),
-    isReadonly: selector(state, `${selectorPath}.isReadonly`),
-    conditionReadonly: selector(state, `${selectorPath}.conditionReadonly`),
+    isReadOnly: selector(state, `${selectorPath}.isReadOnly`),
+    conditionReadOnly: selector(state, `${selectorPath}.conditionReadOnly`),
   };
 };
 
@@ -143,8 +143,8 @@ const mapStateToProps = (state, { selectorPath }) => {
 const mapDispatchToProps = (dispatch, { selectorPath }) => ({
   setConditionFilter: (value) =>
     dispatch(change('component', `${selectorPath}.conditionFilter`, value)),
-  setConditionReadonly: (value) =>
-    dispatch(change('component', `${selectorPath}.conditionReadonly`, value)),
+  setConditionReadOnly: (value) =>
+    dispatch(change('component', `${selectorPath}.conditionReadOnly`, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputMeasure);

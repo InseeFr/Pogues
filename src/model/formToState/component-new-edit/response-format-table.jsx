@@ -60,8 +60,8 @@ export const defaultMeasureState = {
   label: '',
   hasFilter: false,
   conditionFilter: undefined,
-  isReadonly: false,
-  conditionReadonly: undefined,
+  isReadOnly: false,
+  conditionReadOnly: undefined,
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
@@ -77,8 +77,8 @@ export const defaultMeasureForm = {
   label: '',
   hasFilter: false,
   conditionFilter: undefined,
-  isReadonly: false,
-  conditionReadonly: undefined,
+  isReadOnly: false,
+  conditionReadOnly: undefined,
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
@@ -163,7 +163,7 @@ export function formToStateMeasure(form, codesListMeasure) {
   const {
     label,
     conditionFilter,
-    conditionReadonly,
+    conditionReadOnly,
     type,
     [type]: measureForm,
   } = form;
@@ -172,9 +172,9 @@ export function formToStateMeasure(form, codesListMeasure) {
     conditionFilter: conditionFilter
       ? verifyVariable(conditionFilter)
       : conditionFilter,
-    conditionReadonly: conditionReadonly
-      ? verifyVariable(conditionReadonly)
-      : conditionReadonly,
+    conditionReadOnly: conditionReadOnly
+      ? verifyVariable(conditionReadOnly)
+      : conditionReadOnly,
     type,
   };
 
@@ -265,7 +265,7 @@ export function stateToFormMeasure(
   const {
     label,
     conditionFilter,
-    conditionReadonly,
+    conditionReadOnly,
     type,
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
@@ -276,7 +276,7 @@ export function stateToFormMeasure(
 
   // since we do not have hasFilter in the model, we create the boolean here : true if conditionFilter has a value
   const hasFilter = !!conditionFilter;
-  const isReadonly = !!conditionReadonly;
+  const isReadOnly = !!conditionReadOnly;
 
   let codesListForm;
 
@@ -293,8 +293,8 @@ export function stateToFormMeasure(
     label,
     hasFilter,
     conditionFilter,
-    isReadonly,
-    conditionReadonly,
+    isReadOnly,
+    conditionReadOnly,
     type,
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
@@ -396,14 +396,14 @@ const Factory = (initialState = {}, codesListsStore) => {
         type,
         label,
         conditionFilter,
-        conditionReadonly,
+        conditionReadOnly,
         [type]: measureState,
       } = m;
       const state = {
         type,
         label,
         conditionFilter,
-        conditionReadonly,
+        conditionReadOnly,
       };
 
       if (type === SINGLE_CHOICE) {
