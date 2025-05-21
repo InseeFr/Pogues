@@ -24,6 +24,14 @@
     "title": "Title",
     "start": "Start",
     "clearInput": "Clear input",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "usedByQuestion": "Used by question:",
+    "usedByQuestion_other": "Used by questions:",
+    "notUsedByQuestions": "Not used by any questions.",
+    "question": "{{count}} question",
+    "question_other": "{{count}} questions",
+    "question_zero": "{{count}} questions",
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?"
   },
   "error": {
@@ -58,7 +66,8 @@
       "variables": "Variables",
       "codeLists": "Code lists",
       "history": "History",
-      "metadata": "Metadata"
+      "metadata": "Metadata",
+      "nomenclatures": "Nomenclatures"
     }
   },
   "codesList": {
@@ -68,7 +77,6 @@
       "label": "Code list name"
     },
     "overview": {
-      "collapse": "Collapse",
       "create": "Create a code list",
       "deleteDialogConfirm": "Are you sure you want to delete this code list?",
       "deleteDialogTitle": "Delete code list: {{label}}",
@@ -83,14 +91,7 @@
       "duplicateDialogConfirm": "Do you want to create a copy of this code list?",
       "duplicateDialogTitle": "Duplicate code list: {{label}}",
       "duplicateSuccess": "Code list {{label}} duplicated",
-      "expand": "Expand",
-      "question": "{{count}} question",
-      "question_other": "{{count}} questions",
-      "question_zero": "{{count}} questions",
       "title": "Code Lists",
-      "usedByQuestion": "Used by question:",
-      "usedByQuestion_other": "Used by questions:",
-      "notUsedByQuestions": "Not used by any questions.",
       "search": "Search for a code list"
     },
     "create": {
@@ -138,5 +139,11 @@
     "search": "Label",
     "stamp": "Stamp",
     "questionUsed": "Not used"
+  },
+  "nomenclatures": {
+    "title": "Nomenclatures",
+    "noNomenclatures": "No nomenclatures available",
+    "search": "Search for a nomenclature",
+    "version": "Version"
   }
 }

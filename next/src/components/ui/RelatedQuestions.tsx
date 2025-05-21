@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import Popover from '@/components/ui/Popover';
 
-interface CodesListQuestionsProps {
+interface RelatedQuestionsProps {
   relatedQuestionNames?: string[];
 }
 
@@ -13,16 +13,16 @@ interface CodesListQuestionsProps {
  * It is displayed differently when there are no questions to get user attention
  * since it should be deleted.
  */
-export default function CodesListQuestions({
+export default function RelatedQuestions({
   relatedQuestionNames = [],
-}: Readonly<CodesListQuestionsProps>) {
+}: Readonly<RelatedQuestionsProps>) {
   const { t } = useTranslation();
 
   if (relatedQuestionNames.length === 0) {
     return (
-      <Popover description={t('codesList.overview.notUsedByQuestions')}>
+      <Popover description={t('common.notUsedByQuestions')}>
         <div className="min-w-28 text-error">
-          {t('codesList.overview.question', {
+          {t('common.question', {
             count: 0,
           })}
         </div>
@@ -35,7 +35,7 @@ export default function CodesListQuestions({
       description={
         <div>
           <div>
-            {t('codesList.overview.usedByQuestion', {
+            {t('common.usedByQuestion', {
               count: relatedQuestionNames.length,
             })}
           </div>
@@ -48,7 +48,7 @@ export default function CodesListQuestions({
       }
     >
       <div className="min-w-28">
-        {t('codesList.overview.question', {
+        {t('common.question', {
           count: relatedQuestionNames.length,
         })}
       </div>

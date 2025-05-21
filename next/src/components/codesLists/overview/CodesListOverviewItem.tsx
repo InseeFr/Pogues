@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -14,12 +14,11 @@ import {
 } from '@/api/codesLists';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
-import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
-import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
+import ExpandButton from '@/components/ui/ExpandButton';
+import RelatedQuestions from '@/components/ui/RelatedQuestions';
 import type { CodesList } from '@/models/codesLists';
 import { uid } from '@/utils/utils';
 
-import CodesListQuestions from './CodesListQuestions';
 import CodesTable from './CodesTable';
 
 interface CodesListProps {
@@ -125,7 +124,7 @@ export default function CodesListOverviewItem({
     <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
       <div className="grid grid-cols-[1fr_auto]">
         <h3>{codesList.label}</h3>
-        <CodesListQuestions
+        <RelatedQuestions
           relatedQuestionNames={codesList.relatedQuestionNames}
         />
       </div>
@@ -178,34 +177,5 @@ export default function CodesListOverviewItem({
         />
       </div>
     </div>
-  );
-}
-
-interface ExpandButtonProps {
-  isExpanded: boolean;
-  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-  ariaControls: string;
-}
-
-function ExpandButton({
-  isExpanded,
-  setIsExpanded,
-  ariaControls,
-}: Readonly<ExpandButtonProps>) {
-  const { t } = useTranslation();
-  return (
-    <button
-      className="cursor-pointer"
-      onClick={() => setIsExpanded((v) => !v)}
-      aria-expanded={isExpanded}
-      aria-controls={ariaControls}
-      aria-label={
-        isExpanded
-          ? t('codesList.overview.collapse')
-          : t('codesList.overview.expand')
-      }
-    >
-      {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
-    </button>
   );
 }

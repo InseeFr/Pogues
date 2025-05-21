@@ -24,6 +24,14 @@
     "title": "Titre",
     "start": "Commencer",
     "clearInput": "Effacer la recherche",
+    "collapse": "Réduire",
+    "expand": "Étendre",
+    "usedByQuestion": "Utilisé dans la question :",
+    "usedByQuestion_other": "Utilisé dans les questions :",
+    "notUsedByQuestions": "Utilisé par aucune question.",
+    "question": "{{count}} question",
+    "question_other": "{{count}} questions",
+    "question_zero": "{{count}} question",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?"
   },
   "error": {
@@ -68,7 +76,6 @@
       "label": "Nom de la liste de codes"
     },
     "overview": {
-      "collapse": "Réduire",
       "create": "Créer une liste de codes",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
       "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
@@ -83,14 +90,7 @@
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
-      "expand": "Étendre",
-      "question": "{{count}} question",
-      "question_other": "{{count}} questions",
-      "question_zero": "{{count}} question",
       "title": "Listes de codes",
-      "usedByQuestion": "Utilisé dans la question :",
-      "usedByQuestion_other": "Utilisé dans les questions :",
-      "notUsedByQuestions": "Utilisé par aucune question.",
       "search": "Rechercher une liste de codes"
     },
     "create": {
@@ -138,5 +138,11 @@
     "search": "Label",
     "stamp": "Timbre",
     "questionUsed": "Non utilisées"
+  },
+  "nomenclatures": {
+    "title": "Nomenclatures",
+    "noNomenclatures": "Aucune nomenclature trouvée",
+    "search": "Rechercher une nomenclature",
+    "version": "Version"
   }
 }

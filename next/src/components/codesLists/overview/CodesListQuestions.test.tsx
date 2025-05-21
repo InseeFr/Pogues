@@ -2,15 +2,14 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
+import RelatedQuestions from '@/components/ui/RelatedQuestions';
 import { renderWithRouter } from '@/utils/tests';
-
-import CodesListQuestions from './CodesListQuestions';
 
 describe('CodesListQuestions', () => {
   it('display related questions count and details on click', async () => {
     const user = userEvent.setup();
     const { getByText } = renderWithRouter(
-      <CodesListQuestions
+      <RelatedQuestions
         relatedQuestionNames={['HOW_ARE_YOU', 'WHAT_IS_YOUR_NAME']}
       />,
     );
@@ -24,7 +23,7 @@ describe('CodesListQuestions', () => {
 
   it('work when there are no questions', () => {
     const { getByText } = renderWithRouter(
-      <CodesListQuestions relatedQuestionNames={[]} />,
+      <RelatedQuestions relatedQuestionNames={[]} />,
     );
 
     expect(getByText('0 questions')).toBeInTheDocument();
