@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { FormSection } from 'redux-form';
 
@@ -8,7 +6,11 @@ import { CodesLists } from '../../../../codes-lists';
 
 const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
 
-const ResponseFormatTablePrincipalCodeslist = ({ selectorPathParent }) => {
+/**
+ * In a static table, we must provide a code list that will determinate the
+ * size of the table.
+ */
+const ResponseFormatTablePrincipalStatic = ({ selectorPathParent }) => {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -22,12 +24,12 @@ const ResponseFormatTablePrincipalCodeslist = ({ selectorPathParent }) => {
   );
 };
 
-ResponseFormatTablePrincipalCodeslist.propTypes = {
+ResponseFormatTablePrincipalStatic.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatTablePrincipalCodeslist.defaultProps = {
+ResponseFormatTablePrincipalStatic.defaultProps = {
   selectorPathParent: undefined,
 };
 
-export default ResponseFormatTablePrincipalCodeslist;
+export default ResponseFormatTablePrincipalStatic;

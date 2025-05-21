@@ -3,6 +3,7 @@ import maxBy from 'lodash.maxby';
 import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
   DIMENSION_TYPE,
@@ -21,6 +22,7 @@ const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { TEXT } = DATATYPE_NAME;
+const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 
 // HELPERS
 
@@ -119,60 +121,58 @@ function getMeasuresModel(responses, dimensions, offset) {
   return responsesModel;
 }
 
-function parseDynamic(dynamic) {
-  // if it still uses the old format 'min-max'
-  if (dynamic.includes('-')) {
-    const minMax = dynamic.split('-').map((v) => parseInt(v, 10));
-
-    // Check if we have exactly two valid numbers
-    if (minMax.length === 2 && !isNaN(minMax[0]) && !isNaN(minMax[1])) {
-      return minMax;
-    }
-  }
-
-  // Default case: return [0, 0] for '0', 'NON_DYNAMIC', or any invalid format
-  return [0, 0];
-}
-
 // REMOTE TO STATE
 
 function remoteToStatePrimary(remote) {
-  const { dynamic, CodeListReference, FixedLength, MinLines, MaxLines } =
-    remote;
-  let state = {};
+  const { dynamic } = remote;
 
-  if (CodeListReference) {
-    state = {
-      ...state,
-      type: CODES_LIST,
-      [CODES_LIST]: {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]:
-          CodeList.remoteToState(CodeListReference),
-      },
-    };
-  } else {
-    const [minLines, maxLines] =
-      dynamic === 'DYNAMIC_LENGTH'
-        ? [MinLines, MaxLines]
-        : parseDynamic(dynamic);
-
-    state = {
-      ...state,
-      type: LIST,
-      [LIST]: {
-        type: dynamic === 'FIXED_LENGTH' ? FIXED_LENGTH : DYNAMIC_LENGTH,
-        [FIXED_LENGTH]: {
-          fixedLength: FixedLength,
+  switch (dynamic) {
+    case 'NON_DYNAMIC': {
+      const { CodeListReference } = remote;
+      return {
+        type: CODES_LIST,
+        [CODES_LIST]: {
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+            CodeList.remoteToState(CodeListReference),
         },
-        [DYNAMIC_LENGTH]: {
-          minLines,
-          maxLines,
+      };
+    }
+    case 'DYNAMIC_FIXED': {
+      const {
+        size: { type, value: size },
+      } = remote;
+      const calculationMethod = type === 'number' ? NUMBER : FORMULA;
+      return {
+        type: LIST,
+        [LIST]: {
+          type: calculationMethod,
+          [calculationMethod]: {
+            type: FIXED_LENGTH,
+            [FIXED_LENGTH]: { fixedLength: size },
+          },
         },
-      },
-    };
+      };
+    }
+    case 'DYNAMIC': {
+      const {
+        minimum: { type, value: minimum },
+        maximum: { value: maximum },
+      } = remote;
+      const calculationMethod = type === 'number' ? NUMBER : FORMULA;
+      return {
+        type: LIST,
+        [LIST]: {
+          type: calculationMethod,
+          [calculationMethod]: {
+            type: DYNAMIC_LENGTH,
+            [DYNAMIC_LENGTH]: { minimum, maximum },
+          },
+        },
+      };
+    }
   }
 
-  return state;
+  return {};
 }
 
 function remoteToStateSecondary(remote) {
@@ -186,6 +186,23 @@ function remoteToStateSecondary(remote) {
   return state;
 }
 
+/**
+ * @typedef {Object} StateMeasure
+ * @property {'SINGLE_CHOICE' | 'SIMPLE'} type
+ * @property {*} SINGLE_CHOICE
+ * @property {*} SIMPLE
+ */
+
+/**
+ * @typedef {Object} RemoteMeasure
+ * @property {string} Label
+ * @property {{CodeListReference: string, Datatype, conditionFilter}} response
+ */
+
+/**
+ * @param {RemoteMeasure} remote
+ * @returns {StateMeasure}
+ */
 function remoteToStateMeasure(remote) {
   const {
     Label: label,
@@ -196,7 +213,8 @@ function remoteToStateMeasure(remote) {
       conditionReadOnly,
     },
   } = remote;
-  const state = {};
+
+  const state = { label, conditionFilter, conditionReadOnly };
 
   if (CodeListReference) {
     state.type = SINGLE_CHOICE;
@@ -210,12 +228,7 @@ function remoteToStateMeasure(remote) {
     });
   }
 
-  return {
-    label,
-    conditionFilter,
-    conditionReadOnly,
-    ...state,
-  };
+  return state;
 }
 
 export function remoteToState(remote, codesListsStore) {
@@ -369,19 +382,21 @@ export function stateToRemote(
     [LIST_MEASURE]: listMeasuresState,
   } = state;
 
-  const {
-    type,
-    [type]: { type: typePrimaryCodesList, ...primaryTypeState },
-  } = primaryState;
+  const { type, [type]: primaryTypeState } = primaryState;
+
   const dimensionsModel = [];
   let responsesState = [];
 
   let primaryListTypeState = {};
   if (type === LIST) {
-    const listTypeState = primaryTypeState[typePrimaryCodesList];
-    if (listTypeState) {
-      primaryListTypeState = { ...listTypeState };
-    }
+    const { type: calculationMethod, ...primaryListState } = primaryState[LIST];
+    const { type: lengthType, ...primaryListCalculationState } =
+      primaryListState[calculationMethod];
+    primaryListTypeState = {
+      calculationMethod,
+      ...primaryListCalculationState[lengthType],
+      type: PRIMARY,
+    };
   }
 
   // Primary and secondary dimension

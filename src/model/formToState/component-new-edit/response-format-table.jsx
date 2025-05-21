@@ -91,8 +91,8 @@ export const defaultMeasureForm = {
 const defaultPrimaryListState = {
   type: DYNAMIC_LENGTH,
   [DYNAMIC_LENGTH]: {
-    minLines: 0,
-    maxLines: 0,
+    minimum: '',
+    maximum: '',
   },
   [FIXED_LENGTH]: {
     fixedLength: '',
@@ -128,13 +128,13 @@ export function formToStatePrimary(form, codesListPrimary) {
   if (type === LIST) {
     const {
       type: listType,
-      [listType]: { minLines, maxLines, fixedLength },
+      [listType]: { minimum, maximum, fixedLength },
     } = primaryForm;
 
     state[LIST] = {
       type: listType,
       [listType]:
-        listType === DYNAMIC_LENGTH ? { minLines, maxLines } : { fixedLength },
+        listType === DYNAMIC_LENGTH ? { minimum, maximum } : { fixedLength },
     };
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;

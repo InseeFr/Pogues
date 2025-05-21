@@ -94,6 +94,7 @@ export const DATATYPE_VIS_HINT = {
   SUGGESTER: 'SUGGESTER',
 };
 
+/** Used in tables to determinate the target axis of the dimension. */
 export const DIMENSION_TYPE = {
   PRIMARY: 'PRIMARY',
   SECONDARY: 'SECONDARY',
@@ -117,15 +118,30 @@ export const DECLARATION_POSITION = {
 };
 
 export const DIMENSION_FORMATS = {
-  LIST: 'LIST',
-  CODES_LIST: 'CODES_LIST',
+  LIST: 'LIST', // dynamic
+  CODES_LIST: 'CODES_LIST', // static
   BOOL: 'BOOL',
 };
 
+/**
+ * Used for dynamic table dimension to determinate how the size is calculated.
+ */
+export const DIMENSION_CALCULATION = {
+  NUMBER: 'NUMBER',
+  FORMULA: 'FORMULA',
+};
+
+/**
+ * How we determinate the way the table dimension size will be computed
+ * (codeList, min max, or fixed size).
+ */
 export const DIMENSION_LENGTH = {
+  /** The size will depend on the provided code list size. */
   NON_DYNAMIC: 'NON_DYNAMIC',
+  /** Set a size between a minimum and maximum. */
   DYNAMIC_LENGTH: 'DYNAMIC_LENGTH',
-  FIXED_LENGTH: 'FIXED_LENGTH',
+  /** Set a fixed size. */
+  DYNAMIC_FIXED: 'DYNAMIC_FIXED',
 };
 
 export const QUESTION_TYPE_ENUM = {
