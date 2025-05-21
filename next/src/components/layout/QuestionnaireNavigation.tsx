@@ -80,9 +80,7 @@ export default function QuestionnaireNavigation() {
       ) : (
         <DictionaryIcon onClick={handleClick} className="m-auto" />
       ),
-      path: '/questionnaire/$questionnaireId/',
-      isDisabled: false,
-      isHidden: false,
+      path: '/questionnaire/$questionnaireId/nomenclatures',
     },
   ];
 
