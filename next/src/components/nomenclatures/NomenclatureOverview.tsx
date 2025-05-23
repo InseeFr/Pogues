@@ -45,20 +45,20 @@ export default function NomenclaturesOverview({
         title={`${t('nomenclatures.title')} : ${nomenclatures.length}`}
       />
       <ContentMain>
+        <div>
+          <Input
+            label={t('nomenclatures.search')}
+            placeholder={t('nomenclatures.search')}
+            value={searchFilterContent}
+            onChange={(e) =>
+              updateFilterContent(FilterEnum.Search, e.target.value)
+            }
+            onClear={() => updateFilterContent(FilterEnum.Search, '')}
+            showClearButton={searchFilterContent.length > 0}
+          />
+        </div>
         {filteredNomenclatures.length > 0 ? (
           <>
-            <div>
-              <Input
-                label={t('nomenclatures.search')}
-                placeholder={t('nomenclatures.search')}
-                value={searchFilterContent}
-                onChange={(e) =>
-                  updateFilterContent(FilterEnum.Search, e.target.value)
-                }
-                onClear={() => updateFilterContent(FilterEnum.Search, '')}
-                showClearButton={searchFilterContent.length > 0}
-              />
-            </div>
             {filteredNomenclatures.map((nomenclature) => (
               <div
                 key={nomenclature.id}
