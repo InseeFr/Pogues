@@ -8,8 +8,6 @@ import { useFilters } from '@/hooks/useFilter';
 import { FilterEnum } from '@/models/filter';
 import { Nomenclature } from '@/models/nomenclature';
 
-import InfoIcon from '../ui/icons/InfoIcon';
-
 interface NomenclaturesProps {
   nomenclatures: Nomenclature[];
   questionnaireId: string;
@@ -65,13 +63,10 @@ export default function NomenclaturesOverview({
                 className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]"
               >
                 <div className="flex justify-between items-center">
-                  <div className="flex flex-row">
+                  <div className="flex flex-col">
                     <h3>{nomenclature.label}</h3>
-                    <span className="ml-2 relative group cursor-pointer">
-                      <InfoIcon height="20px" className="text-primary" />
-                      <span className="absolute left-6 top-1/2 -translate-y-1/2 z-10 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-                        {t('nomenclatures.version')}: {nomenclature.version}
-                      </span>
+                    <span className="text-sm text-gray-600">
+                      {nomenclature.version}
                     </span>
                   </div>
                   <RelatedQuestions
