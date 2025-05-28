@@ -32,13 +32,12 @@ export default function NomenclaturesOverview({
   ]);
   const searchFilterContent = getFilterContent(FilterEnum.Search).toString();
 
-  const filteredNomenclatures = nomenclatures.filter((n) => {
-    const matchesSearchFilter = n.label
-      .toLowerCase()
-      .includes(searchFilterContent.toLowerCase());
-
-    return matchesSearchFilter;
-  });
+  const filteredNomenclatures = nomenclatures
+    .filter((n) =>
+      n.label.toLowerCase().includes(searchFilterContent.toLowerCase()),
+    )
+    // sort by label
+    .toSorted((a, b) => a.label.localeCompare(b.label));
   return (
     <div>
       <ContentHeader

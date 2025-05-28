@@ -57,4 +57,19 @@ describe('NomenclatureOverview', () => {
     expect(getByText('Il est orange')).toBeInTheDocument();
     expect(screen.queryByText('Le poisson steve')).not.toBeInTheDocument();
   });
+
+  it('sorts the nomenclatures by label', () => {
+    const { container } = renderWithRouter(
+      <NomenclaturesOverview
+        questionnaireId={questionnaireId}
+        nomenclatures={mockNomenclatures}
+      />,
+    );
+
+    const items = container.querySelectorAll('h3');
+
+    expect(items.length).toBe(2);
+    expect(items[0].textContent).toBe('Il est orange'); // Alphabetically before "Le poisson steve"
+    expect(items[1].textContent).toBe('Le poisson steve');
+  });
 });
