@@ -5,6 +5,7 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
   DIMENSION_TYPE,
@@ -19,7 +20,8 @@ import {
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
-const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
+const { DYNAMIC_LENGTH, DYNAMIC_FIXED } = DIMENSION_LENGTH;
+const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { RADIO } = DATATYPE_VIS_HINT;
@@ -89,13 +91,26 @@ export const defaultMeasureForm = {
 };
 
 const defaultPrimaryListState = {
-  type: DYNAMIC_LENGTH,
-  [DYNAMIC_LENGTH]: {
-    minimum: '',
-    maximum: '',
+  type: NUMBER,
+  [NUMBER]: {
+    type: DYNAMIC_FIXED,
+    [DYNAMIC_LENGTH]: {
+      minimum: '',
+      maximum: '',
+    },
+    [DYNAMIC_FIXED]: {
+      size: '',
+    },
   },
-  [FIXED_LENGTH]: {
-    fixedLength: '',
+  [FORMULA]: {
+    type: DYNAMIC_FIXED,
+    [DYNAMIC_LENGTH]: {
+      minimum: '',
+      maximum: '',
+    },
+    [DYNAMIC_FIXED]: {
+      size: '',
+    },
   },
 };
 
@@ -128,13 +143,12 @@ export function formToStatePrimary(form, codesListPrimary) {
   if (type === LIST) {
     const {
       type: listType,
-      [listType]: { minimum, maximum, fixedLength },
+      [listType]: { minimum, maximum, size },
     } = primaryForm;
 
     state[LIST] = {
       type: listType,
-      [listType]:
-        listType === DYNAMIC_LENGTH ? { minimum, maximum } : { fixedLength },
+      [listType]: listType === DYNAMIC_LENGTH ? { minimum, maximum } : { size },
     };
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;

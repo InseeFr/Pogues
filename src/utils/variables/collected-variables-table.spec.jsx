@@ -10,7 +10,7 @@ describe('getCollectedVariablesTable', () => {
         type: 'CODES_LIST',
         LIST: {
           DYNAMIC_LENGTH: { minimum: '', maximum: '' },
-          FIXED_LENGTH: { fixedLength: '' },
+          FIXED_LENGTH: { size: '' },
           type: 'DYNAMIC_LENGTH',
         },
         CODES_LIST: {
@@ -177,7 +177,7 @@ describe('getCollectedVariablesTable', () => {
         type: 'LIST',
         LIST: {
           DYNAMIC_LENGTH: { minimum: '1', maximum: '3' },
-          FIXED_LENGTH: { fixedLength: '' },
+          FIXED_LENGTH: { size: '' },
           type: 'DYNAMIC_LENGTH',
         },
         CODES_LIST: {

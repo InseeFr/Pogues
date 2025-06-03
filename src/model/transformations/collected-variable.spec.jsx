@@ -1204,7 +1204,7 @@ describe('collected variable tranformations', () => {
             PRIMARY: {
               LIST: {
                 DYNAMIC_LENGTH: { minimum: '', maximum: '' },
-                FIXED_LENGTH: { fixedLength: '' },
+                FIXED_LENGTH: { size: '' },
                 type: 'DYNAMIC_LENGTH',
               },
               type: 'LIST',

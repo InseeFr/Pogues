@@ -12,7 +12,7 @@ export function stateToRemote(state) {
     type,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListState,
     calculationMethod,
-    fixedLength,
+    size,
     minimum,
     maximum,
     label: Label,
@@ -28,9 +28,9 @@ export function stateToRemote(state) {
   if (type === PRIMARY) {
     const valueType = calculationMethod === FORMULA ? 'VTL' : 'number';
 
-    if (fixedLength !== undefined) {
+    if (size !== undefined) {
       model.dynamic = 'DYNAMIC_FIXED';
-      model.size = { value: fixedLength, type: valueType };
+      model.size = { value: size, type: valueType };
     } else if (minimum !== undefined && maximum !== undefined) {
       model.dynamic = 'DYNAMIC';
       model.minimum = { value: minimum, type: valueType };

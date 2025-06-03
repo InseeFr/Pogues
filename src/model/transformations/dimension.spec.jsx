@@ -63,7 +63,7 @@ describe('dimension tranformations', () => {
     const result = stateToRemote({
       type: PRIMARY,
       calculationMethod: FORMULA,
-      fixedLength: 'formula',
+      size: 'formula',
     });
 
     expect(result).toEqual({

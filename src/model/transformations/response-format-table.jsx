@@ -148,7 +148,7 @@ function remoteToStatePrimary(remote) {
           type: calculationMethod,
           [calculationMethod]: {
             type: FIXED_LENGTH,
-            [FIXED_LENGTH]: { fixedLength: size },
+            [FIXED_LENGTH]: { size },
           },
         },
       };
