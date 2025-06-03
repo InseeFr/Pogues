@@ -170,9 +170,9 @@ function remoteToStatePrimary(remote) {
         },
       };
     }
+    default:
+      return {};
   }
-
-  return {};
 }
 
 function remoteToStateSecondary(remote) {
