@@ -1,10 +1,17 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
 import { variablesQueryOptions } from '@/api/variables';
 import EditCodesList from '@/components/codesLists/edit/EditCodesList';
+import ContentHeader from '@/components/ui/ContentHeader';
+import ContentMain from '@/components/ui/ContentMain';
+import { CodesList } from '@/models/codesLists';
 
+/**
+ * Page that allow to update an existing code list.
+ */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId',
 )({
@@ -14,8 +21,10 @@ export const Route = createFileRoute(
     params: { codesListId, questionnaireId },
   }) => {
     queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
+    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
     return { crumb: `Liste de codes ${codesListId}` };
   },
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
 });
 
 function RouteComponent() {
@@ -26,6 +35,7 @@ function RouteComponent() {
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
   );
+
   let codesList;
   if (codesLists) {
     for (const element of codesLists) {
@@ -40,5 +50,28 @@ function RouteComponent() {
       formulasLanguage={formulasLanguage}
       variables={variables}
     />
+  );
+}
+
+function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+  return (
+    <ComponentWrapper>
+      <div className="text-error">{error.message}</div>
+    </ComponentWrapper>
+  );
+}
+
+function ComponentWrapper({
+  children,
+  codesList,
+}: Readonly<{ children: React.ReactNode; codesList?: CodesList }>) {
+  const { t } = useTranslation();
+  return (
+    <>
+      <ContentHeader
+        title={t('codesList.edit.title', { label: codesList?.label })}
+      />
+      <ContentMain>{children}</ContentMain>
+    </>
   );
 }

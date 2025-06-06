@@ -5,6 +5,10 @@ import { versionsQueryOptions } from '@/api/versions';
 import VersionsOverview from '@/components/versions/VersionsOverview';
 import { Version } from '@/models/version';
 
+/**
+ * Versions page where we display the previous questionnaire save and allow to
+ * access them in readonly.
+ */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/versions/',
 )({

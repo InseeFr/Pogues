@@ -1,15 +1,24 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
 import { codesListsQueryOptions } from '@/api/codesLists';
 import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
+import ButtonLink from '@/components/ui/ButtonLink';
+import ContentHeader from '@/components/ui/ContentHeader';
+import ContentMain from '@/components/ui/ContentMain';
 
+/**
+ * Main code lists page where we display the various codes lists related to our
+ * questionnaire and allow to edit them and create new ones.
+ */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/',
 )({
   component: RouteComponent,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(codesListsQueryOptions(questionnaireId)),
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
 });
 
 function RouteComponent() {
@@ -19,9 +28,52 @@ function RouteComponent() {
   );
 
   return (
-    <CodesListsOverview
+    <ComponentWrapper
+      codesListsCount={codesLists.length}
       questionnaireId={questionnaireId}
-      codesLists={codesLists}
-    />
+    >
+      <CodesListsOverview
+        questionnaireId={questionnaireId}
+        codesLists={codesLists}
+      />
+    </ComponentWrapper>
+  );
+}
+
+function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+  const questionnaireId = Route.useParams().questionnaireId;
+  return (
+    <ComponentWrapper questionnaireId={questionnaireId}>
+      <div className="text-error">{error.message}</div>
+    </ComponentWrapper>
+  );
+}
+
+function ComponentWrapper({
+  children,
+  codesListsCount,
+  questionnaireId,
+}: Readonly<{
+  children: React.ReactNode;
+  codesListsCount?: number;
+  questionnaireId: string;
+}>) {
+  const { t } = useTranslation();
+  const codesListsAffix = codesListsCount ? `: ${codesListsCount}` : '';
+  return (
+    <>
+      <ContentHeader
+        title={`${t('codesList.overview.title')} ${codesListsAffix}`}
+        action={
+          <ButtonLink
+            to="/questionnaire/$questionnaireId/codes-lists/new"
+            params={{ questionnaireId }}
+          >
+            {t('codesList.overview.create')}
+          </ButtonLink>
+        }
+      />
+      <ContentMain>{children}</ContentMain>
+    </>
   );
 }

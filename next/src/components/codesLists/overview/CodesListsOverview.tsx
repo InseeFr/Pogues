@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
 import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
-import ContentHeader from '@/components/ui/ContentHeader';
-import ContentMain from '@/components/ui/ContentMain';
 import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/Input';
 import { useFilters } from '@/hooks/useFilter';
@@ -54,57 +52,40 @@ export default function CodesListsOverview({
     return matchesSearchFilter && matchesQuestionUsedFilter;
   });
 
-  return (
-    <div>
-      <ContentHeader
-        title={`${t('codesList.overview.title')} : ${codesLists.length}`}
-        action={
-          <ButtonLink
-            to="/questionnaire/$questionnaireId/codes-lists/new"
-            params={{ questionnaireId }}
-          >
-            {t('codesList.overview.create')}
-          </ButtonLink>
-        }
+  return codesLists.length > 0 ? (
+    <>
+      <div>
+        <Input
+          label={t('codesList.overview.search')}
+          placeholder={t('codesList.overview.search')}
+          value={searchFilterContent}
+          onChange={(e) =>
+            updateFilterContent(FilterEnum.Search, e.target.value)
+          }
+          onClear={() => updateFilterContent(FilterEnum.Search, '')}
+          showClearButton={searchFilterContent.length > 0}
+        />
+      </div>
+      <FilterList
+        filters={filters}
+        resultCount={filteredCodesLists.length}
+        updateFilterContent={updateFilterContent}
       />
-      <ContentMain>
-        {codesLists.length > 0 ? (
-          <>
-            <div>
-              <Input
-                label={t('codesList.overview.search')}
-                placeholder={t('codesList.overview.search')}
-                value={searchFilterContent}
-                onChange={(e) =>
-                  updateFilterContent(FilterEnum.Search, e.target.value)
-                }
-                onClear={() => updateFilterContent(FilterEnum.Search, '')}
-                showClearButton={searchFilterContent.length > 0}
-              />
-            </div>
-            <FilterList
-              filters={filters}
-              resultCount={filteredCodesLists.length}
-              updateFilterContent={updateFilterContent}
-            />
-            {filteredCodesLists.map((codesList) => (
-              <CodesListOverviewItem
-                key={codesList.id}
-                questionnaireId={questionnaireId}
-                codesList={codesList}
-              />
-            ))}
-          </>
-        ) : (
-          <ButtonLink
-            to="/questionnaire/$questionnaireId/codes-lists/new"
-            params={{ questionnaireId }}
-            buttonStyle={ButtonStyle.Primary}
-          >
-            {t('codesList.overview.create')}
-          </ButtonLink>
-        )}
-      </ContentMain>
-    </div>
+      {filteredCodesLists.map((codesList) => (
+        <CodesListOverviewItem
+          key={codesList.id}
+          questionnaireId={questionnaireId}
+          codesList={codesList}
+        />
+      ))}
+    </>
+  ) : (
+    <ButtonLink
+      to="/questionnaire/$questionnaireId/codes-lists/new"
+      params={{ questionnaireId }}
+      buttonStyle={ButtonStyle.Primary}
+    >
+      {t('codesList.overview.create')}
+    </ButtonLink>
   );
 }
