@@ -22,6 +22,26 @@ export const loopDictionary: Dictionary = {
     en: 'Based on',
     fr: 'Basé sur',
   },
+  loopFixedLength: {
+    en: 'Fixed number of ocurrences',
+    fr: 'Nombre d’ocurrences fixe',
+  },
+  loopSize: {
+    en: 'Occurrences number',
+    fr: 'Nombre d’occurrences',
+  },
+  loopSinglePage: {
+    en: 'Display all occurrences on a single page',
+    fr: 'Afficher toutes les occurrences sur une seule page',
+  },
+  loopSinglePageBusinessContextWarning: {
+    en: 'Reminder: for business surveys, all occurrences must be displayed on a single page.',
+    fr: 'Rappel : pour les enquêtes en contexte entreprises, toutes les occurrences doivent être affichées sur une seule page.',
+  },
+  loopMinMaxBusinessContextWarning: {
+    en: 'Reminder: for business surveys, the min and max number of occurrences of a loop must be equal.',
+    fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
+  },
   AddButton: {
     en: 'Add button label',
     fr: "Libellé du bouton d'ajout",

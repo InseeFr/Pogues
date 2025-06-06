@@ -321,7 +321,6 @@ describe('questionnaire', () => {
       const store = {
         componentsStore: {
           kgs4v6eo: {
-            BasedOn: '',
             TargetMode: [''],
             addButtonLibel: '',
             basedOn: '',
@@ -368,7 +367,6 @@ describe('questionnaire', () => {
             weight: 0,
           },
           kgs4yv5b: {
-            BasedOn: '',
             TargetMode: [''],
             addButtonLibel: '',
             basedOn: '',
@@ -393,7 +391,6 @@ describe('questionnaire', () => {
             weight: 0,
           },
           kgs5dobf: {
-            BasedOn: '',
             TargetMode: [''],
             addButtonLibel: '',
             basedOn: '',
