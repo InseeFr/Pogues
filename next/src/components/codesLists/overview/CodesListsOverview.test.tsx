@@ -36,7 +36,7 @@ describe('CodesListOverview', () => {
       <CodesListsOverview codesLists={[]} questionnaireId="q-id" />,
     );
 
-    expect(getAllByText('Create a code list')).toHaveLength(2);
+    expect(getAllByText('Create a code list')).toHaveLength(1);
   });
 
   it('filters the code lists based on the search input', () => {
