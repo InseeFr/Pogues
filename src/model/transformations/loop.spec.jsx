@@ -83,7 +83,7 @@ describe('loop tramsformation', () => {
         Step: 1,
       };
 
-      // all occurences displayed on the same page
+      // all occurrences displayed on the same page
       expect(remoteToState(defaultRemote, parent)).toEqual({
         id: 'ka08hypo',
         TargetMode: [],
@@ -100,7 +100,7 @@ describe('loop tramsformation', () => {
         parent: parent,
       });
 
-      // loop displayed with one page per occurence
+      // loop displayed with one page per occurrence
       const splitIterationsRemote = {
         ...defaultRemote,
         shouldSplitIterations: true,
