@@ -42,6 +42,14 @@ export const loopDictionary: Dictionary = {
     en: 'Reminder: for business surveys, the min and max number of occurrences of a loop must be equal.',
     fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
   },
+  loopMinOccurrencesNb: {
+    en: 'Minimum number of occurrences',
+    fr: "Nombre d'occurrences minimum",
+  },
+  loopMaxOccurrencesNb: {
+    en: 'Maximum number of occurrences',
+    fr: "Nombre d'occurrences maximum",
+  },
   AddButton: {
     en: 'Add button label',
     fr: "Libellé du bouton d'ajout",

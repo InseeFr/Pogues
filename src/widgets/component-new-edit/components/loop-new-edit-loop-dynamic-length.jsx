@@ -21,14 +21,14 @@ export function LoopDynamicLength() {
         name="minimum"
         type="text"
         component={InputWithVariableAutoCompletion}
-        label={Dictionary.minimum}
+        label={Dictionary.loopMinOccurrencesNb}
         required
       />
       <Field
         name="maximum"
         type="text"
         component={InputWithVariableAutoCompletion}
-        label={Dictionary.maximum}
+        label={Dictionary.loopMaxOccurrencesNb}
         required
       />
       <Field
