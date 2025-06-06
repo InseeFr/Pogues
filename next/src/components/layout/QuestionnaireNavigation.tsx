@@ -54,6 +54,10 @@ export default function QuestionnaireNavigation() {
       label: i18next.t('questionnaires.navigation.codeLists'),
       icon: <ListIcon className="m-auto" />,
       path: '/questionnaire/$questionnaireId/codes-lists',
+      innerPaths: [
+        '/questionnaire/$questionnaireId/codes-lists/new',
+        '/questionnaire/$questionnaireId/codes-list/$codesListId',
+      ],
     },
     {
       label: i18next.t('questionnaires.navigation.history'),
@@ -86,22 +90,26 @@ export default function QuestionnaireNavigation() {
 
   return (
     <div className="bg-default w-24 h-screen flex flex-col items-center space-y-3 py-6 border-r border-default text-center sticky top-0">
-      {navigationItems.map(({ label, icon, isDisabled, path, isHidden }) =>
-        !isHidden ? (
-          <Link
-            key={label}
-            to={path}
-            params={{ questionnaireId: questionnaireId ?? '' }}
-            disabled={isDisabled}
-            className={isDisabled ? 'opacity-25 pointer-events-none' : ''}
-          >
-            <NavigationIcon
-              icon={icon}
-              label={label}
-              active={!!matchRoute({ to: path })}
-            />
-          </Link>
-        ) : null,
+      {navigationItems.map(
+        ({ label, icon, isDisabled, path, innerPaths = [], isHidden }) =>
+          !isHidden ? (
+            <Link
+              key={label}
+              to={path}
+              params={{ questionnaireId: questionnaireId ?? '' }}
+              disabled={isDisabled}
+              className={isDisabled ? 'opacity-25 pointer-events-none' : ''}
+            >
+              <NavigationIcon
+                icon={icon}
+                label={label}
+                active={
+                  !!matchRoute({ to: path }) ||
+                  innerPaths.some((path) => !!matchRoute({ to: path }))
+                }
+              />
+            </Link>
+          ) : null,
       )}
     </div>
   );
