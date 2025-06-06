@@ -3,8 +3,8 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { deleteAllVersions } from '@/api/versions';
-import ContentHeader from '@/components/ui/ContentHeader';
-import ContentMain from '@/components/ui/ContentMain';
+import ContentHeader from '@/components/layout/ContentHeader';
+import ContentMain from '@/components/layout/ContentMain';
 import { Version } from '@/models/version';
 
 import Dialog from '../ui/Dialog';

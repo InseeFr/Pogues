@@ -3,9 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import ButtonLink from '@/components/ui/ButtonLink';
-import ContentHeader from '@/components/ui/ContentHeader';
-import ContentMain from '@/components/ui/ContentMain';
 import Input from '@/components/ui/Input';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
@@ -38,46 +35,36 @@ export default function Questionnaires({
   }
 
   return (
-    <div>
-      <ContentHeader
-        title={t('questionnaires.title')}
-        action={
-          <ButtonLink to="/questionnaires/new">
-            {t('questionnaires.create')}
-          </ButtonLink>
-        }
-      />
-      <ContentMain>
-        <div className="grid grid-cols-[1fr_3fr] space-x-4">
-          <div>
-            <StampsSelector
-              selectedStamp={selectedStamp}
-              stamps={stamps}
-              onSelect={(id) => handleStampSelection(id)}
-            />
-          </div>
-          <div>
-            <Input
-              label={t('questionnaires.search')}
-              placeholder={t('questionnaires.search')}
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            />
-          </div>
-        </div>
-        {questionnaires ? (
-          <TableQuestionnaires
-            questionnaires={questionnaires.filter((q) => {
-              return (
-                q.title.toLowerCase().includes(filter.toLowerCase()) ||
-                q.id.toLowerCase().includes(filter.toLowerCase())
-              );
-            })}
+    <>
+      <div className="grid grid-cols-[1fr_3fr] space-x-4">
+        <div>
+          <StampsSelector
+            selectedStamp={selectedStamp}
+            stamps={stamps}
+            onSelect={(id) => handleStampSelection(id)}
           />
-        ) : (
-          <div>{t('common.loading')}</div>
-        )}
-      </ContentMain>
-    </div>
+        </div>
+        <div>
+          <Input
+            label={t('questionnaires.search')}
+            placeholder={t('questionnaires.search')}
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+        </div>
+      </div>
+      {questionnaires ? (
+        <TableQuestionnaires
+          questionnaires={questionnaires.filter((q) => {
+            return (
+              q.title.toLowerCase().includes(filter.toLowerCase()) ||
+              q.id.toLowerCase().includes(filter.toLowerCase())
+            );
+          })}
+        />
+      ) : (
+        <div>{t('common.loading')}</div>
+      )}
+    </>
   );
 }

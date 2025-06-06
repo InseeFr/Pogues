@@ -3,9 +3,9 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { nomenclaturesQueryOptions } from '@/api/nomenclatures';
+import ContentHeader from '@/components/layout/ContentHeader';
+import ContentMain from '@/components/layout/ContentMain';
 import NomenclaturesOverview from '@/components/nomenclatures/NomenclatureOverview';
-import ContentHeader from '@/components/ui/ContentHeader';
-import ContentMain from '@/components/ui/ContentMain';
 import { Nomenclature } from '@/models/nomenclature';
 
 /**

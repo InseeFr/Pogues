@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { questionnaireQueryOptions } from '@/api/questionnaires';
 import { variablesQueryOptions } from '@/api/variables';
 import EditCodesList from '@/components/codesLists/edit/EditCodesList';
-import ContentHeader from '@/components/ui/ContentHeader';
-import ContentMain from '@/components/ui/ContentMain';
+import ContentHeader from '@/components/layout/ContentHeader';
+import ContentMain from '@/components/layout/ContentMain';
 import { CodesList } from '@/models/codesLists';
 
 /**

@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import { codesListsQueryOptions } from '@/api/codesLists';
 import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
+import ContentHeader from '@/components/layout/ContentHeader';
+import ContentMain from '@/components/layout/ContentMain';
 import ButtonLink from '@/components/ui/ButtonLink';
-import ContentHeader from '@/components/ui/ContentHeader';
-import ContentMain from '@/components/ui/ContentMain';
 
 /**
  * Main code lists page where we display the various codes lists related to our
