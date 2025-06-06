@@ -1,11 +1,13 @@
-import React from 'react';
-
 import { shallow } from 'enzyme';
 import { describe, expect, test, vi } from 'vitest';
 
 import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { fakeEvent, noop } from '../../../utils/test/test-utils';
 import ListWithInputPanel from './list-with-input-panel';
+
+vi.mock('../../../hooks/useReadonly', () => ({
+  useReadonly: vi.fn(),
+}));
 
 const {
   BUTTON_SUBMIT_CLASS,

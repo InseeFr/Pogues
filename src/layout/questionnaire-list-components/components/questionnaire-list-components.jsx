@@ -10,6 +10,7 @@ import {
   domSelectorForModal,
 } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { useReadonly } from '../../../hooks/useReadonly';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { ComponentEdit } from '../../component-edit';
@@ -47,6 +48,8 @@ const QuestionnaireListComponents = (props) => {
     removeQuestionnaire,
     navigate,
   } = props;
+
+  const isReadonly = useReadonly();
 
   const customizeUrl = import.meta.env.VITE_CUSTOMIZE_URL;
 
@@ -157,6 +160,7 @@ const QuestionnaireListComponents = (props) => {
               )}
               <button
                 className="btn-yellow"
+                disabled={isReadonly}
                 onClick={() => setShowVersionsModal(true)}
               >
                 {Dictionary.displaySaveHistory}
@@ -175,6 +179,7 @@ const QuestionnaireListComponents = (props) => {
               </button>
               <button
                 className="btn-yellow"
+                disabled={isReadonly}
                 onClick={() => setShowRemoveQuestionnaireDialog(true)}
               >
                 {Dictionary.remove}

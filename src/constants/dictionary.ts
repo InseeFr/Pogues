@@ -878,6 +878,10 @@ const dictionary: Dictionary = {
     fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
     en: 'Reminder: for business surveys, the min and max number of occurences of a loop must be equal.',
   },
+  readonlyQuestionnaireWarning: {
+    fr: 'Cette version du questionnaire est en lecture seule',
+    en: 'This version of the survey is on readonly',
+  },
 };
 
 // Dynamic translations

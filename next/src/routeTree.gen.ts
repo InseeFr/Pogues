@@ -19,8 +19,11 @@ import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQMergeImport } from '.
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/nomenclatures/index';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/nomenclatures/route';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/tcm-composition';
-import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/versions/index';
-import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/versions/route';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/codes-lists';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/index';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/nomenclatures';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/route';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionsImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/versions';
 import { Route as LayoutQuestionnaireQuestionnaireIdRouteImport } from './routes/_layout/questionnaire.$questionnaireId/route';
 import { Route as LayoutQuestionnairesIndexImport } from './routes/_layout/questionnaires/index';
 import { Route as LayoutQuestionnairesNewImport } from './routes/_layout/questionnaires/new';
@@ -78,6 +81,13 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute =
     getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
   } as any);
 
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsImport.update({
+    id: '/versions',
+    path: '/versions',
+    getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
+  } as any);
+
 const LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionImport.update({
     id: '/tcm-composition',
@@ -106,13 +116,6 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute =
     getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
   } as any);
 
-const LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRoute =
-  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteImport.update({
-    id: '/versions',
-    path: '/versions',
-    getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
-  } as any);
-
 const LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteImport.update({
     id: '/nomenclatures',
@@ -125,14 +128,6 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute =
     id: '/codes-lists',
     path: '/codes-lists',
     getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
-  } as any);
-
-const LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute =
-  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRoute,
   } as any);
 
 const LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute =
@@ -165,6 +160,41 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute =
     path: '/codes-list/$codesListId',
     getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
   } as any);
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteImport.update({
+    id: '/version/$versionId',
+    path: '/version/$versionId',
+    getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
+  } as any);
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
+  } as any);
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesImport.update(
+    {
+      id: '/nomenclatures',
+      path: '/nomenclatures',
+      getParentRoute: () =>
+        LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
+    } as any,
+  );
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsImport.update(
+    {
+      id: '/codes-lists',
+      path: '/codes-lists',
+      getParentRoute: () =>
+        LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
+    } as any,
+  );
 
 // Populate the FileRoutesByPath interface
 
@@ -233,13 +263,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteImport;
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
     };
-    '/_layout/questionnaire/$questionnaireId/_layout-q/versions': {
-      id: '/_layout/questionnaire/$questionnaireId/_layout-q/versions';
-      path: '/versions';
-      fullPath: '/questionnaire/$questionnaireId/versions';
-      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteImport;
-      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
-    };
     '/_layout/questionnaire/$questionnaireId/_layout-q/composition': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/composition';
       path: '/composition';
@@ -268,11 +291,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionImport;
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
     };
+    '/_layout/questionnaire/$questionnaireId/_layout-q/versions': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/versions';
+      path: '/versions';
+      fullPath: '/questionnaire/$questionnaireId/versions';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
+    };
     '/_layout/questionnaire/$questionnaireId/_layout-q/': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/';
       path: '/';
       fullPath: '/questionnaire/$questionnaireId/';
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
+    };
+    '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId';
+      path: '/version/$versionId';
+      fullPath: '/questionnaire/$questionnaireId/version/$versionId';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteImport;
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQImport;
     };
     '/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId': {
@@ -303,12 +340,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexImport;
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteImport;
     };
-    '/_layout/questionnaire/$questionnaireId/_layout-q/versions/': {
-      id: '/_layout/questionnaire/$questionnaireId/_layout-q/versions/';
+    '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists';
+      path: '/codes-lists';
+      fullPath: '/questionnaire/$questionnaireId/version/$versionId/codes-lists';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteImport;
+    };
+    '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures';
+      path: '/nomenclatures';
+      fullPath: '/questionnaire/$questionnaireId/version/$versionId/nomenclatures';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteImport;
+    };
+    '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/';
       path: '/';
-      fullPath: '/questionnaire/$questionnaireId/versions/';
-      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexImport;
-      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteImport;
+      fullPath: '/questionnaire/$questionnaireId/version/$versionId/';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteImport;
     };
   }
 }
@@ -364,30 +415,37 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildr
     LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteChildren,
   );
 
-interface LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteChildren {
-  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute;
+interface LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildren {
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 
-const LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteChildren: LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteChildren =
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildren: LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildren =
   {
-    LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute:
-      LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute,
   };
 
-const LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteWithChildren =
-  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRoute._addFileChildren(
-    LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteChildren,
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteWithChildren =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute._addFileChildren(
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildren,
   );
 
 interface LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren {
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren;
   LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren;
-  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteWithChildren;
   LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute;
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteWithChildren;
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute;
 }
 
@@ -397,8 +455,6 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren: LayoutQuestionnair
       LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren,
-    LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRoute:
-      LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute:
@@ -407,8 +463,12 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren: LayoutQuestionnair
       LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute,
   };
@@ -456,17 +516,20 @@ export interface FileRoutesByFullPath {
   '/questionnaires/': typeof LayoutQuestionnairesIndexRoute;
   '/questionnaire/$questionnaireId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren;
   '/questionnaire/$questionnaireId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren;
-  '/questionnaire/$questionnaireId/versions': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteWithChildren;
   '/questionnaire/$questionnaireId/composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
   '/questionnaire/$questionnaireId/duplicate-variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   '/questionnaire/$questionnaireId/merge': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   '/questionnaire/$questionnaireId/tcm-composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
+  '/questionnaire/$questionnaireId/versions': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute;
   '/questionnaire/$questionnaireId/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute;
+  '/questionnaire/$questionnaireId/version/$versionId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteWithChildren;
   '/questionnaire/$questionnaireId/codes-list/$codesListId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute;
   '/questionnaire/$questionnaireId/codes-lists/new': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsNewRoute;
   '/questionnaire/$questionnaireId/codes-lists/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute;
   '/questionnaire/$questionnaireId/nomenclatures/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute;
-  '/questionnaire/$questionnaireId/versions/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 
 export interface FileRoutesByTo {
@@ -479,11 +542,14 @@ export interface FileRoutesByTo {
   '/questionnaire/$questionnaireId/duplicate-variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   '/questionnaire/$questionnaireId/merge': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   '/questionnaire/$questionnaireId/tcm-composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
+  '/questionnaire/$questionnaireId/versions': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute;
   '/questionnaire/$questionnaireId/codes-list/$codesListId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute;
   '/questionnaire/$questionnaireId/codes-lists/new': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsNewRoute;
   '/questionnaire/$questionnaireId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute;
   '/questionnaire/$questionnaireId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute;
-  '/questionnaire/$questionnaireId/versions': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  '/questionnaire/$questionnaireId/version/$versionId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 
 export interface FileRoutesById {
@@ -497,17 +563,20 @@ export interface FileRoutesById {
   '/_layout/questionnaire/$questionnaireId/_layout-q': typeof LayoutQuestionnaireQuestionnaireIdLayoutQRouteWithChildren;
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren;
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren;
-  '/_layout/questionnaire/$questionnaireId/_layout-q/versions': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteRouteWithChildren;
   '/_layout/questionnaire/$questionnaireId/_layout-q/composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/merge': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMergeRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/tcm-composition': typeof LayoutQuestionnaireQuestionnaireIdLayoutQTcmCompositionRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/versions': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteWithChildren;
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListCodesListIdRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/new': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsNewRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute;
-  '/_layout/questionnaire/$questionnaireId/_layout-q/versions/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionsIndexRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 
 export interface FileRouteTypes {
@@ -521,17 +590,20 @@ export interface FileRouteTypes {
     | '/questionnaires/'
     | '/questionnaire/$questionnaireId/codes-lists'
     | '/questionnaire/$questionnaireId/nomenclatures'
-    | '/questionnaire/$questionnaireId/versions'
     | '/questionnaire/$questionnaireId/composition'
     | '/questionnaire/$questionnaireId/duplicate-variables'
     | '/questionnaire/$questionnaireId/merge'
     | '/questionnaire/$questionnaireId/tcm-composition'
+    | '/questionnaire/$questionnaireId/versions'
     | '/questionnaire/$questionnaireId/'
+    | '/questionnaire/$questionnaireId/version/$versionId'
     | '/questionnaire/$questionnaireId/codes-list/$codesListId'
     | '/questionnaire/$questionnaireId/codes-lists/new'
     | '/questionnaire/$questionnaireId/codes-lists/'
     | '/questionnaire/$questionnaireId/nomenclatures/'
-    | '/questionnaire/$questionnaireId/versions/';
+    | '/questionnaire/$questionnaireId/version/$versionId/codes-lists'
+    | '/questionnaire/$questionnaireId/version/$versionId/nomenclatures'
+    | '/questionnaire/$questionnaireId/version/$versionId/';
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
@@ -543,11 +615,14 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/duplicate-variables'
     | '/questionnaire/$questionnaireId/merge'
     | '/questionnaire/$questionnaireId/tcm-composition'
+    | '/questionnaire/$questionnaireId/versions'
     | '/questionnaire/$questionnaireId/codes-list/$codesListId'
     | '/questionnaire/$questionnaireId/codes-lists/new'
     | '/questionnaire/$questionnaireId/codes-lists'
     | '/questionnaire/$questionnaireId/nomenclatures'
-    | '/questionnaire/$questionnaireId/versions';
+    | '/questionnaire/$questionnaireId/version/$versionId/codes-lists'
+    | '/questionnaire/$questionnaireId/version/$versionId/nomenclatures'
+    | '/questionnaire/$questionnaireId/version/$versionId';
   id:
     | '__root__'
     | '/'
@@ -559,17 +634,20 @@ export interface FileRouteTypes {
     | '/_layout/questionnaire/$questionnaireId/_layout-q'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures'
-    | '/_layout/questionnaire/$questionnaireId/_layout-q/versions'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/composition'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/merge'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/tcm-composition'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/versions'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/new'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/'
-    | '/_layout/questionnaire/$questionnaireId/_layout-q/versions/';
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/';
   fileRoutesById: FileRoutesById;
 }
 
@@ -636,12 +714,13 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists",
         "/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures",
-        "/_layout/questionnaire/$questionnaireId/_layout-q/versions",
         "/_layout/questionnaire/$questionnaireId/_layout-q/composition",
         "/_layout/questionnaire/$questionnaireId/_layout-q/duplicate-variables",
         "/_layout/questionnaire/$questionnaireId/_layout-q/merge",
         "/_layout/questionnaire/$questionnaireId/_layout-q/tcm-composition",
+        "/_layout/questionnaire/$questionnaireId/_layout-q/versions",
         "/_layout/questionnaire/$questionnaireId/_layout-q/",
+        "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId",
         "/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId"
       ]
     },
@@ -660,13 +739,6 @@ export const routeTree = rootRoute
         "/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/"
       ]
     },
-    "/_layout/questionnaire/$questionnaireId/_layout-q/versions": {
-      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/versions/route.tsx",
-      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q",
-      "children": [
-        "/_layout/questionnaire/$questionnaireId/_layout-q/versions/"
-      ]
-    },
     "/_layout/questionnaire/$questionnaireId/_layout-q/composition": {
       "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/composition.tsx",
       "parent": "/_layout/questionnaire/$questionnaireId/_layout-q"
@@ -683,9 +755,22 @@ export const routeTree = rootRoute
       "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/tcm-composition.tsx",
       "parent": "/_layout/questionnaire/$questionnaireId/_layout-q"
     },
+    "/_layout/questionnaire/$questionnaireId/_layout-q/versions": {
+      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/versions.tsx",
+      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q"
+    },
     "/_layout/questionnaire/$questionnaireId/_layout-q/": {
       "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/index.tsx",
       "parent": "/_layout/questionnaire/$questionnaireId/_layout-q"
+    },
+    "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId": {
+      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/route.tsx",
+      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q",
+      "children": [
+        "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists",
+        "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures",
+        "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/"
+      ]
     },
     "/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId": {
       "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/codes-list/$codesListId.tsx",
@@ -703,9 +788,17 @@ export const routeTree = rootRoute
       "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/nomenclatures/index.tsx",
       "parent": "/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures"
     },
-    "/_layout/questionnaire/$questionnaireId/_layout-q/versions/": {
-      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/versions/index.tsx",
-      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q/versions"
+    "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists": {
+      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/codes-lists.tsx",
+      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId"
+    },
+    "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures": {
+      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/nomenclatures.tsx",
+      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId"
+    },
+    "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/": {
+      "filePath": "_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/index.tsx",
+      "parent": "/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId"
     }
   }
 }

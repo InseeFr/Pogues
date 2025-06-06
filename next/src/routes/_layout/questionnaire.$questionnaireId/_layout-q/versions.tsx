@@ -10,11 +10,13 @@ import { Version } from '@/models/version';
  * access them in readonly.
  */
 export const Route = createFileRoute(
-  '/_layout/questionnaire/$questionnaireId/_layout-q/versions/',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/versions',
 )({
   component: RouteComponent,
-  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
-    queryClient.ensureQueryData(versionsQueryOptions(questionnaireId)),
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
+    queryClient.ensureQueryData(versionsQueryOptions(questionnaireId));
+    return { crumb: `Historique` };
+  },
 });
 
 function RouteComponent() {

@@ -13,6 +13,7 @@ import {
 } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
+import { useReadonly } from '../../../hooks/useReadonly';
 import {
   PropType,
   cardTarget,
@@ -71,6 +72,8 @@ const QuestionnaireComponent = (props) => {
 
   const myRef = useRef(null);
 
+  const isReadonly = useReadonly();
+
   const ensureSelected = useCallback(() => {
     scrollToRef(myRef);
   }, []);
@@ -123,8 +126,13 @@ const QuestionnaireComponent = (props) => {
   const dropZone = canDrop && isOver && <DropZone style={style} />;
   const integrityErrors = getIntegrityErrors(integrityErrorsByType);
   const componentHeader = Dictionary[`componentEdit${FILTER}`] || '';
-  return connectDragSource(
-    connectDropTarget(
+
+  return (
+    <DNDWrapper
+      isReadonly={isReadonly}
+      connectDragSource={connectDragSource}
+      connectDropTarget={connectDropTarget}
+    >
       <div className={COMPONENT_CLASS}>
         <div
           className={ClassSet({
@@ -173,6 +181,7 @@ const QuestionnaireComponent = (props) => {
                         className="questionnaire-element-filter"
                       >
                         <button
+                          disabled={isReadonly}
                           onClick={() => handleEditFilterComponent(filter.id)}
                           className="btn-white-filter"
                         >
@@ -189,6 +198,7 @@ const QuestionnaireComponent = (props) => {
                         className="questionnaire-element-filter"
                       >
                         <button
+                          disabled={isReadonly}
                           onClick={() => handleEditFilterComponent(filter.id)}
                           className="btn-white-filter"
                         >
@@ -207,6 +217,7 @@ const QuestionnaireComponent = (props) => {
                       {Dictionary.openQuestionnaire}
                     </Link>
                     <button
+                      disabled={isReadonly}
                       className="btn-yellow"
                       onClick={handleDeleteQuestionnaireRef}
                     >
@@ -225,6 +236,7 @@ const QuestionnaireComponent = (props) => {
                     </button>
                     {component.type === QUESTION && (
                       <button
+                        disabled={isReadonly}
                         className="btn-yellow"
                         onClick={handleDuplicateComponent}
                       >
@@ -239,7 +251,8 @@ const QuestionnaireComponent = (props) => {
                     <button
                       className="btn-yellow"
                       disabled={
-                        component.weight === 0 && component.type === SEQUENCE
+                        isReadonly ||
+                        (component.weight === 0 && component.type === SEQUENCE)
                       }
                       onClick={handleDeleteComponent}
                     >
@@ -287,10 +300,19 @@ const QuestionnaireComponent = (props) => {
             </div>
           </div>
         </ReactModal>
-      </div>,
-    ),
+      </div>
+    </DNDWrapper>
   );
 };
+
+function DNDWrapper({
+  children,
+  isReadonly,
+  connectDragSource,
+  connectDropTarget,
+}) {
+  return isReadonly ? children : connectDragSource(connectDropTarget(children));
+}
 
 QuestionnaireComponent.propTypes = {
   component: PropTypes.object.isRequired,

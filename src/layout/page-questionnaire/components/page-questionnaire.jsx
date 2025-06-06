@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
+import { useReadonly } from '../../../hooks/useReadonly';
+import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import { GenericInput } from '../../generic-input';
 import Loader from '../../loader';
@@ -16,7 +18,9 @@ const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 export const propTypes = {
   id: PropTypes.string.isRequired,
+  versionId: PropTypes.string,
   loadQuestionnaire: PropTypes.func.isRequired,
+  loadQuestionnaireWithVersion: PropTypes.func.isRequired,
   loadStatisticalContext: PropTypes.func.isRequired,
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
   setActiveQuestionnaire: PropTypes.func.isRequired,
@@ -34,6 +38,7 @@ export const propTypes = {
 };
 
 export const defaultProps = {
+  versionId: '',
   questionnaire: {},
   activeQuestionnaire: {},
   components: {},
@@ -46,6 +51,7 @@ export const defaultProps = {
 const PageQuestionnaire = (props) => {
   const {
     id,
+    versionId,
     questionnaire,
     components,
     codeLists,
@@ -55,6 +61,7 @@ const PageQuestionnaire = (props) => {
     loading,
     loadingError,
     loadQuestionnaire,
+    loadQuestionnaireWithVersion,
     setActiveQuestionnaire,
     loadStatisticalContext,
     setActiveComponents,
@@ -70,16 +77,22 @@ const PageQuestionnaire = (props) => {
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
+  const isReadonly = useReadonly();
+
   useEffect(() => {
     if (
       !questionnaire ||
       questionnaire.id !== id ||
       Object.keys(appState.activeComponentsById).length === 0
     ) {
-      loadQuestionnaire(id, token);
+      if (versionId) {
+        loadQuestionnaireWithVersion(id, versionId, token);
+      } else {
+        loadQuestionnaire(id, token);
+      }
       setToInitialize(true);
     }
-  }, [id, questionnaire?.id]);
+  }, [id, questionnaire?.id, versionId]);
 
   useEffect(() => {
     if (toInitialize && questionnaire) {
@@ -115,14 +128,19 @@ const PageQuestionnaire = (props) => {
 
   return (
     <div id={COMPONENT_ID}>
-      {loadingError && (
+      {isReadonly ? (
+        <div className="p-3 bg-blue-200 border border-gray-400">
+          {Dictionary.readonlyQuestionnaireWarning}
+        </div>
+      ) : null}
+      {loadingError ? (
         <div>
           <QuestionnaireNav />
           <LoaderError message={loadingError} />
         </div>
-      )}
-      {loading && <Loader />}
-      {!loadingError && !loading && (
+      ) : loading ? (
+        <Loader />
+      ) : (
         <div>
           <GenericInput />
           <div className="questionnaire-content">

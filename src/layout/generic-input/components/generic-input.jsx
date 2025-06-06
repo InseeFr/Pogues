@@ -9,6 +9,7 @@ import {
   domSelectorForModal,
 } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import { ExternalQuestionnaireDropdown } from '../../../widgets/external-questionnaire-dropdown';
@@ -108,6 +109,8 @@ function GenericInput(props) {
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
+  const isReadonly = useReadonly();
+
   const handleOpenNewComponent = (componentType) => {
     setShowNewComponentModal(true);
     setTypeNewComponent(componentType);
@@ -185,6 +188,7 @@ function GenericInput(props) {
           id="add-question"
           className="btn-white"
           disabled={
+            isReadonly ||
             placeholders[QUESTION].parent === '' ||
             placeholders[QUESTION].parent === 'idendquest' ||
             (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
@@ -198,6 +202,7 @@ function GenericInput(props) {
           id="add-subsequence"
           className="btn-white"
           disabled={
+            isReadonly ||
             placeholders[SUBSEQUENCE].parent === '' ||
             placeholders[SUBSEQUENCE].parent === 'idendquest' ||
             (selectedComponent && selectedComponent.type === EXTERNAL_ELEMENT)
@@ -210,7 +215,7 @@ function GenericInput(props) {
         <button
           id="add-sequence"
           className="btn-white"
-          disabled={placeholders[SEQUENCE].parent === ''}
+          disabled={isReadonly || placeholders[SEQUENCE].parent === ''}
           onClick={() => handleOpenNewComponent(SEQUENCE)}
         >
           <span className="glyphicon glyphicon-plus" />
@@ -219,7 +224,7 @@ function GenericInput(props) {
         <button
           id="add-loop"
           className="btn-white"
-          disabled={!placeholders[LOOP]}
+          disabled={isReadonly || !placeholders[LOOP]}
           onClick={() => handleOpenNewComponent(LOOP)}
         >
           <span className="glyphicon glyphicon-plus" />
@@ -229,6 +234,7 @@ function GenericInput(props) {
           id="add-roundabout"
           className="btn-white"
           disabled={
+            isReadonly ||
             !selectedComponent ||
             (selectedComponent.type !== SEQUENCE &&
               selectedComponent.type !== SUBSEQUENCE &&
@@ -243,7 +249,7 @@ function GenericInput(props) {
           <button
             id="add-filter"
             className="btn-white"
-            disabled={!placeholders[FILTER]}
+            disabled={isReadonly || !placeholders[FILTER]}
             onClick={() => handleOpenNewComponent(FILTER)}
           >
             <span className="glyphicon glyphicon-plus" />
@@ -253,14 +259,15 @@ function GenericInput(props) {
         <ExternalQuestionnaireDropdown
           questionnaireId={activeQuestionnaire.id}
           disabled={
-            selectedComponent &&
-            selectedComponent.type !== SEQUENCE &&
-            selectedComponent.type !== EXTERNAL_ELEMENT
+            isReadonly ||
+            (selectedComponent &&
+              selectedComponent.type !== SEQUENCE &&
+              selectedComponent.type !== EXTERNAL_ELEMENT)
           }
         />
         <button
           className="btn-yellow"
-          disabled={!isQuestionnaireModified}
+          disabled={isReadonly || !isQuestionnaireModified}
           onClick={() => saveQuestionnaire()}
           id="save"
         >

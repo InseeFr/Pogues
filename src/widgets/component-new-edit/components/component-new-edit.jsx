@@ -9,6 +9,7 @@ import {
 } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
+import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 import { FilterNewEdit } from './filter-new-edit';
@@ -45,6 +46,8 @@ const ComponentNewEdit = ({
   const [formData, setFormData] = useState({});
   const [disableValidation, setDisableValidation] = useState(false);
   const buttonRef = useRef(null);
+
+  const isReadonly = useReadonly();
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -178,7 +181,7 @@ const ComponentNewEdit = ({
           <button
             className={VALIDATE}
             type="submit"
-            disabled={submitting || disableValidation}
+            disabled={isReadonly || submitting || disableValidation}
             ref={buttonRef}
           >
             {Dictionary.validate}
@@ -233,6 +236,7 @@ const ComponentNewEdit = ({
               </button>
               <button
                 className="popup-notSaved-footer-validate"
+                disabled={isReadonly}
                 onClick={handleValidate}
                 type="button"
               >

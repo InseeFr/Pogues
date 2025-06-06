@@ -32,7 +32,9 @@
     "question": "{{count}} question",
     "question_other": "{{count}} questions",
     "question_zero": "{{count}} questions",
-    "unsavedModification": "You didn't save your changes. Are you sure you want to leave?"
+    "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
+    "date": "Date",
+    "lastUpdated": "Last updated"
   },
   "error": {
     "boundary": "An error occurred, if the problem persists, please contact support."
@@ -58,7 +60,6 @@
   "questionnaires": {
     "title": "Questionnaires",
     "create": "Create a questionnaire",
-    "lastUpdate": "Last modified",
     "search": "Search for a questionnaire",
     "stamp": "Stamp",
     "navigation": {
@@ -147,29 +148,17 @@
     "version": "Version"
   },
   "version": {
+    "id": "ID",
     "title": "History",
-    "saveCurrent": "Create a version from the current questionnaire",
-    "saveCurrentTitle": "Save current version",
-    "saveCurrentDialogConfirm": "Are you sure you want to save the current version?",
-    "saveCurrentSuccess": "Save from {{timestamp}} saved",
-    "delete": "Delete",
     "deleteDialogConfirm": "Are you sure you want to delete all saves?",
     "deleteDialogTitle": "Delete all saved versions",
     "deleteSuccess": "Version from{{timestamp}} deleted",
-    "deleteError": "Save could not be deleted ",
     "deleteAll": "Delete all saves",
-    "duplicate": "Duplicate",
-    "versionsCount": "{{count}} versions",
     "version_today": "{{count}} version today",
     "old_versions": "{{count}} older versions",
-    "search": "Search for a saved questionnaire",
-    "restore": "Restore",
-    "restoreDialogConfirm": "Are you sure you want to restore this save?",
-    "restoreDialogTitle": "Restore save from: {{timestamp}}",
-    "restoreSuccess": "Save from {{timestamp}} restored",
+    "view": "View",
     "timestamp": "Timestamp",
     "author": "Author",
-    "actions": "Actions",
     "no_versions": "No saves were found"
   }
 }

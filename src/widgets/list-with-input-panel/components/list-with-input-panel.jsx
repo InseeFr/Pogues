@@ -9,6 +9,7 @@ import {
   WIDGET_LIST_WITH_INPUT_PANEL,
   domSelectorForModal,
 } from '../../../constants/dom-constants';
+import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { ErrorsPanel } from '../../errors-panel';
@@ -71,6 +72,8 @@ const ListWithInputPanel = ({
 }) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(undefined);
   const [showPopup, setShowPopup] = useState(false);
+
+  const isReadonly = useReadonly();
 
   useEffect(() => {
     // Generation items when another item is selected
@@ -229,7 +232,7 @@ const ListWithInputPanel = ({
                 event.preventDefault();
                 submit();
               }}
-              disabled={disableValidation}
+              disabled={isReadonly || disableValidation}
             >
               {Dictionary.validate}
             </button>

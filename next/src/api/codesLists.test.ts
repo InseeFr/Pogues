@@ -2,7 +2,12 @@ import nock from 'nock';
 
 import { CodesList } from '@/models/codesLists';
 
-import { deleteCodesList, getCodesLists, putCodesList } from './codesLists';
+import {
+  deleteCodesList,
+  getCodesLists,
+  getCodesListsFromVersion,
+  putCodesList,
+} from './codesLists';
 
 vi.mock('@/contexts/oidc');
 
@@ -32,6 +37,19 @@ it('Get codes lists works', async () => {
     .reply(200, codesLists);
 
   const res = await getCodesLists('my-questionnaire');
+  expect(res).toEqual([codeList]);
+});
+
+it('Get codes lists from version works', async () => {
+  const codesLists: CodesList[] = [codeList];
+
+  nock('https://mock-api')
+    .get(
+      '/persistence/questionnaire/my-questionnaire/version/my-version/codes-lists',
+    )
+    .reply(200, codesLists);
+
+  const res = await getCodesListsFromVersion('my-questionnaire', 'my-version');
   expect(res).toEqual([codeList]);
 });
 

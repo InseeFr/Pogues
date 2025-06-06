@@ -11,9 +11,11 @@ import ListIcon from '../ui/icons/ListIcon';
 import NomenclatureAltIcon from '../ui/icons/NomenclatureAltIcon';
 import VariableIcon from '../ui/icons/VariableIcon';
 
+const enableVersionsPage = import.meta.env.VITE_ENABLE_VERSIONS_PAGE;
+
 export default function QuestionnaireNavigation() {
   const matchRoute = useMatchRoute();
-  const { questionnaireId } = useParams({ strict: false });
+  const { questionnaireId, versionId } = useParams({ strict: false });
 
   const [showSpinner, setShowSpinner] = useState(false);
   const clickCountRef = useRef(0);
@@ -41,7 +43,9 @@ export default function QuestionnaireNavigation() {
     {
       label: i18next.t('questionnaires.navigation.overview'),
       icon: <DashboardIcon className="m-auto" />,
-      path: '/questionnaire/$questionnaireId',
+      path: versionId
+        ? `/questionnaire/$questionnaireId/version/$versionId`
+        : '/questionnaire/$questionnaireId',
     },
     {
       label: i18next.t('questionnaires.navigation.variables'),
@@ -53,18 +57,13 @@ export default function QuestionnaireNavigation() {
     {
       label: i18next.t('questionnaires.navigation.codeLists'),
       icon: <ListIcon className="m-auto" />,
-      path: '/questionnaire/$questionnaireId/codes-lists',
+      path: versionId
+        ? `/questionnaire/$questionnaireId/version/$versionId/codes-lists`
+        : '/questionnaire/$questionnaireId/codes-lists',
       innerPaths: [
         '/questionnaire/$questionnaireId/codes-lists/new',
         '/questionnaire/$questionnaireId/codes-list/$codesListId',
       ],
-    },
-    {
-      label: i18next.t('questionnaires.navigation.history'),
-      icon: <HistoryIcon className="m-auto" />,
-      path: '/questionnaire/$questionnaireId/versions',
-      isDisabled: true,
-      isHidden: true,
     },
     {
       label: i18next.t('questionnaires.navigation.metadata'),
@@ -84,12 +83,21 @@ export default function QuestionnaireNavigation() {
       ) : (
         <DictionaryIcon onClick={handleClick} className="m-auto" />
       ),
-      path: '/questionnaire/$questionnaireId/nomenclatures',
+      path: versionId
+        ? `/questionnaire/$questionnaireId/version/$versionId/nomenclatures`
+        : '/questionnaire/$questionnaireId/nomenclatures',
+    },
+    {
+      label: i18next.t('questionnaires.navigation.history'),
+      icon: <HistoryIcon className="m-auto" />,
+      path: '/questionnaire/$questionnaireId/versions',
+      isDisabled: !enableVersionsPage,
+      isHidden: !enableVersionsPage,
     },
   ];
 
   return (
-    <div className="bg-default w-24 h-screen flex flex-col items-center space-y-3 py-6 border-r border-default text-center sticky top-0">
+    <div className="bg-default w-24 h-screen flex flex-col items-center py-6 border-r border-default text-center sticky top-0">
       {navigationItems.map(
         ({ label, icon, isDisabled, path, innerPaths = [], isHidden }) =>
           !isHidden ? (
@@ -98,7 +106,8 @@ export default function QuestionnaireNavigation() {
               to={path}
               params={{ questionnaireId: questionnaireId ?? '' }}
               disabled={isDisabled}
-              className={isDisabled ? 'opacity-25 pointer-events-none' : ''}
+              className={`w-full
+                ${isDisabled ? 'opacity-25 pointer-events-none' : ''}`}
             >
               <NavigationIcon
                 icon={icon}
@@ -128,8 +137,10 @@ function NavigationIcon({
 }: Readonly<NavigationIconProps>) {
   return (
     <div
-      className={`py-3 cursor-pointer hover:text-blue-600 hover:fill-blue-600 hover:bg-slate-200 ${
-        active ? 'text-blue-400 fill-blue-400' : ''
+      className={`py-3 cursor-pointer hover:text-blue-600 hover:fill-blue-600 hover:bg-blue-50 ${
+        active
+          ? 'text-blue-600 fill-blue-600 hover:bg-blue-200 bg-blue-200'
+          : ''
       } disabled disabled:bg-disabled`}
     >
       {icon}

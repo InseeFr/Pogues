@@ -11,8 +11,8 @@ import Dialog from '../ui/Dialog';
 import VersionContent from './VersionContent';
 
 interface VersionsProps {
-  versions: Version[];
   questionnaireId: string;
+  versions: Version[];
 }
 
 /**
@@ -20,10 +20,9 @@ interface VersionsProps {
  * or delete them.
  */
 export default function VersionsOverview({
-  versions = [],
   questionnaireId,
+  versions = [],
 }: Readonly<VersionsProps>) {
-  console.log('VersionsOverview', questionnaireId);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 

@@ -1,9 +1,11 @@
 import { HttpResponseError } from '@/errors/error';
+import { VersionWithData } from '@/models/versions';
 
 import { computeAuthorizationHeader, getBaseURI } from './utils';
 
 const pathQuestionnaire = 'persistence/questionnaire';
 const pathQuestionnaireList = 'persistence/questionnaires';
+const pathQuestionnaireVersion = 'persistence/version';
 
 /**
  * Retrieve questionnaires associated to the provided stamp (e.g. "DR59-SNDI59")
@@ -89,6 +91,28 @@ export async function getQuestionnaire(
     if (res.ok) return res.json();
     else throw new HttpResponseError(res.status, res.statusText);
   });
+}
+
+/**
+ * Retrieve questionnaire by id
+ */
+export async function getQuestionnaireWithVersion(
+  versionId: string,
+  token: string,
+): Promise<unknown> {
+  const url = `${getBaseURI()}/${pathQuestionnaireVersion}/${versionId}?withData=true`;
+  const headers = new Headers();
+  headers.append('Accept', 'application/json');
+  headers.append('Authorization', computeAuthorizationHeader(token));
+
+  return fetch(url, {
+    headers,
+  })
+    .then((res) => {
+      if (res.ok) return res.json();
+      else throw new HttpResponseError(res.status, res.statusText);
+    })
+    .then((json: VersionWithData) => json.data);
 }
 
 /**

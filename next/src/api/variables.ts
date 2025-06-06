@@ -11,7 +11,7 @@ import { computeVariables } from './utils/variables';
  */
 export const variablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['questionnaireVariables', { questionnaireId }],
+    queryKey: ['variables', { questionnaireId }],
     queryFn: () => getVariables(questionnaireId),
   });
 
