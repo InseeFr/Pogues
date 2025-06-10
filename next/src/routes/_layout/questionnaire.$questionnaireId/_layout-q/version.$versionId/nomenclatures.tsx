@@ -63,6 +63,7 @@ function ComponentWrapper({
   return (
     <>
       <ContentHeader
+        isReadonly
         title={`${t('nomenclatures.title')} ${nomenclaturesAffix}`}
       />
       <ContentMain>{children}</ContentMain>

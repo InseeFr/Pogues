@@ -34,7 +34,8 @@
     "question_zero": "{{count}} questions",
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
     "date": "Date",
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated",
+    "versionIsOnReadonly": "This version of the survey is on readonly."
   },
   "error": {
     "boundary": "An error occurred, if the problem persists, please contact support."

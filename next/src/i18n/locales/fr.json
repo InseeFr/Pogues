@@ -34,7 +34,8 @@
     "question_zero": "{{count}} question",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "date": "Date",
-    "lastUpdated": "Dernière modification"
+    "lastUpdated": "Dernière modification",
+    "versionIsOnReadonly": "Cette version du questionnaire est en lecture seule."
   },
   "error": {
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."

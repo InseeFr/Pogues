@@ -63,6 +63,7 @@ function ComponentWrapper({
   return (
     <>
       <ContentHeader
+        isReadonly
         title={`${t('codesList.overview.title')} ${codesListsAffix}`}
       />
       <ContentMain>{children}</ContentMain>
