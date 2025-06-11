@@ -16,15 +16,15 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId',
 )({
   component: RouteComponent,
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({
-    context: { queryClient },
+    context: { queryClient, t },
     params: { codesListId, questionnaireId },
   }) => {
     queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
     queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
-    return { crumb: `Liste de codes ${codesListId}` };
+    return { crumb: t('codesList.edit.crumb', { id: codesListId }) };
   },
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
 });
 
 function RouteComponent() {
@@ -44,12 +44,14 @@ function RouteComponent() {
   }
 
   return (
-    <EditCodesList
-      questionnaireId={questionnaireId}
-      codesList={codesList}
-      formulasLanguage={formulasLanguage}
-      variables={variables}
-    />
+    <ComponentWrapper codesList={codesList}>
+      <EditCodesList
+        questionnaireId={questionnaireId}
+        codesList={codesList}
+        formulasLanguage={formulasLanguage}
+        variables={variables}
+      />
+    </ComponentWrapper>
   );
 }
 

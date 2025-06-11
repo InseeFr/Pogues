@@ -9,8 +9,5 @@ import { LegacyComponent } from '@/components/legacy';
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/',
 )({
-  loader: async ({ params: { versionId } }) => {
-    return { crumb: `Version ${versionId}` };
-  },
   component: LegacyComponent,
 });

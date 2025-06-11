@@ -16,6 +16,7 @@ const questionnairesSchema = z.object({
 
 export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
+  errorComponent: ErrorComponent,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
   loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
     const selectedStamp = stamp ?? user!.stamp ?? '';
@@ -26,7 +27,6 @@ export const Route = createFileRoute('/_layout/questionnaires/')({
     return { selectedStamp };
   },
   validateSearch: questionnairesSchema,
-  errorComponent: ErrorComponent,
 });
 
 function RouteComponent() {

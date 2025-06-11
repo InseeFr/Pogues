@@ -3,7 +3,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { OidcProvider } from '@/contexts/oidc';
 import { useAuth } from '@/hooks/useAuth';
-import '@/i18n/i18n';
+import i18next from '@/i18n/i18n';
 
 import { routeTree } from './routeTree.gen';
 
@@ -16,7 +16,7 @@ const router = createRouter({
   // Since we're using React Query, we don't want loader calls to ever be stale
   // This will ensure that the loader is always called when the route is preloaded or visited
   defaultPreloadStaleTime: 0,
-  context: { queryClient, user: undefined },
+  context: { queryClient, t: i18next.t, user: undefined },
 });
 
 // Register the router instance for type safety
@@ -51,6 +51,7 @@ export default function App() {
 
 function InnerApp() {
   const user = useAuth();
+
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} context={{ user }} />

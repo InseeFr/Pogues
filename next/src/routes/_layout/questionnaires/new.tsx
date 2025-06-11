@@ -7,9 +7,10 @@ import CreateQuestionnaire from '@/components/questionnaires/create/CreateQuesti
 
 export const Route = createFileRoute('/_layout/questionnaires/new')({
   component: RouteComponent,
-  loader: async ({ context: { user } }) => {
-    return { crumb: 'Nouveau', userStamp: user!.stamp! };
-  },
+  loader: ({ context: { t, user } }) => ({
+    crumb: t('common.new'),
+    userStamp: user!.stamp!,
+  }),
 });
 
 function RouteComponent() {

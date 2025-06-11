@@ -16,9 +16,9 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/',
 )({
   component: RouteComponent,
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(nomenclaturesQueryOptions(questionnaireId)),
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
 });
 
 function RouteComponent() {

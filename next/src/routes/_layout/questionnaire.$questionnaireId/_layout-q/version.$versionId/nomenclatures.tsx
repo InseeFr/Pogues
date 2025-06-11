@@ -16,16 +16,16 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures',
 )({
   component: RouteComponent,
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({
-    context: { queryClient },
+    context: { queryClient, t },
     params: { questionnaireId, versionId },
   }) => {
     queryClient.ensureQueryData(
       nomenclaturesFromVersionQueryOptions(questionnaireId, versionId),
     );
-    return { crumb: 'Nomenclatures' };
+    return { crumb: t('nomenclatures.title') };
   },
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
 });
 
 function RouteComponent() {

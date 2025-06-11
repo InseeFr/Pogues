@@ -1,82 +1,55 @@
 {
   "common": {
-    "version": "Version",
     "appName": "Pogues",
-    "questionnaire": "Questionnaire",
-    "documentation": "Documentation",
-    "legacyLink": "Back to previous version",
-    "docs": "Documentation",
-    "loading": "Loading...",
-    "edit": "Edit",
-    "previous": "Previous",
-    "next": "Next",
-    "close": "Close",
     "cancel": "Cancel",
-    "complete": "Complete",
-    "validate": "Validate",
-    "add": "Add",
-    "create": "Create",
-    "delete": "Delete",
-    "help": "Help",
-    "backToHome": "Back to home",
-    "retry": "Retry",
-    "send": "Send",
-    "title": "Title",
-    "start": "Start",
     "clearInput": "Clear input",
     "collapse": "Collapse",
+    "create": "Create",
+    "date": "Date",
+    "delete": "Delete",
+    "documentation": "Documentation",
+    "edit": "Edit",
     "expand": "Expand",
-    "usedByQuestion": "Used by question:",
-    "usedByQuestion_other": "Used by questions:",
+    "lastUpdated": "Last updated",
+    "loading": "Loading...",
+    "new": "New",
     "notUsedByQuestions": "Not used by any questions.",
     "question": "{{count}} question",
     "question_other": "{{count}} questions",
     "question_zero": "{{count}} questions",
+    "questionnaire": "Questionnaire",
+    "title": "Title",
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
-    "date": "Date",
-    "lastUpdated": "Last updated",
+    "usedByQuestion": "Used by question:",
+    "usedByQuestion_other": "Used by questions:",
+    "validate": "Validate",
     "versionIsOnReadonly": "This version of the survey is on readonly."
-  },
-  "error": {
-    "boundary": "An error occurred, if the problem persists, please contact support."
-  },
-  "auth": {
-    "login": "Login",
-    "logout": "Logout",
-    "message": "Please login"
-  },
-  "home": {
-    "altImage": "Pogues Logo",
-    "label": "Questionnaire design tool.",
-    "transformVariables": "Transform your variables into questionnaires.",
-    "poguesIntro": "Pogues is the main entry point into the services provided by Bowie.",
-    "interfaceDescription": "It is a graphical interface for designing questionnaires, enabling the creation of structural elements (sequences, questions) and dynamic elements (filters, controls, loops).",
-    "docsLabel": "Answers to all your questions.",
-    "docsLink": "Go to documentation"
-  },
-  "external": {
-    "publicEnemy": "Public Enemy",
-    "publicEnemyLabel": "Customize your questionnaire."
-  },
-  "questionnaires": {
-    "title": "Questionnaires",
-    "create": "Create a questionnaire",
-    "search": "Search for a questionnaire",
-    "stamp": "Stamp",
-    "navigation": {
-      "overview": "Overview",
-      "variables": "Variables",
-      "codeLists": "Code lists",
-      "history": "History",
-      "metadata": "Metadata",
-      "nomenclatures": "Nomenclatures"
-    }
   },
   "codesList": {
     "common": {
       "codeLabel": "Modality label",
       "codeValue": "Modality code",
       "label": "Code list name"
+    },
+    "create": {
+      "success": "The code list has been created",
+      "title": "New code list"
+    },
+    "edit": {
+      "crumb": "Code list {{id}}",
+      "success": "The code list {{label}} has been edited",
+      "title": "Edit the code list: {{label}}"
+    },
+    "form": {
+      "addCode": "+ Add a code",
+      "addSubCode": "Add a subcode",
+      "mustProvideLabel": "You must provide a label",
+      "mustProvideCodeLabel": "Your code must have a label",
+      "mustProvideCodeValue": "Your code must have a value",
+      "mustProvideCodes": "You must provide at least one code",
+      "mustProvideUniqueValue": "Value must be unique: \"{{value}}\"",
+      "moveUp": "Move up",
+      "moveDown": "Move down"
     },
     "overview": {
       "create": "Create a code list",
@@ -93,28 +66,21 @@
       "duplicateDialogConfirm": "Do you want to create a copy of this code list?",
       "duplicateDialogTitle": "Duplicate code list: {{label}}",
       "duplicateSuccess": "Code list {{label}} duplicated",
-      "title": "Code Lists",
       "search": "Search for a code list"
     },
-    "create": {
-      "success": "The code list has been created",
-      "title": "New code list"
-    },
-    "edit": {
-      "success": "The code list {{label}} has been edited",
-      "title": "Edit the code list: {{label}}"
-    },
-    "form": {
-      "addCode": "+ Add a code",
-      "addSubCode": "Add a subcode",
-      "mustProvideLabel": "You must provide a label",
-      "mustProvideCodeLabel": "Your code must have a label",
-      "mustProvideCodeValue": "Your code must have a value",
-      "mustProvideCodes": "You must provide at least one code",
-      "mustProvideUniqueValue": "Value must be unique: \"{{value}}\"",
-      "moveUp": "Move up",
-      "moveDown": "Move down"
-    }
+    "title": "Codes list"
+  },
+  "error": {
+    "boundary": "An error occurred, if the problem persists, please contact support."
+  },
+  "filter": {
+    "active": "Filter by:",
+    "clear": "Clear",
+    "clearFilters": "Clear filters",
+    "questionUsed": "Not used",
+    "result": "Result: {{count}}",
+    "search": "Label",
+    "stamp": "Stamp"
   },
   "questionnaire": {
     "common": {
@@ -129,37 +95,44 @@
       "title": "New questionnaire"
     },
     "form": {
-      "mustProvideTitle": "You must provide a title",
-      "mustProvideTarget": "You must select at least one target mode"
-    }
+      "mustProvideTarget": "You must select at least one target mode",
+      "mustProvideTitle": "You must provide a title"
+    },
+    "title": "Questionnaire {{id}}"
   },
-  "filter": {
-    "active": "Filter by:",
-    "result": "Result: {{count}}",
-    "clearFilters": "Clear filters",
-    "clear": "Clear",
-    "search": "Label",
+  "questionnaires": {
+    "create": "Create a questionnaire",
+    "navigation": {
+      "codeLists": "Code lists",
+      "history": "History",
+      "metadata": "Metadata",
+      "nomenclatures": "Nomenclatures",
+      "overview": "Overview",
+      "variables": "Variables"
+    },
+    "search": "Search for a questionnaire",
     "stamp": "Stamp",
-    "questionUsed": "Not used"
+    "title": "Questionnaires"
   },
   "nomenclatures": {
-    "title": "Nomenclatures",
     "noNomenclatures": "No nomenclatures available",
     "search": "Search for a nomenclature",
+    "title": "Nomenclatures",
     "version": "Version"
   },
   "version": {
-    "id": "ID",
-    "title": "History",
+    "author": "Author",
+    "crumb": "Version {{id}}",
+    "deleteAll": "Delete all saves",
     "deleteDialogConfirm": "Are you sure you want to delete all saves?",
     "deleteDialogTitle": "Delete all saved versions",
     "deleteSuccess": "Version from{{timestamp}} deleted",
-    "deleteAll": "Delete all saves",
-    "version_today": "{{count}} version today",
+    "id": "ID",
+    "no_versions": "No saves were found",
     "old_versions": "{{count}} older versions",
-    "view": "View",
     "timestamp": "Timestamp",
-    "author": "Author",
-    "no_versions": "No saves were found"
+    "title": "History",
+    "version_today": "{{count}} version today",
+    "view": "View"
   }
 }

@@ -1,82 +1,55 @@
 {
   "common": {
-    "version": "Version",
     "appName": "Pogues",
-    "questionnaire": "Questionnaire",
-    "documentation": "Documentation",
-    "legacyLink": "Retour à la version précédente",
-    "docs": "Documentation",
-    "loading": "Chargement...",
-    "edit": "Modifier",
-    "previous": "Précédent",
-    "next": "Suivant",
-    "close": "Fermer",
     "cancel": "Annuler",
-    "create": "Créer",
-    "complete": "Completer",
-    "validate": "Valider",
-    "add": "Ajouter",
-    "delete": "Supprimer",
-    "help": "Aide",
-    "backToHome": "Retourner à l'accueil",
-    "retry": "Réessayer",
-    "send": "Envoyer",
-    "title": "Titre",
-    "start": "Commencer",
     "clearInput": "Effacer la recherche",
     "collapse": "Réduire",
+    "create": "Créer",
+    "date": "Date",
+    "delete": "Supprimer",
+    "documentation": "Documentation",
+    "edit": "Modifier",
     "expand": "Étendre",
-    "usedByQuestion": "Utilisé dans la question :",
-    "usedByQuestion_other": "Utilisé dans les questions :",
+    "lastUpdated": "Dernière modification",
+    "loading": "Chargement...",
+    "new": "Nouveau",
     "notUsedByQuestions": "Utilisé par aucune question.",
     "question": "{{count}} question",
     "question_other": "{{count}} questions",
     "question_zero": "{{count}} question",
+    "questionnaire": "Questionnaire",
+    "title": "Titre",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
-    "date": "Date",
-    "lastUpdated": "Dernière modification",
+    "usedByQuestion": "Utilisé dans la question :",
+    "usedByQuestion_other": "Utilisé dans les questions :",
+    "validate": "Valider",
     "versionIsOnReadonly": "Cette version du questionnaire est en lecture seule."
-  },
-  "error": {
-    "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
-  },
-  "auth": {
-    "login": "Connexion",
-    "logout": "Déconnexion",
-    "message": "Veuillez vous connecter"
-  },
-  "home": {
-    "altImage": "Logo de Pogues",
-    "label": "Outil de conception de questionnaire.",
-    "transformVariables": "Transformez vos variables en <span className=\"text-orange-400\">questionnaires</span>.",
-    "poguesIntro": "Pogues est aujourd'hui le point d'entrée principal dans les services fournis par <span className=\"font-bold\">Bowie</span>.",
-    "interfaceDescription": "C'est une interface graphique de conception de questionnaires permettant la création des <span className=\"font-bold\">éléments structurels</span> (séquences, questions) et des <span className=\"font-bold\">éléments dynamiques</span> (filtres, contrôles, boucles).",
-    "docsLabel": "La réponse à toutes vos questions.",
-    "docsLink": "Accéder à la documentation"
-  },
-  "external": {
-    "publicEnemy": "Public Enemy",
-    "publicEnemyLabel": "Personnaliser son questionnaire."
-  },
-  "questionnaires": {
-    "title": "Questionnaires",
-    "create": "Créer un questionnaire",
-    "search": "Rechercher un questionnaire",
-    "stamp": "Timbre",
-    "navigation": {
-      "overview": "Vue d'ensemble",
-      "variables": "Variables",
-      "codeLists": "Listes de codes",
-      "history": "Historique",
-      "metadata": "Métadonnées",
-      "nomenclatures": "Nomenclatures"
-    }
   },
   "codesList": {
     "common": {
       "codeLabel": "Libellé de la modalité",
       "codeValue": "Code de la modalité",
       "label": "Nom de la liste de codes"
+    },
+    "create": {
+      "success": "La liste de codes a été créée",
+      "title": "Nouvelle liste de codes"
+    },
+    "edit": {
+      "crumb": "Liste de codes {{id}}",
+      "success": "La liste de codes {{label}} a été modifiée",
+      "title": "Editer la liste de codes : {{label}}"
+    },
+    "form": {
+      "addCode": "+ Ajouter un code",
+      "addSubCode": "Ajouter un sous-code",
+      "mustProvideLabel": "Vous devez renseigner un libellé",
+      "mustProvideCodeLabel": "Votre code doit avoir un libellé",
+      "mustProvideCodeValue": "Votre code doit avoir une valeur",
+      "mustProvideCodes": "Vous devez renseigner au moins un code",
+      "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",
+      "moveUp": "Monter d'un niveau",
+      "moveDown": "Descendre d'un niveau"
     },
     "overview": {
       "create": "Créer une liste de codes",
@@ -93,28 +66,21 @@
       "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
       "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
       "duplicateSuccess": "Liste de codes {{label}} dupliquée",
-      "title": "Listes de codes",
       "search": "Rechercher une liste de codes"
     },
-    "create": {
-      "success": "La liste de codes a été créée",
-      "title": "Nouvelle liste de codes"
-    },
-    "edit": {
-      "success": "La liste de codes {{label}} a été modifiée",
-      "title": "Editer la liste de codes : {{label}}"
-    },
-    "form": {
-      "addCode": "+ Ajouter un code",
-      "addSubCode": "Ajouter un sous-code",
-      "mustProvideLabel": "Vous devez renseigner un libellé",
-      "mustProvideCodeLabel": "Votre code doit avoir un libellé",
-      "mustProvideCodeValue": "Votre code doit avoir une valeur",
-      "mustProvideCodes": "Vous devez renseigner au moins un code",
-      "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",
-      "moveUp": "Monter d'un niveau",
-      "moveDown": "Descendre d'un niveau"
-    }
+    "title": "Listes de codes"
+  },
+  "error": {
+    "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
+  },
+  "filter": {
+    "active": "Filtrer par:",
+    "clear": "Suprimer le filtre",
+    "clearFilters": "Supprimer les filtres",
+    "questionUsed": "Non utilisées",
+    "result": "Resultat : {{count}}",
+    "search": "Label",
+    "stamp": "Timbre"
   },
   "questionnaire": {
     "common": {
@@ -129,37 +95,44 @@
       "title": "Nouveau questionnaire"
     },
     "form": {
-      "mustProvideTitle": "Vous devez renseigner un titre",
-      "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte"
-    }
+      "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
+      "mustProvideTitle": "Vous devez renseigner un titre"
+    },
+    "title": "Questionnaire {{id}}"
   },
-  "filter": {
-    "active": "Filtrer par:",
-    "result": "Resultat : {{count}}",
-    "clearFilters": "Supprimer les filtres",
-    "clear": "Suprimer le filtre",
-    "search": "Label",
+  "questionnaires": {
+    "create": "Créer un questionnaire",
+    "navigation": {
+      "codeLists": "Listes de codes",
+      "history": "Historique",
+      "metadata": "Métadonnées",
+      "nomenclatures": "Nomenclatures",
+      "overview": "Vue d'ensemble",
+      "variables": "Variables"
+    },
+    "search": "Rechercher un questionnaire",
     "stamp": "Timbre",
-    "questionUsed": "Non utilisées"
+    "title": "Questionnaires"
   },
   "nomenclatures": {
-    "title": "Nomenclatures",
     "noNomenclatures": "Aucune nomenclature trouvée",
     "search": "Rechercher une nomenclature",
+    "title": "Nomenclatures",
     "version": "Version"
   },
   "version": {
-    "id": "ID",
-    "title": "Historique",
+    "author": "Auteur",
+    "crumb": "Version {{id}}",
+    "deleteAll": "Supprimer toutes les sauvegardes",
     "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
     "deleteDialogTitle": "Supprimer toutes les sauvegardes",
     "deleteSuccess": "Version de {{timestamp}} supprimée",
-    "deleteAll": "Supprimer toutes les sauvegardes",
-    "version_today": "{{count}} sauvegardes aujourd'hui",
+    "id": "ID",
+    "no_versions": "Aucune sauvegarde disponible",
     "old_versions": "{{count}} sauvegardes plus anciennes",
-    "view": "Consulter",
     "timestamp": "Date",
-    "author": "Auteur",
-    "no_versions": "Aucune sauvegarde disponible"
+    "title": "Historique",
+    "version_today": "{{count}} sauvegardes aujourd'hui",
+    "view": "Consulter"
   }
 }

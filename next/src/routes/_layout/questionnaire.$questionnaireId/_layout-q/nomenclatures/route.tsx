@@ -4,5 +4,5 @@ import { createFileRoute } from '@tanstack/react-router';
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures',
 )({
-  loader: () => ({ crumb: 'Nomenclatures' }),
+  loader: ({ context: { t } }) => ({ crumb: t('nomenclatures.title') }),
 });

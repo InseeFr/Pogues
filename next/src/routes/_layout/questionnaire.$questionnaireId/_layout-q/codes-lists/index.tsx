@@ -16,9 +16,9 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/',
 )({
   component: RouteComponent,
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(codesListsQueryOptions(questionnaireId)),
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
 });
 
 function RouteComponent() {
@@ -63,7 +63,7 @@ function ComponentWrapper({
   return (
     <>
       <ContentHeader
-        title={`${t('codesList.overview.title')} ${codesListsAffix}`}
+        title={`${t('codesList.title')} ${codesListsAffix}`}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"

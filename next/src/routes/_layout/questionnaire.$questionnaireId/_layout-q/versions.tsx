@@ -13,9 +13,12 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/versions',
 )({
   component: RouteComponent,
-  loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
+  loader: async ({
+    context: { queryClient, t },
+    params: { questionnaireId },
+  }) => {
     queryClient.ensureQueryData(versionsQueryOptions(questionnaireId));
-    return { crumb: `Historique` };
+    return { crumb: t('questionnaires.navigation.history') };
   },
 });
 
