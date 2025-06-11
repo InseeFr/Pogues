@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, FormSection } from 'redux-form';
+import { Field, FormSection, formValueSelector } from 'redux-form';
 
 import {
   COMPONENT_TYPE,
@@ -10,26 +10,27 @@ import {
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import { CodesLists } from '../../../../codes-lists';
 
-const { SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
+const { TABLE, PAIRING } = QUESTION_TYPE_ENUM;
 const { QUESTION, LOOP } = COMPONENT_TYPE;
 const { LIST } = DIMENSION_FORMATS;
+
+const enableRecap = import.meta.env.VITE_ENABLE_PAIRING_RECAP === 'true';
 
 /** Form to create a pairwise. */
 function ResponseFormatPairing({
   selectorPathParent,
-  responseFormatType,
   componentsStore,
   collectedVariablesStore,
   allowPrecision,
   allowFilter,
+  displayRecap,
 }) {
-  const selectorPath = responseFormatType;
-
   const selectorPathComposed = selectorPathParent
-    ? `${selectorPathParent}.${selectorPath}`
-    : selectorPath;
+    ? `${selectorPathParent}.${PAIRING}`
+    : PAIRING;
 
   // The sequences directly depending of the loops
   const loopSequences = Object.values(componentsStore)
@@ -98,7 +99,7 @@ function ResponseFormatPairing({
     );
 
   return (
-    <FormSection name={selectorPath} className="response-format__single">
+    <FormSection name={PAIRING} className="response-format__single">
       <Field
         name="scope"
         component={Select}
@@ -110,6 +111,47 @@ function ResponseFormatPairing({
         </GenericOption>
         {pairingSourceVariable}
       </Field>
+      {enableRecap ? (
+        <>
+          <div className="ctrl-checkbox">
+            <label htmlFor="rf-single-mandatory">
+              {Dictionary.pairingDisplayRecap}
+            </label>
+            <div>
+              <Field
+                name="displayRecap"
+                id="rf-single-display-recap"
+                component="input"
+                type="checkbox"
+              />
+            </div>
+          </div>
+          <Field
+            name="recapGenderVariable"
+            component={Select}
+            label={Dictionary.pairingRecapGender}
+            disabled={!displayRecap}
+            required
+          >
+            <GenericOption key="" value="">
+              {Dictionary.selectGenderVariable}
+            </GenericOption>
+            {pairingSourceVariable}
+          </Field>
+          <Field
+            name="recapAgeVariable"
+            component={Select}
+            label={Dictionary.pairingRecapAge}
+            disabled={!displayRecap}
+            required
+          >
+            <GenericOption key="" value="">
+              {Dictionary.selectAgeVariable}
+            </GenericOption>
+            {pairingSourceVariable}
+          </Field>
+        </>
+      ) : null}
       <CodesLists
         selectorPathParent={selectorPathComposed}
         allowPrecision={allowPrecision}
@@ -121,26 +163,29 @@ function ResponseFormatPairing({
 
 ResponseFormatPairing.propTypes = {
   selectorPathParent: PropTypes.string,
-  responseFormatType: PropTypes.string,
   componentsStore: PropTypes.object,
   collectedVariablesStore: PropTypes.object,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
+  displayRecap: PropTypes.bool,
 };
 
 ResponseFormatPairing.defaultProps = {
   selectorPathParent: undefined,
-  responseFormatType: SINGLE_CHOICE,
   componentsStore: {},
   collectedVariablesStore: {},
   allowPrecision: true,
   allowFilter: true,
+  displayRecap: false,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { selectorPathParent }) => {
+  const selector = formValueSelector('component');
+  const path = `${getCurrentSelectorPath(selectorPathParent)}${PAIRING}.`;
   return {
     componentsStore: state.appState.activeComponentsById,
     collectedVariablesStore: state.appState.collectedVariableByQuestion,
+    displayRecap: selector(state, `${path}displayRecap`),
   };
 };
 

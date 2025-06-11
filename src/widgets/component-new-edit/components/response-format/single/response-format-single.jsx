@@ -25,7 +25,6 @@ const { REF } = CODES_LIST_INPUT_ENUM;
 /** Form to create a QCU. */
 function ResponseFormatSingle({
   selectorPathParent,
-  responseFormatType,
   showMandatory,
   visHint,
   path,
@@ -34,7 +33,7 @@ function ResponseFormatSingle({
   allowFilter,
   disableSetArbitrary,
 }) {
-  const selectorPath = responseFormatType;
+  const selectorPath = SINGLE_CHOICE;
 
   const styleMandatory = {
     display: showMandatory ? 'block' : 'none',
@@ -121,7 +120,6 @@ function ResponseFormatSingle({
 
 ResponseFormatSingle.propTypes = {
   selectorPathParent: PropTypes.string,
-  responseFormatType: PropTypes.string,
   showMandatory: PropTypes.bool,
   visHint: PropTypes.string,
   path: PropTypes.string,
@@ -133,7 +131,6 @@ ResponseFormatSingle.propTypes = {
 
 ResponseFormatSingle.defaultProps = {
   selectorPathParent: undefined,
-  responseFormatType: SINGLE_CHOICE,
   showMandatory: true,
   visHint: undefined,
   path: SINGLE_CHOICE,
@@ -143,11 +140,9 @@ ResponseFormatSingle.defaultProps = {
   disableSetArbitrary: false,
 };
 
-const mapStateToProps = (state, { selectorPathParent, responseFormatType }) => {
+const mapStateToProps = (state, { selectorPathParent }) => {
   const selector = formValueSelector('component');
-  const path = `${getCurrentSelectorPath(selectorPathParent)}${
-    responseFormatType ?? SINGLE_CHOICE
-  }.`;
+  const path = `${getCurrentSelectorPath(selectorPathParent)}${SINGLE_CHOICE}.`;
   return {
     visHint: selector(state, `${path}visHint`),
     allowArbitraryResponse: selector(state, `${path}allowArbitraryResponse`),
