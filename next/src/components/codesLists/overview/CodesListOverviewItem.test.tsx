@@ -3,7 +3,7 @@ import { act } from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { expect } from 'vitest';
 
-import { renderWithRouter } from '@/utils/tests';
+import { renderWithRouter } from '@/tests/tests';
 
 import CodesListOverviewItem from './CodesListOverviewItem';
 

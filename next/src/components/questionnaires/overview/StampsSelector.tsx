@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import Label from '@/components/ui/Label';
-import Option from '@/components/ui/Option';
-import Select from '@/components/ui/Select';
+import Label from '@/components/ui/form/Label';
+import Option from '@/components/ui/form/Option';
+import Select from '@/components/ui/form/Select';
 import type { Stamp } from '@/models/stamps';
 
 interface StampsSelectorProps {

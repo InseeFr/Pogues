@@ -26,7 +26,7 @@ export default function Checkbox({
         disabled={disabled}
         required={required}
         onCheckedChange={onChange}
-        className="size-[1.125rem] p-2 flex items-center justify-center hover:shadow-sm rounded-xs outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary data-checked:bg-primary border-2 border-default hover:border-primary data-checked:border-primary"
+        className="size-[1.125rem] p-2 flex items-center justify-center hover:shadow-sm rounded-xs outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary data-checked:bg-primary border-2 border-default hover:border-primary data-checked:border-primary"
       >
         <UICheckbox.Indicator className="flex text-negative data-unchecked:hidden">
           <CheckIcon className="size-3" />

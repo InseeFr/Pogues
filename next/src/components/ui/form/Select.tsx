@@ -1,6 +1,6 @@
 import { Select as UISelect } from '@base-ui-components/react/select';
 
-import ArrowDownIcon from './icons/ArrowDownIcon';
+import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 interface SelectProps {
   onChange?: (v: unknown) => void;
@@ -15,7 +15,7 @@ export default function Select({
 }: Readonly<SelectProps>) {
   return (
     <UISelect.Root value={value} onValueChange={onChange}>
-      <UISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-popup-open:bg-accent">
+      <UISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-popup-open:bg-accent">
         <UISelect.Value />
         <UISelect.Icon className="flex">
           <ArrowDownIcon height="17.5" width="17.5" />

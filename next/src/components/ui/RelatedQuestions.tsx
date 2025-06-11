@@ -35,9 +35,7 @@ export default function RelatedQuestions({
       description={
         <div>
           <div>
-            {t('common.usedByQuestion', {
-              count: relatedQuestionNames.length,
-            })}
+            {t('common.usedByQuestion', { count: relatedQuestionNames.length })}
           </div>
           <ul className="list-inside list-disc">
             {relatedQuestionNames.map((q) => (
@@ -48,9 +46,7 @@ export default function RelatedQuestions({
       }
     >
       <div className="min-w-28">
-        {t('common.question', {
-          count: relatedQuestionNames.length,
-        })}
+        {t('common.question', { count: relatedQuestionNames.length })}
       </div>
     </Popover>
   );

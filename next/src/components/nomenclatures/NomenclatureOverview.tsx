@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import Input from '@/components/ui/Input';
 import RelatedQuestions from '@/components/ui/RelatedQuestions';
+import Input from '@/components/ui/form/Input';
 import { useFilters } from '@/hooks/useFilter';
 import { FilterEnum } from '@/models/filter';
 import { Nomenclature } from '@/models/nomenclature';

@@ -4,6 +4,7 @@ interface QuestionnaireLayoutProps {
   children: React.ReactNode;
 }
 
+/** Layout used for questionnaire page with a navbar with links. */
 export default function QuestionnaireLayout({
   children,
 }: Readonly<QuestionnaireLayoutProps>) {

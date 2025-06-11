@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
 import FilterList from '@/components/ui/FilterList';
-import Input from '@/components/ui/Input';
+import Input from '@/components/ui/form/Input';
 import { useFilters } from '@/hooks/useFilter';
 import { type CodesList } from '@/models/codesLists';
 import { FilterEnum } from '@/models/filter';

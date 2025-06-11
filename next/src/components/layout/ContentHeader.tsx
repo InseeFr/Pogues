@@ -5,6 +5,7 @@ import Breadcrumb from '@/components/ui/Breadcrumb';
 interface ContentHeaderProps {
   /** Action to display on the right. Should be a button. */
   action?: React.ReactNode;
+  /** Display a warning if the current content is readonly. */
   isReadonly?: boolean;
   title: string;
 }

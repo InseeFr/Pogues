@@ -1,5 +1,6 @@
 import SpinnerIcon from './icons/SpinnerIcon';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export enum ButtonStyle {
   Primary,
   Secondary,
@@ -25,7 +26,7 @@ export default function Button({
       onClick={!disabled ? onClick : undefined}
       disabled={disabled || isLoading}
       aria-disabled={disabled || isLoading}
-      className={`border cursor-pointer font-semibold transition rounded px-4 py-3 min-w-40 disabled:cursor-not-allowed outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary
+      className={`border cursor-pointer font-semibold transition rounded px-4 py-3 min-w-40 disabled:cursor-not-allowed outline-hidden focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary
         ${
           buttonStyle === ButtonStyle.Primary
             ? 'bg-primary text-negative disabled:bg-primary-disabled hover:enabled:bg-primary-accent active:enabled:bg-primary-active'

@@ -6,6 +6,8 @@ import { User as UserType } from '@/hooks/useAuth';
 
 import User from './User';
 
+const appVersion = import.meta.env.APP_VERSION;
+
 interface HeaderProps {
   user?: UserType;
 }
@@ -18,7 +20,6 @@ interface HeaderProps {
  */
 export default function Header({ user }: Readonly<HeaderProps>) {
   const { t } = useTranslation();
-  const appVersion = import.meta.env.APP_VERSION;
 
   return (
     <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative fill-negative items-center">
