@@ -63,7 +63,6 @@ class ErrorsIntegrity extends Component {
     };
 
     this.handleExpand = this.handleExpand.bind(this);
-    // this.handleSelect = this.handleSelect.bind(this);
   }
 
   handleExpand(key) {
@@ -77,15 +76,6 @@ class ErrorsIntegrity extends Component {
       }));
     }
   }
-
-  // handleSelect(e, key) {
-  //   e.preventDefault();
-  //   const { setSelectedComponentId, components } = this.props;
-  //
-  //   if (components[key].type !== QUESTIONNAIRE) {
-  //     setSelectedComponentId(key);
-  //   }
-  // }
 
   render() {
     const { errorsIntegrity, componentsStore } = this.props;

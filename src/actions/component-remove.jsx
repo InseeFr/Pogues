@@ -28,23 +28,24 @@ export function removeComponentFromActivesComponent(
   activesComponents,
   deletedComponent,
 ) {
-  return Object.values(activesComponents).reduce((acc, currentElement) => {
+  const res = {};
+  for (const activeComponent of Object.values(activesComponents)) {
     if (
-      currentElement.id !== deletedComponent.id &&
-      currentElement.initialMember !== deletedComponent.id &&
-      currentElement.finalMember !== deletedComponent.id
+      activeComponent.id !== deletedComponent.id &&
+      activeComponent.initialMember !== deletedComponent.id &&
+      activeComponent.finalMember !== deletedComponent.id
     ) {
-      acc[currentElement.id] = {
-        ...activesComponents[currentElement.id],
-        children: activesComponents[currentElement.id]?.children
-          ? activesComponents[currentElement.id].children.filter(
+      res[activeComponent.id] = {
+        ...activesComponents[activeComponent.id],
+        children: activesComponents[activeComponent.id]?.children
+          ? activesComponents[activeComponent.id].children.filter(
               (childId) => childId !== deletedComponent.id,
             )
           : [],
       };
     }
-    return acc;
-  }, {});
+  }
+  return res;
 }
 
 /**

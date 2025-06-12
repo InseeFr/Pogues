@@ -14,28 +14,22 @@ const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
-  [PRIMARY]: {
-    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
-  },
+  [PRIMARY]: {},
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
     [CODES_LIST]: {
-      // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
       visHint: CHECKBOX,
     },
   },
 };
 
 export const defaultForm = {
-  [PRIMARY]: {
-    // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
-  },
+  [PRIMARY]: {},
   [MEASURE]: {
     type: BOOL,
     [BOOL]: {},
     [CODES_LIST]: {
-      // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
       visHint: CHECKBOX,
     },
   },

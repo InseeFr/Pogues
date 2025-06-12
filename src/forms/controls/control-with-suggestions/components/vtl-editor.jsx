@@ -20,13 +20,10 @@ const VTLEditor = ({
   setDisableValidation,
 }) => {
   const [errors, setErrors] = useState([]);
-  const variables = availableSuggestions.reduce(
-    (acc, s) => ({
-      ...acc,
-      [s]: { type: 'Variable' },
-    }),
-    {},
-  );
+  const variables = {};
+  for (const s of availableSuggestions) {
+    variables[s] = { type: 'Variable' };
+  }
 
   const customTools = {
     ...tools,

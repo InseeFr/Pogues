@@ -11,11 +11,6 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 
 describe.skip('response transformation', () => {
   describe.skip('remoteToState', () => {
-    // ResponseFormatSimple.remoteToState = vi.fn();
-    // ResponseFormatSingle.remoteToState = vi.fn();
-    // ResponseFormatMultiple.remoteToState = vi.fn();
-    // ResponseFormatTable.remoteToState = vi.fn();
-
     const mockResponses = {
       [SIMPLE]: {
         type: SIMPLE,
@@ -85,11 +80,6 @@ describe.skip('response transformation', () => {
   });
 
   describe.skip('remoteToState', () => {
-    // ResponseFormatSimple.stateToRemote = vi.fn();
-    // ResponseFormatSingle.stateToRemote = vi.fn();
-    // ResponseFormatMultiple.stateToRemote = vi.fn();
-    // ResponseFormatTable.stateToRemote = vi.fn();
-
     const mockResponses = {
       [SIMPLE]: {
         Response: 'true',

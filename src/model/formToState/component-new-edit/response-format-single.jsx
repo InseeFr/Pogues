@@ -13,14 +13,12 @@ export const defaultState = {
   allowArbitraryResponse: false,
   mandatory: false,
   visHint: RADIO,
-  // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
 export const defaultForm = {
   allowArbitraryResponse: false,
   mandatory: false,
   visHint: RADIO,
-  // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
 };
 
 export function formToState(form, transformers) {

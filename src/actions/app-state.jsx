@@ -373,16 +373,15 @@ function getPathFromComponent(componentId, componentsById) {
  * @param {*} activeComponentsById the components list on which we need to reset all controls and redirections
  */
 export const removeControlsAndRedirections = (activeComponentsById) => {
-  return Object.keys(activeComponentsById).reduce((acc, componentId) => {
-    return {
-      ...acc,
-      [componentId]: {
-        ...activeComponentsById[componentId],
-        redirections: {},
-        controls: {},
-      },
+  const res = {};
+  for (const componentId of Object.keys(activeComponentsById)) {
+    res[componentId] = {
+      ...activeComponentsById[componentId],
+      redirections: {},
+      controls: {},
     };
-  }, {});
+  }
+  return res;
 };
 
 export const startLoadingVisualization = () => ({

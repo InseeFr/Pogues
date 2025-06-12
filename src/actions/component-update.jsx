@@ -38,31 +38,28 @@ export function resetChildren(component, children) {
  * @param {object} newComponent The latests created component
  */
 export function increaseWeightOfAll(activesComponents, newComponent) {
-  if (newComponent.type !== LOOP || newComponent.type !== FILTER) {
-    const siblingsIds = activesComponents[newComponent.parent]
-      ? activesComponents[newComponent.parent].children
-      : [];
-    return siblingsIds.reduce((acc, key) => {
-      const sibling = activesComponents[key];
-      let siblingWeight = sibling.weight;
-      if (key !== newComponent.id && newComponent.weight <= siblingWeight) {
-        siblingWeight += 1;
-      }
+  if (newComponent.type === LOOP || newComponent.type === FILTER) return {};
 
-      if (key === newComponent.id) {
-        return acc;
-      }
+  const siblingsIds = activesComponents[newComponent.parent]
+    ? activesComponents[newComponent.parent].children
+    : [];
 
-      return {
-        ...acc,
-        [key]: {
-          ...sibling,
-          weight: siblingWeight,
-        },
-      };
-    }, {});
+  const res = {};
+  for (const id of siblingsIds) {
+    const sibling = activesComponents[id];
+    let siblingWeight = sibling.weight;
+    if (id !== newComponent.id && newComponent.weight <= siblingWeight) {
+      siblingWeight += 1;
+    }
+
+    if (id === newComponent.id) continue;
+
+    res[id] = {
+      ...sibling,
+      weight: siblingWeight,
+    };
   }
-  return {};
+  return res;
 }
 
 /**
