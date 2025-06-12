@@ -110,7 +110,7 @@ function ResponseFormatSingle({
       ) : (
         <CodesLists
           selectorPathParent={selectorPathComposed}
-          allowPrecision={allowPrecision}
+          allowPrecision={allowPrecision && visHint !== DROPDOWN}
           allowFilter={allowFilter}
         />
       )}
