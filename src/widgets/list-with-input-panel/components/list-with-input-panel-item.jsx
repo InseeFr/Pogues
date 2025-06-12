@@ -1,18 +1,12 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
-
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
-
-const { ITEM_CLASS, ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 function ListWithInputPanelItem({ children, invalid, select }) {
   return (
     <li
       className={classSet({
-        [ITEM_CLASS]: true,
-        [ITEM_INVALID_CLASS]: invalid,
+        ['widget-list-with-input-panel__item']: true,
+        ['widget-list-with-input-panel__item-invalid']: invalid,
       })}
     >
       <button

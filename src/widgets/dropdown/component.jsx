@@ -1,16 +1,10 @@
-import React from 'react';
-
-import { WIDGET_DROPDOWN } from '../../constants/dom-constants';
-
-const { COMPONENT_CLASS, SELECT_CLASS } = WIDGET_DROPDOWN;
-
 const Dropdown = ({ onChange, value, options }) => (
-  <div className={COMPONENT_CLASS}>
+  <div className="widget-dropdown">
     <select
       onChange={(e) => onChange(e.target.value)}
       value={value}
       id="STAMPS"
-      className={SELECT_CLASS}
+      className="widget-dropdown__select"
     >
       <option value="" />
       {options.map((s) => (

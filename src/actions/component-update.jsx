@@ -4,6 +4,7 @@ import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { toComponents, toId } from '../utils/component/component-utils';
 
 const { FILTER, LOOP } = COMPONENT_TYPE;
+
 /**
  * This function generate a componentById with the children passed as
  * a parameter.

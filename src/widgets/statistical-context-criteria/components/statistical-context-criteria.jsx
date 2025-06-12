@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { Field } from 'redux-form';
 
-import { WIDGET_STATISTICAL_CONTEXT_CRITERIA } from '../../../constants/dom-constants';
 import { TCM } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import Select from '../../../forms/controls/select';
 import { requiredSelect } from '../../../forms/validation-rules';
 import Dictionary from '../../../utils/dictionary/dictionary';
-
-const { COMPONENT_CLASS, HORIZONTAL_CLASS } =
-  WIDGET_STATISTICAL_CONTEXT_CRITERIA;
 
 const StatisticalContextCriteria = (props) => {
   const {
@@ -60,8 +56,8 @@ const StatisticalContextCriteria = (props) => {
   return (
     <div
       className={ClassSet({
-        [COMPONENT_CLASS]: true,
-        [HORIZONTAL_CLASS]: horizontal,
+        ['widget-statistical-context-criteria']: true,
+        ['widget-statistical-context-criteria-horizontal']: horizontal,
       })}
     >
       <Field

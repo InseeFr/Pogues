@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_LIST_CHECKBOXES } from '../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
   removeValueInList,
   toggleValueInList,
 } from '../../utils/widget-utils';
-
-const { COMPONENT_CLASS, INLINE_MODE } = CONTROL_LIST_CHECKBOXES;
 
 // PropTypes and defaultProps
 
@@ -120,7 +117,7 @@ class ListCheckboxes extends Component {
     const values = getValuesFromGenericOptions(children);
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-list-checkboxes">
         <label
           htmlFor={getControlId(
             'checkbox',
@@ -147,7 +144,7 @@ class ListCheckboxes extends Component {
             return (
               <div
                 className={ClassSet({
-                  [INLINE_MODE]: inline,
+                  ['form-check-inline']: inline,
                 })}
                 key={id}
               >

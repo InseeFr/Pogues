@@ -1,12 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
-
-import { CONTROL_TREE_SELECT } from '../../constants/dom-constants';
-
-const { COMPONENT_CLASS } = CONTROL_TREE_SELECT;
 
 // Control
 const TreeSelect = (props) => {
@@ -79,7 +75,7 @@ const TreeSelect = (props) => {
   }
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="ctrl-tree-select">
       <label htmlFor={`select-${input.name}`}>
         {label}
         {required ? <span>*</span> : ''}

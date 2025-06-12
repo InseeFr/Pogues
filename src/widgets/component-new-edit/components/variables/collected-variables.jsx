@@ -1,9 +1,6 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../../constants/dom-constants';
 import {
   DATATYPE_NAME,
   QUESTION_TYPE_ENUM,
@@ -81,7 +78,7 @@ function CollectedVariables({
         canRemove={false}
         canDuplicate={false}
       >
-        <div className={WIDGET_LIST_WITH_INPUT_PANEL.ACTIONS_CLASS}>
+        <div className="widget-list-with-input-panel__actions">
           <button
             type="button"
             disabled={componentName === '' || responseFormatType === ''}

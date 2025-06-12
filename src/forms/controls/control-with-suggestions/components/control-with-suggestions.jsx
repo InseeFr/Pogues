@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_WITH_SUGGESTIONS } from '../../../../constants/dom-constants';
 import { getKey } from '../../../../utils/widget-utils';
 import { HighLighter } from '../../../../widgets/highlighter';
 import {
@@ -13,9 +12,6 @@ import {
   updateSuggestions,
 } from './input-with-suggestions-utils';
 import { getPattern, getValueWithSuggestion } from './utils';
-
-const { COMPONENT_CLASS, LIST_CLASS, ITEM_CLASS, ITEM_SELECTED_CLASS } =
-  CONTROL_WITH_SUGGESTIONS;
 
 const InputRegex = new RegExp(/\$(\w+)\b(?!\s)/);
 
@@ -147,9 +143,9 @@ class ControlWithSuggestions extends Component {
 
     return (
       focusedInput === input.name && (
-        <div className={COMPONENT_CLASS}>
+        <div className="ctrl-with-suggestions">
           {suggestions.length > 0 && (
-            <div className={LIST_CLASS}>
+            <div className="ctrl-with-suggestions__list">
               {suggestions
                 .slice(0, numSuggestionsShown)
                 .map((suggest, index) => (
@@ -161,8 +157,9 @@ class ControlWithSuggestions extends Component {
                     role="button"
                     tabIndex={0}
                     className={ClassSet({
-                      [ITEM_CLASS]: true,
-                      [ITEM_SELECTED_CLASS]: index === hoveredSuggestionIndex,
+                      ['ctrl-with-suggestions__list__item']: true,
+                      ['ctrl-with-suggestions__list__item-selected']:
+                        index === hoveredSuggestionIndex,
                     })}
                     title={suggest}
                     ref={(node) => {

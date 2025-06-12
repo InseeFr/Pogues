@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
 
-import {
-  GENERIC_INPUT,
-  domSelectorForModal,
-} from '../../../constants/dom-constants';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -26,7 +23,6 @@ const {
   FILTER,
   EXTERNAL_ELEMENT,
 } = COMPONENT_TYPE;
-const { COMPONENT_ID } = GENERIC_INPUT;
 
 // PropTypes and defaultProps
 
@@ -155,7 +151,7 @@ function GenericInput(props) {
 
   return (
     <div
-      id={COMPONENT_ID}
+      id="generic-input"
       style={{ display: showNewComponentModal ? 'none' : 'block' }}
     >
       {isLoadingVisualization && <Loader />}

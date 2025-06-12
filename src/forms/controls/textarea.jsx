@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_TEXTAREA } from '../../constants/dom-constants';
 import { getControlId } from '../../utils/widget-utils';
-
-const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
 // PropTypes and defaultProps
 
@@ -47,7 +44,7 @@ class Textarea extends Component {
     const id = getControlId('textarea', input.name);
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-textarea">
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}

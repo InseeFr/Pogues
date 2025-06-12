@@ -1,21 +1,12 @@
 import { shallow } from 'enzyme';
 import { describe, expect, test, vi } from 'vitest';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { fakeEvent, noop } from '../../../utils/test/test-utils';
 import ListWithInputPanel from './list-with-input-panel';
 
 vi.mock('../../../hooks/useReadonly', () => ({
   useReadonly: vi.fn(),
 }));
-
-const {
-  BUTTON_SUBMIT_CLASS,
-  BUTTON_REMOVE_CLASS,
-  BUTTON_DUPLICATE_CLASS,
-  BUTTON_RESET_CLASS,
-  BUTTON_NEW_CLASS,
-} = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanel', () => {
   const props = {
@@ -57,15 +48,15 @@ describe('<ListWithInputPanel', () => {
 
       const buttons = [
         {
-          className: BUTTON_REMOVE_CLASS,
+          className: 'widget-list-with-input-panel__remove',
           property: 'canRemove',
         },
         {
-          className: BUTTON_DUPLICATE_CLASS,
+          className: 'widget-list-with-input-panel__duplicate',
           property: 'canDuplicate',
         },
         {
-          className: BUTTON_NEW_CLASS,
+          className: 'widget-list-with-input-panel__new',
           property: 'canAddNew',
         },
       ];
@@ -85,23 +76,23 @@ describe('<ListWithInputPanel', () => {
       let wrapper;
       const buttons = [
         {
-          className: BUTTON_SUBMIT_CLASS,
+          className: 'widget-list-with-input-panel__submit',
           action: 'submit',
         },
         {
-          className: BUTTON_REMOVE_CLASS,
+          className: 'widget-list-with-input-panel__remove',
           action: 'remove',
         },
         {
-          className: BUTTON_DUPLICATE_CLASS,
+          className: 'widget-list-with-input-panel__duplicate',
           action: 'duplicate',
         },
         {
-          className: BUTTON_RESET_CLASS,
+          className: 'widget-list-with-input-panel__reset',
           action: 'reset',
         },
         {
-          className: BUTTON_NEW_CLASS,
+          className: 'widget-list-with-input-panel__new',
           action: 'reset',
         },
       ];

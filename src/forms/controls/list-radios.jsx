@@ -1,15 +1,10 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_LIST_RADIOS } from '../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
 } from '../../utils/widget-utils';
-
-const { COMPONENT_CLASS } = CONTROL_LIST_RADIOS;
 
 function ListRadios({
   label,
@@ -23,7 +18,7 @@ function ListRadios({
   const values = getValuesFromGenericOptions(children);
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="ctrl-list-radios">
       <label htmlFor={getControlId('radios', input.name, values[0]?.value)}>
         {label}
         {required && <span className="ctrl-required">*</span>}

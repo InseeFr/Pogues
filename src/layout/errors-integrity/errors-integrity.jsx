@@ -1,12 +1,9 @@
 // @TODO: Scroll on select error
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { ERRORS_INTEGRITY } from '../../constants/dom-constants';
 import { getIntegrityErrors } from '../../utils/integrity/utils';
-
-const { COMPONENT_ID, INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
 // Utils
 
@@ -85,15 +82,15 @@ class ErrorsIntegrity extends Component {
     );
 
     return (
-      <div id={COMPONENT_ID}>
+      <div id="errors-integrity">
         {componentsErrors.length > 0 && (
-          <div className={INNER}>
-            <div className={ALERT}>
+          <div className="errors-integrity__inner">
+            <div className="errors-integrity__alert">
               <div className="alert-icon big">
                 <div className="alert-triangle" />!
               </div>
             </div>
-            <div className={LIST}>
+            <div className="errors-integrity__list">
               <ul>{componentsErrors}</ul>
             </div>
           </div>

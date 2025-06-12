@@ -1,14 +1,10 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { TargetMode } from '../../../constants/pogues-constants';
 import { formatDate } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 
-const { BUTTON_DUPLICATE_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 function QuestionnaireListItem({
   id,
   label,
@@ -67,7 +63,7 @@ function QuestionnaireListItem({
         ) ? (
           <button
             type="button"
-            className={`${BUTTON_DUPLICATE_CLASS} px-2 py-1 bg-[#E9E9ED] hover:bg-[#D0D0D7] hover:active:bg-[#B1B1B9] border rounded-lg border-[#a3a3a5] hover:border-[#727273] hover:active:border-[#414142]`}
+            className="widget-list-with-input-panel__duplicate px-2 py-1 bg-[#E9E9ED] hover:bg-[#D0D0D7] hover:active:bg-[#B1B1B9] border rounded-lg border-[#a3a3a5] hover:border-[#727273] hover:active:border-[#414142]"
             aria-label={actionLabel}
             onClick={(event) => {
               if (isHome) event.preventDefault();

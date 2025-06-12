@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
@@ -11,8 +10,6 @@ import Loader from '../../loader';
 import LoaderError from '../../loader-error';
 import { QuestionnaireListComponents } from '../../questionnaire-list-components';
 import { QuestionnaireNav } from '../../questionnaire-nav';
-
-const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 // Prop types and default props
 
@@ -127,7 +124,7 @@ const PageQuestionnaire = (props) => {
   ]);
 
   return (
-    <div id={COMPONENT_ID}>
+    <div id="page-questionnaire">
       {isReadonly ? (
         <div className="p-3 bg-blue-200 border border-gray-400">
           {Dictionary.readonlyQuestionnaireWarning}

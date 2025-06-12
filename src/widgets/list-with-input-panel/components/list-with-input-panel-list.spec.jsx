@@ -1,9 +1,6 @@
-import React from 'react';
-
 import { shallow } from 'enzyme';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
 import { getFakeFields } from '../utils/test-utils';
 import ListWithInputPanelItem from './list-with-input-panel-item';
@@ -14,8 +11,6 @@ vi.mock('../../../utils/dictionary/dictionary', () => ({
     no_FAKE_NAME: 'This is a no items message fake',
   },
 }));
-
-const { LIST_EMPTY_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanelList', () => {
   let props;
@@ -55,7 +50,11 @@ describe('<ListWithInputPanelList', () => {
     const wrapper = shallow(<ListWithInputPanelList {...props} />);
 
     expect(wrapper.find(ListWithInputPanelItem)).toHaveLength(0);
-    expect(wrapper.find(`.${LIST_EMPTY_CLASS}`)).toHaveLength(1);
-    expect(wrapper.find(`.${LIST_EMPTY_CLASS}`).text()).toBe(messageNoItems);
+    expect(
+      wrapper.find('.widget-list-with-input-panel__list-empty'),
+    ).toHaveLength(1);
+    expect(
+      wrapper.find('.widget-list-with-input-panel__list-empty').text(),
+    ).toBe(messageNoItems);
   });
 });

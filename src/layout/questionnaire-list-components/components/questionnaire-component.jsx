@@ -7,10 +7,7 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 
-import {
-  QUESTIONNAIRE_COMPONENT,
-  domSelectorForModal,
-} from '../../../constants/dom-constants';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
 import { useReadonly } from '../../../hooks/useReadonly';
@@ -31,7 +28,6 @@ import { VisualizeDropdown } from '../../../widgets/visualize-dropdown';
 import { ComponentEdit } from '../../component-edit';
 import DropZone from './drop-zone/drop-zone';
 
-const { COMPONENT_CLASS } = QUESTIONNAIRE_COMPONENT;
 const {
   QUESTION,
   SEQUENCE,
@@ -133,7 +129,7 @@ const QuestionnaireComponent = (props) => {
       connectDragSource={connectDragSource}
       connectDropTarget={connectDropTarget}
     >
-      <div className={COMPONENT_CLASS}>
+      <div className="questionnaire-component">
         <div
           className={ClassSet({
             'questionnaire-element': true,

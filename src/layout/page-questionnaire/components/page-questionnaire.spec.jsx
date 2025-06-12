@@ -3,10 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 
-import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
-
-const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
 
 describe.skip('<PageQuestionnaire />', () => {
   let wrapper;
@@ -49,7 +46,7 @@ describe.skip('<PageQuestionnaire />', () => {
   });
 
   test('should render without throwing an error', () => {
-    expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
+    expect(wrapper.is('#page-questionnaire')).toBe(true);
   });
 
   it('should call setActiveQuestionnaire in render', () => {

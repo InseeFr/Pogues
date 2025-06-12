@@ -1,32 +1,16 @@
-import React, { Children, cloneElement, useEffect, useState } from 'react';
+import { Children, cloneElement, useEffect, useState } from 'react';
 
 import cloneDeep from 'lodash.clonedeep';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { FieldArray } from 'redux-form';
 
-import {
-  WIDGET_LIST_WITH_INPUT_PANEL,
-  domSelectorForModal,
-} from '../../../constants/dom-constants';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { ErrorsPanel } from '../../errors-panel';
 import ListWithInputPanelList from './list-with-input-panel-list';
-
-const {
-  WRAPPER_CLASS,
-  COMPONENT_CLASS,
-  PANEL_CLASS,
-  LIST_CLASS,
-  ACTIONS_CLASS,
-  BUTTON_SUBMIT_CLASS,
-  BUTTON_REMOVE_CLASS,
-  BUTTON_DUPLICATE_CLASS,
-  BUTTON_RESET_CLASS,
-  BUTTON_NEW_CLASS,
-} = WIDGET_LIST_WITH_INPUT_PANEL;
 
 // Utils
 
@@ -183,10 +167,10 @@ const ListWithInputPanel = ({
   }).filter((child) => child);
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="widget-list-with-input-panel">
       <ErrorsPanel path={selectorPath} includeSubPaths />
-      <div className={WRAPPER_CLASS}>
-        <div className={LIST_CLASS}>
+      <div className="widget-list-with-input-panel__wrapper">
+        <div className="widget-list-with-input-panel__list">
           <FieldArray
             name={name}
             rerenderOnEveryChange
@@ -195,14 +179,17 @@ const ListWithInputPanel = ({
             select={select}
           />
         </div>
-        <div className={PANEL_CLASS}>
-          <div className={ACTIONS_CLASS}>
+        <div className="widget-list-with-input-panel__panel">
+          <div className="widget-list-with-input-panel__actions">
             {canAddNew && (
               <button
                 type="button"
-                className={BUTTON_NEW_CLASS}
+                className="widget-list-with-input-panel__new"
                 onClick={(event) => {
-                  if (event.target.className === BUTTON_NEW_CLASS) {
+                  if (
+                    event.target.className ===
+                    'widget-list-with-input-panel__new'
+                  ) {
                     event.preventDefault();
                     reset();
                   }
@@ -214,10 +201,10 @@ const ListWithInputPanel = ({
             )}
           </div>
           {childrenWithDisabledProp}
-          <div className={ACTIONS_CLASS}>
+          <div className="widget-list-with-input-panel__actions">
             <button
               type="button"
-              className={BUTTON_RESET_CLASS}
+              className="widget-list-with-input-panel__reset"
               onClick={(event) => {
                 event.preventDefault();
                 reset();
@@ -227,7 +214,7 @@ const ListWithInputPanel = ({
             </button>
             <button
               type="submit"
-              className={BUTTON_SUBMIT_CLASS}
+              className="widget-list-with-input-panel__submit"
               onClick={(event) => {
                 event.preventDefault();
                 submit();
@@ -240,7 +227,7 @@ const ListWithInputPanel = ({
               <button
                 type="button"
                 disabled={selectedItemIndex === undefined}
-                className={BUTTON_DUPLICATE_CLASS}
+                className="widget-list-with-input-panel__duplicate"
                 onClick={(event) => {
                   event.preventDefault();
                   duplicate();
@@ -254,7 +241,7 @@ const ListWithInputPanel = ({
               <button
                 type="button"
                 disabled={selectedItemIndex === undefined}
-                className={BUTTON_REMOVE_CLASS}
+                className="widget-list-with-input-panel__remove"
                 onClick={(event) => {
                   event.preventDefault();
                   remove();

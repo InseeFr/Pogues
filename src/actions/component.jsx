@@ -29,6 +29,7 @@ export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
 export const MOVE_COMPONENT = 'MOVE_COMPONENT';
 
 const { FILTER } = COMPONENT_TYPE;
+
 /**
  * Create component
  *

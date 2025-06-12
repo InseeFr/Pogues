@@ -1,11 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-import { WIDGET_VALIDATION_ERRORS } from '../../constants/dom-constants';
 import { getKey } from '../../utils/widget-utils';
-
-const { COMPONENT_CLASS } = WIDGET_VALIDATION_ERRORS;
-
-// Component
 
 class ComponentWithValidation extends Component {
   constructor(props) {
@@ -25,7 +20,7 @@ class ComponentWithValidation extends Component {
     const { validationErrors } = this.state;
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="widget-validation-errors">
         {validationErrors.length > 0 && (
           <ul>
             {validationErrors.map((err) => (

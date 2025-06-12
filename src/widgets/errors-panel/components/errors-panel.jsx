@@ -1,10 +1,4 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
-
-import { WIDGET_ERRORS_PANEL } from '../../../constants/dom-constants';
-
-const { COMPONENT_CLASS, INNER } = WIDGET_ERRORS_PANEL;
 
 // PropTypes and defaultProps
 
@@ -20,9 +14,9 @@ const defaultProps = {
 
 function ErrrosPanel({ errors }) {
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="widget-errors-panel">
       {errors.length > 0 && (
-        <ul className={INNER}>
+        <ul className="widget-errors-panel__inner">
           {errors.map((e) => (
             <li key={e}>{e}</li>
           ))}

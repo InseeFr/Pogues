@@ -1,13 +1,8 @@
-import React from 'react';
-
 import { shallow } from 'enzyme';
 import { describe, expect, test, vi } from 'vitest';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { fakeEvent, noop } from '../../../utils/test/test-utils';
 import ListWithInputPanelItem from './list-with-input-panel-item';
-
-const { ITEM_INVALID_CLASS } = WIDGET_LIST_WITH_INPUT_PANEL;
 
 describe('<ListWithInputPanelItem', () => {
   const fakeString = 'This is a fake string';
@@ -27,14 +22,18 @@ describe('<ListWithInputPanelItem', () => {
         {fakeString}
       </ListWithInputPanelItem>,
     );
-    expect(wrapper.hasClass(ITEM_INVALID_CLASS)).toBeFalsy();
+    expect(
+      wrapper.hasClass('widget-list-with-input-panel__item-invalid'),
+    ).toBeFalsy();
 
     wrapper = shallow(
       <ListWithInputPanelItem select={noop} invalid>
         {fakeString}
       </ListWithInputPanelItem>,
     );
-    expect(wrapper.hasClass(ITEM_INVALID_CLASS)).toBeTruthy();
+    expect(
+      wrapper.hasClass('widget-list-with-input-panel__item-invalid'),
+    ).toBeTruthy();
   });
 
   test('Should call the "select" action when the item button is clicked', () => {

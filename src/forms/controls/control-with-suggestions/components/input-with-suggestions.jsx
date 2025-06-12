@@ -1,12 +1,5 @@
-import React from 'react';
-
-import { CONTROL_INPUT } from '../../../../constants/dom-constants';
 import { getControlId } from '../../../../utils/widget-utils';
 import ControlWithSuggestion from './control-with-suggestions';
-
-const { COMPONENT_CLASS } = CONTROL_INPUT;
-
-// Component
 
 class InputWithSuggestions extends ControlWithSuggestion {
   render() {
@@ -19,7 +12,7 @@ class InputWithSuggestions extends ControlWithSuggestion {
     } = this.props;
     const id = getControlId('input-with-suggestions', input.name);
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-input">
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}
