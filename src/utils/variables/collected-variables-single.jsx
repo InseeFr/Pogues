@@ -29,6 +29,12 @@ export function getCollectedVariablesSingle(
 
   collectedVariables.push(mainCollectedVariable);
 
+  // if we have no precision variable, we don't need to generate other variables
+  const noPrecisionVariable = form.visHint === DATATYPE_VIS_HINT.DROPDOWN;
+  if (noPrecisionVariable) {
+    return collectedVariables;
+  }
+
   // get arbitrary variable for suggester
   if (
     form.allowArbitraryResponse &&
@@ -52,60 +58,54 @@ export function getCollectedVariablesSingle(
     );
   }
 
-  const noPrecisionVariable = form.visHint === DATATYPE_VIS_HINT.DROPDOWN;
-
   // get new clarification variables for codes lists
-  if (!noPrecisionVariable) {
-    form.CodesList.codes?.forEach((code) => {
-      if (code.precisionid && code.precisionid !== '') {
-        collectedVariables.push(
-          getCollectedVariable(
-            code.precisionid,
-            `${code.precisionid} label`,
-            { z: code.weight, isCollected: '1' },
-            {
-              type: TEXT,
-              codeListReference: undefined,
-              [TEXT]: {
-                maxLength: code.precisionsize,
-              },
+  form.CodesList.codes?.forEach((code) => {
+    if (code.precisionid && code.precisionid !== '') {
+      collectedVariables.push(
+        getCollectedVariable(
+          code.precisionid,
+          `${code.precisionid} label`,
+          { z: code.weight, isCollected: '1' },
+          {
+            type: TEXT,
+            codeListReference: undefined,
+            [TEXT]: {
+              maxLength: code.precisionsize,
             },
-          ),
-        );
-      }
-    });
-  }
+          },
+        ),
+      );
+    }
+  });
 
-  if (!noPrecisionVariable) {
-    // get existing clarification variables for codes lists
-    form.CodesList.codes?.forEach((code) => {
-      if (code.precisionByCollectedVariableId) {
-        for (const [variableId, precision] of Object.entries(
-          code.precisionByCollectedVariableId,
-        )) {
-          if (existingVariableIds.has(variableId)) {
-            collectedVariables.push(
-              getCollectedVariable(
-                precision.precisionid,
-                `${precision.precisionid} label`,
-                { z: code.weight, isCollected: '1' },
-                {
-                  type: TEXT,
-                  codeListReference: undefined,
-                  [TEXT]: {
-                    maxLength: precision.precisionsize,
-                  },
+  // get existing clarification variables for codes lists
+  form.CodesList.codes?.forEach((code) => {
+    if (code.precisionByCollectedVariableId) {
+      for (const [variableId, precision] of Object.entries(
+        code.precisionByCollectedVariableId,
+      )) {
+        if (existingVariableIds.has(variableId)) {
+          collectedVariables.push(
+            getCollectedVariable(
+              precision.precisionid,
+              `${precision.precisionid} label`,
+              { z: code.weight, isCollected: '1' },
+              {
+                type: TEXT,
+                codeListReference: undefined,
+                [TEXT]: {
+                  maxLength: precision.precisionsize,
                 },
-                undefined,
-                undefined,
-                variableId,
-              ),
-            );
-          }
+              },
+              undefined,
+              undefined,
+              variableId,
+            ),
+          );
         }
       }
-    });
-  }
+    }
+  });
 
   return collectedVariables;
 }
