@@ -34,12 +34,11 @@ describe('moveComponents', () => {
 
 describe('moveQuestionToSubSequence', () => {
   function transformToComponentsObject(components) {
-    return components.reduce((acc, c) => {
-      return {
-        ...acc,
-        [c.id]: c,
-      };
-    }, {});
+    const res = {};
+    for (const c of components) {
+      res[c.id] = c;
+    }
+    return res;
   }
   test(`should return nothing if the parameter is undefined`, () => {
     expect(component.moveQuestionToSubSequence([], { parent: '1' })).toEqual();

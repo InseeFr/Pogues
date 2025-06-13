@@ -5,7 +5,6 @@ import {
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SET_ACTIVE_CODE_LISTS,
   SET_ACTIVE_COMPONENTS,
-  SET_ACTIVE_DECLARATIONS,
   SET_ACTIVE_QUESTIONNAIRE,
   SET_SELECTED_COMPONENT,
   UPDATE_ACTIVE_QUESTIONNAIRE,
@@ -14,7 +13,6 @@ import {
   saveActiveQuestionnaireSuccess,
   setActiveCodeLists,
   setActiveComponents,
-  setActiveDeclarations,
   setActiveQuestionnaire,
   setSelectedComponentId,
   updateActiveQuestionnaire,
@@ -177,15 +175,6 @@ describe('setActiveCodeLists', () => {
       payload: {
         activeCodeLists: 'activeCodeLists',
       },
-    });
-  });
-});
-
-describe('setActiveDeclarations', () => {
-  test('should return the right payload', () => {
-    expect(setActiveDeclarations('setActiveDeclarations')).toEqual({
-      type: SET_ACTIVE_DECLARATIONS,
-      payload: 'setActiveDeclarations',
     });
   });
 });

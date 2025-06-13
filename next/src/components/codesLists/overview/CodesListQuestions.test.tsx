@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
 import RelatedQuestions from '@/components/ui/RelatedQuestions';
-import { renderWithRouter } from '@/utils/tests';
+import { renderWithRouter } from '@/tests/tests';
 
 describe('CodesListQuestions', () => {
   it('display related questions count and details on click', async () => {

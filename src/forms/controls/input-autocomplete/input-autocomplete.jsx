@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_INPUT_AUTOCOMPLETE } from '../../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
@@ -19,14 +18,6 @@ import {
   setSuggestions,
   updateSelectedOption,
 } from './input-autocomplete-utils';
-
-const {
-  COMPONENT_CLASS,
-  BUTTON_CLEAR_CLASS,
-  NO_OPTION_SELECTED_ICON,
-  OPTION_SELECTED_ICON,
-  OPTION_CLEAR_ICON,
-} = CONTROL_INPUT_AUTOCOMPLETE;
 
 // PropTypes and defaultProps
 
@@ -164,7 +155,7 @@ class InputAutocomplete extends Component {
     };
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-input-autocomplete">
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}
@@ -177,8 +168,8 @@ class InputAutocomplete extends Component {
               <i
                 className={ClassSet({
                   glyphicon: true,
-                  [NO_OPTION_SELECTED_ICON]: !this.state.indexSelectedOption,
-                  [OPTION_SELECTED_ICON]: this.state.indexSelectedOption,
+                  ['glyphicon-warning-sign']: !this.state.indexSelectedOption,
+                  ['glyphicon glyphicon-ok']: this.state.indexSelectedOption,
                 })}
               />
             </div>
@@ -206,14 +197,12 @@ class InputAutocomplete extends Component {
             />
             {value && (
               <div
-                className={`input-group-addon ${BUTTON_CLEAR_CLASS}`}
+                className="input-group-addon ctrl-input-autocomplete__button-clear"
                 onClick={() => {
                   this.removeSelectedOption();
                 }}
               >
-                <i
-                  className={`glyphicon form-control-feedback ${OPTION_CLEAR_ICON}`}
-                />
+                <i className="glyphicon form-control-feedback glyphicon-remove" />
               </div>
             )}
           </div>

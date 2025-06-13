@@ -31,32 +31,53 @@ export const defaultForm = {
   type: '',
 };
 
-function computeCodesByCollectedVariableId(codesList, collectedVariables) {
+function computeCodesByCollectedVariableId(
+  codesList,
+  collectedVariables,
+  removePrecision = false,
+) {
   const newCodes = [];
   for (const code of codesList.codes) {
+    // dropdown case -> we remove precision if the user switched vishint (from checkbox to dropdown for example)
+    if (removePrecision) {
+      const newCode = {
+        ...code,
+      };
+      delete newCode.precisionByCollectedVariableId;
+      delete newCode.precisionid;
+      delete newCode.precisionlabel;
+      delete newCode.precisionsize;
+      newCodes.push(newCode);
+      continue;
+    }
+
     const { precisionid, precisionlabel, precisionsize } = code;
-    if (precisionid) {
-      for (const collectedVariable of collectedVariables) {
-        if (precisionid === collectedVariable.name) {
-          const newCode = {
-            ...code,
-            precisionByCollectedVariableId: {
-              ...code.precisionByCollectedVariableId,
-              [collectedVariable.id]: {
-                precisionid,
-                precisionlabel,
-                precisionsize,
-              },
-            },
-          };
-          delete newCode.precisionid;
-          delete newCode.precisionlabel;
-          delete newCode.precisionsize;
-          newCodes.push(newCode);
-        }
-      }
-    } else {
+
+    // the code does not have a precision -> we push it as is
+    if (!precisionid) {
       newCodes.push(code);
+      continue;
+    }
+
+    // normal case -> we compute the proper state format
+    for (const collectedVariable of collectedVariables) {
+      if (precisionid === collectedVariable.name) {
+        const newCode = {
+          ...code,
+          precisionByCollectedVariableId: {
+            ...code.precisionByCollectedVariableId,
+            [collectedVariable.id]: {
+              precisionid,
+              precisionlabel,
+              precisionsize,
+            },
+          },
+        };
+        delete newCode.precisionid;
+        delete newCode.precisionlabel;
+        delete newCode.precisionsize;
+        newCodes.push(newCode);
+      }
     }
   }
   return newCodes;
@@ -88,6 +109,7 @@ export function formToState(form, collectedVariables, transformers) {
       const newCodes = computeCodesByCollectedVariableId(
         CodesList,
         collectedVariables,
+        visHint === DATATYPE_VIS_HINT.DROPDOWN,
       );
       const formWithNewCodes = {
         ...responseFormatForm,

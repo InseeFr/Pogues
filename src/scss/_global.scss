@@ -42,12 +42,6 @@ a {
 
 // Button styles
 
-.btn {
-  &:disabled {
-    opacity: 0.25;
-  }
-}
-
 .btn-yellow {
   @extend .btn;
   text-align: center;
@@ -56,6 +50,10 @@ a {
 
   &:hover {
     background-color: lighten($color-yellow_01, 20%);
+  }
+  &:disabled {
+    background-color: #fceaa9;
+    color: #5f5f5f;
   }
 
   strong {
@@ -103,6 +101,11 @@ a {
 
   &:hover {
     background-color: darken(white, 20%);
+  }
+
+  &:disabled {
+    color: #5f5f5f;
+    border: none;
   }
 
   strong {

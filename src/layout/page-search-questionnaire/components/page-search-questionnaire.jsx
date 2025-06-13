@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { PAGE_SEARCH_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import {
   SEARCH_CRITERIAS,
   SEARCH_RESULTS_COLUMNS,
@@ -15,10 +14,6 @@ import { noop } from '../../../utils/test/test-utils';
 import { InputFilterWithCriteria } from '../../../widgets/input-filter-with-criteria';
 import { SearchResults } from '../../../widgets/search-results';
 import Criteria from '../containers/criteria';
-
-const { COMPONENT_ID, SEARCH_RESULTS_ID } = PAGE_SEARCH_QUESTIONNAIRE;
-
-// Component
 
 const PageSearchQuestionnaire = (props) => {
   useEffect(() => {
@@ -35,7 +30,7 @@ const PageSearchQuestionnaire = (props) => {
     label: Dictionary.searchInputQuestionnaireLabel,
   };
   const propsSearchResults = {
-    id: SEARCH_RESULTS_ID,
+    id: 'page-search-questionnaire__results',
     noValuesMessage: Dictionary.pageSearchNoResults,
     columns: SEARCH_RESULTS_COLUMNS.QUESTIONNAIRE,
     actions: [
@@ -49,7 +44,7 @@ const PageSearchQuestionnaire = (props) => {
   };
 
   return (
-    <div id={COMPONENT_ID} className="container">
+    <div id="page-search-questionnaire" className="container">
       <Criteria />
       <InputFilterWithCriteria {...propsInputFilterWithCriteria} />
       <SearchResults {...propsSearchResults} />

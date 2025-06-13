@@ -1,6 +1,7 @@
 import {
   deleteQuestionnaire,
   getQuestionnaire,
+  getQuestionnaireWithVersion,
   postQuestionnaire,
 } from '../api/questionnaires';
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
@@ -12,6 +13,8 @@ import { getSupWeight, uuid } from '../utils/utils';
 const { QUESTION, SEQUENCE, QUESTIONNAIRE } = COMPONENT_TYPE;
 
 export const LOAD_QUESTIONNAIRE = 'LOAD_QUESTIONNAIRE';
+export const LOAD_QUESTIONNAIRE_WITH_VERSION =
+  'LOAD_QUESTIONNAIRE_WITH_VERSION';
 export const LOAD_QUESTIONNAIRE_START = 'LOAD_QUESTIONNAIRE_START';
 export const LOAD_QUESTIONNAIRE_SUCCESS = 'LOAD_QUESTIONNAIRE_SUCCESS';
 export const LOAD_QUESTIONNAIRE_FAILURE = 'LOAD_QUESTIONNAIRE_FAILURE';
@@ -98,6 +101,29 @@ export const loadQuestionnaire = (id, token) => async (dispatch) => {
     dispatch(loadQuestionnaireFailure(id, err));
   }
 };
+
+/**
+ * Load questionnaire
+ *
+ * Asyc action that fetch a questionnaire.
+ *
+ * @param   {string}    id  The questionnaire id.
+ * @return  {function}      Thunk which may dispatch LOAD_QUESTIONNAIRE_SUCCESS or LOAD_QUESTIONNAIRE_FAILURE
+ */
+export const loadQuestionnaireWithVersion =
+  (id, versionId, token) => async (dispatch) => {
+    dispatch(loadQuestionnaireStart());
+    dispatch({
+      type: LOAD_QUESTIONNAIRE_WITH_VERSION,
+      payload: { id, versionId },
+    });
+    try {
+      const qr = await getQuestionnaireWithVersion(versionId, token);
+      dispatch(loadQuestionnaireSuccess(questionnaireRemoteToStores(qr)));
+    } catch (err) {
+      dispatch(loadQuestionnaireFailure(id, err));
+    }
+  };
 
 /**
  * Create Questionnaire success

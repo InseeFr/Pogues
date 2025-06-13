@@ -148,6 +148,55 @@ describe('getCollectedVariablesSingle', () => {
     ]);
   });
 
+  test('do not compute precision variable when it is a dropdown', () => {
+    const questionName = 'questionName';
+    const form = {
+      visHint: 'DROPDOWN',
+      CodesList: {
+        id: 'id',
+        label: 'label',
+        codes: [
+          {
+            value: 'value1',
+            label: 'label1',
+            weight: 1,
+            precisionByCollectedVariableId: {
+              var2: {
+                precisionid: 'precision',
+                precisionlabel: 'precisionlabel',
+                precisionsize: 249,
+              },
+            },
+          },
+          {
+            value: 'value2',
+            label: 'label2',
+            weight: 2,
+          },
+        ],
+      },
+    };
+    const existingVariableIds = new Set(['var1', 'var2']);
+    const result = getCollectedVariablesSingle(
+      questionName,
+      form,
+      existingVariableIds,
+    );
+
+    expect(result).toHaveLength(1);
+    expect(result).toEqual([
+      {
+        codeListReference: form.CodesList.id,
+        codeListReferenceLabel: form.CodesList.label,
+        type: 'TEXT',
+        TEXT: { maxLength: 1 },
+        id: result[0].id,
+        name: 'questionName',
+        label: 'questionName label',
+      },
+    ]);
+  });
+
   test('should return suggester arbitrary variable if allowArbitraryResponse', () => {
     const questionName = 'questionName';
     const form = {

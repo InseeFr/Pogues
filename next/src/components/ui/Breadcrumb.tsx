@@ -1,5 +1,11 @@
 import { Link, isMatch, useMatches } from '@tanstack/react-router';
 
+/**
+ * Display the current breadcrumb of the app based on crumbs provided by the
+ * route pages.
+ *
+ * Each crumb is clickable to navigate quickly to another part of the app.
+ */
 export default function Breadcrumb() {
   const matches = useMatches();
   if (matches.some((match) => match.status === 'pending')) return null;
@@ -14,7 +20,7 @@ export default function Breadcrumb() {
         {matchesWithCrumbs.map((match, i) => (
           <li className="flex gap-2" key={match.id}>
             <Link
-              className="text-action-primary font-semibold last:text-default"
+              className="text-action-primary last:text-default font-semibold"
               from={match.fullPath}
             >
               {match.loaderData?.crumb}

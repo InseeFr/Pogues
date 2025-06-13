@@ -3,52 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 
-import { PAGE_QUESTIONNAIRE } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
-
-// import PageQuestionnaire from './page-questionnaire';
-
-const { COMPONENT_ID } = PAGE_QUESTIONNAIRE;
-
-// We need to mock these imports, otherwise the import of VTL-Editor crashes the tests
-
-// vi.mock('../../questionnaire-list-components', () => {
-//   return {
-//     __esModule: true,
-//     default: () => {
-//       // if you exporting component as default
-//       return <div />;
-//     },
-//     QuestionnaireListComponents: () => {
-//       // if you exporting component as not default
-//       return <div />;
-//     },
-//   };
-// });
-
-// vi.mock('../../component-edit', () => {
-//   return {
-//     __esModule: true,
-//     default: () => {
-//       return <div />;
-//     },
-//     ComponentEdit: () => {
-//       return <div />;
-//     },
-//   };
-// });
-
-// vi.mock('../component-new', () => {
-//   return {
-//     __esModule: true,
-//     default: () => {
-//       return <div />;
-//     },
-//     ComponentNew: () => {
-//       return <div />;
-//     },
-//   };
-// });
 
 describe.skip('<PageQuestionnaire />', () => {
   let wrapper;
@@ -91,7 +46,7 @@ describe.skip('<PageQuestionnaire />', () => {
   });
 
   test('should render without throwing an error', () => {
-    expect(wrapper.is(`#${COMPONENT_ID}`)).toBe(true);
+    expect(wrapper.is('#page-questionnaire')).toBe(true);
   });
 
   it('should call setActiveQuestionnaire in render', () => {

@@ -1,6 +1,6 @@
 import { expect } from 'vitest';
 
-import { renderWithRouter } from '@/utils/tests';
+import { renderWithRouter } from '@/tests/tests';
 
 import VersionsOverview from './VersionsOverview';
 

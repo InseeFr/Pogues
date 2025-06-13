@@ -19,12 +19,10 @@ export const SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS =
 export const SAVE_ACTIVE_QUESTIONNAIRE_FAILURE =
   'SAVE_ACTIVE_QUESTIONNAIRE_FAILURE';
 export const UPDATE_ACTIVE_QUESTIONNAIRE = 'UPDATE_ACTIVE_QUESTIONNAIRE';
-export const SET_ACTIVE_DECLARATIONS = 'SET_ACTIVE_DECLARATIONS';
 export const SET_INVALID_ITEMS = 'SET_INVALID_ITEMS';
 export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
 export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
-export const CLEAR_MODIFICATION = 'CLEAR_MODIFICATION';
 export const SET_ACTIVE_VARIABLES = 'SET_ACTIVE_VARIABLES';
 export const LOAD_STATISTICAL_CONTEXT = 'LOAD_STATISTICAL_CONTEXT';
 export const LOAD_STATISTICAL_CONTEXT_SUCCESS =
@@ -105,19 +103,6 @@ export const setActiveVariables = (variables) => {
     },
   };
 };
-
-/**
- * Set active components
- *
- * It changes the store "appState.activeComponents" with the list (as object) of components passed.
- *
- * @param  {object} activeComponents  The components to set as actives
- * @return {object}                   SET_ACTIVE_COMPONENTS action
- */
-export const setActiveDeclarations = (activeDeclarations) => ({
-  type: SET_ACTIVE_DECLARATIONS,
-  payload: activeDeclarations,
-});
 
 /**
  * Set selected component id
@@ -360,12 +345,11 @@ function getPathFromComponent(componentId, componentsById) {
     ...addParent(componentId),
   ];
 
-  return path.reduce((acc, c) => {
-    return {
-      ...acc,
-      [c.id]: c,
-    };
-  }, {});
+  const res = {};
+  for (const c of path) {
+    res[c.id] = c;
+  }
+  return res;
 }
 
 /**
@@ -373,16 +357,15 @@ function getPathFromComponent(componentId, componentsById) {
  * @param {*} activeComponentsById the components list on which we need to reset all controls and redirections
  */
 export const removeControlsAndRedirections = (activeComponentsById) => {
-  return Object.keys(activeComponentsById).reduce((acc, componentId) => {
-    return {
-      ...acc,
-      [componentId]: {
-        ...activeComponentsById[componentId],
-        redirections: {},
-        controls: {},
-      },
+  const res = {};
+  for (const componentId of Object.keys(activeComponentsById)) {
+    res[componentId] = {
+      ...activeComponentsById[componentId],
+      redirections: {},
+      controls: {},
     };
-  }, {});
+  }
+  return res;
 };
 
 export const startLoadingVisualization = () => ({
@@ -430,70 +413,6 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
 };
 
 /**
- * Set the invalid items in a question using the errorsByCode store
- *
- * @param  {string} questionId  The question id.
- *
- * Example of errorsByCode
- *
- * {
- *   TARGET_NOT_FOUND: {
- *     type: 'redirections',
- *     code: 'TARGET_NOT_FOUND',
- *     dictionary: 'errorGoToNonExistingTgt',
- *     errors: [
- *     {
- *         id: key,
- *         params: {
- *           itemId: 'jqdfqdfj',
- *           targetId: 'jdf756r',
- *           message:
- *         },
- *       }
- *     ],
- *   },
- * }
- *
- * @return {function} Thunk which may dispatch SET_INVALID_ITEMS
- */
-export const setInvalidItemsFromErrors = (questionId) => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const { errorsByCode } = state.appState;
-
-    const invalidItems = Object.keys(errorsByCode)
-      .filter((code) => errorsByCode[code].errors.length > 0)
-      .reduce((acc, code) => {
-        const { errors } = errorsByCode[code];
-        return {
-          ...acc,
-          ...errors
-            .filter((e) => e.id === questionId)
-            .reduce((accInner, eInner) => {
-              const { itemId, ...params } = eInner.params;
-              return {
-                ...accInner,
-                [itemId]: {
-                  id: itemId,
-                  type: errorsByCode[code].type,
-                  code,
-                  ...params,
-                },
-              };
-            }, {}),
-        };
-      }, {});
-
-    return dispatch({
-      type: SET_INVALID_ITEMS,
-      payload: {
-        invalidItems,
-      },
-    });
-  };
-};
-
-/**
  * Remove an invalid item from the list of invalid items
  *
  * @param  {string} invalidItemIdToRemove  The item id.
@@ -517,10 +436,6 @@ export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
 
 export const clearTabErrors = () => ({
   type: CLEAR_TAB_ERRORS,
-});
-
-export const setModifiedFalse = () => ({
-  type: CLEAR_MODIFICATION,
 });
 
 export const loadStatisticalContextSuccess = ({ serie, operation }) => ({

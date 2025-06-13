@@ -1,10 +1,7 @@
-import React from 'react';
-
 import { EditorState, Modifier, getDefaultKeyBinding } from 'draft-js';
 import RichTextEditor from 'gillespie59-react-rte/dist/react-rte';
 import PropTypes from 'prop-types';
 
-import { CONTROL_RICH_TEXTAREA } from '../../../../constants/dom-constants';
 import { getControlId } from '../../../../utils/widget-utils';
 import {
   contentStateToString,
@@ -17,8 +14,6 @@ import {
 import ControlWithSuggestion from './control-with-suggestions';
 import { updateSuggestions } from './input-with-suggestions-utils';
 import { getPattern, getStartValueWithSuggestion } from './utils';
-
-const { COMPONENT_CLASS } = CONTROL_RICH_TEXTAREA;
 
 function myKeyBindingFn(e) {
   if (e.key === 'Tab') {
@@ -189,7 +184,7 @@ class RichTextareaWithSuggestions extends ControlWithSuggestion {
     const id = getControlId('rich-textarea', input.name);
     const editorValue = this.state.value;
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-rich-textarea">
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}

@@ -1,14 +1,9 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import { WIDGET_GOTO_INPUT } from '../../../constants/dom-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import { InputAutocomplete } from '../../../forms/controls/input-autocomplete';
 import Dictionary from '../../../utils/dictionary/dictionary';
-
-const { COMPONENT_CLASS } = WIDGET_GOTO_INPUT;
 
 // Prop types and default props
 
@@ -30,7 +25,7 @@ const defaultProps = {
 function GotoInput({ targets }) {
   return (
     <Field
-      className={COMPONENT_CLASS}
+      className="widget-goto-input"
       name="cible"
       label={Dictionary.target}
       required

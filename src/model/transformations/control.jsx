@@ -1,7 +1,8 @@
 import { uuid } from '../../utils/utils';
 
 export function remoteToState(remote = []) {
-  return remote.reduce((acc, control) => {
+  const res = {};
+  for (const control of remote) {
     const {
       Description: label,
       Expression: condition,
@@ -11,23 +12,22 @@ export function remoteToState(remote = []) {
       post_collect,
       scope,
     } = control;
+
     const id = control.id || uuid();
 
-    return {
-      ...acc,
-      [id]: {
-        id,
-        label,
-        condition,
-        message,
-        criticity,
-        during_collect,
-        post_collect,
-        scope:
-          scope === 'line' || scope === 'occurrence' ? 'OCCURRENCE' : 'WHOLE',
-      },
+    res[id] = {
+      id,
+      label,
+      condition,
+      message,
+      criticity,
+      during_collect,
+      post_collect,
+      scope:
+        scope === 'line' || scope === 'occurrence' ? 'OCCURRENCE' : 'WHOLE',
     };
-  }, {});
+  }
+  return res;
 }
 
 export function stateToRemote(state) {

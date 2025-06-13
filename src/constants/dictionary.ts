@@ -1,6 +1,7 @@
 import { codesDictionary } from './dictionary/codes';
 import { declarationsDictionary } from './dictionary/declarations';
 import { loopDictionary } from './dictionary/loop';
+import { pairingDictionary } from './dictionary/pairing';
 import { questionnaireDictionary } from './dictionary/questionnaire';
 import { tableDictionary } from './dictionary/table';
 import { validationDictionary } from './dictionary/validation';
@@ -15,6 +16,7 @@ const dictionary: Dictionary = {
   ...codesDictionary,
   ...declarationsDictionary,
   ...loopDictionary,
+  ...pairingDictionary,
   ...questionnaireDictionary,
   ...tableDictionary,
   ...validationDictionary,
@@ -454,14 +456,6 @@ const dictionary: Dictionary = {
     fr: 'Tableau',
     en: 'Table',
   },
-  responseFormatPairing: {
-    fr: 'Liens deux à deux',
-    en: 'Household members pairing',
-  },
-  pairingSourceVariable: {
-    fr: 'Variable source',
-    en: 'Source variable',
-  },
   primaryAxis: {
     fr: "Axe d'information",
     en: 'Information axis',
@@ -873,6 +867,10 @@ const dictionary: Dictionary = {
   documentationInfoLink: {
     fr: 'Pour plus de précision, se référer à la documentation.',
     en: 'For more information check the documentation.',
+  },
+  readonlyQuestionnaireWarning: {
+    fr: 'Cette version du questionnaire est en lecture seule',
+    en: 'This version of the survey is on readonly',
   },
 };
 

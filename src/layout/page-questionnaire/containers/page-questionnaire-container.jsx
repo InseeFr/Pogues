@@ -12,7 +12,10 @@ import {
   loadCampaignsIfNeeded,
   loadExternalQuestionnairesIfNeeded,
 } from '../../../actions/metadata';
-import { loadQuestionnaire } from '../../../actions/questionnaire';
+import {
+  loadQuestionnaire,
+  loadQuestionnaireWithVersion,
+} from '../../../actions/questionnaire';
 import { getCollectedVariablesByQuestion } from '../../../utils/variables/collected-variables-utils';
 import PageQuestionnaire from '../components/page-questionnaire';
 
@@ -33,12 +36,13 @@ const mapStateToProps = (
   state,
   {
     match: {
-      params: { id },
+      params: { id, versionId },
     },
   },
 ) => {
   return {
     id,
+    versionId,
     appState: state.appState,
     questionnaire: state.questionnaireById[id],
     activeQuestionnaire: state.appState.activeQuestionnaire,
@@ -64,6 +68,7 @@ const mapDispatchToProps = {
   setActiveCodeLists,
   setActiveVariables,
   loadQuestionnaire,
+  loadQuestionnaireWithVersion,
 };
 
 const PageQuestionnaireContainer = connect(

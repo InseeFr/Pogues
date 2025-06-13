@@ -1,17 +1,14 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import { WIDGET_ASSOCIATED_FIELDS } from '../../../constants/dom-constants';
 import {
   InputWithVariableAutoCompletion,
   RichEditorWithVariable,
 } from '../../../forms/controls/control-with-suggestions';
 import Input from '../../../forms/controls/input';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea';
-
-const { COMPONENT_CLASS } = WIDGET_ASSOCIATED_FIELDS;
 
 function AssociatedFields({
   action,
@@ -46,7 +43,7 @@ function AssociatedFields({
   ]);
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="widget-associated-fields">
       {targetIsRichTextarea ? (
         <div onBlur={onBlur}>
           <Field

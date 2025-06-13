@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_SELECT } from '../../constants/dom-constants';
 import {
   getControlId,
   getValuesFromGenericOptions,
 } from '../../utils/widget-utils';
-
-const { COMPONENT_CLASS } = CONTROL_SELECT;
 
 // PropTypes and defaultProps
 
@@ -60,7 +57,7 @@ class Select extends Component {
     const id = getControlId('select', input.name);
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-select">
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}

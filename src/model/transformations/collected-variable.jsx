@@ -57,7 +57,9 @@ export function remoteToStore(
       }
     }
   });
-  return remote.reduce((acc, ev) => {
+
+  const res = {};
+  for (const ev of remote) {
     const {
       Name: name,
       Label: label,
@@ -72,26 +74,25 @@ export function remoteToStore(
       responses: [{ Datatype: ev.Datatype || {}, mandatory: false, id: id }],
     });
 
-    return {
-      ...acc,
-      [id]: {
-        id,
-        name,
-        label,
-        type: formatSingleRemote.type,
-        codeListReference: CodeListReference,
-        codeListReferenceLabel: CodeListReference
-          ? codesListsStore[CodeListReference].label
-          : '',
-        [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
-        ...responsesByVariable[id],
-        z,
-        mesureLevel,
-        arbitraryVariableOfVariableId,
-      },
+    res[id] = {
+      id,
+      name,
+      label,
+      type: formatSingleRemote.type,
+      codeListReference: CodeListReference,
+      codeListReferenceLabel: CodeListReference
+        ? codesListsStore[CodeListReference].label
+        : '',
+      [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
+      ...responsesByVariable[id],
+      z,
+      mesureLevel,
+      arbitraryVariableOfVariableId,
     };
-  }, {});
+  }
+  return res;
 }
+
 export function remoteToComponentState(remote = []) {
   return remote
     .filter((r) => r.CollectedVariableReference)

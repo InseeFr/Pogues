@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { AntlrEditor } from '@making-sense/antlr-editor';
 import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
@@ -6,10 +6,6 @@ import {
   getSuggestionsFromRange,
   monarchDefinition,
 } from '@making-sense/vtl-2-0-monaco-tools-ts';
-
-import { CONTROL_VTL_EDITOR } from '../../../../constants/dom-constants';
-
-const { COMPONENT_CLASS } = CONTROL_VTL_EDITOR;
 
 const VTLEditor = ({
   availableSuggestions,
@@ -20,13 +16,10 @@ const VTLEditor = ({
   setDisableValidation,
 }) => {
   const [errors, setErrors] = useState([]);
-  const variables = availableSuggestions.reduce(
-    (acc, s) => ({
-      ...acc,
-      [s]: { type: 'Variable' },
-    }),
-    {},
-  );
+  const variables = {};
+  for (const s of availableSuggestions) {
+    variables[s] = { type: 'Variable' };
+  }
 
   const customTools = {
     ...tools,
@@ -56,7 +49,7 @@ const VTLEditor = ({
   };
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="ctrl-vtl-editor">
       <label htmlFor={id}>
         {label}
         {required && <span className="ctrl-required">*</span>}

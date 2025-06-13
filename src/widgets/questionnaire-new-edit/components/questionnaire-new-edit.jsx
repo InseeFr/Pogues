@@ -1,8 +1,5 @@
-import React from 'react';
-
 import { Field, formPropTypes } from 'redux-form';
 
-import { WIDGET_QUESTIONNAIRE_NEW_EDIT } from '../../../constants/dom-constants';
 import {
   FORMULA_LANGUAGE,
   QUESTIONNAIRE_TYPE,
@@ -11,14 +8,12 @@ import {
 import GenericOption from '../../../forms/controls/generic-option';
 import ListCheckboxes from '../../../forms/controls/list-checkboxes';
 import ListRadios from '../../../forms/controls/list-radios';
+import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import { updateNameField } from '../../../utils/utils';
 import { AssociatedFields } from '../../associated-fields';
 import { StatisticalContextCriteria } from '../../statistical-context-criteria';
-
-const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE } =
-  WIDGET_QUESTIONNAIRE_NEW_EDIT;
 
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 const { XPATH, VTL } = FORMULA_LANGUAGE;
@@ -34,8 +29,10 @@ function QuestionnaireNewEdit({
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
+  const isReadonly = useReadonly();
+
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="widget-questionnaire-new-edit">
       <form onSubmit={handleSubmit}>
         <StatisticalContextCriteria
           token={token}
@@ -93,11 +90,19 @@ function QuestionnaireNewEdit({
             {Dictionary.formulaVTL}
           </GenericOption>
         </Field>
-        <div className={FOOTER}>
-          <button className={VALIDATE} type="submit" disabled={submitting}>
+        <div className="widget-questionnaire-new-edit__footer">
+          <button
+            className="widget-questionnaire-new-edit__button-validate"
+            type="submit"
+            disabled={isReadonly || submitting}
+          >
             {Dictionary.validate}
           </button>
-          <button className={CANCEL} disabled={submitting} onClick={onCancel}>
+          <button
+            className="widget-questionnaire-new-edit__button-cancel"
+            disabled={submitting}
+            onClick={onCancel}
+          >
             {Dictionary.cancel}
           </button>
         </div>

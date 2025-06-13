@@ -1,10 +1,10 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import { renderWithRouter } from '@/utils/tests';
+import { renderWithRouter } from '@/tests/tests';
 
 import CodesListForm from './CodesListForm';
 
-vi.mock('@/components/ui/VTLEditor');
+vi.mock('@/components/ui/form/VTLEditor');
 
 it('should enable the button only when all fields are filled', async () => {
   const submitFn = vi.fn();

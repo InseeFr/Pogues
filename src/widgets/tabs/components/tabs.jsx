@@ -1,11 +1,7 @@
-import React, { Children, useState } from 'react';
+import { Children, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
-
-import { WIDGET_TABS } from '../../../constants/dom-constants';
-
-const { COMPONENT_CLASS, INVALID, ITEM } = WIDGET_TABS;
 
 function Tabs({ children, errorsByTab }) {
   const [activePanelIndex, setActivePanelIndex] = useState(0);
@@ -20,7 +16,7 @@ function Tabs({ children, errorsByTab }) {
       const numErrors = errorsByTab[childProps.path];
 
       return (
-        <li key={`tab-${childProps.path}`} className={ITEM}>
+        <li key={`tab-${childProps.path}`} className="widget-tabs-item">
           <a
             role="button"
             tabIndex={0}
@@ -33,7 +29,7 @@ function Tabs({ children, errorsByTab }) {
             {childProps.label}
           </a>
           {numErrors > 0 && (
-            <span className={INVALID}>
+            <span className="widget-tabs-invalid">
               <div className="alert-triangle" />
               {numErrors}
             </span>
@@ -44,7 +40,7 @@ function Tabs({ children, errorsByTab }) {
   }
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className={'widget-tabs'}>
       <ul className="nav nav-tabs">{renderTabs()}</ul>
       {children[activePanelIndex]}
     </div>

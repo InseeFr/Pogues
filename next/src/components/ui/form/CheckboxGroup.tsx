@@ -43,7 +43,7 @@ export default function CheckboxGroup({
             <Checkbox.Root
               name={label}
               value={value}
-              className="size-[1.125rem] p-2 flex items-center justify-center hover:shadow-sm rounded-xs outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary data-checked:bg-primary border-2 border-default hover:border-primary data-checked:border-primary"
+              className="size-[1.125rem] p-2 flex items-center justify-center hover:shadow-sm rounded-xs outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary data-checked:bg-primary border-2 border-default hover:border-primary data-checked:border-primary"
             >
               <Checkbox.Indicator className="flex text-gray-50 data-[unchecked]:hidden">
                 <CheckIcon className="size-3" />

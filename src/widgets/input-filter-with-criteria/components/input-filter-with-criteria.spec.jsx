@@ -84,30 +84,4 @@ describe('<InputFilterWithCriteria />', () => {
 
     expect(props.loadSearchResult).not.toHaveBeenCalled();
   });
-
-  // test.skip('Should call "search" with the text existing in the "input" action when the "button" is clicked', () => {
-  //   // @TODO: Find a way to test refs
-
-  //   const spySearch = vi.fn();
-  //   const text = 'This is a fake test';
-
-  //   props.loadSearchResult = spySearch;
-  //   const wrapper = shallow(
-  //     <OidcProvider>
-  //       <InputFilterWithCriteria {...props} />
-  //     </OidcProvider>,
-  //   );
-  //   wrapper
-  //     .find(`input.${SEARCH_INPUT_CLASS}`)
-  //     .get(0)
-  //     .ref(<input value={text} />);
-
-  //   wrapper.find(`button.${BUTTON_SEARCH_CLASS}`).simulate('click', fakeEvent);
-
-  //   expect(spySearch).toHaveBeenCalledWith(
-  //     props.typeItem,
-  //     props.criteriaValues,
-  //     text,
-  //   );
-  // });
 });

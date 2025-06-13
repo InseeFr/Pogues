@@ -1,14 +1,9 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import ArboSimplified from './arbo-simplifield';
 import NavLoop from './nav-loop';
-
-const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 
 // PropTypes and defaultProps
 
@@ -31,7 +26,7 @@ const QuestionnaireNav = (props) => {
   } = props;
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="questionnaire-nav">
       <div className="nav-style">
         <ul>
           <li>

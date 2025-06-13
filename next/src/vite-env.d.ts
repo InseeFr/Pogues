@@ -5,11 +5,12 @@ export type ImportMetaEnv = {
   // You probably want to add `/src/vite-env.d.ts` to your .prettierignore
   VITE_POGUES_LEGACY: string;
   VITE_API_URL: string;
+  VITE_TROMBI_URL: string;
   VITE_OIDC_ENABLED: string;
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_CLIENT_ID: string;
   VITE_AUTH_TYPE: string;
-  VITE_ENABLE_ALPHA_QUESTIONNAIRE_PAGE: string;
+  VITE_ENABLE_VERSIONS_PAGE: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;

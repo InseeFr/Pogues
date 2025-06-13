@@ -1,14 +1,10 @@
-import React from 'react';
-
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { describe, expect, test, vi } from 'vitest';
 
-import { APP, QUESTIONNAIRE_NAV } from '../../../constants/dom-constants';
+import { APP } from '../../../constants/dom-constants';
 import { noop } from '../../../utils/test/test-utils';
 import QuestionnaireNav from './questionnaire-nav';
-
-const { COMPONENT_CLASS } = QUESTIONNAIRE_NAV;
 
 // We need to mock this import, otherwise the import of VTL-Editor crashes the test
 
@@ -41,7 +37,7 @@ describe('<QuestionnaireNav />', () => {
       </div>,
     );
 
-    const questionnaireNav = document.querySelector(`.${COMPONENT_CLASS}`);
+    const questionnaireNav = document.querySelector('.questionnaire-nav');
     expect(questionnaireNav).not.toBeNull();
   });
 });

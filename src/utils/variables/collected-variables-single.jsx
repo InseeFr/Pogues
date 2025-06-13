@@ -29,6 +29,12 @@ export function getCollectedVariablesSingle(
 
   collectedVariables.push(mainCollectedVariable);
 
+  // if we have no precision variable, we don't need to generate other variables
+  const noPrecisionVariable = form.visHint === DATATYPE_VIS_HINT.DROPDOWN;
+  if (noPrecisionVariable) {
+    return collectedVariables;
+  }
+
   // get arbitrary variable for suggester
   if (
     form.allowArbitraryResponse &&

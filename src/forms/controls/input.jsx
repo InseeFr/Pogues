@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';
 
-import { CONTROL_INPUT } from '../../constants/dom-constants';
 import { getControlId } from '../../utils/widget-utils';
-
-const { COMPONENT_CLASS } = CONTROL_INPUT;
 
 // PropTypes and defaultProps
 
@@ -62,7 +59,7 @@ class Input extends Component {
     } = this.props;
     const id = getControlId('input', input.name);
     return (
-      <div className={`${COMPONENT_CLASS} ${className}`}>
+      <div className={`ctrl-input ${className}`}>
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}

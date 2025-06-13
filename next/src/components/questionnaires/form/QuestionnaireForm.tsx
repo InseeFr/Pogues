@@ -5,9 +5,9 @@ import { z } from 'zod';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
-import Checkbox from '@/components/ui/Checkbox';
-import Input from '@/components/ui/Input';
-import Label from '@/components/ui/Label';
+import Checkbox from '@/components/ui/form/Checkbox';
+import Input from '@/components/ui/form/Input';
+import Label from '@/components/ui/form/Label';
 import {
   FlowLogics,
   FormulasLanguages,

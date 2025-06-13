@@ -5,12 +5,21 @@ import { versionsQueryOptions } from '@/api/versions';
 import VersionsOverview from '@/components/versions/VersionsOverview';
 import { Version } from '@/models/version';
 
+/**
+ * Versions page where we display the previous questionnaire save and allow to
+ * access them in readonly.
+ */
 export const Route = createFileRoute(
-  '/_layout/questionnaire/$questionnaireId/_layout-q/versions/',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/versions',
 )({
   component: RouteComponent,
-  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
-    queryClient.ensureQueryData(versionsQueryOptions(questionnaireId)),
+  loader: async ({
+    context: { queryClient, t },
+    params: { questionnaireId },
+  }) => {
+    queryClient.ensureQueryData(versionsQueryOptions(questionnaireId));
+    return { crumb: t('questionnaires.navigation.history') };
+  },
 });
 
 function RouteComponent() {

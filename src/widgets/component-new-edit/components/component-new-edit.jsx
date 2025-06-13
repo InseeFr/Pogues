@@ -3,12 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import {
-  WIDGET_COMPONENT_NEW_EDIT,
-  domSelectorForModal,
-} from '../../../constants/dom-constants';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
+import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
 import { FilterNewEdit } from './filter-new-edit';
@@ -17,8 +15,6 @@ import { QuestionNewEdit } from './question-new-edit';
 import { SequenceNewEdit } from './sequence-new-edit';
 import { getQuestionnaireScope } from './variables/utils-loops';
 
-const { COMPONENT_CLASS, FOOTER, CANCEL, VALIDATE, FOOTERLOOP, DELETE } =
-  WIDGET_COMPONENT_NEW_EDIT;
 const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, ROUNDABOUT } =
   COMPONENT_TYPE;
 
@@ -45,6 +41,8 @@ const ComponentNewEdit = ({
   const [formData, setFormData] = useState({});
   const [disableValidation, setDisableValidation] = useState(false);
   const buttonRef = useRef(null);
+
+  const isReadonly = useReadonly();
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -109,7 +107,7 @@ const ComponentNewEdit = ({
   ];
 
   return (
-    <div className={COMPONENT_CLASS}>
+    <div className="widget-component-new-edit">
       <form onSubmit={handleSubmit((data) => checkUnsavedChange(data))}>
         {(componentType === SEQUENCE || componentType === SUBSEQUENCE) && (
           <SequenceNewEdit
@@ -171,24 +169,28 @@ const ComponentNewEdit = ({
         <div
           className={
             componentType !== LOOP && componentType !== FILTER
-              ? FOOTER
-              : FOOTERLOOP
+              ? 'widget-component-new-edit__footer'
+              : 'widget-component-new-edit__footerloop'
           }
         >
           <button
-            className={VALIDATE}
+            className="widget-component-new-edit__button-validate"
             type="submit"
-            disabled={submitting || disableValidation}
+            disabled={isReadonly || submitting || disableValidation}
             ref={buttonRef}
           >
             {Dictionary.validate}
           </button>
-          <button className={CANCEL} disabled={submitting} onClick={onCancel}>
+          <button
+            className="widget-component-new-edit__button-cancel"
+            disabled={submitting}
+            onClick={onCancel}
+          >
             {Dictionary.cancel}
           </button>
           {componentType === LOOP && componentId && (
             <button
-              className={DELETE}
+              className="widget-component-new-edit__button-delete"
               disabled={submitting}
               onClick={deleteComponent}
             >
@@ -197,7 +199,7 @@ const ComponentNewEdit = ({
           )}
           {componentType === FILTER && componentId && (
             <button
-              className={DELETE}
+              className="widget-component-new-edit__button-delete"
               disabled={submitting}
               onClick={() => deleteComponent(componentId)}
             >
@@ -233,6 +235,7 @@ const ComponentNewEdit = ({
               </button>
               <button
                 className="popup-notSaved-footer-validate"
+                disabled={isReadonly}
                 onClick={handleValidate}
                 type="button"
               >

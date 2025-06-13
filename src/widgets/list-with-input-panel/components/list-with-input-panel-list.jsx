@@ -1,18 +1,8 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-import { WIDGET_LIST_WITH_INPUT_PANEL } from '../../../constants/dom-constants';
 import { markdownVtlToString } from '../../../forms/controls/rich-textarea/utils/rich-textarea-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import ListWithInputPanelItem from './list-with-input-panel-item';
-
-const {
-  LIST_CLASS,
-  LIST_EMPTY_CLASS,
-  VARIABLE_NAME_CLASS,
-  UNCOLLECTED_VARIABLE_CLASS,
-} = WIDGET_LIST_WITH_INPUT_PANEL;
 
 function ListWithInputPanelList({ fields, select, errors }) {
   const fieldsName = fields.name.split('.')[1];
@@ -40,9 +30,11 @@ function ListWithInputPanelList({ fields, select, errors }) {
   });
 
   return (
-    <ul className={LIST_CLASS}>
+    <ul className="widget-list-with-input-panel__list">
       {items.length === 0 && (
-        <li className={LIST_EMPTY_CLASS}>{Dictionary[`no_${fieldsName}`]}</li>
+        <li className="widget-list-with-input-panel__list-empty">
+          {Dictionary[`no_${fieldsName}`]}
+        </li>
       )}
       {items
         .sort(
@@ -63,15 +55,13 @@ function ListWithInputPanelList({ fields, select, errors }) {
               {item.isCollected === '0' && (
                 <>
                   {`${item.prefix}`}
-                  <span
-                    className={UNCOLLECTED_VARIABLE_CLASS}
-                  >{`${Dictionary.unCollected}`}</span>
+                  <span className="widget-list-with-input-panel__uncollected-variable">{`${Dictionary.unCollected}`}</span>
                   {` : ${item.alternativeLabel}`}
                 </>
               )}
               {item.isCollected !== '0' && `${item.prefix} ${item.label}`}
               {item.isCollected !== '0' && item.name && (
-                <span className={VARIABLE_NAME_CLASS}>{` [${item.name}]`}</span>
+                <span className="widget-list-with-input-panel__variable-name">{` [${item.name}]`}</span>
               )}
             </ListWithInputPanelItem>
           );

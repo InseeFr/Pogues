@@ -10,6 +10,7 @@ import {
 import Dictionary from '../../../../utils/dictionary/dictionary';
 import { SelectorView, View } from '../../../selector-view';
 import ResponseFormatMultiple from './multiple/response-format-multiple';
+import ResponseFormatPairing from './pairing/response-format-pairing';
 import ResponseFormatSimple from './simple/response-format-simple';
 import ResponseFormatSingle from './single/response-format-single';
 import ResponseFormatTable from './table/response-format-table';
@@ -72,10 +73,7 @@ function ResponseFormat({ edit, name, addErrors }) {
             value={PAIRING}
             label={Dictionary.responseFormatPairing}
           >
-            <ResponseFormatSingle
-              selectorPathParent={selectorPath}
-              responseFormatType={PAIRING}
-            />
+            <ResponseFormatPairing selectorPathParent={selectorPath} />
           </View>
         </SelectorView>
       </div>

@@ -12,6 +12,7 @@ type ImportMetaEnv = {
   VITE_DEFAULT_USER_ID: string;
   VITE_DEFAULT_USER_NAME: string;
   VITE_DEFAULT_USER_STAMP: string;
+  VITE_ENABLE_PAIRING_RECAP: string;
   VITE_LOG_LEVEL: string;
   VITE_PUBLIC_ENEMY_URL: string;
   VITE_OIDC_AUTHORITY: string;

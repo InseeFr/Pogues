@@ -1,10 +1,5 @@
-import React from 'react';
-
-import { CONTROL_TEXTAREA } from '../../../../constants/dom-constants';
 import { getControlId } from '../../../../utils/widget-utils';
 import ControlWithSuggestion from './control-with-suggestions';
-
-const { COMPONENT_CLASS } = CONTROL_TEXTAREA;
 
 // Component
 
@@ -20,7 +15,7 @@ class TextareaWithSuggestions extends ControlWithSuggestion {
     const id = getControlId('textarea', input.name);
 
     return (
-      <div className={COMPONENT_CLASS}>
+      <div className="ctrl-textarea">
         <label htmlFor={id}>
           {label}
           {required && <span className="ctrl-required">*</span>}

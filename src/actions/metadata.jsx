@@ -20,12 +20,10 @@ const LOAD_EXTERNAL_ELEMENTS_LOOPS = 'LOAD_EXTERNAL_ELEMENTS_LOOPS';
 const LOAD_NOMENCLATURES = 'LOAD_NOMENCLATURES';
 
 export const loadMetadataSuccess = (type, metadata) => {
-  const metadataByTypeStore = metadata.reduce((acc, m) => {
-    return {
-      ...acc,
-      [m.id]: m,
-    };
-  }, {});
+  const metadataByTypeStore = {};
+  for (const metadatum of metadata) {
+    metadataByTypeStore[metadatum.id] = metadatum;
+  }
 
   return {
     type: LOAD_METADATA_SUCCESS,

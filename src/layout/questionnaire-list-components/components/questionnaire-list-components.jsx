@@ -5,11 +5,9 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
 
-import {
-  ERRORS_INTEGRITY,
-  domSelectorForModal,
-} from '../../../constants/dom-constants';
+import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { useReadonly } from '../../../hooks/useReadonly';
 import { getSortedChildren } from '../../../utils/component/component-utils';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { ComponentEdit } from '../../component-edit';
@@ -19,8 +17,6 @@ import Loader from '../../loader';
 import { QuestionnaireEdit } from '../../questionnaire-edit';
 import { Versions } from '../../versions';
 import QuestionnaireComponent from './questionnaire-component';
-
-const { INNER, ALERT, LIST } = ERRORS_INTEGRITY;
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
 
@@ -47,6 +43,8 @@ const QuestionnaireListComponents = (props) => {
     removeQuestionnaire,
     navigate,
   } = props;
+
+  const isReadonly = useReadonly();
 
   const customizeUrl = import.meta.env.VITE_CUSTOMIZE_URL;
 
@@ -157,6 +155,7 @@ const QuestionnaireListComponents = (props) => {
               )}
               <button
                 className="btn-yellow"
+                disabled={isReadonly}
                 onClick={() => setShowVersionsModal(true)}
               >
                 {Dictionary.displaySaveHistory}
@@ -175,6 +174,7 @@ const QuestionnaireListComponents = (props) => {
               </button>
               <button
                 className="btn-yellow"
+                disabled={isReadonly}
                 onClick={() => setShowRemoveQuestionnaireDialog(true)}
               >
                 {Dictionary.remove}
@@ -186,13 +186,16 @@ const QuestionnaireListComponents = (props) => {
           {/* Temporary warning to help diagnose the bug concerning disappearing of calculated variables */}
           {showWarning && (
             <div id="errors-integrity">
-              <div className={INNER}>
-                <div className={ALERT} style={{ marginTop: '2.5em' }}>
+              <div className="errors-integrity__inner">
+                <div
+                  className="errors-integrity__alert"
+                  style={{ marginTop: '2.5em' }}
+                >
                   <div className="alert-icon big">
                     <div className="alert-triangle" />!
                   </div>
                 </div>
-                <div className={LIST}>
+                <div className="errors-integrity__list">
                   <ul>
                     <li>
                       Il n'y a plus de variables calculées dans votre

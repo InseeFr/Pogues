@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { expect } from 'vitest';
 
-import { renderWithRouter } from '@/utils/tests';
+import { renderWithRouter } from '@/tests/tests';
 
 import CodesListsOverview from './CodesListsOverview';
 
@@ -36,7 +36,7 @@ describe('CodesListOverview', () => {
       <CodesListsOverview codesLists={[]} questionnaireId="q-id" />,
     );
 
-    expect(getAllByText('Create a code list')).toHaveLength(2);
+    expect(getAllByText('Create a code list')).toHaveLength(1);
   });
 
   it('filters the code lists based on the search input', () => {

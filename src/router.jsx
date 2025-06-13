@@ -21,6 +21,11 @@ function Router() {
         <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
         <Route
           exact
+          path="/questionnaire/:id/version/:versionId"
+          component={PageQuestionnaire}
+        />
+        <Route
+          exact
           path="/questionnaire/:id/composition"
           component={QuestionnaireComposition}
         />

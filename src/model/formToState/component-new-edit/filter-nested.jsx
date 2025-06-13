@@ -34,60 +34,10 @@ export function formToState(form) {
 export function formToStore(form) {
   const { filterNested } = form;
 
-  return filterNested.reduce((acc, cv) => {
+  const res = {};
+  for (const cv of filterNested) {
     const state = formToState(cv);
-    return {
-      ...acc,
-      [state.id]: state,
-    };
-  }, {});
+    res[state.id] = state;
+  }
+  return res;
 }
-
-// export function storeToForm(currentStore) {
-//   const calculatedVariables = [];
-
-//   Object.keys(currentStore).forEach(key => {
-//     const {
-//       id,
-//       label,
-//       name,
-//       formula,
-//       type,
-//       scope,
-//       [type]: simpleState,
-//     } = currentStore[key];
-//     calculatedVariables.push({
-//       id,
-//       label,
-//       name,
-//       formula,
-//       type,
-//       scope,
-//       [type]: {
-//         ...simpleState,
-//       },
-//     });
-//   });
-
-//   return {
-//     ...defaultForm,
-//     calculatedVariables,
-//   };
-// }
-
-// const Factory = (currentStore = {}) => {
-//   return {
-//     formToStore: form => {
-//       if (form) currentStore = formToStore(form);
-//       return currentStore;
-//     },
-//     storeToForm: () => {
-//       return storeToForm(currentStore);
-//     },
-//     getStore: () => {
-//       return currentStore;
-//     },
-//   };
-// };
-
-// export default Factory;
