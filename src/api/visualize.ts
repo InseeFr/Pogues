@@ -1,8 +1,4 @@
-import {
-  computeAuthorizationHeader,
-  downloadAsJson,
-  getBaseURI,
-} from './utils';
+import { computeAuthorizationHeader, getBaseURI } from './utils';
 
 type QuestionnaireData = {
   id: string;
@@ -17,13 +13,12 @@ type Questionnaire = {
 export const enum VisualizationKind {
   PDF,
   Spec,
-  DDI,
-  PoguesModel,
   HTML,
   Household,
   Business,
   QueenCAPI,
   QueenCATI,
+  Metadata,
 }
 
 const enum VisualizationContext {
@@ -37,8 +32,6 @@ function computeDocumentPath(type: VisualizationKind): string {
       return '-pdf';
     case VisualizationKind.Spec:
       return '-spec';
-    case VisualizationKind.DDI:
-      return '-ddi';
   }
   return '';
 }
@@ -87,20 +80,20 @@ export async function getVisualization(
   switch (type) {
     case VisualizationKind.PDF:
     case VisualizationKind.Spec:
-    case VisualizationKind.DDI:
-      // document
       return postVisualization(computeDocumentPath(type), qr, ref, token).then(
         async (res) => {
-          const filename = res.headers
-            ?.get('content-disposition')
-            ?.split(';')
-            .find((n) => n.includes('filename='))
-            ?.replace('filename=', '')
-            .trim();
+          const filename = computeFilenameFromHeaders(res.headers);
           const blob = await res.blob();
           openDocument(blob, filename);
         },
       );
+    case VisualizationKind.Metadata:
+      // document
+      return fetchMetadata(qr, token).then(async (res) => {
+        const filename = computeFilenameFromHeaders(res.headers)?.slice(1, -1);
+        const blob = await res.blob();
+        openDocument(blob, filename);
+      });
     case VisualizationKind.HTML:
     case VisualizationKind.Household:
     case VisualizationKind.Business:
@@ -122,14 +115,16 @@ export async function getVisualization(
           document.body.appendChild(a);
           a.click();
         });
-    case VisualizationKind.PoguesModel:
-      downloadAsJson({
-        data: qr,
-        filename: `pogues_${qr.id}.json`,
-      });
   }
+}
 
-  return null;
+function computeFilenameFromHeaders(headers: Headers): string | undefined {
+  return headers
+    ?.get('content-disposition')
+    ?.split(';')
+    .find((n) => n.includes('filename='))
+    ?.replace('filename=', '')
+    .trim();
 }
 
 /** Mutualised call of the visualization endpoints. */
@@ -154,16 +149,34 @@ const postVisualization = async (
     method: 'POST',
     headers,
     body: JSON.stringify(qr),
-  }).then(async (response) => {
-    if (response.ok) {
-      return response;
-    }
-    if (response.status === 500) {
-      const { message } = (await response.json()) as { message: string };
-      throw new Error(message);
-    }
-    throw new Error('The error did not directly come from Eno');
-  });
+  }).then(handleResponse);
+};
+
+/** Fetch a zip file with Pogues metadata (DDI and json). */
+const fetchMetadata = async (
+  /** Questionnaire to visualize. */
+  qr: Questionnaire,
+  token: string,
+) => {
+  const url = `${getBaseURI()}/questionnaire/${qr.id}/zip-metadata`;
+  const headers = new Headers();
+  headers.append('Authorization', computeAuthorizationHeader(token));
+
+  return fetch(url, {
+    method: 'GET',
+    headers,
+  }).then(handleResponse);
+};
+
+const handleResponse = async (response: Response): Promise<Response> => {
+  if (response.ok) {
+    return response;
+  }
+  if (response.status === 500) {
+    const { message } = (await response.json()) as { message: string };
+    throw new Error(message);
+  }
+  throw new Error('The error did not directly come from Eno');
 };
 
 /**

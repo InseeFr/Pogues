@@ -820,13 +820,9 @@ const dictionary: Dictionary = {
     fr: 'Spécification',
     en: 'Specification',
   },
-  VISUALIZE_POGUES_MODEL: {
-    fr: 'Métadonnées (Pogues)',
-    en: 'Metadata (Pogues)',
-  },
-  VISUALIZE_DDI: {
-    fr: 'Documentation (DDI)',
-    en: 'Documentation (DDI)',
+  VISUALIZE_METADATA: {
+    fr: 'Métadonnées',
+    en: 'Metadata',
   },
   NEW: {
     fr: 'Nouveau',
