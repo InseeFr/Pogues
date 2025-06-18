@@ -8,7 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
-    TanStackRouterVite({ autoCodeSplitting: true }),
+    TanStackRouterVite({ autoCodeSplitting: false }),
     federation({
       name: 'app',
       remotes: {
