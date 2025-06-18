@@ -382,7 +382,12 @@ export const endLoadingVisualization = () => ({
  * @param {*} type the type of visualization we want
  * @param {*} componentId The ID of the selected component (optional)
  */
-export const visualizeActiveQuestionnaire = (type, componentId, token) => {
+export const visualizeActiveQuestionnaire = (
+  type,
+  componentId,
+  token,
+  isDirtyStateAlert,
+) => {
   return (dispatch, getState) => {
     dispatch(startLoadingVisualization());
     const state = getState();
@@ -401,7 +406,13 @@ export const visualizeActiveQuestionnaire = (type, componentId, token) => {
         : [];
     const containsRef = refs.length !== 0;
     const visualize = () => {
-      getVisualization(type, questionnaireModel, containsRef, token)
+      getVisualization(
+        type,
+        questionnaireModel,
+        containsRef,
+        token,
+        isDirtyStateAlert,
+      )
         .then(() => dispatch(endLoadingVisualization()))
         .catch((error) => {
           dispatch(endLoadingVisualization());

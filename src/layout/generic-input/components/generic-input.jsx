@@ -272,6 +272,7 @@ function GenericInput(props) {
         </button>
         <VisualizeDropdown
           disabled={!isQuestionnaireValid}
+          isDirtyState={isQuestionnaireModified}
           questionnaireId={activeQuestionnaire.id}
           token={token}
         />

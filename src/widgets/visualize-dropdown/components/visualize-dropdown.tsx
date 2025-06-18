@@ -12,12 +12,14 @@ import { hasDuplicateVariables } from '@/utils/variables/variables-utils';
 interface VisualizeDropdownProps {
   token?: string;
   componentId?: string;
+  isDirtyState?: boolean;
   disabled?: boolean;
   top?: boolean;
   visualizeActiveQuestionnaire: (
     type: VisualizationKind,
     componentId: string,
     token: string,
+    isDirtyState?: boolean,
   ) => void;
   externalVariables?: { [key: string]: { name: unknown } };
   calculatedVariables?: { [key: string]: { name: unknown } };
@@ -43,6 +45,7 @@ export default function VisualizeDropdown({
   token = '',
   componentId = '',
   disabled = false,
+  isDirtyState = false,
   top = false,
   visualizeActiveQuestionnaire,
   externalVariables = {},
@@ -92,9 +95,10 @@ export default function VisualizeDropdown({
   const visualize = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     type: VisualizationKind,
+    isDirtyStateAlert: boolean = false,
   ) => {
     event.preventDefault();
-    visualizeActiveQuestionnaire(type, componentId, token);
+    visualizeActiveQuestionnaire(type, componentId, token, isDirtyStateAlert);
     setDropdownOpen(false);
   };
 
@@ -123,7 +127,16 @@ export default function VisualizeDropdown({
           {dropdownOptions.map((link) => {
             return (
               <li key={link.label}>
-                <a href="#" onClick={(e) => visualize(e, link.type)}>
+                <a
+                  href="#"
+                  onClick={(e) =>
+                    visualize(
+                      e,
+                      link.type,
+                      isDirtyState && link.unavailableInDirtyState,
+                    )
+                  }
+                >
                   {link.label}
                 </a>
               </li>
@@ -185,5 +198,6 @@ const dropdownOptions = [
   {
     type: VisualizationKind.Metadata,
     label: Dictionary.VISUALIZE_METADATA,
+    unavailableInDirtyState: true,
   },
 ];

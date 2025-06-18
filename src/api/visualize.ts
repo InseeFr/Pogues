@@ -76,7 +76,12 @@ export async function getVisualization(
   /** Indicate if the questionnaire contains a reference to another questionnaire. */
   ref: boolean,
   token: string,
+  /** Whether or not we should prevent the visualization and display an alert. */
+  isDirtyStateAlert: boolean = false,
 ): Promise<unknown> {
+  if (isDirtyStateAlert) {
+    throw new Error('Veuillez sauvegarder.');
+  }
   switch (type) {
     case VisualizationKind.PDF:
     case VisualizationKind.Spec:
