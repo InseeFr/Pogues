@@ -279,6 +279,75 @@ describe('remoteToState', () => {
     expect(remoteToState(remote, {})).toEqual(output);
   });
 
+  it('works for dynamic number table with fixed size without secondary axes', () => {
+    const remote = {
+      responses: [
+        {
+          id: 'jf0vzwbp',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+          },
+          CollectedVariableReference: 'jf0vzlbq',
+        },
+        {
+          id: 'jf0vunia',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+          },
+          CollectedVariableReference: 'jf0vjphy',
+        },
+        {
+          id: 'jf0vqmpo',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+            MaxLength: 249,
+          },
+          CollectedVariableReference: 'jf0vyha5',
+        },
+      ],
+      dimensions: [
+        {
+          dimensionType: 'PRIMARY',
+          dynamic: 'DYNAMIC_FIXED',
+          size: { type: 'vtl', value: '1 + 1' },
+        },
+        { dimensionType: 'MEASURE', Label: 'mneasure1' },
+      ],
+    };
+
+    const output = {
+      LIST_MEASURE: [
+        {
+          SIMPLE: {
+            TEXT: { maxLength: 249 },
+            id: undefined,
+            mandatory: undefined,
+            type: 'TEXT',
+          },
+          label: 'mneasure1',
+          type: 'SIMPLE',
+        },
+      ],
+      PRIMARY: {
+        LIST: {
+          type: 'FORMULA',
+          FORMULA: {
+            type: 'DYNAMIC_FIXED',
+            DYNAMIC_FIXED: { size: '1 + 1' },
+          },
+        },
+        type: 'LIST',
+      },
+    };
+
+    expect(remoteToState(remote, {})).toEqual(output);
+  });
+
   it('works for non dyamic table (code list) with secondary axes', () => {
     const remote = {
       responses: [

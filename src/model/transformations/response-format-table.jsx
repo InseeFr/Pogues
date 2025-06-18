@@ -19,7 +19,7 @@ import * as Responses from './responses';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
-const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
+const { DYNAMIC_LENGTH, DYNAMIC_FIXED } = DIMENSION_LENGTH;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { TEXT } = DATATYPE_NAME;
 const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
@@ -147,8 +147,8 @@ function remoteToStatePrimary(remote) {
         [LIST]: {
           type: calculationMethod,
           [calculationMethod]: {
-            type: FIXED_LENGTH,
-            [FIXED_LENGTH]: { size },
+            type: DYNAMIC_FIXED,
+            [DYNAMIC_FIXED]: { size },
           },
         },
       };
