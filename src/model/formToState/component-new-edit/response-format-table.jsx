@@ -95,11 +95,11 @@ const defaultPrimaryListState = {
   [NUMBER]: {
     type: DYNAMIC_FIXED,
     [DYNAMIC_LENGTH]: {
-      minimum: '',
-      maximum: '',
+      minimum: '1',
+      maximum: '1',
     },
     [DYNAMIC_FIXED]: {
-      size: '',
+      size: '1',
     },
   },
   [FORMULA]: {
