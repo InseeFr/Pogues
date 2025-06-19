@@ -117,7 +117,7 @@ const defaultPrimaryListState = {
 export const defaultState = {
   [PRIMARY]: {
     type: LIST,
-    [LIST]: defaultPrimaryListState,
+    [LIST]: { ...defaultPrimaryListState },
     [CODES_LIST]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     },
@@ -143,12 +143,19 @@ export function formToStatePrimary(form, codesListPrimary) {
   if (type === LIST) {
     const {
       type: listType,
-      [listType]: { minimum, maximum, size },
+      [listType]: {
+        type: lengthType,
+        [lengthType]: { minimum, maximum, size },
+      },
     } = primaryForm;
 
     state[LIST] = {
       type: listType,
-      [listType]: listType === DYNAMIC_LENGTH ? { minimum, maximum } : { size },
+      [listType]: {
+        type: lengthType,
+        [lengthType]:
+          lengthType === DYNAMIC_LENGTH ? { minimum, maximum } : { size },
+      },
     };
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;

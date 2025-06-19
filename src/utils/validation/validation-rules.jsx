@@ -3,7 +3,6 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
-  DIMENSION_LENGTH,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
   TABS_PATHS,
@@ -36,7 +35,6 @@ import Dictionary from '../dictionary/dictionary';
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { NUMERIC, TEXT, DATE, DURATION } = DATATYPE_NAME;
 const { PRIMARY, SECONDARY, LIST_MEASURE, MEASURE } = DIMENSION_TYPE;
-const { DYNAMIC_LENGTH, DYNAMIC_FIXED } = DIMENSION_LENGTH;
 const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const {
@@ -151,18 +149,6 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FORMULA}.type`]: [
     required,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FORMULA}.${DYNAMIC_FIXED}.size`]:
-    [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${NUMBER}.${DYNAMIC_FIXED}.size`]:
-    [required, (value) => minValue(1)(value)],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FORMULA}.${DYNAMIC_LENGTH}.minimum`]:
-    [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FORMULA}.${DYNAMIC_LENGTH}.maximum`]:
-    [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${NUMBER}.${DYNAMIC_LENGTH}.minimum`]:
-    [required, (value) => minValue(1)(value)],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${NUMBER}.${DYNAMIC_LENGTH}.maximum`]:
-    [required, (value) => minValue(1)(value)],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
     [validCodesList],
   [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
