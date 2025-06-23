@@ -6,9 +6,13 @@ import en from './locales/en.json';
 import fr from './locales/fr.json';
 
 i18next
-  .use(initReactI18next)
   .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
+    detection: {
+      convertDetectedLanguage: (lng) => lng.split('-')[0],
+    },
+    supportedLngs: ['fr', 'en'],
     resources: {
       fr: {
         translation: fr,
