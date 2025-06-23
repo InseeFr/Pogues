@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
-import RelatedQuestions from '@/components/ui/RelatedQuestions';
 import Input from '@/components/ui/form/Input';
 import { useFilters } from '@/hooks/useFilter';
 import { FilterEnum } from '@/models/filter';
 import { Nomenclature } from '@/models/nomenclature';
+
+import NomenclatureOverviewItem from './NomenclatureOverviewItem';
 
 interface NomenclaturesProps {
   nomenclatures: Nomenclature[];
@@ -49,26 +50,14 @@ export default function NomenclaturesOverview({
         />
       </div>
       {filteredNomenclatures.length > 0 ? (
-        <>
+        <ul>
           {filteredNomenclatures.map((nomenclature) => (
-            <div
+            <NomenclatureOverviewItem
               key={nomenclature.id}
-              className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]"
-            >
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col">
-                  <h3>{nomenclature.label}</h3>
-                  <span className="text-sm text-gray-600">
-                    {nomenclature.version}
-                  </span>
-                </div>
-                <RelatedQuestions
-                  relatedQuestionNames={nomenclature.relatedQuestionNames}
-                />
-              </div>
-            </div>
+              nomenclature={nomenclature}
+            />
           ))}
-        </>
+        </ul>
       ) : (
         <div className="text-center">
           <p>{t('nomenclatures.noNomenclatures')}</p>
