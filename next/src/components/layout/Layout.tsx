@@ -12,9 +12,9 @@ export default function Layout({ children }: Readonly<LayoutProps>) {
     from: '__root__',
   });
   return (
-    <div className="grid grid-rows-[auto_1fr] h-screen bg-main">
+    <div className="grid grid-rows-[var(--header-height)_1fr] h-screen bg-main">
       <Header user={user} />
-      <main>{children}</main>
+      <main className="bg-main">{children}</main>
     </div>
   );
 }

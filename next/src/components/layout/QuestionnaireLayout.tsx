@@ -10,7 +10,9 @@ export default function QuestionnaireLayout({
 }: Readonly<QuestionnaireLayoutProps>) {
   return (
     <div className="grid grid-cols-[auto_1fr] h-full">
-      <QuestionnaireNavigation />
+      <div className="bg-default border-r border-default">
+        <QuestionnaireNavigation />
+      </div>
       <div>{children}</div>
     </div>
   );
