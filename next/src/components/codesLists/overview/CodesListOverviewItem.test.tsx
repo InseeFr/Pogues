@@ -1,6 +1,6 @@
 import { act } from 'react';
 
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import { renderWithRouter } from '@/tests/tests';
@@ -9,16 +9,18 @@ import CodesListOverviewItem from './CodesListOverviewItem';
 
 describe('CodesListOverviewItem', () => {
   it('toggles the expanded section when the expand button is clicked', async () => {
-    const { container } = renderWithRouter(
-      <CodesListOverviewItem
-        codesList={{
-          id: 'cl-id',
-          label: 'my code list',
-          codes: [],
-          relatedQuestionNames: [],
-        }}
-        questionnaireId="q-id"
-      />,
+    const { container } = await waitFor(() =>
+      renderWithRouter(
+        <CodesListOverviewItem
+          codesList={{
+            id: 'cl-id',
+            label: 'my code list',
+            codes: [],
+            relatedQuestionNames: [],
+          }}
+          questionnaireId="q-id"
+        />,
+      ),
     );
 
     // By default the codes list content is hidden
@@ -48,16 +50,18 @@ describe('CodesListOverviewItem', () => {
   });
 
   it('cannot be deleted when there are related questions', async () => {
-    renderWithRouter(
-      <CodesListOverviewItem
-        codesList={{
-          id: 'cl-id',
-          label: 'my code list',
-          codes: [],
-          relatedQuestionNames: ['HOW_ARE_YOU'],
-        }}
-        questionnaireId="q-id"
-      />,
+    await waitFor(() =>
+      renderWithRouter(
+        <CodesListOverviewItem
+          codesList={{
+            id: 'cl-id',
+            label: 'my code list',
+            codes: [],
+            relatedQuestionNames: ['HOW_ARE_YOU'],
+          }}
+          questionnaireId="q-id"
+        />,
+      ),
     );
 
     // We need to extand the codes list section, else delete button is hidden by default
@@ -73,16 +77,18 @@ describe('CodesListOverviewItem', () => {
   });
 
   it('can be deleted when there are no related questions', async () => {
-    renderWithRouter(
-      <CodesListOverviewItem
-        codesList={{
-          id: 'cl-id',
-          label: 'my code list',
-          codes: [],
-          relatedQuestionNames: [],
-        }}
-        questionnaireId="q-id"
-      />,
+    await waitFor(() =>
+      renderWithRouter(
+        <CodesListOverviewItem
+          codesList={{
+            id: 'cl-id',
+            label: 'my code list',
+            codes: [],
+            relatedQuestionNames: [],
+          }}
+          questionnaireId="q-id"
+        />,
+      ),
     );
 
     // We need to extand the codes list section, else delete button is hidden by default

@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import { renderWithRouter } from '@/tests/tests';
@@ -22,26 +22,38 @@ describe('CodesListOverview', () => {
       codes: [],
     },
   ];
-  it('display my code lists', () => {
-    const { getByText } = renderWithRouter(
-      <CodesListsOverview codesLists={mockCodesLists} questionnaireId="q-id" />,
+  it('display my code lists', async () => {
+    const { getByText } = await waitFor(() =>
+      renderWithRouter(
+        <CodesListsOverview
+          codesLists={mockCodesLists}
+          questionnaireId="q-id"
+        />,
+      ),
     );
 
     expect(getByText('my code list')).toBeInTheDocument();
     expect(getByText('my second code list')).toBeInTheDocument();
   });
 
-  it('display a create code list button when no codes list are provided', () => {
-    const { getAllByText } = renderWithRouter(
-      <CodesListsOverview codesLists={[]} questionnaireId="q-id" />,
+  it('display a create code list button when no codes list are provided', async () => {
+    const { getAllByText } = await waitFor(() =>
+      renderWithRouter(
+        <CodesListsOverview codesLists={[]} questionnaireId="q-id" />,
+      ),
     );
 
     expect(getAllByText('Create a code list')).toHaveLength(1);
   });
 
-  it('filters the code lists based on the search input', () => {
-    const { getByText } = renderWithRouter(
-      <CodesListsOverview codesLists={mockCodesLists} questionnaireId="123" />,
+  it('filters the code lists based on the search input', async () => {
+    const { getByText } = await waitFor(() =>
+      renderWithRouter(
+        <CodesListsOverview
+          codesLists={mockCodesLists}
+          questionnaireId="123"
+        />,
+      ),
     );
 
     const input = screen.getByPlaceholderText('Search for a code list');
