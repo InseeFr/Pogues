@@ -121,7 +121,9 @@ export default function CodesListOverviewItem({
   }
 
   return (
-    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
+    <li
+      className={`relative p-4 bg-default border first:border-t last:border-b shadow-sm grid grid-rows-[auto_1fr_auto] transition-all ${isExpanded ? 'not-first:mt-6 not-last:mb-6' : 'not-first:mt-[-1px]'}`}
+    >
       <div className="grid grid-cols-[1fr_auto]">
         <h3>{codesList.label}</h3>
         <RelatedQuestions
@@ -176,6 +178,6 @@ export default function CodesListOverviewItem({
           ariaControls={`codes-list-content-${codesList.id}`}
         />
       </div>
-    </div>
+    </li>
   );
 }
