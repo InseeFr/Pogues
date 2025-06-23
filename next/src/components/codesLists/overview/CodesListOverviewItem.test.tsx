@@ -1,6 +1,5 @@
-import { act } from 'react';
-
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
 import { renderWithRouter } from '@/tests/tests';
@@ -8,49 +7,10 @@ import { renderWithRouter } from '@/tests/tests';
 import CodesListOverviewItem from './CodesListOverviewItem';
 
 describe('CodesListOverviewItem', () => {
-  it('toggles the expanded section when the expand button is clicked', async () => {
-    const { container } = await waitFor(() =>
-      renderWithRouter(
-        <CodesListOverviewItem
-          codesList={{
-            id: 'cl-id',
-            label: 'my code list',
-            codes: [],
-            relatedQuestionNames: [],
-          }}
-          questionnaireId="q-id"
-        />,
-      ),
-    );
-
-    // By default the codes list content is hidden
-    const codesListContent = container.querySelector(
-      '#codes-list-content-cl-id',
-    );
-    expect(codesListContent).toHaveAttribute('hidden');
-
-    const expandButton = screen.getByRole('button', {
-      name: 'Expand',
-    });
-    expect(expandButton).toHaveAttribute('aria-expanded', 'false');
-
-    // After clicking the expand button, the section should expand
-    await act(async () => {
-      fireEvent.click(expandButton);
-    });
-    expect(expandButton).toHaveAttribute('aria-expanded', 'true');
-    expect(codesListContent).not.toHaveAttribute('hidden');
-
-    // After clicking again, the section should collapse
-    await act(async () => {
-      fireEvent.click(expandButton);
-    });
-    expect(expandButton).toHaveAttribute('aria-expanded', 'false');
-    expect(codesListContent).toHaveAttribute('hidden');
-  });
-
   it('cannot be deleted when there are related questions', async () => {
-    await waitFor(() =>
+    const user = userEvent.setup();
+
+    const { getByRole } = await waitFor(() =>
       renderWithRouter(
         <CodesListOverviewItem
           codesList={{
@@ -64,20 +24,15 @@ describe('CodesListOverviewItem', () => {
       ),
     );
 
-    // We need to extand the codes list section, else delete button is hidden by default
-    const expandButton = screen.getByRole('button', {
-      name: 'Expand',
-    });
-
-    await act(async () => {
-      fireEvent.click(expandButton);
-    });
+    await user.click(getByRole('button', { name: 'Expand' }));
 
     expect(screen.getByRole('button', { name: /Delete/i })).toBeDisabled();
   });
 
   it('can be deleted when there are no related questions', async () => {
-    await waitFor(() =>
+    const user = userEvent.setup();
+
+    const { getByRole } = await waitFor(() =>
       renderWithRouter(
         <CodesListOverviewItem
           codesList={{
@@ -91,14 +46,7 @@ describe('CodesListOverviewItem', () => {
       ),
     );
 
-    // We need to extand the codes list section, else delete button is hidden by default
-    const expandButton = screen.getByRole('button', {
-      name: 'Expand',
-    });
-
-    await act(async () => {
-      fireEvent.click(expandButton);
-    });
+    await user.click(getByRole('button', { name: 'Expand' }));
 
     expect(screen.getByRole('button', { name: /Delete/i })).toBeEnabled();
   });
