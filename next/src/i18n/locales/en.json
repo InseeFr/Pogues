@@ -108,7 +108,8 @@
       "metadata": "Metadata",
       "nomenclatures": "Nomenclatures",
       "overview": "Overview",
-      "variables": "Variables"
+      "variables": "Variables",
+      "personalize": "Personalization"
     },
     "search": "Search for a questionnaire",
     "stamp": "Stamp",
@@ -134,5 +135,8 @@
     "title": "History",
     "version_today": "{{count}} version today",
     "view": "View"
+  },
+  "personalization": {
+    "title": "Personalization"
   }
 }

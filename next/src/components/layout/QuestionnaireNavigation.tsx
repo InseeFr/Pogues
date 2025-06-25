@@ -94,6 +94,13 @@ export default function QuestionnaireNavigation() {
       isDisabled: !enableVersionsPage,
       isHidden: !enableVersionsPage,
     },
+    {
+      label: i18next.t('questionnaires.navigation.personalize'),
+      icon: <HistoryIcon className="m-auto" />,
+      path: '/questionnaire/$questionnaireId/personalize',
+      isDisabled: false,
+      isHidden: false,
+    },
   ];
 
   return (
