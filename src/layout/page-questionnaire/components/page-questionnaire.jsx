@@ -77,11 +77,7 @@ const PageQuestionnaire = (props) => {
   const isReadonly = useReadonly();
 
   useEffect(() => {
-    if (
-      !questionnaire ||
-      questionnaire.id !== id ||
-      Object.keys(appState.activeComponentsById).length === 0
-    ) {
+    if (!questionnaire || questionnaire.id !== id) {
       if (versionId) {
         loadQuestionnaireWithVersion(id, versionId, token);
       } else {
