@@ -137,6 +137,15 @@
     "view": "View"
   },
   "personalization": {
-    "title": "Personalization"
+    "title": "Personalization",
+    "schema": "Expected .csv schema",
+    "upload_empty": "Upload survey units",
+    "upload_data": "Upload survey units with pre-filling",
+    "createQuestionnaire": "Load questionnaire in orchestrator",
+    "context": "Context",
+    "household": "Household",
+    "business": "Business",
+    "download_success": "CSV schema downloaded successfully",
+    "download_error": "Error downloading CSV schema"
   }
 }

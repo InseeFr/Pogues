@@ -134,5 +134,17 @@
     "title": "Historique",
     "version_today": "{{count}} sauvegardes aujourd'hui",
     "view": "Consulter"
+  },
+  "personalization": {
+    "title": "Personalisation",
+    "schema": "Schéma .csv attendu",
+    "upload_empty": "Charger les unités enquêtées",
+    "upload_data": "Charger les unités enquêtées avec pré-remplissage",
+    "createQuestionnaire": "Créer le questionnaire dans les orchestrateurs",
+    "context": "Contexte",
+    "household": "Ménage",
+    "business": "Entreprise",
+    "download_success": "Schéma CSV crée avec succès",
+    "download_error": "Erreur lors du téléchargement du schéma CSV"
   }
 }
