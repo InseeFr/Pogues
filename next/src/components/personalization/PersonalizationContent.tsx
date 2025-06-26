@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import Button from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
 import Option from '@/components/ui/form/Option';
@@ -10,8 +11,6 @@ import {
   PersonalizationQuestionnaire,
   SurveyContext,
 } from '@/models/personalizationQuestionnaire';
-
-import Button from '../ui/Button';
 
 interface PersonalizationProps {
   data: PersonalizationQuestionnaire;
