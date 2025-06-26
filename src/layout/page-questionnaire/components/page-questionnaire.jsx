@@ -24,7 +24,9 @@ export const propTypes = {
   setActiveComponents: PropTypes.func.isRequired,
   setActiveCodeLists: PropTypes.func.isRequired,
   setActiveVariables: PropTypes.func.isRequired,
-  questionnaire: PropTypes.object,
+  questionnaire: PropTypes.shape({
+    id: PropTypes.string,
+  }),
   components: PropTypes.object,
   activeQuestionnaire: PropTypes.object,
   codeLists: PropTypes.object,
