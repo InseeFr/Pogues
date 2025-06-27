@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import '../../../scss/pogues.scss';
 import { useOidc } from '../../../utils/oidc';
-import Footer from '../../footer/Footer';
 import Header from '../../header/header';
 
 const isOnlyLegacyApp =
@@ -21,7 +20,6 @@ const App = ({ children, loadUnitsIfNeeded }) => {
     <div id="pogues-legacy">
       {isOnlyLegacyApp && <Header />}
       {children}
-      <Footer />
     </div>
   );
 };
