@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import Dictionary from '../utils/dictionary/dictionary';
 import {
   cartCodeModeCollecte,
-  emptyCodes,
   emptyMeasures,
   letterStart,
   maxLength,
@@ -107,15 +106,6 @@ describe('nameSize', () => {
   });
   it('should return undefined', () => {
     expect(nameSize('value')).toBeUndefined();
-  });
-});
-
-describe('emptyCodes', () => {
-  it('should return the error message', () => {
-    expect(emptyCodes()).toEqual('No codes');
-  });
-  it('should return undefined', () => {
-    expect(emptyCodes(['value'])).toBeUndefined();
   });
 });
 

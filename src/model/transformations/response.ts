@@ -34,7 +34,8 @@ export function stateToRemote(
     maminutes: Maminutes,
     mayears: Mayears,
     mamonths: Mamonths,
-    codesListId: CodeListReference,
+    codesListId,
+    nomenclatureId,
     allowArbitraryResponse,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
@@ -57,10 +58,14 @@ export function stateToRemote(
     },
   };
 
+  // For suggester we store the nomenclature as codeList reference. Else we store the codeList
+  model.CodeListReference =
+    visualizationHint === DATATYPE_VIS_HINT.SUGGESTER
+      ? nomenclatureId
+      : codesListId;
+
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;
-  if (CodeListReference !== undefined)
-    model.CodeListReference = CodeListReference;
   if (mandatory !== undefined)
     model.mandatory = mandatory === '' ? false : mandatory;
   if (allowArbitraryResponse !== undefined)

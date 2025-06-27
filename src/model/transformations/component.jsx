@@ -1,5 +1,6 @@
 import {
   COMPONENT_TYPE,
+  DATATYPE_VIS_HINT,
   QUESTIONNAIRE_TYPE,
   QUESTION_TYPE_ENUM,
   QUESTION_TYPE_NAME,
@@ -446,6 +447,9 @@ function getClarificationresponseSingleChoiseQuestion(
     }
   });
   collectedvariablequestion.forEach((collected) => {
+    // for suggester there is no codeList, so there is no clarification
+    if (responseFormat.SINGLE_CHOICE.visHint === DATATYPE_VIS_HINT.SUGGESTER)
+      return;
     const code = codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].urn
       ? false
       : Object.values(
@@ -593,75 +597,6 @@ function getClarificationResponseMultipleChoiceQuestion(
   };
 }
 
-function getClarificationResponseTableQuestion(
-  collectedVariablesStore,
-  collectedVariables,
-  codesListsStore,
-  responseFormat,
-  FlowControl,
-  responsesClarification,
-) {
-  const ClarificationQuestion = [];
-  const collectedvariablequestion = [];
-  const flowcontrolefinal = [];
-
-  Object.values(collectedVariablesStore).forEach((collec) => {
-    if (collectedVariables !== undefined) {
-      collectedVariables.forEach((variables) => {
-        if (collec.id === variables) {
-          collectedvariablequestion.push(collec);
-        }
-      });
-    }
-  });
-  FlowControl.forEach((flowcon) => {
-    if (flowcon.flowControlType === undefined) {
-      flowcontrolefinal.push(flowcon);
-    }
-  });
-
-  if (responseFormat.TABLE.LIST_MEASURE) {
-    responseFormat.TABLE.LIST_MEASURE.forEach((mesure) => {
-      if (
-        mesure.SINGLE_CHOICE?.CodesList.id &&
-        !codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].urn
-      ) {
-        Object.values(
-          codesListsStore[mesure.SINGLE_CHOICE.CodesList.id].codes,
-        ).forEach((code) => {
-          if (code.precisionid && code.precisionid !== '') {
-            const collectedvariablequestionPrecision =
-              collectedvariablequestion.filter(
-                (varibale) => varibale.z === code.weight,
-              );
-            collectedvariablequestionPrecision.forEach((varib) => {
-              const findResponse = responsesClarification
-                ? responsesClarification.find(
-                    (element) => element.Name === varib.name,
-                  )
-                : undefined;
-              const responseModel = {
-                mandatory: false,
-                typeName: varib.type,
-                maxLength: code.precisionsize,
-                collectedVariable: varib.id,
-              };
-              if (findResponse?.Response[0]) {
-                responseModel.id = findResponse.Response[0].id;
-              }
-            });
-          }
-        });
-      }
-    });
-  }
-
-  return {
-    flowcontrolefinal,
-    ClarificationQuestion,
-  };
-}
-
 /** Compute the arbitrary response form the store and our collected variables. */
 function getArbitraryResponse(collectedVariablesStore, collectedVariables) {
   const collectedVariableQuestions = [];
@@ -783,21 +718,6 @@ function storeToRemoteNested(
       remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
 
       remote.codeFilters = codeFilters;
-    }
-    if (
-      responseFormat.type === TABLE &&
-      collectedVariablesStore !== undefined
-    ) {
-      const remoteclarification = getClarificationResponseTableQuestion(
-        collectedVariablesStore,
-        collectedVariables,
-        codesListsStore,
-        responseFormat,
-        remote.FlowControl,
-        responsesClarification,
-      );
-      remote.FlowControl = remoteclarification.flowcontrolefinal;
-      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
     }
     if (responseFormat.type === PAIRING) {
       remote.Scope = responseFormat[PAIRING].scope;

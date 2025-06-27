@@ -1,6 +1,9 @@
 import {
   COMPONENT_TYPE,
   DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
 import { uuid } from '../utils';
@@ -44,9 +47,13 @@ export function getReponsesValues(measure) {
     };
   }
   if (measure.type === SINGLE_CHOICE) {
+    const listPath =
+      measure[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+        ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+        : DEFAULT_CODES_LIST_SELECTOR_PATH;
     reponseFormatValues = {
-      codeListReference: measure[SINGLE_CHOICE].CodesList.id,
-      codeListReferenceLabel: measure[SINGLE_CHOICE].CodesList.label,
+      codeListReference: measure[SINGLE_CHOICE][listPath].id,
+      codeListReferenceLabel: measure[SINGLE_CHOICE][listPath].label,
       type: TEXT,
       [TEXT]: {
         maxLength: 1,

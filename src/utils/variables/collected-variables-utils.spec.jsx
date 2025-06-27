@@ -10,6 +10,7 @@ import { getCollectedVariablesMultiple } from './collected-variables-multiple';
 import {
   generateCollectedVariables,
   getCollectedVariable,
+  getReponsesValues,
   sortByYXAndZ,
 } from './collected-variables-utils';
 
@@ -33,6 +34,92 @@ describe('generateCollectedVariables', () => {
     expect(output[0].id).toBeDefined();
     expect(output[0].label).toEqual(`${questionName} label`);
     expect(output[0].name).toEqual(questionName);
+  });
+});
+
+describe('getReponsesValues', () => {
+  it('handles simple text response', () => {
+    const measure = {
+      label: 'texte',
+      type: 'SIMPLE',
+      SIMPLE: {
+        type: 'TEXT',
+        TEXT: {
+          maxLength: 249,
+        },
+      },
+    };
+
+    const output = {
+      codeListReference: '',
+      codeListReferenceLabel: '',
+      type: 'TEXT',
+      TEXT: { maxLength: 249 },
+    };
+
+    expect(getReponsesValues(measure)).toEqual(output);
+  });
+
+  it('handles single choice radio response', () => {
+    const measure = {
+      label: 'radio',
+      type: 'SINGLE_CHOICE',
+      SINGLE_CHOICE: {
+        visHint: 'RADIO',
+        CodesList: {
+          id: 'mbqae1u1',
+          label: 'oui_non',
+          codes: [],
+        },
+        Nomenclature: {
+          id: '',
+          name: '',
+          label: '',
+          urn: '',
+          suggesterParameters: {},
+        },
+      },
+    };
+
+    const output = {
+      codeListReference: 'mbqae1u1',
+      codeListReferenceLabel: 'oui_non',
+      type: 'TEXT',
+      TEXT: { maxLength: 1 },
+    };
+
+    expect(getReponsesValues(measure)).toEqual(output);
+  });
+
+  it('handles single choice suggester response', () => {
+    const measure = {
+      label: 'suggester',
+      type: 'SINGLE_CHOICE',
+      SINGLE_CHOICE: {
+        visHint: 'SUGGESTER',
+        CodesList: {
+          id: '',
+          label: '',
+          codes: [],
+        },
+        Nomenclature: {
+          id: 'mbqae1u1',
+          name: '',
+          label: 'oui_non',
+          urn: '',
+          suggesterParameters: {},
+        },
+      },
+    };
+
+    const output = {
+      codeListReference: 'mbqae1u1',
+      codeListReferenceLabel: 'oui_non',
+      type: 'TEXT',
+      TEXT: { maxLength: 1 },
+    };
+
+    expect(getReponsesValues(measure)).toEqual(output);
   });
 });
 

@@ -152,12 +152,6 @@ export const QUESTION_TYPE_ENUM = {
   PAIRING: 'PAIRWISE',
 };
 
-export const CODES_LIST_INPUT_ENUM = {
-  NEW: 'NEW',
-  REF: 'REF',
-  QUEST: 'QUEST',
-};
-
 export const VARIABLES_TYPES = {
   COLLECTED: 'CollectedVariableType',
   CALCULATED: 'CalculatedVariableType',
@@ -268,6 +262,7 @@ export const ERROR_TYPES = {
 };
 
 export const DEFAULT_CODES_LIST_SELECTOR_PATH = 'CodesList';
+export const DEFAULT_NOMENCLATURE_SELECTOR_PATH = 'Nomenclature';
 export const DEFAULT_FORM_NAME = 'component';
 export const STATISTICAL_CONTEXT_FORM_NAME = 'statistical-context';
 export const QUESTIONNAIRE_NEW_FORM_NAME = 'questionnaire-new';
