@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { personalizationQueryOptions } from '@/api/personalize';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-import PersonalizationsOverview from '@/components/personalization/PersonalizationOverview';
+import CreatePersonalization from '@/components/personalization/create/CreatePersonalization';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 /**
- * Previously handled by Public Enemy
+ * Page that allow to create a new code list.
  */
 export const Route = createFileRoute(
-  '/_layout/questionnaire/$questionnaireId/_layout-q/personalize/',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/personalize/new',
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
@@ -27,27 +27,25 @@ function RouteComponent() {
   );
   return (
     <ComponentWrapper>
-      <PersonalizationsOverview questionnaireId={questionnaireId} data={data} />
+      <CreatePersonalization data={data} questionnaireId={questionnaireId} />
+    </ComponentWrapper>
+  );
+}
+function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+  return (
+    <ComponentWrapper>
+      <div className="text-error">{error.message}</div>
     </ComponentWrapper>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return <div className="text-error">{error.message}</div>;
-}
-
 function ComponentWrapper({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const { t } = useTranslation();
   return (
     <>
-      <ContentHeader
-        title={`${t('personalization.overview.title')}`}
-        action={null}
-      />
+      <ContentHeader title={t('personalization.create.title')} />
       <ContentMain>{children}</ContentMain>
     </>
   );

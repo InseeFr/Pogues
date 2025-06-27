@@ -33,7 +33,6 @@ export async function getPublicEnemyData(
 export async function getInitialCsvSchema(
   questionnaireId: string,
 ): Promise<void> {
-  console.log('getInitialCsvSchema', questionnaireId);
   try {
     const response = await instancePersonalization.get(
       `/questionnaires/${questionnaireId}/csv`,
@@ -52,6 +51,29 @@ export async function getInitialCsvSchema(
   }
 }
 
+/* Fetch the existing csv file */
+export async function getExistingCsvSchema(
+  publicEnemyId: number,
+): Promise<void> {
+  try {
+    const response = await instancePersonalization.get(
+      `/questionnaires/${publicEnemyId}/data`,
+      {
+        headers: { Accept: 'application/json' },
+        responseType: 'blob',
+      },
+    );
+    const disposition = response.headers['content-disposition'];
+    const fileName = disposition
+      ? getFileName(disposition)
+      : `questionnaire-${publicEnemyId}-data.csv`;
+    openDocument(new Blob([response.data], { type: 'text/csv' }), fileName);
+  } catch (error) {
+    console.error('Failed to download CSV schema:', error);
+  }
+}
+
+/** Check the survey units CSV file for errors & warning messages */
 export async function checkSurveyUnitsCSV(
   questionnaireId: string,
   surveyUnitCSVData: File,
@@ -70,8 +92,51 @@ export async function checkSurveyUnitsCSV(
   );
 }
 
-export async function resetSurveyUnit(surveyUnitId: string): Promise<void> {
+/** Upload questionnaire data with personalization to PE db */
+export async function addQuestionnaireData(
+  questionnaire: PersonalizationQuestionnaire,
+): Promise<PersonalizationQuestionnaire> {
+  const formData = new FormData();
+  const questionnaireRest = {
+    poguesId: questionnaire.poguesId,
+    context: questionnaire.context,
+  };
+  formData.append('questionnaire', JSON.stringify(questionnaireRest));
+
+  if (questionnaire.surveyUnitData) {
+    formData.append('surveyUnitData', questionnaire.surveyUnitData);
+  }
+  return instancePersonalization.post(`/questionnaires/add`, formData);
+}
+
+/** Edit questionnaire data with personalization in PE db*/
+export async function editQuestionnaireData(
+  questionnaire: PersonalizationQuestionnaire,
+): Promise<PersonalizationQuestionnaire> {
+  const formData = new FormData();
+  const questionnaireRest = {
+    poguesId: questionnaire.poguesId,
+    context: questionnaire.context,
+  };
+  formData.append('questionnaire', JSON.stringify(questionnaireRest));
+
+  if (questionnaire.surveyUnitData) {
+    formData.append('surveyUnitData', questionnaire.surveyUnitData);
+  }
   return instancePersonalization.post(
+    `/questionnaires/${questionnaire.poguesId}`,
+    formData,
+  );
+}
+
+export async function deleteQuestionnaireData(
+  questionnaireId: string,
+): Promise<void> {
+  return instancePersonalization.delete(`/questionnaires/${questionnaireId}`);
+}
+
+export async function resetSurveyUnit(surveyUnitId: string): Promise<void> {
+  return instancePersonalization.put(
     `/survey-units/${surveyUnitId}/reset`,
     undefined,
   );

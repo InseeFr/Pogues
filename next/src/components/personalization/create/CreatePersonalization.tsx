@@ -1,7 +1,10 @@
 import { useRef, useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
+import { getInitialCsvSchema } from '@/api/personalize';
 import Button from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
@@ -13,15 +16,16 @@ import {
 } from '@/models/personalizationQuestionnaire';
 
 interface PersonalizationProps {
+  questionnaireId: string;
   data: PersonalizationQuestionnaire;
 }
 
 /** Display the personalization windows */
-export default function PersonalizationContent({
+export default function CreatePersonalization({
+  questionnaireId,
   data,
 }: Readonly<PersonalizationProps>) {
   const { t } = useTranslation();
-  const filledFileInputRef = useRef<HTMLInputElement>(null);
   const emptyFileInputRef = useRef<HTMLInputElement>(null);
   const surveyContext: SurveyContext[] = [
     {
@@ -62,6 +66,21 @@ export default function PersonalizationContent({
     }));
   };
 
+  const { refetch: fetchCsvSchema } = useQuery({
+    queryKey: ['personalization-csv-schema', { questionnaireId }],
+    queryFn: () => getInitialCsvSchema(questionnaireId),
+    enabled: false,
+  });
+
+  function onDownload() {
+    const promise = fetchCsvSchema();
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.create.download_success'),
+      error: (err: Error) => err.toString(),
+    });
+  }
+
   return (
     <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
       <div className="flex flex-col ">
@@ -76,11 +95,10 @@ export default function PersonalizationContent({
             htmlFor="context-select"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('personalization.context')}
+            {t('personalization.create.context')}
           </label>
           <Select
             onChange={(v: unknown) => {
-              console.log('context changed', typeof v);
               if (v && typeof v === 'object' && 'name' in v) {
                 onContextChange(v as SurveyContext);
               }
@@ -95,14 +113,8 @@ export default function PersonalizationContent({
           </Select>
 
           <div className="flex gap-x-2 mt-6">
-            <Input
-              type="file"
-              ref={filledFileInputRef}
-              style={{ display: 'none' }}
-              onChange={onSurveyUnitDataChange}
-            />
-            <Button onClick={() => {}} disabled>
-              {t('personalization.upload_data')}
+            <Button onClick={onDownload}>
+              {t('personalization.create.schema')}
             </Button>
             <Input
               type="file"
@@ -111,17 +123,17 @@ export default function PersonalizationContent({
               onChange={onSurveyUnitDataChange}
             />
             <Button onClick={() => emptyFileInputRef.current?.click()}>
-              {t('personalization.upload_empty')}
+              {t('personalization.create.upload_empty')}
             </Button>
           </div>
           <Dialog
             label={t('common.validate')}
-            title={t('personalization.createQuestionnaire', {
+            title={t('personalization.create.createQuestionnaire', {
               label: data.label,
             })}
             body={'questionnaire_add_save'}
             onValidate={() => {}}
-            buttonTitle={t('personalization.createQuestionnaire')}
+            buttonTitle={t('personalization.create.createQuestionnaire')}
             disabled
           />
         </div>

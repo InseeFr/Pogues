@@ -4,5 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/personalize',
 )({
-  loader: ({ context: { t } }) => ({ crumb: t('personalization.title') }),
+  loader: ({ context: { t } }) => ({
+    crumb: t('personalization.overview.title'),
+  }),
 });
