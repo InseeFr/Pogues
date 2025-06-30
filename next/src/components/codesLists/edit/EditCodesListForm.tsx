@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { codesListsKeys, putCodesList } from '@/api/codesLists';
 import { CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables/variables';
+import { Variable } from '@/models/variables';
 
 import CodesListForm, { FormValues } from '../form/CodesListForm';
 

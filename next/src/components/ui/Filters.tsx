@@ -7,7 +7,7 @@ import { Filter as FilterModel } from '@/models/filters';
 import Filter from './Filter';
 
 type ActiveFilter<T> = FilterModel<T> & {
-  value?: string;
+  value?: string | string[];
 };
 
 interface Props<T> {
@@ -34,10 +34,13 @@ export default function Filters<T>({
   const [filteredLength, setFilteredLength] = useState<number>(data.length);
 
   /** Set the new filter as active, with the provided value. */
-  function onActiveFilter(filter: FilterModel<T>, value: string | boolean) {
+  function onActiveFilter(
+    filter: FilterModel<T>,
+    value: string | boolean | string[],
+  ) {
     const newMap = new Map(activeFilters);
 
-    if (typeof value === 'string' && value) {
+    if ((typeof value === 'string' || Array.isArray(value)) && value) {
       newMap.set(filter.label, { ...filter, value });
     } else if (typeof value === 'boolean' && value) {
       /** Bolean filter */

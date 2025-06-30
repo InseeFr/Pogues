@@ -1,5 +1,6 @@
 {
   "common": {
+    "all": "Tous",
     "appName": "Pogues",
     "cancel": "Annuler",
     "clearInput": "Effacer la recherche",
@@ -157,7 +158,39 @@
     "title": "Nomenclatures",
     "version": "Version"
   },
+  "variable": {
+    "create": {
+      "success": "La variable a été créée",
+      "title": "Nouvelle variable"
+    },
+    "datatype": {
+      "boolean": "Booléen",
+      "date": "Date",
+      "duration": "Durée",
+      "label": "Type de réponse",
+      "numeric": "Nombre",
+      "text": "Texte"
+    },
+    "description": "Description",
+    "name": "Nom",
+    "type": {
+      "calculated": "Calculée",
+      "collected": "Collectée",
+      "external": "Externe",
+      "label": "Type de variable"
+    }
+  },
   "variables": {
-    "title": "Variables"
+    "create": "Créer une variable",
+    "datatype": "Datatype",
+    "name": "Nom",
+    "none": "Aucune variable",
+    "search": "Rechercher une variable",
+    "scope": "Portée {{ scope}}",
+    "title": "Variables",
+    "type": "Type",
+    "variable": "{{count}} variable",
+    "variable_other": "{{count}} variables",
+    "variable_zero": "{{count}} variable"
   }
 }

@@ -1,5 +1,5 @@
 import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables/variables';
+import { Variable } from '@/models/variables';
 
 import CreateCodesListForm from './CreateCodesListForm';
 

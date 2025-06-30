@@ -32,8 +32,8 @@ export default function CodesListsOverview({
   const filters: Filter<CodesList>[] = [
     {
       label: t('codesLists.notUsed'),
-      onFilter: (v: CodesList, filter?: string) =>
-        filter === 'notUsed'
+      onFilter: (v: CodesList, filter: string[] = []) =>
+        filter.includes('notUsed')
           ? !v.relatedQuestionNames || v.relatedQuestionNames.length === 0
           : true,
       options: [{ label: t('codesLists.notUsed'), value: 'notUsed' }],

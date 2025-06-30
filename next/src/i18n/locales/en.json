@@ -1,5 +1,6 @@
 {
   "common": {
+    "all": "All",
     "appName": "Pogues",
     "cancel": "Cancel",
     "clearInput": "Clear input",
@@ -133,8 +134,10 @@
     },
     "navigation": {
       "codesLists": "Codes lists",
+      "history": "History",
       "metadata": "Metadata",
       "nomenclatures": "Nomenclatures",
+      "questionnaire": "Questionnaire",
       "variables": "Variables"
     },
     "title": "Questionnaire {{id}}"
@@ -155,7 +158,39 @@
     "title": "Nomenclatures",
     "version": "Version"
   },
+  "variable": {
+    "create": {
+      "success": "The variable been created",
+      "title": "New variable"
+    },
+    "datatype": {
+      "boolean": "Boolean",
+      "date": "Date",
+      "duration": "Duration",
+      "label": "Datatype",
+      "numeric": "Number",
+      "text": "Text"
+    },
+    "description": "Description",
+    "name": "Name",
+    "type": {
+      "calculated": "Calculated",
+      "collected": "Collected",
+      "external": "External",
+      "label": "Variable type"
+    }
+  },
   "variables": {
-    "title": "Variables"
+    "create": "Create a variable",
+    "datatype": "Datatype",
+    "name": "Name",
+    "none": "No variables",
+    "scope": "Scope {{ scope}}",
+    "search": "Search for a variable",
+    "title": "Variables",
+    "type": "Type",
+    "variable": "{{count}} variable",
+    "variable_other": "{{count}} variables",
+    "variable_zero": "{{count}} variables"
   }
 }

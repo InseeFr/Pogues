@@ -5,8 +5,8 @@ import {
 } from '@making-sense/antlr-editor/model';
 import { describe, expect, it } from 'vitest';
 
-import { DatatypeType } from '@/models/variables/datatype';
-import { Variable, VariableType } from '@/models/variables/variables';
+import { DatatypeType } from '@/models/datatype';
+import { Variable, VariableType } from '@/models/variables';
 
 import { computeAntlrVariables } from './vtlEditor';
 

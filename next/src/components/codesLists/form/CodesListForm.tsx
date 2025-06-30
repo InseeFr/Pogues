@@ -24,7 +24,7 @@ import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import { type CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables/variables';
+import { Variable } from '@/models/variables';
 
 interface CodesListFormProps {
   /** In an update case, initial codes list value. */

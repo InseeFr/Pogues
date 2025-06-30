@@ -10,7 +10,6 @@ import NomenclatureOverviewItem from './NomenclatureOverviewItem';
 
 interface NomenclaturesProps {
   nomenclatures: Nomenclature[];
-  questionnaireId: string;
 }
 
 /**

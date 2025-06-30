@@ -28,8 +28,8 @@ type SelectFilter<T> = {
 type ToggleGroupFilter<T> = {
   type: FilterType.ToggleGroup;
   options: { label: string; value: string }[];
-  /** If the filter is activated, this filter will be triggered with the provided option. */
-  onFilter: (v: T, filter?: string) => boolean;
+  /** If the filter is activated, this filter will be triggered with the provided options. */
+  onFilter: (v: T, filter?: string[]) => boolean;
 };
 
 type TextFilter<T> = {
@@ -42,13 +42,18 @@ type TextFilter<T> = {
 export enum FilterType {
   /** Display a chip one can toggle on / off. */
   Boolean,
-  /** Display a list of options to select from. */
+  /**
+   * Display a list of options to select from (when they are exclusive and/or
+   * there are 4+ of them).
+   */
   Select,
   /** Display a text input. */
   Text,
-  /** Display a toggle group. */
+  /**
+   * Display a toggle group (when they can be combined and/or there 3- of them).
+   */
   ToggleGroup,
 }
 
 /** Filters to take into account, provided by the Filters component. */
-export type ActiveFilter<T> = Filter<T> & { value?: string };
+export type ActiveFilter<T> = Filter<T> & { value?: string | string[] };

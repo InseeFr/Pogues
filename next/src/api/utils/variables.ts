@@ -5,12 +5,8 @@ import {
   DurationFormat,
   MinuteSecondDuration,
   YearMonthDuration,
-} from '@/models/variables/datatype';
-import {
-  BaseVariable,
-  Variable,
-  VariableType,
-} from '@/models/variables/variables';
+} from '@/models/datatype';
+import { BaseVariable, Variable, VariableType } from '@/models/variables';
 
 import {
   DateFormatEnum as PoguesDateFormat,
@@ -32,9 +28,14 @@ export function computeVariable(variable: PoguesVariable): Variable {
     name: variable.Name,
     label: variable.Label,
     datatype: datatype,
-    codeListReference: variable.CodeListReference,
-    scope: variable.Scope,
   };
+
+  if (variable.CodeListReference) {
+    baseVariable.codeListReference = variable.CodeListReference;
+  }
+  if (variable.Scope) {
+    baseVariable.scope = variable.Scope;
+  }
 
   switch (variable.type) {
     case PoguesVariableType.CalculatedVariableType:
