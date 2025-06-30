@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { expect } from 'vitest';
 
-import { NavigationBarItem } from './NavigationBarItem';
+import NavigationBarItem from './NavigationBarItem';
 
 describe('NavigationBarItem', () => {
   it('display label', () => {

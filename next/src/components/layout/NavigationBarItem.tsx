@@ -4,7 +4,7 @@ interface NavigationBarItemProps {
   active?: boolean;
 }
 
-export function NavigationBarItem({
+export default function NavigationBarItem({
   icon,
   label,
   active = false,

@@ -1,6 +1,6 @@
 import { Link, useMatchRoute } from '@tanstack/react-router';
 
-import { NavigationBarItem } from './NavigationBarItem';
+import NavigationBarItem from './NavigationBarItem';
 
 export type NavigationItem = {
   label: string;
