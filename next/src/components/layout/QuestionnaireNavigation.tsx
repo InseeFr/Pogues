@@ -97,7 +97,7 @@ export default function QuestionnaireNavigation() {
   ];
 
   return (
-    <div className="bg-default w-24 h-screen flex flex-col items-center py-6 border-r border-default text-center sticky top-0">
+    <div className="sticky top-0 w-24 max-h-[calc(100vh-var(--header-height))] flex flex-col items-center py-6 text-center">
       {navigationItems.map(
         ({ label, icon, isDisabled, path, innerPaths = [], isHidden }) =>
           !isHidden ? (

@@ -5,6 +5,7 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
   DIMENSION_TYPE,
@@ -19,7 +20,8 @@ import {
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
-const { DYNAMIC_LENGTH, FIXED_LENGTH } = DIMENSION_LENGTH;
+const { DYNAMIC_LENGTH, DYNAMIC_FIXED } = DIMENSION_LENGTH;
+const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { RADIO } = DATATYPE_VIS_HINT;
@@ -89,20 +91,33 @@ export const defaultMeasureForm = {
 };
 
 const defaultPrimaryListState = {
-  type: DYNAMIC_LENGTH,
-  [DYNAMIC_LENGTH]: {
-    minLines: 0,
-    maxLines: 0,
+  type: NUMBER,
+  [NUMBER]: {
+    type: DYNAMIC_FIXED,
+    [DYNAMIC_LENGTH]: {
+      minimum: '1',
+      maximum: '1',
+    },
+    [DYNAMIC_FIXED]: {
+      size: '1',
+    },
   },
-  [FIXED_LENGTH]: {
-    fixedLength: '',
+  [FORMULA]: {
+    type: DYNAMIC_FIXED,
+    [DYNAMIC_LENGTH]: {
+      minimum: '',
+      maximum: '',
+    },
+    [DYNAMIC_FIXED]: {
+      size: '',
+    },
   },
 };
 
 export const defaultState = {
   [PRIMARY]: {
     type: LIST,
-    [LIST]: defaultPrimaryListState,
+    [LIST]: { ...defaultPrimaryListState },
     [CODES_LIST]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     },
@@ -128,13 +143,19 @@ export function formToStatePrimary(form, codesListPrimary) {
   if (type === LIST) {
     const {
       type: listType,
-      [listType]: { minLines, maxLines, fixedLength },
+      [listType]: {
+        type: lengthType,
+        [lengthType]: { minimum, maximum, size },
+      },
     } = primaryForm;
 
     state[LIST] = {
       type: listType,
-      [listType]:
-        listType === DYNAMIC_LENGTH ? { minLines, maxLines } : { fixedLength },
+      [listType]: {
+        type: lengthType,
+        [lengthType]:
+          lengthType === DYNAMIC_LENGTH ? { minimum, maximum } : { size },
+      },
     };
   } else {
     const { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } = primaryForm;

@@ -113,6 +113,7 @@ describe('Visualize Dropdown Component: ', () => {
       VisualizationKind.HTML,
       props.componentId,
       props.token,
+      false,
     );
   });
 });

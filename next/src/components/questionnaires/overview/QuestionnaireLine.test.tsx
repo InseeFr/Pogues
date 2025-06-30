@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import { renderWithRouter } from '@/tests/tests';
@@ -14,15 +15,17 @@ describe('QuestionnaireLine', () => {
       },
     );
 
-    const { getByText } = renderWithRouter(
-      <QuestionnaireLine
-        questionnaire={{
-          title: 'My questionnaire',
-          id: 'my-id',
-          lastUpdatedDate: new Date('02-01-2023'),
-          targetModes: new Set(),
-        }}
-      />,
+    const { getByText } = await waitFor(() =>
+      renderWithRouter(
+        <QuestionnaireLine
+          questionnaire={{
+            title: 'My questionnaire',
+            id: 'my-id',
+            lastUpdatedDate: new Date('02-01-2023'),
+            targetModes: new Set(),
+          }}
+        />,
+      ),
     );
 
     expect(getByText('My questionnaire')).toBeInTheDocument();

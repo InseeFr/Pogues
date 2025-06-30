@@ -2,11 +2,14 @@ import { describe, expect, test } from 'vitest';
 
 import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_CALCULATION,
   DIMENSION_TYPE,
 } from '../../constants/pogues-constants';
 import { stateToRemote } from './dimension';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
+const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
+
 describe('dimension tranformations', () => {
   test('when the type is MEASURE without a LABEL', () => {
     const result = stateToRemote({
@@ -41,36 +44,38 @@ describe('dimension tranformations', () => {
       CodeListReference: '1',
     });
   });
-  test(`when the type is PRIMARY and has a minLines and maxLines`, () => {
+  test(`when the type is PRIMARY and has a minimum and maximum`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      minLines: 1,
-      maxLines: 2,
+      calculationMethod: NUMBER,
+      minimum: '1',
+      maximum: '2',
     });
 
     expect(result).toEqual({
       dimensionType: PRIMARY,
-      dynamic: 'DYNAMIC_LENGTH',
-      MinLines: 1,
-      MaxLines: 2,
+      dynamic: 'DYNAMIC',
+      minimum: { type: 'number', value: '1' },
+      maximum: { type: 'number', value: '2' },
     });
   });
   test(`when the type is PRIMARY and has a length fixed by a formula`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      fixedLength: 'formula',
+      calculationMethod: FORMULA,
+      size: 'formula',
     });
 
     expect(result).toEqual({
       dimensionType: PRIMARY,
-      dynamic: 'FIXED_LENGTH',
-      FixedLength: 'formula',
+      dynamic: 'DYNAMIC_FIXED',
+      size: { type: 'VTL', value: 'formula' },
     });
   });
   test(`when the type is PRIMARY and has a minLines but not maxLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      minLines: 1,
+      minimum: 1,
     });
 
     expect(result).toEqual({
@@ -81,7 +86,7 @@ describe('dimension tranformations', () => {
   test(`when the type is PRIMARY and has a maxLines but not minLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
-      maxLines: 2,
+      maximum: 2,
     });
 
     expect(result).toEqual({

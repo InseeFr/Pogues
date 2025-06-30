@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormSection, formValueSelector } from 'redux-form';
@@ -20,6 +18,9 @@ const { LIST, CODES_LIST } = DIMENSION_FORMATS;
 const { TABLE } = QUESTION_TYPE_ENUM;
 const selectorPath = TABLE;
 
+/**
+ * Form used to create a table.
+ */
 function ResponseFormatTable({
   selectorPathParent,
   showSecondaryAxis,

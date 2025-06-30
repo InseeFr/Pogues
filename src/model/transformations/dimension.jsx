@@ -1,19 +1,20 @@
 import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DIMENSION_LENGTH,
+  DIMENSION_CALCULATION,
   DIMENSION_TYPE,
 } from '../../constants/pogues-constants';
 
+const { FORMULA } = DIMENSION_CALCULATION;
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
-const { DYNAMIC_LENGTH, FIXED_LENGTH, NON_DYNAMIC } = DIMENSION_LENGTH;
 
 export function stateToRemote(state) {
   const {
     type,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodesListState,
-    fixedLength,
-    minLines,
-    maxLines,
+    calculationMethod,
+    size,
+    minimum,
+    maximum,
     label: Label,
   } = state;
   const model = {
@@ -25,15 +26,17 @@ export function stateToRemote(state) {
   }
 
   if (type === PRIMARY) {
-    if (fixedLength !== undefined) {
-      model.dynamic = FIXED_LENGTH;
-      model.FixedLength = fixedLength;
-    } else if (minLines !== undefined && maxLines !== undefined) {
-      model.MinLines = minLines;
-      model.MaxLines = maxLines;
-      model.dynamic = DYNAMIC_LENGTH;
+    const valueType = calculationMethod === FORMULA ? 'VTL' : 'number';
+
+    if (size !== undefined) {
+      model.dynamic = 'DYNAMIC_FIXED';
+      model.size = { value: size, type: valueType };
+    } else if (minimum !== undefined && maximum !== undefined) {
+      model.dynamic = 'DYNAMIC';
+      model.minimum = { value: minimum, type: valueType };
+      model.maximum = { value: maximum, type: valueType };
     } else {
-      model.dynamic = NON_DYNAMIC;
+      model.dynamic = 'NON_DYNAMIC';
     }
   }
 

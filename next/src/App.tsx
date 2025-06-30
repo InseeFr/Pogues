@@ -11,6 +11,7 @@ const queryClient = new QueryClient();
 
 // Create a new router instance
 const router = createRouter({
+  scrollRestoration: true,
   routeTree,
   defaultPreload: 'intent',
   // Since we're using React Query, we don't want loader calls to ever be stale

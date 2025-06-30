@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { renderWithRouter } from '@/tests/tests';
 
@@ -30,24 +30,28 @@ describe('NomenclatureOverview', () => {
       relatedQuestionNames: ['IL_EST_ORANGE'],
     },
   ];
-  it('display my nomenclatures', () => {
-    const { getByText } = renderWithRouter(
-      <NomenclaturesOverview
-        questionnaireId={questionnaireId}
-        nomenclatures={mockNomenclatures}
-      />,
+  it('display my nomenclatures', async () => {
+    const { getByText } = await waitFor(() =>
+      renderWithRouter(
+        <NomenclaturesOverview
+          questionnaireId={questionnaireId}
+          nomenclatures={mockNomenclatures}
+        />,
+      ),
     );
 
     expect(getByText('Le poisson steve')).toBeInTheDocument();
     expect(getByText('Il est orange')).toBeInTheDocument();
   });
 
-  it('filters the nomenclature list based on the search input', () => {
-    const { getByText } = renderWithRouter(
-      <NomenclaturesOverview
-        questionnaireId={questionnaireId}
-        nomenclatures={mockNomenclatures}
-      />,
+  it('filters the nomenclature list based on the search input', async () => {
+    const { getByText } = await waitFor(() =>
+      renderWithRouter(
+        <NomenclaturesOverview
+          questionnaireId={questionnaireId}
+          nomenclatures={mockNomenclatures}
+        />,
+      ),
     );
 
     const input = screen.getByPlaceholderText('Search for a nomenclature');
@@ -58,12 +62,14 @@ describe('NomenclatureOverview', () => {
     expect(screen.queryByText('Le poisson steve')).not.toBeInTheDocument();
   });
 
-  it('sorts the nomenclatures by label', () => {
-    const { container } = renderWithRouter(
-      <NomenclaturesOverview
-        questionnaireId={questionnaireId}
-        nomenclatures={mockNomenclatures}
-      />,
+  it('sorts the nomenclatures by label', async () => {
+    const { container } = await waitFor(() =>
+      renderWithRouter(
+        <NomenclaturesOverview
+          questionnaireId={questionnaireId}
+          nomenclatures={mockNomenclatures}
+        />,
+      ),
     );
 
     const items = container.querySelectorAll('h3');

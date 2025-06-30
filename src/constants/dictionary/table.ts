@@ -2,19 +2,39 @@ import type { Dictionary } from '../dictionary';
 
 /** Translations related to tables (dynamic or not). */
 export const tableDictionary: Dictionary = {
-  minMax: {
-    fr: 'Min/Max',
-    en: 'Min/max',
+  tableDynamicFormat: {
+    fr: 'Dynamique',
+    en: 'Dynamic',
   },
-  linesNbCalculation: {
-    fr: 'Calcul du nombre de lignes',
+  tableStaticFormat: {
+    fr: 'Statique',
+    en: 'Static',
+  },
+  tableLinesCalculationMode: {
+    fr: 'Mode de calcul du nombre de lignes',
     en: 'Calculation of number of lines',
   },
-  minRowNb: {
+  tableLinesCalculationNumber: {
+    fr: 'Nombre',
+    en: 'Number',
+  },
+  tableLinesCalculationFormula: {
+    fr: 'Formule',
+    en: 'Formula',
+  },
+  tableLinesSameMinMax: {
+    fr: 'Nombre de lignes max identique à min',
+    en: 'Number of maximum lines identical to min',
+  },
+  tableRowNb: {
+    fr: 'Nombre de lignes',
+    en: 'Number of lines',
+  },
+  tableMinRowNb: {
     fr: 'Nombre de lignes min.',
     en: 'Number of lines min.',
   },
-  maxRowNb: {
+  tableMaxRowNb: {
     fr: 'Nombre de lignes max.',
     en: 'Number of lines max.',
   },

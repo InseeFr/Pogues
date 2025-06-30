@@ -71,13 +71,15 @@ export default function CodesListsOverview({
         resultCount={filteredCodesLists.length}
         updateFilterContent={updateFilterContent}
       />
-      {filteredCodesLists.map((codesList) => (
-        <CodesListOverviewItem
-          key={codesList.id}
-          questionnaireId={questionnaireId}
-          codesList={codesList}
-        />
-      ))}
+      <ul>
+        {filteredCodesLists.map((codesList) => (
+          <CodesListOverviewItem
+            key={codesList.id}
+            questionnaireId={questionnaireId}
+            codesList={codesList}
+          />
+        ))}
+      </ul>
     </>
   ) : (
     <ButtonLink
