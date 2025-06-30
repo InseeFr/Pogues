@@ -17,16 +17,18 @@ import { uid } from '@/utils/utils';
 
 import CodesTable from './CodesTable';
 
-interface CodesListOverviewItemProps {
+interface CodesListOverviewItemDetailsProps {
   codesList: CodesList;
   questionnaireId: string;
+  readonly?: boolean;
 }
 
 /** Display code list data and allow to edit, duplicate or delete it. */
-export default function CodesListOverviewItem({
+export default function CodesListOverviewItemDetails({
   codesList,
   questionnaireId,
-}: Readonly<CodesListOverviewItemProps>) {
+  readonly = false,
+}: Readonly<CodesListOverviewItemDetailsProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -115,40 +117,42 @@ export default function CodesListOverviewItem({
   }
 
   return (
-    <div className="overflow-hidden space-y-3">
+    <div className="overflow-hidden space-y-3 pb-6">
       <div className="pt-3">
         <CodesTable codesList={codesList} />
       </div>
-      <div className="flex gap-x-2">
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/codes-list/$codesListId"
-          params={{ questionnaireId, codesListId: codesList.id }}
-        >
-          {t('common.edit')}
-        </ButtonLink>
-        <Dialog
-          label={t('codesList.overview.duplicate')}
-          title={t('codesList.overview.duplicateDialogTitle', {
-            label: codesList.label,
-          })}
-          body={t('codesList.overview.duplicateDialogConfirm')}
-          onValidate={onDuplicate}
-        />
-        <Dialog
-          label={t('common.delete')}
-          title={t('codesList.overview.deleteDialogTitle', {
-            label: codesList.label,
-          })}
-          body={t('codesList.overview.deleteDialogConfirm')}
-          onValidate={onDelete}
-          buttonTitle={
-            hasRelatedQuestion
-              ? t('codesList.overview.deleteDisabled.usedByQuestions')
-              : undefined
-          }
-          disabled={hasRelatedQuestion}
-        />
-      </div>
+      {!readonly ? (
+        <div className="flex gap-x-2">
+          <ButtonLink
+            to="/questionnaire/$questionnaireId/codes-list/$codesListId"
+            params={{ questionnaireId, codesListId: codesList.id }}
+          >
+            {t('common.edit')}
+          </ButtonLink>
+          <Dialog
+            label={t('codesList.overview.duplicate')}
+            title={t('codesList.overview.duplicateDialogTitle', {
+              label: codesList.label,
+            })}
+            body={t('codesList.overview.duplicateDialogConfirm')}
+            onValidate={onDuplicate}
+          />
+          <Dialog
+            label={t('common.delete')}
+            title={t('codesList.overview.deleteDialogTitle', {
+              label: codesList.label,
+            })}
+            body={t('codesList.overview.deleteDialogConfirm')}
+            onValidate={onDelete}
+            buttonTitle={
+              hasRelatedQuestion
+                ? t('codesList.overview.deleteDisabled.usedByQuestions')
+                : undefined
+            }
+            disabled={hasRelatedQuestion}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

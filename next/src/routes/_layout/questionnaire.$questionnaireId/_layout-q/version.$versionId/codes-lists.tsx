@@ -38,6 +38,7 @@ function RouteComponent() {
       <CodesListsOverview
         questionnaireId={questionnaireId}
         codesLists={codesLists}
+        readonly
       />
     </ComponentWrapper>
   );

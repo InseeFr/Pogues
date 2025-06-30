@@ -26,7 +26,9 @@ export default function Breadcrumb() {
               {match.loaderData?.crumb}
             </Link>
             {i + 1 < matchesWithCrumbs.length ? (
-              <span className="text-disabled">{'/'}</span>
+              <span className="text-disabled" aria-current="page">
+                {'/'}
+              </span>
             ) : null}
           </li>
         ))}
