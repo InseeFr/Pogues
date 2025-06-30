@@ -1,19 +1,23 @@
 import { useRef, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import Papa, { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { getInitialCsvSchema } from '@/api/personalize';
-import Button from '@/components/ui/Button';
+import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
 import Option from '@/components/ui/form/Option';
 import Select from '@/components/ui/form/Select';
 import {
+  FileType,
   PersonalizationQuestionnaire,
   SurveyContext,
 } from '@/models/personalizationQuestionnaire';
+
+import CsvViewerTable from './CsvViewerTable';
 
 interface PersonalizationProps {
   questionnaireId: string;
@@ -37,9 +41,21 @@ export default function CreatePersonalization({
       value: 'Entreprise',
     },
   ];
-
+  const fileTypes: FileType[] = [
+    {
+      name: 'CSV',
+      value: 'text/csv',
+    },
+    {
+      name: 'JSON',
+      value: 'application/json',
+    },
+  ];
   const [questionnaire, setQuestionnaire] =
     useState<PersonalizationQuestionnaire>(data);
+
+  const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
+  const [parsedCsv, setParsedCsv] = useState<ParseResult>(null);
 
   const onContextChange = (context: SurveyContext) => {
     setQuestionnaire({
@@ -52,6 +68,10 @@ export default function CreatePersonalization({
     });
   };
 
+  const onFileTypeChange = (fileType: FileType) => {
+    setFileType(fileType);
+  };
+
   const onSurveyUnitDataChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -59,11 +79,20 @@ export default function CreatePersonalization({
     if (!fileList) {
       return;
     }
+    console.log(fileList);
 
     setQuestionnaire((state) => ({
       ...state,
       surveyUnitData: fileList[0],
     }));
+
+    console.log('Survey unit data changed:', questionnaire.surveyUnitData);
+    Papa.parse(fileList[0], {
+      header: true,
+      complete: (result: ParseResult) => {
+        setParsedCsv(result);
+      },
+    });
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -86,46 +115,75 @@ export default function CreatePersonalization({
       <div className="flex flex-col ">
         <h3>{data.label}</h3>
         <span className="text-sm text-gray-600 mt-1">
-          Modes: {data.modes.map((mode) => mode.name).join(', ')}
+          {t('personalization.overview.modes')}:{' '}
+          {data.modes.map((mode) => mode.name).join(', ')}
         </span>
       </div>
       <div className={`grid overflow-hidden grid-rows-[1fr] transition-all`}>
-        <div className="overflow-hidden space-y-3 my-2">
+        <div className="overflow-hidden space-y-3 my-1">
           <label
             htmlFor="context-select"
             className="block text-sm font-medium text-gray-700"
           >
             {t('personalization.create.context')}
           </label>
-          <Select
-            onChange={(v: unknown) => {
-              if (v && typeof v === 'object' && 'name' in v) {
-                onContextChange(v as SurveyContext);
-              }
-            }}
-            value={questionnaire.context?.name ?? ''}
-          >
-            {surveyContext.map((context: SurveyContext) => (
-              <Option key={context.name} value={context}>
-                {context.value}
-              </Option>
-            ))}
-          </Select>
-
-          <div className="flex gap-x-2 mt-6">
+          <div className="flex flex-row items-end gap-2">
+            <div className="w-[80%]">
+              <Select
+                onChange={(v: unknown) => {
+                  if (v && typeof v === 'object' && 'name' in v) {
+                    onContextChange(v as SurveyContext);
+                  }
+                }}
+                value={questionnaire.context?.name ?? ''}
+              >
+                {surveyContext.map((context: SurveyContext) => (
+                  <Option key={context.name} value={context}>
+                    {context.value}
+                  </Option>
+                ))}
+              </Select>
+            </div>
             <Button onClick={onDownload}>
               {t('personalization.create.schema')}
             </Button>
+          </div>
+          <div className="flex flex-row gap-x-2 mt-6 items-center">
+            <Select
+              onChange={(v: unknown) => {
+                if (v && typeof v === 'object' && 'name' in v) {
+                  onFileTypeChange(v as FileType);
+                }
+              }}
+              value={fileType}
+            >
+              {fileTypes.map((type) => (
+                <Option key={type.value} value={type.value}>
+                  {type.name}
+                </Option>
+              ))}
+            </Select>
             <Input
               type="file"
               ref={emptyFileInputRef}
               style={{ display: 'none' }}
               onChange={onSurveyUnitDataChange}
             />
-            <Button onClick={() => emptyFileInputRef.current?.click()}>
-              {t('personalization.create.upload_empty')}
+            <Button
+              onClick={() => emptyFileInputRef.current?.click()}
+              buttonStyle={ButtonStyle.Primary}
+            >
+              {t('personalization.create.upload_data')}
             </Button>
+            <span className="text-sm text-gray-600 ml-2">
+              {questionnaire.surveyUnitData?.name ||
+                t('personalization.create.no_file_chosen')}
+            </span>
           </div>
+
+          {parsedCsv && parsedCsv.data.length > 0 && (
+            <CsvViewerTable parsedCsv={parsedCsv} />
+          )}
           <Dialog
             label={t('common.validate')}
             title={t('personalization.create.createQuestionnaire', {

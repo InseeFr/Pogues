@@ -9,6 +9,7 @@ import DictionaryIcon from '../ui/icons/DictionaryIcon';
 import HistoryIcon from '../ui/icons/HistoryIcon';
 import ListIcon from '../ui/icons/ListIcon';
 import NomenclatureAltIcon from '../ui/icons/NomenclatureAltIcon';
+import PersonalizeIcon from '../ui/icons/PersonalizeIcon';
 import VariableIcon from '../ui/icons/VariableIcon';
 
 const enableVersionsPage = import.meta.env.VITE_ENABLE_VERSIONS_PAGE;
@@ -96,7 +97,7 @@ export default function QuestionnaireNavigation() {
     },
     {
       label: i18next.t('questionnaires.navigation.personalize'),
-      icon: <HistoryIcon className="m-auto" />,
+      icon: <PersonalizeIcon className="m-auto" />,
       path: '/questionnaire/$questionnaireId/personalize',
       innerPaths: ['/questionnaire/$questionnaireId/personalize/new'],
       isDisabled: false,

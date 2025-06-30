@@ -140,25 +140,27 @@
     "overview": {
       "title": "Personalization",
       "create": "Upload survey units",
-      "createDescription": "Upload survey units to pre-fill the questionnaire."
+      "createDescription": "Upload survey units to pre-fill the questionnaire.",
+      "modes": "Modes"
     },
     "create": {
       "title": "Create a personalization",
       "description": "Upload survey units to pre-fill the questionnaire.",
       "success": "Personalization created successfully",
       "error": "Error creating personalization",
-      "uploadError": "Error uploading survey units",
-      "uploadSuccess": "Survey units uploaded successfully",
-      "uploadEmptyError": "No survey units provided in the upload",
-      "schema": "Expected .csv schema",
-      "upload_empty": "Upload survey units",
-      "upload_data": "Upload survey units with pre-filling",
+      "upload_error": "Error uploading survey units",
+      "upload_success": "Survey units uploaded successfully",
+      "upload_empty_error": "No survey units provided in the upload",
+      "file_viewer_error": "Error displaying the file.",
+      "schema": "Expected file schema",
+      "upload_data": "Upload survey units data",
       "createQuestionnaire": "Load questionnaire in orchestrator",
       "context": "Context",
       "household": "Household",
       "business": "Business",
       "download_success": "CSV schema downloaded successfully",
-      "download_error": "Error downloading CSV schema"
+      "download_error": "Error downloading CSV schema",
+      "no_file_chosen": "No file chosen"
     }
   }
 }

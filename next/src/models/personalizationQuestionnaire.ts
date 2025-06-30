@@ -18,3 +18,8 @@ export type SurveyContext = {
   name: string;
   value?: string;
 };
+
+export type FileType = {
+  name: string;
+  value: string;
+};

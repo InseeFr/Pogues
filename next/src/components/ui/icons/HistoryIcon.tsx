@@ -1,4 +1,4 @@
-export default function ListIcon({
+export default function HistoryIcon({
   height = '24px',
   width = '24px',
   ...props
