@@ -23,3 +23,8 @@ export type FileType = {
   name: string;
   value: string;
 };
+
+export type UploadError = {
+  message: string;
+  details: string[];
+};

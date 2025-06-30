@@ -8,7 +8,6 @@ interface CsvViewerTableProps {
 export default function CsvViewerTable({
   parsedCsv,
 }: Readonly<CsvViewerTableProps>) {
-  console.log(parsedCsv);
   const shouldScroll = parsedCsv.data.length > 4;
 
   return (

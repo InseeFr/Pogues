@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import Papa, { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { getInitialCsvSchema } from '@/api/personalize';
+import { checkSurveyUnitsCSV, getInitialCsvSchema } from '@/api/personalize';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
@@ -15,9 +16,11 @@ import {
   FileType,
   PersonalizationQuestionnaire,
   SurveyContext,
+  UploadError,
 } from '@/models/personalizationQuestionnaire';
 
 import CsvViewerTable from './CsvViewerTable';
+import ErrorUploadFile from './Error';
 
 interface PersonalizationProps {
   questionnaireId: string;
@@ -56,6 +59,21 @@ export default function CreatePersonalization({
 
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
   const [parsedCsv, setParsedCsv] = useState<ParseResult>(null);
+  const [errorUpload, setErrorUpload] = useState<UploadError | null>(null);
+
+  const checkCsvData = useMutation({
+    mutationFn: (file: File) => {
+      return checkSurveyUnitsCSV(questionnaireId, file);
+    },
+    onError: (error: AxiosError) => {
+      console.log('Error checking CSV data:', error.response?.data);
+      toast.error(t('personalization.create.upload_error'));
+      setErrorUpload(error.response?.data as UploadError);
+    },
+    onSuccess: () => {
+      toast.success(t('personalization.create.upload_success'));
+    },
+  });
 
   const onContextChange = (context: SurveyContext) => {
     setQuestionnaire({
@@ -79,20 +97,19 @@ export default function CreatePersonalization({
     if (!fileList) {
       return;
     }
-    console.log(fileList);
-
     setQuestionnaire((state) => ({
       ...state,
       surveyUnitData: fileList[0],
     }));
 
-    console.log('Survey unit data changed:', questionnaire.surveyUnitData);
     Papa.parse(fileList[0], {
       header: true,
       complete: (result: ParseResult) => {
         setParsedCsv(result);
       },
     });
+    const test = checkCsvData.mutate(fileList[0]);
+    console.log('Check CSV data:', test);
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -158,7 +175,7 @@ export default function CreatePersonalization({
               value={fileType}
             >
               {fileTypes.map((type) => (
-                <Option key={type.value} value={type.value}>
+                <Option key={type.value} value={type}>
                   {type.name}
                 </Option>
               ))}
@@ -180,7 +197,7 @@ export default function CreatePersonalization({
                 t('personalization.create.no_file_chosen')}
             </span>
           </div>
-
+          {errorUpload && <ErrorUploadFile error={errorUpload} />}
           {parsedCsv && parsedCsv.data.length > 0 && (
             <CsvViewerTable parsedCsv={parsedCsv} />
           )}
