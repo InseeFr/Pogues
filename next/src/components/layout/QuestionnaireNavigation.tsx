@@ -14,8 +14,6 @@ import { useAltIcon } from '@/hooks/useAltIcon';
 
 import NavigationBar, { type NavigationItem } from './NavigationBar';
 
-const enableVersionsPage = import.meta.env.VITE_ENABLE_VERSIONS_PAGE;
-
 /** Display the available navigation items in a questionnaire. */
 export default function QuestionnaireNavigation() {
   const { t } = useTranslation();
@@ -80,8 +78,6 @@ export default function QuestionnaireNavigation() {
       label: t('questionnaires.navigation.history'),
       icon: <HistoryIcon className="m-auto" />,
       path: '/questionnaire/$questionnaireId/versions',
-      isDisabled: !enableVersionsPage,
-      isHidden: !enableVersionsPage,
     },
   ];
 

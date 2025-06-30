@@ -6,7 +6,7 @@ import { renderWithRouter } from '@/tests/tests';
 import QuestionnaireNavigation from './QuestionnaireNavigation';
 
 describe('QuestionnaireNavigation', () => {
-  it('display label', async () => {
+  it('display navigation links', async () => {
     const { getByText } = await waitFor(() =>
       renderWithRouter(<QuestionnaireNavigation />),
     );
