@@ -54,8 +54,8 @@ export const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
     codesList: CodesListFactory(
-      cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
       codesListsStore,
+      cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
     ),
   };
   return {

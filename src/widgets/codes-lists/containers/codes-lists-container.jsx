@@ -62,7 +62,6 @@ export const mapStateToProps = (
     currentCodesListsStore,
     codesListsStore,
     isSearchDisable,
-    activePanel: selector(state, `${path}panel`),
     currentCodes: selector(state, `${path}codes`),
   };
 };

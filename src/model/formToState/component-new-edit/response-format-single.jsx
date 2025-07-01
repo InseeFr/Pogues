@@ -1,11 +1,13 @@
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
-import { Factory as CodesListFactory } from '../..';
 import {
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
+import { Factory as CodesListFactory } from '../lists/codes-list';
+import { Factory as NomenclatureFactory } from '../lists/nomenclature';
 
 const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
 
@@ -28,6 +30,7 @@ export function formToState(form, transformers) {
     mandatory,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
+    [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
   } = form;
 
   return {
@@ -38,6 +41,8 @@ export function formToState(form, transformers) {
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
+    [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
+      transformers.nomenclature.formToStateComponent(nomenclatureForm),
   };
 }
 
@@ -51,6 +56,8 @@ export function stateToForm(currentState, transformers) {
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.stateComponentToForm(),
+    [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
+      transformers.nomenclature.stateComponentToForm(),
   };
 }
 
@@ -58,8 +65,12 @@ export const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
     codesList: CodesListFactory(
-      cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
       codesListsStore,
+      cloneDeep(currentState[DEFAULT_CODES_LIST_SELECTOR_PATH]),
+    ),
+    nomenclature: NomenclatureFactory(
+      codesListsStore,
+      cloneDeep(currentState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]),
     ),
   };
   return {
@@ -72,6 +83,8 @@ export const Factory = (initialState = {}, codesListsStore) => {
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {
+      if (currentState.visHint === DATATYPE_VIS_HINT.SUGGESTER)
+        return transformers.nomenclature.getStore();
       return transformers.codesList.getStore();
     },
     getNormalizedValues: (form) => {

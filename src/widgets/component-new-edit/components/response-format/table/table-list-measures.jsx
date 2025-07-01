@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FormSection } from 'redux-form';
 
 import { DEFAULT_FORM_NAME } from '../../../../../constants/pogues-constants';
-import { defaultMeasureState } from '../../../../../model/formToState/component-new-edit/response-format-table';
+import { defaultMeasureForm } from '../../../../../model/formToState/component-new-edit/response-format-table';
 import { validateTableListMeasuresForm } from '../../../../../utils/validation/validate';
 import { ListWithInputPanel } from '../../../../list-with-input-panel';
 import InputMeasure from './input-measure';
@@ -24,7 +24,7 @@ function TableListMeasures({
         selectorPath={selectorPath}
         name="measures"
         validateForm={validateForm(addErrors, validateTableListMeasuresForm)}
-        resetObject={defaultMeasureState}
+        resetObject={defaultMeasureForm}
       >
         <InputMeasure
           selectorPath={selectorPath}

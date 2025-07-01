@@ -6,6 +6,7 @@ describe('getCollectedVariablesSingle', () => {
   test('works for QCU without precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
+      visHint: 'RADIO',
       CodesList: {
         id: 'id',
         label: 'label',
@@ -42,6 +43,7 @@ describe('getCollectedVariablesSingle', () => {
   test('computes needed new variable when there is a new precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
+      visHint: 'RADIO',
       CodesList: {
         id: 'id',
         label: 'label',
@@ -92,6 +94,7 @@ describe('getCollectedVariablesSingle', () => {
   test('computes existing precision variable when there is an existing precision in codesList', () => {
     const questionName = 'questionName';
     const form = {
+      visHint: 'RADIO',
       CodesList: {
         id: 'id',
         label: 'label',
@@ -202,7 +205,13 @@ describe('getCollectedVariablesSingle', () => {
     const form = {
       allowArbitraryResponse: true,
       visHint: 'SUGGESTER',
-      CodesList: { id: 'id', label: 'label', codes: [] },
+      CodesList: { id: '', label: '', codes: [] },
+      Nomenclature: {
+        id: 'id',
+        label: 'label',
+        urn: 'urn',
+        suggesterParameters: {},
+      },
     };
 
     const result = getCollectedVariablesSingle(questionName, form);
@@ -212,8 +221,8 @@ describe('getCollectedVariablesSingle', () => {
         id: result[0].id,
         name: 'questionName',
         label: 'questionName label',
-        codeListReference: form.CodesList.id,
-        codeListReferenceLabel: form.CodesList.label,
+        codeListReference: form.Nomenclature.id,
+        codeListReferenceLabel: form.Nomenclature.label,
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },

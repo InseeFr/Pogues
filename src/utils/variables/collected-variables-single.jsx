@@ -18,8 +18,14 @@ export function getCollectedVariablesSingle(
     `${questionName} label`,
     undefined,
     {
-      codeListReference: form.CodesList.id,
-      codeListReferenceLabel: form.CodesList.label,
+      codeListReference:
+        form.visHint === DATATYPE_VIS_HINT.SUGGESTER
+          ? form.Nomenclature.id
+          : form.CodesList.id,
+      codeListReferenceLabel:
+        form.visHint === DATATYPE_VIS_HINT.SUGGESTER
+          ? form.Nomenclature.label
+          : form.CodesList.label,
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
@@ -28,12 +34,6 @@ export function getCollectedVariablesSingle(
   );
 
   collectedVariables.push(mainCollectedVariable);
-
-  // if we have no precision variable, we don't need to generate other variables
-  const noPrecisionVariable = form.visHint === DATATYPE_VIS_HINT.DROPDOWN;
-  if (noPrecisionVariable) {
-    return collectedVariables;
-  }
 
   // get arbitrary variable for suggester
   if (
@@ -56,6 +56,14 @@ export function getCollectedVariablesSingle(
         mainCollectedVariable.id,
       ),
     );
+  }
+
+  // if we have no precision variable, we don't need to generate other variables
+  const noPrecisionVariable =
+    form.visHint === DATATYPE_VIS_HINT.DROPDOWN ||
+    form.visHint === DATATYPE_VIS_HINT.SUGGESTER;
+  if (noPrecisionVariable) {
+    return collectedVariables;
   }
 
   // get new clarification variables for codes lists

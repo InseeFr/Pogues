@@ -1,6 +1,8 @@
 import {
   DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
@@ -115,7 +117,7 @@ export function getCollectedVariablesTable(questionName, form) {
   return collectedVariables.sort(sortByYXAndZ());
 }
 
-function getReponsesValues(measure) {
+export function getReponsesValues(measure) {
   let reponseFormatValues = {};
 
   if (measure.type === SIMPLE) {
@@ -128,9 +130,13 @@ function getReponsesValues(measure) {
     };
   }
   if (measure.type === SINGLE_CHOICE) {
+    const listPath =
+      measure[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+        ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+        : DEFAULT_CODES_LIST_SELECTOR_PATH;
     reponseFormatValues = {
-      codeListReference: measure[SINGLE_CHOICE].CodesList.id,
-      codeListReferenceLabel: measure[SINGLE_CHOICE].CodesList.label,
+      codeListReference: measure[SINGLE_CHOICE][listPath].id,
+      codeListReferenceLabel: measure[SINGLE_CHOICE][listPath].label,
       type: TEXT,
       [TEXT]: {
         maxLength: 1,
