@@ -159,6 +159,11 @@
       "upload_error": "Error uploading survey units",
       "upload_success": "Survey units uploaded successfully"
     },
+    "edit": {
+      "edit_questionnaire": "Edit questionnaire",
+      "edit_questionnaire_description": "Edit the questionnaire with the uploaded survey units.",
+      "title": "Edit personalization"
+    },
     "overview": {
       "existing_file_data": "Existing dataset",
       "modes": "Modes",

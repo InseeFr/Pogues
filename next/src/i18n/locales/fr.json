@@ -158,6 +158,11 @@
       "upload_error": "Erreur lors du chargement des unités enquêtées",
       "upload_success": "Unités enquêtées importées avec succès"
     },
+    "edit": {
+      "edit_questionnaire": "Confirmer le rechargement",
+      "edit_questionnaire_description": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
+      "title": "Modifier la personnalisation"
+    },
     "overview": {
       "existing_file_data": "Jeu de données existantes",
       "modes": "Modes",

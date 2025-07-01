@@ -15,7 +15,6 @@ export default function PersonalizationsOverview({
   data,
 }: Readonly<PersonalizationsProps>) {
   const { t } = useTranslation();
-  console.log('data', data);
   return data ? (
     <PersonalizationContent data={data} questionnaireId={questionnaireId} />
   ) : (

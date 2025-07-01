@@ -75,9 +75,20 @@ export async function getInitialCsvSchema(
   }
 }
 
+/**
+ * Used to retrieve data used to a create survey Units.
+ *
+ * @see {@link getExistingCsvSchema}
+ */
+export const personalizationFileQueryOptions = (publicEnemyId: string) =>
+  queryOptions({
+    queryKey: ['personalizationNewQuestionnaire', { publicEnemyId }],
+    queryFn: () => getExistingCsvSchema(publicEnemyId),
+  });
+
 /* Fetch the existing csv file */
 export async function getExistingCsvSchema(
-  publicEnemyId: number,
+  publicEnemyId: string,
 ): Promise<File> {
   try {
     const response = await instancePersonalization.get(

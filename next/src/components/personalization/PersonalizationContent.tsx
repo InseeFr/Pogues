@@ -7,6 +7,7 @@ import { openDocument } from '@/api/utils/personalization';
 import Button from '@/components/ui/Button';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
+import ButtonLink from '../ui/ButtonLink';
 import PersonalisationTile from './PersonalizationTile';
 
 interface PersonalizationContentProps {
@@ -44,10 +45,16 @@ export default function PersonalizationContent({
 
   return (
     <PersonalisationTile data={data}>
-      <div className="overflow-hidden space-y-3 my-1">
+      <div className="overflow-hidden flex flex-row gap-3 my-1">
         <Button onClick={onDownload}>
           {t('personalization.overview.existing_file_data')}
         </Button>
+        <ButtonLink
+          to="/questionnaire/$questionnaireId/personalize/$publicEnemyId"
+          params={{ questionnaireId, publicEnemyId: data.id.toString() }}
+        >
+          {t('common.edit')}
+        </ButtonLink>
       </div>
     </PersonalisationTile>
   );
