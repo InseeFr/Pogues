@@ -19,7 +19,7 @@ export default function CsvViewerTable({
         }}
       >
         <table className="border border-default w-full min-w-max shadow-sm">
-          <thead className="bg-accent sticky top-0 z-10">
+          <thead className="bg-accent sticky top-0 ">
             <tr className="*:font-semibold *:p-4 text-left">
               {parsedCsv.meta.fields.map((field: string) => (
                 <th key={field} className="text-default">

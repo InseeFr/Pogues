@@ -1,12 +1,17 @@
 import { useRef, useState } from 'react';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import Papa, { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { checkSurveyUnitsCSV, getInitialCsvSchema } from '@/api/personalize';
+import {
+  addQuestionnaireData,
+  checkSurveyUnitsCSV,
+  getInitialCsvSchema,
+} from '@/api/personalize';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
@@ -19,6 +24,7 @@ import {
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
+import PersonalisationTile from '../PersonalizationTile';
 import CsvViewerTable from './CsvViewerTable';
 import ErrorUploadFile from './Error';
 
@@ -34,6 +40,8 @@ export default function CreatePersonalization({
 }: Readonly<PersonalizationProps>) {
   const { t } = useTranslation();
   const emptyFileInputRef = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const surveyContext: SurveyContext[] = [
     {
       name: 'HOUSEHOLD',
@@ -66,12 +74,32 @@ export default function CreatePersonalization({
       return checkSurveyUnitsCSV(questionnaireId, file);
     },
     onError: (error: AxiosError) => {
-      console.log('Error checking CSV data:', error.response?.data);
       toast.error(t('personalization.create.upload_error'));
       setErrorUpload(error.response?.data as UploadError);
     },
     onSuccess: () => {
       toast.success(t('personalization.create.upload_success'));
+      setErrorUpload(null);
+      queryClient.invalidateQueries({
+        queryKey: ['checkCsvData', { questionnaireId }],
+      });
+    },
+  });
+
+  const saveQuestionnaire = useMutation({
+    mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
+      return addQuestionnaireData(questionnaire);
+    },
+    onSuccess: () => {
+      toast.success(t('personalization.create.save_success'));
+      queryClient.invalidateQueries({
+        queryKey: ['saveQuestionnaire', { questionnaireId }],
+      });
+    },
+    onError: (error: AxiosError) => {
+      toast.error(
+        t('personalization.create.save_error', { error: error.message }),
+      );
     },
   });
 
@@ -114,10 +142,12 @@ export default function CreatePersonalization({
 
   const { refetch: fetchCsvSchema } = useQuery({
     queryKey: ['personalization-csv-schema', { questionnaireId }],
-    queryFn: () => getInitialCsvSchema(questionnaireId),
+    queryFn: async () => {
+      const result = await getInitialCsvSchema(questionnaireId);
+      return result ?? null;
+    },
     enabled: false,
   });
-
   function onDownload() {
     const promise = fetchCsvSchema();
     toast.promise(promise, {
@@ -127,92 +157,97 @@ export default function CreatePersonalization({
     });
   }
 
+  function handleValidate() {
+    saveQuestionnaire.mutateAsync(questionnaire, {
+      onSuccess: () =>
+        void navigate({
+          to: '/questionnaire/$questionnaireId/personalize',
+          params: { questionnaireId },
+        }),
+    });
+  }
+
   return (
-    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
-      <div className="flex flex-col ">
-        <h3>{data.label}</h3>
-        <span className="text-sm text-gray-600 mt-1">
-          {t('personalization.overview.modes')}:{' '}
-          {data.modes.map((mode) => mode.name).join(', ')}
-        </span>
-      </div>
-      <div className={`grid overflow-hidden grid-rows-[1fr] transition-all`}>
-        <div className="overflow-hidden space-y-3 my-1">
-          <label
-            htmlFor="context-select"
-            className="block text-sm font-medium text-gray-700"
-          >
-            {t('personalization.create.context')}
-          </label>
-          <div className="flex flex-row items-end gap-2">
-            <div className="w-[80%]">
-              <Select
-                onChange={(v: unknown) => {
-                  if (v && typeof v === 'object' && 'name' in v) {
-                    onContextChange(v as SurveyContext);
-                  }
-                }}
-                value={questionnaire.context?.name ?? ''}
-              >
-                {surveyContext.map((context: SurveyContext) => (
-                  <Option key={context.name} value={context}>
-                    {context.value}
-                  </Option>
-                ))}
-              </Select>
-            </div>
-            <Button onClick={onDownload}>
-              {t('personalization.create.schema')}
-            </Button>
-          </div>
-          <div className="flex flex-row gap-x-2 mt-6 items-center">
+    <PersonalisationTile data={data}>
+      <div className="overflow-hidden space-y-3 my-1">
+        <label
+          htmlFor="context-select"
+          className="block text-sm font-medium text-gray-700"
+        >
+          {t('personalization.create.context')}
+        </label>
+        <div className="flex flex-row items-end gap-2">
+          <div className="w-[80%]">
             <Select
               onChange={(v: unknown) => {
                 if (v && typeof v === 'object' && 'name' in v) {
-                  onFileTypeChange(v as FileType);
+                  onContextChange(v as SurveyContext);
                 }
               }}
-              value={fileType}
+              value={questionnaire.context?.name ?? ''}
             >
-              {fileTypes.map((type) => (
-                <Option key={type.value} value={type}>
-                  {type.name}
+              {surveyContext.map((context: SurveyContext) => (
+                <Option key={context.name} value={context}>
+                  {context.value}
                 </Option>
               ))}
             </Select>
-            <Input
-              type="file"
-              ref={emptyFileInputRef}
-              style={{ display: 'none' }}
-              onChange={onSurveyUnitDataChange}
-            />
-            <Button
-              onClick={() => emptyFileInputRef.current?.click()}
-              buttonStyle={ButtonStyle.Primary}
-            >
-              {t('personalization.create.upload_data')}
-            </Button>
-            <span className="text-sm text-gray-600 ml-2">
-              {questionnaire.surveyUnitData?.name ||
-                t('personalization.create.no_file_chosen')}
-            </span>
           </div>
-          {errorUpload && <ErrorUploadFile error={errorUpload} />}
-          {parsedCsv && parsedCsv.data.length > 0 && (
-            <CsvViewerTable parsedCsv={parsedCsv} />
-          )}
-          <Dialog
-            label={t('common.validate')}
-            title={t('personalization.create.createQuestionnaire', {
-              label: data.label,
-            })}
-            body={'questionnaire_add_save'}
-            onValidate={() => {}}
-            buttonTitle={t('personalization.create.createQuestionnaire')}
-            disabled
-          />
+          <Button onClick={onDownload}>
+            {t('personalization.create.schema')}
+          </Button>
         </div>
+        <div className="flex flex-row gap-x-2 mt-6 items-center">
+          <Select
+            onChange={(v: unknown) => {
+              if (v && typeof v === 'object' && 'name' in v) {
+                onFileTypeChange(v as FileType);
+              }
+            }}
+            value={fileType}
+          >
+            {fileTypes.map((type) => (
+              <Option key={type.value} value={type}>
+                {type.name}
+              </Option>
+            ))}
+          </Select>
+          <Input
+            type="file"
+            ref={emptyFileInputRef}
+            style={{ display: 'none' }}
+            onChange={onSurveyUnitDataChange}
+          />
+          <Button
+            onClick={() => emptyFileInputRef.current?.click()}
+            buttonStyle={ButtonStyle.Primary}
+          >
+            {t('personalization.create.upload_data')}
+          </Button>
+          <span className="text-sm text-gray-600 ml-2">
+            {questionnaire.surveyUnitData?.name ||
+              t('personalization.create.no_file_chosen')}
+          </span>
+        </div>
+        {errorUpload && <ErrorUploadFile error={errorUpload} />}
+        {parsedCsv && parsedCsv.data.length > 0 && (
+          <CsvViewerTable parsedCsv={parsedCsv} />
+        )}
+        <Dialog
+          label={t('common.validate')}
+          title={t('personalization.create.create_questionnaire', {
+            label: data.label,
+          })}
+          body={t('personalization.create.create_questionnaire_description')}
+          onValidate={handleValidate}
+          buttonTitle={t('personalization.create.create_questionnaire')}
+          disabled={
+            !questionnaire.surveyUnitData ||
+            !questionnaire.context?.name ||
+            errorUpload !== null
+          }
+        />
       </div>
-    </div>
+    </PersonalisationTile>
   );
 }

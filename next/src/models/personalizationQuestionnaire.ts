@@ -1,6 +1,7 @@
 import { SurveyModeEnum } from '@/api/models/pogues';
 
 export type PersonalizationQuestionnaire = {
+  id: number;
   poguesId: string;
   label: string;
   modes: Modes[];

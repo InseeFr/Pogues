@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
+
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { personalizationQueryOptions } from '@/api/personalize';
@@ -33,6 +36,24 @@ function RouteComponent() {
 }
 
 function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+  const navigate = useNavigate();
+  const questionnaireId = Route.useParams().questionnaireId;
+
+  // If an existing data set is not found, redirect to the creation page
+  useEffect(() => {
+    if (error?.message?.includes('404')) {
+      navigate({
+        to: '/questionnaire/$questionnaireId/personalize/new',
+        params: { questionnaireId },
+        replace: true,
+      });
+    }
+  }, [error, navigate, questionnaireId]);
+
+  if (error?.message?.includes('404')) {
+    return null;
+  }
+
   return <div className="text-error">{error.message}</div>;
 }
 

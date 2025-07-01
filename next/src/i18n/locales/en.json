@@ -137,30 +137,32 @@
     "view": "View"
   },
   "personalization": {
-    "overview": {
-      "title": "Personalization",
-      "create": "Upload survey units",
-      "createDescription": "Upload survey units to pre-fill the questionnaire.",
-      "modes": "Modes"
-    },
     "create": {
-      "title": "Create a personalization",
-      "description": "Upload survey units to pre-fill the questionnaire.",
-      "success": "Personalization created successfully",
-      "error": "Error creating personalization",
-      "upload_error": "Error uploading survey units",
-      "upload_success": "Survey units uploaded successfully",
-      "upload_empty_error": "No survey units provided in the upload",
-      "file_viewer_error": "Error displaying the file.",
-      "schema": "Expected file schema",
-      "upload_data": "Upload survey units data",
-      "createQuestionnaire": "Load questionnaire in orchestrator",
-      "context": "Context",
-      "household": "Household",
       "business": "Business",
-      "download_success": "CSV schema downloaded successfully",
+      "context": "Context",
+      "create_questionnaire": "Load questionnaire in orchestrator",
+      "create_questionnaire_description": "Create a questionnaire in the orchestrator with the uploaded survey units.",
+      "description": "Upload survey units to pre-fill the questionnaire.",
       "download_error": "Error downloading CSV schema",
-      "no_file_chosen": "No file chosen"
+      "download_success": "CSV schema downloaded successfully",
+      "error": "Error creating personalization",
+      "file_viewer_error": "Error displaying the file.",
+      "household": "Household",
+      "no_file_chosen": "No file chosen",
+      "save_error": "Error saving questionnaire",
+      "save_success": "Questionnaire saved successfully",
+      "schema": "Expected file schema",
+      "success": "Personalization created successfully",
+      "title": "Create a personalization",
+      "upload_data": "Upload survey units data",
+      "upload_empty_error": "No survey units provided in the upload",
+      "upload_error": "Error uploading survey units",
+      "upload_success": "Survey units uploaded successfully"
+    },
+    "overview": {
+      "existing_file_data": "Existing dataset",
+      "modes": "Modes",
+      "title": "Personalization"
     }
   }
 }

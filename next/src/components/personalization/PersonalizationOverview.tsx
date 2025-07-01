@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 import ButtonLink, { ButtonStyle } from '../ui/ButtonLink';
+import PersonalizationContent from './PersonalizationContent';
 
 interface PersonalizationsProps {
   questionnaireId: string;
@@ -14,9 +15,9 @@ export default function PersonalizationsOverview({
   data,
 }: Readonly<PersonalizationsProps>) {
   const { t } = useTranslation();
-
-  return data.surveyUnitData ? (
-    <div>TODO</div>
+  console.log('data', data);
+  return data ? (
+    <PersonalizationContent data={data} questionnaireId={questionnaireId} />
   ) : (
     <div>
       <ButtonLink
@@ -24,7 +25,7 @@ export default function PersonalizationsOverview({
         params={{ questionnaireId }}
         buttonStyle={ButtonStyle.Primary}
       >
-        {t('personalization.overview.create')}
+        {t('personalization.create.title')}
       </ButtonLink>
     </div>
   );

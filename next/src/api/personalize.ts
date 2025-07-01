@@ -8,15 +8,39 @@ import { getFileName, openDocument } from './utils/personalization';
 /**
  * Used to retrieve questionnaireData used by a Public Enemy.
  *
- * @see {@link getPublicEnemyData}
+ * @see {@link getExistingPublicEnemyData}
  */
 export const personalizationQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: ['personalizationQuestionnaire', { questionnaireId }],
-    queryFn: () => getPublicEnemyData(questionnaireId),
+    queryFn: () => getExistingPublicEnemyData(questionnaireId),
   });
 
 /** Fetch questionnaire data from Public Enemy Back Office. */
+export async function getExistingPublicEnemyData(
+  questionnaireId: string,
+): Promise<PersonalizationQuestionnaire> {
+  return instancePersonalization
+    .get(`/questionnaires/${questionnaireId}/db`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: PersonalizationQuestionnaire }) => {
+      return data;
+    });
+}
+
+/**
+ * Used to retrieve data used to a create survey Units.
+ *
+ * @see {@link getPublicEnemyData}
+ */
+export const personalizationNewQueryOptions = (questionnaireId: string) =>
+  queryOptions({
+    queryKey: ['personalizationNewQuestionnaire', { questionnaireId }],
+    queryFn: () => getPublicEnemyData(questionnaireId),
+  });
+
+/** Fallback fetch questionnaire data if existing data is not found. */
 export async function getPublicEnemyData(
   questionnaireId: string,
 ): Promise<PersonalizationQuestionnaire> {
@@ -54,7 +78,7 @@ export async function getInitialCsvSchema(
 /* Fetch the existing csv file */
 export async function getExistingCsvSchema(
   publicEnemyId: number,
-): Promise<void> {
+): Promise<File> {
   try {
     const response = await instancePersonalization.get(
       `/questionnaires/${publicEnemyId}/data`,
@@ -63,14 +87,15 @@ export async function getExistingCsvSchema(
         responseType: 'blob',
       },
     );
-    const disposition = response.headers['content-disposition'];
-    const fileName = disposition
-      ? getFileName(disposition)
-      : `questionnaire-${publicEnemyId}-data.csv`;
-    openDocument(new Blob([response.data], { type: 'text/csv' }), fileName);
+    return new File([response.data], `survey-units-${publicEnemyId}.csv`, {
+      type: 'text/csv',
+    });
   } catch (error) {
     console.error('Failed to download CSV schema:', error);
   }
+  return new File([], `survey-units-${publicEnemyId}.csv`, {
+    type: 'text/csv',
+  });
 }
 
 /** Check the survey units CSV file for errors & warning messages */

@@ -2,14 +2,14 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { personalizationQueryOptions } from '@/api/personalize';
+import { personalizationNewQueryOptions } from '@/api/personalize';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import CreatePersonalization from '@/components/personalization/create/CreatePersonalization';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 /**
- * Page that allow to create a new code list.
+ * Page that allow to create a new survey unit dataset.
  */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/personalize/new',
@@ -17,13 +17,15 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
-    queryClient.ensureQueryData(personalizationQueryOptions(questionnaireId)),
+    queryClient.ensureQueryData(
+      personalizationNewQueryOptions(questionnaireId),
+    ),
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
   const { data }: { data: PersonalizationQuestionnaire } = useSuspenseQuery(
-    personalizationQueryOptions(questionnaireId),
+    personalizationNewQueryOptions(questionnaireId),
   );
   return (
     <ComponentWrapper>

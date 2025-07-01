@@ -136,15 +136,32 @@
     "view": "Consulter"
   },
   "personalization": {
-    "title": "Personalisation",
-    "schema": "Schéma .csv attendu",
-    "upload_empty": "Charger les unités enquêtées",
-    "upload_data": "Charger les unités enquêtées avec pré-remplissage",
-    "createQuestionnaire": "Créer le questionnaire dans les orchestrateurs",
-    "context": "Contexte",
-    "household": "Ménage",
-    "business": "Entreprise",
-    "download_success": "Schéma CSV crée avec succès",
-    "download_error": "Erreur lors du téléchargement du schéma CSV"
+    "create": {
+      "business": "Entreprise",
+      "context": "Contexte",
+      "create_questionnaire": "Charger les données dans les orchestrateurs",
+      "create_questionnaire_description": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
+      "description": "Créez une personnalisation pour pré-remplir le questionnaire avec les données des unités enquêtées.",
+      "download_error": "Erreur lors du téléchargement du schéma CSV",
+      "download_success": "Schéma CSV téléchargé avec succès",
+      "error": "Erreur lors de la création du jeu de données",
+      "file_viewer_error": "Erreur lors de l'affichage du fichier.",
+      "household": "Ménage",
+      "no_file_chosen": "Aucun fichier choisi",
+      "save_error": "Erreur lors de la sauvegarde du questionnaire",
+      "save_success": "Questionnaire sauvegardé avec succès",
+      "schema": "Schéma de fichier attendu",
+      "success": "La personnalisation a été créée avec succès",
+      "title": "Personaliser mon questionnaire",
+      "upload_data": "Charger les unités enquêtées",
+      "upload_empty_error": "Aucune unité enquêtée trouvée dans le fichier",
+      "upload_error": "Erreur lors du chargement des unités enquêtées",
+      "upload_success": "Unités enquêtées importées avec succès"
+    },
+    "overview": {
+      "existing_file_data": "Jeu de données existantes",
+      "modes": "Modes",
+      "title": "Personaliser mon questionnaire"
+    }
   }
 }
