@@ -55,16 +55,24 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
 function ComponentWrapper({
   children,
   nomenclaturesCount,
-}: Readonly<{ children: React.ReactNode; nomenclaturesCount?: number }>) {
+}: Readonly<{
+  children: React.ReactNode;
+  nomenclaturesCount?: number;
+}>) {
   const { t } = useTranslation();
+  const { questionnaireId, versionId } = Route.useParams();
+
   const nomenclaturesAffix = nomenclaturesCount
     ? `: ${nomenclaturesCount}`
     : '';
+
   return (
     <>
       <ContentHeader
         isReadonly
+        questionnaireId={questionnaireId}
         title={`${t('nomenclatures.title')} ${nomenclaturesAffix}`}
+        versionId={versionId}
       />
       <ContentMain>{children}</ContentMain>
     </>

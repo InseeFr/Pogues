@@ -6,19 +6,27 @@ export enum ButtonStyle {
   Secondary,
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
+export enum ButtonSize {
+  sm,
+  md,
+}
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+  buttonSize?: ButtonSize;
   buttonStyle?: ButtonStyle;
-  onClick?: () => void;
+  children: React.ReactNode;
   isLoading?: boolean;
+  onClick?: () => void;
 }
 
 export default function Button({
-  children,
+  buttonSize = ButtonSize.md,
   buttonStyle = ButtonStyle.Secondary,
-  onClick = () => {},
+  children,
   disabled = false,
   isLoading = false,
+  onClick = () => {},
   ...props
 }: Readonly<ButtonProps>) {
   return (
@@ -26,12 +34,12 @@ export default function Button({
       onClick={!disabled ? onClick : undefined}
       disabled={disabled || isLoading}
       aria-disabled={disabled || isLoading}
-      className={`border cursor-pointer font-semibold transition rounded px-4 py-3 min-w-40 disabled:cursor-not-allowed outline-hidden focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary
+      className={`border cursor-pointer font-semibold transition rounded disabled:cursor-not-allowed outline-hidden focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary
         ${
           buttonStyle === ButtonStyle.Primary
             ? 'bg-primary text-negative disabled:bg-primary-disabled hover:enabled:bg-primary-accent active:enabled:bg-primary-active'
             : 'bg-white text-primary disabled:bg-disabled disabled:text-disabled hover:enabled:bg-accent active:enabled:bg-active disabled:border-default border-primary'
-        }`}
+        } ${buttonSize === ButtonSize.md ? 'px-4 py-3 min-w-40' : 'px-2 p-1'}`}
       {...props}
     >
       {isLoading ? (

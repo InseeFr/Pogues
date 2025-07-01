@@ -22,8 +22,7 @@
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
     "usedByQuestion": "Used by question:",
     "usedByQuestion_other": "Used by questions:",
-    "validate": "Validate",
-    "versionIsOnReadonly": "This version of the survey is on readonly."
+    "validate": "Validate"
   },
   "codesList": {
     "common": {
@@ -130,6 +129,11 @@
     "id": "ID",
     "no_versions": "No saves were found",
     "old_versions": "{{count}} older versions",
+    "restore": "Restore",
+    "restoreDialogConfirm": "A new save will be created with this save data.",
+    "restoreDialogTitle": "Restore this save data",
+    "restoreSuccess": "A new save has been created",
+    "surveyIsReadonly": "This save of the survey is on readonly.",
     "timestamp": "Timestamp",
     "title": "History",
     "version_today": "{{count}} version today",

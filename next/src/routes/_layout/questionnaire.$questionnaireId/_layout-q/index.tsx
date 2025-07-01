@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
+import ContentHeader from '@/components/layout/ContentHeader';
 import { LegacyComponent } from '@/components/legacy';
 
 /**
@@ -9,5 +11,19 @@ import { LegacyComponent } from '@/components/legacy';
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/',
 )({
-  component: LegacyComponent,
+  component: RouteComponent,
 });
+
+function RouteComponent() {
+  const { t } = useTranslation();
+  const questionnaireId = Route.useParams().questionnaireId;
+
+  return (
+    <>
+      <ContentHeader
+        title={t('questionnaire.title', { id: questionnaireId })}
+      />
+      <LegacyComponent />
+    </>
+  );
+}

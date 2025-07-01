@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Pogues metadata and DDI documentation download (they've been replaced with the zip one that download both of them).
+- The readonly warning banner displayed on "version" pages, since it's now entirely handled by next.
 
 ### Fixed
 

@@ -22,8 +22,7 @@
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "usedByQuestion": "Utilisé dans la question :",
     "usedByQuestion_other": "Utilisé dans les questions :",
-    "validate": "Valider",
-    "versionIsOnReadonly": "Cette version du questionnaire est en lecture seule."
+    "validate": "Valider"
   },
   "codesList": {
     "common": {
@@ -130,6 +129,11 @@
     "id": "ID",
     "no_versions": "Aucune sauvegarde disponible",
     "old_versions": "{{count}} sauvegardes plus anciennes",
+    "restore": "Restaurer",
+    "restoreDialogConfirm": "Une nouvelle sauvegarde va être créée avec ces données.",
+    "restoreDialogTitle": "Restaurer cette sauvegarde",
+    "restoreSuccess": "La nouvelle sauvegarde a été créée",
+    "surveyIsReadonly": "Cette sauvegarde du questionnaire est en lecture seule.",
     "timestamp": "Date",
     "title": "Historique",
     "version_today": "{{count}} sauvegardes aujourd'hui",

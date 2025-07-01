@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- A history page can be accessed to browse a questionnaire in "read only". It will eventually replace the "previous saves" feature of legacy.
+- A history page can be accessed to browse a questionnaire in "read only" and restore an older save. It will eventually replace the "previous saves" feature of legacy.
 
 ### Changed
 
