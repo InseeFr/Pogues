@@ -12,7 +12,7 @@ describe('ContentHeader', () => {
     );
 
     expect(
-      getByText(/This version of the survey is on readonly./i),
+      getByText(/This save of the survey is on readonly./i),
     ).toBeInTheDocument();
   });
 
@@ -21,8 +21,6 @@ describe('ContentHeader', () => {
       renderWithRouter(<ContentHeader title="my title" />),
     );
 
-    expect(
-      queryByText(/This version of the survey is on readonly./i),
-    ).toBeNull();
+    expect(queryByText(/This save of the survey is on readonly./i)).toBeNull();
   });
 });
