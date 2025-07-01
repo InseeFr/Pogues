@@ -36,9 +36,9 @@ it('Delete all versions works', async () => {
 
 it('Restore version works', async () => {
   nock('https://mock-api')
-    .get('/persistence/questionnaire/restore/my-version')
+    .post('/persistence/questionnaire/restore/my-version')
     .reply(200);
 
   const res = await restoreVersion('my-version');
-  expect(res).toEqual(200);
+  expect(res.status).toEqual(200);
 });

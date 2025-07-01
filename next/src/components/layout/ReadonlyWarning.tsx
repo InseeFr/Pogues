@@ -48,7 +48,7 @@ export default function ReadonlyWarning({
           // There should always have a questionnaireId but just in case,
           // we do nothing if none is provided
           if (questionnaireId)
-            void navigate({
+            navigate({
               to: '/questionnaire/$questionnaireId',
               params: { questionnaireId },
             });

@@ -10,7 +10,6 @@ export const renderWithRouter = (component: React.ReactElement) => {
   return render(
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={new QueryClient()}>
-        {/* @ts-expect-error: we should have a better router mock*/}
         <RouterProvider router={router} defaultComponent={() => component} />
       </QueryClientProvider>
     </I18nextProvider>,
