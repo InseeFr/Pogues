@@ -25,21 +25,21 @@ export default function QuestionnaireNavigation() {
   /** Navigation items that change with the version. */
   const questionnaireVersionItems: NavigationItem[] = [
     {
-      label: t('questionnaires.navigation.overview'),
+      label: t('questionnaire.title'),
       Icon: DashboardIcon,
       path: versionId
         ? `/questionnaire/$questionnaireId/version/$versionId`
         : '/questionnaire/$questionnaireId',
     },
     {
-      label: t('questionnaires.navigation.variables'),
+      label: t('variables.title'),
       Icon: VariableIcon,
       path: '/',
       isDisabled: true,
       isHidden: true,
     },
     {
-      label: t('questionnaires.navigation.codeLists'),
+      label: t('codesLists.title'),
       Icon: ListIcon,
       path: versionId
         ? `/questionnaire/$questionnaireId/version/$versionId/codes-lists`
@@ -50,14 +50,14 @@ export default function QuestionnaireNavigation() {
       ],
     },
     {
-      label: t('questionnaires.navigation.metadata'),
+      label: t('metadata.title'),
       Icon: DescriptionIcon,
       path: '/',
       isDisabled: true,
       isHidden: true,
     },
     {
-      label: t('questionnaires.navigation.nomenclatures'),
+      label: t('nomenclatures.title'),
       Icon: showAltIcon ? NomenclatureAltIcon : DictionaryIcon,
       iconClassName: showAltIcon ? 'animate-bounce' : '',
       onIconClick: handleAltIconClick,
@@ -73,7 +73,7 @@ export default function QuestionnaireNavigation() {
    */
   const questionnaireItems: NavigationItem[] = [
     {
-      label: t('questionnaires.navigation.history'),
+      label: t('history.title'),
       Icon: HistoryIcon,
       path: '/questionnaire/$questionnaireId/versions',
     },
@@ -86,7 +86,7 @@ export default function QuestionnaireNavigation() {
           <Button
             buttonSize={ButtonSize.sm}
             className="w-full flex overflow-hidden disabled:bg-main disabled:!text-default disabled:!cursor-auto"
-            title={t('version.backToLatest')}
+            title={t('history.backToLatest')}
             disabled={!versionId}
             onClick={() => {
               if (versionId) {

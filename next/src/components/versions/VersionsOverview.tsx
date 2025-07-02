@@ -51,7 +51,7 @@ export default function VersionsOverview({
     });
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('version.deleteSuccess'),
+      success: t('history.deleteAll.success'),
       error: (err: Error) => err.toString(),
     });
   }
@@ -59,12 +59,12 @@ export default function VersionsOverview({
   return (
     <div>
       <ContentHeader
-        title={`${t('version.title')} : ${versions.length}`}
+        title={t('history.title')}
         action={
           <Dialog
-            label={t('version.deleteAll')}
-            title={t('version.deleteDialogTitle')}
-            body={t('version.deleteDialogConfirm')}
+            label={t('history.deleteAll.label')}
+            title={t('history.deleteAll.dialogTitle')}
+            body={t('history.deleteAll.dialogConfirm')}
             onValidate={onDelete}
           />
         }
@@ -75,19 +75,19 @@ export default function VersionsOverview({
             <VersionContent
               versions={todaysVersions}
               questionnaireId={questionnaireId}
-              label={t('version.version_today', {
+              label={t('history.versionToday', {
                 count: todaysVersions.length,
               })}
             />
             <VersionContent
               versions={olderVersions}
               questionnaireId={questionnaireId}
-              label={t('version.old_versions', { count: olderVersions.length })}
+              label={t('history.oldVersions', { count: olderVersions.length })}
             />
           </>
         ) : (
           <div className="text-center">
-            <p>{t('version.no_versions')}</p>
+            <p>{t('history.noVersions')}</p>
           </div>
         )}
       </ContentMain>

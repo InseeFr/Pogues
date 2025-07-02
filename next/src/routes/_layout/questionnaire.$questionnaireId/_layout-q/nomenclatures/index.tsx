@@ -28,7 +28,7 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper nomenclaturesCount={data.length}>
+    <ComponentWrapper>
       <NomenclaturesOverview
         questionnaireId={questionnaireId}
         nomenclatures={data}
@@ -47,17 +47,12 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
 
 function ComponentWrapper({
   children,
-  nomenclaturesCount,
-}: Readonly<{ children: React.ReactNode; nomenclaturesCount?: number }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const { t } = useTranslation();
-  const nomenclaturesAffix = nomenclaturesCount
-    ? `: ${nomenclaturesCount}`
-    : '';
+
   return (
     <>
-      <ContentHeader
-        title={`${t('nomenclatures.title')} ${nomenclaturesAffix}`}
-      />
+      <ContentHeader title={t('nomenclatures.title')} />
       <ContentMain>{children}</ContentMain>
     </>
   );

@@ -16,13 +16,10 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const { t } = useTranslation();
-  const questionnaireId = Route.useParams().questionnaireId;
 
   return (
     <>
-      <ContentHeader
-        title={t('questionnaire.title', { id: questionnaireId })}
-      />
+      <ContentHeader title={t('questionnaire.title')} />
       <LegacyComponent />
     </>
   );
