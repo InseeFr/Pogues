@@ -164,6 +164,7 @@ export async function addQuestionnaireData(
 export async function editQuestionnaireData(
   questionnaire: PersonalizationQuestionnaire,
 ): Promise<PersonalizationQuestionnaire> {
+  console.log('Edit questionnaire data', questionnaire);
   const formData = new FormData();
   const questionnaireRest = {
     poguesId: questionnaire.poguesId,
@@ -175,7 +176,7 @@ export async function editQuestionnaireData(
     formData.append('surveyUnitData', questionnaire.surveyUnitData);
   }
   return instancePersonalization.post(
-    `/questionnaires/${questionnaire.poguesId}`,
+    `/questionnaires/${questionnaire.id}`,
     formData,
   );
 }
@@ -183,7 +184,7 @@ export async function editQuestionnaireData(
 export async function deleteQuestionnaireData(
   questionnaireId: string,
 ): Promise<void> {
-  return instancePersonalization.delete(`/questionnaires/${questionnaireId}`);
+  return instancePersonalization.delete(`/questionnaires/${questionnaireId}/delete`);
 }
 
 export async function resetSurveyUnit(surveyUnitId: string): Promise<void> {

@@ -4,19 +4,22 @@ import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionna
 
 import ButtonLink, { ButtonStyle } from '../ui/ButtonLink';
 import PersonalizationContent from './PersonalizationContent';
+import { ParseResult } from 'papaparse';
 
 interface PersonalizationsProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
+  csvData: ParseResult | null;
 }
 
 export default function PersonalizationsOverview({
   questionnaireId,
   data,
+  csvData
 }: Readonly<PersonalizationsProps>) {
   const { t } = useTranslation();
   return data ? (
-    <PersonalizationContent data={data} questionnaireId={questionnaireId} />
+    <PersonalizationContent data={data} questionnaireId={questionnaireId} csvData={csvData} />
   ) : (
     <div>
       <ButtonLink

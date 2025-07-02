@@ -165,8 +165,13 @@
     },
     "overview": {
       "existing_file_data": "Jeu de données existantes",
+      "current_survey_units": "Unités enquêtées actuelles",
       "modes": "Modes",
-      "title": "Personaliser mon questionnaire"
+      "title": "Personaliser mon questionnaire",
+      "deleteDialogTitle": "Supprimer la personnalisation",
+      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
+      "deleteSuccess": "Personnalisation supprimée avec succès",
+      "edit_disabled_tooltip": "La personnalisation ne peut pas être modifiée pour le moment."
     }
   }
 }

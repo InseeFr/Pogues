@@ -49,7 +49,6 @@ function RouteComponent() {
   useMemo(() => {
     if (!csvData) return;
 
-    // Convert Blob to text first
     csvData.text().then((csvText) => {
       const result = Papa.parse(csvText, {
         header: true,

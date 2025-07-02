@@ -69,23 +69,9 @@ export default function CreatePersonalization({
         questionnaireId={questionnaireId}
         errorUpload={errorUpload}
         setErrorUpload={setErrorUpload}
+        handleSubmit={handleSubmit}
       />
-      <div className="w-auto inline-block my-1">
-        <Dialog
-          label={t('common.validate')}
-          title={t('personalization.create.create_questionnaire', {
-            label: data.label,
-          })}
-          body={t('personalization.create.create_questionnaire_description')}
-          onValidate={handleSubmit}
-          buttonTitle={t('personalization.create.create_questionnaire')}
-          disabled={
-            !questionnaire.surveyUnitData ||
-            !questionnaire.context?.name ||
-            errorUpload !== null
-          }
-        />
-      </div>
+
     </PersonalisationTile>
   );
 }

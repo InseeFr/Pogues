@@ -1,26 +1,43 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { getExistingCsvSchema } from '@/api/personalize';
+import { deleteQuestionnaireData, getExistingCsvSchema } from '@/api/personalize';
 import { openDocument } from '@/api/utils/personalization';
-import Button from '@/components/ui/Button';
+import Button, { ButtonStyle } from '@/components/ui/Button';
+import Dialog from '@/components/ui/Dialog';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 import ButtonLink from '../ui/ButtonLink';
 import PersonalisationTile from './PersonalizationTile';
+import CsvViewerTable from './create/CsvViewerTable';
+import { useEffect, useState } from 'react';
+import type { ParseResult } from 'papaparse';
+import PersonalisationContentTile from './PersonalisationContentTile';
+
 
 interface PersonalizationContentProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
+  csvData: ParseResult<unknown> | null;
 }
 
 /** Display the personalization windows */
 export default function PersonalizationContent({
   questionnaireId,
   data,
+  csvData
 }: Readonly<PersonalizationContentProps>) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
+    csvData,
+  );
+
+  useEffect(() => {
+    setParsedCsv(csvData);
+  }, [csvData]);
+
   const { refetch: fetchExistingData } = useQuery({
     queryKey: ['existing-csv-schema', { questionnaireId }],
     queryFn: async () => {
@@ -51,19 +68,62 @@ export default function PersonalizationContent({
     });
   }
 
+  const deleteMutation = useMutation({
+    mutationFn: ({
+      data
+    }: {
+      data: PersonalizationQuestionnaire
+    }) => {
+      return deleteQuestionnaireData(data.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['personalization', { questionnaireId }],
+      });
+    },
+  });
+
+  function onDelete() {
+    const promise = deleteMutation.mutateAsync({
+      data
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.overview.deleteSuccess'),
+      error: (err: Error) => err.toString(),
+    });
+  }
+
   return (
     <PersonalisationTile data={data}>
-      <div className="overflow-hidden flex flex-row gap-3 my-1">
-        <Button onClick={onDownload}>
-          {t('personalization.overview.existing_file_data')}
-        </Button>
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/personalize/$publicEnemyId"
-          params={{ questionnaireId, publicEnemyId: data.id.toString() }}
-        >
-          {t('common.edit')}
-        </ButtonLink>
-      </div>
+      <PersonalisationContentTile data={data} >
+        {parsedCsv && parsedCsv.data.length > 0 && (
+          <CsvViewerTable parsedCsv={parsedCsv} />
+        )}
+        <div className="overflow-hidden flex flex-row gap-3 my-3">
+
+          <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
+            {t('personalization.overview.existing_file_data')}
+          </Button>
+          <ButtonLink
+            to="/questionnaire/$questionnaireId/personalize/$publicEnemyId"
+            params={{ questionnaireId, publicEnemyId: data.id.toString() }}
+            disabled
+            title={t('personalization.overview.edit_disabled_tooltip')}
+          >
+            {t('common.edit')}
+          </ButtonLink>
+          <Dialog
+            label={t('common.delete')}
+            title={t('personalization.overview.deleteDialogTitle', {
+              label: data.label,
+            })}
+            body={t('personalization.overview.deleteDialogConfirm')}
+            onValidate={onDelete}
+
+          />
+        </div>
+      </PersonalisationContentTile>
     </PersonalisationTile>
   );
 }

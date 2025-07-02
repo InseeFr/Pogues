@@ -1,0 +1,43 @@
+import { useTranslation } from 'react-i18next';
+
+import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import ExpandButton from '../ui/ExpandButton';
+import { useState } from 'react';
+
+interface PersonalisationContentTileProps {
+  data: PersonalizationQuestionnaire;
+  children: React.ReactNode;
+}
+
+/** Display the personalization windows as a wrapper */
+export default function PersonalisationContentTile({
+  data,
+  children,
+}: Readonly<PersonalisationContentTileProps>) {
+  const { t } = useTranslation();
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  return (
+    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] my-3">
+      <div className="grid grid-cols-[1fr_auto]">
+        <h3>{t('personalization.overview.current_survey_units')}</h3>
+      </div>
+      <div
+        hidden={!isExpanded}
+        className={`grid overflow-hidden grid-rows-[1fr] transition-all`}
+        id={`personalization-list-content-${data.id}`}
+      >
+        <div className="overflow-hidden space-y-3">
+          {children}
+        </div>
+      </div>
+      <div className="text-center absolute bottom-0 left-1/2">
+        <ExpandButton
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+          ariaControls={`personalization-content-${data.id}`}
+        />
+      </div>
+    </div>
+  );
+}

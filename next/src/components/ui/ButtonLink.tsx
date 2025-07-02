@@ -9,23 +9,30 @@ export enum ButtonStyle {
 }
 
 interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  // Add any additional props you want to pass to the anchor element
   buttonStyle?: ButtonStyle;
+  disabled?: boolean;
 }
 
 const AnchorButtonComponent = React.forwardRef<
   HTMLAnchorElement,
   BasicLinkProps
->(({ buttonStyle = ButtonStyle.Secondary, children, ...props }, ref) => (
+>(({ buttonStyle = ButtonStyle.Secondary, disabled = false, children, ...props }, ref) => (
   <a
     ref={ref}
     {...props}
-    className={`text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary ${
-      buttonStyle === ButtonStyle.Primary
-        ? 'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none'
-        : 'bg-white text-primary hover:bg-accent active:bg-active border-primary'
-    }
-                `}
+    tabIndex={disabled ? -1 : props.tabIndex}
+    aria-disabled={disabled}
+    onClick={disabled ? (e) => e.preventDefault() : props.onClick}
+    className={`text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary
+      ${buttonStyle === ButtonStyle.Primary
+        ? disabled
+          ? 'bg-gray-300 text-gray-500 border-none cursor-not-allowed'
+          : 'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none'
+        : disabled
+          ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+          : 'bg-white text-primary hover:bg-accent active:bg-active border-primary'
+      }
+    `}
   >
     {children}
   </a>

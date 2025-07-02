@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { checkSurveyUnitsCSV, getInitialCsvSchema } from '@/api/personalize';
 import Button, { ButtonStyle } from '@/components/ui/Button';
+import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
 import Option from '@/components/ui/form/Option';
 import Select from '@/components/ui/form/Select';
@@ -27,7 +28,8 @@ interface PersonalizationFormProps {
   setQuestionnaire: (questionnaire: PersonalizationQuestionnaire) => void;
   errorUpload: UploadError | null;
   setErrorUpload: (error: UploadError | null) => void;
-  existingCsv?: ParseResult<unknown> | null;
+  handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void;
+  csvData?: ParseResult | null;
 }
 
 /** Display the personalization windows */
@@ -37,7 +39,8 @@ export default function PersonalizationForm({
   setQuestionnaire,
   errorUpload,
   setErrorUpload,
-  existingCsv = null,
+  csvData = null,
+  handleSubmit = () => { },
 }: Readonly<PersonalizationFormProps>) {
   const { t } = useTranslation();
   const emptyFileInputRef = useRef<HTMLInputElement>(null);
@@ -64,12 +67,12 @@ export default function PersonalizationForm({
   ];
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
   const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
-    existingCsv,
+    csvData,
   );
 
   useEffect(() => {
-    setParsedCsv(existingCsv);
-  }, [existingCsv]);
+    setParsedCsv(csvData);
+  }, [csvData]);
 
   const checkCsvData = useMutation({
     mutationFn: (file: File) => {
@@ -207,6 +210,22 @@ export default function PersonalizationForm({
       {parsedCsv && parsedCsv.data.length > 0 && (
         <CsvViewerTable parsedCsv={parsedCsv} />
       )}
+      <div className="w-auto inline-block my-1">
+        <Dialog
+          label={t('common.validate')}
+          title={t('personalization.create.create_questionnaire', {
+            label: questionnaire.label,
+          })}
+          body={t('personalization.create.create_questionnaire_description')}
+          onValidate={() => handleSubmit(questionnaire)}
+          buttonTitle={t('personalization.create.create_questionnaire')}
+          disabled={
+            !questionnaire.surveyUnitData ||
+            !questionnaire.context?.name ||
+            errorUpload !== null
+          }
+        />
+      </div>
     </div>
   );
 }

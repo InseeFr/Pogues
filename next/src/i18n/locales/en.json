@@ -166,8 +166,13 @@
     },
     "overview": {
       "existing_file_data": "Existing dataset",
+      "current_survey_units": "Current survey units",
       "modes": "Modes",
-      "title": "Personalization"
+      "title": "Personalization",
+      "deleteDialogTitle": "Delete personalization",
+      "deleteDialogConfirm": "Are you sure you want to delete this personalization?",
+      "deleteSuccess": "Personalization deleted successfully",
+      "edit_disabled_tooltip": "Personalization cannot be edited yet."
     }
   }
 }
