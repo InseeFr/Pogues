@@ -17,7 +17,7 @@ import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionna
 import ButtonLink from '../ui/ButtonLink';
 import PersonalisationContentTile from './PersonalisationContentTile';
 import PersonalisationTile from './PersonalizationTile';
-import CsvViewerTable from './form/create/CsvViewerTable';
+import CsvViewerTable from './form/CsvViewerTable';
 
 interface PersonalizationContentProps {
   questionnaireId: string;

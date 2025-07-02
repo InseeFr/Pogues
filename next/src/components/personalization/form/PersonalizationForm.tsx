@@ -19,8 +19,8 @@ import {
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
-import CsvViewerTable from './create/CsvViewerTable';
-import ErrorUploadFile from './create/Error';
+import CsvViewerTable from './CsvViewerTable';
+import ErrorUploadFile from './Error';
 
 interface PersonalizationFormProps {
   questionnaireId: string;
