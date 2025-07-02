@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { personalizationNewQueryOptions } from '@/api/personalize';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-import CreatePersonalization from '@/components/personalization/create/CreatePersonalization';
+import CreatePersonalization from '@/components/personalization/form/create/CreatePersonalization';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 /**

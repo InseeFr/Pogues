@@ -9,7 +9,7 @@ vi.mock('@/i18n', () => ({
   useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
 }));
 
-describe('CodesListOverview', () => {
+describe('VersionsOverview', () => {
   const questionnaireId = '123';
   const mockVersions = [
     {

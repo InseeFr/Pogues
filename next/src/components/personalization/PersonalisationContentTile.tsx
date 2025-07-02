@@ -1,8 +1,10 @@
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+
 import ExpandButton from '../ui/ExpandButton';
-import { useState } from 'react';
 
 interface PersonalisationContentTileProps {
   data: PersonalizationQuestionnaire;
@@ -18,7 +20,7 @@ export default function PersonalisationContentTile({
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
-    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] my-3">
+    <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] my-2">
       <div className="grid grid-cols-[1fr_auto]">
         <h3>{t('personalization.overview.current_survey_units')}</h3>
       </div>
@@ -27,11 +29,9 @@ export default function PersonalisationContentTile({
         className={`grid overflow-hidden grid-rows-[1fr] transition-all`}
         id={`personalization-list-content-${data.id}`}
       >
-        <div className="overflow-hidden space-y-3">
-          {children}
-        </div>
+        <div className="overflow-hidden space-y-3">{children}</div>
       </div>
-      <div className="text-center absolute bottom-0 left-1/2">
+      <div className="text-center">
         <ExpandButton
           isExpanded={isExpanded}
           setIsExpanded={setIsExpanded}

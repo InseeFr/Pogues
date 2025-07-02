@@ -11,7 +11,7 @@ import {
 } from '@/api/personalize';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-import EditPersonalization from '@/components/personalization/edit/EditPersonalization';
+import EditPersonalization from '@/components/personalization/form/edit/EditPersonalization';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 /**

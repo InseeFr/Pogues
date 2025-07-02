@@ -3,28 +3,31 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
+import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { addQuestionnaireData } from '@/api/personalize';
+import { editQuestionnaireData } from '@/api/personalize';
 import {
   PersonalizationQuestionnaire,
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
-import PersonalisationTile from '../PersonalizationTile';
-import PersonalizationForm from '../form/PersonalizationForm';
+import PersonalisationTile from '../../PersonalizationTile';
+import PersonalizationForm from '../PersonalizationForm';
 
-interface CreatePersonalizationProps {
+interface EditPersonalizationProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
+  csvData: ParseResult | null;
 }
 
 /** Display the personalization windows */
-export default function CreatePersonalization({
+export default function EditPersonalization({
   questionnaireId,
   data,
-}: Readonly<CreatePersonalizationProps>) {
+  csvData,
+}: Readonly<EditPersonalizationProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -35,12 +38,12 @@ export default function CreatePersonalization({
 
   const saveQuestionnaire = useMutation({
     mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
-      return addQuestionnaireData(questionnaire);
+      return editQuestionnaireData(questionnaire);
     },
     onSuccess: () => {
       toast.success(t('personalization.create.save_success'));
       queryClient.invalidateQueries({
-        queryKey: ['saveQuestionnaire', { questionnaireId }],
+        queryKey: ['editQuestionnaire', { questionnaireId }],
       });
     },
     onError: (error: AxiosError) => {
@@ -50,7 +53,7 @@ export default function CreatePersonalization({
     },
   });
 
-  function handleSubmit() {
+  function handleSubmit(questionnaire: PersonalizationQuestionnaire) {
     saveQuestionnaire.mutateAsync(questionnaire, {
       onSuccess: () =>
         void navigate({
@@ -68,6 +71,7 @@ export default function CreatePersonalization({
         questionnaireId={questionnaireId}
         errorUpload={errorUpload}
         setErrorUpload={setErrorUpload}
+        csvData={csvData}
         handleSubmit={handleSubmit}
       />
     </PersonalisationTile>

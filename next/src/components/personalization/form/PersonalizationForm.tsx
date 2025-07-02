@@ -40,7 +40,7 @@ export default function PersonalizationForm({
   errorUpload,
   setErrorUpload,
   csvData = null,
-  handleSubmit = () => { },
+  handleSubmit = () => {},
 }: Readonly<PersonalizationFormProps>) {
   const { t } = useTranslation();
   const emptyFileInputRef = useRef<HTMLInputElement>(null);

@@ -9,9 +9,9 @@ export default function CsvViewerTable({
   parsedCsv,
 }: Readonly<CsvViewerTableProps>) {
   const shouldScroll = parsedCsv.data.length > 4;
-
+  console.log('Parsed CSV:', parsedCsv);
   return (
-    <div className="overflow-x-auto w-full mb-3">
+    <div className="overflow-x-auto w-full my-3">
       <div
         style={{
           maxHeight: shouldScroll ? '320px' : 'none',

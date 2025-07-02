@@ -12,8 +12,8 @@ import {
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
-import PersonalisationTile from '../PersonalizationTile';
-import PersonalizationForm from '../form/PersonalizationForm';
+import PersonalisationTile from '../../PersonalizationTile';
+import PersonalizationForm from '../PersonalizationForm';
 
 interface CreatePersonalizationProps {
   questionnaireId: string;

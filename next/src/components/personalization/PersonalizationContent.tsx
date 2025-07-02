@@ -1,20 +1,23 @@
+import { useEffect, useState } from 'react';
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteQuestionnaireData, getExistingCsvSchema } from '@/api/personalize';
+import {
+  deleteQuestionnaireData,
+  getExistingCsvSchema,
+} from '@/api/personalize';
 import { openDocument } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 import ButtonLink from '../ui/ButtonLink';
-import PersonalisationTile from './PersonalizationTile';
-import CsvViewerTable from './create/CsvViewerTable';
-import { useEffect, useState } from 'react';
-import type { ParseResult } from 'papaparse';
 import PersonalisationContentTile from './PersonalisationContentTile';
-
+import PersonalisationTile from './PersonalizationTile';
+import CsvViewerTable from './form/create/CsvViewerTable';
 
 interface PersonalizationContentProps {
   questionnaireId: string;
@@ -26,7 +29,7 @@ interface PersonalizationContentProps {
 export default function PersonalizationContent({
   questionnaireId,
   data,
-  csvData
+  csvData,
 }: Readonly<PersonalizationContentProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -69,11 +72,7 @@ export default function PersonalizationContent({
   }
 
   const deleteMutation = useMutation({
-    mutationFn: ({
-      data
-    }: {
-      data: PersonalizationQuestionnaire
-    }) => {
+    mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
       return deleteQuestionnaireData(data.id);
     },
     onSuccess: () => {
@@ -85,7 +84,7 @@ export default function PersonalizationContent({
 
   function onDelete() {
     const promise = deleteMutation.mutateAsync({
-      data
+      data,
     });
     toast.promise(promise, {
       loading: t('common.loading'),
@@ -96,12 +95,11 @@ export default function PersonalizationContent({
 
   return (
     <PersonalisationTile data={data}>
-      <PersonalisationContentTile data={data} >
+      <PersonalisationContentTile data={data}>
         {parsedCsv && parsedCsv.data.length > 0 && (
           <CsvViewerTable parsedCsv={parsedCsv} />
         )}
         <div className="overflow-hidden flex flex-row gap-3 my-3">
-
           <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
             {t('personalization.overview.existing_file_data')}
           </Button>
@@ -120,7 +118,6 @@ export default function PersonalizationContent({
             })}
             body={t('personalization.overview.deleteDialogConfirm')}
             onValidate={onDelete}
-
           />
         </div>
       </PersonalisationContentTile>
