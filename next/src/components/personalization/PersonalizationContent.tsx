@@ -31,15 +31,23 @@ export default function PersonalizationContent({
   });
   function onDownload() {
     const promise = fetchExistingData().then((result) => {
-      if (result?.data instanceof File) {
+      const blob = result.data;
+      if (blob && blob.size > 0) {
         const fileName = 'survey-units-' + questionnaireId + '.csv';
-        openDocument(new Blob([result.data], { type: 'text/csv' }), fileName);
+        openDocument(blob, fileName);
+        toast.promise(promise, {
+          loading: t('common.loading'),
+          success: t('personalization.create.download_success'),
+          error: (err: Error) => err.toString(),
+        });
+      } else {
+        toast.error(
+          t('personalization.create.download_error', {
+            error: t('personalization.create.download_error'),
+          }),
+        );
+        throw new Error('No data available for download.');
       }
-    });
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('personalization.create.download_success'),
-      error: (err: Error) => err.toString(),
     });
   }
 

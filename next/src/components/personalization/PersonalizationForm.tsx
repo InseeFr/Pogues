@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import Papa, { ParseResult } from 'papaparse';
+import Papa, { type ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +18,6 @@ import {
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
-import PersonalisationTile from './PersonalizationTile';
 import CsvViewerTable from './create/CsvViewerTable';
 import ErrorUploadFile from './create/Error';
 
@@ -28,7 +27,7 @@ interface PersonalizationFormProps {
   setQuestionnaire: (questionnaire: PersonalizationQuestionnaire) => void;
   errorUpload: UploadError | null;
   setErrorUpload: (error: UploadError | null) => void;
-  existingCsv?: ParseResult | null;
+  existingCsv?: ParseResult<unknown> | null;
 }
 
 /** Display the personalization windows */
@@ -58,14 +57,19 @@ export default function PersonalizationForm({
       name: 'CSV',
       value: 'text/csv',
     },
-    {
-      name: 'JSON',
-      value: 'application/json',
-    },
+    // {
+    //   name: 'JSON',
+    //   value: 'application/json',
+    // },
   ];
-
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
-  const [parsedCsv, setParsedCsv] = useState<ParseResult>(existingCsv);
+  const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
+    existingCsv,
+  );
+
+  useEffect(() => {
+    setParsedCsv(existingCsv);
+  }, [existingCsv]);
 
   const checkCsvData = useMutation({
     mutationFn: (file: File) => {
@@ -113,12 +117,11 @@ export default function PersonalizationForm({
 
     Papa.parse(fileList[0], {
       header: true,
-      complete: (result: ParseResult) => {
+      complete: (result: ParseResult<unknown>) => {
         setParsedCsv(result);
       },
     });
-    const test = checkCsvData.mutate(fileList[0]);
-    console.log('Check CSV data:', test);
+    checkCsvData.mutate(fileList[0]);
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -140,72 +143,70 @@ export default function PersonalizationForm({
   }
 
   return (
-    <PersonalisationTile data={questionnaire}>
-      <div className="overflow-hidden space-y-3 my-1">
-        <label
-          htmlFor="context-select"
-          className="block text-sm font-medium text-gray-700"
-        >
-          {t('personalization.create.context')}
-        </label>
-        <div className="flex flex-row items-end gap-2">
-          <div className="w-[70%]">
-            <Select
-              onChange={(v: unknown) => {
-                if (v && typeof v === 'object' && 'name' in v) {
-                  onContextChange(v as SurveyContext);
-                }
-              }}
-              value={questionnaire.context?.name ?? ''}
-            >
-              {surveyContext.map((context: SurveyContext) => (
-                <Option key={context.name} value={context}>
-                  {context.value}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <Button onClick={onDownload}>
-            {t('personalization.create.schema')}
-          </Button>
-        </div>
-        <div className="flex flex-row gap-x-2 mt-6 items-center">
+    <div className="overflow-hidden space-y-3 my-1">
+      <label
+        htmlFor="context-select"
+        className="block text-sm font-medium text-gray-700"
+      >
+        {t('personalization.create.context')}
+      </label>
+      <div className="flex flex-row items-end gap-2">
+        <div className="w-[70%]">
           <Select
             onChange={(v: unknown) => {
               if (v && typeof v === 'object' && 'name' in v) {
-                onFileTypeChange(v as FileType);
+                onContextChange(v as SurveyContext);
               }
             }}
-            value={fileType}
+            value={questionnaire.context?.name ?? ''}
           >
-            {fileTypes.map((type) => (
-              <Option key={type.value} value={type}>
-                {type.name}
+            {surveyContext.map((context: SurveyContext) => (
+              <Option key={context.name} value={context}>
+                {context.value}
               </Option>
             ))}
           </Select>
-          <Input
-            type="file"
-            ref={emptyFileInputRef}
-            style={{ display: 'none' }}
-            onChange={onSurveyUnitDataChange}
-          />
-          <Button
-            onClick={() => emptyFileInputRef.current?.click()}
-            buttonStyle={ButtonStyle.Primary}
-          >
-            {t('personalization.create.upload_data')}
-          </Button>
-          <span className="text-sm text-gray-600 ml-2">
-            {questionnaire.surveyUnitData?.name ||
-              t('personalization.create.no_file_chosen')}
-          </span>
         </div>
-        {errorUpload && <ErrorUploadFile error={errorUpload} />}
-        {parsedCsv && parsedCsv.data.length > 0 && (
-          <CsvViewerTable parsedCsv={parsedCsv} />
-        )}
+        <Button onClick={onDownload}>
+          {t('personalization.create.schema')}
+        </Button>
       </div>
-    </PersonalisationTile>
+      <div className="flex flex-row gap-x-2 mt-6 items-center">
+        <Select
+          onChange={(v: unknown) => {
+            if (v && typeof v === 'object' && 'name' in v) {
+              onFileTypeChange(v as FileType);
+            }
+          }}
+          value={fileType}
+        >
+          {fileTypes.map((type) => (
+            <Option key={type.value} value={type}>
+              {type.name}
+            </Option>
+          ))}
+        </Select>
+        <Input
+          type="file"
+          ref={emptyFileInputRef}
+          style={{ display: 'none' }}
+          onChange={onSurveyUnitDataChange}
+        />
+        <Button
+          onClick={() => emptyFileInputRef.current?.click()}
+          buttonStyle={ButtonStyle.Primary}
+        >
+          {t('personalization.create.upload_data')}
+        </Button>
+        <span className="text-sm text-gray-600 ml-2">
+          {questionnaire.surveyUnitData?.name ||
+            t('personalization.create.no_file_chosen')}
+        </span>
+      </div>
+      {errorUpload && <ErrorUploadFile error={errorUpload} />}
+      {parsedCsv && parsedCsv.data.length > 0 && (
+        <CsvViewerTable parsedCsv={parsedCsv} />
+      )}
+    </div>
   );
 }

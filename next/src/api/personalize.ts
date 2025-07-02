@@ -75,6 +75,25 @@ export async function getInitialCsvSchema(
   }
 }
 
+export async function getTest(publicEnemyId: string): Promise<void> {
+  try {
+    const response = await instancePersonalization.get(
+      `/questionnaires/${publicEnemyId}/data`,
+      {
+        headers: { Accept: 'application/json' },
+        responseType: 'blob',
+      },
+    );
+    const disposition = response.headers['content-disposition'];
+    const fileName = disposition
+      ? getFileName(disposition)
+      : `data-${publicEnemyId}.csv`;
+    openDocument(new Blob([response.data], { type: 'text/csv' }), fileName);
+  } catch (error) {
+    console.error('Failed to download CSV schema:', error);
+  }
+}
+
 /**
  * Used to retrieve data used to a create survey Units.
  *
@@ -89,24 +108,20 @@ export const personalizationFileQueryOptions = (publicEnemyId: string) =>
 /* Fetch the existing csv file */
 export async function getExistingCsvSchema(
   publicEnemyId: string,
-): Promise<File> {
+): Promise<Blob> {
   try {
     const response = await instancePersonalization.get(
       `/questionnaires/${publicEnemyId}/data`,
       {
-        headers: { Accept: 'application/json' },
+        headers: { Accept: 'text/csv' },
         responseType: 'blob',
       },
     );
-    return new File([response.data], `survey-units-${publicEnemyId}.csv`, {
-      type: 'text/csv',
-    });
+    return new Blob([response.data], { type: 'text/csv' });
   } catch (error) {
     console.error('Failed to download CSV schema:', error);
+    return new Blob([], { type: 'text/csv' });
   }
-  return new File([], `survey-units-${publicEnemyId}.csv`, {
-    type: 'text/csv',
-  });
 }
 
 /** Check the survey units CSV file for errors & warning messages */

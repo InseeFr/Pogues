@@ -1,6 +1,8 @@
+import { useMemo, useState } from 'react';
+
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import Papa, { ParseResult } from 'papaparse';
+import Papa, { type ParseResult } from 'papaparse';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -42,13 +44,19 @@ function RouteComponent() {
     personalizationFileQueryOptions(publicEnemyId),
   );
 
-  let parsedCsv;
-  Papa.parse(csvData, {
-    header: true,
-    complete: (result: ParseResult) => {
-      parsedCsv = result.data;
-    },
-  });
+  const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(null);
+
+  useMemo(() => {
+    if (!csvData) return;
+
+    // Convert Blob to text first
+    csvData.text().then((csvText) => {
+      const result = Papa.parse(csvText, {
+        header: true,
+      });
+      setParsedCsv(result);
+    });
+  }, [csvData]);
   return (
     <ComponentWrapper>
       <EditPersonalization

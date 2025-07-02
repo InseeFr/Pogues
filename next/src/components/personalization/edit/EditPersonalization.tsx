@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
-import { ParseResult } from 'papaparse';
+import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -20,7 +20,7 @@ import PersonalisationTile from '../PersonalizationTile';
 interface EditPersonalizationProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
-  csvData: ParseResult | null;
+  csvData: ParseResult<unknown> | null;
 }
 
 /** Display the personalization windows */
@@ -65,7 +65,7 @@ export default function EditPersonalization({
   }
 
   return (
-    <>
+    <PersonalisationTile data={data}>
       <PersonalizationForm
         questionnaire={questionnaire}
         setQuestionnaire={setQuestionnaire}
@@ -74,20 +74,22 @@ export default function EditPersonalization({
         setErrorUpload={setErrorUpload}
         existingCsv={csvData}
       />
-      <Dialog
-        label={t('common.validate')}
-        title={t('personalization.edit.title', {
-          label: data.label,
-        })}
-        body={t('personalization.edit.edit_questionnaire_description')}
-        onValidate={handleSubmit}
-        buttonTitle={t('personalization.edit.edit_questionnaire')}
-        disabled={
-          !questionnaire.surveyUnitData ||
-          !questionnaire.context?.name ||
-          errorUpload !== null
-        }
-      />
-    </>
+      <div className="w-auto inline-block my-1">
+        <Dialog
+          label={t('common.validate')}
+          title={t('personalization.edit.title', {
+            label: data.label,
+          })}
+          body={t('personalization.edit.edit_questionnaire_description')}
+          onValidate={handleSubmit}
+          buttonTitle={t('personalization.edit.edit_questionnaire')}
+          disabled={
+            !questionnaire.surveyUnitData ||
+            !questionnaire.context?.name ||
+            errorUpload !== null
+          }
+        />
+      </div>
+    </PersonalisationTile>
   );
 }
