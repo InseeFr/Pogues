@@ -92,7 +92,9 @@
     "clear": "Supprimer le filtre",
     "clearFilters": "Supprimer les filtres",
     "questionUsed": "Non utilisées",
-    "result": "Resultat : {{count}}",
+    "result": "{{count}} résultat",
+    "result_other": "{{count}} résultats",
+    "result_zero": "{{count}} résultat",
     "search": "Label",
     "stamp": "Timbre"
   },
@@ -156,7 +158,7 @@
     "title": "Métadonnées"
   },
   "nomenclatures": {
-    "noNomenclatures": "Aucune nomenclature trouvée",
+    "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
     "search": "Rechercher une nomenclature",
     "title": "Nomenclatures",
     "version": "Version"

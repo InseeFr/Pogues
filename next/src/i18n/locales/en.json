@@ -92,7 +92,9 @@
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "questionUsed": "Not used",
-    "result": "Result: {{count}}",
+    "result": "{{count}} result",
+    "result_other": "{{count}} results",
+    "result_zero": "{{count}} results",
     "search": "Label",
     "stamp": "Stamp"
   },
@@ -154,7 +156,7 @@
     "title": "Metadata"
   },
   "nomenclatures": {
-    "noNomenclatures": "No nomenclatures available",
+    "notUsedByQuestionnaire": "The questionnaire does not use nomenclatures.",
     "search": "Search for a nomenclature",
     "title": "Nomenclatures",
     "version": "Version"

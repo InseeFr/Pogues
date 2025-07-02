@@ -28,13 +28,13 @@ const FilterList: React.FC<FilterListProps> = ({
 
   return (
     <div className="flex flex-row gap-3 mv-4 items-baseline">
-      <span className="font-medium text-md">
+      <span className="font-medium text-base/10">
         {t('filter.active', { count: activeFilterCount })}&nbsp;
       </span>
-      {filters.map((filter, index) =>
+      {filters.map((filter) =>
         typeof filter.filterContent === 'boolean' ? (
           <div
-            key={index}
+            key={filter.filterType}
             className={`border px-1 py-2 rounded-full flex items-center ${
               filter.filterContent
                 ? 'bg-primary text-white'
@@ -61,23 +61,19 @@ const FilterList: React.FC<FilterListProps> = ({
         ) : (
           filter.filterContent && (
             <div
-              key={index}
-              className="border p-1 rounded-full flex items-center bg-slate-200"
+              key={filter.filterType}
+              className="border px-1 py-2 rounded-full flex items-center bg-primary text-white"
             >
               <div className="flex items-center ml-2">
-                <span className="font-medium text-sm">
-                  {t(`filter.${filter.filterType}`)}:&nbsp;
+                <span className="text-sm mr-2">
+                  {t(`filter.${filter.filterType}`)}: {filter.filterContent}
                 </span>
-                <span className="font-normal text-xs">
-                  {filter.filterContent}
-                </span>
-                <ButtonIcon
-                  className="ml-2"
-                  Icon={CloseIcon}
-                  iconProps={{ height: '16px', width: '16px' }}
-                  title={t('filter.clear')}
-                  onClick={filter.clearFilterFunction || (() => {})}
-                />
+                <button title={t('filter.clear')}>
+                  <CloseIcon
+                    className={`cursor-pointer m-auto size-5 fill-white`}
+                    onClick={filter.clearFilterFunction}
+                  />
+                </button>
               </div>
             </div>
           )

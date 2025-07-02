@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
+import FilterList from '@/components/ui/FilterList';
 import Input from '@/components/ui/form/Input';
 import { useFilters } from '@/hooks/useFilter';
 import { FilterEnum } from '@/models/filter';
@@ -20,7 +21,7 @@ export default function NomenclaturesOverview({
 }: Readonly<NomenclaturesProps>) {
   const { t } = useTranslation();
 
-  const { updateFilterContent, getFilterContent } = useFilters([
+  const { filters, updateFilterContent, getFilterContent } = useFilters([
     {
       filterType: FilterEnum.Search,
       filterContent: '',
@@ -35,7 +36,7 @@ export default function NomenclaturesOverview({
     )
     .toSorted((a, b) => a.label.localeCompare(b.label));
 
-  return (
+  return nomenclatures.length > 0 ? (
     <>
       <div>
         <Input
@@ -49,20 +50,23 @@ export default function NomenclaturesOverview({
           showClearButton={searchFilterContent.length > 0}
         />
       </div>
-      {filteredNomenclatures.length > 0 ? (
-        <ul>
-          {filteredNomenclatures.map((nomenclature) => (
-            <NomenclatureOverviewItem
-              key={nomenclature.id}
-              nomenclature={nomenclature}
-            />
-          ))}
-        </ul>
-      ) : (
-        <div className="text-center">
-          <p>{t('nomenclatures.noNomenclatures')}</p>
-        </div>
-      )}
+      <FilterList
+        filters={filters}
+        resultCount={filteredNomenclatures.length}
+        updateFilterContent={updateFilterContent}
+      />
+      <ul>
+        {filteredNomenclatures.map((nomenclature) => (
+          <NomenclatureOverviewItem
+            key={nomenclature.id}
+            nomenclature={nomenclature}
+          />
+        ))}
+      </ul>
     </>
+  ) : (
+    <div>
+      <p>{t('nomenclatures.notUsedByQuestionnaire')}</p>
+    </div>
   );
 }
