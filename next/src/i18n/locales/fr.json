@@ -121,6 +121,7 @@
   },
   "version": {
     "author": "Auteur",
+    "backToLatest": "Retour à la dernière sauvegarde",
     "crumb": "Version {{id}}",
     "deleteAll": "Supprimer toutes les sauvegardes",
     "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",

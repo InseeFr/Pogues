@@ -121,6 +121,7 @@
   },
   "version": {
     "author": "Author",
+    "backToLatest": "Back to latest save",
     "crumb": "Version {{id}}",
     "deleteAll": "Delete all saves",
     "deleteDialogConfirm": "Are you sure you want to delete all saves?",
