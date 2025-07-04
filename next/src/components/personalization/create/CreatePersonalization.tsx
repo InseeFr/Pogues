@@ -7,13 +7,12 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { addQuestionnaireData } from '@/api/personalize';
+import PersonalisationTile from '@/components/personalization/PersonalizationTile';
+import PersonalizationForm from '@/components/personalization/form/PersonalizationForm';
 import {
   PersonalizationQuestionnaire,
   UploadError,
 } from '@/models/personalizationQuestionnaire';
-
-import PersonalisationTile from '../PersonalizationTile';
-import PersonalizationForm from '../form/PersonalizationForm';
 
 interface CreatePersonalizationProps {
   questionnaireId: string;
@@ -38,7 +37,7 @@ export default function CreatePersonalization({
       return addQuestionnaireData(questionnaire);
     },
     onSuccess: () => {
-      toast.success(t('personalization.create.save_success'));
+      toast.success(t('personalization.create.saveSuccess'));
       queryClient.invalidateQueries({
         queryKey: ['saveQuestionnaire', { questionnaireId }],
       });

@@ -1,4 +1,4 @@
-import { SurveyModeEnum } from '@/api/models/pogues';
+import { TargetModes } from '@/models/questionnaires';
 
 export type PersonalizationQuestionnaire = {
   id: string;
@@ -11,7 +11,7 @@ export type PersonalizationQuestionnaire = {
 };
 
 export type Modes = {
-  name: SurveyModeEnum;
+  name: TargetModes;
   isWebMode: boolean;
 };
 
@@ -29,3 +29,13 @@ export type UploadError = {
   message: string;
   details: string[];
 };
+
+export enum SurveyContextEnum {
+  HOUSEHOLD = 'HOUSEHOLD',
+  BUSINESS = 'BUSINESS',
+}
+
+export enum SurveyContextValueEnum {
+  HOUSEHOLD = 'Ménage',
+  BUSINESS = 'Entreprise',
+}

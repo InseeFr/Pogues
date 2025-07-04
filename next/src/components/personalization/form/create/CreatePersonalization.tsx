@@ -38,7 +38,7 @@ export default function CreatePersonalization({
       return addQuestionnaireData(questionnaire);
     },
     onSuccess: () => {
-      toast.success(t('personalization.create.save_success'));
+      toast.success(t('personalization.create.saveSuccess'));
       queryClient.invalidateQueries({
         queryKey: ['saveQuestionnaire', { questionnaireId }],
       });

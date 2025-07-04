@@ -100,8 +100,6 @@ export default function QuestionnaireNavigation() {
       icon: <PersonalizeIcon className="m-auto" />,
       path: '/questionnaire/$questionnaireId/personalize',
       innerPaths: ['/questionnaire/$questionnaireId/personalize/new'],
-      isDisabled: false,
-      isHidden: false,
     },
   ];
 

@@ -139,39 +139,39 @@
     "create": {
       "business": "Entreprise",
       "context": "Contexte",
-      "create_questionnaire": "Charger les données dans les orchestrateurs",
-      "create_questionnaire_description": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
+      "createQuestionnaire": "Charger les données dans les orchestrateurs",
+      "createQuestionnaireDescription": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
       "description": "Créez une personnalisation pour pré-remplir le questionnaire avec les données des unités enquêtées.",
       "download_error": "Erreur lors du téléchargement du schéma CSV",
       "download_success": "Schéma CSV téléchargé avec succès",
       "error": "Erreur lors de la création du jeu de données",
-      "file_viewer_error": "Erreur lors de l'affichage du fichier.",
+      "fileViewerError": "Erreur lors des l'affichage du fichier.",
       "household": "Ménage",
-      "no_file_chosen": "Aucun fichier choisi",
+      "noFileChosen": "Aucun fichier choisi",
       "save_error": "Erreur lors de la sauvegarde du questionnaire",
-      "save_success": "Questionnaire sauvegardé avec succès",
+      "saveSuccess": "Questionnaire sauvegardé avec succès",
       "schema": "Schéma de fichier attendu",
       "success": "La personnalisation a été créée avec succès",
-      "title": "Personaliser mon questionnaire",
-      "upload_data": "Charger les unités enquêtées",
-      "upload_empty_error": "Aucune unité enquêtée trouvée dans le fichier",
-      "upload_error": "Erreur lors du chargement des unités enquêtées",
-      "upload_success": "Unités enquêtées importées avec succès"
+      "title": "Personnaliser mon questionnaire",
+      "uploadData": "Charger les unités enquêtées",
+      "uploadEmptyError": "Aucune unité enquêtée trouvée dans le fichier",
+      "uploadError": "Erreur lors du chargement des unités enquêtées",
+      "uploadSuccess": "Unités enquêtées importées avec succès"
     },
     "edit": {
-      "edit_questionnaire": "Confirmer le rechargement",
-      "edit_questionnaire_description": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
+      "editQuestionnaire": "Confirmer le rechargement",
+      "editQuestionnaireDescription": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
       "title": "Modifier la personnalisation"
     },
     "overview": {
-      "existing_file_data": "Jeu de données existantes",
-      "current_survey_units": "Unités enquêtées actuelles",
+      "existingFileData": "Jeu de données existantes",
+      "currentSurveyUnits": "Unités enquêtées actuelles",
       "modes": "Modes",
-      "title": "Personaliser mon questionnaire",
+      "title": "Personnaliser mon questionnaire",
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteSuccess": "Personnalisation supprimée avec succès",
-      "edit_disabled_tooltip": "La personnalisation ne peut pas être modifiée pour le moment."
+      "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment."
     }
   }
 }

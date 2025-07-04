@@ -16,6 +16,8 @@ import {
   FileType,
   PersonalizationQuestionnaire,
   SurveyContext,
+  SurveyContextEnum,
+  SurveyContextValueEnum,
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
@@ -47,12 +49,12 @@ export default function PersonalizationForm({
   const queryClient = useQueryClient();
   const surveyContext: SurveyContext[] = [
     {
-      name: 'HOUSEHOLD',
-      value: 'Ménage',
+      name: SurveyContextEnum.HOUSEHOLD,
+      value: SurveyContextValueEnum.HOUSEHOLD,
     },
     {
-      name: 'BUSINESS',
-      value: 'Entreprise',
+      name: SurveyContextEnum.BUSINESS,
+      value: SurveyContextValueEnum.BUSINESS,
     },
   ];
   const fileTypes: FileType[] = [
@@ -79,11 +81,11 @@ export default function PersonalizationForm({
       return checkSurveyUnitsCSV(questionnaireId, file);
     },
     onError: (error: AxiosError) => {
-      toast.error(t('personalization.create.upload_error'));
+      toast.error(t('personalization.create.uploadError'));
       setErrorUpload(error.response?.data as UploadError);
     },
     onSuccess: () => {
-      toast.success(t('personalization.create.upload_success'));
+      toast.success(t('personalization.create.uploadSuccess'));
       setErrorUpload(null);
       queryClient.invalidateQueries({
         queryKey: ['checkCsvData', { questionnaireId }],
@@ -199,11 +201,11 @@ export default function PersonalizationForm({
           onClick={() => emptyFileInputRef.current?.click()}
           buttonStyle={ButtonStyle.Primary}
         >
-          {t('personalization.create.upload_data')}
+          {t('personalization.create.uploadData')}
         </Button>
         <span className="text-sm text-gray-600 ml-2">
           {questionnaire.surveyUnitData?.name ||
-            t('personalization.create.no_file_chosen')}
+            t('personalization.create.noFileChosen')}
         </span>
       </div>
       {errorUpload && <ErrorUploadFile error={errorUpload} />}
@@ -213,12 +215,12 @@ export default function PersonalizationForm({
       <div className="w-auto inline-block my-1">
         <Dialog
           label={t('common.validate')}
-          title={t('personalization.create.create_questionnaire', {
+          title={t('personalization.create.createQuestionnaire', {
             label: questionnaire.label,
           })}
-          body={t('personalization.create.create_questionnaire_description')}
+          body={t('personalization.create.createQuestionnaireDescription')}
           onValidate={() => handleSubmit(questionnaire)}
-          buttonTitle={t('personalization.create.create_questionnaire')}
+          buttonTitle={t('personalization.create.createQuestionnaire')}
           disabled={
             !questionnaire.surveyUnitData ||
             !questionnaire.context?.name ||

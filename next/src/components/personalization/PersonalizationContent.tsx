@@ -10,12 +10,12 @@ import {
   getExistingCsvSchema,
 } from '@/api/personalize';
 import { openDocument } from '@/api/utils/personalization';
+import PersonalizationContentTile from '@/components/personalization/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 import ButtonLink from '../ui/ButtonLink';
-import PersonalisationContentTile from './PersonalisationContentTile';
 import PersonalisationTile from './PersonalizationTile';
 import CsvViewerTable from './form/CsvViewerTable';
 
@@ -95,19 +95,19 @@ export default function PersonalizationContent({
 
   return (
     <PersonalisationTile data={data}>
-      <PersonalisationContentTile data={data}>
+      <PersonalizationContentTile data={data}>
         {parsedCsv && parsedCsv.data.length > 0 && (
           <CsvViewerTable parsedCsv={parsedCsv} />
         )}
         <div className="overflow-hidden flex flex-row gap-3 my-3">
           <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
-            {t('personalization.overview.existing_file_data')}
+            {t('personalization.overview.existingFileData')}
           </Button>
           <ButtonLink
             to="/questionnaire/$questionnaireId/personalize/$publicEnemyId"
             params={{ questionnaireId, publicEnemyId: data.id.toString() }}
             disabled
-            title={t('personalization.overview.edit_disabled_tooltip')}
+            title={t('personalization.overview.editDisabledTooltip')}
           >
             {t('common.edit')}
           </ButtonLink>
@@ -120,7 +120,7 @@ export default function PersonalizationContent({
             onValidate={onDelete}
           />
         </div>
-      </PersonalisationContentTile>
+      </PersonalizationContentTile>
     </PersonalisationTile>
   );
 }

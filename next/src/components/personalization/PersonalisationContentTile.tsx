@@ -6,23 +6,23 @@ import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionna
 
 import ExpandButton from '../ui/ExpandButton';
 
-interface PersonalisationContentTileProps {
+interface PersonalizationContentTileProps {
   data: PersonalizationQuestionnaire;
   children: React.ReactNode;
 }
 
 /** Display the personalization windows as a wrapper */
-export default function PersonalisationContentTile({
+export default function PersonalizationContentTile({
   data,
   children,
-}: Readonly<PersonalisationContentTileProps>) {
+}: Readonly<PersonalizationContentTileProps>) {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
     <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] my-2">
       <div className="grid grid-cols-[1fr_auto]">
-        <h3>{t('personalization.overview.current_survey_units')}</h3>
+        <h3>{t('personalization.overview.currentSurveyUnits')}</h3>
       </div>
       <div
         hidden={!isExpanded}
