@@ -5,6 +5,8 @@ import { expect } from 'vitest';
 
 import {
   PersonalizationQuestionnaire,
+  SurveyContextEnum,
+  SurveyContextValueEnum,
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 import { renderWithRouter } from '@/tests/tests';
@@ -41,7 +43,10 @@ describe('PersonalizationForm', () => {
     poguesId: '1',
     label: 'LabelQuestionnaire',
     modes: [],
-    context: { name: 'BUSINESS', value: 'Entreprise' },
+    context: {
+      name: SurveyContextEnum.HOUSEHOLD,
+      value: SurveyContextValueEnum.HOUSEHOLD,
+    },
     surveyUnitData: undefined,
     isSynchronized: true,
   };
