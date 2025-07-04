@@ -4,7 +4,6 @@ import {
   QUESTIONNAIRE_TYPE,
   QUESTION_END_CHILD,
 } from '../../constants/pogues-constants';
-import { getOrderedComponents } from '../../utils/model/redirections-utils';
 import { uuid } from '../../utils/utils';
 import {
   getCollectedVariablesIdsFromComponents,
@@ -62,6 +61,21 @@ function generateComponentGroups(componentsStore, ComponentGroup) {
     result[result.length - 1].MemberReference.push('idendquest');
   }
   return result;
+}
+
+function getOrderedComponents(componentsStore, rootComponentIds) {
+  return rootComponentIds.reduce((acc, id) => {
+    return [
+      ...acc,
+      id,
+      ...getOrderedComponents(
+        componentsStore,
+        componentsStore[id].children.sort(
+          (c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight,
+        ),
+      ),
+    ];
+  }, []);
 }
 
 const generateChildQuestionnaireRef = (componentsStore) => {

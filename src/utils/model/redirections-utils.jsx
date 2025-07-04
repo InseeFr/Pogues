@@ -2,46 +2,6 @@ import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 
 const { QUESTIONNAIRE, SUBSEQUENCE } = COMPONENT_TYPE;
 
-function getGotos(componentsStore, activeComponentsIds, components, depth = 0) {
-  return components.reduce((acc, key) => {
-    const componentId = componentsStore[key].id;
-    return [
-      ...acc,
-      {
-        value: componentId,
-        depth,
-        label: `${componentsStore[key].name} - ${componentsStore[
-          key
-        ].label.trim()}`,
-        disabled: activeComponentsIds.indexOf(componentId) === -1,
-      },
-      ...getGotos(
-        componentsStore,
-        activeComponentsIds,
-        componentsStore[key].children,
-        depth + 1,
-      ),
-    ];
-  }, []);
-}
-
-export function getListGotos(componentsStore, activeComponentsIds = []) {
-  let listGotos = [];
-  const rootKey = Object.keys(componentsStore).filter(
-    (key) => componentsStore[key].type === QUESTIONNAIRE,
-  )[0];
-
-  if (rootKey) {
-    listGotos = getGotos(
-      componentsStore,
-      activeComponentsIds,
-      componentsStore[rootKey].children,
-    );
-  }
-
-  return listGotos;
-}
-
 function getDescendants(componentsStore, component = {}) {
   return [
     ...(component.children || []),
@@ -114,21 +74,6 @@ function getGreatUnclesHeaviest(componentsStore, component) {
   }
 
   return componentsIds;
-}
-
-export function getOrderedComponents(componentsStore, rootComponentIds) {
-  return rootComponentIds.reduce((acc, id) => {
-    return [
-      ...acc,
-      id,
-      ...getOrderedComponents(
-        componentsStore,
-        componentsStore[id].children.sort(
-          (c1, c2) => componentsStore[c1].weight > componentsStore[c2].weight,
-        ),
-      ),
-    ];
-  }, []);
 }
 
 export function getComponentsTargetsByComponent(componentsStore, component) {

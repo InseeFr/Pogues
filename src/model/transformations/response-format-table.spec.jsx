@@ -213,24 +213,6 @@ describe('remoteToState', () => {
     const remote = {
       responses: [
         {
-          id: 'jf0vzwbp',
-          Datatype: {
-            typeName: 'TEXT',
-            type: 'TextDatatypeType',
-            MaxLength: 249,
-          },
-          CollectedVariableReference: 'jf0vzlbq',
-        },
-        {
-          id: 'jf0vunia',
-          Datatype: {
-            typeName: 'TEXT',
-            type: 'TextDatatypeType',
-            MaxLength: 249,
-          },
-          CollectedVariableReference: 'jf0vjphy',
-        },
-        {
           id: 'jf0vqmpo',
           Datatype: {
             typeName: 'TEXT',
@@ -238,6 +220,28 @@ describe('remoteToState', () => {
             MaxLength: 249,
           },
           CollectedVariableReference: 'jf0vyha5',
+        },
+        {
+          id: 'mbz5kdxr',
+          CodeListReference: 'mbqae1u1',
+          Datatype: {
+            typeName: 'TEXT',
+            visualizationHint: 'SUGGESTER',
+            type: 'TextDatatypeType',
+            MaxLength: 1,
+          },
+          CollectedVariableReference: 'mbz5jjxv',
+        },
+        {
+          id: 'mbz5ig62',
+          CodeListReference: 'matoe241',
+          Datatype: {
+            typeName: 'TEXT',
+            visualizationHint: 'RADIO',
+            type: 'TextDatatypeType',
+            MaxLength: 1,
+          },
+          CollectedVariableReference: 'mbz5crwv',
         },
       ],
       dimensions: [
@@ -247,7 +251,15 @@ describe('remoteToState', () => {
           minimum: { type: 'number', value: '1' },
           maximum: { type: 'number', value: '3' },
         },
-        { dimensionType: 'MEASURE', Label: 'mneasure1' },
+        { dimensionType: 'MEASURE', Label: 'measure-text' },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'measure-suggester',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'measure-radio',
+        },
       ],
     };
 
@@ -260,8 +272,28 @@ describe('remoteToState', () => {
             mandatory: undefined,
             type: 'TEXT',
           },
-          label: 'mneasure1',
+          label: 'measure-text',
           type: 'SIMPLE',
+        },
+        {
+          SINGLE_CHOICE: {
+            Nomenclature: { id: 'mbqae1u1' },
+            id: undefined,
+            mandatory: undefined,
+            visHint: 'SUGGESTER',
+          },
+          label: 'measure-suggester',
+          type: 'SINGLE_CHOICE',
+        },
+        {
+          SINGLE_CHOICE: {
+            CodesList: { id: 'matoe241' },
+            id: undefined,
+            mandatory: undefined,
+            visHint: 'RADIO',
+          },
+          label: 'measure-radio',
+          type: 'SINGLE_CHOICE',
         },
       ],
       PRIMARY: {

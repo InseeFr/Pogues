@@ -1,19 +1,24 @@
 import {
+  DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
+  QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
 import { markdownVtlToString } from '../../forms/controls/rich-textarea';
 import { hasChild } from '../codes-lists/codes-lists-utils';
 import {
   getCollectedVariable,
-  getReponsesValues,
   sortByYXAndZ,
   sortCodes,
 } from './collected-variables-utils';
 
+const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
+const { TEXT } = DATATYPE_NAME;
 
 export function getCollectedVariablesTable(questionName, form) {
   const collectedVariables = [];
@@ -110,4 +115,33 @@ export function getCollectedVariablesTable(questionName, form) {
   }
 
   return collectedVariables.sort(sortByYXAndZ());
+}
+
+export function getReponsesValues(measure) {
+  let reponseFormatValues = {};
+
+  if (measure.type === SIMPLE) {
+    reponseFormatValues = {
+      codeListReference: '',
+      codeListReferenceLabel: '',
+      type: measure[SIMPLE].type,
+      // measure[SIMPLE].type is BOOLEAN or TEXT or NUMERIC or DATE or DURATION ; for BOOLEAN, this means : BOOLEAN: measure[SIMPLE].BOOLEAN
+      [measure[SIMPLE].type]: measure[SIMPLE][measure[SIMPLE].type],
+    };
+  }
+  if (measure.type === SINGLE_CHOICE) {
+    const listPath =
+      measure[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+        ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+        : DEFAULT_CODES_LIST_SELECTOR_PATH;
+    reponseFormatValues = {
+      codeListReference: measure[SINGLE_CHOICE][listPath].id,
+      codeListReferenceLabel: measure[SINGLE_CHOICE][listPath].label,
+      type: TEXT,
+      [TEXT]: {
+        maxLength: 1,
+      },
+    };
+  }
+  return reponseFormatValues;
 }

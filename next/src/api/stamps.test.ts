@@ -4,7 +4,7 @@ import { getStamps } from './stamps';
 
 vi.mock('@/contexts/oidc');
 
-it('Get stamps', async () => {
+it('Get stamps works', async () => {
   const stamps = [{ label: 'my-stamp', value: 'stamp-1' }];
 
   nock('https://mock-api')

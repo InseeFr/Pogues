@@ -1,6 +1,9 @@
+import get from 'lodash.get';
+
 import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
@@ -22,7 +25,6 @@ import {
   requiredSelect,
   typeCalculated,
   typeExternal,
-  validCodesList,
   validCollectedVariables,
   validateDuplicatesCalculated,
   validateDuplicatesCollected,
@@ -137,38 +139,53 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.minimum`]: [required],
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.maximum`]: [required],
 
-  [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]: [
-    validCodesList,
-  ],
-  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
-  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
+  // for single response suggester, we need to select a nomenclature
+  [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_NOMENCLATURE_SELECTOR_PATH}.id`]:
+    [
+      (value, { form }) => {
+        const visHint = get(
+          form,
+          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.visHint`,
+        );
+        return visHint === 'SUGGESTER' ? required(value) : undefined;
+      },
+    ],
+
+  // for single response other than suggester, we need to select a codes list
+  [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [
+      (value, { form }) => {
+        const visHint = get(
+          form,
+          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.visHint`,
+        );
+        return visHint !== 'SUGGESTER' ? required(value) : undefined;
+      },
+    ],
+
+  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${PRIMARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [required],
+  [`${RESPONSE_FORMAT}.${MULTIPLE_CHOICE}.${MEASURE}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.type`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${NUMBER}.type`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${LIST}.${FORMULA}.type`]: [
     required,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
+  [`${RESPONSE_FORMAT}.${TABLE}.${PRIMARY}.${CODES_LIST}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [required],
+  [`${RESPONSE_FORMAT}.${TABLE}.${SECONDARY}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [required],
   [`${RESPONSE_FORMAT}.${TABLE}.label`]: [required],
-  [`${RESPONSE_FORMAT}.${TABLE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
 
-  [`${RESPONSE_FORMAT}.${TABLE}.${SIMPLE}.${TEXT}.maxLength`]: [
-    required,
-    (value) => minValue(1)(value),
-  ],
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.measures`]: [emptyMeasures],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.label`]: [required],
   [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     (value) => minValue(1)(value),
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
+  [`${RESPONSE_FORMAT}.${TABLE}.${MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [required],
   [`${COLLECTED_VARIABLES}.collectedVariables`]: [validCollectedVariables],
 };
 export const declarationRules = {
@@ -278,8 +295,31 @@ export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [
     (value) => required(value) && Dictionary.validationMeasureLabel,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}`]:
-    [validCodesList],
+
+  // In table, for single response other than suggester, we need to select a codes list
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_CODES_LIST_SELECTOR_PATH}.id`]:
+    [
+      (value, { form }) => {
+        const visHint = get(
+          form,
+          `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.visHint`,
+        );
+        return visHint !== 'SUGGESTER' ? required(value) : undefined;
+      },
+    ],
+
+  // // In table, for single response suggester,  we need to select a nomenclature
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_NOMENCLATURE_SELECTOR_PATH}.id`]:
+    [
+      (value, { form }) => {
+        const visHint = get(
+          form,
+          `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.visHint`,
+        );
+        return visHint === 'SUGGESTER' ? required(value) : undefined;
+      },
+    ],
+
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${TEXT}.maxLength`]: [
     required,
     (value) => minValue(1)(value),

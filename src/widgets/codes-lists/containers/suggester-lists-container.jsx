@@ -7,8 +7,8 @@ import {
   loadNomenclaturesIfNeeded,
 } from '../../../actions/metadata';
 import {
-  DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_FORM_NAME,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { SuggesterLists } from '../components/suggester-lists';
@@ -21,7 +21,7 @@ const propTypes = {
 
 const defaultProps = {
   selectorPathParent: '',
-  selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
+  selectorPath: DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   formName: DEFAULT_FORM_NAME,
 };
 
@@ -67,7 +67,7 @@ const mapStateToProps = (
     path,
     currentId,
     currentLabel,
-    selectorPath: DEFAULT_CODES_LIST_SELECTOR_PATH,
+    selectorPath: DEFAULT_NOMENCLATURE_SELECTOR_PATH,
     codesListsStore,
     currentCodesListsStore,
   };

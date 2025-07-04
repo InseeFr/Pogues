@@ -12,6 +12,7 @@ import CodesListOverviewItem from './CodesListOverviewItem';
 interface CodesListsProps {
   codesLists?: CodesList[];
   questionnaireId: string;
+  readonly?: boolean;
 }
 
 /**
@@ -21,6 +22,7 @@ interface CodesListsProps {
 export default function CodesListsOverview({
   codesLists = [],
   questionnaireId,
+  readonly = false,
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
@@ -71,13 +73,16 @@ export default function CodesListsOverview({
         resultCount={filteredCodesLists.length}
         updateFilterContent={updateFilterContent}
       />
-      {filteredCodesLists.map((codesList) => (
-        <CodesListOverviewItem
-          key={codesList.id}
-          questionnaireId={questionnaireId}
-          codesList={codesList}
-        />
-      ))}
+      <ul>
+        {filteredCodesLists.map((codesList) => (
+          <CodesListOverviewItem
+            key={codesList.id}
+            questionnaireId={questionnaireId}
+            codesList={codesList}
+            readonly={readonly}
+          />
+        ))}
+      </ul>
     </>
   ) : (
     <ButtonLink

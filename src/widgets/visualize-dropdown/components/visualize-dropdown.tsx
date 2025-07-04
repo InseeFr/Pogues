@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 
 import { VisualizationKind } from '@/api/visualize';
 import { domSelectorForModal } from '@/constants/dom-constants';
-import { useClickAway } from '@/hooks/useClickAway';
 import Dictionary from '@/utils/dictionary/dictionary';
-import { hasDuplicateVariables } from '@/utils/variables/variables-utils';
+
+import { useClickAway } from './useClickAway';
+import { hasDuplicateVariables } from './utils';
 
 interface VisualizeDropdownProps {
   token?: string;

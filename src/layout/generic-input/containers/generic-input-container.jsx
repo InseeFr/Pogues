@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { saveActiveQuestionnaire } from '../../../actions/app-state';
 import { removeVisualizationError } from '../../../actions/errors';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import GenericInput from '../components/generic-input';
 import {
   getNewLoopPlaceholder,
   getNewQuestionPlaceholder,
   getNewRoundaboutPlaceholder,
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
-} from '../../../utils/component/generic-input-utils';
-import GenericInput from '../components/generic-input';
+} from './utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, ROUNDABOUT } =
   COMPONENT_TYPE;

@@ -99,14 +99,14 @@ const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
   const transformers = {
     codesListPrimary: CodesListFactory(
-      cloneDeep(currentState[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH]),
       codesListsStore,
+      cloneDeep(currentState[PRIMARY][DEFAULT_CODES_LIST_SELECTOR_PATH]),
     ),
     codesListMeasure: CodesListFactory(
+      codesListsStore,
       cloneDeep(
         currentState[MEASURE][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
       ),
-      codesListsStore,
     ),
   };
 

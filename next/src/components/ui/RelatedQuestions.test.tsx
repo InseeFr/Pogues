@@ -1,19 +1,18 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
-import RelatedQuestions from '@/components/ui/RelatedQuestions';
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithI18n } from '@/tests/tests';
+
+import RelatedQuestions from './RelatedQuestions';
 
 describe('CodesListQuestions', () => {
   it('display related questions count and details on click', async () => {
     const user = userEvent.setup();
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <RelatedQuestions
-          relatedQuestionNames={['HOW_ARE_YOU', 'WHAT_IS_YOUR_NAME']}
-        />,
-      ),
+    const { getByText } = renderWithI18n(
+      <RelatedQuestions
+        relatedQuestionNames={['HOW_ARE_YOU', 'WHAT_IS_YOUR_NAME']}
+      />,
     );
 
     expect(getByText('2 questions')).toBeInTheDocument();
@@ -24,8 +23,8 @@ describe('CodesListQuestions', () => {
   });
 
   it('work when there are no questions', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<RelatedQuestions relatedQuestionNames={[]} />),
+    const { getByText } = renderWithI18n(
+      <RelatedQuestions relatedQuestionNames={[]} />,
     );
 
     expect(getByText('0 questions')).toBeInTheDocument();

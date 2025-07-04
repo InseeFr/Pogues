@@ -1,6 +1,5 @@
 import {
   COMPONENT_TYPE,
-  DATATYPE_NAME,
   QUESTION_TYPE_ENUM,
 } from '../../constants/pogues-constants';
 import { uuid } from '../utils';
@@ -11,7 +10,6 @@ import { getCollectedVariablesTable } from './collected-variables-table';
 const { QUESTION } = COMPONENT_TYPE;
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
   QUESTION_TYPE_ENUM;
-const { TEXT } = DATATYPE_NAME;
 
 /**
  * This method will recursively sort an array of code.
@@ -29,31 +27,6 @@ export function sortCodes(codes = [], depth = 1, parent = '') {
     .sort((code1, code2) => code1.weight - code2.weight)
     .map((code) => [code, ...sortCodes(codes, depth + 1, code.value)])
     .reduce((acc, res) => [...acc, ...res], []);
-}
-
-export function getReponsesValues(measure) {
-  let reponseFormatValues = {};
-
-  if (measure.type === SIMPLE) {
-    reponseFormatValues = {
-      codeListReference: '',
-      codeListReferenceLabel: '',
-      type: measure[SIMPLE].type,
-      // measure[SIMPLE].type is BOOLEAN or TEXT or NUMERIC or DATE or DURATION ; for BOOLEAN, this means : BOOLEAN: measure[SIMPLE].BOOLEAN
-      [measure[SIMPLE].type]: measure[SIMPLE][measure[SIMPLE].type],
-    };
-  }
-  if (measure.type === SINGLE_CHOICE) {
-    reponseFormatValues = {
-      codeListReference: measure[SINGLE_CHOICE].CodesList.id,
-      codeListReferenceLabel: measure[SINGLE_CHOICE].CodesList.label,
-      type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-      },
-    };
-  }
-  return reponseFormatValues;
 }
 
 export function sortByYXAndZ(store) {

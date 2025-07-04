@@ -3,6 +3,7 @@ import maxBy from 'lodash.maxby';
 import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
@@ -266,7 +267,6 @@ export function remoteToState(remote, codesListsStore) {
       remoteToStateMeasure(m),
     );
   }
-
   return state;
 }
 
@@ -351,15 +351,16 @@ function stateToResponseState(state, primaryType) {
       ...customsimpleState,
     };
   } else {
-    const {
-      mandatory,
-      visHint,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
-    } = measureTypeState;
+    const { mandatory, visHint } = measureTypeState;
+    const codesListId = measureTypeState[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
+    const nomenclatureId =
+      measureTypeState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
+
     responseState = {
       ...responseState,
       mandatory,
       codesListId,
+      nomenclatureId,
       typeName: TEXT,
       maxLength: 1,
       visHint,

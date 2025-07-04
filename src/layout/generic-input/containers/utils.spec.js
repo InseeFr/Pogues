@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest';
 
-import { COMPONENT_TYPE } from '../../constants/pogues-constants';
+import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import {
   getNewLoopPlaceholder,
   getNewQuestionPlaceholder,
   getNewSubsequencePlaceholder,
-} from './generic-input-utils';
+} from './utils';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE } = COMPONENT_TYPE;
 

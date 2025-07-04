@@ -1,6 +1,7 @@
 import { codesDictionary } from './dictionary/codes';
 import { declarationsDictionary } from './dictionary/declarations';
 import { loopDictionary } from './dictionary/loop';
+import { nomenclatureDictionary } from './dictionary/nomenclature';
 import { pairingDictionary } from './dictionary/pairing';
 import { questionnaireDictionary } from './dictionary/questionnaire';
 import { tableDictionary } from './dictionary/table';
@@ -16,6 +17,7 @@ const dictionary: Dictionary = {
   ...codesDictionary,
   ...declarationsDictionary,
   ...loopDictionary,
+  ...nomenclatureDictionary,
   ...pairingDictionary,
   ...questionnaireDictionary,
   ...tableDictionary,
@@ -867,10 +869,6 @@ const dictionary: Dictionary = {
   loopMinMaxHouseholdContextWarning: {
     fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
     en: 'Reminder: for business surveys, the min and max number of occurences of a loop must be equal.',
-  },
-  readonlyQuestionnaireWarning: {
-    fr: 'Cette version du questionnaire est en lecture seule',
-    en: 'This version of the survey is on readonly',
   },
 };
 

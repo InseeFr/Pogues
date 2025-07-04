@@ -38,6 +38,7 @@ function RouteComponent() {
       <CodesListsOverview
         questionnaireId={questionnaireId}
         codesLists={codesLists}
+        readonly
       />
     </ComponentWrapper>
   );
@@ -59,12 +60,17 @@ function ComponentWrapper({
   codesListsCount?: number;
 }>) {
   const { t } = useTranslation();
+  const { questionnaireId, versionId } = Route.useParams();
+
   const codesListsAffix = codesListsCount ? `: ${codesListsCount}` : '';
+
   return (
     <>
       <ContentHeader
         isReadonly
+        questionnaireId={questionnaireId}
         title={`${t('codesList.title')} ${codesListsAffix}`}
+        versionId={versionId}
       />
       <ContentMain>{children}</ContentMain>
     </>

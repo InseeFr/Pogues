@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { useReadonly } from '../../../hooks/useReadonly';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
 import { GenericInput } from '../../generic-input';
 import Loader from '../../loader';
@@ -24,7 +22,9 @@ export const propTypes = {
   setActiveComponents: PropTypes.func.isRequired,
   setActiveCodeLists: PropTypes.func.isRequired,
   setActiveVariables: PropTypes.func.isRequired,
-  questionnaire: PropTypes.object,
+  questionnaire: PropTypes.shape({
+    id: PropTypes.string,
+  }),
   components: PropTypes.object,
   activeQuestionnaire: PropTypes.object,
   codeLists: PropTypes.object,
@@ -74,14 +74,8 @@ const PageQuestionnaire = (props) => {
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
-  const isReadonly = useReadonly();
-
   useEffect(() => {
-    if (
-      !questionnaire ||
-      questionnaire.id !== id ||
-      Object.keys(appState.activeComponentsById).length === 0
-    ) {
+    if (!questionnaire || questionnaire.id !== id) {
       if (versionId) {
         loadQuestionnaireWithVersion(id, versionId, token);
       } else {
@@ -125,11 +119,6 @@ const PageQuestionnaire = (props) => {
 
   return (
     <div id="page-questionnaire">
-      {isReadonly ? (
-        <div className="p-3 bg-blue-200 border border-gray-400">
-          {Dictionary.readonlyQuestionnaireWarning}
-        </div>
-      ) : null}
       {loadingError ? (
         <div>
           <QuestionnaireNav />

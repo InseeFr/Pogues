@@ -56,7 +56,7 @@ export default function CreateQuestionnaireForm({
       { questionnaire, stamp },
       {
         onSuccess: () =>
-          void navigate({
+          navigate({
             to: '/questionnaire/$questionnaireId',
             params: { questionnaireId: id },
           }),

@@ -24,6 +24,7 @@ export type StateResponse = {
   mayears?: unknown;
   mamonths?: unknown;
   codesListId?: unknown;
+  nomenclatureId?: unknown;
   allowArbitraryResponse?: unknown;
   visHint?: unknown;
   collectedVariable?: string;
