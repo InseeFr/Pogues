@@ -175,7 +175,8 @@
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteSuccess": "Personnalisation supprimée avec succès",
-      "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment."
+      "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
+      "visualiseSurveyUnits": "Visualiser les unités enquêtées"
     }
   }
 }

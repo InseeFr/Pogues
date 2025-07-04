@@ -1,25 +1,35 @@
+import { ParseResult } from 'papaparse';
 import { useTranslation } from 'react-i18next';
 
-import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import {
+  PersonalizationQuestionnaire,
+  SurveyUnitModeData,
+} from '@/models/personalizationQuestionnaire';
 
-import ButtonLink, { ButtonStyle } from '../ui/ButtonLink';
+import ButtonLink, { ButtonStyle } from '../../ui/ButtonLink';
 import PersonalizationContent from './PersonalizationContent';
-import { ParseResult } from 'papaparse';
 
 interface PersonalizationsProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
   csvData: ParseResult | null;
+  surveyUnitData: SurveyUnitModeData[] | null;
 }
 
 export default function PersonalizationsOverview({
   questionnaireId,
   data,
-  csvData
+  csvData,
+  surveyUnitData,
 }: Readonly<PersonalizationsProps>) {
   const { t } = useTranslation();
   return data ? (
-    <PersonalizationContent data={data} questionnaireId={questionnaireId} csvData={csvData} />
+    <PersonalizationContent
+      data={data}
+      questionnaireId={questionnaireId}
+      csvData={csvData}
+      surveyUnitData={surveyUnitData}
+    />
   ) : (
     <div>
       <ButtonLink

@@ -10,19 +10,24 @@ import {
   getExistingCsvSchema,
 } from '@/api/personalize';
 import { openDocument } from '@/api/utils/personalization';
-import PersonalizationContentTile from '@/components/personalization/PersonalisationContentTile';
+import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
-import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import {
+  PersonalizationQuestionnaire,
+  SurveyUnitModeData,
+} from '@/models/personalizationQuestionnaire';
 
-import ButtonLink from '../ui/ButtonLink';
+import ButtonLink from '../../ui/ButtonLink';
+import CsvViewerTable from '../form/CsvViewerTable';
 import PersonalisationTile from './PersonalizationTile';
-import CsvViewerTable from './form/CsvViewerTable';
+import VisualizationOverview from './VisualizationOverview';
 
 interface PersonalizationContentProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
   csvData: ParseResult<unknown> | null;
+  surveyUnitData: SurveyUnitModeData[] | null;
 }
 
 /** Display the personalization windows */
@@ -30,6 +35,7 @@ export default function PersonalizationContent({
   questionnaireId,
   data,
   csvData,
+  surveyUnitData,
 }: Readonly<PersonalizationContentProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -99,6 +105,7 @@ export default function PersonalizationContent({
         {parsedCsv && parsedCsv.data.length > 0 && (
           <CsvViewerTable parsedCsv={parsedCsv} />
         )}
+
         <div className="overflow-hidden flex flex-row gap-3 my-3">
           <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
             {t('personalization.overview.existingFileData')}
@@ -121,6 +128,15 @@ export default function PersonalizationContent({
           />
         </div>
       </PersonalizationContentTile>
+      <div className="grid grid-cols-[1fr_auto] mt-4">
+        <h3>{t('personalization.overview.visualiseSurveyUnits')}</h3>
+      </div>
+      {surveyUnitData && surveyUnitData.length > 0 && (
+        <VisualizationOverview
+          modes={data.modes}
+          surveyUnitData={surveyUnitData}
+        />
+      )}
     </PersonalisationTile>
   );
 }

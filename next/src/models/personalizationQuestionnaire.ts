@@ -30,6 +30,18 @@ export type UploadError = {
   details: string[];
 };
 
+export type SurveyUnitModeData = {
+  id: string;
+  displayableId: number;
+  url: string;
+};
+
+//Temp type
+export type SurveyUnitModeDataResponse = {
+  questionnaireModelId: string;
+  surveyUnits: SurveyUnitModeData[];
+};
+
 export enum SurveyContextEnum {
   HOUSEHOLD = 'HOUSEHOLD',
   BUSINESS = 'BUSINESS',

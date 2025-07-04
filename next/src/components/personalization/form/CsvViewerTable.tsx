@@ -4,12 +4,11 @@ interface CsvViewerTableProps {
   parsedCsv: ParseResult;
 }
 
-/** Display versions as a table. */
+/** Display uploaded csv file as a table. */
 export default function CsvViewerTable({
   parsedCsv,
 }: Readonly<CsvViewerTableProps>) {
   const shouldScroll = parsedCsv.data.length > 4;
-  console.log('Parsed CSV:', parsedCsv);
   return (
     <div className="overflow-x-auto w-full my-3">
       <div

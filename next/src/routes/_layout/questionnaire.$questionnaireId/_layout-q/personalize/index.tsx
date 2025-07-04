@@ -3,14 +3,17 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useNavigate } from '@tanstack/react-router';
+import Papa, { ParseResult } from 'papaparse';
 import { useTranslation } from 'react-i18next';
 
-import { personalizationFileQueryOptions, personalizationQueryOptions } from '@/api/personalize';
+import {
+  getSurveyUnitDataQueryOptions,
+  personalizationFileQueryOptions,
+  personalizationQueryOptions,
+} from '@/api/personalize';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-import PersonalizationsOverview from '@/components/personalization/PersonalizationOverview';
-import Papa, { ParseResult } from 'papaparse';
-
+import PersonalizationsOverview from '@/components/personalization/overview/PersonalizationOverview';
 
 /**
  * Previously handled by Public Enemy
@@ -20,17 +23,17 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
-  loader: async ({
-    context: { queryClient },
-    params: { questionnaireId },
-  }) => {
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
     const questionnaire = await queryClient.ensureQueryData(
       personalizationQueryOptions(questionnaireId),
     );
-    const publicEnemyId = questionnaire?.id; // or the 
+    const publicEnemyId = questionnaire?.id;
     if (publicEnemyId) {
       await queryClient.ensureQueryData(
         personalizationFileQueryOptions(publicEnemyId),
+      );
+      await queryClient.ensureQueryData(
+        getSurveyUnitDataQueryOptions(publicEnemyId, questionnaire.modes),
       );
     }
   },
@@ -41,11 +44,14 @@ function RouteComponent() {
   const { data: questionnaire } = useSuspenseQuery(
     personalizationQueryOptions(questionnaireId),
   );
-
   const publicEnemyId = questionnaire.id;
 
   const { data: csvData } = useSuspenseQuery(
     personalizationFileQueryOptions(publicEnemyId),
+  );
+
+  const { data: surveyUnitData } = useSuspenseQuery(
+    getSurveyUnitDataQueryOptions(publicEnemyId, questionnaire.modes),
   );
 
   const [parsedCsv, setParsedCsv] = useState<ParseResult | null>(null);
@@ -61,7 +67,12 @@ function RouteComponent() {
   }, [csvData]);
   return (
     <ComponentWrapper>
-      <PersonalizationsOverview questionnaireId={questionnaireId} data={questionnaire} csvData={parsedCsv} />
+      <PersonalizationsOverview
+        questionnaireId={questionnaireId}
+        data={questionnaire}
+        csvData={parsedCsv}
+        surveyUnitData={surveyUnitData}
+      />
     </ComponentWrapper>
   );
 }

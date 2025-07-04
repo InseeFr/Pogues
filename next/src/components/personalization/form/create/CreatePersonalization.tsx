@@ -12,7 +12,7 @@ import {
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
-import PersonalisationTile from '../../PersonalizationTile';
+import PersonalisationTile from '../../overview/PersonalizationTile';
 import PersonalizationForm from '../PersonalizationForm';
 
 interface CreatePersonalizationProps {

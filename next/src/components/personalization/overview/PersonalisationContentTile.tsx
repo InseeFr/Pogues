@@ -2,9 +2,8 @@ import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
+import ExpandButton from '@/components/ui/ExpandButton';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
-
-import ExpandButton from '../ui/ExpandButton';
 
 interface PersonalizationContentTileProps {
   data: PersonalizationQuestionnaire;

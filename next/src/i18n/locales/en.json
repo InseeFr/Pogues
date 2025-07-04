@@ -176,7 +176,8 @@
       "deleteDialogTitle": "Delete personalization",
       "deleteDialogConfirm": "Are you sure you want to delete this personalization?",
       "deleteSuccess": "Personalization deleted successfully",
-      "editDisabledTooltip": "Personalization cannot be edited yet."
+      "editDisabledTooltip": "Personalization cannot be edited yet.",
+      "visualiseSurveyUnits": "Visualize survey units"
     }
   }
 }

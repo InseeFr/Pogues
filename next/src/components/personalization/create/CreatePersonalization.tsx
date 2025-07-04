@@ -7,8 +7,8 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { addQuestionnaireData } from '@/api/personalize';
-import PersonalisationTile from '@/components/personalization/PersonalizationTile';
 import PersonalizationForm from '@/components/personalization/form/PersonalizationForm';
+import PersonalisationTile from '@/components/personalization/overview/PersonalizationTile';
 import {
   PersonalizationQuestionnaire,
   UploadError,
