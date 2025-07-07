@@ -1,9 +1,9 @@
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
-import FilterList from '@/components/ui/FilterList';
-import Input from '@/components/ui/form/Input';
-import { useFilters } from '@/hooks/useFilter';
-import { FilterEnum } from '@/models/filter';
+import Filters from '@/components/ui/Filters';
+import { Filter, FilterType } from '@/models/filters';
 import { Nomenclature } from '@/models/nomenclature';
 
 import NomenclatureOverviewItem from './NomenclatureOverviewItem';
@@ -21,47 +21,35 @@ export default function NomenclaturesOverview({
 }: Readonly<NomenclaturesProps>) {
   const { t } = useTranslation();
 
-  const { filters, updateFilterContent, getFilterContent } = useFilters([
-    {
-      filterType: FilterEnum.Search,
-      filterContent: '',
-      clearFilterFunction: () => updateFilterContent(FilterEnum.Search, ''),
-    },
-  ]);
-  const searchFilterContent = getFilterContent(FilterEnum.Search).toString();
+  const [filteredNomenclatures, setFilteredNomenclatures] =
+    useState<Nomenclature[]>(nomenclatures);
 
-  const filteredNomenclatures = nomenclatures
-    .filter((n) =>
-      n.label.toLowerCase().includes(searchFilterContent.toLowerCase()),
-    )
-    .toSorted((a, b) => a.label.localeCompare(b.label));
+  const filters: Filter<Nomenclature>[] = [
+    {
+      label: t('nomenclatures.name'),
+      onFilter: (v: Nomenclature, input?: string) =>
+        input ? v.label.toLowerCase().includes(input.toLowerCase()) : true,
+      placeholder: t('nomenclatures.search'),
+      type: FilterType.Text,
+    },
+  ];
 
   return nomenclatures.length > 0 ? (
     <>
-      <div>
-        <Input
-          label={t('nomenclatures.search')}
-          placeholder={t('nomenclatures.search')}
-          value={searchFilterContent}
-          onChange={(e) =>
-            updateFilterContent(FilterEnum.Search, e.target.value)
-          }
-          onClear={() => updateFilterContent(FilterEnum.Search, '')}
-          showClearButton={searchFilterContent.length > 0}
-        />
-      </div>
-      <FilterList
+      <Filters<Nomenclature>
         filters={filters}
-        resultCount={filteredNomenclatures.length}
-        updateFilterContent={updateFilterContent}
+        data={nomenclatures}
+        setFilteredData={setFilteredNomenclatures}
       />
       <ul>
-        {filteredNomenclatures.map((nomenclature) => (
-          <NomenclatureOverviewItem
-            key={nomenclature.id}
-            nomenclature={nomenclature}
-          />
-        ))}
+        {filteredNomenclatures
+          .toSorted((a, b) => a.label.localeCompare(b.label))
+          .map((nomenclature) => (
+            <NomenclatureOverviewItem
+              key={nomenclature.id}
+              nomenclature={nomenclature}
+            />
+          ))}
       </ul>
     </>
   ) : (

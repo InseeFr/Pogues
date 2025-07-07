@@ -69,7 +69,10 @@
     "title": "Codes list"
   },
   "codesLists": {
+    "all": "All",
     "create": "Create a codes list",
+    "name": "Name",
+    "notUsed": "Not used",
     "search": "Search for a code list",
     "title": "Codes lists"
   },
@@ -88,15 +91,11 @@
     "boundary": "An error occurred, if the problem persists, please contact support."
   },
   "filter": {
-    "active": "Filter by:",
-    "clear": "Clear",
-    "clearFilters": "Clear filters",
-    "questionUsed": "Not used",
+    "filters": "Filters:",
     "result": "{{count}} result",
     "result_other": "{{count}} results",
     "result_zero": "{{count}} results",
-    "search": "Label",
-    "stamp": "Stamp"
+    "labelValue": "{{label}}: {{value}}"
   },
   "history": {
     "author": "Author",
@@ -156,6 +155,7 @@
     "title": "Metadata"
   },
   "nomenclatures": {
+    "name": "Name",
     "notUsedByQuestionnaire": "The questionnaire does not use nomenclatures.",
     "search": "Search for a nomenclature",
     "title": "Nomenclatures",
