@@ -7,6 +7,10 @@ import { VisualizationKind } from '@/api/visualize';
 import { APP } from '../../constants/dom-constants';
 import VisualizeDropdown from './components/visualize-dropdown';
 
+vi.mock('../../hooks/useReadonly', () => ({
+  useReadonly: vi.fn(),
+}));
+
 describe('Visualize Dropdown Component: ', () => {
   test('Should return the right HTML', () => {
     const props = {
