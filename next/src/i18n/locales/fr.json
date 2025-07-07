@@ -143,10 +143,52 @@
       "history": "Historique",
       "metadata": "Métadonnées",
       "nomenclatures": "Nomenclatures",
+      "personalize": "Personnalisation",
       "questionnaire": "Questionnaire",
       "variables": "Variables"
     },
     "title": "Questionnaire"
+  },
+  "personalization": {
+    "create": {
+      "business": "Entreprise",
+      "context": "Contexte",
+      "createQuestionnaire": "Charger les données dans les orchestrateurs",
+      "createQuestionnaireDescription": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
+      "description": "Créez une personnalisation pour pré-remplir le questionnaire avec les données des unités enquêtées.",
+      "download_error": "Erreur lors du téléchargement du schéma CSV",
+      "download_success": "Schéma CSV téléchargé avec succès",
+      "error": "Erreur lors de la création du jeu de données",
+      "fileViewerError": "Erreur lors des l'affichage du fichier.",
+      "household": "Ménage",
+      "noFileChosen": "Aucun fichier choisi",
+      "save_error": "Erreur lors de la sauvegarde du questionnaire",
+      "saveSuccess": "Questionnaire sauvegardé avec succès",
+      "schema": "Schéma de fichier attendu",
+      "success": "La personnalisation a été créée avec succès",
+      "title": "Personnaliser mon questionnaire",
+      "uploadData": "Charger les unités enquêtées",
+      "uploadEmptyError": "Aucune unité enquêtée trouvée dans le fichier",
+      "uploadError": "Erreur lors du chargement des unités enquêtées",
+      "uploadSuccess": "Unités enquêtées importées avec succès"
+    },
+    "edit": {
+      "editQuestionnaire": "Confirmer le rechargement",
+      "editQuestionnaireDescription": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
+      "title": "Modifier la personnalisation"
+    },
+    "overview": {
+      "existingFileData": "Jeu de données existantes",
+      "currentSurveyUnits": "Unités enquêtées actuelles",
+      "modes": "Modes",
+      "title": "Personnaliser mon questionnaire",
+      "deleteDialogTitle": "Supprimer la personnalisation",
+      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
+      "deleteSuccess": "Personnalisation supprimée avec succès",
+      "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
+      "visualiseSurveyUnits": "Visualiser les unités enquêtées"
+    },
+    "title": "Personalisation"
   },
   "questionnaires": {
     "create": "Créer un questionnaire",

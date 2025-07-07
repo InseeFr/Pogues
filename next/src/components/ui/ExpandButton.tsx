@@ -17,11 +17,12 @@ export default function ExpandButton({
   const { t } = useTranslation();
   return (
     <button
-      className="cursor-pointer"
+      className="cursor-pointer mt-2"
       onClick={() => setIsExpanded((v) => !v)}
       aria-expanded={isExpanded}
       aria-controls={ariaControls}
       aria-label={isExpanded ? t('common.collapse') : t('common.expand')}
+      style={{ marginTop: '0.5rem' }}
     >
       {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
     </button>

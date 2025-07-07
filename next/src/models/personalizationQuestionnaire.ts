@@ -1,0 +1,53 @@
+import { TargetModes } from '@/models/questionnaires';
+
+export type PersonalizationQuestionnaire = {
+  id: string;
+  poguesId: string;
+  label: string;
+  modes: Modes[];
+  context: SurveyContext;
+  surveyUnitData: File | undefined;
+  isSynchronized: boolean;
+};
+
+export type Modes = {
+  name: TargetModes;
+  isWebMode: boolean;
+};
+
+export type SurveyContext = {
+  name: string;
+  value?: string;
+};
+
+export type FileType = {
+  name: string;
+  value: string;
+};
+
+export type UploadError = {
+  message: string;
+  details: string[];
+};
+
+export type SurveyUnitModeData = {
+  id: string;
+  displayableId: number;
+  url: string;
+};
+
+//Temp type
+export type SurveyUnitModeDataResponse = {
+  questionnaireModelId: string;
+  surveyUnits: SurveyUnitModeData[];
+};
+
+export enum SurveyContextEnum {
+  HOUSEHOLD = 'HOUSEHOLD',
+  BUSINESS = 'BUSINESS',
+}
+
+export enum SurveyContextValueEnum {
+  HOUSEHOLD = 'Ménage',
+  BUSINESS = 'Entreprise',
+}
