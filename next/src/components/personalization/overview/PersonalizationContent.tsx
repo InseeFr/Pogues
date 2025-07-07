@@ -85,6 +85,12 @@ export default function PersonalizationContent({
       queryClient.invalidateQueries({
         queryKey: ['personalization', { questionnaireId }],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['getPersonalizationSurveyUnitData', { questionnaireId }],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['personalizationFile', { questionnaireId }],
+      });
     },
   });
 

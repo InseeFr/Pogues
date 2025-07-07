@@ -17,7 +17,7 @@ import { getFileName, openDocument } from './utils/personalization';
  */
 export const personalizationQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['personalizationQuestionnaire', { questionnaireId }],
+    queryKey: ['personalization', { questionnaireId }],
     queryFn: () => getExistingPublicEnemyData(questionnaireId),
   });
 
@@ -68,7 +68,7 @@ export const getSurveyUnitDataQueryOptions = (
   modes: Modes[],
 ) =>
   queryOptions({
-    queryKey: ['getSurveyUnitData', { publicEnemyId, modes }],
+    queryKey: ['getPersonalizationSurveyUnitData', { publicEnemyId, modes }],
     queryFn: () => getAllSurveyUnitData(publicEnemyId, modes),
   });
 
@@ -135,7 +135,7 @@ export async function getInitialCsvSchema(
  */
 export const personalizationFileQueryOptions = (publicEnemyId: string) =>
   queryOptions({
-    queryKey: ['personalizationNewQuestionnaire', { publicEnemyId }],
+    queryKey: ['personalizationFile', { publicEnemyId }],
     queryFn: () => getExistingCsvSchema(publicEnemyId),
   });
 
