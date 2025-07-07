@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { VisualizationKind } from '@/api/visualize';
 import { domSelectorForModal } from '@/constants/dom-constants';
+import { useReadonly } from '@/hooks/useReadonly';
 import Dictionary from '@/utils/dictionary/dictionary';
 
 import { useClickAway } from './useClickAway';
@@ -20,7 +21,8 @@ interface VisualizeDropdownProps {
     type: VisualizationKind,
     componentId: string,
     token: string,
-    isDirtyState?: boolean,
+    isDirtyStateAlert?: boolean,
+    isReadonlyAlert?: boolean,
   ) => void;
   externalVariables?: { [key: string]: { name: unknown } };
   calculatedVariables?: { [key: string]: { name: unknown } };
@@ -66,6 +68,8 @@ export default function VisualizeDropdown({
   const [allowDuplicateVariablesModal, setAllowDuplicateVariablesModal] =
     useState<boolean>(false);
 
+  const isReadonly = useReadonly();
+
   const wrapperRef = useRef(null);
 
   useClickAway(wrapperRef, () => setDropdownOpen(false));
@@ -97,9 +101,16 @@ export default function VisualizeDropdown({
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     type: VisualizationKind,
     isDirtyStateAlert: boolean = false,
+    isReadonlyAlert: boolean = false,
   ) => {
     event.preventDefault();
-    visualizeActiveQuestionnaire(type, componentId, token, isDirtyStateAlert);
+    visualizeActiveQuestionnaire(
+      type,
+      componentId,
+      token,
+      isDirtyStateAlert,
+      isReadonlyAlert,
+    );
     setDropdownOpen(false);
   };
 
@@ -135,6 +146,7 @@ export default function VisualizeDropdown({
                       e,
                       link.type,
                       isDirtyState && link.unavailableInDirtyState,
+                      isReadonly && link.unavailableInReadonly,
                     )
                   }
                 >
@@ -200,5 +212,6 @@ const dropdownOptions = [
     type: VisualizationKind.Metadata,
     label: Dictionary.VISUALIZE_METADATA,
     unavailableInDirtyState: true,
+    unavailableInReadonly: true,
   },
 ];

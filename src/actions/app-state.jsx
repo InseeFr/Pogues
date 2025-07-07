@@ -387,6 +387,7 @@ export const visualizeActiveQuestionnaire = (
   componentId,
   token,
   isDirtyStateAlert,
+  isReadonlyAlert,
 ) => {
   return (dispatch, getState) => {
     dispatch(startLoadingVisualization());
@@ -412,6 +413,7 @@ export const visualizeActiveQuestionnaire = (
         containsRef,
         token,
         isDirtyStateAlert,
+        isReadonlyAlert,
       )
         .then(() => dispatch(endLoadingVisualization()))
         .catch((error) => {

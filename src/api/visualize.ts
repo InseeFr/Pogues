@@ -78,9 +78,14 @@ export async function getVisualization(
   token: string,
   /** Whether or not we should prevent the visualization and display an alert. */
   isDirtyStateAlert: boolean = false,
+  /** Whether or not we should prevent the visualization and display an alert. */
+  isReadonlyAlert: boolean = false,
 ): Promise<unknown> {
   if (isDirtyStateAlert) {
     throw new Error('Veuillez sauvegarder.');
+  }
+  if (isReadonlyAlert) {
+    throw new Error('Veuillez sortir de la lecture seule.');
   }
   switch (type) {
     case VisualizationKind.PDF:

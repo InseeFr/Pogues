@@ -114,6 +114,7 @@ describe('Visualize Dropdown Component: ', () => {
       props.componentId,
       props.token,
       false,
+      false,
     );
   });
 });
