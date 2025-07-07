@@ -144,7 +144,8 @@
       "metadata": "Métadonnées",
       "nomenclatures": "Nomenclatures",
       "questionnaire": "Questionnaire",
-      "variables": "Variables"
+      "variables": "Variables",
+      "personalize": "Personnalisation"
     },
     "title": "Questionnaire"
   },
@@ -222,6 +223,7 @@
       "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
       "visualiseSurveyUnits": "Visualiser les unités enquêtées"
     }
+  },
   "variables": {
     "title": "Variables"
   }
