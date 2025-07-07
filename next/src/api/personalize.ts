@@ -1,6 +1,11 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import {
+  Modes,
+  PersonalizationQuestionnaire,
+  SurveyUnitModeData,
+  SurveyUnitModeDataResponse,
+} from '@/models/personalizationQuestionnaire';
 
 import { instancePersonalization } from './instancePersonalization';
 import { getFileName, openDocument } from './utils/personalization';
@@ -53,6 +58,54 @@ export async function getPublicEnemyData(
     });
 }
 
+/**
+ * Used to retrieve data used to a create survey Units.
+ *
+ * @see {@link getAllSurveyUnitData}
+ */
+export const getSurveyUnitDataQueryOptions = (
+  publicEnemyId: string,
+  modes: Modes[],
+) =>
+  queryOptions({
+    queryKey: ['getSurveyUnitData', { publicEnemyId, modes }],
+    queryFn: () => getAllSurveyUnitData(publicEnemyId, modes),
+  });
+
+export async function getSurveyUnitData(
+  publicEnemyId: string,
+  mode: Modes,
+): Promise<SurveyUnitModeData[]> {
+  return instancePersonalization
+    .get(`/questionnaires/${publicEnemyId}/modes/${mode}/survey-units`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: SurveyUnitModeData[] }) => {
+      return data;
+    });
+}
+
+export async function getAllSurveyUnitData(
+  publicEnemyId: string,
+  mode: Modes[] = [],
+): Promise<SurveyUnitModeData[]> {
+  const filteredModes = mode.filter((m) => m.isWebMode);
+
+  const promises = filteredModes.map((m) =>
+    instancePersonalization.get(
+      `/questionnaires/${publicEnemyId}/modes/${m.name}/survey-units`,
+      {
+        headers: { Accept: 'application/json' },
+      },
+    ),
+  );
+
+  const responses = await Promise.all(promises);
+  return responses.flatMap(
+    ({ data }: { data: SurveyUnitModeDataResponse }) => data.surveyUnits,
+  );
+}
+
 /* Fetch the empty csv file to be filled */
 export async function getInitialCsvSchema(
   questionnaireId: string,
@@ -69,25 +122,6 @@ export async function getInitialCsvSchema(
     const fileName = disposition
       ? getFileName(disposition)
       : `schema-${questionnaireId}.csv`;
-    openDocument(new Blob([response.data], { type: 'text/csv' }), fileName);
-  } catch (error) {
-    console.error('Failed to download CSV schema:', error);
-  }
-}
-
-export async function getTest(publicEnemyId: string): Promise<void> {
-  try {
-    const response = await instancePersonalization.get(
-      `/questionnaires/${publicEnemyId}/data`,
-      {
-        headers: { Accept: 'application/json' },
-        responseType: 'blob',
-      },
-    );
-    const disposition = response.headers['content-disposition'];
-    const fileName = disposition
-      ? getFileName(disposition)
-      : `data-${publicEnemyId}.csv`;
     openDocument(new Blob([response.data], { type: 'text/csv' }), fileName);
   } catch (error) {
     console.error('Failed to download CSV schema:', error);
@@ -184,7 +218,9 @@ export async function editQuestionnaireData(
 export async function deleteQuestionnaireData(
   questionnaireId: string,
 ): Promise<void> {
-  return instancePersonalization.delete(`/questionnaires/${questionnaireId}/delete`);
+  return instancePersonalization.delete(
+    `/questionnaires/${questionnaireId}/delete`,
+  );
 }
 
 export async function resetSurveyUnit(surveyUnitId: string): Promise<void> {
