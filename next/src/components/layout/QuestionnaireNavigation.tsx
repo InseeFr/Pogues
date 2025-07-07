@@ -79,8 +79,8 @@ export default function QuestionnaireNavigation() {
       path: '/questionnaire/$questionnaireId/versions',
     },
     {
-      label: t('questionnaires.navigation.personalize'),
-      icon: <PersonalizeIcon className="m-auto" />,
+      label: t('personalization.title'),
+      Icon: PersonalizeIcon,
       path: '/questionnaire/$questionnaireId/personalize',
       innerPaths: ['/questionnaire/$questionnaireId/personalize/new'],
     },

@@ -100,12 +100,22 @@ export default function PersonalizationContent({
   }
 
   return (
-    <PersonalisationTile data={data}>
+    <>
+      <PersonalisationTile data={data}>
+        <div className="grid grid-cols-[1fr_auto] mt-4">
+          <h3>{t('personalization.overview.visualiseSurveyUnits')}</h3>
+        </div>
+        {surveyUnitData && surveyUnitData.length > 0 && (
+          <VisualizationOverview
+            modes={data.modes}
+            surveyUnitData={surveyUnitData}
+          />
+        )}
+      </PersonalisationTile>
       <PersonalizationContentTile data={data}>
         {parsedCsv && parsedCsv.data.length > 0 && (
           <CsvViewerTable parsedCsv={parsedCsv} />
         )}
-
         <div className="overflow-hidden flex flex-row gap-3 my-3">
           <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
             {t('personalization.overview.existingFileData')}
@@ -128,15 +138,6 @@ export default function PersonalizationContent({
           />
         </div>
       </PersonalizationContentTile>
-      <div className="grid grid-cols-[1fr_auto] mt-4">
-        <h3>{t('personalization.overview.visualiseSurveyUnits')}</h3>
-      </div>
-      {surveyUnitData && surveyUnitData.length > 0 && (
-        <VisualizationOverview
-          modes={data.modes}
-          surveyUnitData={surveyUnitData}
-        />
-      )}
-    </PersonalisationTile>
+    </>
   );
 }

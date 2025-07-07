@@ -143,46 +143,11 @@
       "history": "Historique",
       "metadata": "Métadonnées",
       "nomenclatures": "Nomenclatures",
+      "personalize": "Personnalisation",
       "questionnaire": "Questionnaire",
-      "variables": "Variables",
-      "personalize": "Personnalisation"
+      "variables": "Variables"
     },
     "title": "Questionnaire"
-  },
-  "questionnaires": {
-    "create": "Créer un questionnaire",
-    "search": "Rechercher un questionnaire",
-    "stamp": "Timbre",
-    "title": "Questionnaires"
-  },
-  "metadata": {
-    "title": "Métadonnées"
-  },
-  "nomenclatures": {
-    "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
-    "search": "Rechercher une nomenclature",
-    "title": "Nomenclatures",
-    "version": "Version"
-  },
-  "version": {
-    "author": "Auteur",
-    "crumb": "Version {{id}}",
-    "deleteAll": "Supprimer toutes les sauvegardes",
-    "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
-    "deleteDialogTitle": "Supprimer toutes les sauvegardes",
-    "deleteSuccess": "Version de {{timestamp}} supprimée",
-    "id": "ID",
-    "no_versions": "Aucune sauvegarde disponible",
-    "old_versions": "{{count}} sauvegardes plus anciennes",
-    "restore": "Restaurer",
-    "restoreDialogConfirm": "Une nouvelle sauvegarde va être créée avec ces données.",
-    "restoreDialogTitle": "Restaurer cette sauvegarde",
-    "restoreSuccess": "La nouvelle sauvegarde a été créée",
-    "surveyIsReadonly": "Cette sauvegarde du questionnaire est en lecture seule.",
-    "timestamp": "Date",
-    "title": "Historique",
-    "version_today": "{{count}} sauvegardes aujourd'hui",
-    "view": "Consulter"
   },
   "personalization": {
     "create": {
@@ -222,7 +187,23 @@
       "deleteSuccess": "Personnalisation supprimée avec succès",
       "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
       "visualiseSurveyUnits": "Visualiser les unités enquêtées"
-    }
+    },
+    "title": "Personalisation"
+  },
+  "questionnaires": {
+    "create": "Créer un questionnaire",
+    "search": "Rechercher un questionnaire",
+    "stamp": "Timbre",
+    "title": "Questionnaires"
+  },
+  "metadata": {
+    "title": "Métadonnées"
+  },
+  "nomenclatures": {
+    "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
+    "search": "Rechercher une nomenclature",
+    "title": "Nomenclatures",
+    "version": "Version"
   },
   "variables": {
     "title": "Variables"
