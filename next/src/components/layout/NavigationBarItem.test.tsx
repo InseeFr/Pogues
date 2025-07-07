@@ -7,7 +7,7 @@ describe('NavigationBarItem', () => {
   it('display label', () => {
     const { getByText } = render(
       <NavigationBarItem
-        icon={null}
+        Icon={() => <svg />}
         label="my navigation item"
         active={false}
       />,
@@ -18,7 +18,11 @@ describe('NavigationBarItem', () => {
 
   it('is accessible when active', () => {
     const { getByText } = render(
-      <NavigationBarItem icon={null} label="my navigation item" active />,
+      <NavigationBarItem
+        Icon={() => <svg />}
+        label="my navigation item"
+        active
+      />,
     );
 
     expect(getByText(/my navigation item/i).parentElement).toHaveAttribute(

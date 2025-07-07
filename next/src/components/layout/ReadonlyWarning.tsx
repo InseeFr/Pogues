@@ -57,7 +57,7 @@ export default function ReadonlyWarning({
     );
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('version.restoreSuccess', {
+      success: t('history.restore.success', {
         label: versionId,
       }),
       error: (err: Error) => err.toString(),
@@ -66,14 +66,14 @@ export default function ReadonlyWarning({
 
   return (
     <div className="grid grid-cols-[1fr_auto] items-center p-3 border-blue-3 border rounded shadow m-3 bg-default">
-      <div>{t('version.surveyIsReadonly')}</div>
+      <div>{t('history.questionnaireIsReadonly')}</div>
       {versionId ? (
         <Dialog
-          body={t('version.restoreDialogConfirm')}
+          body={t('history.restore.dialogConfirm')}
           buttonSize={ButtonSize.sm}
-          label={t('version.restore')}
+          label={t('history.restore.label')}
           onValidate={onRestore}
-          title={t('version.restoreDialogTitle')}
+          title={t('history.restore.dialogTitle')}
         />
       ) : null}
     </div>

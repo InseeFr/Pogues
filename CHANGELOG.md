@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed an issue in UCQ where switching from nomenclature to code list deleted the code list.
 - Removed redundant API calls.
 - Improved assets compression.
 

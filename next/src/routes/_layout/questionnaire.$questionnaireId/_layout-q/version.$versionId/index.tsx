@@ -23,7 +23,7 @@ function RouteComponent() {
       <ContentHeader
         isReadonly
         questionnaireId={questionnaireId}
-        title={t('questionnaire.title', { id: questionnaireId })}
+        title={t('questionnaire.title')}
         versionId={versionId}
       />
       <LegacyComponent />

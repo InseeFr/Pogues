@@ -84,9 +84,7 @@ export default function CodesListOverviewItemDetails({
     });
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('codesList.overview.duplicateSuccess', {
-        label: codesList.label,
-      }),
+      success: t('codesList.duplicate.success', { label: codesList.label }),
       error: (err: Error) => err.toString(),
     });
   }
@@ -98,16 +96,14 @@ export default function CodesListOverviewItemDetails({
     });
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('codesList.overview.deleteSuccess', {
-        label: codesList.label,
-      }),
+      success: t('codesList.delete.success', { label: codesList.label }),
       error: (err: AxiosError<CodeListError>) => {
         if (
           err.response?.data.errorCode === ERROR_CODES.RELATED_QUESTION_NAMES
         ) {
           const { relatedQuestionNames } = err.response
             .data as CodeListRelatedQuestionError;
-          return t('codesList.overview.deleteError.usedByQuestions', {
+          return t('codesList.delete.error.usedByQuestions', {
             questions: relatedQuestionNames.join('\n'),
           });
         }
@@ -130,23 +126,23 @@ export default function CodesListOverviewItemDetails({
             {t('common.edit')}
           </ButtonLink>
           <Dialog
-            label={t('codesList.overview.duplicate')}
-            title={t('codesList.overview.duplicateDialogTitle', {
+            label={t('codesList.duplicate.label')}
+            title={t('codesList.duplicate.dialogTitle', {
               label: codesList.label,
             })}
-            body={t('codesList.overview.duplicateDialogConfirm')}
+            body={t('codesList.duplicate.dialogConfirm')}
             onValidate={onDuplicate}
           />
           <Dialog
             label={t('common.delete')}
-            title={t('codesList.overview.deleteDialogTitle', {
+            title={t('codesList.delete.dialogTitle', {
               label: codesList.label,
             })}
-            body={t('codesList.overview.deleteDialogConfirm')}
+            body={t('codesList.delete.dialogConfirm')}
             onValidate={onDelete}
             buttonTitle={
               hasRelatedQuestion
-                ? t('codesList.overview.deleteDisabled.usedByQuestions')
+                ? t('codesList.delete.disabled.usedByQuestions')
                 : undefined
             }
             disabled={hasRelatedQuestion}

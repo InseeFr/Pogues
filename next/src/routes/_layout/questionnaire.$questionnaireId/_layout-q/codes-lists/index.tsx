@@ -28,10 +28,7 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper
-      codesListsCount={codesLists.length}
-      questionnaireId={questionnaireId}
-    >
+    <ComponentWrapper>
       <CodesListsOverview
         questionnaireId={questionnaireId}
         codesLists={codesLists}
@@ -41,9 +38,8 @@ function RouteComponent() {
 }
 
 function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  const questionnaireId = Route.useParams().questionnaireId;
   return (
-    <ComponentWrapper questionnaireId={questionnaireId}>
+    <ComponentWrapper>
       <div className="text-error">{error.message}</div>
     </ComponentWrapper>
   );
@@ -51,25 +47,20 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
 
 function ComponentWrapper({
   children,
-  codesListsCount,
-  questionnaireId,
-}: Readonly<{
-  children: React.ReactNode;
-  codesListsCount?: number;
-  questionnaireId: string;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const { t } = useTranslation();
-  const codesListsAffix = codesListsCount ? `: ${codesListsCount}` : '';
+  const questionnaireId = Route.useParams().questionnaireId;
+
   return (
     <>
       <ContentHeader
-        title={`${t('codesList.title')} ${codesListsAffix}`}
+        title={t('questionnaire.navigation.codesLists')}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"
             params={{ questionnaireId }}
           >
-            {t('codesList.overview.create')}
+            {t('codesLists.create')}
           </ButtonLink>
         }
       />

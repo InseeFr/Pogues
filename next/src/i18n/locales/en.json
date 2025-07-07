@@ -34,8 +34,24 @@
       "success": "The code list has been created",
       "title": "New code list"
     },
+    "delete": {
+      "dialogConfirm": "Are you sure you want to delete this code list?",
+      "dialogTitle": "Delete code list: {{label}}",
+      "disabled": {
+        "usedByQuestions": "Code list cannot be deleted if it used by a question."
+      },
+      "error": {
+        "usedByQuestions": "The code list is used by questions: {{questions}}"
+      },
+      "success": "Code list {{label}} deleted"
+    },
+    "duplicate": {
+      "dialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
+      "dialogTitle": "Dupliquer la liste de codes : {{label}}",
+      "label": "Duplicate",
+      "success": "Liste de codes {{label}} dupliquée"
+    },
     "edit": {
-      "crumb": "Code list {{id}}",
       "success": "The code list {{label}} has been edited",
       "title": "Edit the code list: {{label}}"
     },
@@ -50,24 +66,23 @@
       "moveUp": "Move up",
       "moveDown": "Move down"
     },
-    "overview": {
-      "create": "Create a code list",
-      "deleteDialogConfirm": "Are you sure you want to delete this code list?",
-      "deleteDialogTitle": "Delete code list: {{label}}",
-      "deleteDisabled": {
-        "usedByQuestions": "Code list cannot be deleted if it used by a question."
-      },
-      "deleteError": {
-        "usedByQuestions": "The code list is used by questions: {{questions}}"
-      },
-      "deleteSuccess": "Code list {{label}} deleted",
-      "duplicate": "Duplicate",
-      "duplicateDialogConfirm": "Do you want to create a copy of this code list?",
-      "duplicateDialogTitle": "Duplicate code list: {{label}}",
-      "duplicateSuccess": "Code list {{label}} duplicated",
-      "search": "Search for a code list"
-    },
     "title": "Codes list"
+  },
+  "codesLists": {
+    "create": "Create a codes list",
+    "search": "Search for a code list",
+    "title": "Codes lists"
+  },
+  "crumb": {
+    "codesList": "Codes list {{id}}",
+    "codesLists": "Codes lists",
+    "edit": "Edit",
+    "history": "History",
+    "new": "New",
+    "nomenclatures": "Nomenclatures",
+    "questionnaire": "Questionnaire {{id}}",
+    "questionnaires": "Questionnaires",
+    "version": "Version {{id}}"
   },
   "error": {
     "boundary": "An error occurred, if the problem persists, please contact support."
@@ -77,9 +92,35 @@
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "questionUsed": "Not used",
-    "result": "Result: {{count}}",
+    "result": "{{count}} result",
+    "result_other": "{{count}} results",
+    "result_zero": "{{count}} results",
     "search": "Label",
     "stamp": "Stamp"
+  },
+  "history": {
+    "author": "Author",
+    "backToLatest": "Back to latest save",
+    "deleteAll": {
+      "label": "Delete all saves",
+      "dialogConfirm": "Are you sure you want to delete all saves?",
+      "dialogTitle": "Delete all saved versions",
+      "success": "Version from{{timestamp}} deleted"
+    },
+    "id": "ID",
+    "noVersions": "No saves were found",
+    "oldVersions": "{{count}} older versions",
+    "questionnaireIsReadonly": "This save of the survey is on readonly.",
+    "restore": {
+      "label": "Restore",
+      "dialogConfirm": "A new save will be created with this save data.",
+      "dialogTitle": "Restore this save data",
+      "success": "A new save has been created"
+    },
+    "timestamp": "Timestamp",
+    "title": "History",
+    "versionToday": "{{count}} version today",
+    "view": "View"
   },
   "questionnaire": {
     "common": {
@@ -97,25 +138,27 @@
       "mustProvideTarget": "You must select at least one target mode",
       "mustProvideTitle": "You must provide a title"
     },
-    "title": "Questionnaire {{id}}"
-  },
-  "questionnaires": {
-    "create": "Create a questionnaire",
     "navigation": {
-      "codeLists": "Code lists",
-      "history": "History",
+      "codesLists": "Codes lists",
       "metadata": "Metadata",
       "nomenclatures": "Nomenclatures",
       "overview": "Overview",
       "variables": "Variables",
       "personalize": "Personalization"
     },
+    "title": "Questionnaire {{id}}"
+  },
+  "questionnaires": {
+    "create": "Create a questionnaire",
     "search": "Search for a questionnaire",
     "stamp": "Stamp",
     "title": "Questionnaires"
   },
+  "metadata": {
+    "title": "Metadata"
+  },
   "nomenclatures": {
-    "noNomenclatures": "No nomenclatures available",
+    "notUsedByQuestionnaire": "The questionnaire does not use nomenclatures.",
     "search": "Search for a nomenclature",
     "title": "Nomenclatures",
     "version": "Version"
@@ -179,5 +222,7 @@
       "editDisabledTooltip": "Personalization cannot be edited yet.",
       "visualiseSurveyUnits": "Visualize survey units"
     }
+  "variables": {
+    "title": "Variables"
   }
 }

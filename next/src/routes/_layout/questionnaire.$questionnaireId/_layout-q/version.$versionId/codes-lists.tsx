@@ -23,7 +23,7 @@ export const Route = createFileRoute(
     queryClient.ensureQueryData(
       codesListsFromVersionQueryOptions(questionnaireId, versionId),
     );
-    return { crumb: t('codesList.title') };
+    return { crumb: t('crumb.codesLists') };
   },
 });
 
@@ -34,7 +34,7 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper codesListsCount={codesLists.length}>
+    <ComponentWrapper>
       <CodesListsOverview
         questionnaireId={questionnaireId}
         codesLists={codesLists}
@@ -54,22 +54,16 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
 
 function ComponentWrapper({
   children,
-  codesListsCount,
-}: Readonly<{
-  children: React.ReactNode;
-  codesListsCount?: number;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const { t } = useTranslation();
   const { questionnaireId, versionId } = Route.useParams();
-
-  const codesListsAffix = codesListsCount ? `: ${codesListsCount}` : '';
 
   return (
     <>
       <ContentHeader
         isReadonly
         questionnaireId={questionnaireId}
-        title={`${t('codesList.title')} ${codesListsAffix}`}
+        title={t('codesLists.title')}
         versionId={versionId}
       />
       <ContentMain>{children}</ContentMain>

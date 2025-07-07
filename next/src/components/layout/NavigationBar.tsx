@@ -3,12 +3,14 @@ import { Link, useMatchRoute } from '@tanstack/react-router';
 import NavigationBarItem from './NavigationBarItem';
 
 export type NavigationItem = {
-  label: string;
-  icon: React.JSX.Element | null;
-  path: string;
+  Icon: React.FC<React.ComponentProps<'svg'>>;
+  iconClassName?: string;
   innerPaths?: string[];
   isDisabled?: boolean;
   isHidden?: boolean;
+  label: string;
+  onIconClick?: () => void;
+  path: string;
 };
 
 interface NavigationBarProps {
@@ -27,7 +29,16 @@ export default function NavigationBar({
     <nav>
       <ul>
         {navigationItems.map(
-          ({ label, icon, isDisabled, path, innerPaths = [], isHidden }) =>
+          ({
+            label,
+            Icon,
+            iconClassName,
+            isDisabled,
+            onIconClick,
+            path,
+            innerPaths = [],
+            isHidden,
+          }) =>
             !isHidden ? (
               <li key={label}>
                 <Link
@@ -37,8 +48,10 @@ export default function NavigationBar({
                   className={`w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none`}
                 >
                   <NavigationBarItem
-                    icon={icon}
+                    Icon={Icon}
+                    iconClassName={iconClassName}
                     label={label}
+                    onIconClick={onIconClick}
                     active={
                       !!matchRoute({ to: path }) ||
                       innerPaths.some((path) => !!matchRoute({ to: path }))

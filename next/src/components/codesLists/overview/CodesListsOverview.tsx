@@ -58,8 +58,8 @@ export default function CodesListsOverview({
     <>
       <div>
         <Input
-          label={t('codesList.overview.search')}
-          placeholder={t('codesList.overview.search')}
+          label={t('codesLists.search')}
+          placeholder={t('codesLists.search')}
           value={searchFilterContent}
           onChange={(e) =>
             updateFilterContent(FilterEnum.Search, e.target.value)
@@ -90,7 +90,7 @@ export default function CodesListsOverview({
       params={{ questionnaireId }}
       buttonStyle={ButtonStyle.Primary}
     >
-      {t('codesList.overview.create')}
+      {t('codesLists.create')}
     </ButtonLink>
   );
 }

@@ -14,11 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Navigation bar has been improved to account for currently displayed version and make navigation clearer.
+- Highlight all active filters.
+
+### Removed
+
+- Total number of codes lists and nomenclatures in title since the information is redundant with filters results.
 
 ### Fixed
 
 - Handle network errors instead of crashing.
-- Translation in breadcrumbs.
+- Improved translations in breadcrumb and titles.
 - Improved accessibility in navigation bar and breadcrumb.
 
 ## [1.9.5] - 2025-05-28
