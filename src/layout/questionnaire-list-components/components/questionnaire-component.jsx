@@ -177,7 +177,6 @@ const QuestionnaireComponent = (props) => {
                         className="questionnaire-element-filter"
                       >
                         <button
-                          disabled={isReadonly}
                           onClick={() => handleEditFilterComponent(filter.id)}
                           className="btn-white-filter"
                         >
