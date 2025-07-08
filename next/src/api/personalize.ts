@@ -19,6 +19,7 @@ export const personalizationQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: ['personalization', { questionnaireId }],
     queryFn: () => getExistingPublicEnemyData(questionnaireId),
+    retryOnMount: true,
   });
 
 /** Fetch questionnaire data from Public Enemy Back Office. */
@@ -70,6 +71,7 @@ export const getSurveyUnitDataQueryOptions = (
   queryOptions({
     queryKey: ['getPersonalizationSurveyUnitData', { publicEnemyId, modes }],
     queryFn: () => getAllSurveyUnitData(publicEnemyId, modes),
+    retryOnMount: true,
   });
 
 export async function getSurveyUnitData(
@@ -137,6 +139,7 @@ export const personalizationFileQueryOptions = (publicEnemyId: string) =>
   queryOptions({
     queryKey: ['personalizationFile', { publicEnemyId }],
     queryFn: () => getExistingCsvSchema(publicEnemyId),
+    retryOnMount: true,
   });
 
 /* Fetch the existing csv file */

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
 import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -39,6 +40,8 @@ export default function PersonalizationContent({
 }: Readonly<PersonalizationContentProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const router = useRouter();
+
   const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
     csvData,
   );
@@ -81,7 +84,7 @@ export default function PersonalizationContent({
     mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
       return deleteQuestionnaireData(data.id);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: ['personalization', { questionnaireId }],
       });
@@ -91,6 +94,7 @@ export default function PersonalizationContent({
       queryClient.invalidateQueries({
         queryKey: ['personalizationFile', { questionnaireId }],
       });
+      router.invalidate();
     },
   });
 

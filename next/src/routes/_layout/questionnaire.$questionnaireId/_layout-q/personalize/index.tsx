@@ -81,7 +81,7 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
   const navigate = useNavigate();
   const questionnaireId = Route.useParams().questionnaireId;
 
-  // If an existing data set is not found, redirect to the creation page
+  // If no data is found, redirect to the creation page
   useEffect(() => {
     if (error?.message?.includes('404')) {
       navigate({

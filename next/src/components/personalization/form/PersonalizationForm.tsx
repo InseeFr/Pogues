@@ -22,7 +22,7 @@ import {
 } from '@/models/personalizationQuestionnaire';
 
 import CsvViewerTable from './CsvViewerTable';
-import ErrorUploadFile from './Error';
+import ErrorUploadFile from './ErrorUploadFile';
 
 interface PersonalizationFormProps {
   questionnaireId: string;
@@ -196,6 +196,7 @@ export default function PersonalizationForm({
           ref={emptyFileInputRef}
           style={{ display: 'none' }}
           onChange={onSurveyUnitDataChange}
+          accept={fileType.value}
         />
         <Button
           onClick={() => emptyFileInputRef.current?.click()}
