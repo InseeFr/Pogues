@@ -866,10 +866,6 @@ const dictionary: Dictionary = {
     fr: 'Pour plus de précision, se référer à la documentation.',
     en: 'For more information check the documentation.',
   },
-  readonlyQuestionnaireWarning: {
-    fr: 'Cette version du questionnaire est en lecture seule',
-    en: 'This version of the survey is on readonly',
-  },
 };
 
 // Dynamic translations
