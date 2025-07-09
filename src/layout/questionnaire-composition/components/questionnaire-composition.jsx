@@ -7,14 +7,13 @@ import { QuestionnaireNav } from '../../questionnaire-nav';
 
 // Prop types and default props
 
-const QuestionnaireComposition = (props) => {
-  const { questionnaire } = props;
+const QuestionnaireComposition = ({ id }) => {
   const history = useHistory();
 
   const routeBackToQuestionnaire = useCallback(() => {
-    const path = `/questionnaire/${questionnaire.id}`;
+    const path = `/questionnaire/${id}`;
     history.push(path);
-  }, [history, questionnaire.id]);
+  }, [history, id]);
 
   return (
     <div id="questionnaire-composition">
