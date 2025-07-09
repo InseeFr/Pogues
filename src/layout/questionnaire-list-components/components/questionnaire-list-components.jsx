@@ -46,8 +46,6 @@ const QuestionnaireListComponents = (props) => {
 
   const isReadonly = useReadonly();
 
-  const customizeUrl = import.meta.env.VITE_CUSTOMIZE_URL;
-
   useEffect(() => {
     setSelectedComponentId('');
   }, [setSelectedComponentId]);
@@ -143,16 +141,6 @@ const QuestionnaireListComponents = (props) => {
           <div id="questionnaire-head">
             <h4>{questionnaire.label}</h4>
             <div>
-              {customizeUrl && (
-                <a
-                  className="btn-blue"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`${customizeUrl}/questionnaires/check/${questionnaire.id}`}
-                >
-                  {Dictionary.customize}
-                </a>
-              )}
               <button
                 className="btn-yellow"
                 disabled={isReadonly}
