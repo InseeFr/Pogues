@@ -191,7 +191,7 @@ const ComponentNewEdit = ({
           {componentType === LOOP && componentId && (
             <button
               className="widget-component-new-edit__button-delete"
-              disabled={submitting}
+              disabled={isReadonly || submitting}
               onClick={deleteComponent}
             >
               {Dictionary.remove}
@@ -200,7 +200,7 @@ const ComponentNewEdit = ({
           {componentType === FILTER && componentId && (
             <button
               className="widget-component-new-edit__button-delete"
-              disabled={submitting}
+              disabled={isReadonly || submitting}
               onClick={() => deleteComponent(componentId)}
             >
               {Dictionary.remove}

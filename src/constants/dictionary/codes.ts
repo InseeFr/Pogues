@@ -30,10 +30,6 @@ export const codesDictionary: Dictionary = {
     fr: 'Précision',
     en: 'Specification',
   },
-  selectSuggesterList: {
-    fr: 'Sélectionner une liste',
-    en: 'Select a list',
-  },
   addCodePrecision: {
     fr: `Ajouter un "Préciser"`,
     en: `Add a "Specify"`,

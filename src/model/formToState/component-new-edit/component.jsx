@@ -1,6 +1,6 @@
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { nameFromLabel, uuid, verifyVariable } from '../../../utils/utils';
-import CodesList from '../codes-lists/codes-list';
+import CodesList from '../lists/codes-list';
 import CalculatedVariable from './calculated-variable';
 import CollectedVariable from './collected-variable';
 import Control from './control';

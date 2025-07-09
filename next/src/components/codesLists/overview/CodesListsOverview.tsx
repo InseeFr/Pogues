@@ -12,6 +12,7 @@ import CodesListOverviewItem from './CodesListOverviewItem';
 interface CodesListsProps {
   codesLists?: CodesList[];
   questionnaireId: string;
+  readonly?: boolean;
 }
 
 /**
@@ -21,6 +22,7 @@ interface CodesListsProps {
 export default function CodesListsOverview({
   codesLists = [],
   questionnaireId,
+  readonly = false,
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
@@ -56,8 +58,8 @@ export default function CodesListsOverview({
     <>
       <div>
         <Input
-          label={t('codesList.overview.search')}
-          placeholder={t('codesList.overview.search')}
+          label={t('codesLists.search')}
+          placeholder={t('codesLists.search')}
           value={searchFilterContent}
           onChange={(e) =>
             updateFilterContent(FilterEnum.Search, e.target.value)
@@ -77,6 +79,7 @@ export default function CodesListsOverview({
             key={codesList.id}
             questionnaireId={questionnaireId}
             codesList={codesList}
+            readonly={readonly}
           />
         ))}
       </ul>
@@ -87,7 +90,7 @@ export default function CodesListsOverview({
       params={{ questionnaireId }}
       buttonStyle={ButtonStyle.Primary}
     >
-      {t('codesList.overview.create')}
+      {t('codesLists.create')}
     </ButtonLink>
   );
 }

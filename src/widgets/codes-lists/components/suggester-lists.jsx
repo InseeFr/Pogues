@@ -8,11 +8,13 @@ import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { useOidc } from '../../../utils/oidc';
+import { ErrorsPanel } from '../../errors-panel';
 
 const { COMPONENT_CLASS } = WIDGET_CODES_LISTS;
 
 export function SuggesterLists({
   change,
+  selectorPathParent,
   formName,
   path,
   loadNomenclaturesIfNeeded,
@@ -95,11 +97,11 @@ export function SuggesterLists({
       <Field
         name="id"
         component={Select}
-        label={Dictionary.selectCodesListType}
+        label={Dictionary.selectNomenclature}
         required
       >
         <GenericOption key="noNomenclature" value="">
-          {Dictionary.selectSuggesterList}
+          {Dictionary.selectNomenclature}
         </GenericOption>
         {Object.values(nomenclatures).map((nomenclature) => (
           <GenericOption key={nomenclature.id} value={nomenclature.id}>
@@ -107,12 +109,14 @@ export function SuggesterLists({
           </GenericOption>
         ))}
       </Field>
+      <ErrorsPanel path={`${selectorPathParent}.${selectorPath}`} />
     </FormSection>
   );
 }
 
 SuggesterLists.propTypes = {
   change: PropTypes.func.isRequired,
+  selectorPathParent: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   codesListsStore: PropTypes.object,

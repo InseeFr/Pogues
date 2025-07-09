@@ -1,6 +1,7 @@
 import { codesDictionary } from './dictionary/codes';
 import { declarationsDictionary } from './dictionary/declarations';
 import { loopDictionary } from './dictionary/loop';
+import { nomenclatureDictionary } from './dictionary/nomenclature';
 import { pairingDictionary } from './dictionary/pairing';
 import { questionnaireDictionary } from './dictionary/questionnaire';
 import { tableDictionary } from './dictionary/table';
@@ -16,6 +17,7 @@ const dictionary: Dictionary = {
   ...codesDictionary,
   ...declarationsDictionary,
   ...loopDictionary,
+  ...nomenclatureDictionary,
   ...pairingDictionary,
   ...questionnaireDictionary,
   ...tableDictionary,

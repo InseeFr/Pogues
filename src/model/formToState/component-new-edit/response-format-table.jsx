@@ -5,18 +5,23 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
 } from '../../../constants/pogues-constants';
-import { uuid, verifyVariable } from '../../../utils/utils';
+import { verifyVariable } from '../../../utils/utils';
 import {
   defaultForm as CodesListDefaultForm,
   defaultState as CodesListDefaultState,
   Factory as CodesListFactory,
-} from '../codes-lists/codes-list';
+} from '../lists/codes-list';
+import {
+  Factory as NomenclatureFactory,
+  defaultState as nomenclatureDefaultState,
+} from '../lists/nomenclature';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
@@ -67,10 +72,8 @@ export const defaultMeasureState = {
   type: SIMPLE,
   [SIMPLE]: defaultMeasureSimpleState,
   [SINGLE_CHOICE]: {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: merge(
-      cloneDeep(CodesListDefaultState),
-      { id: uuid() },
-    ),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
+    [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: cloneDeep(nomenclatureDefaultState),
     visHint: RADIO,
   },
 };
@@ -86,6 +89,13 @@ export const defaultMeasureForm = {
   [SINGLE_CHOICE]: {
     allowArbitraryResponse: false,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
+    [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: {
+      id: '',
+      label: '',
+      name: '',
+      urn: '',
+      suggesterParameters: '',
+    },
     visHint: RADIO,
   },
 };
@@ -207,15 +217,23 @@ export function formToStateMeasure(form, codesListMeasure) {
       [simpleType]: { ...simpleForm },
     };
   } else {
-    const { visHint, [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm } =
-      measureForm;
+    const {
+      visHint,
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
+      [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
+    } = measureForm;
     const codesList = codesListMeasure
       ? codesListMeasure.formToStateComponent(codesListForm)
       : CodesListFactory().formToState(codesListForm);
 
+    const nomenclature = codesListMeasure
+      ? codesListMeasure.formToStateComponent(nomenclatureForm)
+      : NomenclatureFactory().formToState(nomenclatureForm);
+
     state[SINGLE_CHOICE] = {
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList,
+      [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclature,
     };
   }
   return state;
@@ -292,6 +310,7 @@ export function stateToFormMeasure(
     [SINGLE_CHOICE]: {
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
+      [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureState,
     },
   } = currentState;
 
@@ -300,13 +319,18 @@ export function stateToFormMeasure(
   const isReadOnly = !!conditionReadOnly;
 
   let codesListForm;
+  let nomenclatureForm;
 
   if (codesListMeasure) {
     codesListForm = codesListMeasure.stateComponentToForm();
   } else {
     codesListForm = CodesListFactory(
-      codesListState,
       codesListsStore,
+      codesListState,
+    ).stateComponentToForm();
+    nomenclatureForm = NomenclatureFactory(
+      codesListsStore,
+      nomenclatureState,
     ).stateComponentToForm();
   }
 
@@ -321,6 +345,7 @@ export function stateToFormMeasure(
     [SINGLE_CHOICE]: {
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
+      [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
     },
   };
 }
@@ -334,8 +359,8 @@ export function stateToFormMeasureList(currentState, codesListsStore) {
     measures,
   } = currentState;
   const codesListForm = CodesListFactory(
-    codesListState,
     codesListsStore,
+    codesListState,
   ).stateComponentToForm();
 
   return {
@@ -428,9 +453,12 @@ const Factory = (initialState = {}, codesListsStore) => {
       };
 
       if (type === SINGLE_CHOICE) {
+        const listPath =
+          measureState.visHint === DATATYPE_VIS_HINT.SUGGESTER
+            ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+            : DEFAULT_CODES_LIST_SELECTOR_PATH;
         state[SINGLE_CHOICE] = {
-          [DEFAULT_CODES_LIST_SELECTOR_PATH]:
-            codesListsStore[measureState[DEFAULT_CODES_LIST_SELECTOR_PATH].id],
+          [listPath]: codesListsStore[measureState[listPath].id],
           visHint: measureState.visHint,
         };
       } else {
@@ -443,16 +471,20 @@ const Factory = (initialState = {}, codesListsStore) => {
 
   const transformers = {
     codesListPrimary: CodesListFactory(
-      currentState[PRIMARY][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore,
+      currentState[PRIMARY][CODES_LIST][DEFAULT_CODES_LIST_SELECTOR_PATH],
     ),
     codesListSecondary: CodesListFactory(
-      currentState[SECONDARY][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore,
+      currentState[SECONDARY][DEFAULT_CODES_LIST_SELECTOR_PATH],
     ),
     codesListMeasure: CodesListFactory(
-      currentState[MEASURE][SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH],
       codesListsStore,
+      currentState[MEASURE][SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH],
+    ),
+    nomenclatureMeasure: NomenclatureFactory(
+      codesListsStore,
+      currentState[MEASURE][SINGLE_CHOICE][DEFAULT_NOMENCLATURE_SELECTOR_PATH],
     ),
   };
 
@@ -488,8 +520,12 @@ const Factory = (initialState = {}, codesListsStore) => {
       if (currentState[LIST_MEASURE]) {
         currentState[LIST_MEASURE].forEach((m) => {
           if (m.type === SINGLE_CHOICE) {
-            const codesListState =
-              m[SINGLE_CHOICE][DEFAULT_CODES_LIST_SELECTOR_PATH];
+            // for suggester we need to get the nomenclature (then store it as a codesList), else we get directly the codesList
+            const listPath =
+              m[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+                ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+                : DEFAULT_CODES_LIST_SELECTOR_PATH;
+            const codesListState = m[SINGLE_CHOICE][listPath];
             codesLists = {
               ...codesLists,
               [codesListState.id]: codesListState,

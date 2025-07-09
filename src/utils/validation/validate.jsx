@@ -42,6 +42,7 @@ const { RESPONSE_FORMAT } = TABS_PATHS;
 
 export function validateQuestionForm(values, setErrors, codesListsStore) {
   let errors;
+
   const durationFormat = get(
     values,
     `${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.format`,

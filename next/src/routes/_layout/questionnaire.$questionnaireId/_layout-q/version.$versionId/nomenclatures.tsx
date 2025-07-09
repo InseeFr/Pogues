@@ -24,7 +24,7 @@ export const Route = createFileRoute(
     queryClient.ensureQueryData(
       nomenclaturesFromVersionQueryOptions(questionnaireId, versionId),
     );
-    return { crumb: t('nomenclatures.title') };
+    return { crumb: t('crumb.nomenclatures') };
   },
 });
 
@@ -35,7 +35,7 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper nomenclaturesCount={data.length}>
+    <ComponentWrapper>
       <NomenclaturesOverview
         questionnaireId={questionnaireId}
         nomenclatures={data}
@@ -54,17 +54,17 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
 
 function ComponentWrapper({
   children,
-  nomenclaturesCount,
-}: Readonly<{ children: React.ReactNode; nomenclaturesCount?: number }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const { t } = useTranslation();
-  const nomenclaturesAffix = nomenclaturesCount
-    ? `: ${nomenclaturesCount}`
-    : '';
+  const { questionnaireId, versionId } = Route.useParams();
+
   return (
     <>
       <ContentHeader
         isReadonly
-        title={`${t('nomenclatures.title')} ${nomenclaturesAffix}`}
+        questionnaireId={questionnaireId}
+        title={t('nomenclatures.title')}
+        versionId={versionId}
       />
       <ContentMain>{children}</ContentMain>
     </>

@@ -23,7 +23,7 @@ export const Route = createFileRoute(
   }) => {
     queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
     queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
-    return { crumb: t('codesList.edit.crumb', { id: codesListId }) };
+    return { crumb: t('crumb.codesList', { id: codesListId }) };
   },
 });
 

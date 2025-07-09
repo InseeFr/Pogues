@@ -50,7 +50,7 @@ export default function CreateCodesListForm({
       { questionnaireId, codesList },
       {
         onSuccess: () =>
-          void navigate({
+          navigate({
             to: '/questionnaire/$questionnaireId/codes-lists',
             params: { questionnaireId },
           }),

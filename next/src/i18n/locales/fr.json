@@ -22,8 +22,7 @@
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "usedByQuestion": "Utilisé dans la question :",
     "usedByQuestion_other": "Utilisé dans les questions :",
-    "validate": "Valider",
-    "versionIsOnReadonly": "Cette version du questionnaire est en lecture seule."
+    "validate": "Valider"
   },
   "codesList": {
     "common": {
@@ -35,8 +34,24 @@
       "success": "La liste de codes a été créée",
       "title": "Nouvelle liste de codes"
     },
+    "delete": {
+      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
+      "dialogTitle": "Supprimer la liste de codes : {{label}}",
+      "disabled": {
+        "usedByQuestions": "La liste de codes ne peut pas être supprimée si elle est utilisée dans une question."
+      },
+      "error": {
+        "usedByQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
+      },
+      "success": "Liste de codes {{label}} supprimée"
+    },
+    "duplicate": {
+      "dialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
+      "dialogTitle": "Dupliquer la liste de codes : {{label}}",
+      "label": "Dupliquer",
+      "success": "Liste de codes {{label}} dupliquée"
+    },
     "edit": {
-      "crumb": "Liste de codes {{id}}",
       "success": "La liste de codes {{label}} a été modifiée",
       "title": "Editer la liste de codes : {{label}}"
     },
@@ -51,36 +66,61 @@
       "moveUp": "Monter d'un niveau",
       "moveDown": "Descendre d'un niveau"
     },
-    "overview": {
-      "create": "Créer une liste de codes",
-      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
-      "deleteDialogTitle": "Supprimer la liste de codes : {{label}}",
-      "deleteDisabled": {
-        "usedByQuestions": "La liste de codes ne peut pas être supprimée si elle est utilisée dans une question."
-      },
-      "deleteError": {
-        "usedByQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
-      },
-      "deleteSuccess": "Liste de codes {{label}} supprimée",
-      "duplicate": "Dupliquer",
-      "duplicateDialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
-      "duplicateDialogTitle": "Dupliquer la liste de codes : {{label}}",
-      "duplicateSuccess": "Liste de codes {{label}} dupliquée",
-      "search": "Rechercher une liste de codes"
-    },
+    "title": "Liste de codes"
+  },
+  "codesLists": {
+    "create": "Créer une liste de codes",
+    "search": "Rechercher une liste de codes",
     "title": "Listes de codes"
+  },
+  "crumb": {
+    "codesList": "Liste de code {{id}}",
+    "codesLists": "Listes de codes",
+    "edit": "Editer",
+    "history": "Historique",
+    "new": "Nouveau",
+    "nomenclatures": "Nomenclatures",
+    "questionnaire": "Questionnaire {{id}}",
+    "questionnaires": "Questionnaires",
+    "version": "Version {{id}}"
   },
   "error": {
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
   },
   "filter": {
     "active": "Filtrer par:",
-    "clear": "Suprimer le filtre",
+    "clear": "Supprimer le filtre",
     "clearFilters": "Supprimer les filtres",
     "questionUsed": "Non utilisées",
-    "result": "Resultat : {{count}}",
+    "result": "{{count}} résultat",
+    "result_other": "{{count}} résultats",
+    "result_zero": "{{count}} résultat",
     "search": "Label",
     "stamp": "Timbre"
+  },
+  "history": {
+    "author": "Auteur",
+    "backToLatest": "Retour à la dernière sauvegarde",
+    "deleteAll": {
+      "label": "Supprimer toutes les sauvegardes",
+      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
+      "dialogTitle": "Supprimer toutes les sauvegardes",
+      "success": "Version de {{timestamp}} supprimée"
+    },
+    "id": "ID",
+    "noVersions": "Aucune sauvegarde disponible",
+    "oldVersions": "{{count}} sauvegardes plus anciennes",
+    "questionnaireIsReadonly": "Cette sauvegarde du questionnaire est en lecture seule.",
+    "restore": {
+      "label": "Restaurer",
+      "dialogConfirm": "Une nouvelle sauvegarde va être créée avec ces données.",
+      "dialogTitle": "Restaurer cette sauvegarde",
+      "success": "La nouvelle sauvegarde a été créée"
+    },
+    "timestamp": "Date",
+    "title": "Historique",
+    "versionToday": "{{count}} sauvegardes aujourd'hui",
+    "view": "Consulter"
   },
   "questionnaire": {
     "common": {
@@ -98,41 +138,32 @@
       "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
       "mustProvideTitle": "Vous devez renseigner un titre"
     },
-    "title": "Questionnaire {{id}}"
-  },
-  "questionnaires": {
-    "create": "Créer un questionnaire",
     "navigation": {
-      "codeLists": "Listes de codes",
+      "codesLists": "Listes de codes",
       "history": "Historique",
       "metadata": "Métadonnées",
       "nomenclatures": "Nomenclatures",
-      "overview": "Vue d'ensemble",
+      "questionnaire": "Questionnaire",
       "variables": "Variables"
     },
+    "title": "Questionnaire"
+  },
+  "questionnaires": {
+    "create": "Créer un questionnaire",
     "search": "Rechercher un questionnaire",
     "stamp": "Timbre",
     "title": "Questionnaires"
   },
+  "metadata": {
+    "title": "Métadonnées"
+  },
   "nomenclatures": {
-    "noNomenclatures": "Aucune nomenclature trouvée",
+    "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
     "search": "Rechercher une nomenclature",
     "title": "Nomenclatures",
     "version": "Version"
   },
-  "version": {
-    "author": "Auteur",
-    "crumb": "Version {{id}}",
-    "deleteAll": "Supprimer toutes les sauvegardes",
-    "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
-    "deleteDialogTitle": "Supprimer toutes les sauvegardes",
-    "deleteSuccess": "Version de {{timestamp}} supprimée",
-    "id": "ID",
-    "no_versions": "Aucune sauvegarde disponible",
-    "old_versions": "{{count}} sauvegardes plus anciennes",
-    "timestamp": "Date",
-    "title": "Historique",
-    "version_today": "{{count}} sauvegardes aujourd'hui",
-    "view": "Consulter"
+  "variables": {
+    "title": "Variables"
   }
 }

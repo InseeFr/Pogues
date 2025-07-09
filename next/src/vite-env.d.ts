@@ -9,13 +9,7 @@ export type ImportMetaEnv = {
   VITE_OIDC_ENABLED: string;
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_CLIENT_ID: string;
-  VITE_ENABLE_VERSIONS_PAGE: string;
-  VITE_ACTIVE_NAMESPACES: string;
-  VITE_CUSTOMIZE_URL: string;
-  VITE_DEFAULT_USER_ID: string;
-  VITE_DEFAULT_USER_NAME: string;
-  VITE_DEFAULT_USER_STAMP: string;
-  VITE_LOG_LEVEL: string;
+  VITE_ENABLE_VARIABLES_PAGE: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;

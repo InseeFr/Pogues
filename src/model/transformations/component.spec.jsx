@@ -240,7 +240,7 @@ describe('component tranformations', () => {
               allowArbitraryResponse: true,
               id: 'm5qyf09t',
               mandatory: false,
-              CodesList: {
+              Nomenclature: {
                 id: 'listId',
               },
             },

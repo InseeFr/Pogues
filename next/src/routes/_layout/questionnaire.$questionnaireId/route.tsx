@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 export const Route = createFileRoute('/_layout/questionnaire/$questionnaireId')(
   {
     loader: ({ context: { t }, params: { questionnaireId } }) => ({
-      crumb: t('questionnaire.title', { id: questionnaireId }),
+      crumb: t('crumb.questionnaire', { id: questionnaireId }),
     }),
   },
 );

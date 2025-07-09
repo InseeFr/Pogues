@@ -28,10 +28,10 @@ export default function VersionTile({
     <table className="border border-default w-full shadow-sm">
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
-          <th>{t('version.id')}</th>
+          <th>{t('history.id')}</th>
           <th>{t('common.lastUpdated')}</th>
           <th>{t('common.date')}</th>
-          <th>{t('version.author')}</th>
+          <th>{t('history.author')}</th>
           <th />
         </tr>
       </thead>
@@ -67,7 +67,7 @@ export default function VersionTile({
                 to="/questionnaire/$questionnaireId/version/$versionId"
                 params={{ questionnaireId, versionId: version.id }}
               >
-                {t('version.view')}
+                {t('history.view')}
               </ButtonLink>
             </td>
           </tr>

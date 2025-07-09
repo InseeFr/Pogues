@@ -14,8 +14,6 @@ type ImportMetaEnv = {
   VITE_DEFAULT_USER_STAMP: string;
   VITE_ENABLE_PAIRING_RECAP: string;
   VITE_LOG_LEVEL: string;
-  VITE_PUBLIC_ENEMY_URL: string;
-  VITE_OIDC_AUTHORITY: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;

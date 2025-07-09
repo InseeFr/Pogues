@@ -18,7 +18,7 @@ export const Route = createFileRoute(
     params: { questionnaireId },
   }) => {
     queryClient.ensureQueryData(versionsQueryOptions(questionnaireId));
-    return { crumb: t('questionnaires.navigation.history') };
+    return { crumb: t('crumb.history') };
   },
 });
 

@@ -1,6 +1,8 @@
 import {
   DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
 } from '../../constants/pogues-constants';
 import * as CodeList from './codes-list';
 import * as Response from './response';
@@ -19,9 +21,14 @@ export function remoteToState(remote) {
     ],
   } = remote;
 
+  // for suggester we handle a nomenclature, else a code list
+  const listType =
+    visHint === DATATYPE_VIS_HINT.SUGGESTER
+      ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+      : DEFAULT_CODES_LIST_SELECTOR_PATH;
+
   return {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
-      CodeList.remoteToState(CodeListReference),
+    [listType]: CodeList.remoteToState(CodeListReference),
     id,
     mandatory,
     allowArbitraryResponse,
@@ -30,13 +37,11 @@ export function remoteToState(remote) {
 }
 
 export function stateToRemote(state, collectedVariables) {
-  const {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
-    allowArbitraryResponse,
-    visHint,
-    mandatory,
-    id,
-  } = state;
+  const { allowArbitraryResponse, visHint, mandatory, id } = state;
+
+  const codesList = state[DEFAULT_CODES_LIST_SELECTOR_PATH] || {};
+  const nomenclature = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH] || {};
+
   return {
     Response: [
       Response.stateToRemote({
@@ -44,7 +49,8 @@ export function stateToRemote(state, collectedVariables) {
         mandatory,
         allowArbitraryResponse,
         visHint,
-        codesListId,
+        codesListId: codesList.id,
+        nomenclatureId: nomenclature.id,
         typeName: TEXT,
         maxLength: 1,
         collectedVariable: collectedVariables[0],

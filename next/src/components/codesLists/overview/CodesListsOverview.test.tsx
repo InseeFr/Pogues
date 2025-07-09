@@ -43,7 +43,7 @@ describe('CodesListOverview', () => {
       ),
     );
 
-    expect(getAllByText('Create a code list')).toHaveLength(1);
+    expect(getAllByText('Create a codes list')).toHaveLength(1);
   });
 
   it('filters the code lists based on the search input', async () => {

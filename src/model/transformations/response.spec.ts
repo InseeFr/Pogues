@@ -46,16 +46,37 @@ describe('response tranformations', () => {
 
     expect(result.CollectedVariableReference).toEqual(collectedVariable);
   });
-  test('when CodeListReference is defined', () => {
+
+  test.each([
+    DATATYPE_VIS_HINT.CHECKBOX,
+    DATATYPE_VIS_HINT.DROPDOWN,
+    DATATYPE_VIS_HINT.RADIO,
+  ])(
+    'when visHint is not a suggester, with a defined codesListId',
+    (visHint) => {
+      const typeName = 'DATE';
+      const codesListId = 'codesListId';
+      const result = stateToRemote({
+        typeName,
+        id: '1',
+        codesListId,
+        visHint,
+      });
+
+      expect(result.CodeListReference).toEqual(codesListId);
+    },
+  );
+  test('when visHint is a suggester, with a defined nomenclatureId', () => {
     const typeName = 'DATE';
-    const codesListId = 'codesListId';
+    const nomenclatureId = 'nomenclatureId';
     const result = stateToRemote({
       typeName,
       id: '1',
-      codesListId,
+      nomenclatureId,
+      visHint: DATATYPE_VIS_HINT.SUGGESTER,
     });
 
-    expect(result.CodeListReference).toEqual(codesListId);
+    expect(result.CodeListReference).toEqual(nomenclatureId);
   });
   test('when mandatory is defined and is a boolean', () => {
     const typeName = 'DATE';

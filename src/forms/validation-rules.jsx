@@ -1,7 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
 
 import {
-  CODES_LIST_INPUT_ENUM,
   DATATYPE_NAME,
   QUESTION_TYPE_ENUM,
 } from '../constants/pogues-constants';
@@ -9,7 +8,6 @@ import Dictionary from '../utils/dictionary/dictionary';
 import { getComponentsTargetsByComponent } from '../utils/model/redirections-utils';
 import { generateCollectedVariables } from '../utils/variables/collected-variables-utils';
 
-const { NEW } = CODES_LIST_INPUT_ENUM;
 const { NUMERIC } = DATATYPE_NAME;
 
 const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE, PAIRING } =
@@ -100,31 +98,8 @@ export function nameSize(value) {
     : undefined;
 }
 
-export function emptyCodes(codes = [], urn = '') {
-  return codes.length === 0 && urn === '' ? 'No codes' : undefined;
-}
-
 export function emptyMeasures(measures) {
   return measures.length === 0 ? Dictionary.noMeasureYet : undefined;
-}
-
-export function validCodesList(codesList) {
-  const { id, label, codes, panel, urn } = codesList;
-  const errors = [];
-  let errorRequired;
-  let errorNoCodes;
-
-  if (panel === NEW) {
-    errorRequired = required(label);
-    errorNoCodes = emptyCodes(codes, urn);
-  } else {
-    errorRequired = required(id);
-  }
-
-  if (errorRequired) errors.push(errorRequired);
-  if (errorNoCodes) errors.push(errorNoCodes);
-
-  return errors;
 }
 
 function checkIfCodesListTheSame(expected, values) {

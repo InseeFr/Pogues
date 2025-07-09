@@ -104,32 +104,6 @@ export function toId(components) {
 }
 
 /**
- * We can only move as a sibling two components of the same type.
- *
- * @param {object} droppedComponent the component we are moving
- * @param {object} draggedComponent the previous sibling of the moved component
- */
-export function couldInsertToSibling(droppedComponent, draggedComponent) {
-  return droppedComponent.type === draggedComponent.type;
-}
-
-/**
- * This method will check if in a specific use case, we can drag
- * a component inside another one.
- * This is possible when the dropped zone is a SEQUENCE or SUBSEQUENCE.
- *
- * @param {object} droppedComponent the dropped component
- * @param {object} draggedComponent the dragged component
- */
-export function couldInsertAsChild(droppedComponent, draggedComponent) {
-  return (
-    (isSequence(droppedComponent) && isQuestion(draggedComponent)) ||
-    (isSequence(droppedComponent) && isSubSequence(draggedComponent)) ||
-    (isSubSequence(droppedComponent) && isQuestion(draggedComponent))
-  );
-}
-
-/**
  * This method will return a sorted list of children ID, based on the parent
  * component passed as a parameter
  *

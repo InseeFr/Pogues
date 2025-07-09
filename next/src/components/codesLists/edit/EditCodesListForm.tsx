@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { t } from 'i18next';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 import { putCodesList } from '@/api/codesLists';
 import { CodesList } from '@/models/codesLists';
@@ -26,6 +26,7 @@ export default function EditCodesListForm({
   formulasLanguage,
   variables,
 }: Readonly<EditCodesListFormProps>) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -51,7 +52,7 @@ export default function EditCodesListForm({
       { questionnaireId, codesList: updatedCodesList },
       {
         onSuccess: () =>
-          void navigate({
+          navigate({
             to: '/questionnaire/$questionnaireId/codes-lists',
             params: { questionnaireId },
           }),

@@ -1,40 +1,15 @@
 import { describe, expect, test } from 'vitest';
 
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
-import { componentsStore, listGotos } from './__mocks__/redirections-utils';
+import { componentsStore } from './__mocks__/redirections-utils';
 import {
   getComponentsTargetsByComponent,
   getComponentsTargetsByPosition,
-  getListGotos,
 } from './redirections-utils';
 
 const { SEQUENCE, SUBSEQUENCE, QUESTION } = COMPONENT_TYPE;
 
 describe('Redirections utils', () => {
-  describe('getListGotos', () => {
-    test('Should return an empty array if no components are provided', () => {
-      expect(getListGotos({}, Object.keys(componentsStore))).toEqual([]);
-    });
-    test('Should return the expected array if components are provided', () => {
-      expect(
-        getListGotos(componentsStore, Object.keys(componentsStore)),
-      ).toEqual(listGotos);
-    });
-    test('Should return the expected array if components are provided and some of then are disabled', () => {
-      const activeComponentsIds = ['SUBSEQUENCE2', 'QUESTION2', 'QUESTION3'];
-      const expectedListGotos = listGotos.map((goto) => {
-        return {
-          ...goto,
-          disabled: activeComponentsIds.indexOf(goto.value) === -1,
-        };
-      });
-
-      expect(getListGotos(componentsStore, activeComponentsIds)).toEqual(
-        expectedListGotos,
-      );
-    });
-  });
-
   describe('getComponentsTargetsByComponent', () => {
     test('Should obtains the right targets for a SEQUENCE', () => {
       const sequence = componentsStore.SEQUENCE1;
