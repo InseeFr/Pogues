@@ -15,9 +15,7 @@ import {
   emptyMeasures,
   letterStart,
   maxValue,
-  maximumRequired,
   minValue,
-  minimumRequired,
   name,
   nameLoop,
   nameSize,
@@ -70,14 +68,9 @@ export const loopRules = {
   nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
-  minimum: [
-    (value, conf) =>
-      minimumRequired(value, conf) && Dictionary.validation_minimum,
-  ],
-  maximum: [
-    (value, conf) =>
-      maximumRequired(value, conf) && Dictionary.validation_maximum,
-  ],
+  minimum: [required],
+  maximum: [required],
+  size: [required],
 };
 
 export const filterRules = {
