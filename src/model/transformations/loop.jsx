@@ -88,11 +88,11 @@ export function stateToRemote(store) {
       if (!isFixedLength && !basedOn) {
         response.maximum = maximum;
         response.minimum = minimum;
+        if (addButtonLibel) {
+          response.Label = addButtonLibel;
+        }
       }
 
-      if (addButtonLibel) {
-        response.Label = addButtonLibel;
-      }
       if (filter) {
         response.Filter = filter;
       }
