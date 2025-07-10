@@ -8,6 +8,10 @@ export enum ERROR_CODES {
   RELATED_QUESTION_NAMES = 'codelist:relatedquestions:name',
 }
 
+export const versionsKeys = {
+  all: (questionnaireId: string) => ['versions', questionnaireId] as const,
+};
+
 /**
  * Used to retrieve version of a questionnaire.
  *
@@ -15,7 +19,7 @@ export enum ERROR_CODES {
  */
 export const versionsQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['versions', { questionnaireId }],
+    queryKey: versionsKeys.all(questionnaireId),
     queryFn: () => getAllVersions(questionnaireId),
   });
 

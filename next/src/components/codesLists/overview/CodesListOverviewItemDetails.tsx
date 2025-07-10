@@ -7,6 +7,7 @@ import {
   CodeListError,
   CodeListRelatedQuestionError,
   ERROR_CODES,
+  codesListsKeys,
   deleteCodesList,
   putCodesList,
 } from '@/api/codesLists';
@@ -49,7 +50,7 @@ export default function CodesListOverviewItemDetails({
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
-        queryKey: ['codesLists', { questionnaireId }],
+        queryKey: codesListsKeys.all(questionnaireId),
       }),
   });
 
@@ -65,7 +66,7 @@ export default function CodesListOverviewItemDetails({
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
-        queryKey: ['codesLists', { questionnaireId }],
+        queryKey: codesListsKeys.all(questionnaireId),
       }),
   });
 
