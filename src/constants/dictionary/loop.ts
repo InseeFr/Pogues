@@ -22,9 +22,9 @@ export const loopDictionary: Dictionary = {
     en: 'Based on',
     fr: 'Basé sur',
   },
-  loopFixedLength: {
-    en: 'Fixed number of ocurrences',
-    fr: 'Nombre d’ocurrences fixe',
+  loopSameMinMax: {
+    en: 'Number of maximum occurrences identical to min',
+    fr: "Nombre d'occurrences max identique à min",
   },
   loopSize: {
     en: 'Occurrences number',

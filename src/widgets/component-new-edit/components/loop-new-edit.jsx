@@ -58,7 +58,7 @@ const LoopNewEdit = ({
           <Field
             name="isFixedLength"
             component={ListRadios}
-            label={Dictionary.loopFixedLength}
+            label={Dictionary.loopSameMinMax}
             required
             // Convert string "true"/"false" to boolean true/false when storing in Redux form
             parse={(value) => value === 'true'}
