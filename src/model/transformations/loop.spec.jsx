@@ -208,7 +208,6 @@ describe('loop tramsformation', () => {
         id: 'jqqchose',
         Filter: '$AGE$ < 18',
         IterableReference: 'ka08eg6w',
-        Label: 'ekk',
         MemberReference: ['j6p0ti5h', 'j6p0ti5h'],
         Name: 'BOUCLE1',
         type: 'DynamicIterationType',
@@ -227,7 +226,6 @@ describe('loop tramsformation', () => {
       },
       {
         id: 'jqqchose3',
-        Label: 'fixed button',
         MemberReference: ['j6p0ti5h', 'j6p0ti5h'],
         Name: 'BOUCLE3',
         type: 'DynamicIterationType',
