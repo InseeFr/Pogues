@@ -40,12 +40,3 @@ export async function getAllVersions(
 export async function restoreVersion(versionId: string): Promise<Response> {
   return instance.post(`/persistence/questionnaire/restore/${versionId}`);
 }
-
-/** Delete all versions. */
-export async function deleteAllVersions(
-  questionnaireId: string,
-): Promise<Response> {
-  return instance.delete(
-    `/persistence/questionnaire/${questionnaireId}/versions`,
-  );
-}

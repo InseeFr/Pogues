@@ -101,12 +101,6 @@
   "history": {
     "author": "Author",
     "backToLatest": "Back to latest save",
-    "deleteAll": {
-      "label": "Delete all saves",
-      "dialogConfirm": "Are you sure you want to delete all saves?",
-      "dialogTitle": "Delete all saved versions",
-      "success": "Version from{{timestamp}} deleted"
-    },
     "id": "ID",
     "noVersions": "No saves were found",
     "oldVersions": "{{count}} older versions",

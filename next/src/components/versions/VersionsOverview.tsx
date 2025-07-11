@@ -1,13 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteAllVersions, versionsKeys } from '@/api/versions';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import { Version } from '@/models/version';
 
-import Dialog from '../ui/Dialog';
 import VersionContent from './VersionContent';
 
 interface VersionsProps {
@@ -24,7 +20,6 @@ export default function VersionsOverview({
   versions = [],
 }: Readonly<VersionsProps>) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
 
   const todayString = new Date().toISOString().split('T')[0];
 
@@ -35,40 +30,9 @@ export default function VersionsOverview({
     (item) => !item.day.startsWith(todayString),
   );
 
-  const deleteMutation = useMutation({
-    mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
-      return deleteAllVersions(questionnaireId);
-    },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: versionsKeys.all(questionnaireId),
-      }),
-  });
-
-  function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      questionnaireId,
-    });
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('history.deleteAll.success'),
-      error: (err: Error) => err.toString(),
-    });
-  }
-
   return (
     <div>
-      <ContentHeader
-        title={t('history.title')}
-        action={
-          <Dialog
-            label={t('history.deleteAll.label')}
-            title={t('history.deleteAll.dialogTitle')}
-            body={t('history.deleteAll.dialogConfirm')}
-            onValidate={onDelete}
-          />
-        }
-      />
+      <ContentHeader title={t('history.title')} />
       <ContentMain>
         {versions.length > 0 ? (
           <>

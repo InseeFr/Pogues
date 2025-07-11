@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Button to delete all saves in history page.
+
 ## [2.0.1] - 2025-07-10
 
 ### Fixed
 
-- Fixed an issue when composition could not be accessed anymore
+- Fixed an issue where composition could not be accessed anymore.
 
 ## [2.0.0] - 2025-07-09
 
