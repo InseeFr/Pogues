@@ -1,5 +1,5 @@
 import { HttpResponseError } from '@/errors/error';
-import { VersionWithData } from '@/models/versions';
+import { Version } from '@/models/versions';
 
 import { computeAuthorizationHeader, getBaseURI } from './utils';
 
@@ -99,7 +99,7 @@ export async function getQuestionnaire(
 export async function getQuestionnaireWithVersion(
   versionId: string,
   token: string,
-): Promise<unknown> {
+): Promise<Version['data']> {
   const url = `${getBaseURI()}/${pathQuestionnaireVersion}/${versionId}?withData=true`;
   const headers = new Headers();
   headers.append('Accept', 'application/json');
@@ -112,7 +112,7 @@ export async function getQuestionnaireWithVersion(
       if (res.ok) return res.json();
       else throw new HttpResponseError(res.status, res.statusText);
     })
-    .then((json: VersionWithData) => json.data);
+    .then((json: Version) => json.data);
 }
 
 /**

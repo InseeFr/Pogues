@@ -16,6 +16,12 @@ export type CodeListRelatedQuestionError = {
   relatedQuestionNames: string[];
 };
 
+export const codesListsKeys = {
+  all: (questionnaireId: string) => ['codesLists', questionnaireId] as const,
+  version: (questionnaireId: string, versionId: string) =>
+    ['codesListsVersion', questionnaireId, versionId] as const,
+};
+
 /**
  * Used to retrieve codes lists associated to a questionnaire.
  *
@@ -23,7 +29,7 @@ export type CodeListRelatedQuestionError = {
  */
 export const codesListsQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['codesLists', { questionnaireId }],
+    queryKey: codesListsKeys.all(questionnaireId),
     queryFn: () => getCodesLists(questionnaireId),
   });
 
@@ -37,8 +43,9 @@ export const codesListsFromVersionQueryOptions = (
   versionId: string,
 ) =>
   queryOptions({
-    queryKey: ['codesLists', { questionnaireId, versionId }],
+    queryKey: codesListsKeys.version(questionnaireId, versionId),
     queryFn: () => getCodesListsFromVersion(questionnaireId, versionId),
+    staleTime: Infinity,
   });
 
 /** Retrieve codes lists associated to the questionnaire. */

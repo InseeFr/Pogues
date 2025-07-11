@@ -69,7 +69,10 @@
     "title": "Liste de codes"
   },
   "codesLists": {
+    "all": "Toutes",
     "create": "Créer une liste de codes",
+    "name": "Nom",
+    "notUsed": "Non utilisées",
     "search": "Rechercher une liste de codes",
     "title": "Listes de codes"
   },
@@ -88,25 +91,15 @@
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
   },
   "filter": {
-    "active": "Filtrer par:",
-    "clear": "Supprimer le filtre",
-    "clearFilters": "Supprimer les filtres",
-    "questionUsed": "Non utilisées",
+    "filters": "Filtres :",
     "result": "{{count}} résultat",
     "result_other": "{{count}} résultats",
     "result_zero": "{{count}} résultat",
-    "search": "Label",
-    "stamp": "Timbre"
+    "labelValue": "{{label}} : {{value}}"
   },
   "history": {
     "author": "Auteur",
     "backToLatest": "Retour à la dernière sauvegarde",
-    "deleteAll": {
-      "label": "Supprimer toutes les sauvegardes",
-      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
-      "dialogTitle": "Supprimer toutes les sauvegardes",
-      "success": "Version de {{timestamp}} supprimée"
-    },
     "id": "ID",
     "noVersions": "Aucune sauvegarde disponible",
     "oldVersions": "{{count}} sauvegardes plus anciennes",
@@ -158,6 +151,7 @@
     "title": "Métadonnées"
   },
   "nomenclatures": {
+    "name": "Nom",
     "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
     "search": "Rechercher une nomenclature",
     "title": "Nomenclatures",

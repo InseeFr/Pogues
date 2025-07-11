@@ -4,6 +4,10 @@ import { Stamp } from '@/models/stamps';
 
 import { instance } from './instance';
 
+const stampsKeys = {
+  all: ['stamps'] as const,
+};
+
 /**
  * Used to retrieve stamps.
  *
@@ -11,7 +15,7 @@ import { instance } from './instance';
  */
 export const stampsQueryOptions = () =>
   queryOptions({
-    queryKey: ['stamps'],
+    queryKey: stampsKeys.all,
     queryFn: () => getStamps(),
   });
 

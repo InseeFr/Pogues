@@ -49,7 +49,6 @@
     "@making-sense/antlr-editor": "^2.0.0",
     "@making-sense/vtl-2-0-antlr-tools-ts": "^2.0.1",
     "@making-sense/vtl-2-0-monaco-tools-ts": "^0.1.0",
-    "dayjs": "^1.11.13",
     "draft-js": "0.11.7",
     "draft-js-import-element": "1.4.0",
     "draft-js-utils": "1.4.1",
