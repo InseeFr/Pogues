@@ -726,10 +726,6 @@ const dictionary: Dictionary = {
     fr: 'Sélectionner une opération pour afficher la liste des campagnes',
     en: 'Select an operation to show a list of campaigns',
   },
-  customize: {
-    fr: 'Personnaliser',
-    en: 'Customize',
-  },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',
