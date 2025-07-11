@@ -61,7 +61,7 @@ export default function Filters<T>({
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-row gap-x-3 *:min-w-24 items-end">
+      <div className="flex flex-row gap-x-3 items-end">
         {filters.map((filter) => (
           <Filter
             key={filter.label}

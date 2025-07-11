@@ -36,10 +36,7 @@ export default function CodesListsOverview({
         filter === 'notUsed'
           ? !v.relatedQuestionNames || v.relatedQuestionNames.length === 0
           : true,
-      options: [
-        { label: t('codesLists.all'), value: 'all' },
-        { label: t('codesLists.notUsed'), value: 'notUsed' },
-      ],
+      options: [{ label: t('codesLists.notUsed'), value: 'notUsed' }],
       type: FilterType.ToggleGroup,
     },
     {
