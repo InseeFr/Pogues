@@ -730,10 +730,6 @@ const dictionary: Dictionary = {
     fr: 'Personnaliser',
     en: 'Customize',
   },
-  displaySaveHistory: {
-    fr: 'Sauvegardes',
-    en: 'Save history',
-  },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
     fr: 'Titre du questionnaire',
@@ -753,10 +749,6 @@ const dictionary: Dictionary = {
   reset: {
     en: 'Reset',
     fr: 'Réinitialiser',
-  },
-  searchResultSaveHistory: {
-    fr: 'Sauvegarde',
-    en: 'Save history',
   },
   searchResultId: {
     fr: 'Identifiant',
@@ -853,18 +845,6 @@ const dictionary: Dictionary = {
   openQuestionnaire: {
     fr: 'Ouvrir',
     en: 'Open',
-  },
-  saveHistoryInfo: {
-    fr: 'Pour afficher une précédente sauvegarde, choisissez "Charger" puis valider. Cette sauvegarde peut ensuite être modifiée et sauvegardée.',
-    en: 'To load a previous backup, click "Load" and validate. That backup can then be edited and saved as a new one.',
-  },
-  saveHistoryLimitInfo: {
-    fr: 'Tous les soirs, toutes les sauvegardes du jour, puis les 10 précédentes sont conservées. Au-delà, la dernière de chaque jour est conservée.',
-    en: `Every evening, all the day's backups, then the 10 previous ones, are stored. Beyond that, the last one of each day is stored.`,
-  },
-  documentationInfoLink: {
-    fr: 'Pour plus de précision, se référer à la documentation.',
-    en: 'For more information check the documentation.',
   },
   loopMinMaxHouseholdContextWarning: {
     fr: "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
