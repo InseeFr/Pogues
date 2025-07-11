@@ -1,23 +1,21 @@
-import { TargetModes } from '@/models/questionnaires';
-
 export type PersonalizationQuestionnaire = {
   id: string;
   poguesId: string;
   label: string;
-  modes: Modes[];
+  modes: Mode[];
   context: SurveyContext;
-  surveyUnitData: File | undefined;
+  surveyUnitData?: File;
   isSynchronized: boolean;
 };
 
-export type Modes = {
-  name: TargetModes;
+export type Mode = {
+  name: 'CAPI' | 'CAWI' | 'PAPI' | 'CATI';
   isWebMode: boolean;
 };
 
 export type SurveyContext = {
-  name: string;
-  value?: string;
+  name: 'BUSINESS' | 'HOUSEHOLD';
+  value?: 'Entreprise' | 'Ménage';
 };
 
 export type FileType = {

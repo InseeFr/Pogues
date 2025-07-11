@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'react';
-
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from '@tanstack/react-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import {
-  deleteQuestionnaireData,
-  getExistingCsvSchema,
-} from '@/api/personalize';
-import { openDocument } from '@/api/utils/personalization';
+import { deleteQuestionnaireData } from '@/api/personalization';
+import { openParsedCsv } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
+import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
 import {
   PersonalizationQuestionnaire,
   SurveyUnitModeData,
 } from '@/models/personalizationQuestionnaire';
 
-import ButtonLink from '../../ui/ButtonLink';
 import CsvViewerTable from '../form/CsvViewerTable';
+import ModeOverview from './ModeOverview';
 import PersonalisationTile from './PersonalizationTile';
-import VisualizationOverview from './VisualizationOverview';
 
 interface PersonalizationContentProps {
   questionnaireId: string;
@@ -40,44 +35,24 @@ export default function PersonalizationContent({
 }: Readonly<PersonalizationContentProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const navigate = useNavigate();
 
-  const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
-    csvData,
-  );
-
-  useEffect(() => {
-    setParsedCsv(csvData);
-  }, [csvData]);
-
-  const { refetch: fetchExistingData } = useQuery({
-    queryKey: ['existing-csv-schema', { questionnaireId }],
-    queryFn: async () => {
-      const result = await getExistingCsvSchema(data.id);
-      return result ?? null;
-    },
-    enabled: false,
-  });
   function onDownload() {
-    const promise = fetchExistingData().then((result) => {
-      const blob = result.data;
-      if (blob && blob.size > 0) {
-        const fileName = 'survey-units-' + questionnaireId + '.csv';
-        openDocument(blob, fileName);
-        toast.promise(promise, {
-          loading: t('common.loading'),
-          success: t('personalization.create.download_success'),
-          error: (err: Error) => err.toString(),
-        });
-      } else {
-        toast.error(
-          t('personalization.create.download_error', {
-            error: t('personalization.create.download_error'),
-          }),
-        );
-        throw new Error('No data available for download.');
-      }
-    });
+    if (csvData && csvData.data.length > 0) {
+      const fileName = 'survey-units-' + questionnaireId + '.csv';
+      openParsedCsv(csvData, fileName);
+      toast.success(
+        t('personalization.create.downloadSuccess', {
+          fileName,
+        }),
+      );
+    } else {
+      toast.error(
+        t('personalization.create.downloadError', {
+          error: t('personalization.create.downloadError'),
+        }),
+      );
+    }
   }
 
   const deleteMutation = useMutation({
@@ -86,15 +61,12 @@ export default function PersonalizationContent({
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({
-        queryKey: ['personalization', { questionnaireId }],
+        queryKey: ['allPersonalization', { questionnaireId }],
       });
-      queryClient.invalidateQueries({
-        queryKey: ['getPersonalizationSurveyUnitData', { questionnaireId }],
+      navigate({
+        to: '/questionnaire/$questionnaireId/personalization/new',
+        params: { questionnaireId },
       });
-      queryClient.invalidateQueries({
-        queryKey: ['personalizationFile', { questionnaireId }],
-      });
-      router.invalidate();
     },
   });
 
@@ -116,24 +88,20 @@ export default function PersonalizationContent({
           <h3>{t('personalization.overview.visualiseSurveyUnits')}</h3>
         </div>
         {surveyUnitData && surveyUnitData.length > 0 && (
-          <VisualizationOverview
-            modes={data.modes}
-            surveyUnitData={surveyUnitData}
-          />
+          <ModeOverview modes={data.modes} surveyUnitData={surveyUnitData} />
         )}
       </PersonalisationTile>
       <PersonalizationContentTile data={data}>
-        {parsedCsv && parsedCsv.data.length > 0 && (
-          <CsvViewerTable parsedCsv={parsedCsv} />
+        {csvData && csvData.data.length > 0 && (
+          <CsvViewerTable parsedCsv={csvData} />
         )}
         <div className="overflow-hidden flex flex-row gap-3 my-3">
           <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
             {t('personalization.overview.existingFileData')}
           </Button>
           <ButtonLink
-            to="/questionnaire/$questionnaireId/personalize/$publicEnemyId"
+            to="/questionnaire/$questionnaireId/personalization/$publicEnemyId"
             params={{ questionnaireId, publicEnemyId: data.id.toString() }}
-            disabled
             title={t('personalization.overview.editDisabledTooltip')}
           >
             {t('common.edit')}

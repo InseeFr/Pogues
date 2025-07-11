@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { addQuestionnaireData } from '@/api/personalize';
+import { addQuestionnaireData } from '@/api/personalization';
 import {
   PersonalizationQuestionnaire,
   UploadError,
@@ -53,8 +53,8 @@ export default function CreatePersonalization({
   function handleSubmit() {
     saveQuestionnaire.mutateAsync(questionnaire, {
       onSuccess: () =>
-        void navigate({
-          to: '/questionnaire/$questionnaireId/personalize',
+        navigate({
+          to: '/questionnaire/$questionnaireId/personalization',
           params: { questionnaireId },
         }),
     });

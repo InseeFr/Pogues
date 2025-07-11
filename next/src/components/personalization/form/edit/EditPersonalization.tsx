@@ -7,7 +7,7 @@ import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { editQuestionnaireData } from '@/api/personalize';
+import { editQuestionnaireData } from '@/api/personalization';
 import PersonalizationForm from '@/components/personalization/form/PersonalizationForm';
 import PersonalisationTile from '@/components/personalization/overview/PersonalizationTile';
 import {
@@ -55,8 +55,8 @@ export default function EditPersonalization({
   function handleSubmit(questionnaire: PersonalizationQuestionnaire) {
     saveQuestionnaire.mutateAsync(questionnaire, {
       onSuccess: () =>
-        void navigate({
-          to: '/questionnaire/$questionnaireId/personalize',
+        navigate({
+          to: '/questionnaire/$questionnaireId/personalization',
           params: { questionnaireId },
         }),
     });

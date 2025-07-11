@@ -19,7 +19,7 @@ export default function PersonalisationTile({
       <div className="flex flex-col ">
         <h3>{data.label}</h3>
         <span className="text-sm text-gray-600 mt-1">
-          {t('personalization.overview.modes')}:{' '}
+          {t('personalization.overview.modes')}
           {data.modes.map((mode) => mode.name).join(', ')}
         </span>
       </div>

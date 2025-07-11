@@ -1,20 +1,19 @@
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
 import {
-  Modes,
+  Mode,
   SurveyUnitModeData,
 } from '@/models/personalizationQuestionnaire';
-import { TargetModes } from '@/models/questionnaires';
 
-interface VisualizationOverviewProps {
-  modes: Modes[];
+interface ModeOverviewProps {
+  modes: Mode[];
   surveyUnitData: SurveyUnitModeData[];
 }
 
 /** Display visualization per mode as a table. */
-export default function VisualizationOverview({
+export default function ModeOverview({
   modes,
   surveyUnitData,
-}: Readonly<VisualizationOverviewProps>) {
+}: Readonly<ModeOverviewProps>) {
   const filteredModes = modes.filter((m) => m.isWebMode);
   const shouldScroll = surveyUnitData.length > 4;
   return (
@@ -29,7 +28,7 @@ export default function VisualizationOverview({
           <thead className="bg-accent sticky top-0 ">
             <tr className="*:font-semibold *:p-4 text-left">
               <th className="text-default">ID</th>
-              {filteredModes.map((mode: Modes) => (
+              {filteredModes.map((mode: Mode) => (
                 <th key={mode.name} className="text-default">
                   {mode.name}
                 </th>
@@ -53,7 +52,7 @@ export default function VisualizationOverview({
                   <td>{displayableId}</td>
                   {filteredModes.map((mode) => {
                     const unitForMode = units.find((unit) => {
-                      const modeInId = unit.id.split('-')[1] as TargetModes;
+                      const modeInId = unit.id.split('-')[1];
                       return mode.name === modeInId;
                     });
                     return (

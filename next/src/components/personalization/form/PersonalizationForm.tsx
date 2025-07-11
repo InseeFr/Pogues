@@ -6,7 +6,10 @@ import Papa, { type ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { checkSurveyUnitsCSV, getInitialCsvSchema } from '@/api/personalize';
+import {
+  checkSurveyUnitsCSV,
+  getInitialCsvSchema,
+} from '@/api/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
@@ -23,6 +26,7 @@ import {
 
 import CsvViewerTable from './CsvViewerTable';
 import ErrorUploadFile from './ErrorUploadFile';
+import JsonViewer from './JsonViewer';
 
 interface PersonalizationFormProps {
   questionnaireId: string;
@@ -62,15 +66,17 @@ export default function PersonalizationForm({
       name: 'CSV',
       value: 'text/csv',
     },
-    // {
-    //   name: 'JSON',
-    //   value: 'application/json',
-    // },
+    {
+      name: 'JSON',
+      value: 'application/json',
+    },
   ];
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
   const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
     csvData,
   );
+
+  const [parsedJson, setParsedJson] = useState<string>('');
 
   useEffect(() => {
     setParsedCsv(csvData);
@@ -115,18 +121,26 @@ export default function PersonalizationForm({
     if (!fileList) {
       return;
     }
-    setQuestionnaire({
-      ...questionnaire,
-      surveyUnitData: fileList[0],
-    });
-
-    Papa.parse(fileList[0], {
-      header: true,
-      complete: (result: ParseResult<unknown>) => {
-        setParsedCsv(result);
-      },
-    });
-    checkCsvData.mutate(fileList[0]);
+    const file = fileList[0];
+    if (fileType.name === 'JSON') {
+      file.text().then((text) => {
+        setParsedJson(text);
+        setParsedCsv(null);
+      });
+    } else {
+      Papa.parse(file, {
+        header: true,
+        complete: (result: ParseResult<unknown>) => {
+          setParsedCsv(result);
+          setParsedJson('');
+        },
+      });
+      setQuestionnaire({
+        ...questionnaire,
+        surveyUnitData: fileList[0],
+      });
+      checkCsvData.mutate(file);
+    }
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -142,7 +156,7 @@ export default function PersonalizationForm({
     const promise = fetchCsvSchema();
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.create.download_success'),
+      success: t('personalization.create.downloadSuccess'),
       error: (err: Error) => err.toString(),
     });
   }
@@ -163,7 +177,11 @@ export default function PersonalizationForm({
                 onContextChange(v as SurveyContext);
               }
             }}
-            value={questionnaire.context?.name ?? ''}
+            value={
+              surveyContext.find(
+                (c) => c.name === questionnaire.context?.name,
+              ) ?? ''
+            }
           >
             {surveyContext.map((context: SurveyContext) => (
               <Option key={context.name} value={context}>
@@ -173,7 +191,7 @@ export default function PersonalizationForm({
           </Select>
         </div>
         <Button onClick={onDownload}>
-          {t('personalization.create.schema')}
+          {t('personalization.create.expectedFileSchema')}
         </Button>
       </div>
       <div className="flex flex-row gap-x-2 mt-6 items-center">
@@ -213,6 +231,7 @@ export default function PersonalizationForm({
       {parsedCsv && parsedCsv.data.length > 0 && (
         <CsvViewerTable parsedCsv={parsedCsv} />
       )}
+      {fileType.name === 'JSON' && <JsonViewer data={parsedJson} />}
       <div className="w-auto inline-block my-1">
         <Dialog
           label={t('common.validate')}

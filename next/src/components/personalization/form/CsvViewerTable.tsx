@@ -12,10 +12,11 @@ export default function CsvViewerTable({
   return (
     <div className="overflow-x-auto w-full my-3">
       <div
-        style={{
-          maxHeight: shouldScroll ? '320px' : 'none',
-          overflowY: shouldScroll ? 'auto' : 'visible',
-        }}
+        className={`${
+          shouldScroll
+            ? 'max-h-80 overflow-y-auto'
+            : 'max-h-none overflow-y-visible'
+        }`}
       >
         <table className="border border-default w-full min-w-max shadow-sm">
           <thead className="bg-accent sticky top-0 ">
@@ -28,13 +29,20 @@ export default function CsvViewerTable({
             </tr>
           </thead>
           <tbody className="text-default">
-            {parsedCsv.data.map((row: Record<string, string>, i: number) => (
-              <tr key={i} className="bg-default odd:bg-main *:p-4">
-                {parsedCsv.meta.fields.map((field: string) => (
-                  <td key={field}>{row[field]}</td>
-                ))}
-              </tr>
-            ))}
+            {parsedCsv.data.map((row: Record<string, string>) => {
+              const key =
+                row.id ??
+                parsedCsv.meta.fields
+                  .map((field: string) => row[field])
+                  .join('__');
+              return (
+                <tr key={key} className="bg-default odd:bg-main *:p-4">
+                  {parsedCsv.meta.fields.map((field: string) => (
+                    <td key={field}>{row[field]}</td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

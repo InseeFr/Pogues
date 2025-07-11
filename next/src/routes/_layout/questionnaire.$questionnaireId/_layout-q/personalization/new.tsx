@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { personalizationNewQueryOptions } from '@/api/personalize';
+import { personalizationNewQueryOptions } from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import CreatePersonalization from '@/components/personalization/form/create/CreatePersonalization';
@@ -12,7 +12,7 @@ import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionna
  * Page that allow to create a new survey unit dataset.
  */
 export const Route = createFileRoute(
-  '/_layout/questionnaire/$questionnaireId/_layout-q/personalize/new',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/personalization/new',
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,

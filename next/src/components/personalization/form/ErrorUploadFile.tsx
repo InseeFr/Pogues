@@ -5,7 +5,7 @@ interface ErrorProps {
   error: UploadError;
 }
 
-/** Display error as an alert box. */
+/** Display check error as an alert box. */
 export default function ErrorUploadFile({ error }: Readonly<ErrorProps>) {
   return (
     <div className="bg-red-100 border border-red-300 text-red-800 rounded px-4 py-3 mb-4 flex items-start">
@@ -14,8 +14,8 @@ export default function ErrorUploadFile({ error }: Readonly<ErrorProps>) {
         <h4 className="text-lg font-semibold mb-2">{error.message}</h4>
         {error.details && error.details.length > 0 && (
           <ul className="list-disc pl-5 mt-1">
-            {error.details.map((detail, index) => (
-              <li key={index}>{detail}</li>
+            {error.details.map((detail) => (
+              <li key={detail}>{detail}</li>
             ))}
           </ul>
         )}

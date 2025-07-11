@@ -33,7 +33,7 @@ export default function PersonalizationsOverview({
   ) : (
     <div>
       <ButtonLink
-        to="/questionnaire/$questionnaireId/personalize/new"
+        to="/questionnaire/$questionnaireId/personalization/new"
         params={{ questionnaireId }}
         buttonStyle={ButtonStyle.Primary}
       >

@@ -1,3 +1,5 @@
+import Papa, { ParseResult } from 'papaparse';
+
 /**
  * This method will emulate the download of file, received from a POST request.
  * We will dynamically create a A element linked to the downloaded content, and
@@ -16,6 +18,17 @@ export function openDocument(blob: Blob, filename?: string) {
   a.download = filename;
   document.body.appendChild(a);
   a.click();
+}
+
+export function openParsedCsv(
+  parsedCsv: ParseResult<unknown>,
+  filename?: string,
+) {
+  const csvContent = Papa.unparse(parsedCsv.data, {
+    header: true,
+  });
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  openDocument(blob, filename);
 }
 
 export function getFileName(header: string | null): string {

@@ -1,18 +1,18 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
-import { expect } from 'vitest';
+import { expect, vi } from 'vitest';
 
 import {
   deleteQuestionnaireData,
   getExistingCsvSchema,
-} from '@/api/personalize';
-import { openDocument } from '@/api/utils/personalization';
+} from '@/api/personalization';
+import { openParsedCsv } from '@/api/utils/personalization';
 import {
   PersonalizationQuestionnaire,
   SurveyContextEnum,
   SurveyContextValueEnum,
 } from '@/models/personalizationQuestionnaire';
-import { TargetModes } from '@/models/questionnaires';
 import { renderWithRouter } from '@/tests/tests';
 
 import PersonalizationsOverview from './PersonalizationOverview';
@@ -21,17 +21,18 @@ vi.mock('@/i18n', () => ({
   useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
 }));
 
-vi.mock('@/api/personalize', () => ({
+vi.mock('@/api/personalization', () => ({
   getExistingCsvSchema: vi.fn(() => Promise.resolve({ data: null })),
   deleteQuestionnaireData: vi.fn(() => Promise.resolve()),
 }));
 vi.mock('@/api/utils/personalization', () => ({
   openDocument: vi.fn(),
+  openParsedCsv: vi.fn(),
 }));
 
 vi.mock('react-hot-toast', () => ({
   __esModule: true,
-  default: { error: vi.fn(), promise: vi.fn() },
+  default: { error: vi.fn(), promise: vi.fn(), success: vi.fn() },
 }));
 
 const mockCsvData = {
@@ -58,8 +59,8 @@ describe('PersonalizationOverview', () => {
     poguesId: '1',
     label: 'LabelQuestionnaire',
     modes: [
-      { name: TargetModes.CAWI, isWebMode: true },
-      { name: TargetModes.CAPI, isWebMode: false },
+      { name: 'CAWI', isWebMode: true },
+      { name: 'CAPI', isWebMode: false },
     ],
     context: {
       name: SurveyContextEnum.HOUSEHOLD,
@@ -108,6 +109,10 @@ describe('PersonalizationOverview', () => {
   });
 
   it('handles empty blob if there is no data', async () => {
+    vi.mocked(getExistingCsvSchema).mockRejectedValueOnce(
+      new Error('No data available for download.'),
+    );
+
     const { getByText } = await waitFor(() =>
       renderWithRouter(
         <PersonalizationsOverview
@@ -122,32 +127,32 @@ describe('PersonalizationOverview', () => {
 
     fireEvent.click(button);
 
-    await waitFor(() => {
-      expect(toast.error).toHaveBeenCalled();
-    });
-
-    await expect(async () => {
-      fireEvent.click(button);
-      await waitFor(() => {
-        expect(toast.error).toHaveBeenCalled();
-      });
-    }).not.toThrow();
-
-    expect(openDocument).not.toHaveBeenCalled();
+    expect(openParsedCsv).not.toHaveBeenCalled();
+    expect(toast.error).toHaveBeenCalled();
   });
 
   it('should successfully download when blob has data', async () => {
-    const mockBlob = new Blob(['test,data\n1,value'], { type: 'text/csv' });
-    Object.defineProperty(mockBlob, 'size', { value: 100, writable: false });
-
-    vi.mocked(getExistingCsvSchema).mockResolvedValueOnce(mockBlob);
+    const mockParsedCsv = {
+      data: [
+        { id: '1', name: 'Teemo' },
+        { id: '2', name: 'Panda' },
+      ],
+      errors: [],
+      meta: {
+        fields: ['id', 'name'],
+        delimiter: ',',
+        linebreak: '\n',
+        aborted: false,
+        truncated: false,
+      },
+    } as ParseResult;
 
     await waitFor(() =>
       renderWithRouter(
         <PersonalizationsOverview
           questionnaireId={questionnaireId}
           data={mockData}
-          csvData={undefined}
+          csvData={mockParsedCsv}
           surveyUnitData={null}
         />,
       ),
@@ -157,19 +162,11 @@ describe('PersonalizationOverview', () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(openDocument).toHaveBeenCalledWith(
-        mockBlob,
+      expect(openParsedCsv).toHaveBeenCalledWith(
+        mockParsedCsv,
         `survey-units-${123}.csv`,
       );
     });
-
-    expect(toast.promise).toHaveBeenCalledWith(
-      expect.any(Promise),
-      expect.objectContaining({
-        loading: 'Loading...',
-        success: 'CSV schema downloaded successfully',
-        error: expect.any(Function),
-      }),
-    );
+    expect(toast.success).toHaveBeenCalled();
   });
 });

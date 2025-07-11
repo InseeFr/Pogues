@@ -53,7 +53,6 @@ describe('PersonalizationForm', () => {
 
   const setQuestionnaire = vi.fn();
   const setErrorUpload = vi.fn();
-  const handleSubmit = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -68,7 +67,7 @@ describe('PersonalizationForm', () => {
           setQuestionnaire={setQuestionnaire}
           errorUpload={null}
           setErrorUpload={setErrorUpload}
-          handleSubmit={handleSubmit}
+          handleSubmit={vi.fn()}
         />,
       ),
     );
@@ -83,7 +82,7 @@ describe('PersonalizationForm', () => {
         setQuestionnaire={setQuestionnaire}
         errorUpload={null}
         setErrorUpload={setErrorUpload}
-        handleSubmit={handleSubmit}
+        handleSubmit={vi.fn()}
       />,
     );
 
@@ -121,7 +120,7 @@ describe('PersonalizationForm', () => {
           { message: 'error', details: ['error message 1'] } as UploadError
         }
         setErrorUpload={setErrorUpload}
-        handleSubmit={handleSubmit}
+        handleSubmit={vi.fn()}
       />,
     );
     expect(screen.getByText('error message 1')).toBeInTheDocument();
@@ -136,7 +135,7 @@ describe('PersonalizationForm', () => {
           setQuestionnaire={setQuestionnaire}
           errorUpload={null}
           setErrorUpload={setErrorUpload}
-          handleSubmit={handleSubmit}
+          handleSubmit={vi.fn()}
         />,
       ),
     );
@@ -158,7 +157,7 @@ describe('PersonalizationForm', () => {
             { message: 'error', details: ['error message 1'] } as UploadError
           }
           setErrorUpload={setErrorUpload}
-          handleSubmit={handleSubmit}
+          handleSubmit={vi.fn()}
         />,
       ),
     );

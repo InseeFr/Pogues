@@ -1,7 +1,8 @@
 import { queryOptions } from '@tanstack/react-query';
+import Papa, { ParseResult } from 'papaparse';
 
 import {
-  Modes,
+  Mode,
   PersonalizationQuestionnaire,
   SurveyUnitModeData,
   SurveyUnitModeDataResponse,
@@ -9,6 +10,42 @@ import {
 
 import { instancePersonalization } from './instancePersonalization';
 import { getFileName, openDocument } from './utils/personalization';
+
+/**
+ * Used to retrieve questionnaireData used by a Public Enemy.
+ *
+ * @see {@link getAllPublicEnemyExistingData}
+ */
+export const allPersonalizationQueryOptions = (questionnaireId: string) =>
+  queryOptions({
+    queryKey: ['allPersonalizationData', { questionnaireId }],
+    queryFn: () => getAllPublicEnemyExistingData(questionnaireId),
+    retryOnMount: true,
+  });
+
+export async function getAllPublicEnemyExistingData(
+  questionnaireId: string,
+): Promise<[PersonalizationQuestionnaire, ParseResult, SurveyUnitModeData[]]> {
+  try {
+    const existingDataPromise = getExistingPublicEnemyData(questionnaireId);
+    const existingData = await existingDataPromise;
+    const fileDataPromise = getExistingCsvSchema(existingData.id);
+
+    const surveyUnitDataPromise = getAllSurveyUnitData(
+      existingData.id,
+      existingData.modes,
+    );
+
+    const [fileData, surveyUnitData] = await Promise.all([
+      fileDataPromise,
+      surveyUnitDataPromise,
+    ]);
+    return [existingData, fileData, surveyUnitData];
+  } catch (error) {
+    console.error('Error fetching all Public Enemy data:', error);
+    throw error;
+  }
+}
 
 /**
  * Used to retrieve questionnaireData used by a Public Enemy.
@@ -66,7 +103,7 @@ export async function getPublicEnemyData(
  */
 export const getSurveyUnitDataQueryOptions = (
   publicEnemyId: string,
-  modes: Modes[],
+  modes: Mode[],
 ) =>
   queryOptions({
     queryKey: ['getPersonalizationSurveyUnitData', { publicEnemyId, modes }],
@@ -76,10 +113,10 @@ export const getSurveyUnitDataQueryOptions = (
 
 export async function getSurveyUnitData(
   publicEnemyId: string,
-  mode: Modes,
+  mode: Mode,
 ): Promise<SurveyUnitModeData[]> {
   return instancePersonalization
-    .get(`/questionnaires/${publicEnemyId}/modes/${mode}/survey-units`, {
+    .get(`/questionnaires/${publicEnemyId}/modes/${mode.name}/survey-units`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: SurveyUnitModeData[] }) => {
@@ -89,7 +126,7 @@ export async function getSurveyUnitData(
 
 export async function getAllSurveyUnitData(
   publicEnemyId: string,
-  mode: Modes[] = [],
+  mode: Mode[] = [],
 ): Promise<SurveyUnitModeData[]> {
   const filteredModes = mode.filter((m) => m.isWebMode);
 
@@ -145,7 +182,7 @@ export const personalizationFileQueryOptions = (publicEnemyId: string) =>
 /* Fetch the existing csv file */
 export async function getExistingCsvSchema(
   publicEnemyId: string,
-): Promise<Blob> {
+): Promise<ParseResult> {
   try {
     const response = await instancePersonalization.get(
       `/questionnaires/${publicEnemyId}/data`,
@@ -154,10 +191,15 @@ export async function getExistingCsvSchema(
         responseType: 'blob',
       },
     );
-    return new Blob([response.data], { type: 'text/csv' });
+    const csvData = new Blob([response.data], { type: 'text/csv' });
+    const csvText = await csvData.text();
+    const result = Papa.parse(csvText, {
+      header: true,
+    });
+    return result;
   } catch (error) {
     console.error('Failed to download CSV schema:', error);
-    return new Blob([], { type: 'text/csv' });
+    return { data: [], errors: [], meta: {} };
   }
 }
 
@@ -201,13 +243,8 @@ export async function addQuestionnaireData(
 export async function editQuestionnaireData(
   questionnaire: PersonalizationQuestionnaire,
 ): Promise<PersonalizationQuestionnaire> {
-  console.log('Edit questionnaire data', questionnaire);
   const formData = new FormData();
-  const questionnaireRest = {
-    poguesId: questionnaire.poguesId,
-    context: questionnaire.context,
-  };
-  formData.append('questionnaire', JSON.stringify(questionnaireRest));
+  formData.append('context', JSON.stringify(questionnaire.context));
 
   if (questionnaire.surveyUnitData) {
     formData.append('surveyUnitData', questionnaire.surveyUnitData);
