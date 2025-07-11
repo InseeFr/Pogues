@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { postQuestionnaire } from '@/api/questionnaires';
+import { postQuestionnaire, questionnairesKeys } from '@/api/questionnaires';
 import { type Questionnaire } from '@/models/questionnaires';
 import { uid } from '@/utils/utils';
 
@@ -34,7 +34,7 @@ export default function CreateQuestionnaireForm({
     },
     onSuccess: (_, { stamp }) =>
       queryClient.invalidateQueries({
-        queryKey: ['questionnaires', { stamp }],
+        queryKey: questionnairesKeys.allByStamp(stamp),
       }),
   });
 

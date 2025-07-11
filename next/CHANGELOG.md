@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2025-07-10
+
+### Fixed
+
+- Fixed an issue when composition could not be accessed anymore
+
+## [2.0.0] - 2025-07-09
+
 ### Added
 
 - A history page can be accessed to browse a questionnaire in "read only" and restore an older save. It will eventually replace the "previous saves" feature of legacy.

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 2025-07-09
+
 ### Added
 
 - Metadata download link that includes both Pogues metadata and DDI documentation.
