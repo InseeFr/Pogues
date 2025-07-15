@@ -194,6 +194,7 @@ export async function getExistingCsvSchema(
     const csvData = new Blob([response.data], { type: 'text/csv' });
     const csvText = await csvData.text();
     const result = Papa.parse(csvText, {
+      skipEmptyLines: true,
       header: true,
     });
     return result;

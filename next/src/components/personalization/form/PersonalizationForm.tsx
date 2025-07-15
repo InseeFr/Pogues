@@ -10,6 +10,7 @@ import {
   checkSurveyUnitsCSV,
   getInitialCsvSchema,
 } from '@/api/personalization';
+import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
@@ -79,7 +80,13 @@ export default function PersonalizationForm({
   const [parsedJson, setParsedJson] = useState<string>('');
 
   useEffect(() => {
-    setParsedCsv(csvData);
+    if (csvData && Array.isArray(csvData.data) && csvData.data.length > 0) {
+      setParsedCsv(csvData);
+      setQuestionnaire({
+        ...questionnaire,
+        surveyUnitData: getFileFromParseResult(csvData),
+      });
+    }
   }, [csvData]);
 
   const checkCsvData = useMutation({
@@ -130,6 +137,7 @@ export default function PersonalizationForm({
     } else {
       Papa.parse(file, {
         header: true,
+        skipEmptyLines: true,
         complete: (result: ParseResult<unknown>) => {
           setParsedCsv(result);
           setParsedJson('');

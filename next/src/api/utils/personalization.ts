@@ -26,9 +26,26 @@ export function openParsedCsv(
 ) {
   const csvContent = Papa.unparse(parsedCsv.data, {
     header: true,
+    quotes: true,
+    skipEmptyLines: true,
   });
-  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const BOM = '\uFEFF';
+  const blob = new Blob([BOM + csvContent], { type: 'text/csv' });
   openDocument(blob, filename);
+}
+
+export function getFileFromParseResult(
+  parsedCsv: ParseResult<unknown>,
+  filename: string = 'data.csv',
+): File {
+  const csvContent = Papa.unparse(parsedCsv.data, {
+    header: true,
+    quotes: true,
+    skipEmptyLines: true,
+  });
+  const BOM = '\uFEFF';
+  const blob = new Blob([BOM + csvContent], { type: 'text/csv' });
+  return new File([blob], filename, { type: 'text/csv' });
 }
 
 export function getFileName(header: string | null): string {

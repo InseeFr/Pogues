@@ -47,7 +47,7 @@ export default function EditPersonalization({
     },
     onError: (error: AxiosError) => {
       toast.error(
-        t('personalization.create.save_error', { error: error.message }),
+        t('personalization.create.saveError', { error: error.message }),
       );
     },
   });
