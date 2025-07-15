@@ -148,6 +148,8 @@
     "edit": {
       "editQuestionnaire": "Edit questionnaire",
       "editQuestionnaireDescription": "Edit the questionnaire with the uploaded survey units.",
+      "resetSurveyUnitSuccess": "The survey unit has been reset",
+      "resetSurveyUnitDescription": "Reset the survey unit",
       "title": "Edit personalization"
     },
     "overview": {

@@ -1,4 +1,11 @@
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+
+import { resetSurveyUnit } from '@/api/personalization';
+import ButtonIcon from '@/components/ui/ButtonIcon';
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
+import ResetIcon from '@/components/ui/icons/ResetIcon';
 import {
   Mode,
   SurveyUnitModeData,
@@ -16,6 +23,24 @@ export default function ModeOverview({
 }: Readonly<ModeOverviewProps>) {
   const filteredModes = modes.filter((m) => m.isWebMode);
   const shouldScroll = surveyUnitData.length > 4;
+  const { t } = useTranslation();
+
+  const resetSurveyUnitMutation = useMutation({
+    mutationFn: async (surveyUnitId: string) => {
+      const result = await resetSurveyUnit(surveyUnitId);
+      return result ?? null;
+    },
+  });
+
+  function onReset(surveyUnitId: string) {
+    const promise = resetSurveyUnitMutation.mutateAsync(surveyUnitId);
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.edit.resetSurveyUnitSuccess'),
+      error: (err: Error) => err.toString(),
+    });
+  }
+
   return (
     <div className="overflow-x-auto w-full my-3">
       <div
@@ -58,13 +83,23 @@ export default function ModeOverview({
                     return (
                       <td key={mode.name}>
                         {unitForMode?.url && (
-                          <a
-                            href={unitForMode.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <OpenInNewIcon />
-                          </a>
+                          <div className="flex flex-row items-center gap-2">
+                            <a
+                              href={unitForMode.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <OpenInNewIcon />
+                            </a>
+                            <ButtonIcon
+                              className="right-3 top-1/2 "
+                              Icon={ResetIcon}
+                              title={t(
+                                'personalization.edit.resetSurveyUnitDescription',
+                              )}
+                              onClick={() => onReset(unitForMode?.id || '')}
+                            />
+                          </div>
                         )}
                       </td>
                     );
