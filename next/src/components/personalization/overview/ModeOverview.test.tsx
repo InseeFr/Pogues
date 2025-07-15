@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 
 import {
   Mode,
@@ -59,9 +59,13 @@ describe('ModeOverview', () => {
     expect(getByText('234')).toBeInTheDocument();
   });
 
-  it('renders links for available URLs', () => {
-    render(<ModeOverview modes={mockModes} surveyUnitData={surveyUnitData} />);
-    const links = screen.getAllByRole('link');
+  it('renders links for available URLs', async () => {
+    const { getAllByRole } = await waitFor(() =>
+      renderWithRouter(
+        <ModeOverview modes={mockModes} surveyUnitData={surveyUnitData} />,
+      ),
+    );
+    const links = getAllByRole('link');
     expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute('href', 'https://visu.com/milk');
     expect(links[1]).toHaveAttribute('href', 'https://visu.com/tea');
