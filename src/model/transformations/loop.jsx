@@ -76,20 +76,19 @@ export function stateToRemote(store) {
       };
       if (basedOn) {
         response.IterableReference = basedOn;
-      }
-      if (!basedOn) {
+      } else {
         response.isFixedLength = isFixedLength;
         response.Step = '1';
-      }
-      if (isFixedLength && !basedOn) {
-        response.size = size;
-        response.shouldSplitIterations = shouldSplitIterations;
-      }
-      if (!isFixedLength && !basedOn) {
-        response.maximum = maximum;
-        response.minimum = minimum;
-        if (addButtonLibel) {
-          response.Label = addButtonLibel;
+
+        if (isFixedLength) {
+          response.size = size;
+          response.shouldSplitIterations = shouldSplitIterations;
+        } else {
+          response.maximum = maximum;
+          response.minimum = minimum;
+          if (addButtonLibel) {
+            response.Label = addButtonLibel;
+          }
         }
       }
 
