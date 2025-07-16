@@ -6,9 +6,9 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 import { decoreFormField } from '../../../utils/test/test-utils';
 import { LoopDynamicLength } from './loop-new-edit-loop-dynamic-length';
 
-/**
- * Mock InputWithVariableAutoCompletion as the classic Input,
- * since there are errors when importing antlr-editor in tests
+/*
+  Mock InputWithVariableAutoCompletion as the classic Input,
+  since there are errors when importing antlr-editor in tests
  */
 vi.mock('../../../forms/controls/control-with-suggestions', () => ({
   InputWithVariableAutoCompletion: (props) => <Input {...props} />,
@@ -19,7 +19,9 @@ describe('LoopDynamicLength', () => {
     const { getByText } = render(decoreFormField(<LoopDynamicLength />));
 
     expect(
-      getByText(Dictionary.loopMinMaxBusinessContextWarning),
+      getByText(
+        'Reminder: for business surveys, the min and max number of occurrences of a loop must be equal.',
+      ),
     ).toBeInTheDocument();
   });
 

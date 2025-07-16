@@ -7,9 +7,9 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 import { decoreFormField } from '../../../utils/test/test-utils';
 import LoopNewEdit from './loop-new-edit';
 
-/**
- * Mock InputWithVariableAutoCompletion as the classic Input,
- * since there are errors when importing antlr-editor in tests
+/*
+ Mock InputWithVariableAutoCompletion as the classic Input,
+ since there are errors when importing antlr-editor in tests
  */
 vi.mock('../../../forms/controls/control-with-suggestions', () => ({
   InputWithVariableAutoCompletion: (props) => <Input {...props} />,
