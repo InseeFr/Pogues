@@ -6,12 +6,16 @@ import { instance } from './instance';
 import { VariablesObject as PoguesVariables } from './models/pogues';
 import { computeVariables } from './utils/variables';
 
+const variablesKeys = {
+  all: (questionnaireId: string) => ['variables', questionnaireId] as const,
+};
+
 /**
  * Used to retrieve questionnaire variables associated to its id.
  */
 export const variablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['variables', { questionnaireId }],
+    queryKey: variablesKeys.all(questionnaireId),
     queryFn: () => getVariables(questionnaireId),
   });
 

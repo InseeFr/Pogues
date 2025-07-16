@@ -1,11 +1,11 @@
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
-import FilterList from '@/components/ui/FilterList';
-import Input from '@/components/ui/form/Input';
-import { useFilters } from '@/hooks/useFilter';
+import Filters from '@/components/ui/Filters';
 import { type CodesList } from '@/models/codesLists';
-import { FilterEnum } from '@/models/filter';
+import { Filter, FilterType } from '@/models/filters';
 
 import CodesListOverviewItem from './CodesListOverviewItem';
 
@@ -26,52 +26,34 @@ export default function CodesListsOverview({
 }: Readonly<CodesListsProps>) {
   const { t } = useTranslation();
 
-  const { filters, updateFilterContent, getFilterContent } = useFilters([
+  const [filteredCodesLists, setFilteredCodesLists] =
+    useState<CodesList[]>(codesLists);
+
+  const filters: Filter<CodesList>[] = [
     {
-      filterType: FilterEnum.QuestionUsed,
-      filterContent: false,
-      clearFilterFunction: () =>
-        updateFilterContent(FilterEnum.QuestionUsed, false),
+      label: t('codesLists.notUsed'),
+      onFilter: (v: CodesList, filter?: string) =>
+        filter === 'notUsed'
+          ? !v.relatedQuestionNames || v.relatedQuestionNames.length === 0
+          : true,
+      options: [{ label: t('codesLists.notUsed'), value: 'notUsed' }],
+      type: FilterType.ToggleGroup,
     },
     {
-      filterType: FilterEnum.Search,
-      filterContent: '',
-      clearFilterFunction: () => updateFilterContent(FilterEnum.Search, ''),
+      label: t('codesLists.name'),
+      onFilter: (v: CodesList, input?: string) =>
+        input ? v.label.toLowerCase().includes(input.toLowerCase()) : true,
+      placeholder: t('codesLists.search'),
+      type: FilterType.Text,
     },
-  ]);
-
-  const searchFilterContent = getFilterContent(FilterEnum.Search).toString();
-  const questionUsedFilterContent = getFilterContent(FilterEnum.QuestionUsed);
-
-  const filteredCodesLists = codesLists.filter((c) => {
-    const matchesSearchFilter =
-      c.id.toLowerCase().includes(searchFilterContent.toLowerCase()) ||
-      c.label.toLowerCase().includes(searchFilterContent.toLowerCase());
-
-    const matchesQuestionUsedFilter =
-      !questionUsedFilterContent || c.relatedQuestionNames!.length === 0;
-
-    return matchesSearchFilter && matchesQuestionUsedFilter;
-  });
+  ];
 
   return codesLists.length > 0 ? (
     <>
-      <div>
-        <Input
-          label={t('codesLists.search')}
-          placeholder={t('codesLists.search')}
-          value={searchFilterContent}
-          onChange={(e) =>
-            updateFilterContent(FilterEnum.Search, e.target.value)
-          }
-          onClear={() => updateFilterContent(FilterEnum.Search, '')}
-          showClearButton={searchFilterContent.length > 0}
-        />
-      </div>
-      <FilterList
+      <Filters<CodesList>
         filters={filters}
-        resultCount={filteredCodesLists.length}
-        updateFilterContent={updateFilterContent}
+        data={codesLists}
+        setFilteredData={setFilteredCodesLists}
       />
       <ul>
         {filteredCodesLists.map((codesList) => (

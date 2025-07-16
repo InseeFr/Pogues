@@ -9,6 +9,13 @@ import {
   computeQuestionnaire,
 } from './utils/questionnaires';
 
+export const questionnairesKeys = {
+  all: ['questionnaires'] as const,
+  allByStamp: (stamp: string) =>
+    [...questionnairesKeys.all, { stamp }] as const,
+  detail: (id: string) => [...questionnairesKeys.all, 'detail', id] as const,
+};
+
 /**
  * Used to retrieve questionnaires associated to a stamp.
  *
@@ -16,7 +23,7 @@ import {
  */
 export const questionnairesQueryOptions = (stamp: string) =>
   queryOptions({
-    queryKey: ['questionnaires', { stamp }],
+    queryKey: questionnairesKeys.allByStamp(stamp),
     queryFn: () => getQuestionnaires(stamp),
   });
 
@@ -27,7 +34,7 @@ export const questionnairesQueryOptions = (stamp: string) =>
  */
 export const questionnaireQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['questionnaire', { questionnaireId }],
+    queryKey: questionnairesKeys.detail(questionnaireId),
     queryFn: () => getQuestionnaire(questionnaireId),
   });
 

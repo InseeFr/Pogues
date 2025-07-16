@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
@@ -15,7 +15,6 @@ import { ConfirmDialog } from '../../confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../../errors-integrity';
 import Loader from '../../loader';
 import { QuestionnaireEdit } from '../../questionnaire-edit';
-import { Versions } from '../../versions';
 import QuestionnaireComponent from './questionnaire-component';
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;
@@ -53,7 +52,6 @@ const QuestionnaireListComponents = (props) => {
   }, [setSelectedComponentId]);
 
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
-  const [showVersionsModal, setShowVersionsModal] = useState(false);
   const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
@@ -155,13 +153,6 @@ const QuestionnaireListComponents = (props) => {
               )}
               <button
                 className="btn-yellow"
-                disabled={isReadonly}
-                onClick={() => setShowVersionsModal(true)}
-              >
-                {Dictionary.displaySaveHistory}
-              </button>
-              <button
-                className="btn-yellow"
                 onClick={() => setShowQuestionnaireModal(true)}
               >
                 {Dictionary.showDetail}
@@ -260,35 +251,6 @@ const QuestionnaireListComponents = (props) => {
                 <QuestionnaireEdit
                   onCancel={() => setShowQuestionnaireModal(false)}
                   onSuccess={() => setShowQuestionnaireModal(false)}
-                />
-              </div>
-            </div>
-          </ReactModal>
-
-          {/* Versions */}
-
-          <ReactModal
-            parentSelector={domSelectorForModal}
-            ariaHideApp={false}
-            shouldCloseOnOverlayClick={false}
-            isOpen={showVersionsModal}
-            onRequestClose={() => setShowVersionsModal(false)}
-            contentLabel={Dictionary.displaySaveHistory}
-          >
-            <div className="popup">
-              <div className="popup-header">
-                <h3>{Dictionary.displaySaveHistory}</h3>
-                <button
-                  type="button"
-                  onClick={() => setShowVersionsModal(false)}
-                >
-                  <span>X</span>
-                </button>
-              </div>
-              <div className="popup-body">
-                <Versions
-                  token={token}
-                  onSuccess={() => setShowVersionsModal(false)}
                 />
               </div>
             </div>

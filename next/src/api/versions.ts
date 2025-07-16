@@ -8,6 +8,10 @@ export enum ERROR_CODES {
   RELATED_QUESTION_NAMES = 'codelist:relatedquestions:name',
 }
 
+export const versionsKeys = {
+  all: (questionnaireId: string) => ['versions', questionnaireId] as const,
+};
+
 /**
  * Used to retrieve version of a questionnaire.
  *
@@ -15,7 +19,7 @@ export enum ERROR_CODES {
  */
 export const versionsQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['versions', { questionnaireId }],
+    queryKey: versionsKeys.all(questionnaireId),
     queryFn: () => getAllVersions(questionnaireId),
   });
 
@@ -35,13 +39,4 @@ export async function getAllVersions(
 /** Restore a version. */
 export async function restoreVersion(versionId: string): Promise<Response> {
   return instance.post(`/persistence/questionnaire/restore/${versionId}`);
-}
-
-/** Delete all versions. */
-export async function deleteAllVersions(
-  questionnaireId: string,
-): Promise<Response> {
-  return instance.delete(
-    `/persistence/questionnaire/${questionnaireId}/versions`,
-  );
 }

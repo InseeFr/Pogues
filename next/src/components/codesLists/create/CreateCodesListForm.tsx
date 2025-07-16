@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { putCodesList } from '@/api/codesLists';
+import { codesListsKeys, putCodesList } from '@/api/codesLists';
 import { CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
 import { Variable } from '@/models/variables/variables';
@@ -39,7 +39,7 @@ export default function CreateCodesListForm({
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
-        queryKey: ['questionnaire', { questionnaireId }],
+        queryKey: codesListsKeys.all(questionnaireId),
       }),
   });
 
