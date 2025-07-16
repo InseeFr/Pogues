@@ -3,7 +3,6 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import Input from '../../../forms/controls/input';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { decoreFormField } from '../../../utils/test/test-utils';
 import LoopNewEdit from './loop-new-edit';
 
@@ -35,7 +34,7 @@ describe('LoopNewEdit', () => {
       decoreFormField(<LoopNewEdit {...defaultProps} />),
     );
 
-    expect(getByPlaceholderText(Dictionary.name)).toBeInTheDocument();
+    expect(getByPlaceholderText('Id')).toBeInTheDocument();
   });
 
   it('renders basedOn field with correct scopes and label', () => {
@@ -43,7 +42,7 @@ describe('LoopNewEdit', () => {
       decoreFormField(<LoopNewEdit {...defaultProps} />),
     );
 
-    expect(getByPlaceholderText(Dictionary.BasedOn)).toBeInTheDocument();
+    expect(getByPlaceholderText('Based on')).toBeInTheDocument();
     expect(getByText('Scope 1')).toBeInTheDocument();
     expect(getByText('Scope 2')).toBeInTheDocument();
   });
@@ -61,21 +60,19 @@ describe('LoopNewEdit', () => {
     );
 
     // occurence label
-    expect(getByText(Dictionary.occurrenceLabel)).toBeInTheDocument();
+    expect(getByText('Occurrence identifier label')).toBeInTheDocument();
     expect(
-      getByPlaceholderText(Dictionary.occurrenceLabel),
+      getByPlaceholderText('Occurrence identifier label'),
     ).toBeInTheDocument();
 
     // occurence description
-    expect(getByText(Dictionary.occurrenceDescription)).toBeInTheDocument();
-    expect(
-      getByPlaceholderText(Dictionary.occurrenceDescription),
-    ).toBeInTheDocument();
+    expect(getByText('Occurrence description')).toBeInTheDocument();
+    expect(getByPlaceholderText('Occurrence description')).toBeInTheDocument();
 
     // locked
-    expect(getByText(Dictionary.isRoundaboutLocked)).toBeInTheDocument();
+    expect(getByText('Forbid modifying ended occurrence')).toBeInTheDocument();
     expect(
-      getByPlaceholderText(Dictionary.isRoundaboutLocked),
+      getByPlaceholderText('Forbid modifying ended occurrence'),
     ).toBeInTheDocument();
   });
 });

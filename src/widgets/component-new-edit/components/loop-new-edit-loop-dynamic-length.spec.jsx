@@ -2,7 +2,6 @@ import { render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import Input from '../../../forms/controls/input';
-import Dictionary from '../../../utils/dictionary/dictionary';
 import { decoreFormField } from '../../../utils/test/test-utils';
 import { LoopDynamicLength } from './loop-new-edit-loop-dynamic-length';
 
@@ -31,21 +30,21 @@ describe('LoopDynamicLength', () => {
     );
 
     // minimum
-    expect(getByText(Dictionary.loopMinOccurrencesNb)).toBeInTheDocument();
+    expect(getByText('Minimum number of occurrences')).toBeInTheDocument();
     expect(
-      getByPlaceholderText(Dictionary.loopMinOccurrencesNb),
+      getByPlaceholderText('Minimum number of occurrences'),
     ).toBeInTheDocument();
 
     // maximum
-    expect(getByText(Dictionary.loopMaxOccurrencesNb)).toBeInTheDocument();
+    expect(getByText('Maximum number of occurrences')).toBeInTheDocument();
     expect(
-      getByPlaceholderText(Dictionary.loopMaxOccurrencesNb),
+      getByPlaceholderText('Maximum number of occurrences'),
     ).toBeInTheDocument();
   });
 
   it('renders add button label field', () => {
     const { getByLabelText } = render(decoreFormField(<LoopDynamicLength />));
 
-    expect(getByLabelText(Dictionary.AddButton)).toBeInTheDocument();
+    expect(getByLabelText('Add button label')).toBeInTheDocument();
   });
 });

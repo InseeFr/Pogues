@@ -55,15 +55,15 @@ export const loopDictionary: Dictionary = {
     fr: "Libellé du bouton d'ajout",
   },
   occurrenceLabel: {
-    fr: 'Libellé identifiant une occurrence',
     en: 'Occurrence identifier label',
+    fr: 'Libellé identifiant une occurrence',
   },
   occurrenceDescription: {
-    fr: "Description d'une occurrence",
     en: 'Occurrence description',
+    fr: "Description d'une occurrence",
   },
   isRoundaboutLocked: {
-    fr: 'Interdire de modifier une occurrence terminée',
     en: 'Forbid modifying ended occurrence',
+    fr: 'Interdire de modifier une occurrence terminée',
   },
 };
