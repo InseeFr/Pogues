@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.0.1-rc-reintern-personalization.0",
+  "version": "2.1.0-rc-reintern-personalization.0",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",

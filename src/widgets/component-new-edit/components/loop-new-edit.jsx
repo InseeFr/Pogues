@@ -6,9 +6,12 @@ import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../forms/controls/generic-option';
 import Input from '../../../forms/controls/input';
+import ListRadios from '../../../forms/controls/list-radios';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { FilterLoopMembers } from './filter-loop-members';
+import { LoopDynamicLength } from './loop-new-edit-loop-dynamic-length';
+import { LoopFixedLength } from './loop-new-edit-loop-fixed-length';
 
 const LoopNewEdit = ({
   componentsStore,
@@ -16,6 +19,8 @@ const LoopNewEdit = ({
   InitialMember,
   scopes,
   loopBasedOn,
+  isFixedLength,
+  shouldSplitIterations,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -50,29 +55,24 @@ const LoopNewEdit = ({
       )}
       {!loopBasedOn && componentType !== ROUNDABOUT && (
         <>
-          <div className="grid grid-cols-[25%_75%] text-red-500">
-            <div className="col-start-2 px-3 pb-3">
-              {Dictionary.loopMinMaxHouseholdContextWarning}
-            </div>
-          </div>
           <Field
-            name="minimum"
-            type="text"
-            component={InputWithVariableAutoCompletion}
-            label={Dictionary.minimum}
-          />
-          <Field
-            name="maximum"
-            type="text"
-            component={InputWithVariableAutoCompletion}
-            label={Dictionary.maximum}
-          />
-          <Field
-            name="addButtonLibel"
-            type="text"
-            component={Input}
-            label={Dictionary.AddButton}
-          />
+            name="isFixedLength"
+            component={ListRadios}
+            label={Dictionary.loopSameMinMax}
+            required
+            // Convert string "true"/"false" to boolean true/false when storing in Redux form
+            parse={(value) => value === 'true'}
+            // Convert true/false/undefined to string "true"/"false" when displaying the form
+            format={(value) => (value === true ? 'true' : 'false')}
+          >
+            <GenericOption value="true">{Dictionary.yes}</GenericOption>
+            <GenericOption value="false">{Dictionary.no}</GenericOption>
+          </Field>
+          {isFixedLength ? (
+            <LoopFixedLength shouldSplitIterations={shouldSplitIterations} />
+          ) : (
+            <LoopDynamicLength />
+          )}
         </>
       )}
       <FilterLoopMembers
@@ -113,6 +113,8 @@ LoopNewEdit.propTypes = {
   InitialMember: PropTypes.string,
   scopes: PropTypes.array.isRequired,
   loopBasedOn: PropTypes.string,
+  isFixedLength: PropTypes.bool,
+  shouldSplitIterations: PropTypes.bool,
 };
 
 LoopNewEdit.defaultProps = {
@@ -125,6 +127,8 @@ const mapStateToProps = (state, { form }) => {
   const selector = formValueSelector(form);
   return {
     loopBasedOn: selector(state, 'basedOn'),
+    isFixedLength: selector(state, 'isFixedLength'),
+    shouldSplitIterations: selector(state, 'shouldSplitIterations'),
   };
 };
 

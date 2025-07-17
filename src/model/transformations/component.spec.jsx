@@ -318,7 +318,6 @@ describe('component tranformations', () => {
           weight: 1,
         },
         khj4le7i: {
-          BasedOn: '',
           TargetMode: ['CAWI'],
           addButtonLibel: '',
           basedOn: '',

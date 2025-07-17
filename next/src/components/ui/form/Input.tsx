@@ -31,9 +31,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onClear,
       showClearButton = false,
       ...props
-    }: Readonly<
-      InputProps & { onClear?: () => void; showClearButton?: boolean }
-    >,
+    }: Readonly<InputProps>,
     ref,
   ) => {
     const { t } = useTranslation();
@@ -60,7 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
           {showClearButton && (
             <ButtonIcon
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 has-[data-dirty]:visible"
               Icon={SearchOffIcon}
               title={t('common.clearInput')}
               onClick={onClear}

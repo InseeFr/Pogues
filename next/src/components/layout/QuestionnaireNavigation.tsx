@@ -15,6 +15,8 @@ import { useAltIcon } from '@/hooks/useAltIcon';
 import Button, { ButtonSize } from '../ui/Button';
 import NavigationBar, { type NavigationItem } from './NavigationBar';
 
+const enableVariablesPage = import.meta.env.VITE_ENABLE_VARIABLES_PAGE;
+
 /** Display the available navigation items in a questionnaire. */
 export default function QuestionnaireNavigation() {
   const { t } = useTranslation();
@@ -35,9 +37,11 @@ export default function QuestionnaireNavigation() {
     {
       label: t('variables.title'),
       Icon: VariableIcon,
-      path: '/',
-      isDisabled: true,
-      isHidden: true,
+      path: versionId
+        ? `/questionnaire/$questionnaireId/version/$versionId/variables`
+        : '/questionnaire/$questionnaireId/variables',
+      isDisabled: !enableVariablesPage,
+      isHidden: !enableVariablesPage,
     },
     {
       label: t('codesLists.title'),

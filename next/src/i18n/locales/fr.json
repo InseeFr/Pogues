@@ -1,5 +1,6 @@
 {
   "common": {
+    "all": "Tous",
     "appName": "Pogues",
     "cancel": "Annuler",
     "clearInput": "Effacer la recherche",
@@ -69,7 +70,10 @@
     "title": "Liste de codes"
   },
   "codesLists": {
+    "all": "Toutes",
     "create": "Créer une liste de codes",
+    "name": "Nom",
+    "notUsed": "Non utilisées",
     "search": "Rechercher une liste de codes",
     "title": "Listes de codes"
   },
@@ -88,25 +92,15 @@
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
   },
   "filter": {
-    "active": "Filtrer par:",
-    "clear": "Supprimer le filtre",
-    "clearFilters": "Supprimer les filtres",
-    "questionUsed": "Non utilisées",
+    "filters": "Filtres :",
     "result": "{{count}} résultat",
     "result_other": "{{count}} résultats",
     "result_zero": "{{count}} résultat",
-    "search": "Label",
-    "stamp": "Timbre"
+    "labelValue": "{{label}} : {{value}}"
   },
   "history": {
     "author": "Auteur",
     "backToLatest": "Retour à la dernière sauvegarde",
-    "deleteAll": {
-      "label": "Supprimer toutes les sauvegardes",
-      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer toutes les sauvegardes ?",
-      "dialogTitle": "Supprimer toutes les sauvegardes",
-      "success": "Version de {{timestamp}} supprimée"
-    },
     "id": "ID",
     "noVersions": "Aucune sauvegarde disponible",
     "oldVersions": "{{count}} sauvegardes plus anciennes",
@@ -121,33 +115,6 @@
     "title": "Historique",
     "versionToday": "{{count}} sauvegardes aujourd'hui",
     "view": "Consulter"
-  },
-  "questionnaire": {
-    "common": {
-      "dynamicField": "Spécification dynamique",
-      "filter": "Filtre",
-      "formulaField": "Spécification des formules",
-      "redirect": "Redirect",
-      "targetMode": "Mode de collecte"
-    },
-    "create": {
-      "success": "Le questionnaire {{title}} a été crée",
-      "title": "Nouveau questionnaire"
-    },
-    "form": {
-      "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
-      "mustProvideTitle": "Vous devez renseigner un titre"
-    },
-    "navigation": {
-      "codesLists": "Listes de codes",
-      "history": "Historique",
-      "metadata": "Métadonnées",
-      "nomenclatures": "Nomenclatures",
-      "personalize": "Personnalisation",
-      "questionnaire": "Questionnaire",
-      "variables": "Variables"
-    },
-    "title": "Questionnaire"
   },
   "personalization": {
     "create": {
@@ -192,6 +159,33 @@
     },
     "title": "Personalisation"
   },
+  "questionnaire": {
+    "common": {
+      "dynamicField": "Spécification dynamique",
+      "filter": "Filtre",
+      "formulaField": "Spécification des formules",
+      "redirect": "Redirect",
+      "targetMode": "Mode de collecte"
+    },
+    "create": {
+      "success": "Le questionnaire {{title}} a été crée",
+      "title": "Nouveau questionnaire"
+    },
+    "form": {
+      "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
+      "mustProvideTitle": "Vous devez renseigner un titre"
+    },
+    "navigation": {
+      "codesLists": "Listes de codes",
+      "history": "Historique",
+      "metadata": "Métadonnées",
+      "nomenclatures": "Nomenclatures",
+      "personalize": "Personnalisation",
+      "questionnaire": "Questionnaire",
+      "variables": "Variables"
+    },
+    "title": "Questionnaire"
+  },
   "questionnaires": {
     "create": "Créer un questionnaire",
     "search": "Rechercher un questionnaire",
@@ -202,12 +196,45 @@
     "title": "Métadonnées"
   },
   "nomenclatures": {
+    "name": "Nom",
     "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
     "search": "Rechercher une nomenclature",
     "title": "Nomenclatures",
     "version": "Version"
   },
+  "variable": {
+    "create": {
+      "success": "La variable a été créée",
+      "title": "Nouvelle variable"
+    },
+    "datatype": {
+      "boolean": "Booléen",
+      "date": "Date",
+      "duration": "Durée",
+      "label": "Type de réponse",
+      "numeric": "Nombre",
+      "text": "Texte"
+    },
+    "description": "Description",
+    "name": "Nom",
+    "type": {
+      "calculated": "Calculée",
+      "collected": "Collectée",
+      "external": "Externe",
+      "label": "Type de variable"
+    }
+  },
   "variables": {
-    "title": "Variables"
+    "create": "Créer une variable",
+    "datatype": "Type de réponse",
+    "name": "Nom",
+    "none": "Aucune variable",
+    "search": "Rechercher une variable",
+    "scope": "Portée {{ scope}}",
+    "title": "Variables",
+    "type": "Type",
+    "variable": "{{count}} variable",
+    "variable_other": "{{count}} variables",
+    "variable_zero": "{{count}} variable"
   }
 }

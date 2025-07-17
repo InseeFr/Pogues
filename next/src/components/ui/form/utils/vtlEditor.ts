@@ -5,8 +5,8 @@ import {
   Variables as AntlrVariables,
 } from '@making-sense/antlr-editor/model';
 
-import { DatatypeType } from '@/models/variables/datatype';
-import { Variable } from '@/models/variables/variables';
+import { DatatypeType } from '@/models/datatype';
+import { Variable } from '@/models/variables';
 
 export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
   const antlrVariablesArray = variables.map((variable) => {

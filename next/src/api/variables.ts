@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { Variable } from '@/models/variables/variables';
+import { Variable } from '@/models/variables';
 
 import { instance } from './instance';
 import { VariablesObject as PoguesVariables } from './models/pogues';

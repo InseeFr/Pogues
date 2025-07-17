@@ -9,7 +9,7 @@ import {
   monarchDefinition,
 } from '@making-sense/vtl-2-0-monaco-tools-ts';
 
-import { Variable } from '@/models/variables/variables';
+import { Variable } from '@/models/variables';
 
 import { computeAntlrVariables } from './utils/vtlEditor';
 

@@ -15,9 +15,7 @@ import {
   emptyMeasures,
   letterStart,
   maxValue,
-  maximumRequired,
   minValue,
-  minimumRequired,
   name,
   nameLoop,
   nameSize,
@@ -70,13 +68,29 @@ export const loopRules = {
   nameLoop: [required, nameLoop],
   initialMember: [required],
   finalMember: [required],
+  // we need a minimum only if the loop has a dynamic length
   minimum: [
-    (value, conf) =>
-      minimumRequired(value, conf) && Dictionary.validation_minimum,
+    (value, { form }) => {
+      const basedOn = get(form, 'basedOn');
+      const isFixedLength = get(form, 'isFixedLength');
+      return !basedOn && !isFixedLength ? required(value) : undefined;
+    },
   ],
+  // we need a maximum only if the loop has a dynamic length
   maximum: [
-    (value, conf) =>
-      maximumRequired(value, conf) && Dictionary.validation_maximum,
+    (value, { form }) => {
+      const basedOn = get(form, 'basedOn');
+      const isFixedLength = get(form, 'isFixedLength');
+      return !basedOn && !isFixedLength ? required(value) : undefined;
+    },
+  ],
+  // we need a minimum only if the loop has a fixed length
+  size: [
+    (value, { form }) => {
+      const basedOn = get(form, 'basedOn');
+      const isFixedLength = get(form, 'isFixedLength');
+      return !basedOn && isFixedLength ? required(value) : undefined;
+    },
   ],
 };
 

@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import { Version } from '@/models/version';
 
-import { deleteAllVersions, getAllVersions, restoreVersion } from './versions';
+import { getAllVersions, restoreVersion } from './versions';
 
 vi.mock('@/contexts/oidc');
 
@@ -23,15 +23,6 @@ it('Get versions works', async () => {
 
   const res = await getAllVersions('my-questionnaire');
   expect(res).toEqual([version]);
-});
-
-it('Delete all versions works', async () => {
-  nock('https://mock-api')
-    .delete('/persistence/questionnaire/my-questionnaire/versions')
-    .reply(200);
-
-  const res = await deleteAllVersions('my-questionnaire');
-  expect(res.status).toEqual(200);
 });
 
 it('Restore version works', async () => {

@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  DatatypeType,
-  DateFormat,
-  DurationFormat,
-} from '@/models/variables/datatype';
-import { VariableType } from '@/models/variables/variables';
+import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
+import { VariableType } from '@/models/variables';
 
 import {
   DatatypeTypeEnum as PoguesDatatypeType,

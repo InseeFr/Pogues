@@ -10,8 +10,11 @@ export function remoteToState(remote, parent) {
     IterableReference: basedOn,
     Filter: filter,
     Label: addButtonLibel,
-    Maximum: maximum,
-    Minimum: minimum,
+    isFixedLength,
+    maximum,
+    minimum,
+    size,
+    shouldSplitIterations,
   } = remote;
 
   const id = remote.id || uuid();
@@ -34,8 +37,11 @@ export function remoteToState(remote, parent) {
     finalMember,
     basedOn,
     filter,
+    isFixedLength,
     maximum,
     minimum,
+    size,
+    shouldSplitIterations,
     addButtonLibel,
     type: 'LOOP',
     TargetMode: [],
@@ -50,8 +56,11 @@ export function stateToRemote(store) {
       const {
         id,
         nameLoop,
+        isFixedLength,
         maximum,
         minimum,
+        size,
+        shouldSplitIterations,
         basedOn,
         filter,
         initialMember,
@@ -67,16 +76,22 @@ export function stateToRemote(store) {
       };
       if (basedOn) {
         response.IterableReference = basedOn;
-      }
-      if (maximum && !basedOn) {
-        response.Maximum = maximum;
+      } else {
+        response.isFixedLength = isFixedLength;
         response.Step = '1';
-        response.Minimum = minimum;
+
+        if (isFixedLength) {
+          response.size = size;
+          response.shouldSplitIterations = shouldSplitIterations;
+        } else {
+          response.maximum = maximum;
+          response.minimum = minimum;
+          if (addButtonLibel) {
+            response.Label = addButtonLibel;
+          }
+        }
       }
 
-      if (addButtonLibel) {
-        response.Label = addButtonLibel;
-      }
       if (filter) {
         response.Filter = filter;
       }

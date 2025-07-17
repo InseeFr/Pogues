@@ -29,10 +29,7 @@ function RouteComponent() {
 
   return (
     <ComponentWrapper>
-      <NomenclaturesOverview
-        questionnaireId={questionnaireId}
-        nomenclatures={data}
-      />
+      <NomenclaturesOverview nomenclatures={data} />
     </ComponentWrapper>
   );
 }

@@ -5,7 +5,7 @@ import ArrowDownIcon from '../icons/ArrowDownIcon';
 interface SelectProps {
   onChange?: (v: unknown) => void;
   children: React.ReactNode;
-  value: unknown;
+  value?: unknown;
 }
 
 export default function Select({

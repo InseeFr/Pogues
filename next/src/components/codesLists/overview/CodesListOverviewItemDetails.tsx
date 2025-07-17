@@ -114,7 +114,7 @@ export default function CodesListOverviewItemDetails({
   }
 
   return (
-    <div className="overflow-hidden space-y-3 pb-6">
+    <div className="overflow-hidden space-y-3">
       <div className="pt-3">
         <CodesTable codesList={codesList} />
       </div>

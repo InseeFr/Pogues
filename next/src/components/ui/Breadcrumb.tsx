@@ -21,7 +21,7 @@ export default function Breadcrumb() {
           <li className="flex gap-2" key={match.id}>
             <Link
               className="text-action-primary last:text-default font-semibold"
-              from={match.fullPath}
+              to={match.fullPath}
             >
               {match.loaderData?.crumb}
             </Link>

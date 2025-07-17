@@ -1,5 +1,6 @@
 {
   "common": {
+    "all": "All",
     "appName": "Pogues",
     "cancel": "Cancel",
     "clearInput": "Clear input",
@@ -69,7 +70,10 @@
     "title": "Codes list"
   },
   "codesLists": {
+    "all": "All",
     "create": "Create a codes list",
+    "name": "Name",
+    "notUsed": "Not used",
     "search": "Search for a code list",
     "title": "Codes lists"
   },
@@ -88,25 +92,15 @@
     "boundary": "An error occurred, if the problem persists, please contact support."
   },
   "filter": {
-    "active": "Filter by:",
-    "clear": "Clear",
-    "clearFilters": "Clear filters",
-    "questionUsed": "Not used",
+    "filters": "Filters:",
     "result": "{{count}} result",
     "result_other": "{{count}} results",
     "result_zero": "{{count}} results",
-    "search": "Label",
-    "stamp": "Stamp"
+    "labelValue": "{{label}}: {{value}}"
   },
   "history": {
     "author": "Author",
     "backToLatest": "Back to latest save",
-    "deleteAll": {
-      "label": "Delete all saves",
-      "dialogConfirm": "Are you sure you want to delete all saves?",
-      "dialogTitle": "Delete all saved versions",
-      "success": "Version from{{timestamp}} deleted"
-    },
     "id": "ID",
     "noVersions": "No saves were found",
     "oldVersions": "{{count}} older versions",
@@ -187,6 +181,7 @@
       "metadata": "Metadata",
       "nomenclatures": "Nomenclatures",
       "personalize": "Personalization",
+      "questionnaire": "Questionnaire",
       "variables": "Variables"
     },
     "title": "Questionnaire {{id}}"
@@ -201,12 +196,45 @@
     "title": "Metadata"
   },
   "nomenclatures": {
+    "name": "Name",
     "notUsedByQuestionnaire": "The questionnaire does not use nomenclatures.",
     "search": "Search for a nomenclature",
     "title": "Nomenclatures",
     "version": "Version"
   },
+  "variable": {
+    "create": {
+      "success": "The variable been created",
+      "title": "New variable"
+    },
+    "datatype": {
+      "boolean": "Boolean",
+      "date": "Date",
+      "duration": "Duration",
+      "label": "Datatype",
+      "numeric": "Number",
+      "text": "Text"
+    },
+    "description": "Description",
+    "name": "Name",
+    "type": {
+      "calculated": "Calculated",
+      "collected": "Collected",
+      "external": "External",
+      "label": "Variable type"
+    }
+  },
   "variables": {
-    "title": "Variables"
+    "create": "Create a variable",
+    "datatype": "Datatype",
+    "name": "Name",
+    "none": "No variables",
+    "scope": "Scope {{ scope}}",
+    "search": "Search for a variable",
+    "title": "Variables",
+    "type": "Type",
+    "variable": "{{count}} variable",
+    "variable_other": "{{count}} variables",
+    "variable_zero": "{{count}} variables"
   }
 }
