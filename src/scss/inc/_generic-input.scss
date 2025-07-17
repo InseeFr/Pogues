@@ -3,7 +3,7 @@
   top: 0;
   margin-top: 20px;
   width: inherit;
-  z-index: 100;
+  z-index: 50;
   text-align: center;
   bottom: 20px;
   background-color: white;
@@ -19,7 +19,7 @@
     color: black;
   }
   body.ReactModal__Body--open & {
-    z-index: -100;
+    z-index: -50;
   }
 }
 
