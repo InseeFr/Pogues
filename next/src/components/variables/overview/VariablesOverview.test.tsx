@@ -7,7 +7,7 @@ import { renderWithI18n } from '@/tests/tests';
 import VariablesOverview from './VariablesOverview';
 
 describe('VariablesOverview', () => {
-  it('display variable information', async () => {
+  it('display variables and filter them', async () => {
     const user = userEvent.setup();
 
     const { getByRole, getByText, queryByText } = renderWithI18n(

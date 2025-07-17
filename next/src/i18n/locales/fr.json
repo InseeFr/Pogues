@@ -182,7 +182,7 @@
   },
   "variables": {
     "create": "Créer une variable",
-    "datatype": "Datatype",
+    "datatype": "Type de réponse",
     "name": "Nom",
     "none": "Aucune variable",
     "search": "Rechercher une variable",
