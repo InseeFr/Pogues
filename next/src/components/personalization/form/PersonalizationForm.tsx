@@ -67,10 +67,10 @@ export default function PersonalizationForm({
       name: 'CSV',
       value: 'text/csv',
     },
-    {
-      name: 'JSON',
-      value: 'application/json',
-    },
+    // {
+    //   name: 'JSON',
+    //   value: 'application/json',
+    // },
   ];
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
   const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
