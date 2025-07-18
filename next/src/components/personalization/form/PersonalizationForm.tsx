@@ -25,8 +25,8 @@ import {
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
+import ErrorTile from '../overview/ErrorTile';
 import CsvViewerTable from './CsvViewerTable';
-import ErrorUploadFile from './ErrorUploadFile';
 import JsonViewer from './JsonViewer';
 
 interface PersonalizationFormProps {
@@ -235,7 +235,7 @@ export default function PersonalizationForm({
             t('personalization.create.noFileChosen')}
         </span>
       </div>
-      {errorUpload && <ErrorUploadFile error={errorUpload} />}
+      {errorUpload && <ErrorTile error={errorUpload} />}
       {parsedCsv && parsedCsv.data.length > 0 && (
         <CsvViewerTable parsedCsv={parsedCsv} />
       )}

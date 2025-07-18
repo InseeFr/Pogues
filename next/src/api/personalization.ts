@@ -14,35 +14,21 @@ import { getFileName, openDocument } from './utils/personalization';
 /**
  * Used to retrieve questionnaireData used by a Public Enemy.
  *
- * @see {@link getAllPublicEnemyExistingData}
+ * @see {@link getPublicEnemyBaseData}
  */
-export const allPersonalizationQueryOptions = (questionnaireId: string) =>
-  queryOptions({
-    queryKey: ['allPersonalizationData', { questionnaireId }],
-    queryFn: () => getAllPublicEnemyExistingData(questionnaireId),
-    retryOnMount: true,
-  });
-
-export async function getAllPublicEnemyExistingData(
+export const basePersonalizationQueryOptions = (questionnaireId: string) => ({
+  queryKey: ['personalization', 'base', questionnaireId],
+  queryFn: () => getPublicEnemyBaseData(questionnaireId),
+});
+export async function getPublicEnemyBaseData(
   questionnaireId: string,
-): Promise<[PersonalizationQuestionnaire, ParseResult, SurveyUnitModeData[]]> {
+): Promise<[PersonalizationQuestionnaire, ParseResult]> {
   try {
-    const existingDataPromise = getExistingPublicEnemyData(questionnaireId);
-    const existingData = await existingDataPromise;
-    const fileDataPromise = getExistingCsvSchema(existingData.id);
-
-    const surveyUnitDataPromise = getAllSurveyUnitData(
-      existingData.id,
-      existingData.modes,
-    );
-
-    const [fileData, surveyUnitData] = await Promise.all([
-      fileDataPromise,
-      surveyUnitDataPromise,
-    ]);
-    return [existingData, fileData, surveyUnitData];
+    const existingData = await getExistingPublicEnemyData(questionnaireId);
+    const fileData = await getExistingCsvSchema(existingData.id);
+    return [existingData, fileData];
   } catch (error) {
-    console.error('Error fetching all Public Enemy data:', error);
+    console.error('Error fetching Public Enemy base data:', error);
     throw error;
   }
 }

@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { allPersonalizationQueryOptions } from '@/api/personalization';
+import {
+  basePersonalizationQueryOptions,
+  getSurveyUnitDataQueryOptions,
+} from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import PersonalizationsOverview from '@/components/personalization/overview/PersonalizationOverview';
@@ -18,8 +21,8 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
-    queryClient.ensureQueryData(
-      allPersonalizationQueryOptions(questionnaireId),
+    await queryClient.ensureQueryData(
+      basePersonalizationQueryOptions(questionnaireId),
     );
   },
 });
@@ -28,8 +31,14 @@ function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
 
   const {
-    data: [questionnaire, csvData, surveyUnitData],
-  } = useSuspenseQuery(allPersonalizationQueryOptions(questionnaireId));
+    data: [questionnaire, csvData],
+  } = useSuspenseQuery(basePersonalizationQueryOptions(questionnaireId));
+
+  const { data: surveyUnitData } = useQuery({
+    ...getSurveyUnitDataQueryOptions(questionnaire.id, questionnaire.modes),
+    retry: false,
+    throwOnError: false,
+  });
 
   return (
     <ComponentWrapper>
@@ -37,7 +46,7 @@ function RouteComponent() {
         questionnaireId={questionnaireId}
         data={questionnaire}
         csvData={csvData}
-        surveyUnitData={surveyUnitData}
+        surveyUnitData={surveyUnitData || null}
       />
     </ComponentWrapper>
   );
@@ -58,6 +67,9 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
     }
   }, [error, navigate, questionnaireId]);
 
+  if (error?.message?.includes('500')) {
+    return null;
+  }
   if (error?.message?.includes('404')) {
     return null;
   }
