@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { t } from 'i18next';
+import i18next from 'i18next';
 import {
   type Control,
   Controller,
@@ -10,6 +10,7 @@ import {
   useFieldArray,
   useForm,
 } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
@@ -38,33 +39,30 @@ interface CodesListFormProps {
   onSubmit: SubmitHandler<FormValues>;
 }
 
-const baseCodeSchema = z.object({
+const codesSchema = z.object({
   value: z
     .string()
-    .min(1, { message: t('codesList.form.mustProvideCodeValue') }),
+    .min(1, { error: i18next.t('codesList.form.mustProvideCodeValue') }),
   label: z
     .string()
-    .min(1, { message: t('codesList.form.mustProvideCodeLabel') }),
-});
-
-type ZCodeSchema = z.infer<typeof baseCodeSchema> & {
-  codes?: ZCodeSchema[];
-};
-
-const codesSchema: z.ZodType<ZCodeSchema> = baseCodeSchema.extend({
-  codes: z.lazy(() => codesSchema.array()),
+    .min(1, { error: i18next.t('codesList.form.mustProvideCodeLabel') }),
+  get codes() {
+    return z.array(codesSchema).optional();
+  },
 });
 
 const schema = z
   .object({
-    label: z.string().min(1, { message: t('codesList.form.mustProvideLabel') }),
+    label: z
+      .string()
+      .min(1, { error: i18next.t('codesList.form.mustProvideLabel') }),
     codes: codesSchema
       .array()
-      .min(1, { message: t('codesList.form.mustProvideCodes') }),
+      .min(1, { error: i18next.t('codesList.form.mustProvideCodes') }),
   })
-  .superRefine((data, ctx) => {
+  .check((ctx) => {
     // Handle duplicate on code values
-    validateDuplicateValues(data.codes, 'codes', ctx);
+    validateDuplicateValues(ctx.value.codes, 'codes', ctx);
   });
 
 export type FormValues = z.infer<typeof schema>;
@@ -88,6 +86,7 @@ export default function CodesListForm({
   variables = [],
   onSubmit,
 }: Readonly<CodesListFormProps>) {
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -159,6 +158,7 @@ function CodesFields({
   variables,
   trigger,
 }: Readonly<CodesFieldsProps>) {
+  const { t } = useTranslation();
   const name = 'codes';
   const { fields, append, remove, move } = useFieldArray({
     control,
@@ -220,6 +220,7 @@ function CodesField({
   subCodeIteration = 0,
   trigger,
 }: Readonly<CodesFieldProps>) {
+  const { t } = useTranslation();
   const namePrefix = `${parentName}.${index}`;
   const {
     fields,
@@ -329,14 +330,17 @@ function CodesField({
 
 // Helper function to check for duplicate values and add errors
 function validateDuplicateValues(
-  codes: ZCodeSchema[],
+  codes: z.infer<typeof codesSchema>[],
   pathPrefix: string,
-  ctx: z.RefinementCtx,
+  ctx: z.core.ParsePayload<FormValues>,
 ) {
   const valuePaths: { value: string; paths: string[] }[] = [];
 
   // Function to collect values and their paths recursively
-  const collectValues = (codes: ZCodeSchema[], pathPrefix: string) => {
+  const collectValues = (
+    codes: z.infer<typeof codesSchema>[],
+    pathPrefix: string,
+  ) => {
     codes.forEach((code, index) => {
       const currentPath = `${pathPrefix}.${index}.value`; // Path to the value field
 
@@ -367,9 +371,12 @@ function validateDuplicateValues(
     if (paths.length > 1) {
       // If the value appears more than once, it's a duplicate
       paths.forEach((path) => {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: t('codesList.form.mustProvideUniqueValue', { value }),
+        ctx.issues.push({
+          code: 'custom',
+          message: i18next.t('codesList.form.mustProvideUniqueValue', {
+            value,
+          }),
+          input: ctx.value,
           path: path.split('.'), // Add issue to all paths where the value appears
         });
       });
