@@ -32,13 +32,8 @@ export function remoteToStore(
       if (find) {
         if (find.type === MULTIPLE_CHOICE) {
           variable.z = parseInt(find.position, 10) + 1;
-        } else if (find.type === TABLE) {
-          const code = Object.values(
-            codesListsStore[find.codelistid].codes,
-          ).find((cod) => cod.value === find.position);
-          variable.z = code.weight;
-          variable.mesureLevel = find.level;
         } else {
+          // single choice question
           const code = Object.values(
             codesListsStore[find.codelistid].codes,
           ).find((cod) => cod.value === find.position);

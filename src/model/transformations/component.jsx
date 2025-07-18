@@ -78,101 +78,98 @@ const getResponsesByVariable = (responses = [], coordinatesByResponse = []) =>
     };
   }, {});
 
-const clarificationQuestion = (Children) => {
-  const Clarification = [];
-  const childr = Children.filter((children) => children.Child?.length !== 0);
-  childr.forEach((item) => {
-    item.Child?.forEach((clar) => {
-      if (clar.type === 'SequenceType') {
-        clar.Child.forEach((supseq) => {
-          if (
-            (supseq.questionType === SINGLE_CHOICE ||
-              supseq.questionType === MULTIPLE_CHOICE ||
-              supseq.questionType === TABLE) &&
-            supseq.ClarificationQuestion !== undefined &&
-            supseq.ClarificationQuestion.length !== 0
-          ) {
-            Clarification.push(supseq);
-          }
-        });
-      } else if (
-        (clar.questionType === SINGLE_CHOICE ||
-          clar.questionType === MULTIPLE_CHOICE ||
-          clar.questionType === TABLE) &&
-        clar.ClarificationQuestion !== undefined &&
-        clar.ClarificationQuestion.length !== 0
-      ) {
-        Clarification.push(clar);
-      }
-    });
-  });
-  return Clarification;
-};
+/**
+ * Recursively collects all questions having a ClarificationQuestion
+ * from a single component (SequenceType or QuestionType).
+ *
+ * @param {Object} component - A component (sequence, subsequence, question, roundabout)
+ * @returns {Array} - List of questions with a clarification
+ */
+function getQuestionsWithClarification(component) {
+  const result = [];
 
-export const getClarificarionfromremote = (Children, collectedVariables) => {
-  const variableClarification = [];
-  const childclarification = clarificationQuestion(Children);
-  childclarification.forEach((element) => {
-    element.ClarificationQuestion.forEach((item) => {
-      const position = element.FlowControl.find(
-        (controle) => controle.IfTrue === item.id,
-      ).Expression;
-      if (position) {
-        const stringFind = position.substring(
-          position.lastIndexOf('=') + 3,
-          position.lastIndexOf("'"),
-        );
-        let multiplFind = '';
-        const tableFind = position.substring(1, position.lastIndexOf('$'));
-        let codelistid = null;
-        let level = null;
-        let varibale = null;
-        if (element.questionType === MULTIPLE_CHOICE) {
-          codelistid = element.ResponseStructure.Dimension[0].CodeListReference;
-          const codeCollectedVarible = position.substring(
-            1,
-            position.lastIndexOf('$'),
-          );
-          const variable = collectedVariables.find(
-            (varib) => varib.Name === codeCollectedVarible,
-          );
-          if (variable) {
-            multiplFind = element.Response.findIndex(
-              (response) => response.CollectedVariableReference === variable.id,
-            );
-          }
-        } else if (element.questionType === TABLE) {
-          varibale = collectedVariables.find(
-            (varib) => varib.Name === tableFind,
-          );
-          if (varibale) {
-            codelistid = varibale.CodeListReference;
-            const respones = element.Response.filter(
-              (response) =>
-                response.CodeListReference === varibale.CodeListReference,
-            );
-            level = respones.indexOf(
-              respones.find(
-                (resp) => resp.CollectedVariableReference === varibale.id,
-              ),
-            );
-          }
-        } else {
-          codelistid = element.Response[0].CodeListReference;
-        }
-        const variable = {
-          responseclar: item,
-          position:
-            element.questionType === MULTIPLE_CHOICE ? multiplFind : stringFind,
-          codelistid: codelistid,
-          type: element.questionType,
-          level: parseInt(level, 10) + 1,
-        };
-        variableClarification.push(variable);
-      }
+  // Component is a question with a clarification.
+  // Clarification is available only for a single choice or multiple choice question).
+  if (
+    component.type === 'QuestionType' &&
+    Array.isArray(component.ClarificationQuestion) &&
+    component.ClarificationQuestion.length > 0 &&
+    ['SINGLE_CHOICE', 'MULTIPLE_CHOICE'].includes(component.questionType)
+  ) {
+    result.push(component);
+  }
+
+  // component is a sequence or a subsequence, we inspect its children
+  if (component.type === 'SequenceType' && Array.isArray(component.Child)) {
+    component.Child.forEach((child) => {
+      result.push(...getQuestionsWithClarification(child));
     });
+  }
+
+  return result;
+}
+
+export const getClarificationVariablesfromremote = (
+  questionnaire,
+  collectedVariables,
+) => {
+  // components are sequences (with their subsequences and questions), and roundabouts
+  const components = questionnaire.Child || [];
+  const clarificationVariables = [];
+
+  // get the list of questions having a clarification
+  const questionsWithClarification = components.flatMap(
+    getQuestionsWithClarification,
+  );
+
+  questionsWithClarification.forEach((question) => {
+    // in the model ClarificationQuestion is a list, but actually it can only have 1 item,
+    // so we just need the first item of the list
+    const clarification = question.ClarificationQuestion[0];
+
+    // get the expression of the filter using this clarification, for deducing which variable is associated to the clarification,
+    // since we don't have the information directly in the clarification object
+    const filterExpression = question.FlowControl.find(
+      (controle) => controle.IfTrue === clarification.id,
+    ).Expression;
+
+    if (!filterExpression) return;
+
+    let codelistid = null;
+    let position = null;
+
+    // multiple choice question
+    if (question.questionType === MULTIPLE_CHOICE) {
+      codelistid = question.ResponseStructure.Dimension[0].CodeListReference;
+      const codeCollectedVarible = filterExpression.substring(
+        1,
+        filterExpression.lastIndexOf('$'),
+      );
+      const variable = collectedVariables.find(
+        (varib) => varib.Name === codeCollectedVarible,
+      );
+      if (variable) {
+        position = question.Response.findIndex(
+          (response) => response.CollectedVariableReference === variable.id,
+        );
+      }
+    } else {
+      // single choice question
+      codelistid = question.Response[0].CodeListReference;
+      position = filterExpression.substring(
+        filterExpression.lastIndexOf('=') + 3,
+        filterExpression.lastIndexOf("'"),
+      );
+    }
+    const variable = {
+      responseclar: clarification,
+      position,
+      codelistid,
+      type: question.questionType,
+    };
+    clarificationVariables.push(variable);
   });
-  return variableClarification;
+  return clarificationVariables;
 };
 
 /*
