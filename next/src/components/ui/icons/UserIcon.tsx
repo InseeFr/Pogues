@@ -1,3 +1,4 @@
+/** Icon of a person which should be used for everything user related. */
 export default function UserIcon({
   height = '24px',
   width = '24px',

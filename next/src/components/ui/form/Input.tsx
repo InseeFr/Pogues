@@ -5,7 +5,7 @@ import { Input as UIInput } from '@base-ui-components/react/input';
 import { useTranslation } from 'react-i18next';
 
 import ButtonIcon from '@/components/ui/ButtonIcon';
-import SearchOffIcon from '@/components/ui/icons/SearchOff';
+import SearchOffIcon from '@/components/ui/icons/SearchOffIcon';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;

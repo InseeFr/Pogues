@@ -1,3 +1,7 @@
+/**
+ * Icon of a cross which should be used when something can be cancelled by
+ * clicking on it.
+ */
 export default function CancelIcon({
   height = '24px',
   width = '24px',

@@ -1,4 +1,7 @@
-/** Trash bin icon which should be used when one wants to delete something. */
+/**
+ * Icon of a trash bin which should be used when something can be deleted or
+ * removed by clicking on it.
+ */
 export default function DeleteIcon({
   height = '24px',
   width = '24px',

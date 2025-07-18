@@ -1,3 +1,7 @@
+/**
+ * Icon of a crossed out magnifying glass which should be used when something
+ * will stop being searched.
+ */
 export default function SearchOffIcon({
   height = '24px',
   width = '24px',

@@ -1,4 +1,7 @@
-/** Icon which should be used to indicate something will be opened in a new window. */
+/**
+ * Icon of an external widow which should be used when something will be opened
+ * in a new window.
+ */
 export default function OpenInNewIcon({
   height = '24px',
   width = '24px',

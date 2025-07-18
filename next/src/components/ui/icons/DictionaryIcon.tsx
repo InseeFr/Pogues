@@ -1,3 +1,7 @@
+/**
+ * Icon of a dictionary which should be used to designate things nomenclature
+ * related.
+ */
 export default function DictionaryIcon({
   height = '24px',
   width = '24px',

@@ -1,3 +1,6 @@
+/**
+ * Icon of a list which should be used to designate things codes list related.
+ */
 export default function ListIcon({
   height = '24px',
   width = '24px',

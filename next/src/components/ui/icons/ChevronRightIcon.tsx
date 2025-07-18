@@ -1,3 +1,7 @@
+/**
+ * Icon of an arrow pointing to the right which should be used when something
+ * can be accessed by clicking on it.
+ */
 export default function ChevronRightIcon({
   height = '24px',
   width = '24px',

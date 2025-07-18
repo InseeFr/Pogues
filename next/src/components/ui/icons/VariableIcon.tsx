@@ -1,4 +1,4 @@
-/** "ABC" icon which should be used to designate variables. */
+/** Icon of "ABC" letters which should be used for everything variable related. */
 export default function VariableIcon({
   height = '24px',
   width = '24px',

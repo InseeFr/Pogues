@@ -1,3 +1,4 @@
+/** Icon of ellipsis which should be used to open a menu. */
 export default function MenuIcon({
   height = '24px',
   width = '24px',

@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ArrowDownIcon renders correctly 1`] = `
+<DocumentFragment>
+  <svg
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"
+    />
+  </svg>
+</DocumentFragment>
+`;

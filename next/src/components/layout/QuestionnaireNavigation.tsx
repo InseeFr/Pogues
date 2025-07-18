@@ -2,7 +2,6 @@ import { useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import DashboardIcon from '@/components/ui/icons/DashboardIcon';
-import DescriptionIcon from '@/components/ui/icons/DescriptionIcon';
 import DictionaryIcon from '@/components/ui/icons/DictionaryIcon';
 import HistoryIcon from '@/components/ui/icons/HistoryIcon';
 import LatestIcon from '@/components/ui/icons/LatestIcon';
@@ -52,13 +51,6 @@ export default function QuestionnaireNavigation() {
         '/questionnaire/$questionnaireId/codes-lists/new',
         '/questionnaire/$questionnaireId/codes-list/$codesListId',
       ],
-    },
-    {
-      label: t('metadata.title'),
-      Icon: DescriptionIcon,
-      path: '/',
-      isDisabled: true,
-      isHidden: true,
     },
     {
       label: t('nomenclatures.title'),

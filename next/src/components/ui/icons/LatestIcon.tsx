@@ -1,4 +1,7 @@
-/** Resume icon which should be used when one wants to go back to latest save. */
+/**
+ * Icon of a resume symbol which should be used when one wants to go back to
+ * latest save.
+ */
 export default function LatestIcon({
   height = '24px',
   width = '24px',

@@ -1,4 +1,7 @@
-/** Plus icon which should be used when one wants to add something. */
+/**
+ * Icon of a plus symbol which should be used when something can be added or
+ * created by clicking on it.
+ */
 export default function AddIcon({
   height = '24px',
   width = '24px',
