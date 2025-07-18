@@ -12,10 +12,10 @@ export default function VariableType({ type }: Readonly<Props>) {
 
   switch (type) {
     case Type.Collected:
-      return <div>{t('variable.type.collected')}</div>;
+      return t('variable.type.collected');
     case Type.Calculated:
-      return <div>{t('variable.type.calculated')}</div>;
+      return t('variable.type.calculated');
     case Type.External:
-      return <div>{t('variable.type.external')}</div>;
+      return t('variable.type.external');
   }
 }

@@ -12,14 +12,14 @@ describe('VariablesScopeOverviewItemDetails', () => {
           {
             id: 'my-id',
             name: 'MY_VAR',
-            label: 'This var likes strawberries',
+            description: 'This var likes strawberries',
             datatype: { typeName: DatatypeType.Text },
             type: VariableType.Collected,
           },
           {
             id: 'my-id2',
             name: 'MY_VAR2',
-            label: 'This var likes chocolate',
+            description: 'This var likes chocolate',
             datatype: { typeName: DatatypeType.Numeric },
             type: VariableType.Collected,
           },

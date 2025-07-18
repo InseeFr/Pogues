@@ -229,7 +229,12 @@
       "text": "Text"
     },
     "description": "Description",
+    "form": {
+      "mustProvideName": "You must provide a name",
+      "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
+    },
     "name": "Name",
+    "scope": "Scope",
     "type": {
       "calculated": "Calculated",
       "collected": "Collected",

@@ -26,7 +26,7 @@ export function computeVariable(variable: PoguesVariable): Variable {
   const baseVariable: BaseVariable = {
     id: variable.id,
     name: variable.Name,
-    label: variable.Label,
+    description: variable.Label,
     datatype: datatype,
   };
 

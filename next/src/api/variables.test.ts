@@ -8,7 +8,7 @@ import {
   type Variable as PoguesVariable,
   VariableTypeType as PoguesVariableType,
 } from './models/pogues';
-import { getVariables } from './variables';
+import { getVariables, postVariable } from './variables';
 
 vi.mock('@/contexts/oidc');
 
@@ -31,7 +31,7 @@ const variable: Variable = {
     typeName: DatatypeType.Text,
   },
   id: 'my-variable',
-  label: 'a collected variable that likes strawberries',
+  description: 'a collected variable that likes strawberries',
   name: 'MY_VARIABLE',
   scope: 'a magnificent scope',
   type: VariableType.Collected,
@@ -46,4 +46,13 @@ it('Get variables works', async () => {
 
   const res = await getVariables('my-questionnaire');
   expect(res).toEqual([variable]);
+});
+
+it('Post variable works', async () => {
+  nock('https://mock-api')
+    .post('/persistence/questionnaire/my-questionnaire/variables')
+    .reply(201);
+
+  const res = await postVariable(variable, 'my-questionnaire');
+  expect(res.status).toEqual(201);
 });

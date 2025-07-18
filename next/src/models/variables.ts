@@ -9,10 +9,10 @@ export enum VariableType {
 export type BaseVariable = {
   id: string;
   name: string;
-  label: string;
+  description: string;
   datatype: DataType;
   codeListReference?: string;
-  scope?: string;
+  scope?: string | null;
 };
 
 export type CalculatedVariable = BaseVariable & {

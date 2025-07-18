@@ -32,7 +32,7 @@ export default function VariablesOverview({
       onFilter: (v: Variable, input?: string) =>
         input
           ? v.name.toLowerCase().includes(input.toLowerCase()) ||
-            v.label.toLowerCase().includes(input.toLowerCase())
+            v.description.toLowerCase().includes(input.toLowerCase())
           : true,
       placeholder: t('variables.search'),
       type: FilterType.Text,

@@ -11,7 +11,7 @@ describe('VariableLine', () => {
         variable={{
           id: 'my-id',
           name: 'MY_VAR',
-          label: 'This var likes strawberries',
+          description: 'This var likes strawberries',
           datatype: { typeName: DatatypeType.Text },
           type: VariableType.Collected,
         }}
