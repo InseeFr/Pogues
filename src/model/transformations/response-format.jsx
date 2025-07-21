@@ -14,13 +14,17 @@ export function remoteToState(
   dimensions,
   codesListsStore,
   scope,
+  responsesClarification,
 ) {
   let datatypeState = {};
 
   if (type === SIMPLE) {
     datatypeState = ResponseFormatSimple.remoteToState({ responses });
   } else if (type === SINGLE_CHOICE) {
-    datatypeState = ResponseFormatSingle.remoteToState({ responses });
+    datatypeState = ResponseFormatSingle.remoteToState({
+      responses,
+      responsesClarification,
+    });
   } else if (type === MULTIPLE_CHOICE) {
     datatypeState = ResponseFormatMultiple.remoteToState({
       responses,

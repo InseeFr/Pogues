@@ -361,6 +361,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       dimensions,
       codesListsStore,
       scope,
+      responsesClarification,
     );
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);
@@ -651,6 +652,8 @@ function storeToRemoteNested(
     flowControl,
     codeFilters,
   } = state;
+
+  console.log('toto9', responsesClarification);
 
   if (type === LOOP || type === FILTER) return {};
 

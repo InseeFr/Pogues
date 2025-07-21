@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { Field, FieldArray, FormSection } from 'redux-form';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import GenericOption from '../../../forms/controls/generic-option';
+import ListRadios from '../../../forms/controls/list-radios';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { storeToArray } from '../../../utils/utils';
 import { ErrorsPanel } from '../../errors-panel';
 import CodesListsCodesContainer from '../containers/codes-lists-codes-container';
+import { Precision } from './precision';
 
 const { COMPONENT_CLASS, PANEL_CLASS, PANEL_SELECTOR_CLASS } =
   WIDGET_CODES_LISTS;
@@ -24,12 +26,15 @@ export const propTypes = {
   currentId: PropTypes.string,
   currentCodesListsStore: PropTypes.object,
   codesListsStore: PropTypes.object,
+  codeValues: PropTypes.arrayOf(PropTypes.string),
   isSearchDisable: PropTypes.bool.isRequired,
+  isPrecision: PropTypes.bool,
   clearSearchResult: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
   arrayRemoveAll: PropTypes.func.isRequired,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
+  precision: PropTypes.object,
 };
 
 export const defaultProps = {
@@ -38,6 +43,7 @@ export const defaultProps = {
   currentCodesListsStore: {},
   allowPrecision: false,
   allowFilter: false,
+  codeValues: [],
 };
 
 /**
@@ -53,11 +59,14 @@ const CodesLists = ({
   currentId = '',
   currentCodesListsStore = {},
   codesListsStore = {},
+  codeValues,
   clearSearchResult,
   change,
   arrayRemoveAll,
   allowPrecision = false,
   allowFilter = false,
+  isPrecision,
+  precision,
 }) => {
   const refDiv = useRef(null);
   const [currentIdState, setCurrentIdState] = useState(currentId);
@@ -66,16 +75,48 @@ const CodesLists = ({
     clearSearchResult();
   }, [clearSearchResult]);
 
+  const resetPrecision = useCallback(() => {
+    change(formName, `${path}isPrecision`, false);
+    change(formName, `${path}precisionId`, '');
+    change(formName, `${path}precisionLabel`, 'Préciser :');
+    change(formName, `${path}precisionSize`, 249);
+    change(formName, `${path}precisionCodeValue`, '');
+  }, [change, formName, path]);
+
+  useEffect(() => {
+    /* Initialize precision form */
+    if (precision && isPrecision === undefined) {
+      change(formName, `${path}isPrecision`, true);
+    }
+    change(formName, `${path}precisionId`, precision?.precisionId);
+    change(
+      formName,
+      `${path}precisionLabel`,
+      precision?.precisionLabel ?? 'Préciser :',
+    );
+    change(formName, `${path}precisionSize`, precision?.precisionSize ?? 249);
+    change(formName, `${path}precisionCodeValue`, precision?.codeValue);
+  }, [isPrecision, precision, change, formName, path]);
+
   useEffect(() => {
     /* Unselect codes list */
     if (currentIdState !== currentId && currentId === '') {
       change(formName, `${path}id`, '');
       change(formName, `${path}label`, '');
       change(formName, 'codeFilters', []);
+      resetPrecision();
       arrayRemoveAll(formName, `${path}codes`);
       setCurrentIdState(currentId);
     }
-  }, [currentId, arrayRemoveAll, change, currentIdState, formName, path]);
+  }, [
+    currentId,
+    arrayRemoveAll,
+    change,
+    currentIdState,
+    formName,
+    path,
+    resetPrecision,
+  ]);
 
   useEffect(() => {
     /* Select codes list */
@@ -85,16 +126,31 @@ const CodesLists = ({
       codesListsStore[currentId]
     ) {
       const codesStore = codesListsStore[currentId].codes;
+      // Update label and codes
       change(formName, `${path}label`, codesListsStore[currentId].label);
       change(
         formName,
         `${path}codes`,
         Object.keys(codesStore).map((key) => codesStore[key]),
       );
+
+      // Reset codes filters
       change(formName, 'codeFilters', []);
+
+      // Reset precision fields
+      resetPrecision();
+
       setCurrentIdState(currentId);
     }
-  }, [currentId, change, codesListsStore, currentIdState, formName, path]);
+  }, [
+    currentId,
+    change,
+    codesListsStore,
+    currentIdState,
+    formName,
+    path,
+    resetPrecision,
+  ]);
 
   return (
     <FormSection name={selectorPath} className={COMPONENT_CLASS}>
@@ -134,6 +190,22 @@ const CodesLists = ({
           />
         </div>
       </div>
+
+      {/* Precision selection */}
+      <Field
+        name="isPrecision"
+        component={ListRadios}
+        label={Dictionary.addCodePrecision}
+        required
+        // Convert string "true"/"false" to boolean true/false when storing in Redux form
+        parse={(value) => value === 'true'}
+        // Convert true/false/undefined to string "true"/"false" when displaying the form
+        format={(value) => (value === true ? 'true' : 'false')}
+      >
+        <GenericOption value="true">{Dictionary.yes}</GenericOption>
+        <GenericOption value="false">{Dictionary.no}</GenericOption>
+      </Field>
+      {isPrecision && <Precision codeValues={codeValues} />}
     </FormSection>
   );
 };

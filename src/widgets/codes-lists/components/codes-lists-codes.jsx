@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,7 +13,6 @@ import {
 } from '../../../utils/proptypes-utils';
 import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
 import FilterInputContainer from '../containers/filter-input-container';
-import PrecisionInputContainer from '../containers/precision-input-container';
 import FilterAction from './FilterAction';
 import PrecisionAction from './PrecisionAction';
 
@@ -22,120 +21,16 @@ const { CODES_CLASS, LIST_CLASS } = WIDGET_CODES_LISTS;
 /** Display codes of a codes list in a table. */
 function CodesListsCodes(props) {
   const {
-    inputCodePath,
     formName,
     change,
-    currentPrecisionid,
-    currentPrecisionlabel,
-    currentPrecisionsize,
     collectedVariablesIds,
-    meta,
-    fields: { getAll, push, remove, get },
+    fields: { getAll, get },
     allowPrecision,
     allowFilter,
     codeFilters = [],
   } = props;
   const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
-  const [showPrecision, setShowPrecision] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-
-  const clearInputCode = useCallback(() => {
-    change(formName, `${inputCodePath}value`, '');
-    change(formName, `${inputCodePath}label`, '');
-    change(formName, `${inputCodePath}precisionid`, '');
-    change(formName, `${inputCodePath}precisionlabel`, '');
-    change(formName, `${inputCodePath}precisionsize`, '');
-  }, [change, formName, inputCodePath]);
-
-  const removePrecision = useCallback(() => {
-    setActiveCodeIndex(undefined);
-    setShowPrecision(false);
-
-    const code = get(activeCodeIndex);
-
-    // Check if we have a "precision" related to our current collected variables
-    const newPrecisionByCollectedVariableId = {
-      ...code.precisionByCollectedVariableId,
-    };
-    if (code.precisionByCollectedVariableId) {
-      for (const key of Object.keys(code.precisionByCollectedVariableId)) {
-        if (collectedVariablesIds.has(key)) {
-          delete newPrecisionByCollectedVariableId[key];
-        }
-      }
-    }
-
-    const values = {
-      ...code,
-      precisionByCollectedVariableId: newPrecisionByCollectedVariableId,
-      precisionid: undefined,
-      precisionlabel: undefined,
-      precisionsize: undefined,
-    };
-    setActiveCodeIndex(undefined);
-    setShowPrecision(false);
-    remove(activeCodeIndex);
-    push(values);
-    clearInputCode();
-  }, [
-    activeCodeIndex,
-    clearInputCode,
-    collectedVariablesIds,
-    get,
-    push,
-    remove,
-  ]);
-
-  const pushCode = useCallback(() => {
-    let values;
-
-    const code = get(activeCodeIndex);
-    remove(activeCodeIndex);
-
-    values = {
-      ...code,
-      precisionid: currentPrecisionid,
-      precisionlabel: currentPrecisionlabel,
-      precisionsize: currentPrecisionsize,
-    };
-    setActiveCodeIndex(undefined);
-
-    push(values);
-    clearInputCode();
-  }, [
-    activeCodeIndex,
-    clearInputCode,
-    currentPrecisionid,
-    currentPrecisionlabel,
-    currentPrecisionsize,
-    get,
-    push,
-    remove,
-  ]);
-
-  function renderPrecisionInput() {
-    const code = get(activeCodeIndex);
-
-    return (
-      <PrecisionInputContainer
-        meta={meta}
-        close={() => {
-          clearInputCode();
-          setActiveCodeIndex(undefined);
-          setShowPrecision(false);
-        }}
-        clear={clearInputCode}
-        push={pushCode}
-        remove={removePrecision}
-        change={change}
-        path={inputCodePath}
-        formName={formName}
-        code={code}
-        precisionShow={showPrecision}
-        filterShow={showFilter}
-      />
-    );
-  }
 
   function renderFilterInput() {
     const code = get(activeCodeIndex);
@@ -144,7 +39,6 @@ function CodesListsCodes(props) {
       <FilterInputContainer
         change={change}
         close={() => {
-          clearInputCode();
           setActiveCodeIndex(undefined);
           setShowFilter(false);
         }}
@@ -158,13 +52,7 @@ function CodesListsCodes(props) {
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
     const actions = {
-      updatePrecision: () => {
-        setShowPrecision(true);
-        setShowFilter(false);
-        setActiveCodeIndex(indexCode);
-      },
       updateFilter: () => {
-        setShowPrecision(false);
         setShowFilter(true);
         setActiveCodeIndex(indexCode);
       },
@@ -232,14 +120,6 @@ function CodesListsCodes(props) {
           <tr>
             <td colSpan="6" className="py-2">
               {renderFilterInput()}
-            </td>
-          </tr>
-        )}
-        {/* Precision update */}
-        {showPrecision && activeCodeIndex === indexCode && (
-          <tr>
-            <td colSpan="6" className="py-2">
-              {renderPrecisionInput()}
             </td>
           </tr>
         )}

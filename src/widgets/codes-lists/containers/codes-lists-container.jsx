@@ -32,12 +32,15 @@ export const mapStateToProps = (
 ) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
+  const collectedVariables =
+    selector(state, `collectedVariables.collectedVariables`) || [];
   const currentId = selector(state, `${path}id`);
   const currentLabel = selector(state, `${path}label`);
   const currentPrecisionid = selector(state, `${path}precisionid`);
   const currentPrecisionlabel = selector(state, `${path}precisionlabel`);
   const currentPrecisionsize = selector(state, `${path}precisionsize`);
   const codesListsStore = state.appState.activeCodeListsById;
+  const isPrecision = selector(state, `${path}isPrecision`);
   const { isSearchDisable } = state;
   let currentCodesListsStore;
 
@@ -56,13 +59,35 @@ export const mapStateToProps = (
     currentCodesListsStore = codesListsStore;
   }
 
+  const collectedVariablesIds = new Set();
+  for (const collectedVariable of collectedVariables) {
+    collectedVariablesIds.add(collectedVariable.id);
+  }
+
+  const precision =
+    currentId && currentCodesListsStore[currentId]
+      ? Object.entries(
+          currentCodesListsStore[currentId].precisionByCollectedVariableId,
+        ).find(([key]) => collectedVariablesIds.has(key))?.[1]
+      : undefined;
+
+  const codeValues =
+    currentId && currentCodesListsStore[currentId]?.codes
+      ? Object.values(currentCodesListsStore[currentId].codes).map(
+          (code) => code.value,
+        )
+      : [];
+
   return {
     path,
     currentId,
     currentCodesListsStore,
     codesListsStore,
+    codeValues,
     isSearchDisable,
+    isPrecision,
     currentCodes: selector(state, `${path}codes`),
+    precision,
   };
 };
 

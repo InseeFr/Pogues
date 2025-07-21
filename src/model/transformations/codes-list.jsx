@@ -28,10 +28,6 @@ export function remoteToCodesState(codes, parent = '', depth = 1) {
         depth,
         weight: index + 1,
       };
-      if (c.precisionByCollectedVariableId) {
-        codeState.precisionByCollectedVariableId =
-          c.precisionByCollectedVariableId;
-      }
       return {
         ...acc,
         [codeState.value]: codeState,
@@ -47,6 +43,7 @@ function computeCodesListsClarifications(
   clarificationVariables,
 ) {
   remoteCodesLists.forEach((codesList) => {
+    codesList.precisionByCollectedVariableId = {};
     clarificationVariables.forEach((variable) => {
       if (variable.codelistid === codesList.id) {
         let index = 0;
@@ -61,33 +58,16 @@ function computeCodesListsClarifications(
         const variableId =
           variable.responseclar.Response[0].CollectedVariableReference;
         const precision = {
-          precisionid: variable.responseclar.Name,
-          precisionlabel:
+          precisionId: variable.responseclar.Name,
+          precisionLabel:
             typeof variable.responseclar.Label === 'string'
               ? variable.responseclar.Label
               : variable.responseclar.Label[0],
-          precisionsize: variable.responseclar.Response[0].Datatype.MaxLength,
+          precisionSize: variable.responseclar.Response[0].Datatype.MaxLength,
+          codeValue: codesList.Code[index].Value,
         };
 
-        let precisionByCollectedVariableId;
-        if (
-          codesList.Code[parseInt(index, 10)].precisionByCollectedVariableId
-        ) {
-          precisionByCollectedVariableId = {
-            ...codesList.Code[parseInt(index, 10)]
-              .precisionByCollectedVariableId,
-            [variableId]: precision,
-          };
-        } else {
-          precisionByCollectedVariableId = {
-            [variableId]: precision,
-          };
-        }
-
-        codesList.Code[parseInt(index, 10)] = {
-          ...codesList.Code[parseInt(index, 10)],
-          precisionByCollectedVariableId,
-        };
+        codesList.precisionByCollectedVariableId[variableId] = precision;
       }
     });
   });
@@ -113,6 +93,7 @@ export function remoteToStore(remoteCodesLists, clarificationVariables = []) {
       Name: name,
       Urn: urn,
       SuggesterParameters: suggesterParameters,
+      precisionByCollectedVariableId,
     } = codesList;
     res[id] = urn
       ? {
@@ -127,6 +108,7 @@ export function remoteToStore(remoteCodesLists, clarificationVariables = []) {
           label,
           codes: remoteToCodesState(codes),
           name: name || '',
+          precisionByCollectedVariableId,
         };
   }
   return res;

@@ -13,9 +13,6 @@ export const defaultForm = {
   id: '',
   label: '',
   codes: [],
-  precisionid: '',
-  precisionlabel: '',
-  precisionsize: '',
 };
 
 export function formToState(form) {
@@ -35,11 +32,13 @@ export function formToState(form) {
   };
 }
 
-export function stateComponentToForm({ id = '', label = '', codes = {} }) {
+export function stateComponentToForm(state) {
+  const { id, label, codes, precisionByCollectedVariableId } = state;
   return merge(cloneDeep(defaultForm), {
     id,
     label,
     codes: Object.keys(codes).map((key) => codes[key]),
+    precisionByCollectedVariableId,
   });
 }
 

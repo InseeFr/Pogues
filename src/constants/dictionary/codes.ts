@@ -31,12 +31,16 @@ export const codesDictionary: Dictionary = {
     en: 'Specification',
   },
   addCodePrecision: {
-    fr: `Ajouter un "Préciser"`,
-    en: `Add a "Specify"`,
+    fr: `Ajouter une demande de précision`,
+    en: `Add a clarification request`,
   },
-  setCodePrecision: {
-    fr: `Modifier le "Préciser"`,
-    en: `Modify "Specify"`,
+  setPrecisionCodeValue: {
+    fr: 'Code de la modalité à préciser',
+    en: 'Modality code to be clarified',
+  },
+  selectPrecisionCodeValue: {
+    fr: 'Choisir une modalité',
+    en: 'Select a modality',
   },
   addCodeFilter: {
     fr: `Ajouter un filtre`,
