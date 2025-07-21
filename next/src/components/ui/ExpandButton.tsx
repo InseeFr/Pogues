@@ -17,7 +17,7 @@ export default function ExpandButton({
   const { t } = useTranslation();
   return (
     <button
-      className="cursor-pointer"
+      className="cursor-pointer mt-[0.5rem]"
       onClick={() => setIsExpanded((v) => !v)}
       aria-expanded={isExpanded}
       aria-controls={ariaControls}

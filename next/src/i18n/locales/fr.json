@@ -116,6 +116,51 @@
     "versionToday": "{{count}} sauvegardes aujourd'hui",
     "view": "Consulter"
   },
+  "personalization": {
+    "create": {
+      "business": "Entreprise",
+      "context": "Contexte",
+      "createQuestionnaire": "Charger les données dans les orchestrateurs",
+      "createQuestionnaireDescription": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
+      "description": "Créez une personnalisation pour pré-remplir le questionnaire avec les données des unités enquêtées.",
+      "downloadError": "Erreur lors du téléchargement du schéma CSV",
+      "downloadSuccess": "Schéma CSV téléchargé avec succès",
+      "error": "Erreur lors de la création du jeu de données",
+      "expectedFileSchema": "Schéma de fichier attendu",
+      "fileViewerError": "Erreur lors des l'affichage du fichier.",
+      "household": "Ménage",
+      "noFileChosen": "Aucun fichier choisi",
+      "saveError": "Erreur lors de la sauvegarde du questionnaire",
+      "saveSuccess": "Questionnaire sauvegardé avec succès",
+      "success": "La personnalisation a été créée avec succès",
+      "title": "Personnaliser mon questionnaire",
+      "uploadData": "Charger les unités enquêtées",
+      "uploadEmptyError": "Aucune unité enquêtée trouvée dans le fichier",
+      "uploadError": "Erreur lors du chargement des unités enquêtées",
+      "uploadSuccess": "Unités enquêtées importées avec succès"
+    },
+    "edit": {
+      "editQuestionnaire": "Confirmer le rechargement",
+      "editQuestionnaireDescription": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
+      "resetSurveyUnit": "L'unité enquêtée a été réinitialisée",
+      "resetSurveyUnitDescription": "Réinitialiser les données de l'unité enquêtée",
+      "title": "Modifier la personnalisation"
+    },
+    "overview": {
+      "currentSurveyUnits": "Unités enquêtées actuelles",
+      "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
+      "deleteDialogTitle": "Supprimer la personnalisation",
+      "deleteSuccess": "Personnalisation supprimée avec succès",
+      "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
+      "existingFileData": "Jeu de données existantes",
+      "modes": "Modes : ",
+      "syncErrorDetails": "Un problème est survenu pendant l'enregistrement du questionnaire. Merci de bien vouloir recharger le questionnaire en renseignant à nouveau le contexte et le fichier de données",
+      "syncErrorTitle": "Erreur de chargement dans les orchestrateurs",
+      "title": "Personnaliser mon questionnaire",
+      "visualiseSurveyUnits": "Visualiser les unités enquêtées"
+    },
+    "title": "Personalisation"
+  },
   "questionnaire": {
     "common": {
       "dynamicField": "Spécification dynamique",
@@ -137,6 +182,7 @@
       "history": "Historique",
       "metadata": "Métadonnées",
       "nomenclatures": "Nomenclatures",
+      "personalize": "Personnalisation",
       "questionnaire": "Questionnaire",
       "variables": "Variables"
     },

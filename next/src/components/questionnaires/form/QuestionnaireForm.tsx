@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import i18next, { t } from 'i18next';
+import i18next from 'i18next';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
@@ -29,12 +30,12 @@ interface QuestionnaireFormProps {
 const schema = z.object({
   title: z
     .string()
-    .min(1, { message: i18next.t('questionnaire.form.mustProvideTitle') }),
+    .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
   targetModes: z
-    .set(z.nativeEnum(TargetModes))
-    .min(1, { message: i18next.t('questionnaire.form.mustProvideTarget') }),
-  flowLogic: z.nativeEnum(FlowLogics),
-  formulasLanguage: z.nativeEnum(FormulasLanguages),
+    .set(z.enum(TargetModes))
+    .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),
+  flowLogic: z.enum(FlowLogics),
+  formulasLanguage: z.enum(FormulasLanguages),
 });
 
 export type FormValues = z.infer<typeof schema>;
@@ -58,6 +59,7 @@ export default function QuestionnaireForm({
   onSubmit,
   submitLabel,
 }: Readonly<QuestionnaireFormProps>) {
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,

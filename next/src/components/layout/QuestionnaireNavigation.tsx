@@ -7,6 +7,7 @@ import HistoryIcon from '@/components/ui/icons/HistoryIcon';
 import LatestIcon from '@/components/ui/icons/LatestIcon';
 import ListIcon from '@/components/ui/icons/ListIcon';
 import NomenclatureAltIcon from '@/components/ui/icons/NomenclatureAltIcon';
+import PersonalizeIcon from '@/components/ui/icons/PersonalizeIcon';
 import VariableIcon from '@/components/ui/icons/VariableIcon';
 import { useAltIcon } from '@/hooks/useAltIcon';
 
@@ -72,6 +73,12 @@ export default function QuestionnaireNavigation() {
       label: t('history.title'),
       Icon: HistoryIcon,
       path: '/questionnaire/$questionnaireId/versions',
+    },
+    {
+      label: t('personalization.title'),
+      Icon: PersonalizeIcon,
+      path: '/questionnaire/$questionnaireId/personalization',
+      innerPaths: ['/questionnaire/$questionnaireId/personalization/new'],
     },
   ];
 
