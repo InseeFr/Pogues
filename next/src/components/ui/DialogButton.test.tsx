@@ -3,14 +3,16 @@ import userEvent from '@testing-library/user-event';
 
 import { renderWithRouter } from '@/tests/tests';
 
-import Dialog from './DialogButton';
+import DialogButton from './DialogButton';
 
-describe('Dialog', () => {
+describe('DialogButton', () => {
   it('can be opened and closed', async () => {
     expect(true).toBeTruthy();
     const user = userEvent.setup();
     const { queryByText, getByText } = await waitFor(() =>
-      renderWithRouter(<Dialog body="body" label="label" title="title" />),
+      renderWithRouter(
+        <DialogButton body="body" label="label" title="title" />,
+      ),
     );
     expect(getByText('label')).toBeInTheDocument();
     await user.click(screen.getByText('label'));

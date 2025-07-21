@@ -12,7 +12,7 @@ import {
 } from '@/api/personalization';
 import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
-import Dialog from '@/components/ui/Dialog';
+import DialogButton from '@/components/ui/DialogButton';
 import Input from '@/components/ui/form/Input';
 import Option from '@/components/ui/form/Option';
 import Select from '@/components/ui/form/Select';
@@ -241,7 +241,7 @@ export default function PersonalizationForm({
       )}
       {fileType.name === 'JSON' && <JsonViewer data={parsedJson} />}
       <div className="w-auto inline-block my-1">
-        <Dialog
+        <DialogButton
           label={t('common.validate')}
           title={t('personalization.create.createQuestionnaire', {
             label: questionnaire.label,

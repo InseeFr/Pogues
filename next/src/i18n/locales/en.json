@@ -13,6 +13,13 @@
     "expand": "Expand",
     "lastUpdated": "Last updated",
     "loading": "Loading...",
+    "login": "Login",
+    "logout": "Logout",
+    "logoutDialog": {
+      "body": "Are you sure you want to logout?",
+      "label": "Logout",
+      "title": "Logout confirmation"
+    },
     "new": "New",
     "notUsedByQuestions": "Not used by any questions.",
     "question": "{{count}} question",
@@ -23,6 +30,7 @@
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
     "usedByQuestion": "Used by question:",
     "usedByQuestion_other": "Used by questions:",
+    "unknownUser": "Unknown user",
     "validate": "Validate"
   },
   "codesList": {

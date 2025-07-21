@@ -13,6 +13,13 @@
     "expand": "Étendre",
     "lastUpdated": "Dernière modification",
     "loading": "Chargement...",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "logoutDialog": {
+      "body": "Êtes-vous sûr de vouloir vous déconnecter ?",
+      "label": "Déconnexion",
+      "title": "Confirmation de déconnexion"
+    },
     "new": "Nouveau",
     "notUsedByQuestions": "Utilisé par aucune question.",
     "question": "{{count}} question",
@@ -20,6 +27,7 @@
     "question_zero": "{{count}} question",
     "questionnaire": "Questionnaire",
     "title": "Titre",
+    "unknownUser": "Utilisateur inconnu",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "usedByQuestion": "Utilisé dans la question :",
     "usedByQuestion_other": "Utilisé dans les questions :",

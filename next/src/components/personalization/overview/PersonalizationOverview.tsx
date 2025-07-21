@@ -9,7 +9,7 @@ import { openParsedCsv } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
-import Dialog from '@/components/ui/Dialog';
+import DialogButton from '@/components/ui/DialogButton';
 import {
   PersonalizationQuestionnaire,
   SurveyUnitModeData,
@@ -117,7 +117,7 @@ export default function PersonalizationOverview({
           >
             {t('common.edit')}
           </ButtonLink>
-          <Dialog
+          <DialogButton
             label={t('common.delete')}
             title={t('personalization.overview.deleteDialogTitle', {
               label: data.label,

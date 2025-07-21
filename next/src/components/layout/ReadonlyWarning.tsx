@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { restoreVersion } from '@/api/versions';
 import { ButtonSize } from '@/components/ui/Button';
-import Dialog from '@/components/ui/Dialog';
+import DialogButton from '@/components/ui/DialogButton';
 
 interface ReadonlyWarningProps {
   /**
@@ -68,7 +68,7 @@ export default function ReadonlyWarning({
     <div className="grid grid-cols-[1fr_auto] items-center p-3 border-blue-3 border rounded shadow m-3 bg-default">
       <div>{t('history.questionnaireIsReadonly')}</div>
       {versionId ? (
-        <Dialog
+        <DialogButton
           body={t('history.restore.dialogConfirm')}
           buttonSize={ButtonSize.sm}
           label={t('history.restore.label')}

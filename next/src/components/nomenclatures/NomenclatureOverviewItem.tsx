@@ -7,7 +7,7 @@ interface NomenclatureOverviewItemProps {
   nomenclature: Nomenclature;
 }
 
-/** Display a codes list and allow to edit it. */
+/** Display nomenclature related info */
 export default function NomenclatureOverviewItem({
   nomenclature,
 }: Readonly<NomenclatureOverviewItemProps>) {
