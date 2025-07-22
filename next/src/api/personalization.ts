@@ -102,7 +102,7 @@ export async function getSurveyUnitData(
   mode: Mode,
 ): Promise<SurveyUnitModeData[]> {
   return instancePersonalization
-    .get(`/questionnaires/${publicEnemyId}/modes/${mode.name}/survey-units`, {
+    .get(`/questionnaires/${publicEnemyId}/modes/${mode.name}/interrogations`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: SurveyUnitModeData[] }) => {
@@ -118,7 +118,7 @@ export async function getAllSurveyUnitData(
 
   const promises = filteredModes.map((m) =>
     instancePersonalization.get(
-      `/questionnaires/${publicEnemyId}/modes/${m.name}/survey-units`,
+      `/questionnaires/${publicEnemyId}/modes/${m.name}/interrogations`,
       {
         headers: { Accept: 'application/json' },
       },
