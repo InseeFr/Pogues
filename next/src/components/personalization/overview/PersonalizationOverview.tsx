@@ -11,8 +11,8 @@ import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
 import {
+  InterrogationModeData,
   PersonalizationQuestionnaire,
-  SurveyUnitModeData,
   UploadError,
 } from '@/models/personalizationQuestionnaire';
 
@@ -25,7 +25,7 @@ interface PersonalizationOverviewProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
   csvData: ParseResult<unknown> | null;
-  surveyUnitData: SurveyUnitModeData[] | null;
+  interrogationData: InterrogationModeData[] | null;
 }
 
 /** Display the personalization windows */
@@ -33,7 +33,7 @@ export default function PersonalizationOverview({
   questionnaireId,
   data,
   csvData,
-  surveyUnitData,
+  interrogationData,
 }: Readonly<PersonalizationOverviewProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ export default function PersonalizationOverview({
 
   function onDownload() {
     if (csvData && csvData.data.length > 0) {
-      const fileName = 'survey-units-' + questionnaireId + '.csv';
+      const fileName = 'interrogations-' + questionnaireId + '.csv';
       openParsedCsv(csvData, fileName);
       toast.success(
         t('personalization.create.downloadSuccess', {
@@ -87,10 +87,13 @@ export default function PersonalizationOverview({
     <>
       <PersonalisationTile data={data}>
         <div className="grid grid-cols-[1fr_auto] my-3">
-          <h3>{t('personalization.overview.visualiseSurveyUnits')}</h3>
+          <h3>{t('personalization.overview.visualiseInterrogations')}</h3>
         </div>
-        {surveyUnitData && surveyUnitData.length > 0 ? (
-          <ModeOverview modes={data.modes} surveyUnitData={surveyUnitData} />
+        {interrogationData && interrogationData.length > 0 ? (
+          <ModeOverview
+            modes={data.modes}
+            interrogationData={interrogationData}
+          />
         ) : (
           <ErrorTile
             error={

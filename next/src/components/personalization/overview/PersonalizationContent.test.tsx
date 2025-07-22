@@ -66,7 +66,7 @@ describe('PersonalizationOverview', () => {
       name: SurveyContextEnum.HOUSEHOLD,
       value: SurveyContextValueEnum.HOUSEHOLD,
     },
-    surveyUnitData: undefined,
+    interrogationData: undefined,
     isSynchronized: true,
   };
 
@@ -77,7 +77,7 @@ describe('PersonalizationOverview', () => {
           questionnaireId={questionnaireId}
           data={mockData}
           csvData={mockCsvData}
-          surveyUnitData={null}
+          interrogationData={null}
         />,
       ),
     );
@@ -93,7 +93,7 @@ describe('PersonalizationOverview', () => {
           questionnaireId={questionnaireId}
           data={mockData}
           csvData={mockCsvData}
-          surveyUnitData={null}
+          interrogationData={null}
         />,
       ),
     );
@@ -119,7 +119,7 @@ describe('PersonalizationOverview', () => {
           questionnaireId={questionnaireId}
           data={mockData}
           csvData={undefined}
-          surveyUnitData={null}
+          interrogationData={null}
         />,
       ),
     );
@@ -153,7 +153,7 @@ describe('PersonalizationOverview', () => {
           questionnaireId={questionnaireId}
           data={mockData}
           csvData={mockParsedCsv}
-          surveyUnitData={null}
+          interrogationData={null}
         />,
       ),
     );
@@ -164,7 +164,7 @@ describe('PersonalizationOverview', () => {
     await waitFor(() => {
       expect(openParsedCsv).toHaveBeenCalledWith(
         mockParsedCsv,
-        `survey-units-${123}.csv`,
+        `interrogations-${123}.csv`,
       );
     });
     expect(toast.success).toHaveBeenCalled();

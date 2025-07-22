@@ -2,41 +2,41 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { resetSurveyUnit } from '@/api/personalization';
+import { resetInterrogation } from '@/api/personalization';
 import ButtonIcon from '@/components/ui/ButtonIcon';
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
 import ResetIcon from '@/components/ui/icons/ResetIcon';
 import {
+  InterrogationModeData,
   Mode,
-  SurveyUnitModeData,
 } from '@/models/personalizationQuestionnaire';
 
 interface ModeOverviewProps {
   modes: Mode[];
-  surveyUnitData: SurveyUnitModeData[];
+  interrogationData: InterrogationModeData[];
 }
 
 /** Display visualization per mode as a table. */
 export default function ModeOverview({
   modes,
-  surveyUnitData,
+  interrogationData,
 }: Readonly<ModeOverviewProps>) {
   const filteredModes = modes.filter((m) => m.isWebMode);
-  const shouldScroll = surveyUnitData.length > 4;
+  const shouldScroll = interrogationData.length > 4;
   const { t } = useTranslation();
 
-  const resetSurveyUnitMutation = useMutation({
-    mutationFn: async (surveyUnitId: string) => {
-      const result = await resetSurveyUnit(surveyUnitId);
+  const resetInterrogationMutation = useMutation({
+    mutationFn: async (interrogationId: string) => {
+      const result = await resetInterrogation(interrogationId);
       return result ?? null;
     },
   });
 
-  function onReset(surveyUnitId: string) {
-    const promise = resetSurveyUnitMutation.mutateAsync(surveyUnitId);
+  function onReset(interrogationId: string) {
+    const promise = resetInterrogationMutation.mutateAsync(interrogationId);
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.edit.resetSurveyUnitSuccess'),
+      success: t('personalization.edit.resetInterrogationSuccess'),
       error: (err: Error) => err.toString(),
     });
   }
@@ -62,13 +62,13 @@ export default function ModeOverview({
           </thead>
           <tbody className="text-default">
             {Array.from(
-              surveyUnitData.reduce((acc, surveyUnit) => {
-                const displayableId = surveyUnit.displayableId;
+              interrogationData.reduce((acc, interrogation) => {
+                const displayableId = interrogation.displayableId;
                 if (!acc.has(displayableId.toString()))
                   acc.set(displayableId.toString(), []);
-                acc.get(displayableId.toString())!.push(surveyUnit);
+                acc.get(displayableId.toString())!.push(interrogation);
                 return acc;
-              }, new Map<string, SurveyUnitModeData[]>()),
+              }, new Map<string, InterrogationModeData[]>()),
               ([displayableId, units]) => (
                 <tr
                   key={displayableId}
@@ -95,7 +95,7 @@ export default function ModeOverview({
                               className="right-3 top-1/2 "
                               Icon={ResetIcon}
                               title={t(
-                                'personalization.edit.resetSurveyUnitDescription',
+                                'personalization.edit.resetInterrogationDescription',
                               )}
                               onClick={() => onReset(unitForMode?.id || '')}
                             />

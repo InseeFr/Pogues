@@ -142,12 +142,12 @@
     "edit": {
       "editQuestionnaire": "Edit questionnaire",
       "editQuestionnaireDescription": "Edit the questionnaire with the uploaded survey units.",
-      "resetSurveyUnitDescription": "Reset the survey unit",
-      "resetSurveyUnitSuccess": "The survey unit has been reset",
+      "resetInterrogationDescription": "Reset the survey unit",
+      "resetInterrogationSuccess": "The survey unit has been reset",
       "title": "Edit personalization"
     },
     "overview": {
-      "currentSurveyUnits": "Current survey units",
+      "currentInterrogations": "Current survey units",
       "deleteDialogConfirm": "Are you sure you want to delete this personalization?",
       "deleteDialogTitle": "Delete personalization",
       "deleteSuccess": "Personalization deleted successfully",
@@ -157,7 +157,7 @@
       "syncErrorDetails": "An error has occurred when saving questionnaire. Please reload the questionnaire into orchestrators by filling the context and data file",
       "syncErrorTitle": "Error when loading questionnaire into orchestrators",
       "title": "Personalization",
-      "visualiseSurveyUnits": "Visualize survey units"
+      "visualiseInterrogations": "Visualize survey units"
     },
     "title": "Personalization"
   },

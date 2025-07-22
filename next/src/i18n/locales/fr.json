@@ -142,12 +142,12 @@
     "edit": {
       "editQuestionnaire": "Confirmer le rechargement",
       "editQuestionnaireDescription": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
-      "resetSurveyUnit": "L'unité enquêtée a été réinitialisée",
-      "resetSurveyUnitDescription": "Réinitialiser les données de l'unité enquêtée",
+      "resetInterrogation": "L'unité enquêtée a été réinitialisée",
+      "resetInterrogationDescription": "Réinitialiser les données de l'unité enquêtée",
       "title": "Modifier la personnalisation"
     },
     "overview": {
-      "currentSurveyUnits": "Unités enquêtées actuelles",
+      "currentInterrogations": "Unités enquêtées actuelles",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteSuccess": "Personnalisation supprimée avec succès",
@@ -157,7 +157,7 @@
       "syncErrorDetails": "Un problème est survenu pendant l'enregistrement du questionnaire. Merci de bien vouloir recharger le questionnaire en renseignant à nouveau le contexte et le fichier de données",
       "syncErrorTitle": "Erreur de chargement dans les orchestrateurs",
       "title": "Personnaliser mon questionnaire",
-      "visualiseSurveyUnits": "Visualiser les unités enquêtées"
+      "visualiseInterrogations": "Visualiser les unités enquêtées"
     },
     "title": "Personalisation"
   },

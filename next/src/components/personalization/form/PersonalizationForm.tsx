@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import {
-  checkSurveyUnitsCSV,
+  checkInterrogationsCSV,
   getInitialCsvSchema,
 } from '@/api/personalization';
 import { getFileFromParseResult } from '@/api/utils/personalization';
@@ -84,14 +84,14 @@ export default function PersonalizationForm({
       setParsedCsv(csvData);
       setQuestionnaire({
         ...questionnaire,
-        surveyUnitData: getFileFromParseResult(csvData),
+        interrogationData: getFileFromParseResult(csvData),
       });
     }
   }, [csvData]);
 
   const checkCsvData = useMutation({
     mutationFn: (file: File) => {
-      return checkSurveyUnitsCSV(questionnaireId, file);
+      return checkInterrogationsCSV(questionnaireId, file);
     },
     onError: (error: AxiosError) => {
       toast.error(t('personalization.create.uploadError'));
@@ -121,7 +121,7 @@ export default function PersonalizationForm({
     setFileType(fileType);
   };
 
-  const onSurveyUnitDataChange = (
+  const onInterrogationDataChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const fileList = event.target.files;
@@ -145,7 +145,7 @@ export default function PersonalizationForm({
       });
       setQuestionnaire({
         ...questionnaire,
-        surveyUnitData: fileList[0],
+        interrogationData: fileList[0],
       });
       checkCsvData.mutate(file);
     }
@@ -221,7 +221,7 @@ export default function PersonalizationForm({
           type="file"
           ref={emptyFileInputRef}
           style={{ display: 'none' }}
-          onChange={onSurveyUnitDataChange}
+          onChange={onInterrogationDataChange}
           accept={fileType.value}
         />
         <Button
@@ -231,7 +231,7 @@ export default function PersonalizationForm({
           {t('personalization.create.uploadData')}
         </Button>
         <span className="text-sm text-gray-600 ml-2">
-          {questionnaire.surveyUnitData?.name ||
+          {questionnaire.interrogationData?.name ||
             t('personalization.create.noFileChosen')}
         </span>
       </div>
@@ -250,7 +250,7 @@ export default function PersonalizationForm({
           onValidate={() => handleSubmit(questionnaire)}
           buttonTitle={t('personalization.create.createQuestionnaire')}
           disabled={
-            !questionnaire.surveyUnitData ||
+            !questionnaire.interrogationData ||
             !questionnaire.context?.name ||
             errorUpload !== null
           }
