@@ -27,7 +27,6 @@ export const propTypes = {
   currentCodesListsStore: PropTypes.object,
   codesListsStore: PropTypes.object,
   codeValues: PropTypes.arrayOf(PropTypes.string),
-  isSearchDisable: PropTypes.bool.isRequired,
   isPrecision: PropTypes.bool,
   clearSearchResult: PropTypes.func.isRequired,
   change: PropTypes.func.isRequired,
@@ -35,6 +34,7 @@ export const propTypes = {
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
   precision: PropTypes.object,
+  precisionLabel: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -183,7 +183,7 @@ const CodesLists = ({
           <FieldArray
             name="codes"
             component={CodesListsCodesContainer}
-            inputCodePath={`${path}input-code.`}
+            selectorPath={path}
             formName={formName}
             allowPrecision={allowPrecision}
             allowFilter={allowFilter}

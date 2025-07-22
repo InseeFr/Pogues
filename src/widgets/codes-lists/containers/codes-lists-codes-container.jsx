@@ -13,21 +13,12 @@ const propTypes = {
 
 // Container
 
-export const mapStateToProps = (state, { inputCodePath, formName }) => {
+export const mapStateToProps = (state, { selectorPath, formName }) => {
   const selector = formValueSelector(formName);
 
-  const collectedVariables =
-    selector(state, `collectedVariables.collectedVariables`) || [];
-  const collectedVariablesIds = new Set();
-  for (const collectedVariable of collectedVariables) {
-    collectedVariablesIds.add(collectedVariable.id);
-  }
-
   return {
-    collectedVariablesIds,
-    currentPrecisionid: selector(state, `${inputCodePath}precisionid`),
-    currentPrecisionlabel: selector(state, `${inputCodePath}precisionlabel`),
-    currentPrecisionsize: selector(state, `${inputCodePath}precisionsize`),
+    isPrecision: selector(state, `${selectorPath}isPrecision`),
+    precisionCodeValue: selector(state, `${selectorPath}precisionCodeValue`),
   };
 };
 

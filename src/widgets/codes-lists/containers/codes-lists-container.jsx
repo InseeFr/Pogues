@@ -36,11 +36,12 @@ export const mapStateToProps = (
     selector(state, `collectedVariables.collectedVariables`) || [];
   const currentId = selector(state, `${path}id`);
   const currentLabel = selector(state, `${path}label`);
-  const currentPrecisionid = selector(state, `${path}precisionid`);
-  const currentPrecisionlabel = selector(state, `${path}precisionlabel`);
-  const currentPrecisionsize = selector(state, `${path}precisionsize`);
-  const codesListsStore = state.appState.activeCodeListsById;
+  const precisionId = selector(state, `${path}precisionId`);
+  const precisionLabel = selector(state, `${path}precisionLabel`);
+  const precisionSize = selector(state, `${path}precisionSize`);
+  const precisionCodeValue = selector(state, `${path}precisionCodeValue`);
   const isPrecision = selector(state, `${path}isPrecision`);
+  const codesListsStore = state.appState.activeCodeListsById;
   const { isSearchDisable } = state;
   let currentCodesListsStore;
 
@@ -50,9 +51,9 @@ export const mapStateToProps = (
       [currentId]: {
         ...codesListsStore[currentId],
         label: currentLabel,
-        precisionid: currentPrecisionid,
-        precisionlabel: currentPrecisionlabel,
-        precisionsize: currentPrecisionsize,
+        precisionId,
+        precisionLabel,
+        precisionSize,
       },
     };
   } else {
@@ -88,6 +89,8 @@ export const mapStateToProps = (
     isPrecision,
     currentCodes: selector(state, `${path}codes`),
     precision,
+    precisionCodeValue,
+    precisionLabel,
   };
 };
 

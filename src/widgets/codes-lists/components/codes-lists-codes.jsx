@@ -14,7 +14,6 @@ import {
 import { getIndexItemsByAttrs } from '../../../utils/widget-utils';
 import FilterInputContainer from '../containers/filter-input-container';
 import FilterAction from './FilterAction';
-import PrecisionAction from './PrecisionAction';
 
 const { CODES_CLASS, LIST_CLASS } = WIDGET_CODES_LISTS;
 
@@ -23,11 +22,12 @@ function CodesListsCodes(props) {
   const {
     formName,
     change,
-    collectedVariablesIds,
     fields: { getAll, get },
     allowPrecision,
     allowFilter,
     codeFilters = [],
+    isPrecision,
+    precisionCodeValue,
   } = props;
   const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
   const [showFilter, setShowFilter] = useState(false);
@@ -48,7 +48,7 @@ function CodesListsCodes(props) {
     );
   }
 
-  function renderCode(code) {
+  function renderCode(code, isPrecision, precisionCodeValue) {
     const allCodes = getAll() || [];
     const indexCode = getIndexItemsByAttrs({ value: code.value }, allCodes);
     const actions = {
@@ -58,21 +58,7 @@ function CodesListsCodes(props) {
       },
     };
 
-    // Use current form "precision" label if there is one
-    let precisionLabel = code.precisionlabel ?? '';
-
-    // Otherwise check if we have a "precision" related to our current component
-    // collected variables
-    if (!precisionLabel && code.precisionByCollectedVariableId) {
-      for (const [key, values] of Object.entries(
-        code.precisionByCollectedVariableId,
-      )) {
-        if (collectedVariablesIds.has(key)) {
-          precisionLabel = values.precisionlabel;
-          break;
-        }
-      }
-    }
+    const hasPrecision = isPrecision && code.value === precisionCodeValue;
 
     let conditionFilter = '';
     for (const codeFilter of codeFilters) {
@@ -100,10 +86,7 @@ function CodesListsCodes(props) {
           {/* Code Actions */}
           {allowPrecision ? (
             <td className="py-2">
-              <PrecisionAction
-                updatePrecision={actions.updatePrecision}
-                precisionLabel={precisionLabel}
-              />
+              {hasPrecision && <CheckIcon className="w-10 h-4" />}
             </td>
           ) : null}
           {allowFilter ? (
@@ -124,12 +107,12 @@ function CodesListsCodes(props) {
           </tr>
         )}
         {/* Children codes */}
-        {renderCodes(code.value)}
+        {renderCodes(isPrecision, precisionCodeValue, code.value)}
       </React.Fragment>
     );
   }
 
-  function renderCodes(parent = '') {
+  function renderCodes(isPrecision, precisionCodeValue, parent = '') {
     const allCodes = getAll() || [];
     return allCodes
       .filter((code) => code.parent === parent)
@@ -138,7 +121,7 @@ function CodesListsCodes(props) {
         if (code.weight > nexCode.weight) return 1;
         return 0;
       })
-      .map((code) => renderCode(code));
+      .map((code) => renderCode(code, isPrecision, precisionCodeValue));
   }
 
   return props.fields.length > 0 ? (
@@ -157,11 +140,25 @@ function CodesListsCodes(props) {
         </thead>
         <tbody>
           {/* List of codes */}
-          {renderCodes()}
+          {renderCodes(isPrecision, precisionCodeValue)}
         </tbody>
       </table>
     </div>
   ) : null;
+}
+
+function CheckIcon(props) {
+  return (
+    <svg
+      fill="currentcolor"
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      {...props}
+    >
+      <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
+    </svg>
+  );
 }
 
 CodesListsCodes.propTypes = {
@@ -169,23 +166,17 @@ CodesListsCodes.propTypes = {
   meta: PropTypes.shape({ ...fieldArrayMeta, error: PropTypes.array })
     .isRequired,
 
-  currentPrecisionid: PropTypes.string,
-  currentPrecisionlabel: PropTypes.string,
-  currentPrecisionsize: PropTypes.number,
+  precisionCodeValue: PropTypes.string,
 
   formName: PropTypes.string.isRequired,
-  inputCodePath: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
-
-  collectedVariablesIds: PropTypes.isRequired,
 };
 
 CodesListsCodes.defaultProps = {
-  currentPrecisionid: '',
-  currentPrecisionlabel: '',
-  currentPrecisionsize: undefined,
+  isPrecision: false,
+  precisionCodeValue: '',
   allowPrecision: true,
   allowFilter: false,
 };
