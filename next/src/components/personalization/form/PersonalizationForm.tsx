@@ -67,10 +67,10 @@ export default function PersonalizationForm({
       name: 'CSV',
       value: 'text/csv',
     },
-    // {
-    //   name: 'JSON',
-    //   value: 'application/json',
-    // },
+    {
+      name: 'JSON',
+      value: 'application/json',
+    },
   ];
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
   const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
@@ -143,12 +143,12 @@ export default function PersonalizationForm({
           setParsedJson('');
         },
       });
-      setQuestionnaire({
-        ...questionnaire,
-        interrogationData: fileList[0],
-      });
-      checkCsvData.mutate(file);
     }
+    setQuestionnaire({
+      ...questionnaire,
+      interrogationData: fileList[0],
+    });
+    checkCsvData.mutate(file);
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -198,7 +198,11 @@ export default function PersonalizationForm({
             ))}
           </Select>
         </div>
-        <Button onClick={onDownload}>
+        <Button
+          onClick={onDownload}
+          disabled={fileType.name !== 'CSV'}
+          buttonStyle={ButtonStyle.Secondary}
+        >
           {t('personalization.create.expectedFileSchema')}
         </Button>
       </div>
