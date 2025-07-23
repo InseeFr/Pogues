@@ -26,7 +26,6 @@ export const { OidcProvider, useOidc, getOidc } =
         },
       })
     : createReactOidc({
-        autoLogin: true,
         clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
         issuerUri: import.meta.env.VITE_OIDC_ISSUER,
         homeUrl: import.meta.env.BASE_URL,

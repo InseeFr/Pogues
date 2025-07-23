@@ -45,7 +45,7 @@ export default function User({ user }: Readonly<UserProps>) {
               },
         ]}
       >
-        <Avatar initials={initials} />
+        {isUserLoggedIn && <Avatar initials={initials} />}
       </Menu>
       <Dialog
         label={t('common.logoutDialog.label')}
