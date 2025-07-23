@@ -142,8 +142,9 @@
     "edit": {
       "editQuestionnaire": "Confirmer le rechargement",
       "editQuestionnaireDescription": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
-      "resetInterrogation": "L'unité enquêtée a été réinitialisée",
       "resetInterrogationDescription": "Réinitialiser les données de l'unité enquêtée",
+      "resetInterrogationSuccess": "L'intorrogation a été réinitialisée avec succès",
+      "resetInterrogationError": "Erreur lors de la réinitialisation de l'interrogation",
       "title": "Modifier la personnalisation"
     },
     "overview": {
@@ -159,7 +160,7 @@
       "title": "Personnaliser mon questionnaire",
       "visualiseInterrogations": "Visualiser les unités enquêtées"
     },
-    "title": "Personalisation"
+    "title": "Personnalisation"
   },
   "questionnaire": {
     "common": {

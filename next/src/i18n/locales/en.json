@@ -144,6 +144,7 @@
       "editQuestionnaireDescription": "Edit the questionnaire with the uploaded survey units.",
       "resetInterrogationDescription": "Reset the survey unit",
       "resetInterrogationSuccess": "The survey unit has been reset",
+      "resetInterrogationError": "Error resetting the survey unit",
       "title": "Edit personalization"
     },
     "overview": {

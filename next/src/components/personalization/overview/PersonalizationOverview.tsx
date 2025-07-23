@@ -89,7 +89,9 @@ export default function PersonalizationOverview({
         <div className="grid grid-cols-[1fr_auto] my-3">
           <h3>{t('personalization.overview.visualiseInterrogations')}</h3>
         </div>
-        {interrogationData && interrogationData.length > 0 ? (
+        {interrogationData === null || interrogationData === undefined ? (
+          <div>{t('common.loading')}</div>
+        ) : interrogationData.length > 0 ? (
           <ModeOverview
             modes={data.modes}
             interrogationData={interrogationData}
