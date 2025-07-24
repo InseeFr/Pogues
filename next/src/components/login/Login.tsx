@@ -6,7 +6,7 @@ import { useOidc } from '@/contexts/oidc';
 export default function Login() {
   const { t } = useTranslation();
 
-  const { login } = useOidc({ assert: 'user not logged in' });
+  const { login } = useOidc();
 
   const onLogin = () => {
     login({

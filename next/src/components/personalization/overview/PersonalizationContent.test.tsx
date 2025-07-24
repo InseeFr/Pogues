@@ -86,7 +86,7 @@ describe('PersonalizationOverview', () => {
     expect(getByText('Panda')).toBeInTheDocument();
   });
 
-  it('delete the personalzation when the delete button is clicked', async () => {
+  it('delete the personalization when the delete button is clicked', async () => {
     const { getByText } = await waitFor(() =>
       renderWithRouter(
         <PersonalizationsOverview

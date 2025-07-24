@@ -7,6 +7,7 @@ interface MenuItem {
   label?: string;
   icon?: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 interface MenuProps {
@@ -45,10 +46,22 @@ export default function Menu({ children, items }: Readonly<MenuProps>) {
             {items.map((item, idx) => (
               <UIMenu.Item
                 key={idx}
-                className="flex items-center cursor-pointer py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200"
-                onClick={item.onClick}
+                className={`flex items-center py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none
+    ${
+      item.disabled
+        ? 'cursor-not-allowed text-gray-400 bg-transparent opacity-50'
+        : 'cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200'
+    }`}
+                onClick={item.disabled ? undefined : item.onClick}
+                disabled={item.disabled}
               >
-                {item.icon && <span className="mr-1">{item.icon}</span>}
+                {item.icon && (
+                  <span
+                    className={`mr-1 ${item.disabled ? 'text-gray-400 opacity-50' : ''}`}
+                  >
+                    {item.icon}
+                  </span>
+                )}
                 {item.label || i18next.t('common.delete')}
               </UIMenu.Item>
             ))}

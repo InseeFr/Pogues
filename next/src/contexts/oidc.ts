@@ -11,11 +11,13 @@ const decodedIdTokenSchema = z.object({
 export const DEFAULT_STAMP = (import.meta.env.VITE_DEFAULT_USER_STAMP ||
   'FAKEPERMISSION') as string;
 
+const logoutEnabled = import.meta.env.VITE_ENABLE_LOGOUT === 'true';
+
 export const { OidcProvider, useOidc, getOidc } =
   import.meta.env.VITE_OIDC_ENABLED === 'false'
     ? createMockReactOidc({
-        autoLogin: true,
-        isUserInitiallyLoggedIn: true,
+        autoLogin: !logoutEnabled,
+        isUserInitiallyLoggedIn: !logoutEnabled,
         homeUrl: import.meta.env.BASE_URL,
         mockedTokens: {
           decodedIdToken: {
@@ -26,7 +28,7 @@ export const { OidcProvider, useOidc, getOidc } =
         },
       })
     : createReactOidc({
-        autoLogin: true,
+        autoLogin: !logoutEnabled,
         clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
         issuerUri: import.meta.env.VITE_OIDC_ISSUER,
         homeUrl: import.meta.env.BASE_URL,

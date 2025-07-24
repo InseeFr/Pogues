@@ -19,6 +19,7 @@ export default function User({ user }: Readonly<UserProps>) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const { isUserLoggedIn, logout } = useOidc();
   const initials = `${user?.givenName?.charAt(0).toUpperCase()}${user?.familyName?.charAt(0).toUpperCase()}`;
+  const logoutEnabled = import.meta.env.VITE_ENABLE_LOGOUT === 'true';
 
   function onLogout() {
     logout({
@@ -37,11 +38,13 @@ export default function User({ user }: Readonly<UserProps>) {
                 onClick: () => {
                   // Not active yet, button will be set later
                 },
+                disabled: true,
               }
             : {
                 label: t('common.logout'),
                 icon: <LogoutIcon />,
                 onClick: () => setDialogOpen(true),
+                disabled: !logoutEnabled,
               },
         ]}
       >

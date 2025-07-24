@@ -13,7 +13,10 @@ interface AvatarProps {
  */
 export default function Avatar({ initials }: Readonly<AvatarProps>) {
   return (
-    <div className="rounded-full bg-primary size-10 text-center content-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
+    <div
+      tabIndex={0}
+      className="rounded-full bg-primary size-10 text-center content-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+    >
       {initials ? (
         <span className="text-negative font-semibold">{initials}</span>
       ) : (
