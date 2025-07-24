@@ -14,6 +14,7 @@
     "lastUpdated": "Dernière modification",
     "loading": "Chargement...",
     "login": "Connexion",
+    "loginMessage": "Vous devez vous connecter pour accéder à l'application.",
     "logout": "Déconnexion",
     "logoutDialog": {
       "body": "Êtes-vous sûr de vouloir vous déconnecter ?",

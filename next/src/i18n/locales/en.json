@@ -14,6 +14,7 @@
     "lastUpdated": "Last updated",
     "loading": "Loading...",
     "login": "Login",
+    "loginMessage": "You should login to access the application.",
     "logout": "Logout",
     "logoutDialog": {
       "body": "Are you sure you want to logout?",
