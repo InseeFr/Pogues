@@ -16,13 +16,11 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className="text-center space-y-3">
-        <p>{t('common.loginMessage')}</p>
-        <Button onClick={onLogin} buttonStyle={ButtonStyle.Primary}>
-          {t('common.login')}
-        </Button>
-      </div>
-    </>
+    <div className="text-center space-y-3">
+      <p>{t('common.loginMessage')}</p>
+      <Button onClick={onLogin} buttonStyle={ButtonStyle.Primary}>
+        {t('common.login')}
+      </Button>
+    </div>
   );
 }
