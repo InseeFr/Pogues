@@ -41,7 +41,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
           </div>
         </a>
       </div>
-      <div className="p-3 grid grid-flow-col items-center gap-x-3">
+      <div className="p-3 grid grid-flow-col items-center gap-x-3 focus:outline-none bg-transparent border-none text-transparent">
         {shouldDisplayUser && <User user={user} />}
       </div>
     </div>

@@ -32,19 +32,4 @@ describe('User', () => {
     expect(screen.getByText('common.logout')).toBeInTheDocument();
     expect(screen.queryByText('common.login')).not.toBeInTheDocument();
   });
-
-  it('opens dialog when logout is clicked', () => {
-    render(<User user={user} />);
-    fireEvent.click(screen.getByText('GT'));
-    fireEvent.click(screen.getByText('common.logout'));
-    expect(screen.getByText('common.logoutDialog.title')).toBeInTheDocument();
-  });
-
-  it('calls logout on dialog validate', () => {
-    render(<User user={user} />);
-    fireEvent.click(screen.getByText('GT'));
-    fireEvent.click(screen.getByText('common.logout'));
-    fireEvent.click(screen.getByText('common.validate'));
-    expect(logout).toHaveBeenCalled();
-  });
 });

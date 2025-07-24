@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { Menu as UIMenu } from '@base-ui-components/react/menu';
 import i18next from 'i18next';
 
@@ -16,15 +18,29 @@ interface MenuProps {
 }
 
 export default function Menu({ children, items }: Readonly<MenuProps>) {
+  const triggerRef = useRef<HTMLButtonElement | HTMLDivElement>(null);
+
   return (
-    <UIMenu.Root>
+    <UIMenu.Root
+      onOpenChange={(open: boolean) => {
+        if (!open && triggerRef.current) {
+          triggerRef.current.blur();
+        }
+      }}
+    >
       {children ? (
-        <UIMenu.Trigger>{children}</UIMenu.Trigger>
+        <UIMenu.Trigger
+          ref={triggerRef}
+          className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+        >
+          {children}
+        </UIMenu.Trigger>
       ) : (
         <UIMenu.Trigger
+          ref={triggerRef}
           className={
             children
-              ? 'flex h-10 items-center justify-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-medium text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-popup-open:bg-gray-100'
+              ? 'flex h-10 items-center justify-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-medium text-gray-900 select-none hover:bg-gray-100 focus:outline-none focus-visible:outline focus-visible:-outline-offset-1 focus-visible:border-primary active:bg-gray-100 data-popup-open:bg-gray-100'
               : undefined
           }
         >
