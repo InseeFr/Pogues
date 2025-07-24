@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
 
 import {
+  InterrogationModeData,
   Mode,
-  SurveyUnitModeData,
 } from '@/models/personalizationQuestionnaire';
 import { renderWithRouter } from '@/tests/tests';
 
@@ -14,7 +14,7 @@ const mockModes: Mode[] = [
   { name: 'PAPI', isWebMode: false },
 ];
 
-const surveyUnitData: SurveyUnitModeData[] = [
+const interrogationData: InterrogationModeData[] = [
   {
     id: '185-CAWI-1',
     displayableId: 123,
@@ -40,7 +40,10 @@ describe('ModeOverview', () => {
   it('renders table headers for web modes only', async () => {
     const { getByText, container } = await waitFor(() =>
       renderWithRouter(
-        <ModeOverview modes={mockModes} surveyUnitData={surveyUnitData} />,
+        <ModeOverview
+          modes={mockModes}
+          interrogationData={interrogationData}
+        />,
       ),
     );
     expect(getByText('ID')).toBeInTheDocument();
@@ -52,7 +55,10 @@ describe('ModeOverview', () => {
   it('renders a row for each unique displayableId', async () => {
     const { getByText } = await waitFor(() =>
       renderWithRouter(
-        <ModeOverview modes={mockModes} surveyUnitData={surveyUnitData} />,
+        <ModeOverview
+          modes={mockModes}
+          interrogationData={interrogationData}
+        />,
       ),
     );
     expect(getByText('123')).toBeInTheDocument();
@@ -62,7 +68,10 @@ describe('ModeOverview', () => {
   it('renders links for available URLs', async () => {
     const { getAllByRole } = await waitFor(() =>
       renderWithRouter(
-        <ModeOverview modes={mockModes} surveyUnitData={surveyUnitData} />,
+        <ModeOverview
+          modes={mockModes}
+          interrogationData={interrogationData}
+        />,
       ),
     );
     const links = getAllByRole('link');

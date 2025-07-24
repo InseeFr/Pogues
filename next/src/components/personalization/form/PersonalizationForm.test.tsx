@@ -47,7 +47,7 @@ describe('PersonalizationForm', () => {
       name: SurveyContextEnum.HOUSEHOLD,
       value: SurveyContextValueEnum.HOUSEHOLD,
     },
-    surveyUnitData: undefined,
+    interrogationData: undefined,
     isSynchronized: true,
   };
 
@@ -131,7 +131,7 @@ describe('PersonalizationForm', () => {
       renderWithRouter(
         <PersonalizationForm
           questionnaireId="1"
-          questionnaire={{ ...baseQuestionnaire, surveyUnitData: undefined }}
+          questionnaire={{ ...baseQuestionnaire, interrogationData: undefined }}
           setQuestionnaire={setQuestionnaire}
           errorUpload={null}
           setErrorUpload={setErrorUpload}
@@ -150,7 +150,7 @@ describe('PersonalizationForm', () => {
           questionnaireId="1"
           questionnaire={{
             ...baseQuestionnaire,
-            surveyUnitData: new File([''], 'a.csv'),
+            interrogationData: new File([''], 'a.csv'),
           }}
           setQuestionnaire={setQuestionnaire}
           errorUpload={

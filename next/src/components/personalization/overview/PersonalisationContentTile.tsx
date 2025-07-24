@@ -21,7 +21,7 @@ export default function PersonalizationContentTile({
   return (
     <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] my-2">
       <div className="grid grid-cols-[1fr_auto]">
-        <h3>{t('personalization.overview.currentSurveyUnits')}</h3>
+        <h3>{t('personalization.overview.currentInterrogations')}</h3>
       </div>
       <div
         hidden={!isExpanded}

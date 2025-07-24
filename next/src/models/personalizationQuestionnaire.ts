@@ -4,7 +4,7 @@ export type PersonalizationQuestionnaire = {
   label: string;
   modes: Mode[];
   context: SurveyContext;
-  surveyUnitData?: File;
+  interrogationData?: File;
   isSynchronized: boolean;
 };
 
@@ -28,16 +28,16 @@ export type UploadError = {
   details: string[];
 };
 
-export type SurveyUnitModeData = {
+export type InterrogationModeData = {
   id: string;
   displayableId: number;
   url: string;
 };
 
 //Temp type
-export type SurveyUnitModeDataResponse = {
+export type InterrogationModeDataResponse = {
   questionnaireModelId: string;
-  surveyUnits: SurveyUnitModeData[];
+  interrogations: InterrogationModeData[];
 };
 
 export enum SurveyContextEnum {

@@ -18,7 +18,7 @@ describe('PersonalizationsOverview', () => {
   const baseProps = {
     questionnaireId: '123',
     csvData: null,
-    surveyUnitData: null,
+    interrogationData: null,
   };
 
   const mockData: PersonalizationQuestionnaire = {
@@ -33,7 +33,7 @@ describe('PersonalizationsOverview', () => {
       name: SurveyContextEnum.HOUSEHOLD,
       value: SurveyContextValueEnum.HOUSEHOLD,
     },
-    surveyUnitData: undefined,
+    interrogationData: undefined,
     isSynchronized: true,
   };
 

@@ -2,10 +2,10 @@ import { queryOptions } from '@tanstack/react-query';
 import Papa, { ParseResult } from 'papaparse';
 
 import {
+  InterrogationModeData,
+  InterrogationModeDataResponse,
   Mode,
   PersonalizationQuestionnaire,
-  SurveyUnitModeData,
-  SurveyUnitModeDataResponse,
 } from '@/models/personalizationQuestionnaire';
 
 import { instancePersonalization } from './instancePersonalization';
@@ -85,40 +85,40 @@ export async function getPublicEnemyData(
 /**
  * Used to retrieve data used to a create survey Units.
  *
- * @see {@link getAllSurveyUnitData}
+ * @see {@link getAllInterrogationData}
  */
-export const getSurveyUnitDataQueryOptions = (
+export const getInterrogationDataQueryOptions = (
   publicEnemyId: string,
   modes: Mode[],
 ) =>
   queryOptions({
-    queryKey: ['getPersonalizationSurveyUnitData', { publicEnemyId, modes }],
-    queryFn: () => getAllSurveyUnitData(publicEnemyId, modes),
+    queryKey: ['getPersonalizationInterrogationData', { publicEnemyId, modes }],
+    queryFn: () => getAllInterrogationData(publicEnemyId, modes),
     retryOnMount: true,
   });
 
-export async function getSurveyUnitData(
+export async function getInterrogationData(
   publicEnemyId: string,
   mode: Mode,
-): Promise<SurveyUnitModeData[]> {
+): Promise<InterrogationModeData[]> {
   return instancePersonalization
-    .get(`/questionnaires/${publicEnemyId}/modes/${mode.name}/survey-units`, {
+    .get(`/questionnaires/${publicEnemyId}/modes/${mode.name}/interrogations`, {
       headers: { Accept: 'application/json' },
     })
-    .then(({ data }: { data: SurveyUnitModeData[] }) => {
+    .then(({ data }: { data: InterrogationModeData[] }) => {
       return data;
     });
 }
 
-export async function getAllSurveyUnitData(
+export async function getAllInterrogationData(
   publicEnemyId: string,
   mode: Mode[] = [],
-): Promise<SurveyUnitModeData[]> {
+): Promise<InterrogationModeData[]> {
   const filteredModes = mode.filter((m) => m.isWebMode);
 
   const promises = filteredModes.map((m) =>
     instancePersonalization.get(
-      `/questionnaires/${publicEnemyId}/modes/${m.name}/survey-units`,
+      `/questionnaires/${publicEnemyId}/modes/${m.name}/interrogations`,
       {
         headers: { Accept: 'application/json' },
       },
@@ -127,7 +127,7 @@ export async function getAllSurveyUnitData(
 
   const responses = await Promise.all(promises);
   return responses.flatMap(
-    ({ data }: { data: SurveyUnitModeDataResponse }) => data.surveyUnits,
+    ({ data }: { data: InterrogationModeDataResponse }) => data.interrogations,
   );
 }
 
@@ -191,12 +191,12 @@ export async function getExistingCsvSchema(
 }
 
 /** Check the survey units CSV file for errors & warning messages */
-export async function checkSurveyUnitsCSV(
+export async function checkInterrogationsCSV(
   questionnaireId: string,
-  surveyUnitCSVData: File,
+  interrogationCSVData: File,
 ): Promise<string[]> {
   const formData = new FormData();
-  formData.append('surveyUnitData', surveyUnitCSVData);
+  formData.append('interrogationData', interrogationCSVData);
 
   return instancePersonalization.post(
     `/questionnaires/${questionnaireId}/checkdata`,
@@ -220,8 +220,8 @@ export async function addQuestionnaireData(
   };
   formData.append('questionnaire', JSON.stringify(questionnaireRest));
 
-  if (questionnaire.surveyUnitData) {
-    formData.append('surveyUnitData', questionnaire.surveyUnitData);
+  if (questionnaire.interrogationData) {
+    formData.append('interrogationData', questionnaire.interrogationData);
   }
   return instancePersonalization.post(`/questionnaires/add`, formData);
 }
@@ -233,8 +233,8 @@ export async function editQuestionnaireData(
   const formData = new FormData();
   formData.append('context', JSON.stringify(questionnaire.context));
 
-  if (questionnaire.surveyUnitData) {
-    formData.append('surveyUnitData', questionnaire.surveyUnitData);
+  if (questionnaire.interrogationData) {
+    formData.append('interrogationData', questionnaire.interrogationData);
   }
   return instancePersonalization.post(
     `/questionnaires/${questionnaire.id}`,
@@ -250,9 +250,11 @@ export async function deleteQuestionnaireData(
   );
 }
 
-export async function resetSurveyUnit(surveyUnitId: string): Promise<void> {
+export async function resetInterrogation(
+  interrogationId: string,
+): Promise<void> {
   return instancePersonalization.put(
-    `/survey-units/${surveyUnitId}/reset`,
+    `/interrogations/${interrogationId}/reset`,
     undefined,
   );
 }

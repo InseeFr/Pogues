@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import {
   basePersonalizationQueryOptions,
-  getSurveyUnitDataQueryOptions,
+  getInterrogationDataQueryOptions,
 } from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
@@ -34,8 +34,8 @@ function RouteComponent() {
     data: [questionnaire, csvData],
   } = useSuspenseQuery(basePersonalizationQueryOptions(questionnaireId));
 
-  const { data: surveyUnitData } = useQuery({
-    ...getSurveyUnitDataQueryOptions(questionnaire.id, questionnaire.modes),
+  const { data: interrogationData } = useQuery({
+    ...getInterrogationDataQueryOptions(questionnaire.id, questionnaire.modes),
     retry: false,
     throwOnError: false,
   });
@@ -46,7 +46,7 @@ function RouteComponent() {
         questionnaireId={questionnaireId}
         data={questionnaire}
         csvData={csvData}
-        surveyUnitData={surveyUnitData || null}
+        interrogationData={interrogationData || null}
       />
     </ComponentWrapper>
   );
