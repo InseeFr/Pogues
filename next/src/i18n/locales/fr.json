@@ -148,12 +148,12 @@
       "title": "Modifier la personnalisation"
     },
     "overview": {
-      "currentInterrogations": "Unités enquêtées actuelles",
+      "currentInterrogations": "Jeu de données chargé",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteSuccess": "Personnalisation supprimée avec succès",
       "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
-      "existingFileData": "Jeu de données existantes",
+      "existingFileData": "Télécharger le jeu de données existantes",
       "modes": "Modes : ",
       "syncErrorDetails": "Un problème est survenu pendant l'enregistrement du questionnaire. Merci de bien vouloir recharger le questionnaire en renseignant à nouveau le contexte et le fichier de données",
       "syncErrorTitle": "Erreur de chargement dans les orchestrateurs",

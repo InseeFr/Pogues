@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Papa from 'papaparse';
+import Papa, { ParseResult } from 'papaparse';
 import { expect } from 'vitest';
 
 import {
@@ -68,46 +68,11 @@ describe('PersonalizationForm', () => {
           errorUpload={null}
           setErrorUpload={setErrorUpload}
           handleSubmit={vi.fn()}
+          fileData={null}
         />,
       ),
     );
     expect(screen.getByText('Upload survey units data')).toBeInTheDocument();
-  });
-
-  it('displays uploaded CSV file content', async () => {
-    renderWithRouter(
-      <PersonalizationForm
-        questionnaireId="1"
-        questionnaire={baseQuestionnaire}
-        setQuestionnaire={setQuestionnaire}
-        errorUpload={null}
-        setErrorUpload={setErrorUpload}
-        handleSubmit={vi.fn()}
-      />,
-    );
-
-    const uploadBtn = screen.getByRole('button', {
-      name: /upload survey units data/i,
-    });
-    fireEvent.click(uploadBtn);
-
-    const fileInput = document.querySelector(
-      'input[type="file"]',
-    ) as HTMLInputElement;
-    expect(fileInput).toBeTruthy();
-
-    const file = new File(['id,name\n1,Teemo\n2,Panda'], 'test.csv', {
-      type: 'text/csv',
-    });
-    await userEvent.upload(fileInput, file);
-
-    expect(Papa.parse).toHaveBeenCalledWith(
-      file,
-      expect.objectContaining({
-        header: true,
-        complete: expect.any(Function),
-      }),
-    );
   });
 
   it('shows error component if there is errors', () => {

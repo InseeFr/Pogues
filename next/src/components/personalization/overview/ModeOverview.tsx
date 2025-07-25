@@ -24,6 +24,7 @@ export default function ModeOverview({
   const filteredModes = modes.filter((m) => m.isWebMode);
   const shouldScroll = interrogationData.length > 4;
   const { t } = useTranslation();
+  console.log('modes', interrogationData);
 
   const resetInterrogationMutation = useMutation({
     mutationFn: async (interrogationId: string) => {
@@ -80,6 +81,8 @@ export default function ModeOverview({
                       const modeInId = unit.id.split('-')[1];
                       return mode.name === modeInId;
                     });
+                    console.log('unitForMode', unitForMode);
+                    console.log('unitForMode', mode);
                     return (
                       <td key={mode.name}>
                         {unitForMode?.url && (

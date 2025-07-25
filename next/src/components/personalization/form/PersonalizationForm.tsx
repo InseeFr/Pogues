@@ -12,10 +12,13 @@ import {
 } from '@/api/personalization';
 import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
+import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import Dialog from '@/components/ui/Dialog';
 import Input from '@/components/ui/form/Input';
 import Option from '@/components/ui/form/Option';
+import RadioGroup from '@/components/ui/form/RadioGroup';
 import Select from '@/components/ui/form/Select';
+import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import {
   FileType,
   PersonalizationQuestionnaire,
@@ -36,7 +39,7 @@ interface PersonalizationFormProps {
   errorUpload: UploadError | null;
   setErrorUpload: (error: UploadError | null) => void;
   handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void;
-  fileData?: ParseResult | null;
+  fileData?: ParseResult | string | null;
 }
 
 /** Display the personalization windows */
@@ -72,7 +75,11 @@ export default function PersonalizationForm({
       value: 'application/json',
     },
   ];
-  const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
+  const [fileType, setFileType] = useState<FileType>(
+    typeof fileData !== 'string' && fileData && 'data' in fileData
+      ? fileTypes[0] // CSV
+      : fileTypes[1], // JSON
+  );
   const [parsedFileData, setParsedFileData] = useState<
     ParseResult | string | null
   >(null);
@@ -80,6 +87,11 @@ export default function PersonalizationForm({
   useEffect(() => {
     if (fileData) {
       setParsedFileData(fileData);
+      if (typeof fileData !== 'string' && 'data' in fileData) {
+        setFileType(fileTypes[0]); // CSV
+      } else {
+        setFileType(fileTypes[1]); // JSON
+      }
       setQuestionnaire({
         ...questionnaire,
         interrogationData: getFileFromParseResult(fileData),
@@ -117,6 +129,11 @@ export default function PersonalizationForm({
 
   const onFileTypeChange = (fileType: FileType) => {
     setFileType(fileType);
+    setParsedFileData(null);
+    setQuestionnaire({
+      ...questionnaire,
+      interrogationData: undefined,
+    });
   };
 
   const onInterrogationDataChange = (
@@ -147,6 +164,14 @@ export default function PersonalizationForm({
     checkFileData.mutate(file);
   };
 
+  const onRemoveFile = () => {
+    setParsedFileData(null);
+    setQuestionnaire({
+      ...questionnaire,
+      interrogationData: undefined,
+    });
+  };
+
   const { refetch: fetchCsvSchema } = useQuery({
     queryKey: ['personalization-csv-schema', { questionnaireId }],
     queryFn: async () => {
@@ -166,83 +191,86 @@ export default function PersonalizationForm({
   }
 
   return (
-    <div className="overflow-hidden space-y-3 my-2">
-      <label
-        htmlFor="context-select"
-        className="block text-md font-medium text-gray-700"
-      >
-        {t('personalization.create.context')}
-      </label>
-      <div className="flex flex-row items-end gap-2">
-        <div className="w-[70%]">
+    <div className="flex flex-col min-h-[400px]">
+      <div className="overflow-hidden space-y-3 my-2">
+        <div className="flex flex-row items-end gap-2">
+          <RadioGroup
+            label={t('personalization.create.context')}
+            options={surveyContext.map((context) => ({
+              label: context.value ?? '',
+              value: context.name,
+            }))}
+            defaultValue={questionnaire.context?.name}
+            onChange={(value: unknown) => {
+              const selected = surveyContext.find((c) => c.name === value);
+              if (selected) {
+                onContextChange(selected);
+              }
+            }}
+          />
+          <div className="flex-1 flex justify-end">
+            <Button
+              onClick={onDownload}
+              disabled={fileType.name !== 'CSV'}
+              buttonStyle={ButtonStyle.Secondary}
+            >
+              {t('personalization.create.expectedFileSchema')}
+            </Button>
+          </div>
+        </div>
+        <div className="flex flex-row gap-x-2 mt-6 items-center">
           <Select
             onChange={(v: unknown) => {
               if (v && typeof v === 'object' && 'name' in v) {
-                onContextChange(v as SurveyContext);
+                onFileTypeChange(v as FileType);
               }
             }}
-            value={
-              surveyContext.find(
-                (c) => c.name === questionnaire.context?.name,
-              ) ?? ''
-            }
+            value={fileType}
           >
-            {surveyContext.map((context: SurveyContext) => (
-              <Option key={context.name} value={context}>
-                {context.value}
+            {fileTypes.map((type) => (
+              <Option key={type.value} value={type}>
+                {type.name}
               </Option>
             ))}
           </Select>
+          <Input
+            type="file"
+            ref={emptyFileInputRef}
+            style={{ display: 'none' }}
+            onChange={onInterrogationDataChange}
+            accept={fileType.value}
+          />
+          <Button
+            onClick={() => emptyFileInputRef.current?.click()}
+            buttonStyle={ButtonStyle.Primary}
+          >
+            {t('personalization.create.uploadData')}
+          </Button>
+          <span className="text-sm text-gray-600 ml-2">
+            {questionnaire.interrogationData?.name ||
+              t('personalization.create.noFileChosen')}
+          </span>
+          {parsedFileData && (
+            <div className="flex-1 flex justify-end">
+              <ButtonIcon
+                className="h-12"
+                Icon={DeleteIcon}
+                title={t('common.delete')}
+                onClick={onRemoveFile}
+                buttonStyle={ButtonIconStyle.Delete}
+              />
+            </div>
+          )}
         </div>
-        <Button
-          onClick={onDownload}
-          disabled={fileType.name !== 'CSV'}
-          buttonStyle={ButtonStyle.Secondary}
-        >
-          {t('personalization.create.expectedFileSchema')}
-        </Button>
+        {errorUpload && <ErrorTile error={errorUpload} />}
+        {fileType.name === 'CSV' && parsedFileData && (
+          <CsvViewerTable parsedCsv={parsedFileData} />
+        )}
+        {fileType.name === 'JSON' && parsedFileData && (
+          <JsonViewer data={parsedFileData} />
+        )}
       </div>
-      <div className="flex flex-row gap-x-2 mt-6 items-center">
-        <Select
-          onChange={(v: unknown) => {
-            if (v && typeof v === 'object' && 'name' in v) {
-              onFileTypeChange(v as FileType);
-            }
-          }}
-          value={fileType}
-        >
-          {fileTypes.map((type) => (
-            <Option key={type.value} value={type}>
-              {type.name}
-            </Option>
-          ))}
-        </Select>
-        <Input
-          type="file"
-          ref={emptyFileInputRef}
-          style={{ display: 'none' }}
-          onChange={onInterrogationDataChange}
-          accept={fileType.value}
-        />
-        <Button
-          onClick={() => emptyFileInputRef.current?.click()}
-          buttonStyle={ButtonStyle.Primary}
-        >
-          {t('personalization.create.uploadData')}
-        </Button>
-        <span className="text-sm text-gray-600 ml-2">
-          {questionnaire.interrogationData?.name ||
-            t('personalization.create.noFileChosen')}
-        </span>
-      </div>
-      {errorUpload && <ErrorTile error={errorUpload} />}
-      {fileType.name === 'CSV' && parsedFileData && (
-        <CsvViewerTable parsedCsv={parsedFileData} />
-      )}
-      {fileType.name === 'JSON' && parsedFileData && (
-        <JsonViewer data={parsedFileData} />
-      )}
-      <div className="w-auto inline-block my-1">
+      <div className="mt-auto w-auto inline-block my-1">
         <Dialog
           label={t('common.validate')}
           title={t('personalization.create.createQuestionnaire', {
