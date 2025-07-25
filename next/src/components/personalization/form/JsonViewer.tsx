@@ -29,7 +29,7 @@ export default function JsonViewer({ data }: Readonly<JsonViewerProps>) {
           overflowY: shouldScroll ? 'auto' : 'visible',
         }}
       >
-        <pre style={{ backgroundColor: 'bg-blue-200' }}>
+        <pre className="bg-main">
           <code ref={codeRef} className="language-json" />
         </pre>
       </div>

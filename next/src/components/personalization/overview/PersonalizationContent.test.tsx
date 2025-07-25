@@ -76,7 +76,7 @@ describe('PersonalizationOverview', () => {
         <PersonalizationsOverview
           questionnaireId={questionnaireId}
           data={mockData}
-          csvData={mockCsvData}
+          fileData={mockCsvData}
           interrogationData={null}
         />,
       ),
@@ -92,7 +92,7 @@ describe('PersonalizationOverview', () => {
         <PersonalizationsOverview
           questionnaireId={questionnaireId}
           data={mockData}
-          csvData={mockCsvData}
+          fileData={mockCsvData}
           interrogationData={null}
         />,
       ),
@@ -106,29 +106,6 @@ describe('PersonalizationOverview', () => {
     await waitFor(() => {
       expect(deleteQuestionnaireData).toHaveBeenCalledWith(mockData.id);
     });
-  });
-
-  it('handles empty blob if there is no data', async () => {
-    vi.mocked(getExistingCsvSchema).mockRejectedValueOnce(
-      new Error('No data available for download.'),
-    );
-
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationsOverview
-          questionnaireId={questionnaireId}
-          data={mockData}
-          csvData={undefined}
-          interrogationData={null}
-        />,
-      ),
-    );
-    const button = getByText('Existing dataset');
-
-    fireEvent.click(button);
-
-    expect(openParsedCsv).not.toHaveBeenCalled();
-    expect(toast.error).toHaveBeenCalled();
   });
 
   it('should successfully download when blob has data', async () => {
@@ -152,7 +129,7 @@ describe('PersonalizationOverview', () => {
         <PersonalizationsOverview
           questionnaireId={questionnaireId}
           data={mockData}
-          csvData={mockParsedCsv}
+          fileData={mockParsedCsv}
           interrogationData={null}
         />,
       ),

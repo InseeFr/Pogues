@@ -37,7 +37,7 @@ function RouteComponent() {
   const { data: questionnaire } = useSuspenseQuery(
     personalizationQueryOptions(questionnaireId),
   );
-  const { data: csvData } = useSuspenseQuery(
+  const { data: fileData } = useSuspenseQuery(
     personalizationFileQueryOptions(publicEnemyId),
   );
 
@@ -46,7 +46,7 @@ function RouteComponent() {
       <EditPersonalization
         data={questionnaire}
         questionnaireId={questionnaireId}
-        csvData={csvData}
+        fileData={fileData}
       />
     </ComponentWrapper>
   );

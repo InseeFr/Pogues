@@ -117,11 +117,6 @@ export default function PersonalizationOverview({
         )}
       </PersonalisationTile>
       <PersonalizationContentTile data={data}>
-        {typeof fileData !== 'string' && 'data' in fileData ? (
-          <CsvViewerTable parsedCsv={fileData} />
-        ) : (
-          <JsonViewer data={fileData} />
-        )}
         <div className="overflow-hidden flex flex-row gap-3 my-3">
           <Button
             onClick={() => downloadMutation.mutate()}
@@ -132,7 +127,6 @@ export default function PersonalizationOverview({
           <ButtonLink
             to="/questionnaire/$questionnaireId/personalization/$publicEnemyId"
             params={{ questionnaireId, publicEnemyId: data.id.toString() }}
-            title={t('personalization.overview.editDisabledTooltip')}
           >
             {t('common.edit')}
           </ButtonLink>
@@ -145,6 +139,11 @@ export default function PersonalizationOverview({
             onValidate={onDelete}
           />
         </div>
+        {typeof fileData !== 'string' && 'data' in fileData ? (
+          <CsvViewerTable parsedCsv={fileData} />
+        ) : (
+          <JsonViewer data={fileData} />
+        )}
       </PersonalizationContentTile>
     </>
   );
