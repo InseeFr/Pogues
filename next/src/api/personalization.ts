@@ -22,10 +22,11 @@ export const basePersonalizationQueryOptions = (questionnaireId: string) => ({
 });
 export async function getPublicEnemyBaseData(
   questionnaireId: string,
-): Promise<[PersonalizationQuestionnaire, ParseResult]> {
+): Promise<[PersonalizationQuestionnaire, ParseResult | string]> {
   try {
     const existingData = await getExistingPublicEnemyData(questionnaireId);
-    const fileData = await getExistingCsvSchema(existingData.id);
+    const fileData = await getExistingFileSchema(existingData.id);
+
     return [existingData, fileData];
   } catch (error) {
     console.error('Error fetching Public Enemy base data:', error);
@@ -161,43 +162,66 @@ export async function getInitialCsvSchema(
 export const personalizationFileQueryOptions = (publicEnemyId: string) =>
   queryOptions({
     queryKey: ['personalizationFile', { publicEnemyId }],
-    queryFn: () => getExistingCsvSchema(publicEnemyId),
+    queryFn: () => getExistingFileSchema(publicEnemyId),
     retryOnMount: true,
   });
 
-/* Fetch the existing csv file */
-export async function getExistingCsvSchema(
+/**
+ * Fetch the existing data file (CSV or JSON)
+ * Returns ParseResult for CSV files, or the parsed JSON object for JSON files
+ */
+export async function getExistingFileSchema(
   publicEnemyId: string,
-): Promise<ParseResult> {
+): Promise<ParseResult | string> {
   try {
     const response = await instancePersonalization.get(
       `/questionnaires/${publicEnemyId}/data`,
       {
-        headers: { Accept: 'text/csv' },
+        headers: { Accept: 'text/csv, application/json' },
         responseType: 'blob',
       },
     );
-    const csvData = new Blob([response.data], { type: 'text/csv' });
-    const csvText = await csvData.text();
-    const result = Papa.parse(csvText, {
-      skipEmptyLines: true,
-      header: true,
-    });
-    return result;
+    const contentType = response.headers['content-type'] || '';
+    const text = await response.data.text();
+
+    if (
+      contentType.includes('text/csv') ||
+      contentType.includes('application/csv')
+    ) {
+      const result = Papa.parse(text, {
+        skipEmptyLines: true,
+        header: true,
+        dynamicTyping: true,
+      });
+      return result;
+    } else if (contentType.includes('application/json')) {
+      return text;
+    } else {
+      const text = await response.data.text();
+      const trimmed = text.trim();
+      if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+        return trimmed;
+      } else {
+        const result = Papa.parse(text, {
+          skipEmptyLines: true,
+          header: true,
+        });
+        return result;
+      }
+    }
   } catch (error) {
-    console.error('Failed to download CSV schema:', error);
-    return { data: [], errors: [], meta: {} };
+    console.error('Failed to download data:', error);
+    return '';
   }
 }
 
-/** Check the survey units CSV file for errors & warning messages */
-export async function checkInterrogationsCSV(
+/** Check the survey units file for errors & warning messages */
+export async function checkInterrogationsData(
   questionnaireId: string,
-  interrogationCSVData: File,
+  interrogationData: File,
 ): Promise<string[]> {
   const formData = new FormData();
-  formData.append('interrogationData', interrogationCSVData);
-
+  formData.append('interrogationData', interrogationData);
   return instancePersonalization.post(
     `/questionnaires/${questionnaireId}/checkdata`,
     formData,

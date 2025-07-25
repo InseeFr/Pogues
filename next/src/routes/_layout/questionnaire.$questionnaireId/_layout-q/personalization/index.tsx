@@ -31,7 +31,7 @@ function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
 
   const {
-    data: [questionnaire, csvData],
+    data: [questionnaire, fileData],
   } = useSuspenseQuery(basePersonalizationQueryOptions(questionnaireId));
 
   const { data: interrogationData } = useQuery({
@@ -45,7 +45,7 @@ function RouteComponent() {
       <PersonalizationsOverview
         questionnaireId={questionnaireId}
         data={questionnaire}
-        csvData={csvData}
+        fileData={fileData}
         interrogationData={interrogationData || null}
       />
     </ComponentWrapper>

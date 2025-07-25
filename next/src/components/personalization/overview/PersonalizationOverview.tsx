@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { deleteQuestionnaireData } from '@/api/personalization';
-import { openParsedCsv } from '@/api/utils/personalization';
+import { openParsedCsv, openParsedJson } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
@@ -17,6 +17,7 @@ import {
 } from '@/models/personalizationQuestionnaire';
 
 import CsvViewerTable from '../form/CsvViewerTable';
+import JsonViewer from '../form/JsonViewer';
 import ErrorTile from './ErrorTile';
 import ModeOverview from './ModeOverview';
 import PersonalisationTile from './PersonalizationTile';
@@ -24,7 +25,7 @@ import PersonalisationTile from './PersonalizationTile';
 interface PersonalizationOverviewProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
-  csvData: ParseResult<unknown> | null;
+  fileData: ParseResult<unknown> | string;
   interrogationData: InterrogationModeData[] | null;
 }
 
@@ -32,30 +33,38 @@ interface PersonalizationOverviewProps {
 export default function PersonalizationOverview({
   questionnaireId,
   data,
-  csvData,
+  fileData = '',
   interrogationData,
 }: Readonly<PersonalizationOverviewProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  function onDownload() {
-    if (csvData && csvData.data.length > 0) {
-      const fileName = 'interrogations-' + questionnaireId + '.csv';
-      openParsedCsv(csvData, fileName);
+  const downloadMutation = useMutation({
+    mutationFn: async () => {
+      const fileName = 'interrogations-' + questionnaireId;
+      if (typeof fileData !== 'string' && 'data' in fileData) {
+        openParsedCsv(fileData, `${fileName}.csv`);
+      } else {
+        openParsedJson(JSON.parse(fileData as string), `${fileName}.json`);
+      }
+      return fileName;
+    },
+    onSuccess: (fileName: string) => {
       toast.success(
         t('personalization.create.downloadSuccess', {
           fileName,
         }),
       );
-    } else {
+    },
+    onError: () => {
       toast.error(
         t('personalization.create.downloadError', {
           error: t('personalization.create.downloadError'),
         }),
       );
-    }
-  }
+    },
+  });
 
   const deleteMutation = useMutation({
     mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
@@ -108,11 +117,16 @@ export default function PersonalizationOverview({
         )}
       </PersonalisationTile>
       <PersonalizationContentTile data={data}>
-        {csvData && csvData.data.length > 0 && (
-          <CsvViewerTable parsedCsv={csvData} />
+        {typeof fileData !== 'string' && 'data' in fileData ? (
+          <CsvViewerTable parsedCsv={fileData} />
+        ) : (
+          <JsonViewer data={fileData} />
         )}
         <div className="overflow-hidden flex flex-row gap-3 my-3">
-          <Button onClick={onDownload} buttonStyle={ButtonStyle.Primary}>
+          <Button
+            onClick={() => downloadMutation.mutate()}
+            buttonStyle={ButtonStyle.Primary}
+          >
             {t('personalization.overview.existingFileData')}
           </Button>
           <ButtonLink

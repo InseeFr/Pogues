@@ -18,14 +18,14 @@ import {
 interface EditPersonalizationProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
-  csvData: ParseResult | null;
+  fileData: ParseResult | string | null;
 }
 
 /** Display the personalization windows */
 export default function EditPersonalization({
   questionnaireId,
   data,
-  csvData,
+  fileData,
 }: Readonly<EditPersonalizationProps>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -40,25 +40,26 @@ export default function EditPersonalization({
       return editQuestionnaireData(questionnaire);
     },
     onSuccess: () => {
-      toast.success(t('personalization.create.saveSuccess'));
       queryClient.invalidateQueries({
         queryKey: ['editQuestionnaire', { questionnaireId }],
       });
     },
-    onError: (error: AxiosError) => {
-      toast.error(
-        t('personalization.create.saveError', { error: error.message }),
-      );
-    },
   });
 
-  function handleSubmit(questionnaire: PersonalizationQuestionnaire) {
-    saveQuestionnaire.mutateAsync(questionnaire, {
+  function handleSubmit() {
+    const label = questionnaire.label;
+    const promise = saveQuestionnaire.mutateAsync(questionnaire, {
       onSuccess: () =>
         navigate({
           to: '/questionnaire/$questionnaireId/personalization',
           params: { questionnaireId },
         }),
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.create.saveSuccess', { label }),
+      error: (err: Error) =>
+        t('personalization.create.saveError', { error: err.message }),
     });
   }
 
@@ -70,7 +71,7 @@ export default function EditPersonalization({
         questionnaireId={questionnaireId}
         errorUpload={errorUpload}
         setErrorUpload={setErrorUpload}
-        csvData={csvData}
+        fileData={fileData}
         handleSubmit={handleSubmit}
       />
     </PersonalisationTile>

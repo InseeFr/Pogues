@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import {
-  checkInterrogationsCSV,
+  checkInterrogationsData,
   getInitialCsvSchema,
 } from '@/api/personalization';
 import { getFileFromParseResult } from '@/api/utils/personalization';
@@ -36,7 +36,7 @@ interface PersonalizationFormProps {
   errorUpload: UploadError | null;
   setErrorUpload: (error: UploadError | null) => void;
   handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void;
-  csvData?: ParseResult | null;
+  fileData?: ParseResult | null;
 }
 
 /** Display the personalization windows */
@@ -46,7 +46,7 @@ export default function PersonalizationForm({
   setQuestionnaire,
   errorUpload,
   setErrorUpload,
-  csvData = null,
+  fileData = null,
   handleSubmit = () => {},
 }: Readonly<PersonalizationFormProps>) {
   const { t } = useTranslation();
@@ -73,25 +73,23 @@ export default function PersonalizationForm({
     },
   ];
   const [fileType, setFileType] = useState<FileType>(fileTypes[0]);
-  const [parsedCsv, setParsedCsv] = useState<ParseResult<unknown> | null>(
-    csvData,
-  );
-
-  const [parsedJson, setParsedJson] = useState<string>('');
+  const [parsedFileData, setParsedFileData] = useState<
+    ParseResult | string | null
+  >(null);
 
   useEffect(() => {
-    if (csvData && Array.isArray(csvData.data) && csvData.data.length > 0) {
-      setParsedCsv(csvData);
+    if (fileData) {
+      setParsedFileData(fileData);
       setQuestionnaire({
         ...questionnaire,
-        interrogationData: getFileFromParseResult(csvData),
+        interrogationData: getFileFromParseResult(fileData),
       });
     }
-  }, [csvData]);
+  }, [fileData]);
 
-  const checkCsvData = useMutation({
+  const checkFileData = useMutation({
     mutationFn: (file: File) => {
-      return checkInterrogationsCSV(questionnaireId, file);
+      return checkInterrogationsData(questionnaireId, file);
     },
     onError: (error: AxiosError) => {
       toast.error(t('personalization.create.uploadError'));
@@ -101,7 +99,7 @@ export default function PersonalizationForm({
       toast.success(t('personalization.create.uploadSuccess'));
       setErrorUpload(null);
       queryClient.invalidateQueries({
-        queryKey: ['checkCsvData', { questionnaireId }],
+        queryKey: ['checkFileData', { questionnaireId }],
       });
     },
   });
@@ -131,16 +129,14 @@ export default function PersonalizationForm({
     const file = fileList[0];
     if (fileType.name === 'JSON') {
       file.text().then((text) => {
-        setParsedJson(text);
-        setParsedCsv(null);
+        setParsedFileData(text);
       });
     } else {
       Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
         complete: (result: ParseResult<unknown>) => {
-          setParsedCsv(result);
-          setParsedJson('');
+          setParsedFileData(result);
         },
       });
     }
@@ -148,7 +144,7 @@ export default function PersonalizationForm({
       ...questionnaire,
       interrogationData: fileList[0],
     });
-    checkCsvData.mutate(file);
+    checkFileData.mutate(file);
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -170,10 +166,10 @@ export default function PersonalizationForm({
   }
 
   return (
-    <div className="overflow-hidden space-y-3 my-1">
+    <div className="overflow-hidden space-y-3 my-2">
       <label
         htmlFor="context-select"
-        className="block text-sm font-medium text-gray-700"
+        className="block text-md font-medium text-gray-700"
       >
         {t('personalization.create.context')}
       </label>
@@ -240,10 +236,12 @@ export default function PersonalizationForm({
         </span>
       </div>
       {errorUpload && <ErrorTile error={errorUpload} />}
-      {parsedCsv && parsedCsv.data.length > 0 && (
-        <CsvViewerTable parsedCsv={parsedCsv} />
+      {fileType.name === 'CSV' && parsedFileData && (
+        <CsvViewerTable parsedCsv={parsedFileData} />
       )}
-      {fileType.name === 'JSON' && <JsonViewer data={parsedJson} />}
+      {fileType.name === 'JSON' && parsedFileData && (
+        <JsonViewer data={parsedFileData} />
+      )}
       <div className="w-auto inline-block my-1">
         <Dialog
           label={t('common.validate')}
