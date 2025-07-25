@@ -34,24 +34,40 @@ export function openParsedCsv(
   openDocument(blob, filename);
 }
 
+export function openParsedJson(parsedJson: string, filename?: string) {
+  const blob = new Blob([parsedJson], { type: 'application/json' });
+  if (!filename) {
+    filename = 'data.json';
+  }
+  openDocument(blob, filename);
+}
+
 export function getFileFromParseResult(
-  parsedCsv: ParseResult<unknown>,
+  fileData: ParseResult<unknown> | string,
   filename: string = 'data.csv',
 ): File {
-  const csvContent = Papa.unparse(parsedCsv.data, {
-    header: true,
-    quotes: true,
-    skipEmptyLines: true,
-  });
-  const BOM = '\uFEFF';
-  const blob = new Blob([BOM + csvContent], { type: 'text/csv' });
-  return new File([blob], filename, { type: 'text/csv' });
+  if (typeof fileData !== 'string' && 'data' in fileData) {
+    const csvContent = Papa.unparse(fileData.data, {
+      header: true,
+      quotes: true,
+      skipEmptyLines: true,
+    });
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + csvContent], { type: 'text/csv' });
+    return new File([blob], filename, { type: 'text/csv' });
+  }
+  if (typeof fileData === 'string') {
+    const blob = new Blob([fileData], { type: 'application/json' });
+    return new File([blob], filename, { type: 'application/json' });
+  } else {
+    throw new Error('Invalid file data format');
+  }
 }
 
 export function getFileName(header: string | null): string {
   if (header) {
     const res = /filename="(.*)"/.exec(header);
-    return res && res.length > 0 ? res[1] : 'default.csv';
+    return res && res.length > 0 ? res[1] : 'default.json';
   }
-  return 'default.csv';
+  return 'default.json';
 }

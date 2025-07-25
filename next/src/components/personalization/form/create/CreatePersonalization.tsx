@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -38,25 +37,26 @@ export default function CreatePersonalization({
       return addQuestionnaireData(questionnaire);
     },
     onSuccess: () => {
-      toast.success(t('personalization.create.saveSuccess'));
       queryClient.invalidateQueries({
         queryKey: ['saveQuestionnaire', { questionnaireId }],
       });
     },
-    onError: (error: AxiosError) => {
-      toast.error(
-        t('personalization.create.save_error', { error: error.message }),
-      );
-    },
   });
 
   function handleSubmit() {
-    saveQuestionnaire.mutateAsync(questionnaire, {
+    const label = questionnaire.label;
+    const promise = saveQuestionnaire.mutateAsync(questionnaire, {
       onSuccess: () =>
         navigate({
           to: '/questionnaire/$questionnaireId/personalization',
           params: { questionnaireId },
         }),
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.create.saveSuccess', { label }),
+      error: (err: Error) =>
+        t('personalization.create.saveError', { error: err.message }),
     });
   }
 
