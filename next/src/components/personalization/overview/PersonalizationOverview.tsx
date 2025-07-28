@@ -11,7 +11,7 @@ import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
 import {
-  InterrogationModeData,
+  InterrogationModeDataResponse,
   PersonalizationQuestionnaire,
   UploadError,
 } from '@/models/personalizationQuestionnaire';
@@ -26,7 +26,7 @@ interface PersonalizationOverviewProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
   fileData: ParseResult<unknown> | string;
-  interrogationData: InterrogationModeData[] | null;
+  interrogationData: InterrogationModeDataResponse | null;
 }
 
 /** Display the personalization windows */
@@ -92,6 +92,12 @@ export default function PersonalizationOverview({
     });
   }
 
+  const hasValidInterrogationData =
+    interrogationData &&
+    Object.values(interrogationData).some(
+      (modeData) => Array.isArray(modeData) && modeData.length > 0,
+    );
+
   return (
     <>
       <PersonalisationTile data={data}>
@@ -100,11 +106,8 @@ export default function PersonalizationOverview({
         </div>
         {interrogationData === null || interrogationData === undefined ? (
           <div>{t('common.loading')}</div>
-        ) : interrogationData.length > 0 ? (
-          <ModeOverview
-            modes={data.modes}
-            interrogationData={interrogationData}
-          />
+        ) : hasValidInterrogationData ? (
+          <ModeOverview interrogationData={interrogationData} />
         ) : (
           <ErrorTile
             error={

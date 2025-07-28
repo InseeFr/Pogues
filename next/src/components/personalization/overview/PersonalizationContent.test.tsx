@@ -3,10 +3,7 @@ import { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { expect, vi } from 'vitest';
 
-import {
-  deleteQuestionnaireData,
-  getExistingCsvSchema,
-} from '@/api/personalization';
+import { deleteQuestionnaireData } from '@/api/personalization';
 import { openParsedCsv } from '@/api/utils/personalization';
 import {
   PersonalizationQuestionnaire,
@@ -47,6 +44,7 @@ const mockCsvData = {
     linebreak: '\n',
     aborted: false,
     truncated: false,
+    cursor: 42,
   },
 };
 describe('PersonalizationOverview', () => {

@@ -2,9 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import Papa, { ParseResult } from 'papaparse';
 
 import {
-  InterrogationModeData,
   InterrogationModeDataResponse,
-  Mode,
   PersonalizationQuestionnaire,
 } from '@/models/personalizationQuestionnaire';
 
@@ -88,48 +86,23 @@ export async function getPublicEnemyData(
  *
  * @see {@link getAllInterrogationData}
  */
-export const getInterrogationDataQueryOptions = (
-  publicEnemyId: string,
-  modes: Mode[],
-) =>
+export const getInterrogationDataQueryOptions = (publicEnemyId: string) =>
   queryOptions({
-    queryKey: ['getPersonalizationInterrogationData', { publicEnemyId, modes }],
-    queryFn: () => getAllInterrogationData(publicEnemyId, modes),
+    queryKey: ['getPersonalizationInterrogationData', { publicEnemyId }],
+    queryFn: () => getAllInterrogationData(publicEnemyId),
     retryOnMount: true,
   });
 
-export async function getInterrogationData(
-  publicEnemyId: string,
-  mode: Mode,
-): Promise<InterrogationModeData[]> {
-  return instancePersonalization
-    .get(`/questionnaires/${publicEnemyId}/modes/${mode.name}/interrogations`, {
-      headers: { Accept: 'application/json' },
-    })
-    .then(({ data }: { data: InterrogationModeData[] }) => {
-      return data;
-    });
-}
-
 export async function getAllInterrogationData(
   publicEnemyId: string,
-  mode: Mode[] = [],
-): Promise<InterrogationModeData[]> {
-  const filteredModes = mode.filter((m) => m.isWebMode);
-
-  const promises = filteredModes.map((m) =>
-    instancePersonalization.get(
-      `/questionnaires/${publicEnemyId}/modes/${m.name}/interrogations`,
-      {
-        headers: { Accept: 'application/json' },
-      },
-    ),
-  );
-
-  const responses = await Promise.all(promises);
-  return responses.flatMap(
-    ({ data }: { data: InterrogationModeDataResponse }) => data.interrogations,
-  );
+): Promise<InterrogationModeDataResponse> {
+  return instancePersonalization
+    .get(`/questionnaires/${publicEnemyId}/interrogations`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: InterrogationModeDataResponse }) => {
+      return data;
+    });
 }
 
 /* Fetch the empty csv file to be filled */

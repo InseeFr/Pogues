@@ -8,24 +8,17 @@ import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
 import ResetIcon from '@/components/ui/icons/ResetIcon';
 import {
   InterrogationModeData,
-  Mode,
+  InterrogationModeDataResponse,
 } from '@/models/personalizationQuestionnaire';
 
 interface ModeOverviewProps {
-  modes: Mode[];
-  interrogationData: InterrogationModeData[];
+  interrogationData: InterrogationModeDataResponse;
 }
 
-/** Display visualization per mode as a table. */
 export default function ModeOverview({
-  modes,
   interrogationData,
 }: Readonly<ModeOverviewProps>) {
-  const filteredModes = modes.filter((m) => m.isWebMode);
-  const shouldScroll = interrogationData.length > 4;
   const { t } = useTranslation();
-  console.log('modes', interrogationData);
-
   const resetInterrogationMutation = useMutation({
     mutationFn: async (interrogationId: string) => {
       const result = await resetInterrogation(interrogationId);
@@ -42,6 +35,25 @@ export default function ModeOverview({
     });
   }
 
+  // Get all unique displayableIds
+  const allDisplayableIds = Array.from(
+    new Set(
+      Object.values(interrogationData)
+        .flat()
+        .map((item) => item.displayableId),
+    ),
+  ).sort((a, b) => a - b);
+
+  const modeNames = (
+    Object.keys(interrogationData) as Array<keyof InterrogationModeDataResponse>
+  ).filter(
+    (mode) =>
+      Array.isArray(interrogationData[mode]) &&
+      interrogationData[mode].length > 0,
+  );
+
+  const shouldScroll = allDisplayableIds.length > 4;
+
   return (
     <div className="overflow-x-auto w-full my-3">
       <div
@@ -54,62 +66,48 @@ export default function ModeOverview({
           <thead className="bg-accent sticky top-0 ">
             <tr className="*:font-semibold *:p-4 text-left">
               <th className="text-default">ID</th>
-              {filteredModes.map((mode: Mode) => (
-                <th key={mode.name} className="text-default">
-                  {mode.name}
+              {modeNames.map((mode) => (
+                <th key={mode} className="text-default">
+                  {mode}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody className="text-default">
-            {Array.from(
-              interrogationData.reduce((acc, interrogation) => {
-                const displayableId = interrogation.displayableId;
-                if (!acc.has(displayableId.toString()))
-                  acc.set(displayableId.toString(), []);
-                acc.get(displayableId.toString())!.push(interrogation);
-                return acc;
-              }, new Map<string, InterrogationModeData[]>()),
-              ([displayableId, units]) => (
-                <tr
-                  key={displayableId}
-                  className="bg-default odd:bg-main *:p-4"
-                >
-                  <td>{displayableId}</td>
-                  {filteredModes.map((mode) => {
-                    const unitForMode = units.find((unit) => {
-                      const modeInId = unit.id.split('-')[1];
-                      return mode.name === modeInId;
-                    });
-                    console.log('unitForMode', unitForMode);
-                    console.log('unitForMode', mode);
-                    return (
-                      <td key={mode.name}>
-                        {unitForMode?.url && (
-                          <div className="flex flex-row items-center gap-2">
-                            <a
-                              href={unitForMode.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <OpenInNewIcon />
-                            </a>
-                            <ButtonIcon
-                              className="right-3 top-1/2 "
-                              Icon={ResetIcon}
-                              title={t(
-                                'personalization.edit.resetInterrogationDescription',
-                              )}
-                              onClick={() => onReset(unitForMode?.id || '')}
-                            />
-                          </div>
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ),
-            )}
+            {allDisplayableIds.map((displayableId) => (
+              <tr key={displayableId} className="bg-default odd:bg-main *:p-4">
+                <td>{displayableId}</td>
+                {modeNames.map((mode) => {
+                  const interrogation = interrogationData[mode].find(
+                    (item: InterrogationModeData) =>
+                      item.displayableId === displayableId,
+                  );
+                  return (
+                    <td key={mode}>
+                      {interrogation && (
+                        <div className="flex flex-row items-center gap-2">
+                          <a
+                            href={interrogation.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <OpenInNewIcon />
+                          </a>
+                          <ButtonIcon
+                            className="right-3 top-1/2 "
+                            Icon={ResetIcon}
+                            title={t(
+                              'personalization.edit.resetInterrogationDescription',
+                            )}
+                            onClick={() => onReset(interrogation.id)}
+                          />
+                        </div>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -35,7 +35,7 @@ function RouteComponent() {
   } = useSuspenseQuery(basePersonalizationQueryOptions(questionnaireId));
 
   const { data: interrogationData } = useQuery({
-    ...getInterrogationDataQueryOptions(questionnaire.id, questionnaire.modes),
+    ...getInterrogationDataQueryOptions(questionnaire.id),
     retry: false,
     throwOnError: false,
   });

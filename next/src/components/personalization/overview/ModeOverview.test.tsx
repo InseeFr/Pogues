@@ -1,36 +1,38 @@
 import { waitFor } from '@testing-library/react';
 
-import {
-  InterrogationModeData,
-  Mode,
-} from '@/models/personalizationQuestionnaire';
+import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire';
 import { renderWithRouter } from '@/tests/tests';
 
 import ModeOverview from './ModeOverview';
 
-const mockModes: Mode[] = [
-  { name: 'CAWI', isWebMode: true },
-  { name: 'CAPI', isWebMode: true },
-  { name: 'PAPI', isWebMode: false },
-];
-
-const interrogationData: InterrogationModeData[] = [
-  {
-    id: '185-CAWI-1',
-    displayableId: 123,
-    url: 'https://visu.com/milk',
-  },
-  {
-    id: '185-CAPI-1',
-    displayableId: 234,
-    url: 'https://visu.com/tea',
-  },
-  {
-    id: '185-PAPI-1',
-    displayableId: 345,
-    url: 'https://visu.com/coffee',
-  },
-];
+const interrogationData: InterrogationModeDataResponse = {
+  CAWI: [
+    {
+      id: '123-CAWI',
+      displayableId: 1,
+      url: 'https://visu.com/milk',
+    },
+    {
+      id: '456-CAWI',
+      displayableId: 2,
+      url: 'https://visu.com/mocha',
+    },
+  ],
+  CATI: [
+    {
+      id: '234-CATI',
+      displayableId: 1,
+      url: 'https://visu.com/tea',
+    },
+    {
+      id: '456-CATI',
+      displayableId: 2,
+      url: 'https://visu.com/hot-chocolate',
+    },
+  ],
+  PAPI: [],
+  CAPI: [],
+} as InterrogationModeDataResponse;
 
 describe('ModeOverview', () => {
   beforeEach(() => {
@@ -39,43 +41,28 @@ describe('ModeOverview', () => {
 
   it('renders table headers for web modes only', async () => {
     const { getByText, container } = await waitFor(() =>
-      renderWithRouter(
-        <ModeOverview
-          modes={mockModes}
-          interrogationData={interrogationData}
-        />,
-      ),
+      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
     );
     expect(getByText('ID')).toBeInTheDocument();
-    expect(getByText('CAPI')).toBeInTheDocument();
+    expect(getByText('CAWI')).toBeInTheDocument();
     const headerRow = container.querySelector('thead tr');
     expect(headerRow?.querySelectorAll('th')).toHaveLength(3);
   });
 
   it('renders a row for each unique displayableId', async () => {
     const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <ModeOverview
-          modes={mockModes}
-          interrogationData={interrogationData}
-        />,
-      ),
+      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
     );
-    expect(getByText('123')).toBeInTheDocument();
-    expect(getByText('234')).toBeInTheDocument();
+    expect(getByText('1')).toBeInTheDocument();
+    expect(getByText('2')).toBeInTheDocument();
   });
 
   it('renders links for available URLs', async () => {
     const { getAllByRole } = await waitFor(() =>
-      renderWithRouter(
-        <ModeOverview
-          modes={mockModes}
-          interrogationData={interrogationData}
-        />,
-      ),
+      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
     );
     const links = getAllByRole('link');
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(4);
     expect(links[0]).toHaveAttribute('href', 'https://visu.com/milk');
     expect(links[1]).toHaveAttribute('href', 'https://visu.com/tea');
   });

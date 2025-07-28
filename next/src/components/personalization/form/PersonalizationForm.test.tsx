@@ -1,6 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Papa, { ParseResult } from 'papaparse';
+import { screen, waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import {
@@ -20,7 +18,7 @@ vi.mock('@/i18n', () => ({
 vi.mock('papaparse', () => ({
   __esModule: true,
   default: {
-    parse: vi.fn((file, opts) => {
+    parse: vi.fn((_file, opts) => {
       if (opts && typeof opts.complete === 'function') {
         opts.complete({
           data: [{ id: '1', name: 'Test' }],
