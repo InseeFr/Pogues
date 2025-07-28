@@ -34,11 +34,10 @@ export type InterrogationModeData = {
   url: string;
 };
 
-//Temp type
-export type InterrogationModeDataResponse = {
-  questionnaireModelId: string;
-  interrogations: InterrogationModeData[];
-};
+export type InterrogationModeDataResponse = Record<
+  'CAPI' | 'CAWI' | 'PAPI' | 'CATI',
+  InterrogationModeData[]
+>;
 
 export enum SurveyContextEnum {
   HOUSEHOLD = 'HOUSEHOLD',
