@@ -208,15 +208,6 @@ export default function PersonalizationForm({
               }
             }}
           />
-          <div className="flex-1 flex justify-end">
-            <Button
-              onClick={onDownload}
-              disabled={fileType.name !== 'CSV'}
-              buttonStyle={ButtonStyle.Secondary}
-            >
-              {t('personalization.create.expectedFileSchema')}
-            </Button>
-          </div>
         </div>
         <div className="flex flex-row gap-x-2 mt-6 items-center">
           <Select
@@ -262,6 +253,13 @@ export default function PersonalizationForm({
             </div>
           )}
         </div>
+        <Button
+          onClick={onDownload}
+          disabled={fileType.name !== 'CSV'}
+          buttonStyle={ButtonStyle.Secondary}
+        >
+          {t('personalization.create.expectedFileSchema')}
+        </Button>
         {errorUpload && <ErrorTile error={errorUpload} />}
         {fileType.name === 'CSV' && parsedFileData && (
           <CsvViewerTable parsedCsv={parsedFileData} />
