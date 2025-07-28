@@ -148,7 +148,7 @@
       "title": "Modifier la personnalisation"
     },
     "overview": {
-      "currentInterrogations": "Jeu de données chargé",
+      "currentInterrogations": "Personnalisation existante",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteSuccess": "Personnalisation supprimée avec succès",
