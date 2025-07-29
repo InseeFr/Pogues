@@ -1,1 +1,1 @@
-export { default as GotoInput } from './containers/goto-input-container';
+export { default as GotoInput } from './goto-input-container';

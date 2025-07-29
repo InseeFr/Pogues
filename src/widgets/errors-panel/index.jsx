@@ -1,1 +1,1 @@
-export { default as ErrorsPanel } from './containers/errors-panel-container';
+export { default as ErrorsPanel } from './errors-panel-container';

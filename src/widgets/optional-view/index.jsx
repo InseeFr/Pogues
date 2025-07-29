@@ -1,1 +1,1 @@
-export { default as OptionalView } from './containers/optional-view-container';
+export { default as OptionalView } from './optional-view-container';
