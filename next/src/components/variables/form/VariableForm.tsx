@@ -10,7 +10,7 @@ import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
 import Option from '@/components/ui/form/Option';
 import Select from '@/components/ui/form/Select';
-import { DatatypeType } from '@/models/datatype';
+import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
 import VariableDatatype from '../VariableDatatype';
@@ -29,7 +29,33 @@ interface Props {
 const datatypeEnum = z.enum(DatatypeType);
 const datatypeSchema = z.discriminatedUnion('typeName', [
   z.object({
-    typeName: datatypeEnum.extract([DatatypeType.Boolean]),
+    typeName: datatypeEnum.extract(['Boolean']),
+  }),
+  z.object({
+    typeName: datatypeEnum.extract(['Date']),
+    format: z.enum(DateFormat),
+    minimum: z.date().optional(),
+    maximum: z.date().optional(),
+  }),
+  z.object({
+    typeName: datatypeEnum.extract(['Duration']),
+    format: z.enum(DurationFormat),
+    years: z.number().optional(),
+    months: z.date().optional(),
+    hours: z.number().optional(),
+    minutes: z.date().optional(),
+  }),
+  z.object({
+    typeName: datatypeEnum.extract(['Numeric']),
+    minimum: z.number().optional(),
+    maximum: z.number().optional(),
+    decimals: z.number().optional(),
+    isDynamicUnit: z.boolean().optional(),
+    unit: z.string().optional(),
+  }),
+  z.object({
+    typeName: datatypeEnum.extract(['Text']),
+    maxLength: z.number().min(1).default(254).optional(),
   }),
 ]);
 
@@ -43,7 +69,7 @@ const schema = z.object({
   description: z.string(),
   scope: z.string().nullable().optional(),
   datatype: datatypeSchema,
-  type: z.nativeEnum(VariableType),
+  type: z.enum(VariableType),
 });
 
 export type FormValues = z.infer<typeof schema>;
@@ -73,11 +99,14 @@ export default function VariableForm({
     control,
     handleSubmit,
     formState: { isDirty, isValid },
+    watch,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: variable,
     resolver: zodResolver(schema),
   });
+
+  const selectedTypeName = watch('datatype.typeName');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -165,7 +194,12 @@ export default function VariableForm({
           <>
             <Label required>{t('variable.datatype.label')}</Label>
             <Select {...field}>
-              {[DatatypeType.Text, DatatypeType.Boolean].map((datatype) => (
+              {[
+                DatatypeType.Text,
+                DatatypeType.Date,
+                DatatypeType.Numeric,
+                DatatypeType.Boolean,
+              ].map((datatype) => (
                 <Option key={datatype} value={datatype}>
                   <VariableDatatype datatype={datatype} />
                 </Option>
@@ -177,6 +211,76 @@ export default function VariableForm({
           </>
         )}
       />
+      {selectedTypeName === DatatypeType.Text ? (
+        <Controller
+          name="datatype.maxLength"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <Input
+              label={t('variable.maxLength')}
+              error={error?.message}
+              type="number"
+              {...field}
+              onChange={(v) => {
+                const value = v.target.value;
+                field.onChange(value ? Number(value) : undefined);
+              }}
+            />
+          )}
+        />
+      ) : null}
+      {selectedTypeName === DatatypeType.Numeric ? (
+        <>
+          <Controller
+            name="datatype.minimum"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label={t('variable.minimum')}
+                error={error?.message}
+                type="number"
+                {...field}
+                onChange={(v) => {
+                  const value = v.target.value;
+                  field.onChange(value ? Number(value) : undefined);
+                }}
+              />
+            )}
+          />
+          <Controller
+            name="datatype.maximum"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label={t('variable.maximum')}
+                error={error?.message}
+                type="number"
+                {...field}
+                onChange={(v) => {
+                  const value = v.target.value;
+                  field.onChange(value ? Number(value) : undefined);
+                }}
+              />
+            )}
+          />
+          <Controller
+            name="datatype.decimals"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                label={t('variable.precision')}
+                error={error?.message}
+                type="number"
+                {...field}
+                onChange={(v) => {
+                  const value = v.target.value;
+                  field.onChange(value ? Number(value) : undefined);
+                }}
+              />
+            )}
+          />
+        </>
+      ) : null}
       <div className="flex gap-x-2 mt-6 justify-end">
         <ButtonLink to="/questionnaires">{t('common.cancel')}</ButtonLink>
         <Button

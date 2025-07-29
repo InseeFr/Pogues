@@ -233,7 +233,11 @@
       "mustProvideName": "You must provide a name",
       "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
     },
+    "maxLength": "Max length",
+    "maximum": "Max",
+    "minimum": "Min",
     "name": "Name",
+    "precision": "Precision",
     "scope": "Scope",
     "type": {
       "calculated": "Calculated",

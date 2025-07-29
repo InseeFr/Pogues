@@ -233,7 +233,11 @@
       "mustProvideName": "Vous devez renseigner un nom",
       "mustProvideScreamingSnakeCaseName": "Le nom doit être au format SCREAMING_SNAKE_CASE"
     },
+    "maxLength": "Taille max",
+    "maximum": "Max",
+    "minimum": "Min",
     "name": "Nom",
+    "precision": "Précision",
     "scope": "Portée",
     "type": {
       "calculated": "Calculée",
