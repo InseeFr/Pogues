@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithI18n } from '@/tests/tests';
 
 import DialogButton from './DialogButton';
 
@@ -10,9 +10,7 @@ describe('DialogButton', () => {
     expect(true).toBeTruthy();
     const user = userEvent.setup();
     const { queryByText, getByText } = await waitFor(() =>
-      renderWithRouter(
-        <DialogButton body="body" label="label" title="title" />,
-      ),
+      renderWithI18n(<DialogButton body="body" label="label" title="title" />),
     );
     expect(getByText('label')).toBeInTheDocument();
     await user.click(screen.getByText('label'));

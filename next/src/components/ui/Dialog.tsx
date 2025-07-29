@@ -8,8 +8,6 @@ import Button, { ButtonStyle } from './Button';
 interface DialogButtonProps {
   /** Body message in the dialog. */
   body: React.ReactNode;
-  /** Label of the button that opens the dialog.  */
-  label: string;
   /**
    * Function to execute if the user click on "validate".
    *

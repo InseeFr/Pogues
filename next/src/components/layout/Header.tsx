@@ -20,7 +20,6 @@ interface HeaderProps {
  */
 export default function Header({ user }: Readonly<HeaderProps>) {
   const { t } = useTranslation();
-  const shouldDisplayUser = user && (user.givenName || user.familyName);
   return (
     <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative fill-negative items-center">
       <div className="px-3 py-2">
@@ -42,7 +41,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
         </a>
       </div>
       <div className="p-3 grid grid-flow-col items-center gap-x-3 focus:outline-none bg-transparent border-none text-transparent">
-        {shouldDisplayUser && <User user={user} />}
+        <User user={user} />
       </div>
     </div>
   );

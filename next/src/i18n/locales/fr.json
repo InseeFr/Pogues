@@ -13,14 +13,15 @@
     "expand": "Étendre",
     "lastUpdated": "Dernière modification",
     "loading": "Chargement...",
-    "login": "Connexion",
-    "loginMessage": "Vous devez vous connecter pour accéder à l'application.",
+    "login": "Se connecter",
+    "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
     "logout": "Déconnexion",
     "logoutDialog": {
       "body": "Êtes-vous sûr de vouloir vous déconnecter ?",
-      "label": "Déconnexion",
+      "label": "Se déconnecter",
       "title": "Confirmation de déconnexion"
     },
+    "moreActions": "Plus d'actions",
     "new": "Nouveau",
     "notUsedByQuestions": "Utilisé par aucune question.",
     "question": "{{count}} question",

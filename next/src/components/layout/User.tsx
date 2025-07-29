@@ -18,7 +18,10 @@ export default function User({ user }: Readonly<UserProps>) {
   const { t } = useTranslation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const { isUserLoggedIn, logout } = useOidc();
-  const initials = `${user?.givenName?.charAt(0).toUpperCase()}${user?.familyName?.charAt(0).toUpperCase()}`;
+  const initials =
+    user?.givenName && user?.familyName
+      ? `${user.givenName.charAt(0).toUpperCase()}${user.familyName.charAt(0).toUpperCase()}`
+      : '';
   const logoutEnabled = import.meta.env.VITE_ENABLE_LOGOUT === 'true';
 
   function onLogout() {
@@ -41,17 +44,16 @@ export default function User({ user }: Readonly<UserProps>) {
                 disabled: true,
               }
             : {
-                label: t('common.logout'),
+                label: t('common.logoutDialog.label'),
                 icon: <LogoutIcon />,
                 onClick: () => setDialogOpen(true),
                 disabled: !logoutEnabled,
               },
         ]}
       >
-        {isUserLoggedIn && <Avatar initials={initials} />}
+        <Avatar initials={initials} />
       </Menu>
       <Dialog
-        label={t('common.logoutDialog.label')}
         title={t('common.logoutDialog.title')}
         body={t('common.logoutDialog.body')}
         onValidate={onLogout}

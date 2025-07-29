@@ -68,8 +68,9 @@ export default function Menu({ children, items }: Readonly<MenuProps>) {
         ? 'cursor-not-allowed text-gray-400 bg-transparent opacity-50'
         : 'cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200'
     }`}
-                onClick={item.disabled ? undefined : item.onClick}
+                onClick={item.onClick}
                 disabled={item.disabled}
+                data-disabled={item.disabled ? true : undefined}
               >
                 {item.icon && (
                   <span
