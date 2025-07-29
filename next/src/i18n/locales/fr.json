@@ -17,7 +17,7 @@
     "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
     "logout": "Déconnexion",
     "logoutDialog": {
-      "body": "Êtes-vous sûr de vouloir vous déconnecter ?",
+      "body": "Vous allez perdre vos modifications non enregistrées. Êtes-vous sûr de vouloir vous déconnecter ?",
       "label": "Se déconnecter",
       "title": "Confirmation de déconnexion"
     },

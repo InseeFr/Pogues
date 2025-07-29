@@ -17,7 +17,7 @@
     "pleaseLogin": "You should login to access the application.",
     "logout": "Logout",
     "logoutDialog": {
-      "body": "Are you sure you want to logout?",
+      "body": "You will lose your unsaved changes. Are you sure you want to logout?",
       "label": "Logout",
       "title": "Logout confirmation"
     },

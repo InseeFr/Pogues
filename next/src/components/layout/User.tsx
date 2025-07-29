@@ -55,7 +55,7 @@ export default function User({ user }: Readonly<UserProps>) {
       </Menu>
       <Dialog
         title={t('common.logoutDialog.title')}
-        body={t('common.logoutDialog.body')}
+        body={t('common.unsavedModification')}
         onValidate={onLogout}
         controlledOpen={dialogOpen}
         setControlledOpen={setDialogOpen}
