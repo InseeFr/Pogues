@@ -1,22 +1,3 @@
-/** Compute search parameters based on provided object. */
-export function getUrlFromCriteria(
-  criteria: { [key: string]: string | undefined } = {},
-): string {
-  let url = '';
-
-  for (const key in criteria) {
-    const v = criteria[key];
-    if (v) {
-      if (url !== '') {
-        url += '&';
-      }
-      url += `${key}=${encodeURIComponent(v)}`;
-    }
-  }
-
-  return url;
-}
-
 /** Make a store into an array of its values. */
 export function storeToArray(
   store: { [key: string]: unknown } = {},

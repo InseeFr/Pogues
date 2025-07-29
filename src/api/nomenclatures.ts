@@ -1,4 +1,4 @@
-import getNomenclaturesContent from '../utils/codes-lists/__mocks__/get-nomenclatures.json';
+import getNomenclaturesContent from './data/get-nomenclatures.json';
 
 type NomenclaturesJSON = {
   nomenclatures: { [key: string]: unknown };

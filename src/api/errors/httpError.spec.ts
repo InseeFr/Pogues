@@ -1,6 +1,4 @@
-import { describe, expect, test } from 'vitest';
-
-import { HttpResponseError } from './error';
+import { HttpResponseError } from './httpError';
 
 describe('HttpResponse Error', () => {
   test('should create create new Error with status and message', () => {

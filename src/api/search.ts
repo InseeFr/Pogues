@@ -1,5 +1,8 @@
-import { getUrlFromCriteria } from '../utils/utils';
-import { computeAuthorizationHeader, getBaseURI } from './utils';
+import {
+  computeAuthorizationHeader,
+  getBaseURI,
+  getUrlFromCriteria,
+} from './utils';
 
 const pathSearch = 'search';
 

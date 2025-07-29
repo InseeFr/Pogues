@@ -26,3 +26,22 @@ export function downloadAsJson(params: { data: object; filename?: string }) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+/** Compute search parameters based on provided object. */
+export function getUrlFromCriteria(
+  criteria: { [key: string]: string | undefined } = {},
+): string {
+  let url = '';
+
+  for (const key in criteria) {
+    const v = criteria[key];
+    if (v) {
+      if (url !== '') {
+        url += '&';
+      }
+      url += `${key}=${encodeURIComponent(v)}`;
+    }
+  }
+
+  return url;
+}
