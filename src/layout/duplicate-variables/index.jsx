@@ -1,1 +1,1 @@
-export { default as DuplicateVariables } from './containers/duplicate-variables-container';
+export { default as DuplicateVariables } from './duplicate-variables-container';

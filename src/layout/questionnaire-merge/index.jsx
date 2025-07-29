@@ -1,1 +1,1 @@
-export { default as QuestionnaireMerge } from './containers/questionnaire-merge-container';
+export { default as QuestionnaireMerge } from './questionnaire-merge-container';

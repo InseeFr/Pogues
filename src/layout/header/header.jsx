@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { Link } from 'react-router-dom';
 
 import Dictionary from '../../utils/dictionary/dictionary';
 import { poguesFrontVersion } from '../../utils/version';
-import UserConnection from '../user/components/user-connection';
+import UserConnection from '../user/user-connection';
 import logo from './logo-insee.png';
 
 function Header() {
