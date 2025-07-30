@@ -149,6 +149,8 @@
     },
     "overview": {
       "currentInterrogations": "Personnalisation existante",
+      "dataInterrogationError": "Erreur lors du chargement des interrogations",
+      "dataInterrogationErrorDetails": "Une erreur est survenue lors du chargement des données d'interrogation. Veuillez réessayer plus tard.",
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteSuccess": "Personnalisation supprimée avec succès",

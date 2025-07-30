@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { ParseResult } from 'papaparse';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -11,6 +12,7 @@ import {
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import PersonalizationsOverview from '@/components/personalization/overview/PersonalizationOverview';
+import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire';
 
 /**
  * Previously handled by Public Enemy
@@ -35,13 +37,16 @@ function RouteComponent() {
     personalizationFromPoguesQueryOptions(questionnaireId),
   );
 
-  const { data } = useQuery({
-    ...basePersonalizationQueryOptions(questionnaire?.id),
+  const {
+    data = [{} as InterrogationModeDataResponse, '' as ParseResult | string], // Default values to avoid undefined
+  } = useQuery<[InterrogationModeDataResponse, ParseResult | string]>({
+    ...basePersonalizationQueryOptions(questionnaire?.poguesId),
     enabled: !!questionnaire?.id,
     retry: false,
     throwOnError: false,
   });
-  const [interrogationData, fileData] = data ?? [null, null];
+
+  const [interrogationData, fileData] = data;
 
   // If questionnaire.id is null or undefined, redirect to personalization creation
   if (!questionnaire?.id) {

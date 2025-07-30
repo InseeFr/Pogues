@@ -8,7 +8,7 @@ interface CsvViewerTableProps {
 export default function CsvViewerTable({
   parsedCsv,
 }: Readonly<CsvViewerTableProps>) {
-  const shouldScroll = parsedCsv.data.length > 4;
+  const shouldScroll = parsedCsv.data.length > 6;
   return (
     <div className="overflow-x-auto w-full my-3">
       <div

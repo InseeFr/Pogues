@@ -15,17 +15,19 @@ import { getFileName, openDocument } from './utils/personalization';
  *
  * @see {@link getPublicEnemyBaseData}
  */
-export const basePersonalizationQueryOptions = (publicEnemyId: string) => ({
-  queryKey: ['personalization', 'base', publicEnemyId],
-  queryFn: () => getPublicEnemyBaseData(publicEnemyId),
+export const basePersonalizationQueryOptions = (poguesId: string) => ({
+  queryKey: ['personalization', 'base', poguesId],
+  queryFn: () => getPublicEnemyBaseData(poguesId),
 });
 
 export async function getPublicEnemyBaseData(
-  publicEnemyId: string,
+  poguesId: string,
 ): Promise<[InterrogationModeDataResponse, ParseResult | string]> {
   try {
-    const interrogations = await getAllInterrogationData(publicEnemyId);
-    const fileData = await getExistingFileSchema(publicEnemyId);
+    const interrogations: InterrogationModeDataResponse =
+      await getAllInterrogationData(poguesId);
+    const fileData: ParseResult | string =
+      await getExistingFileSchema(poguesId);
 
     return [interrogations, fileData];
   } catch (error) {
@@ -35,41 +37,14 @@ export async function getPublicEnemyBaseData(
 }
 
 /**
- * Used to retrieve questionnaireData used by Public Enemy from PoguesID.
- *
- * @see {@link getExistingPublicEnemyData}
- */
-export const personalizationQueryOptions = (questionnaireId: string) =>
-  queryOptions({
-    queryKey: ['personalization', { questionnaireId }],
-    queryFn: () => getExistingPublicEnemyData(questionnaireId),
-    retryOnMount: true,
-  });
-
-/** Fetch existing questionnaire data from Public Enemy Back Office. */
-export async function getExistingPublicEnemyData(
-  questionnaireId: string,
-): Promise<PersonalizationQuestionnaire> {
-  return instancePersonalization
-    .get(`/questionnaires/${questionnaireId}`, {
-      headers: { Accept: 'application/json' },
-    })
-    .then(({ data }: { data: PersonalizationQuestionnaire }) => {
-      return data;
-    });
-}
-
-/**
  * Used to retrieve data used to a create survey Units.
  *
  * @see {@link getPublicEnemyDataFromPogues}
  */
-export const personalizationFromPoguesQueryOptions = (
-  questionnaireId: string,
-) =>
+export const personalizationFromPoguesQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['personalizationNewQuestionnaire', { questionnaireId }],
-    queryFn: () => getPublicEnemyDataFromPogues(questionnaireId),
+    queryKey: ['personalizationNewQuestionnaire', { poguesId }],
+    queryFn: () => getPublicEnemyDataFromPogues(poguesId),
   });
 
 /**
@@ -77,10 +52,10 @@ export const personalizationFromPoguesQueryOptions = (
  * Uses poguesId to create the questionnaire data.
  */
 export async function getPublicEnemyDataFromPogues(
-  questionnaireId: string,
+  poguesId: string,
 ): Promise<PersonalizationQuestionnaire> {
   return instancePersonalization
-    .get(`/questionnaires?poguesId=${questionnaireId}`, {
+    .get(`/questionnaires/${poguesId}`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: PersonalizationQuestionnaire }) => {
@@ -93,18 +68,18 @@ export async function getPublicEnemyDataFromPogues(
  *
  * @see {@link getAllInterrogationData}
  */
-export const getInterrogationDataQueryOptions = (publicEnemyId: string) =>
+export const getInterrogationDataQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['getPersonalizationInterrogationData', { publicEnemyId }],
-    queryFn: () => getAllInterrogationData(publicEnemyId),
+    queryKey: ['getPersonalizationInterrogationData', { poguesId }],
+    queryFn: () => getAllInterrogationData(poguesId),
     retryOnMount: true,
   });
 
 export async function getAllInterrogationData(
-  publicEnemyId: string,
+  poguesId: string,
 ): Promise<InterrogationModeDataResponse> {
   return instancePersonalization
-    .get(`/questionnaires/${publicEnemyId}/interrogations`, {
+    .get(`/questionnaires/${poguesId}/interrogations`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: InterrogationModeDataResponse }) => {
@@ -113,12 +88,10 @@ export async function getAllInterrogationData(
 }
 
 /* Fetch the empty csv file to be filled */
-export async function getInitialCsvSchema(
-  questionnaireId: string,
-): Promise<void> {
+export async function getInitialCsvSchema(poguesId: string): Promise<void> {
   try {
     const response = await instancePersonalization.get(
-      `/questionnaires/${questionnaireId}/csv`,
+      `/questionnaires/${poguesId}/csv`,
       {
         headers: { Accept: 'application/json' },
         responseType: 'blob',
@@ -127,7 +100,7 @@ export async function getInitialCsvSchema(
     const disposition = response.headers['content-disposition'];
     const fileName = disposition
       ? getFileName(disposition)
-      : `schema-${questionnaireId}.csv`;
+      : `schema-${poguesId}.csv`;
     openDocument(new Blob([response.data], { type: 'text/csv' }), fileName);
   } catch (error) {
     console.error('Failed to download CSV schema:', error);
@@ -139,10 +112,10 @@ export async function getInitialCsvSchema(
  *
  * @see {@link getExistingFileSchema}
  */
-export const personalizationFileQueryOptions = (publicEnemyId: string) =>
+export const personalizationFileQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['personalizationFile', { publicEnemyId }],
-    queryFn: () => getExistingFileSchema(publicEnemyId),
+    queryKey: ['personalizationFile', { poguesId }],
+    queryFn: () => getExistingFileSchema(poguesId),
     retryOnMount: true,
   });
 
@@ -151,18 +124,18 @@ export const personalizationFileQueryOptions = (publicEnemyId: string) =>
  * Returns ParseResult for CSV files, or the parsed JSON object for JSON files
  */
 export async function getExistingFileSchema(
-  publicEnemyId: string,
+  poguesId: string,
 ): Promise<ParseResult | string> {
   try {
     const response = await instancePersonalization.get(
-      `/questionnaires/${publicEnemyId}/data`,
+      `/questionnaires/${poguesId}/data`,
       {
         headers: { Accept: 'text/csv, application/json' },
         responseType: 'blob',
       },
     );
     const contentType = response.headers['content-type'] || '';
-    const text = await response.data.text();
+    const text: string = await response.data.text();
 
     if (
       contentType.includes('text/csv') ||
@@ -197,13 +170,13 @@ export async function getExistingFileSchema(
 
 /** Check the survey units file for errors & warning messages */
 export async function checkInterrogationsData(
-  questionnaireId: string,
+  poguesId: string,
   interrogationData: File,
 ): Promise<UploadError> {
   const formData = new FormData();
   formData.append('interrogationData', interrogationData);
   return instancePersonalization.post(
-    `/questionnaires/${questionnaireId}/checkdata`,
+    `/questionnaires/${poguesId}/checkdata`,
     formData,
     {
       headers: {
@@ -234,12 +207,18 @@ export async function addQuestionnaireData(
 export async function editQuestionnaireData(
   questionnaire: PersonalizationQuestionnaire,
 ): Promise<PersonalizationQuestionnaire> {
-  const formData = new FormData();
-  formData.append('context', JSON.stringify(questionnaire.context));
+  console.log('Editing questionnaire data:', questionnaire);
 
+  const formData = new FormData();
+  const questionnaireRest = {
+    poguesId: questionnaire.poguesId,
+    context: questionnaire.context,
+  };
+  formData.append('questionnaire', JSON.stringify(questionnaireRest));
   if (questionnaire.interrogationData) {
     formData.append('interrogationData', questionnaire.interrogationData);
   }
+
   return instancePersonalization.put(`/questionnaires`, formData);
 }
 
@@ -250,4 +229,8 @@ export async function resetInterrogation(
     `/interrogations/${interrogationId}/reset`,
     undefined,
   );
+}
+
+export async function deleteQuestionnaireData(poguesId: string): Promise<void> {
+  return instancePersonalization.delete(`/questionnaires/${poguesId}`);
 }

@@ -25,7 +25,7 @@ export default function JsonViewer({ data }: Readonly<JsonViewerProps>) {
     <div className="overflow-x-auto w-full my-3">
       <div
         style={{
-          maxHeight: shouldScroll ? '320px' : 'none',
+          maxHeight: shouldScroll ? '420px' : 'none',
           overflowY: shouldScroll ? 'auto' : 'visible',
         }}
       >

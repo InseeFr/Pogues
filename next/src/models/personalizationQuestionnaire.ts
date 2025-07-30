@@ -5,7 +5,8 @@ export type PersonalizationQuestionnaire = {
   modes: Mode[];
   context: SurveyContext;
   interrogationData?: File;
-  isSynchronized: boolean;
+  state: 'STARTED' | 'COMPLETED';
+  isOutdated: boolean;
 };
 
 export type Mode = {
@@ -29,8 +30,8 @@ export type UploadError = {
 };
 
 export type UploadErrorDetails = {
-  dataIndex: number;
-  attributeKey: string;
+  dataIndex?: number;
+  attributeKey?: string;
   message: string;
 };
 
