@@ -33,8 +33,6 @@ export default function EditPersonalization({
   const [questionnaire, setQuestionnaire] =
     useState<PersonalizationQuestionnaire>(data);
 
-  const [errorUpload, setErrorUpload] = useState<UploadError | null>(null);
-
   const saveQuestionnaire = useMutation({
     mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
       return editQuestionnaireData(questionnaire);
@@ -69,8 +67,6 @@ export default function EditPersonalization({
         questionnaire={questionnaire}
         setQuestionnaire={setQuestionnaire}
         questionnaireId={questionnaireId}
-        errorUpload={errorUpload}
-        setErrorUpload={setErrorUpload}
         fileData={fileData}
         handleSubmit={handleSubmit}
       />

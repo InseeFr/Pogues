@@ -4,7 +4,6 @@ import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteQuestionnaireData } from '@/api/personalization';
 import { openParsedCsv, openParsedJson } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
@@ -66,31 +65,31 @@ export default function PersonalizationOverview({
     },
   });
 
-  const deleteMutation = useMutation({
-    mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
-      return deleteQuestionnaireData(data.id);
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries({
-        queryKey: ['allPersonalization', { questionnaireId }],
-      });
-      navigate({
-        to: '/questionnaire/$questionnaireId/personalization/new',
-        params: { questionnaireId },
-      });
-    },
-  });
+  // const deleteMutation = useMutation({
+  //   mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
+  //     return deleteQuestionnaireData(data.id);
+  //   },
+  //   onSuccess: async () => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: ['allPersonalization', { questionnaireId }],
+  //     });
+  //     navigate({
+  //       to: '/questionnaire/$questionnaireId/personalization/new',
+  //       params: { questionnaireId },
+  //     });
+  //   },
+  // });
 
-  function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      data,
-    });
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('personalization.overview.deleteSuccess'),
-      error: (err: Error) => err.toString(),
-    });
-  }
+  // function onDelete() {
+  //   const promise = deleteMutation.mutateAsync({
+  //     data,
+  //   });
+  //   toast.promise(promise, {
+  //     loading: t('common.loading'),
+  //     success: t('personalization.overview.deleteSuccess'),
+  //     error: (err: Error) => err.toString(),
+  //   });
+  // }
 
   const hasValidInterrogationData =
     interrogationData &&
@@ -133,14 +132,14 @@ export default function PersonalizationOverview({
           >
             {t('common.edit')}
           </ButtonLink>
-          <Dialog
+          {/* <Dialog
             label={t('common.delete')}
             title={t('personalization.overview.deleteDialogTitle', {
               label: data.label,
             })}
             body={t('personalization.overview.deleteDialogConfirm')}
             onValidate={onDelete}
-          />
+          /> */}
         </div>
         {typeof fileData !== 'string' && 'data' in fileData ? (
           <CsvViewerTable parsedCsv={fileData} />

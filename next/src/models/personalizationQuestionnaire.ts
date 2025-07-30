@@ -25,7 +25,13 @@ export type FileType = {
 
 export type UploadError = {
   message: string;
-  details: string[];
+  details: UploadErrorDetails[];
+};
+
+export type UploadErrorDetails = {
+  dataIndex: number;
+  attributeKey: string;
+  message: string;
 };
 
 export type InterrogationModeData = {
