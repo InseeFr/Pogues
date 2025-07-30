@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import {
   basePersonalizationQueryOptions,
-  getInterrogationDataQueryOptions,
+  personalizationFromPoguesQueryOptions,
 } from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
@@ -22,23 +22,36 @@ export const Route = createFileRoute(
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
     await queryClient.ensureQueryData(
-      basePersonalizationQueryOptions(questionnaireId),
+      personalizationFromPoguesQueryOptions(questionnaireId),
     );
   },
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
+  const navigate = useNavigate();
 
-  const {
-    data: [questionnaire, fileData],
-  } = useSuspenseQuery(basePersonalizationQueryOptions(questionnaireId));
+  const { data: questionnaire } = useSuspenseQuery(
+    personalizationFromPoguesQueryOptions(questionnaireId),
+  );
 
-  const { data: interrogationData } = useQuery({
-    ...getInterrogationDataQueryOptions(questionnaire.id),
+  const { data } = useQuery({
+    ...basePersonalizationQueryOptions(questionnaire?.id),
+    enabled: !!questionnaire?.id,
     retry: false,
     throwOnError: false,
   });
+  const [interrogationData, fileData] = data ?? [null, null];
+
+  // If questionnaire.id is null or undefined, redirect to personalization creation
+  if (!questionnaire?.id) {
+    navigate({
+      to: '/questionnaire/$questionnaireId/personalization/new',
+      params: { questionnaireId },
+      replace: true,
+    });
+    return null;
+  }
 
   return (
     <ComponentWrapper>
@@ -67,9 +80,6 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
     }
   }, [error, navigate, questionnaireId]);
 
-  if (error?.message?.includes('500')) {
-    return null;
-  }
   if (error?.message?.includes('404')) {
     return null;
   }

@@ -30,8 +30,6 @@ export default function CreatePersonalization({
   const [questionnaire, setQuestionnaire] =
     useState<PersonalizationQuestionnaire>(data);
 
-  const [errorUpload, setErrorUpload] = useState<UploadError | null>(null);
-
   const saveQuestionnaire = useMutation({
     mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
       return addQuestionnaireData(questionnaire);
@@ -66,8 +64,6 @@ export default function CreatePersonalization({
         questionnaire={questionnaire}
         setQuestionnaire={setQuestionnaire}
         questionnaireId={questionnaireId}
-        errorUpload={errorUpload}
-        setErrorUpload={setErrorUpload}
         handleSubmit={handleSubmit}
       />
     </PersonalisationTile>

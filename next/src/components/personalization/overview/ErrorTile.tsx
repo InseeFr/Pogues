@@ -15,7 +15,7 @@ export default function ErrorTile({ error }: Readonly<ErrorProps>) {
         {error.details && error.details.length > 0 && (
           <ul className="list-disc pl-5 mt-1">
             {error.details.map((detail) => (
-              <li key={detail}>{detail}</li>
+              <li key={detail.dataIndex}>{detail.message}</li>
             ))}
           </ul>
         )}

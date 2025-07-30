@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { personalizationNewQueryOptions } from '@/api/personalization';
+import { personalizationFromPoguesQueryOptions } from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import CreatePersonalization from '@/components/personalization/form/create/CreatePersonalization';
@@ -18,14 +18,14 @@ export const Route = createFileRoute(
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(
-      personalizationNewQueryOptions(questionnaireId),
+      personalizationFromPoguesQueryOptions(questionnaireId),
     ),
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
   const { data }: { data: PersonalizationQuestionnaire } = useSuspenseQuery(
-    personalizationNewQueryOptions(questionnaireId),
+    personalizationFromPoguesQueryOptions(questionnaireId),
   );
   return (
     <ComponentWrapper>

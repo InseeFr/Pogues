@@ -4,6 +4,7 @@ import Papa, { ParseResult } from 'papaparse';
 import {
   InterrogationModeDataResponse,
   PersonalizationQuestionnaire,
+  UploadError,
 } from '@/models/personalizationQuestionnaire';
 
 import { instancePersonalization } from './instancePersonalization';
@@ -14,18 +15,19 @@ import { getFileName, openDocument } from './utils/personalization';
  *
  * @see {@link getPublicEnemyBaseData}
  */
-export const basePersonalizationQueryOptions = (questionnaireId: string) => ({
-  queryKey: ['personalization', 'base', questionnaireId],
-  queryFn: () => getPublicEnemyBaseData(questionnaireId),
+export const basePersonalizationQueryOptions = (publicEnemyId: string) => ({
+  queryKey: ['personalization', 'base', publicEnemyId],
+  queryFn: () => getPublicEnemyBaseData(publicEnemyId),
 });
-export async function getPublicEnemyBaseData(
-  questionnaireId: string,
-): Promise<[PersonalizationQuestionnaire, ParseResult | string]> {
-  try {
-    const existingData = await getExistingPublicEnemyData(questionnaireId);
-    const fileData = await getExistingFileSchema(existingData.id);
 
-    return [existingData, fileData];
+export async function getPublicEnemyBaseData(
+  publicEnemyId: string,
+): Promise<[InterrogationModeDataResponse, ParseResult | string]> {
+  try {
+    const interrogations = await getAllInterrogationData(publicEnemyId);
+    const fileData = await getExistingFileSchema(publicEnemyId);
+
+    return [interrogations, fileData];
   } catch (error) {
     console.error('Error fetching Public Enemy base data:', error);
     throw error;
@@ -33,7 +35,7 @@ export async function getPublicEnemyBaseData(
 }
 
 /**
- * Used to retrieve questionnaireData used by a Public Enemy.
+ * Used to retrieve questionnaireData used by Public Enemy from PoguesID.
  *
  * @see {@link getExistingPublicEnemyData}
  */
@@ -44,12 +46,12 @@ export const personalizationQueryOptions = (questionnaireId: string) =>
     retryOnMount: true,
   });
 
-/** Fetch questionnaire data from Public Enemy Back Office. */
+/** Fetch existing questionnaire data from Public Enemy Back Office. */
 export async function getExistingPublicEnemyData(
   questionnaireId: string,
 ): Promise<PersonalizationQuestionnaire> {
   return instancePersonalization
-    .get(`/questionnaires/${questionnaireId}/db`, {
+    .get(`/questionnaires/${questionnaireId}`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: PersonalizationQuestionnaire }) => {
@@ -60,20 +62,25 @@ export async function getExistingPublicEnemyData(
 /**
  * Used to retrieve data used to a create survey Units.
  *
- * @see {@link getPublicEnemyData}
+ * @see {@link getPublicEnemyDataFromPogues}
  */
-export const personalizationNewQueryOptions = (questionnaireId: string) =>
+export const personalizationFromPoguesQueryOptions = (
+  questionnaireId: string,
+) =>
   queryOptions({
     queryKey: ['personalizationNewQuestionnaire', { questionnaireId }],
-    queryFn: () => getPublicEnemyData(questionnaireId),
+    queryFn: () => getPublicEnemyDataFromPogues(questionnaireId),
   });
 
-/** Fallback fetch questionnaire data if existing data is not found. */
-export async function getPublicEnemyData(
+/**
+ * Fallback fetch questionnaire data if existing data is not found.
+ * Uses poguesId to create the questionnaire data.
+ */
+export async function getPublicEnemyDataFromPogues(
   questionnaireId: string,
 ): Promise<PersonalizationQuestionnaire> {
   return instancePersonalization
-    .get(`/questionnaires/pogues/${questionnaireId}`, {
+    .get(`/questionnaires?poguesId=${questionnaireId}`, {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: PersonalizationQuestionnaire }) => {
@@ -82,7 +89,7 @@ export async function getPublicEnemyData(
 }
 
 /**
- * Used to retrieve data used to a create survey Units.
+ * Used to retrieve interrogations data.
  *
  * @see {@link getAllInterrogationData}
  */
@@ -130,7 +137,7 @@ export async function getInitialCsvSchema(
 /**
  * Used to retrieve data used to a create survey Units.
  *
- * @see {@link getExistingCsvSchema}
+ * @see {@link getExistingFileSchema}
  */
 export const personalizationFileQueryOptions = (publicEnemyId: string) =>
   queryOptions({
@@ -192,7 +199,7 @@ export async function getExistingFileSchema(
 export async function checkInterrogationsData(
   questionnaireId: string,
   interrogationData: File,
-): Promise<string[]> {
+): Promise<UploadError> {
   const formData = new FormData();
   formData.append('interrogationData', interrogationData);
   return instancePersonalization.post(
@@ -220,7 +227,7 @@ export async function addQuestionnaireData(
   if (questionnaire.interrogationData) {
     formData.append('interrogationData', questionnaire.interrogationData);
   }
-  return instancePersonalization.post(`/questionnaires/add`, formData);
+  return instancePersonalization.post(`/questionnaires`, formData);
 }
 
 /** Edit questionnaire data with personalization in PE db*/
@@ -233,18 +240,7 @@ export async function editQuestionnaireData(
   if (questionnaire.interrogationData) {
     formData.append('interrogationData', questionnaire.interrogationData);
   }
-  return instancePersonalization.post(
-    `/questionnaires/${questionnaire.id}`,
-    formData,
-  );
-}
-
-export async function deleteQuestionnaireData(
-  questionnaireId: string,
-): Promise<void> {
-  return instancePersonalization.delete(
-    `/questionnaires/${questionnaireId}/delete`,
-  );
+  return instancePersonalization.put(`/questionnaires`, formData);
 }
 
 export async function resetInterrogation(

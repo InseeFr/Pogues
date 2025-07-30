@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import Papa, { type ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { set } from 'zod';
 
 import {
   checkInterrogationsData,
@@ -36,8 +37,6 @@ interface PersonalizationFormProps {
   questionnaireId: string;
   questionnaire: PersonalizationQuestionnaire;
   setQuestionnaire: (questionnaire: PersonalizationQuestionnaire) => void;
-  errorUpload: UploadError | null;
-  setErrorUpload: (error: UploadError | null) => void;
   handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void;
   fileData?: ParseResult | string | null;
 }
@@ -47,14 +46,14 @@ export default function PersonalizationForm({
   questionnaireId,
   questionnaire,
   setQuestionnaire,
-  errorUpload,
-  setErrorUpload,
   fileData = null,
   handleSubmit = () => {},
 }: Readonly<PersonalizationFormProps>) {
   const { t } = useTranslation();
   const emptyFileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
+
+  const [errorUpload, setErrorUpload] = useState<UploadError | null>(null);
   const surveyContext: SurveyContext[] = [
     {
       name: SurveyContextEnum.HOUSEHOLD,
@@ -170,6 +169,7 @@ export default function PersonalizationForm({
       ...questionnaire,
       interrogationData: undefined,
     });
+    setErrorUpload(null);
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
