@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Dictionary from '../../utils/dictionary/dictionary';
-import ArboSimplified from './arbo-simplifield';
-import NavLoop from './nav-loop';
+import ArboSimplified from './components/arbo-simplified';
+import NavLoop from './components/nav-loop';
 
 // PropTypes and defaultProps
 

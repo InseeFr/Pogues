@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import '../../scss/pogues.scss';
 import { useOidc } from '../../utils/oidc';
-import Header from '../header/header';
+import { Header } from './components/header';
 
 const isOnlyLegacyApp =
   new URL(import.meta.url || '').origin === window.location.origin;

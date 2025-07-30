@@ -3,7 +3,7 @@ import { FormSection } from 'redux-form';
 
 import { DIMENSION_TYPE } from '../../../../../constants/pogues-constants';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import { OptionalView } from '../../../../optional-view';
+import { OptionalView } from './components/optional-view';
 import ResponseFormatTableSecondaryOptional from './table-secondary-optional';
 
 const { SECONDARY: selectorPath } = DIMENSION_TYPE;

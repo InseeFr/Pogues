@@ -11,10 +11,10 @@ import { useReadonly } from '../../hooks/useReadonly';
 import { getSortedChildren } from '../../utils/component/component-utils';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { ComponentEdit } from '../component-edit';
-import { ConfirmDialog } from '../confirm-dialog';
-import { ErrorsIntegrity as ErrorsIntegrityPanel } from '../errors-integrity';
 import Loader from '../loader';
 import { QuestionnaireEdit } from '../questionnaire-edit';
+import { ConfirmDialog } from './components/confirm-dialog';
+import { ErrorsIntegrity as ErrorsIntegrityPanel } from './components/errors-integrity';
 import QuestionnaireComponent from './questionnaire-component';
 
 const { LOOP, FILTER, NESTEDFILTRE } = COMPONENT_TYPE;

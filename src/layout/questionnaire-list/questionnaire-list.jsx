@@ -10,8 +10,8 @@ import { formatDate, getState } from '../../utils/component/component-utils';
 import { getWeight } from '../../utils/component/generic-input-utils';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { useOidc } from '../../utils/oidc';
-import Dropdown from '../../widgets/dropdown';
 import Loader from '../loader';
+import Dropdown from './components/Dropdown';
 import QuestionnaireListItem from './questionnaire-list-item';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;

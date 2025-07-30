@@ -9,10 +9,10 @@ import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import { useReadonly } from '../../hooks/useReadonly';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { useOidc } from '../../utils/oidc';
-import { ExternalQuestionnaireDropdown } from '../../widgets/external-questionnaire-dropdown';
 import { VisualizeDropdown } from '../../widgets/visualize-dropdown';
 import { ComponentNew } from '../component-new';
 import Loader from '../loader';
+import { ExternalQuestionnaireDropdown } from './components/external-questionnaire-dropdown';
 
 const {
   QUESTION,

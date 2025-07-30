@@ -26,7 +26,7 @@ import { getIntegrityErrors } from '../../utils/integrity/utils';
 import { useOidc } from '../../utils/oidc';
 import { VisualizeDropdown } from '../../widgets/visualize-dropdown';
 import { ComponentEdit } from '../component-edit';
-import DropZone from './drop-zone/drop-zone';
+import { DropZone } from './components/drop-zone';
 
 const {
   QUESTION,
