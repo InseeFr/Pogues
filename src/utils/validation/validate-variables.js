@@ -1,6 +1,6 @@
-import { QUESTION_TYPE_ENUM } from '../constants/pogues-constants';
-import Dictionary from '../utils/dictionary/dictionary';
-import { generateCollectedVariables } from '../utils/variables/collected-variables-utils';
+import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
+import Dictionary from '../dictionary/dictionary';
+import { generateCollectedVariables } from '../variables/collected-variables-utils';
 
 const { SINGLE_CHOICE, SIMPLE, TABLE, MULTIPLE_CHOICE, PAIRING } =
   QUESTION_TYPE_ENUM;

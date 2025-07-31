@@ -1,3 +1,6 @@
+/*
+List of business rules to be applied to each questionnaire's components.
+*/
 import get from 'lodash.get';
 
 import {

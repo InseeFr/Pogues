@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { getErrorsObject, validate } from './validation-utils';
+import { getErrorsObject, validate } from './validate-utils';
 
 describe('validate', () => {
   test('should validate the form', () => {

@@ -1,4 +1,7 @@
-// @TODO: Refactor to avoid similar validation functions
+/*
+Trigger the validations rules to survey's components (sequences, questions, etc.)
+when one create or update a component in the questionnaire.
+*/
 import get from 'lodash.get';
 import { SubmissionError } from 'redux-form';
 
@@ -8,6 +11,7 @@ import {
   TABS_PATHS,
 } from '../../constants/pogues-constants';
 import { Component } from '../../model';
+import { getErrorsObject, validate } from './validate-utils';
 import {
   calculatedVariableRules,
   collectedVariableRules,
@@ -25,7 +29,6 @@ import {
   sequenceRules,
   tableListMeasuresRules,
 } from './validation-rules';
-import { getErrorsObject, validate } from './validation-utils';
 
 export function validateQuestionnaireForm(values, setErrors) {
   const errors = validate(values, questionnaireRules);

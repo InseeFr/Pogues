@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import Dictionary from '../utils/dictionary/dictionary';
+import Dictionary from '../dictionary/dictionary';
 import {
   cartCodeModeCollecte,
   emptyMeasures,

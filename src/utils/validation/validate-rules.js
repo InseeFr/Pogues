@@ -1,8 +1,11 @@
+/*
+Common business rules logic to be applied to the form's values.
+*/
 import cloneDeep from 'lodash.clonedeep';
 
-import { DATATYPE_NAME } from '../constants/pogues-constants';
-import Dictionary from '../utils/dictionary/dictionary';
-import { getComponentsTargetsByComponent } from '../utils/model/redirections-utils';
+import { DATATYPE_NAME } from '../../constants/pogues-constants';
+import Dictionary from '../dictionary/dictionary';
+import { getComponentsTargetsByComponent } from '../model/redirections-utils';
 
 const { NUMERIC } = DATATYPE_NAME;
 
