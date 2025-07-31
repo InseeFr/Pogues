@@ -20,6 +20,15 @@ const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { CODES_LIST } = DIMENSION_FORMATS;
 const { TEXT } = DATATYPE_NAME;
 
+/**
+ * Compute variables for a table (i.e. question that is based on a number of
+ * lines or on a user code list).
+ *
+ * If is based on a number of lines (dynamic), there will be one variable by
+ * measured information.
+ *
+ * If it is based on a code list (static), there will be one variable by case.
+ */
 export function getCollectedVariablesTable(questionName, form) {
   const collectedVariables = [];
   const {
@@ -29,6 +38,7 @@ export function getCollectedVariablesTable(questionName, form) {
     [LIST_MEASURE]: listMeasuresState,
   } = form;
 
+  // Static -> one variable by case
   if (primaryState.type === CODES_LIST) {
     const {
       [CODES_LIST]: {
@@ -96,7 +106,8 @@ export function getCollectedVariablesTable(questionName, form) {
         );
     }
   }
-  // dynamic array
+
+  // Dynamic -> one variable measured information
   if (primaryState.type !== CODES_LIST) {
     listMeasuresState.measures.map((measure, j) =>
       collectedVariables.push(
@@ -118,30 +129,30 @@ export function getCollectedVariablesTable(questionName, form) {
 }
 
 export function getReponsesValues(measure) {
-  let reponseFormatValues = {};
-
-  if (measure.type === SIMPLE) {
-    reponseFormatValues = {
-      codeListReference: '',
-      codeListReferenceLabel: '',
-      type: measure[SIMPLE].type,
-      // measure[SIMPLE].type is BOOLEAN or TEXT or NUMERIC or DATE or DURATION ; for BOOLEAN, this means : BOOLEAN: measure[SIMPLE].BOOLEAN
-      [measure[SIMPLE].type]: measure[SIMPLE][measure[SIMPLE].type],
-    };
+  switch (measure.type) {
+    case SIMPLE: {
+      return {
+        codeListReference: '',
+        codeListReferenceLabel: '',
+        type: measure[SIMPLE].type,
+        // measure[SIMPLE].type is BOOLEAN or TEXT or NUMERIC or DATE or DURATION.
+        // For BOOLEAN, this means : BOOLEAN: measure[SIMPLE].BOOLEAN.
+        [measure[SIMPLE].type]: measure[SIMPLE][measure[SIMPLE].type],
+      };
+    }
+    case SINGLE_CHOICE: {
+      const listPath =
+        measure[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+          ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+          : DEFAULT_CODES_LIST_SELECTOR_PATH;
+      return {
+        codeListReference: measure[SINGLE_CHOICE][listPath].id,
+        codeListReferenceLabel: measure[SINGLE_CHOICE][listPath].label,
+        type: TEXT,
+        [TEXT]: { maxLength: 1 },
+      };
+    }
+    default:
+      return {};
   }
-  if (measure.type === SINGLE_CHOICE) {
-    const listPath =
-      measure[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
-        ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-        : DEFAULT_CODES_LIST_SELECTOR_PATH;
-    reponseFormatValues = {
-      codeListReference: measure[SINGLE_CHOICE][listPath].id,
-      codeListReferenceLabel: measure[SINGLE_CHOICE][listPath].label,
-      type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-      },
-    };
-  }
-  return reponseFormatValues;
 }

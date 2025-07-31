@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 import { getCollectedVariablesMultiple } from './collected-variables-multiple';
 
 describe('getCollectedVariablesMultiple', () => {
-  test('works for QCM without precision in codesList', () => {
+  test('computes multiple variables for QCM without precision', () => {
     const questionName = 'questionName';
     const form = {
       PRIMARY: {
@@ -75,7 +75,7 @@ describe('getCollectedVariablesMultiple', () => {
     ]);
   });
 
-  test('computes needed new variable when there is a new precision in codesList', () => {
+  test('computes clarification variable for QCM with precision', () => {
     const questionName = 'questionName';
     const form = {
       PRIMARY: {

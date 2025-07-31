@@ -33,9 +33,7 @@ export function getCollectedVariablesSingle(
           ? form.Nomenclature.label
           : form.CodesList.label,
       type: TEXT,
-      [TEXT]: {
-        maxLength: 1,
-      },
+      [TEXT]: { maxLength: 1 },
     },
   );
 
@@ -58,7 +56,7 @@ export function getCollectedVariablesSingle(
 
   const clarificationVariables = [];
 
-  // Create the clarification variables assocaited to our QCU code list
+  // Create the clarification variables associated to our QCU code list
   form.CodesList.codes?.forEach((code) => {
     if (code.precisionid && code.precisionid !== '') {
       const clarificationVariable = getCollectedVariable(
@@ -120,9 +118,7 @@ function computeSuggesterArbitraryVariable(questionName, mainVariable) {
     undefined,
     {
       type: TEXT,
-      [TEXT]: {
-        maxLength: 249,
-      },
+      [TEXT]: { maxLength: 249 },
     },
     undefined,
     mainVariable.id,
