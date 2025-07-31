@@ -9,7 +9,7 @@ import GenericOption from '../../forms/controls/generic-option';
 import ListCheckboxes from '../../forms/controls/list-checkboxes';
 import Select from '../../forms/controls/select';
 import Dictionary from '../../utils/dictionary/dictionary';
-import { requiredSelect } from '../../utils/validation/validation-rules';
+import { requiredSelect } from '../../utils/validation/validate-rules';
 
 const StatisticalContextCriteria = (props) => {
   const {
