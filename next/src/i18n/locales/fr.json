@@ -145,6 +145,8 @@
       "resetInterrogationDescription": "Réinitialiser les données de l'unité enquêtée",
       "resetInterrogationSuccess": "L'intorrogation a été réinitialisée avec succès",
       "resetInterrogationError": "Erreur lors de la réinitialisation de l'interrogation",
+      "saveSuccess": "Le questionnaire a bien été rechargé",
+      "saveError": "Erreur lors du rechargement du questionnaire",
       "title": "Modifier la personnalisation"
     },
     "overview": {

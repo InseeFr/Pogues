@@ -51,9 +51,9 @@ export default function EditPersonalization({
     });
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.create.saveSuccess', { label }),
+      success: t('personalization.edit.saveSuccess', { label }),
       error: (err: Error) =>
-        t('personalization.create.saveError', { error: err.message }),
+        t('personalization.edit.saveError', { error: err.message }),
     });
   }
 

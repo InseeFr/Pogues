@@ -145,6 +145,8 @@
       "resetInterrogationDescription": "Reset the survey unit",
       "resetInterrogationSuccess": "The survey unit has been reset",
       "resetInterrogationError": "Error resetting the survey unit",
+      "saveSuccess": "The questionnaire has been reloaded",
+      "saveError": "Error reloading the questionnaire",
       "title": "Edit personalization"
     },
     "overview": {
