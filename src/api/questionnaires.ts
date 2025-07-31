@@ -1,6 +1,5 @@
-import { HttpResponseError } from '@/errors/error';
-import { Version } from '@/models/versions';
-
+import { HttpResponseError } from './errors/httpError';
+import { Version } from './models/versions';
 import { computeAuthorizationHeader, getBaseURI } from './utils';
 
 const pathQuestionnaire = 'persistence/questionnaire';

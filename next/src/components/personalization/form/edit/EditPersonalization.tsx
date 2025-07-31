@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { AxiosError } from 'axios';
 import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -10,10 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { editQuestionnaireData } from '@/api/personalization';
 import PersonalizationForm from '@/components/personalization/form/PersonalizationForm';
 import PersonalisationTile from '@/components/personalization/overview/PersonalizationTile';
-import {
-  PersonalizationQuestionnaire,
-  UploadError,
-} from '@/models/personalizationQuestionnaire';
+import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 interface EditPersonalizationProps {
   questionnaireId: string;

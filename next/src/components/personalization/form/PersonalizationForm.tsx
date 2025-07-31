@@ -230,6 +230,7 @@ export default function PersonalizationForm({
             style={{ display: 'none' }}
             onChange={onInterrogationDataChange}
             accept={fileType.value}
+            data-testid="file-upload"
           />
           <Button
             onClick={() => emptyFileInputRef.current?.click()}
@@ -262,10 +263,13 @@ export default function PersonalizationForm({
         </Button>
         {errorUpload && <ErrorTile error={errorUpload} />}
         {fileType.name === 'CSV' && parsedFileData && (
-          <CsvViewerTable parsedCsv={parsedFileData} />
+          <CsvViewerTable
+            data-testid="csv-viewer-table"
+            parsedCsv={parsedFileData}
+          />
         )}
         {fileType.name === 'JSON' && parsedFileData && (
-          <JsonViewer data={parsedFileData} />
+          <JsonViewer data-testid="json-viewer" data={parsedFileData} />
         )}
       </div>
       <div className="mt-auto w-auto inline-block my-1">

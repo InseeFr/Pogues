@@ -8,8 +8,8 @@ import GenericOption from '../../../../../forms/controls/generic-option';
 import Input from '../../../../../forms/controls/input';
 import ListRadios from '../../../../../forms/controls/list-radios';
 import withCurrentFormVariables from '../../../../../hoc/with-current-form-variables';
-import SelectMetaDataContainer from '../../../../../layout/connected-widget/select-metadata';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
+import SelectMetaDataContainer from './connected-widget/select-metadata';
 
 const { NUMERIC } = DATATYPE_NAME;
 

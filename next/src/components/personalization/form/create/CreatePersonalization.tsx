@@ -6,10 +6,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { addQuestionnaireData } from '@/api/personalization';
-import {
-  PersonalizationQuestionnaire,
-  UploadError,
-} from '@/models/personalizationQuestionnaire';
+import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 import PersonalisationTile from '../../overview/PersonalizationTile';
 import PersonalizationForm from '../PersonalizationForm';

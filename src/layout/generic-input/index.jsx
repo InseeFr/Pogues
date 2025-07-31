@@ -1,1 +1,1 @@
-export { default as GenericInput } from './containers/generic-input-container';
+export { default as GenericInput } from './generic-input-container';

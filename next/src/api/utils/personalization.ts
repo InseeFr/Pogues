@@ -44,7 +44,7 @@ export function openParsedJson(parsedJson: string, filename?: string) {
 
 export function getFileFromParseResult(
   fileData: ParseResult<unknown> | string,
-  filename: string = 'data.csv',
+  filename: string = '',
 ): File {
   if (typeof fileData !== 'string' && 'data' in fileData) {
     const csvContent = Papa.unparse(fileData.data, {

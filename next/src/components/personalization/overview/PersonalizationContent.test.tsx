@@ -65,7 +65,8 @@ describe('PersonalizationOverview', () => {
       value: SurveyContextValueEnum.HOUSEHOLD,
     },
     interrogationData: undefined,
-    isSynchronized: true,
+    isOutdated: false,
+    state: 'STARTED',
   };
 
   it('display my csv file', async () => {
@@ -82,6 +83,29 @@ describe('PersonalizationOverview', () => {
     expect(getByText('LabelQuestionnaire')).toBeInTheDocument();
     expect(getByText('Teemo')).toBeInTheDocument();
     expect(getByText('Panda')).toBeInTheDocument();
+  });
+
+  it('display my json file', async () => {
+    const mockJsonData = [
+      { id: '1', name: 'Teemo' },
+      { id: '2', name: 'Panda' },
+    ];
+    const { getByText } = await waitFor(() =>
+      renderWithRouter(
+        <PersonalizationsOverview
+          questionnaireId={questionnaireId}
+          data={mockData}
+          fileData={JSON.stringify(mockJsonData)}
+          interrogationData={null}
+        />,
+      ),
+    );
+    expect(
+      getByText((content) => content.includes('Teemo')),
+    ).toBeInTheDocument();
+    expect(
+      getByText((content) => content.includes('Panda')),
+    ).toBeInTheDocument();
   });
 
   it('delete the personalzation when the delete button is clicked', async () => {
@@ -143,5 +167,37 @@ describe('PersonalizationOverview', () => {
       );
     });
     expect(toast.success).toHaveBeenCalled();
+  });
+
+  it('shows interrogation data when provided', async () => {
+    const mockInterrogationData = {
+      CAPI: [
+        { id: '1', displayableId: 1, url: 'https://CAPI1.com' },
+        { id: '2', displayableId: 2, url: 'https://CAPI2.com' },
+        { id: '3', displayableId: 3, url: 'https://CAPI3.com' },
+      ],
+      CAWI: [
+        { id: '1', displayableId: 1, url: 'https://CAWI1.com' },
+        { id: '2', displayableId: 2, url: 'https://CAWI2.com' },
+      ],
+      PAPI: [],
+      CATI: [],
+    };
+    const { container } = await waitFor(() =>
+      renderWithRouter(
+        <PersonalizationsOverview
+          questionnaireId={questionnaireId}
+          data={mockData}
+          fileData={mockCsvData}
+          interrogationData={mockInterrogationData}
+        />,
+      ),
+    );
+    expect(screen.getAllByText('2')).toHaveLength(2);
+    expect(screen.getByText('CAWI')).toBeInTheDocument();
+    expect(screen.queryByText('PAPI')).not.toBeInTheDocument();
+
+    const capiLink = container.querySelector('a[href="https://CAPI1.com"]');
+    expect(capiLink).toBeInTheDocument();
   });
 });

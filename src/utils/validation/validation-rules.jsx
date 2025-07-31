@@ -23,13 +23,13 @@ import {
   requiredSelect,
   typeCalculated,
   typeExternal,
-  validCollectedVariables,
   validateDuplicatesCalculated,
   validateDuplicatesCollected,
   validateDuplicatesExternal,
   validateEarlyTarget,
   validateExistingTarget,
 } from '../../forms/validation-rules';
+import { validCollectedVariables } from '../../forms/validation-variables';
 import Dictionary from '../dictionary/dictionary';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;

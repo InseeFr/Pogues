@@ -149,6 +149,8 @@
     },
     "overview": {
       "currentInterrogations": "Current survey units",
+      "dataInterrogationError": "Error loading interrogation data",
+      "dataInterrogationErrorDetails": "An error occurred while loading the interrogation data. Please try again later.",
       "deleteDialogConfirm": "Are you sure you want to delete this personalization?",
       "deleteDialogTitle": "Delete personalization",
       "deleteSuccess": "Personalization deleted successfully",
