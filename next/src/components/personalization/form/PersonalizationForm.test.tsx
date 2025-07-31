@@ -1,4 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
 import {
@@ -10,10 +11,9 @@ import { renderWithRouter } from '@/tests/tests';
 
 import PersonalizationForm from './PersonalizationForm';
 
-vi.mock('@/i18n', () => ({
-  useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
+vi.mock('@/api/personalization', () => ({
+  checkInterrogationsData: vi.fn(() => Promise.resolve()),
 }));
-
 vi.mock('papaparse', () => ({
   __esModule: true,
   default: {
@@ -161,5 +161,75 @@ describe('PersonalizationForm', () => {
 
     expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
     expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument();
+  });
+
+  it('handle file input', async () => {
+    const mockJsonFile = new File(
+      [JSON.stringify({ id: '1', name: 'Teemo' })],
+      'filename.json',
+      { type: 'application/json' },
+    );
+    mockJsonFile.text = () =>
+      Promise.resolve(JSON.stringify({ id: '1', name: 'Teemo' }));
+    await waitFor(() =>
+      renderWithRouter(
+        <PersonalizationForm
+          questionnaireId="1"
+          questionnaire={baseQuestionnaire}
+          setQuestionnaire={setQuestionnaire}
+          handleSubmit={vi.fn()}
+          fileData={null}
+        />,
+      ),
+    );
+
+    const combobox = screen.getByRole('combobox');
+    fireEvent.click(combobox);
+    const jsonSelectOption = screen.getAllByText('JSON');
+
+    fireEvent.click(jsonSelectOption[0]);
+
+    const uploadButton = screen.getByText('Upload survey units data');
+    fireEvent.click(uploadButton);
+    const fileInput = screen.getByTestId('file-upload') as HTMLInputElement;
+    await userEvent.upload(fileInput, mockJsonFile);
+
+    expect(fileInput.files).toHaveLength(1);
+    expect(fileInput.files?.[0]).toEqual(mockJsonFile);
+    await waitFor(() => {
+      expect(setQuestionnaire).toHaveBeenCalledWith(
+        expect.objectContaining({
+          interrogationData: mockJsonFile,
+        }),
+      );
+    });
+  });
+
+  it('handle context change', async () => {
+    await waitFor(() =>
+      renderWithRouter(
+        <PersonalizationForm
+          questionnaireId="1"
+          questionnaire={baseQuestionnaire}
+          setQuestionnaire={setQuestionnaire}
+          handleSubmit={vi.fn()}
+          fileData={null}
+        />,
+      ),
+    );
+
+    const contextSelect = screen.getByRole('combobox');
+    fireEvent.click(contextSelect);
+    const businessOption = screen.getByText('Entreprise');
+    fireEvent.click(businessOption);
+
+    expect(setQuestionnaire).toHaveBeenCalledWith(
+      expect.objectContaining({
+        context: {
+          name: SurveyContextEnum.BUSINESS,
+          value: SurveyContextValueEnum.BUSINESS,
+        },
+      }),
+    );
   });
 });
