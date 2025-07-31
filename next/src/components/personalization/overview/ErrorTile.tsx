@@ -8,7 +8,10 @@ interface ErrorProps {
 /** Display check error as an alert box. */
 export default function ErrorTile({ error }: Readonly<ErrorProps>) {
   return (
-    <div className="bg-red-100 border border-red-300 text-red-800 rounded px-4 py-3 mb-4 flex items-start">
+    <div
+      aria-label="error-component"
+      className="bg-red-100 border border-red-300 text-red-800 rounded px-4 py-3 mb-4 flex items-start"
+    >
       <ErrorIcon className="w-6 h-6 text-red-800 mr-3 mt-1 flex-shrink-0" />
       <div>
         <h4 className="text-lg font-semibold mb-2">{error.message}</h4>

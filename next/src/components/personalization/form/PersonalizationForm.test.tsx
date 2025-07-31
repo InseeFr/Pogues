@@ -1,11 +1,10 @@
-import { screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import {
   PersonalizationQuestionnaire,
   SurveyContextEnum,
   SurveyContextValueEnum,
-  UploadError,
 } from '@/models/personalizationQuestionnaire';
 import { renderWithRouter } from '@/tests/tests';
 
@@ -18,6 +17,7 @@ vi.mock('@/i18n', () => ({
 vi.mock('papaparse', () => ({
   __esModule: true,
   default: {
+    unparse: vi.fn(() => 'id,name\n1,Teemo\n2,Panda\n'),
     parse: vi.fn((_file, opts) => {
       if (opts && typeof opts.complete === 'function') {
         opts.complete({
@@ -35,6 +35,10 @@ vi.mock('react-hot-toast', () => ({
   default: { error: vi.fn(), success: vi.fn(), promise: vi.fn() },
 }));
 
+vi.mock('@/api/personalization', () => ({
+  checkInterrogationsData: vi.fn(),
+}));
+
 describe('PersonalizationForm', () => {
   const baseQuestionnaire: PersonalizationQuestionnaire = {
     id: '1',
@@ -46,11 +50,11 @@ describe('PersonalizationForm', () => {
       value: SurveyContextValueEnum.HOUSEHOLD,
     },
     interrogationData: undefined,
-    isSynchronized: true,
+    state: 'STARTED',
+    isOutdated: false,
   };
 
   const setQuestionnaire = vi.fn();
-  const setErrorUpload = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -63,8 +67,6 @@ describe('PersonalizationForm', () => {
           questionnaireId="1"
           questionnaire={baseQuestionnaire}
           setQuestionnaire={setQuestionnaire}
-          errorUpload={null}
-          setErrorUpload={setErrorUpload}
           handleSubmit={vi.fn()}
           fileData={null}
         />,
@@ -73,20 +75,17 @@ describe('PersonalizationForm', () => {
     expect(screen.getByText('Upload survey units data')).toBeInTheDocument();
   });
 
-  it('shows error component if there is errors', () => {
+  it('does not show error component initially', () => {
     renderWithRouter(
       <PersonalizationForm
         questionnaireId="1"
         questionnaire={baseQuestionnaire}
         setQuestionnaire={setQuestionnaire}
-        errorUpload={
-          { message: 'error', details: ['error message 1'] } as UploadError
-        }
-        setErrorUpload={setErrorUpload}
         handleSubmit={vi.fn()}
       />,
     );
-    expect(screen.getByText('error message 1')).toBeInTheDocument();
+
+    expect(screen.queryByLabelText('error-component')).not.toBeInTheDocument();
   });
 
   it('disables validate button if no file is uploaded', async () => {
@@ -96,8 +95,6 @@ describe('PersonalizationForm', () => {
           questionnaireId="1"
           questionnaire={{ ...baseQuestionnaire, interrogationData: undefined }}
           setQuestionnaire={setQuestionnaire}
-          errorUpload={null}
-          setErrorUpload={setErrorUpload}
           handleSubmit={vi.fn()}
         />,
       ),
@@ -106,25 +103,63 @@ describe('PersonalizationForm', () => {
     expect(button).toBeDisabled();
   });
 
-  it('disables validate button if errorUpload is present', async () => {
+  it('shows my csv data', async () => {
+    const mockCsvData = {
+      data: [
+        { id: '1', name: 'Teemo' },
+        { id: '2', name: 'Panda' },
+      ],
+      errors: [],
+      meta: {
+        fields: ['id', 'name'],
+        delimiter: ',',
+        linebreak: '\n',
+        aborted: false,
+        truncated: false,
+        cursor: 42,
+      },
+    };
+
     await waitFor(() =>
       renderWithRouter(
         <PersonalizationForm
           questionnaireId="1"
-          questionnaire={{
-            ...baseQuestionnaire,
-            interrogationData: new File([''], 'a.csv'),
-          }}
+          questionnaire={baseQuestionnaire}
           setQuestionnaire={setQuestionnaire}
-          errorUpload={
-            { message: 'error', details: ['error message 1'] } as UploadError
-          }
-          setErrorUpload={setErrorUpload}
           handleSubmit={vi.fn()}
+          fileData={mockCsvData}
         />,
       ),
     );
-    const button = screen.getByText('Validate');
-    expect(button).toBeDisabled();
+
+    expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
+    expect(screen.getByText('Teemo')).toBeInTheDocument();
+  });
+
+  it('clear data on filetype change', async () => {
+    const mockJsonData = [
+      { id: '1', name: 'Teemo' },
+      { id: '2', name: 'Panda' },
+    ];
+
+    await waitFor(() =>
+      renderWithRouter(
+        <PersonalizationForm
+          questionnaireId="1"
+          questionnaire={baseQuestionnaire}
+          setQuestionnaire={setQuestionnaire}
+          handleSubmit={vi.fn()}
+          fileData={JSON.stringify(mockJsonData)}
+        />,
+      ),
+    );
+    const combobox = screen.getByRole('combobox');
+    fireEvent.click(combobox);
+    const jsonSelectOption = screen.getAllByText('JSON');
+
+    fireEvent.click(jsonSelectOption[0]);
+
+    expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument();
   });
 });
