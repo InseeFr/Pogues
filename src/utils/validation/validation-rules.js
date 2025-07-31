@@ -13,6 +13,7 @@ import {
   QUESTION_TYPE_ENUM,
   TABS_PATHS,
 } from '../../constants/pogues-constants';
+import Dictionary from '../dictionary/dictionary';
 import {
   cartCodeModeCollecte,
   emptyMeasures,
@@ -31,9 +32,8 @@ import {
   validateDuplicatesExternal,
   validateEarlyTarget,
   validateExistingTarget,
-} from '../../forms/validation-rules';
-import { validCollectedVariables } from '../../forms/validation-variables';
-import Dictionary from '../dictionary/dictionary';
+} from './validate-rules';
+import { validCollectedVariables } from './validate-variables';
 
 const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
 const { NUMERIC, TEXT, DATE, DURATION } = DATATYPE_NAME;

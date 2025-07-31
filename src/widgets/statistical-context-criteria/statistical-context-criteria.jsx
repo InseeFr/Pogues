@@ -8,8 +8,8 @@ import { TCM } from '../../constants/pogues-constants';
 import GenericOption from '../../forms/controls/generic-option';
 import ListCheckboxes from '../../forms/controls/list-checkboxes';
 import Select from '../../forms/controls/select';
-import { requiredSelect } from '../../forms/validation-rules';
 import Dictionary from '../../utils/dictionary/dictionary';
+import { requiredSelect } from '../../utils/validation/validation-rules';
 
 const StatisticalContextCriteria = (props) => {
   const {

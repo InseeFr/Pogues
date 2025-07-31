@@ -16,7 +16,7 @@ import {
   requiredSelect,
   validateDuplicates,
   validateExistingTarget,
-} from './validation-rules';
+} from './validate-rules';
 
 describe('required', () => {
   it('should return required field message if value is null or undefined', () => {

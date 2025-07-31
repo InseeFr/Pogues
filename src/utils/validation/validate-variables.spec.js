@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import Dictionary from '../dictionary/dictionary';
-import { validCollectedVariables } from './validation-variables';
+import { validCollectedVariables } from './validate-variables';
 
 describe('validCollectedVariables', () => {
   it('should return an error if the codeListReference is not the same', () => {
