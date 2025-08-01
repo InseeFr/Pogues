@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import ButtonIcon from '@/components/ui/ButtonIcon';
 import SearchOffIcon from '@/components/ui/icons/SearchOffIcon';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   description?: string;
   error?: string;

@@ -16,6 +16,8 @@ import Button, { ButtonSize } from '../ui/Button';
 import NavigationBar, { type NavigationItem } from './NavigationBar';
 import NavigationBarItem from './NavigationBarItem';
 
+const enableArticulationPage = import.meta.env.VITE_ENABLE_ARTICULATION_PAGE;
+
 /** Display the available navigation items in a questionnaire. */
 export default function QuestionnaireNavigation() {
   const { t } = useTranslation();
@@ -59,6 +61,15 @@ export default function QuestionnaireNavigation() {
       path: versionId
         ? `/questionnaire/$questionnaireId/version/$versionId/nomenclatures`
         : '/questionnaire/$questionnaireId/nomenclatures',
+    },
+    {
+      label: 'Articulation',
+      Icon: ListIcon,
+      path: versionId
+        ? `/questionnaire/$questionnaireId/version/$versionId/articulation`
+        : '/questionnaire/$questionnaireId/articulation',
+      isDisabled: !enableArticulationPage,
+      isHidden: !enableArticulationPage,
     },
   ];
 

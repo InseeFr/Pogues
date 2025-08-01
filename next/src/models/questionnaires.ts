@@ -1,3 +1,4 @@
+import { Articulation } from './articulation';
 import { CodesList } from './codesLists';
 
 export type Questionnaire = {
@@ -8,6 +9,7 @@ export type Questionnaire = {
   flowLogic?: FlowLogics;
   formulasLanguage?: FormulasLanguages;
   codesLists?: CodesList[];
+  Articulation?: Articulation;
 };
 
 export enum TargetModes {

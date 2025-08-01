@@ -89,7 +89,8 @@
     "questionnaire": "Questionnaire {{id}}",
     "questionnaires": "Questionnaires",
     "variables": "Variables",
-    "version": "Version {{id}}"
+    "version": "Version {{id}}",
+    "articulation": "Articulation"
   },
   "error": {
     "boundary": "An error occurred, if the problem persists, please contact support."
@@ -233,5 +234,28 @@
     "variable": "{{count}} variable",
     "variable_other": "{{count}} variables",
     "variable_zero": "{{count}} variables"
+  },
+  "articulation": {
+    "common": {
+      "firstName": "First Name",
+      "gender": "Gender",
+      "age": "Age"
+    },
+    "overview": {
+      "mustHaveRoundabout": "There is no roundabout in your questionnaire",
+      "variableTable": "Articulation table variables"
+    },
+    "create": {
+      "create": "Create an articulation"
+    },
+    "delete": {
+      "dialogTitle": "Delete articulation",
+      "dialogConfirm": "Are you sure you want to delete articulation?"
+    },
+    "form": {
+      "mustProvideFirstName": "You must provide a formula for first name",
+      "mustProvideGender": "You must provide a formula for gender",
+      "mustProvideAge": "You must provide a formula for age"
+    }
   }
 }

@@ -89,7 +89,8 @@
     "questionnaire": "Questionnaire {{id}}",
     "questionnaires": "Questionnaires",
     "variables": "Variables",
-    "version": "Version {{id}}"
+    "version": "Version {{id}}",
+    "articulation": "Articulation"
   },
   "error": {
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
@@ -233,5 +234,28 @@
     "variable": "{{count}} variable",
     "variable_other": "{{count}} variables",
     "variable_zero": "{{count}} variable"
+  },
+  "articulation": {
+    "common": {
+      "firstName": "Prénom",
+      "gender": "Sexe",
+      "age": "Âge"
+    },
+    "overview": {
+      "noRoundabout": "Votre questionnaire ne comporte pas de rond-point",
+      "variableTable": "Variables du tableau d'articulation"
+    },
+    "create": {
+      "create": "Créer une articulation"
+    },
+    "delete": {
+      "dialogTitle": "Supprimer l'articulation",
+      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer l'articulation ?"
+    },
+    "form": {
+      "mustProvideFirstName": "Vous devez renseigner une formule pour le prénom",
+      "mustProvideGender": "Vous devez renseigner une formule pour le sexe",
+      "mustProvideAge": "Vous devez renseigner une formule pour l'âge"
+    }
   }
 }

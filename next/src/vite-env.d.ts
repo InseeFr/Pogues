@@ -11,6 +11,7 @@ export type ImportMetaEnv = {
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_CLIENT_ID: string;
   VITE_ENABLE_VARIABLES_PAGE_FORM: string;
+  VITE_ENABLE_ARTICULATION_PAGE: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;
