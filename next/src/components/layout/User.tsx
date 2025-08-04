@@ -30,6 +30,7 @@ export default function User({ user }: Readonly<UserProps>) {
     });
     setDialogOpen(false);
   }
+  console.log('logoutEnabled', logoutEnabled);
   return (
     <>
       <Menu

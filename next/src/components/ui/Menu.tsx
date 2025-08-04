@@ -63,18 +63,16 @@ export default function Menu({ children, items }: Readonly<MenuProps>) {
               <UIMenu.Item
                 key={idx}
                 className={`flex items-center py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none
-    ${
-      item.disabled
-        ? 'cursor-not-allowed text-gray-400 bg-transparent opacity-50'
-        : 'cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200'
-    }`}
+ 'data-disabled:cursor-not-allowed data-disabled:text-gray-500 data-disabled:bg-transparent data-disabled:opacity-50
+         cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200
+    `}
                 onClick={item.onClick}
                 disabled={item.disabled}
                 data-disabled={item.disabled ? true : undefined}
               >
                 {item.icon && (
                   <span
-                    className={`mr-1 ${item.disabled ? 'text-gray-400 opacity-50' : ''}`}
+                    className={`mr-1 data-disabled:bg-transparent data-disabled:opacity-50`}
                   >
                     {item.icon}
                   </span>
