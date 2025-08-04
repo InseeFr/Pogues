@@ -12,8 +12,8 @@ import Textarea from '../../../forms/controls/textarea';
 import { defaultState } from '../../../model/formToState/component-new-edit/redirection';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { validateRedirectionForm } from '../../../utils/validation/validate';
-import { GotoInput } from '../../goto-input';
 import { ListWithInputPanel } from '../../list-with-input-panel';
+import { GotoInput } from './goto-input';
 
 // Utils
 

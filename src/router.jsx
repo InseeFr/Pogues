@@ -2,13 +2,13 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { secure } from './auth';
 import { App } from './layout/app';
-import { DuplicateVariables } from './layout/duplicate-variables';
+import { PageDuplicateVariables } from './layout/page-duplicate-variables';
 import { PageHome } from './layout/page-home';
 import { PageQuestionnaire } from './layout/page-questionnaire';
+import { PageQuestionnaireComposition } from './layout/page-questionnaire-composition';
+import { PageQuestionnaireMerge } from './layout/page-questionnaire-merge';
+import { PageQuestionnaireTcmComposition } from './layout/page-questionnaire-tcm-composition';
 import { PageSearchQuestionnaire } from './layout/page-search-questionnaire';
-import { QuestionnaireComposition } from './layout/questionnaire-composition';
-import { QuestionnaireMerge } from './layout/questionnaire-merge';
-import { QuestionnaireTcmComposition } from './layout/questionnaire-tcm-composition';
 
 const AppSecure = (props) => secure(App)(props);
 
@@ -27,22 +27,22 @@ function Router() {
         <Route
           exact
           path="/questionnaire/:id/composition"
-          component={QuestionnaireComposition}
+          component={PageQuestionnaireComposition}
         />
         <Route
           exact
           path="/questionnaire/:id/tcm-composition"
-          component={QuestionnaireTcmComposition}
+          component={PageQuestionnaireTcmComposition}
         />
         <Route
           exact
           path="/questionnaire/:id/merge"
-          component={QuestionnaireMerge}
+          component={PageQuestionnaireMerge}
         />
         <Route
           exact
           path="/questionnaire/:id/duplicate-variables"
-          component={DuplicateVariables}
+          component={PageDuplicateVariables}
         />
         <Route
           exact

@@ -7,7 +7,7 @@ import {
   LOAD_QUESTIONNAIRE_START,
   LOAD_QUESTIONNAIRE_SUCCESS,
 } from '../actions/questionnaire';
-import { HttpResponseError } from '../errors/error';
+import { HttpResponseError } from '../api/errors/httpError';
 import Dictionary from '../utils/dictionary/dictionary';
 import reducer from './questionnaire-by-id';
 

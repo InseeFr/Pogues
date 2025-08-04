@@ -670,10 +670,6 @@ const dictionary: Dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
-  backToHomePage: {
-    fr: "Retour à l'accueil",
-    en: 'Back to the Home',
-  },
   back: {
     fr: 'Retour',
     en: 'Back',
@@ -725,10 +721,6 @@ const dictionary: Dictionary = {
   noValuesCampaigns: {
     fr: 'Sélectionner une opération pour afficher la liste des campagnes',
     en: 'Select an operation to show a list of campaigns',
-  },
-  customize: {
-    fr: 'Personnaliser',
-    en: 'Customize',
   },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',

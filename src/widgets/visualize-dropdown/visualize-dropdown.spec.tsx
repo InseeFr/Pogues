@@ -5,9 +5,9 @@ import { describe, expect, test, vi } from 'vitest';
 import { VisualizationKind } from '@/api/visualize';
 
 import { APP } from '../../constants/dom-constants';
-import VisualizeDropdown from './components/visualize-dropdown';
+import VisualizeDropdown from './visualize-dropdown';
 
-vi.mock('../../hooks/useReadonly', () => ({
+vi.mock('@/hooks/useReadonly', () => ({
   useReadonly: vi.fn(),
 }));
 
