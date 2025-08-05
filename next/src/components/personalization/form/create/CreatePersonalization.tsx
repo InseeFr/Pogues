@@ -56,7 +56,7 @@ export default function CreatePersonalization({
   }
 
   return (
-    <PersonalisationTile data={data}>
+    <PersonalisationTile data={questionnaire}>
       <PersonalizationForm
         questionnaire={questionnaire}
         setQuestionnaire={setQuestionnaire}

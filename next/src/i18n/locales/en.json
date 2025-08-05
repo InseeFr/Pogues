@@ -159,9 +159,12 @@
       "editDisabledTooltip": "Personalization cannot be edited yet.",
       "existingFileData": "Existing dataset",
       "modes": "Modes: ",
-      "syncErrorDetails": "An error has occurred when saving questionnaire. Please reload the questionnaire into orchestrators by filling the context and data file",
-      "syncErrorTitle": "Error when loading questionnaire into orchestrators",
+      "syncErrorContent": "The questionnaire is out of date. Please reload it by clicking the sync icon.",
+      "syncErrorTitle": "Warning",
       "title": "Personalization",
+      "updateQuestionnaire": "Update questionnaire",
+      "updateSuccess": "The questionnaire has been updated",
+      "updateError": "Error updating the questionnaire",
       "visualiseInterrogations": "Visualize survey units"
     },
     "title": "Personalization"

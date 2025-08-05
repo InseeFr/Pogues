@@ -159,9 +159,10 @@
       "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
       "existingFileData": "Télécharger le jeu de données existantes",
       "modes": "Modes : ",
-      "syncErrorDetails": "Un problème est survenu pendant l'enregistrement du questionnaire. Merci de bien vouloir recharger le questionnaire en renseignant à nouveau le contexte et le fichier de données",
-      "syncErrorTitle": "Erreur de chargement dans les orchestrateurs",
+      "syncErrorContent": "Le questionnaire n'est plus à jour. Merci de bien vouloir le recharger en cliquant sur l'icône de synchronisation.",
+      "syncErrorTitle": "Avertissement",
       "title": "Personnaliser mon questionnaire",
+      "updateQuestionnaire": "Mettre à jour le questionnaire",
       "visualiseInterrogations": "Visualiser les unités enquêtées"
     },
     "title": "Personnalisation"

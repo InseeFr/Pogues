@@ -10,7 +10,7 @@ export default function CsvViewerTable({
 }: Readonly<CsvViewerTableProps>) {
   const shouldScroll = parsedCsv.data.length > 6;
   return (
-    <div className="overflow-x-auto w-full my-3">
+    <div className="overflow-x-auto w-full my-4">
       <div
         className={`${
           shouldScroll

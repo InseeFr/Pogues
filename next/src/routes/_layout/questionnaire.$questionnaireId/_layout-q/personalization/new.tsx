@@ -6,7 +6,10 @@ import { personalizationFromPoguesQueryOptions } from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import CreatePersonalization from '@/components/personalization/form/create/CreatePersonalization';
-import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import {
+  PersonalizationQuestionnaire,
+  SurveyContext,
+} from '@/models/personalizationQuestionnaire';
 
 /**
  * Page that allow to create a new survey unit dataset.
@@ -27,6 +30,8 @@ function RouteComponent() {
   const { data }: { data: PersonalizationQuestionnaire } = useSuspenseQuery(
     personalizationFromPoguesQueryOptions(questionnaireId),
   );
+  // household context is set by default (feedback changes)
+  data.context = { name: 'HOUSEHOLD', value: 'Ménage' } as SurveyContext;
   return (
     <ComponentWrapper>
       <CreatePersonalization data={data} questionnaireId={questionnaireId} />

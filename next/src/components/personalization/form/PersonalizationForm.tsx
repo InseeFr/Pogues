@@ -249,7 +249,6 @@ export default function PersonalizationForm({
                 Icon={DeleteIcon}
                 title={t('common.delete')}
                 onClick={onRemoveFile}
-                buttonStyle={ButtonIconStyle.Delete}
               />
             </div>
           )}

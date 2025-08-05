@@ -4,12 +4,18 @@ import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteQuestionnaireData } from '@/api/personalization';
+import {
+  deleteQuestionnaireData,
+  editQuestionnaireData,
+} from '@/api/personalization';
 import { openParsedCsv, openParsedJson } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
+import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Dialog from '@/components/ui/Dialog';
+import ResetIcon from '@/components/ui/icons/ResetIcon';
+import WarningIcon from '@/components/ui/icons/WarningIcon';
 import {
   InterrogationModeDataResponse,
   PersonalizationQuestionnaire,
@@ -67,6 +73,28 @@ export default function PersonalizationOverview({
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
+      return editQuestionnaireData(data, true);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['allPersonalization', { questionnaireId }],
+      });
+    },
+  });
+
+  const onUpdate = () => {
+    const promise = updateMutation.mutateAsync({
+      data,
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.overview.deleteSuccess'),
+      error: (err: Error) => err.toString(),
+    });
+  };
+
   const deleteMutation = useMutation({
     mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
       return deleteQuestionnaireData(data.poguesId);
@@ -88,7 +116,7 @@ export default function PersonalizationOverview({
     });
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.overview.deleteSuccess'),
+      success: t('personalization.overview.updateSuccess'),
       error: (err: Error) => err.toString(),
     });
   }
@@ -106,20 +134,30 @@ export default function PersonalizationOverview({
           <h3>{t('personalization.overview.visualiseInterrogations')}</h3>
         </div>
         {data.isOutdated ?? (
-          <ErrorTile
-            error={
-              {
-                message: t('personalization.overview.syncErrorTitle'),
-                details: [
-                  {
-                    message: t('personalization.overview.syncErrorDetails'),
-                  } as UploadErrorDetails,
-                ],
-              } as UploadError
-            }
-          />
-        )}
+          <div
+            aria-label="warning-component"
+            className="bg-orange-100 border border-orange-300 text-orange-800 rounded px-4 py-3"
+          >
+            <div className="flex flex-row mb-2 items-center">
+              <WarningIcon className="w-6 h-6 text-orange-800 mr-3 flex-shrink-0" />
+              <h4 className="text-lg font-semibold">
+                {t('personalization.overview.syncErrorTitle')}
+              </h4>
+            </div>
+            {/* Only to keep the same structure as other error tiles */}
+            <div className="w-full flex flex-row items-center mb-2 justify-between">
+              {t('personalization.overview.syncErrorContent')}
 
+              <ButtonIcon
+                className="h-7 ml-3"
+                Icon={ResetIcon}
+                title={t('personalization.overview.syncErrorContent')}
+                onClick={onUpdate}
+                buttonStyle={ButtonIconStyle.Delete}
+              />
+            </div>
+          </div>
+        )}
         {interrogationData === null ||
         Object.keys(interrogationData).length === 0 ? (
           <div>{t('common.loading')}</div>

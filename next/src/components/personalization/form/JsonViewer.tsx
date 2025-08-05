@@ -22,7 +22,7 @@ export default function JsonViewer({ data }: Readonly<JsonViewerProps>) {
   }, [data]);
 
   return (
-    <div className="overflow-x-auto w-full my-3">
+    <div className="overflow-x-auto w-full my-4">
       <div
         style={{
           maxHeight: shouldScroll ? '420px' : 'none',
