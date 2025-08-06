@@ -24,12 +24,12 @@ export type FileType = {
   value: string;
 };
 
-export type UploadError = {
+export type UploadMessage = {
   message: string;
-  details: UploadErrorDetails[];
+  details: UploadMessageDetails[];
 };
 
-export type UploadErrorDetails = {
+export type UploadMessageDetails = {
   dataIndex?: number;
   attributeKey?: string;
   message: string;

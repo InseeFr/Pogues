@@ -16,8 +16,8 @@ import {
   PersonalizationQuestionnaire,
 } from '@/models/personalizationQuestionnaire';
 
-import ErrorTile from './ErrorTile';
 import ModeOverview from './ModeOverview';
+import UploadMessageTile from './UploadMessageTile';
 
 interface PersonalizationCheckPanelProps {
   questionnaireId: string;
@@ -27,7 +27,7 @@ interface PersonalizationCheckPanelProps {
   hasValidInterrogationData: boolean;
 }
 
-export function PersonalizationCheckPanel({
+export default function PersonalizationCheckPanel({
   questionnaireId,
   data,
   fileData,
@@ -93,7 +93,7 @@ export function PersonalizationCheckPanel({
             <ButtonIcon
               className="h-7 ml-3"
               Icon={ResetIcon}
-              title={t('personalization.overview.syncErrorContent')}
+              title={'update-button'}
               onClick={onUpdate}
               buttonStyle={ButtonIconStyle.Delete}
             />
@@ -107,8 +107,8 @@ export function PersonalizationCheckPanel({
         <ModeOverview interrogationData={interrogationData} />
       )}
       {interrogationData && !hasValidInterrogationData && (
-        <ErrorTile
-          error={{
+        <UploadMessageTile
+          messages={{
             message: t('personalization.overview.dataInterrogationError'),
             details: [
               {
@@ -118,6 +118,7 @@ export function PersonalizationCheckPanel({
               },
             ],
           }}
+          isErrorUpload={true}
         />
       )}
     </>

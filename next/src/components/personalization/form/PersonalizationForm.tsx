@@ -25,10 +25,10 @@ import {
   SurveyContext,
   SurveyContextEnum,
   SurveyContextValueEnum,
-  UploadError,
+  UploadMessage,
 } from '@/models/personalizationQuestionnaire';
 
-import ErrorTile from '../overview/ErrorTile';
+import UploadMessageTile from '../overview/UploadMessageTile';
 import CsvViewerTable from './CsvViewerTable';
 import JsonViewer from './JsonViewer';
 
@@ -51,8 +51,11 @@ export default function PersonalizationForm({
   const { t } = useTranslation();
   const emptyFileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
+  const [isErrorUpload, setIsErrorUpload] = useState<boolean>(false);
+  const [uploadMessage, setUploadMessage] = useState<UploadMessage | null>(
+    null,
+  );
 
-  const [errorUpload, setErrorUpload] = useState<UploadError | null>(null);
   const surveyContext: SurveyContext[] = [
     {
       name: SurveyContextEnum.HOUSEHOLD,
@@ -99,15 +102,20 @@ export default function PersonalizationForm({
 
   const checkFileData = useMutation({
     mutationFn: (file: File) => {
-      return checkInterrogationsData(questionnaireId, file);
+      return checkInterrogationsData(questionnaireId, file).then((response) => {
+        console.log('checkFileData response', response);
+        setUploadMessage(response as UploadMessage);
+        setIsErrorUpload(false);
+      });
     },
     onError: (error: AxiosError) => {
       toast.error(t('personalization.create.uploadError'));
-      setErrorUpload(error.response?.data as UploadError);
+      console.error('Error checking file data:', error);
+      setUploadMessage(error.response?.data as UploadMessage);
+      setIsErrorUpload(true);
     },
     onSuccess: () => {
       toast.success(t('personalization.create.uploadSuccess'));
-      setErrorUpload(null);
       queryClient.invalidateQueries({
         queryKey: ['checkFileData', { questionnaireId }],
       });
@@ -140,7 +148,8 @@ export default function PersonalizationForm({
       ...questionnaire,
       interrogationData: undefined,
     });
-    setErrorUpload(null);
+    setIsErrorUpload(false);
+    setUploadMessage(null);
   };
 
   const onInterrogationDataChange = (
@@ -261,7 +270,12 @@ export default function PersonalizationForm({
         >
           {t('personalization.create.expectedFileSchema')}
         </Button>
-        {errorUpload && <ErrorTile error={errorUpload} />}
+        {uploadMessage && (
+          <UploadMessageTile
+            messages={uploadMessage}
+            isErrorUpload={isErrorUpload}
+          />
+        )}
         {fileType.name === 'CSV' && parsedFileData && (
           <CsvViewerTable
             data-testid="csv-viewer-table"
@@ -284,7 +298,7 @@ export default function PersonalizationForm({
           disabled={
             !questionnaire.interrogationData ||
             !questionnaire.context?.name ||
-            errorUpload !== null
+            isErrorUpload
           }
         />
       </div>

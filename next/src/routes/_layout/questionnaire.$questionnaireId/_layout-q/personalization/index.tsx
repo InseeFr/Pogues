@@ -36,9 +36,9 @@ function RouteComponent() {
   const { data: questionnaire } = useSuspenseQuery(
     personalizationFromPoguesQueryOptions(questionnaireId),
   );
-
+  console.log('questionnaire', questionnaire);
   const {
-    data = [{} as InterrogationModeDataResponse, '' as ParseResult | string], // Default values to avoid undefined
+    data = [{} as InterrogationModeDataResponse, '' as ParseResult | string],
   } = useQuery<[InterrogationModeDataResponse, ParseResult | string]>({
     ...basePersonalizationQueryOptions(questionnaire?.poguesId),
     enabled: !!questionnaire?.id,
@@ -47,7 +47,7 @@ function RouteComponent() {
   });
 
   const [interrogationData, fileData] = data;
-  // If questionnaire.id is null or undefined, redirect to personalization creation
+  //If questionnaire.id is null or undefined, redirect to personalization creation
   if (!questionnaire?.id) {
     navigate({
       to: '/questionnaire/$questionnaireId/personalization/new',

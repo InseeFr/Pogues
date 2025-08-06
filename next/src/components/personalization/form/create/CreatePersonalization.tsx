@@ -31,6 +31,11 @@ export default function CreatePersonalization({
     mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
       return addQuestionnaireData(questionnaire);
     },
+    onMutate() {
+      queryClient.invalidateQueries({
+        queryKey: ['personalizationFromPogues', { poguesId: questionnaireId }],
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['saveQuestionnaire', { questionnaireId }],
@@ -40,23 +45,20 @@ export default function CreatePersonalization({
 
   function handleSubmit() {
     const label = questionnaire.label;
-    const promise = saveQuestionnaire.mutateAsync(questionnaire, {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({
-          queryKey: ['personalizationFromPogues', { questionnaireId }],
-        });
+    const promise = saveQuestionnaire.mutateAsync(questionnaire, {});
 
-        navigate({
-          to: '/questionnaire/$questionnaireId/personalization',
-          params: { questionnaireId },
-        });
-      },
-    });
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('personalization.create.saveSuccess', { label }),
       error: (err: Error) =>
         t('personalization.create.saveError', { error: err.message }),
+    });
+
+    promise.finally(() => {
+      navigate({
+        to: '/questionnaire/$questionnaireId/personalization',
+        params: { questionnaireId },
+      });
     });
   }
 

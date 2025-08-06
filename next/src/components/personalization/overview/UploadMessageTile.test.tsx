@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import ErrorTile from './ErrorTile';
+import UploadMessageTile from './UploadMessageTile';
 
 describe('ErrorTile', () => {
   it('renders error details as a list', () => {
@@ -11,7 +11,7 @@ describe('ErrorTile', () => {
         { dataIndex: 2, attributeKey: 'name', message: 'Name is required' },
       ],
     };
-    render(<ErrorTile error={error} />);
+    render(<UploadMessageTile messages={error} isErrorUpload={true} />);
     expect(screen.getByText('Upload failed')).toBeInTheDocument();
     expect(screen.getByText('ID is required')).toBeInTheDocument();
     expect(screen.getByText('Name is required')).toBeInTheDocument();
@@ -20,7 +20,9 @@ describe('ErrorTile', () => {
 
   it('does not render details list if details is empty or missing', () => {
     const error = { message: 'No details', details: [] };
-    const { container } = render(<ErrorTile error={error} />);
+    const { container } = render(
+      <UploadMessageTile messages={error} isErrorUpload={true} />,
+    );
     expect(container.querySelector('ul')).not.toBeInTheDocument();
   });
 });

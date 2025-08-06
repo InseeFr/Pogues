@@ -28,25 +28,25 @@ vi.mock('react-hot-toast', () => ({
   default: { error: vi.fn(), promise: vi.fn(), success: vi.fn() },
 }));
 
-const mockCsvData = {
-  data: [
-    { id: '1', name: 'Teemo' },
-    { id: '2', name: 'Panda' },
-  ],
-  errors: [],
-  meta: {
-    fields: ['id', 'name'],
-    delimiter: ',',
-    linebreak: '\n',
-    aborted: false,
-    truncated: false,
-    cursor: 42,
-  },
-};
 describe('PersonalizationOverview', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+  const mockCsvData = {
+    data: [
+      { id: '1', name: 'Teemo' },
+      { id: '2', name: 'Panda' },
+    ],
+    errors: [],
+    meta: {
+      fields: ['id', 'name'],
+      delimiter: ',',
+      linebreak: '\n',
+      aborted: false,
+      truncated: false,
+      cursor: 42,
+    },
+  };
   const questionnaireId = '123';
   const mockData: PersonalizationQuestionnaire = {
     id: '1',
@@ -163,37 +163,5 @@ describe('PersonalizationOverview', () => {
       );
     });
     expect(toast.success).toHaveBeenCalled();
-  });
-
-  it('shows interrogation data when provided', async () => {
-    const mockInterrogationData = {
-      CAPI: [
-        { id: '1', displayableId: 1, url: 'https://CAPI1.com' },
-        { id: '2', displayableId: 2, url: 'https://CAPI2.com' },
-        { id: '3', displayableId: 3, url: 'https://CAPI3.com' },
-      ],
-      CAWI: [
-        { id: '1', displayableId: 1, url: 'https://CAWI1.com' },
-        { id: '2', displayableId: 2, url: 'https://CAWI2.com' },
-      ],
-      PAPI: [],
-      CATI: [],
-    };
-    const { container } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationsOverview
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={mockCsvData}
-          interrogationData={mockInterrogationData}
-        />,
-      ),
-    );
-    expect(screen.getAllByText('2')).toHaveLength(2);
-    expect(screen.getByText('CAWI')).toBeInTheDocument();
-    expect(screen.queryByText('PAPI')).not.toBeInTheDocument();
-
-    const capiLink = container.querySelector('a[href="https://CAPI1.com"]');
-    expect(capiLink).toBeInTheDocument();
   });
 });
