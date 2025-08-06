@@ -5,7 +5,6 @@ import { AxiosError } from 'axios';
 import Papa, { type ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { set } from 'zod';
 
 import {
   checkInterrogationsData,
@@ -135,13 +134,23 @@ export default function PersonalizationForm({
     });
   };
 
+  const onRemoveFile = () => {
+    setParsedFileData(null);
+    setQuestionnaire({
+      ...questionnaire,
+      interrogationData: undefined,
+    });
+    setErrorUpload(null);
+  };
+
   const onInterrogationDataChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const fileList = event.target.files;
-    if (!fileList) {
+    if (!fileList || fileList.length === 0) {
       return;
     }
+    onRemoveFile();
     const file = fileList[0];
     if (fileType.name === 'JSON') {
       file.text().then((text) => {
@@ -161,15 +170,6 @@ export default function PersonalizationForm({
       interrogationData: fileList[0],
     });
     checkFileData.mutate(file);
-  };
-
-  const onRemoveFile = () => {
-    setParsedFileData(null);
-    setQuestionnaire({
-      ...questionnaire,
-      interrogationData: undefined,
-    });
-    setErrorUpload(null);
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
@@ -249,6 +249,7 @@ export default function PersonalizationForm({
                 Icon={DeleteIcon}
                 title={t('common.delete')}
                 onClick={onRemoveFile}
+                buttonStyle={ButtonIconStyle.Delete}
               />
             </div>
           )}

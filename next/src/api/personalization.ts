@@ -43,8 +43,10 @@ export async function getPublicEnemyBaseData(
  */
 export const personalizationFromPoguesQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['personalizationNewQuestionnaire', { poguesId }],
+    queryKey: ['personalizationFromPogues', { poguesId }],
     queryFn: () => getPublicEnemyDataFromPogues(poguesId),
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
 /**
@@ -206,16 +208,15 @@ export async function addQuestionnaireData(
 /** Edit questionnaire data with personalization in PE db*/
 export async function editQuestionnaireData(
   questionnaire: PersonalizationQuestionnaire,
+  isOutdated: boolean = false,
 ): Promise<PersonalizationQuestionnaire> {
-  console.log('Editing questionnaire data:', questionnaire);
-
   const formData = new FormData();
   const questionnaireRest = {
     poguesId: questionnaire.poguesId,
     context: questionnaire.context,
   };
   formData.append('questionnaire', JSON.stringify(questionnaireRest));
-  if (questionnaire.interrogationData) {
+  if (questionnaire.interrogationData && !isOutdated) {
     formData.append('interrogationData', questionnaire.interrogationData);
   }
 

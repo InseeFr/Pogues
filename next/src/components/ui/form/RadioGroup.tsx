@@ -3,13 +3,10 @@ import { useId } from 'react';
 import { Radio } from '@base-ui-components/react/radio';
 import { RadioGroup as UIRadioGroup } from '@base-ui-components/react/radio-group';
 
-import Label from './Label';
-
 interface RadioGroupProps {
   label?: string;
   onChange: (v: unknown) => void;
   disabled?: boolean;
-  required?: boolean;
   options: { label: string; value: string }[];
   defaultValue?: string;
 }
@@ -17,7 +14,6 @@ interface RadioGroupProps {
 export default function RadioGroup({
   label,
   disabled = false,
-  required = false,
   onChange,
   options,
   defaultValue,
@@ -32,13 +28,10 @@ export default function RadioGroup({
       disabled={disabled}
       onValueChange={onChange}
     >
-      <Label className="flex items-center m-2 gap-2 text-md" id={id}>
-        {label}
-        {required ? ' *' : ''}
-      </Label>
+      <h4 className="flex items-center gap-2 mb-1">{label}</h4>
       <div className="flex gap-x-4">
         {options.map(({ label, value }) => (
-          <label className="flex items-center gap-2" key={label}>
+          <label className="flex items-center gap-2 text-md" key={label}>
             <Radio.Root
               name={label}
               value={value}

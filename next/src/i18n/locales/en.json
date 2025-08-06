@@ -165,6 +165,7 @@
       "updateQuestionnaire": "Update questionnaire",
       "updateSuccess": "The questionnaire has been updated",
       "updateError": "Error updating the questionnaire",
+      "updateFileCheckError": "The current file is not valid anymore. Please upload a new file.",
       "visualiseInterrogations": "Visualize survey units"
     },
     "title": "Personalization"

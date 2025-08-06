@@ -41,11 +41,16 @@ export default function CreatePersonalization({
   function handleSubmit() {
     const label = questionnaire.label;
     const promise = saveQuestionnaire.mutateAsync(questionnaire, {
-      onSuccess: () =>
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: ['personalizationFromPogues', { questionnaireId }],
+        });
+
         navigate({
           to: '/questionnaire/$questionnaireId/personalization',
           params: { questionnaireId },
-        }),
+        });
+      },
     });
     toast.promise(promise, {
       loading: t('common.loading'),

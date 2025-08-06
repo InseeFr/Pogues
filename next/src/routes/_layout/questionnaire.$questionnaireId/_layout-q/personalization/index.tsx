@@ -47,7 +47,6 @@ function RouteComponent() {
   });
 
   const [interrogationData, fileData] = data;
-
   // If questionnaire.id is null or undefined, redirect to personalization creation
   if (!questionnaire?.id) {
     navigate({
