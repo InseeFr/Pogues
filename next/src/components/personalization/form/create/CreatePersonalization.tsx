@@ -45,20 +45,27 @@ export default function CreatePersonalization({
 
   function handleSubmit() {
     const label = questionnaire.label;
-    const promise = saveQuestionnaire.mutateAsync(questionnaire, {});
+    const promise = saveQuestionnaire.mutateAsync(questionnaire);
 
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.create.saveSuccess', { label }),
-      error: (err: Error) =>
-        t('personalization.create.saveError', { error: err.message }),
-    });
-
-    promise.finally(() => {
-      navigate({
-        to: '/questionnaire/$questionnaireId/personalization',
-        params: { questionnaireId },
-      });
+      success: (result) => {
+        if (result.state === 'COMPLETED') {
+          navigate({
+            to: '/questionnaire/$questionnaireId/personalization',
+            params: { questionnaireId },
+          });
+          return t('personalization.create.saveSuccess');
+        }
+        if (result.state === 'ERROR') {
+          console.error('Error saving questionnaire', result);
+          toast.error(t('personalization.create.brokenQuestionnaire'));
+          return null;
+        }
+        return t('personalization.create.saveError');
+      },
+      error: (err) =>
+        t('personalization.create.saveError', { label, error: err.message }),
     });
   }
 

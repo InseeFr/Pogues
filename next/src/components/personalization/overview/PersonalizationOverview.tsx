@@ -17,7 +17,7 @@ import {
 
 import CsvViewerTable from '../form/CsvViewerTable';
 import JsonViewer from '../form/JsonViewer';
-import { PersonalizationCheckPanel } from './PersonalizationCheckPanel';
+import PersonalizationCheckPanel from './PersonalizationCheckPanel';
 import PersonalisationTile from './PersonalizationTile';
 
 interface PersonalizationOverviewProps {

@@ -4,7 +4,7 @@ import Papa, { ParseResult } from 'papaparse';
 import {
   InterrogationModeDataResponse,
   PersonalizationQuestionnaire,
-  UploadError,
+  UploadMessage,
 } from '@/models/personalizationQuestionnaire';
 
 import { instancePersonalization } from './instancePersonalization';
@@ -46,7 +46,6 @@ export const personalizationFromPoguesQueryOptions = (poguesId: string) =>
     queryKey: ['personalizationFromPogues', { poguesId }],
     queryFn: () => getPublicEnemyDataFromPogues(poguesId),
     staleTime: 0,
-    refetchOnMount: true,
   });
 
 /**
@@ -174,10 +173,10 @@ export async function getExistingFileSchema(
 export async function checkInterrogationsData(
   poguesId: string,
   interrogationData: File,
-): Promise<UploadError> {
+): Promise<UploadMessage> {
   const formData = new FormData();
   formData.append('interrogationData', interrogationData);
-  return instancePersonalization.post(
+  const response = await instancePersonalization.post(
     `/questionnaires/${poguesId}/checkdata`,
     formData,
     {
@@ -186,6 +185,7 @@ export async function checkInterrogationsData(
       },
     },
   );
+  return response.data;
 }
 
 /** Upload questionnaire data with personalization to PE db */
@@ -202,7 +202,11 @@ export async function addQuestionnaireData(
   if (questionnaire.interrogationData) {
     formData.append('interrogationData', questionnaire.interrogationData);
   }
-  return instancePersonalization.post(`/questionnaires`, formData);
+  const response = await instancePersonalization.post(
+    `/questionnaires`,
+    formData,
+  );
+  return response.data;
 }
 
 /** Edit questionnaire data with personalization in PE db*/
@@ -220,7 +224,11 @@ export async function editQuestionnaireData(
     formData.append('interrogationData', questionnaire.interrogationData);
   }
 
-  return instancePersonalization.put(`/questionnaires`, formData);
+  const response = await instancePersonalization.put(
+    `/questionnaires`,
+    formData,
+  );
+  return response.data;
 }
 
 export async function resetInterrogation(

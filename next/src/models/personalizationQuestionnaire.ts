@@ -5,7 +5,7 @@ export type PersonalizationQuestionnaire = {
   modes: Mode[];
   context: SurveyContext;
   interrogationData?: File;
-  state: 'STARTED' | 'COMPLETED';
+  state: 'STARTED' | 'COMPLETED' | 'ERROR' | 'NONE';
   isOutdated: boolean;
 };
 

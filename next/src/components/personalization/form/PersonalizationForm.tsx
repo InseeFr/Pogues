@@ -103,14 +103,12 @@ export default function PersonalizationForm({
   const checkFileData = useMutation({
     mutationFn: (file: File) => {
       return checkInterrogationsData(questionnaireId, file).then((response) => {
-        console.log('checkFileData response', response);
         setUploadMessage(response as UploadMessage);
         setIsErrorUpload(false);
       });
     },
     onError: (error: AxiosError) => {
       toast.error(t('personalization.create.uploadError'));
-      console.error('Error checking file data:', error);
       setUploadMessage(error.response?.data as UploadMessage);
       setIsErrorUpload(true);
     },
@@ -270,7 +268,7 @@ export default function PersonalizationForm({
         >
           {t('personalization.create.expectedFileSchema')}
         </Button>
-        {uploadMessage && (
+        {uploadMessage && uploadMessage.details && (
           <UploadMessageTile
             messages={uploadMessage}
             isErrorUpload={isErrorUpload}

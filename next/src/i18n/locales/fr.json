@@ -119,6 +119,7 @@
   "personalization": {
     "create": {
       "business": "Entreprise",
+      "brokenQuestionnaire": "Veuillez vérifier que votre questionnaire est bien fonctionnel et intègre.",
       "context": "Contexte",
       "createQuestionnaire": "Charger les données dans les orchestrateurs",
       "createQuestionnaireDescription": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
@@ -130,7 +131,7 @@
       "fileViewerError": "Erreur lors des l'affichage du fichier.",
       "household": "Ménage",
       "noFileChosen": "Aucun fichier choisi",
-      "saveError": "Erreur lors de la sauvegarde du questionnaire",
+      "saveError": "Erreur lors du chargement des interrogations",
       "saveSuccess": "Questionnaire sauvegardé avec succès",
       "success": "La personnalisation a été créée avec succès",
       "title": "Personnaliser mon questionnaire",

@@ -36,7 +36,6 @@ function RouteComponent() {
   const { data: questionnaire } = useSuspenseQuery(
     personalizationFromPoguesQueryOptions(questionnaireId),
   );
-  console.log('questionnaire', questionnaire);
   const {
     data = [{} as InterrogationModeDataResponse, '' as ParseResult | string],
   } = useQuery<[InterrogationModeDataResponse, ParseResult | string]>({

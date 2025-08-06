@@ -119,6 +119,7 @@
   "personalization": {
     "create": {
       "business": "Business",
+      "brokenQuestionnaire": "Please check that your questionnaire is functional and complete.",
       "context": "Context",
       "createQuestionnaire": "Load questionnaire in orchestrator",
       "createQuestionnaireDescription": "Create a questionnaire in the orchestrator with the uploaded survey units.",
