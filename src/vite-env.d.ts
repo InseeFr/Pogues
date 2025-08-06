@@ -4,17 +4,16 @@ type ImportMetaEnv = {
   // You probably want to add `/src/vite-env.d.ts` to your .prettierignore
   VITE_API_URL: string;
   VITE_ACTIVE_NAMESPACES: string;
-  VITE_CUSTOMIZE_URL: string;
   VITE_TROMBI_URL: string;
-  VITE_METADATA_DOWNLOAD_ENABLED: string;
-  VITE_PERSONALIZATION_URL: string;
   VITE_OIDC_ENABLED: string;
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_CLIENT_ID: string;
   VITE_DEFAULT_USER_ID: string;
   VITE_DEFAULT_USER_NAME: string;
   VITE_DEFAULT_USER_STAMP: string;
+  VITE_ENABLE_PAIRING_RECAP: string;
   VITE_LOG_LEVEL: string;
+  VITE_CUSTOMIZE_URL: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;

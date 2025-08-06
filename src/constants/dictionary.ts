@@ -670,10 +670,6 @@ const dictionary: Dictionary = {
     fr: 'Déposer ici !',
     en: 'Drop here !',
   },
-  backToHomePage: {
-    fr: "Retour à l'accueil",
-    en: 'Back to the Home',
-  },
   back: {
     fr: 'Retour',
     en: 'Back',

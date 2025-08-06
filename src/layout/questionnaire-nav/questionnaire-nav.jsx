@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import Dictionary from '../../utils/dictionary/dictionary';
 import ArboSimplified from './components/arbo-simplified';
@@ -28,13 +27,6 @@ const QuestionnaireNav = (props) => {
   return (
     <div className="questionnaire-nav">
       <div className="nav-style">
-        <ul>
-          <li>
-            <span className="glyphicon glyphicon-home" />
-            <Link to="/">{Dictionary.backToHomePage}</Link>
-          </li>
-        </ul>
-
         <ArboSimplified
           components={componentsStore}
           questionnaire={questionnaire}

@@ -19,6 +19,7 @@
     "question_other": "{{count}} questions",
     "question_zero": "{{count}} question",
     "questionnaire": "Questionnaire",
+    "questionnaires": "Questionnaires",
     "title": "Titre",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "usedByQuestion": "Utilisé dans la question :",
