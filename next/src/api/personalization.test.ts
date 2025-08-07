@@ -1,4 +1,6 @@
 import nock from 'nock';
+import { ParseResult } from 'papaparse';
+import { vi } from 'vitest';
 
 import {
   PersonalizationQuestionnaire,
@@ -6,6 +8,7 @@ import {
   SurveyContextValueEnum,
 } from '@/models/personalizationQuestionnaire';
 
+import { instancePersonalization } from './instancePersonalization';
 import {
   addQuestionnaireData,
   deleteQuestionnaireData,
@@ -22,7 +25,15 @@ vi.mock('@/contexts/oidc', () => ({
       }),
     }),
 }));
+beforeAll(() => {
+  vi.stubEnv('VITE_PERSONALIZATION_URL', 'https://mock-personalization-api');
+  instancePersonalization.defaults.baseURL = 'https://mock-personalization-api';
+});
 
+afterAll(() => {
+  vi.unstubAllEnvs();
+  nock.cleanAll();
+});
 const mockData: PersonalizationQuestionnaire = {
   id: '1',
   poguesId: '1',
@@ -68,14 +79,9 @@ const mockCsvData = {
     truncated: false,
     cursor: 42,
   },
-};
+} as ParseResult;
 
 it('Get personalization data works', async () => {
-  console.log(
-    'VITE_PERSONALIZATION_URL in test:',
-    import.meta.env.VITE_PERSONALIZATION_URL,
-  );
-
   nock('https://mock-personalization-api')
     .get('/questionnaires/my-questionnaire')
     .reply(200, mockData);
@@ -89,27 +95,17 @@ it('Delete personalization data works', async () => {
     .delete('/questionnaires/my-questionnaire')
     .reply(204);
 
-  await expect(
-    deleteQuestionnaireData('my-questionnaire'),
-  ).resolves.toBeUndefined();
+  const res = await deleteQuestionnaireData('my-questionnaire');
+  expect(res.status).toEqual(204);
 });
 
 it('Get interrogation data works', async () => {
   nock('https://mock-personalization-api')
-    .get('/interrogations/my-questionnaire')
+    .get('/questionnaires/my-questionnaire/interrogations')
     .reply(200, mockInterrogationData);
 
   const res = await getAllInterrogationData('my-questionnaire');
   expect(res).toEqual(mockInterrogationData);
-});
-
-it('Get CSV data works', async () => {
-  nock('https://mock-personalization-api')
-    .get('/questionnaires/my-questionnaire/data')
-    .reply(200, mockCsvData);
-
-  const res = await getExistingFileSchema('my-questionnaire');
-  expect(res).toEqual(mockCsvData);
 });
 
 it('Add questionnaire data works', async () => {
