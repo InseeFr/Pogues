@@ -9,6 +9,7 @@ const { MEASURE: selectorPath } = DIMENSION_TYPE;
 function ResponseFormatTableMeasure({
   selectorPathParent,
   disableSetConditionFilter,
+  disableSetConditionReadOnly,
 }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
@@ -19,6 +20,7 @@ function ResponseFormatTableMeasure({
       <InputMeasure
         selectorPath={selectorPathComposed}
         disableSetConditionFilter={disableSetConditionFilter}
+        disableSetConditionReadOnly={disableSetConditionReadOnly}
       />
     </FormSection>
   );
@@ -27,6 +29,7 @@ function ResponseFormatTableMeasure({
 ResponseFormatTableMeasure.propTypes = {
   selectorPathParent: PropTypes.string,
   disableSetConditionFilter: PropTypes.bool,
+  disableSetConditionReadOnly: PropTypes.bool,
 };
 
 ResponseFormatTableMeasure.defaultProps = {
