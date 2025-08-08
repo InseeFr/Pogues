@@ -133,11 +133,7 @@ export default function PersonalizationForm({
 
   const onFileTypeChange = (fileType: FileType) => {
     setFileType(fileType);
-    setParsedFileData(null);
-    setQuestionnaire({
-      ...questionnaire,
-      interrogationData: undefined,
-    });
+    onRemoveFile();
   };
 
   const onRemoveFile = () => {
@@ -159,6 +155,16 @@ export default function PersonalizationForm({
     }
     onRemoveFile();
     const file = fileList[0];
+
+    if (file.type !== fileType.value) {
+      toast.error(
+        t('personalization.create.invalidFileType', {
+          expected: fileType.name,
+        }),
+      );
+      event.target.value = '';
+      return;
+    }
     if (fileType.name === 'JSON') {
       file.text().then((text) => {
         setParsedFileData(text);

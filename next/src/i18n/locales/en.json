@@ -131,6 +131,7 @@
       "expectedFileSchema": "Expected file schema",
       "fileViewerError": "Error displaying the file.",
       "household": "Household",
+      "invalidFileType": "Invalid file type. Expected: {{expected}}.",
       "noFileChosen": "No file chosen",
       "saveError": "Error saving questionnaire",
       "saveSuccess": "Questionnaire saved successfully",

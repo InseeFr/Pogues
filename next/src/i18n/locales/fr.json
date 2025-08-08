@@ -131,6 +131,7 @@
       "expectedFileSchema": "Schéma de fichier attendu",
       "fileViewerError": "Erreur lors des l'affichage du fichier.",
       "household": "Ménage",
+      "invalidFileType": "Type de fichier invalide. Format attendu : {{expected}}.",
       "noFileChosen": "Aucun fichier choisi",
       "saveError": "Erreur lors du chargement des interrogations",
       "saveSuccess": "Questionnaire sauvegardé avec succès",
