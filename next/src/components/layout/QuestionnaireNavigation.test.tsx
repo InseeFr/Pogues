@@ -11,6 +11,7 @@ describe('QuestionnaireNavigation', () => {
       renderWithRouter(<QuestionnaireNavigation />),
     );
 
+    expect(getByText(/Home/i)).toBeInTheDocument();
     expect(getByText(/Questionnaire/i)).toBeInTheDocument();
     expect(getByText(/Codes lists/i)).toBeInTheDocument();
     expect(getByText(/Nomenclatures/i)).toBeInTheDocument();

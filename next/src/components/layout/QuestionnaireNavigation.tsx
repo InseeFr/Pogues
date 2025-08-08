@@ -1,9 +1,10 @@
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import DashboardIcon from '@/components/ui/icons/DashboardIcon';
 import DictionaryIcon from '@/components/ui/icons/DictionaryIcon';
 import HistoryIcon from '@/components/ui/icons/HistoryIcon';
+import HomeIcon from '@/components/ui/icons/HomeIcon';
 import LatestIcon from '@/components/ui/icons/LatestIcon';
 import ListIcon from '@/components/ui/icons/ListIcon';
 import NomenclatureAltIcon from '@/components/ui/icons/NomenclatureAltIcon';
@@ -13,6 +14,7 @@ import { useAltIcon } from '@/hooks/useAltIcon';
 
 import Button, { ButtonSize } from '../ui/Button';
 import NavigationBar, { type NavigationItem } from './NavigationBar';
+import NavigationBarItem from './NavigationBarItem';
 
 const enableVariablesPage = import.meta.env.VITE_ENABLE_VARIABLES_PAGE;
 const enablePersonalizationPage = import.meta.env
@@ -87,7 +89,15 @@ export default function QuestionnaireNavigation() {
   ];
 
   return (
-    <div className="sticky top-0 w-18 2xl:w-52 max-h-[calc(100vh-var(--header-height))] divide-y *:py-3 *:first:pt-0 *:last:pb-0">
+    <div className="sticky top-0 w-18 2xl:w-52 max-h-[calc(100vh-var(--header-height))] divide-y *:py-3 *:first:pt-0 *:last:pb-0 pt-2">
+      <div>
+        <Link
+          to={'/questionnaires'}
+          className={`w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none`}
+        >
+          <NavigationBarItem Icon={HomeIcon} label={t('common.home')} />
+        </Link>
+      </div>
       <div>
         <div className="p-1 py-3 2xl:px-3">
           <Button
