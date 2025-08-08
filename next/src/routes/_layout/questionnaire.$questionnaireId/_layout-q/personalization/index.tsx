@@ -23,9 +23,15 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
-    await queryClient.ensureQueryData(
-      personalizationFromPoguesQueryOptions(questionnaireId),
-    );
+    queryClient.invalidateQueries({
+      queryKey: ['personalizationFromPogues', { poguesId: questionnaireId }],
+    });
+    await queryClient.ensureQueryData({
+      ...personalizationFromPoguesQueryOptions(questionnaireId),
+    });
+  },
+  loaderDeps() {
+    return { timestamp: Date.now() };
   },
 });
 

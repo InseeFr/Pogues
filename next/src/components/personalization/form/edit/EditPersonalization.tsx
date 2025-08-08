@@ -33,7 +33,15 @@ export default function EditPersonalization({
     mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
       return editQuestionnaireData(questionnaire);
     },
-    onSuccess: () => {
+    onSuccess: async (result) => {
+      if (result.state === 'COMPLETED') {
+        await queryClient.refetchQueries({
+          queryKey: [
+            'personalizationFromPogues',
+            { poguesId: questionnaireId },
+          ],
+        });
+      }
       queryClient.invalidateQueries({
         queryKey: ['editQuestionnaire', { questionnaireId }],
       });
@@ -42,18 +50,27 @@ export default function EditPersonalization({
 
   function handleSubmit() {
     const label = questionnaire.label;
-    const promise = saveQuestionnaire.mutateAsync(questionnaire, {
-      onSuccess: () =>
-        navigate({
-          to: '/questionnaire/$questionnaireId/personalization',
-          params: { questionnaireId },
-        }),
-    });
+    const promise = saveQuestionnaire.mutateAsync(questionnaire);
+
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.edit.saveSuccess', { label }),
-      error: (err: Error) =>
-        t('personalization.edit.saveError', { error: err.message }),
+      success: (result) => {
+        if (result.state === 'COMPLETED') {
+          navigate({
+            to: `/questionnaire/${questionnaireId}/personalization`,
+            replace: true,
+          });
+          return t('personalization.edit.saveSuccess');
+        }
+        if (result.state === 'ERROR') {
+          console.error('Error saving questionnaire', result);
+          toast.error(t('personalization.edit.brokenQuestionnaire'));
+          return null;
+        }
+        return t('personalization.create.saveError');
+      },
+      error: (err) =>
+        t('personalization.create.saveError', { label, error: err.message }),
     });
   }
 

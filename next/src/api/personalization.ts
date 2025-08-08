@@ -46,6 +46,7 @@ export const personalizationFromPoguesQueryOptions = (poguesId: string) =>
     queryKey: ['personalizationFromPogues', { poguesId }],
     queryFn: () => getPublicEnemyDataFromPogues(poguesId),
     staleTime: 0,
+    gcTime: 0,
   });
 
 /**

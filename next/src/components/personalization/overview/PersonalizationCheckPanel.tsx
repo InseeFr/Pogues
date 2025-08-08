@@ -100,27 +100,28 @@ export default function PersonalizationCheckPanel({
           </div>
         </div>
       )}
-      {interrogationData === null ||
-      Object.keys(interrogationData).length === 0 ? (
+      {interrogationData === null ? (
         <div>{t('common.loading')}</div>
       ) : (
         <ModeOverview interrogationData={interrogationData} />
       )}
-      {interrogationData && !hasValidInterrogationData && (
-        <UploadMessageTile
-          messages={{
-            message: t('personalization.overview.dataInterrogationError'),
-            details: [
-              {
-                message: t(
-                  'personalization.overview.dataInterrogationErrorDetails',
-                ),
-              },
-            ],
-          }}
-          isErrorUpload={true}
-        />
-      )}
+      {interrogationData &&
+        Object.keys(interrogationData).length > 0 &&
+        !hasValidInterrogationData && (
+          <UploadMessageTile
+            messages={{
+              message: t('personalization.overview.dataInterrogationError'),
+              details: [
+                {
+                  message: t(
+                    'personalization.overview.dataInterrogationErrorDetails',
+                  ),
+                },
+              ],
+            }}
+            isErrorUpload={true}
+          />
+        )}
     </>
   );
 }

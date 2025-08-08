@@ -1,5 +1,4 @@
 import nock from 'nock';
-import { ParseResult } from 'papaparse';
 import { vi } from 'vitest';
 
 import {
@@ -13,7 +12,6 @@ import {
   addQuestionnaireData,
   deleteQuestionnaireData,
   getAllInterrogationData,
-  getExistingFileSchema,
   getPublicEnemyDataFromPogues,
 } from './personalization';
 
@@ -64,22 +62,6 @@ const mockInterrogationData = {
   PAPI: [],
   CATI: [],
 };
-
-const mockCsvData = {
-  data: [
-    { id: '1', name: 'Teemo' },
-    { id: '2', name: 'Panda' },
-  ],
-  errors: [],
-  meta: {
-    fields: ['id', 'name'],
-    delimiter: ',',
-    linebreak: '\n',
-    aborted: false,
-    truncated: false,
-    cursor: 42,
-  },
-} as ParseResult;
 
 it('Get personalization data works', async () => {
   nock('https://mock-personalization-api')

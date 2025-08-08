@@ -22,8 +22,8 @@ export default function CreatePersonalization({
   data,
 }: Readonly<CreatePersonalizationProps>) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [questionnaire, setQuestionnaire] =
     useState<PersonalizationQuestionnaire>(data);
 
@@ -31,12 +31,15 @@ export default function CreatePersonalization({
     mutationFn: (questionnaire: PersonalizationQuestionnaire) => {
       return addQuestionnaireData(questionnaire);
     },
-    onMutate() {
-      queryClient.invalidateQueries({
-        queryKey: ['personalizationFromPogues', { poguesId: questionnaireId }],
-      });
-    },
-    onSuccess: () => {
+    onSuccess: async (result) => {
+      if (result.state === 'COMPLETED') {
+        await queryClient.refetchQueries({
+          queryKey: [
+            'personalizationFromPogues',
+            { poguesId: questionnaireId },
+          ],
+        });
+      }
       queryClient.invalidateQueries({
         queryKey: ['saveQuestionnaire', { questionnaireId }],
       });
@@ -52,8 +55,8 @@ export default function CreatePersonalization({
       success: (result) => {
         if (result.state === 'COMPLETED') {
           navigate({
-            to: '/questionnaire/$questionnaireId/personalization',
-            params: { questionnaireId },
+            to: `/questionnaire/${questionnaireId}/personalization`,
+            replace: true,
           });
           return t('personalization.create.saveSuccess');
         }
