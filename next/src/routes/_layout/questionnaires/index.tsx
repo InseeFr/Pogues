@@ -9,6 +9,7 @@ import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
 import Questionnaires from '@/components/questionnaires/overview/Questionnaires';
 import ButtonLink from '@/components/ui/ButtonLink';
+import { loginLoader } from '@/utils/loginLoader';
 
 const questionnairesSchema = z.object({
   stamp: z.string().optional(),
@@ -18,6 +19,7 @@ export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
   errorComponent: ErrorComponent,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
+  beforeLoad: async () => loginLoader(),
   loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
     const selectedStamp = stamp ?? user!.stamp ?? '';
 

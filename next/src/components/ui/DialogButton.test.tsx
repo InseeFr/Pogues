@@ -1,31 +1,23 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithI18n } from '@/tests/tests';
 
-import Dialog from './Dialog';
+import DialogButton from './DialogButton';
 
-describe('Dialog', () => {
-  it('can be opened and closed with a trigger button', async () => {
+describe('DialogButton', () => {
+  it('can be opened and closed', async () => {
+    expect(true).toBeTruthy();
     const user = userEvent.setup();
-
     const { queryByText, getByText } = await waitFor(() =>
-      renderWithRouter(
-        <Dialog body="body" title="title">
-          <button>Open Dialog</button>
-        </Dialog>,
-      ),
+      renderWithI18n(<DialogButton body="body" label="label" title="title" />),
     );
-
-    const openButton = screen.getByRole('button', { name: 'Open Dialog' });
-    await user.click(openButton);
-
+    expect(getByText('label')).toBeInTheDocument();
+    await user.click(screen.getByText('label'));
     expect(getByText('title')).toBeInTheDocument();
     expect(getByText('body')).toBeInTheDocument();
     expect(getByText('Cancel')).toBeInTheDocument();
-
     await user.click(screen.getByText('Cancel'));
-
     expect(queryByText('title')).toBeNull();
     expect(queryByText('body')).toBeNull();
   });

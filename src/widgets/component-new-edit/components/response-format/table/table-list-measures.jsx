@@ -16,6 +16,7 @@ function TableListMeasures({
   selectorPath,
   addErrors,
   disableSetConditionFilter,
+  disableSetConditionReadOnly,
 }) {
   return (
     <FormSection name="LIST_MEASURE">
@@ -29,6 +30,7 @@ function TableListMeasures({
         <InputMeasure
           selectorPath={selectorPath}
           disableSetConditionFilter={disableSetConditionFilter}
+          disableSetConditionReadOnly={disableSetConditionReadOnly}
         />
       </ListWithInputPanel>
     </FormSection>
@@ -40,6 +42,7 @@ TableListMeasures.propTypes = {
   selectorPath: PropTypes.string.isRequired,
   addErrors: PropTypes.func.isRequired,
   disableSetConditionFilter: PropTypes.bool,
+  disableSetConditionReadOnly: PropTypes.bool,
 };
 
 TableListMeasures.defaultProps = {

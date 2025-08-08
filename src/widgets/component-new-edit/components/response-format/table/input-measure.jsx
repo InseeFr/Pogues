@@ -17,6 +17,7 @@ const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 function InputMeasure({
   selectorPath,
   disableSetConditionFilter = false,
+  disableSetConditionReadOnly = false,
   hasFilter,
   setConditionFilter,
   isReadOnly = false,
@@ -90,28 +91,33 @@ function InputMeasure({
           )}
         </>
       )}
-      <Field
-        name="isReadOnly"
-        component={ListRadios}
-        label={Dictionary.readOnlyCells}
-        required
-        // Reset condition filter to undefined value on change
-        onChange={handleReadOnlyChange}
-        // Convert string "true"/"false" to boolean true/false when storing in Redux form
-        parse={(value) => value === 'true'}
-        // Convert true/false/undefined to string "true"/"false" when displaying the form
-        format={(value) => (value === true ? 'true' : 'false')}
-      >
-        <GenericOption value="true">{Dictionary.yes}</GenericOption>
-        <GenericOption value="false">{Dictionary.no}</GenericOption>
-      </Field>
-      {isReadOnly && (
-        <Field
-          name="conditionReadOnly"
-          component={RichEditorWithVariable}
-          label={Dictionary.conditionReadOnly}
-          toolbar={toolbarConfigTooltip}
-        />
+
+      {!disableSetConditionReadOnly && (
+        <>
+          <Field
+            name="isReadOnly"
+            component={ListRadios}
+            label={Dictionary.readOnlyCells}
+            required
+            // Reset condition filter to undefined value on change
+            onChange={handleReadOnlyChange}
+            // Convert string "true"/"false" to boolean true/false when storing in Redux form
+            parse={(value) => value === 'true'}
+            // Convert true/false/undefined to string "true"/"false" when displaying the form
+            format={(value) => (value === true ? 'true' : 'false')}
+          >
+            <GenericOption value="true">{Dictionary.yes}</GenericOption>
+            <GenericOption value="false">{Dictionary.no}</GenericOption>
+          </Field>
+          {isReadOnly && (
+            <Field
+              name="conditionReadOnly"
+              component={RichEditorWithVariable}
+              label={Dictionary.conditionReadOnly}
+              toolbar={toolbarConfigTooltip}
+            />
+          )}
+        </>
       )}
     </div>
   );
@@ -120,6 +126,7 @@ function InputMeasure({
 InputMeasure.propTypes = {
   selectorPath: PropTypes.string.isRequired,
   disableSetConditionFilter: PropTypes.bool,
+  disableSetConditionReadOnly: PropTypes.bool,
   hasFilter: PropTypes.bool,
   setConditionFilter: PropTypes.func,
   isReadOnly: PropTypes.bool,

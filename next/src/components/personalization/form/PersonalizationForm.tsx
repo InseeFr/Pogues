@@ -13,7 +13,7 @@ import {
 import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
-import Dialog from '@/components/ui/Dialog';
+import DialogButton from '@/components/ui/DialogButton';
 import Input from '@/components/ui/form/Input';
 import Option from '@/components/ui/form/Option';
 import RadioGroup from '@/components/ui/form/RadioGroup';
@@ -291,7 +291,7 @@ export default function PersonalizationForm({
         )}
       </div>
       <div className="mt-auto w-auto inline-block my-1">
-        <Dialog
+        <DialogButton
           label={t('common.validate')}
           title={t('personalization.create.createQuestionnaire', {
             label: questionnaire.label,

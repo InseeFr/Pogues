@@ -13,6 +13,15 @@
     "expand": "Étendre",
     "lastUpdated": "Dernière modification",
     "loading": "Chargement...",
+    "login": "Se connecter",
+    "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
+    "logout": "Déconnexion",
+    "logoutDialog": {
+      "body": "Vous allez perdre vos modifications non enregistrées. Êtes-vous sûr de vouloir vous déconnecter ?",
+      "label": "Se déconnecter",
+      "title": "Confirmation de déconnexion"
+    },
+    "moreActions": "Plus d'actions",
     "new": "Nouveau",
     "notUsedByQuestions": "Utilisé par aucune question.",
     "question": "{{count}} question",
@@ -21,6 +30,7 @@
     "questionnaire": "Questionnaire",
     "questionnaires": "Questionnaires",
     "title": "Titre",
+    "unknownUser": "Utilisateur inconnu",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "usedByQuestion": "Utilisé dans la question :",
     "usedByQuestion_other": "Utilisé dans les questions :",

@@ -51,11 +51,13 @@ function ResponseFormatTable({
           selectorPath={`${selectorPathComposed}.LIST_MEASURE`}
           addErrors={addErrors}
           disableSetConditionFilter={primaryAxisType === CODES_LIST}
+          disableSetConditionReadOnly={primaryAxisType === CODES_LIST}
         />
       ) : (
         <ResponseFormatTableMeasure
           selectorPathParent={selectorPathComposed}
           disableSetConditionFilter={true}
+          disableSetConditionReadOnly={true}
         />
       )}
     </FormSection>

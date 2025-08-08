@@ -1,23 +1,49 @@
+import { useRef } from 'react';
+
 import { Menu as UIMenu } from '@base-ui-components/react/menu';
 import i18next from 'i18next';
 
-import DeleteIcon from './icons/DeleteIcon';
 import MenuIcon from './icons/MenuIcon';
 
-interface MenuProps {
-  /** If there is no title we display an icon. */
-  title?: string;
+interface MenuItem {
+  label?: string;
+  icon?: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
 }
 
-export default function Menu({ title }: Readonly<MenuProps>) {
+interface MenuProps {
+  children?: React.ReactNode;
+  items: MenuItem[];
+}
+
+export default function Menu({ children, items }: Readonly<MenuProps>) {
+  const triggerRef = useRef<HTMLButtonElement | HTMLDivElement>(null);
+
   return (
-    <UIMenu.Root>
-      {title ? (
-        <UIMenu.Trigger className="flex h-10 items-center justify-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-medium text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-popup-open:bg-gray-100">
-          {title} <ChevronDownIcon className="-mr-1" />
+    <UIMenu.Root
+      onOpenChange={(open: boolean) => {
+        if (!open && triggerRef.current) {
+          triggerRef.current.blur();
+        }
+      }}
+    >
+      {children ? (
+        <UIMenu.Trigger
+          ref={triggerRef}
+          className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+        >
+          {children}
         </UIMenu.Trigger>
       ) : (
-        <UIMenu.Trigger>
+        <UIMenu.Trigger
+          ref={triggerRef}
+          className={
+            children
+              ? 'flex h-10 items-center justify-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-3.5 text-base font-medium text-gray-900 select-none hover:bg-gray-100 focus:outline-none focus-visible:outline focus-visible:-outline-offset-1 focus-visible:border-primary active:bg-gray-100 data-popup-open:bg-gray-100'
+              : undefined
+          }
+        >
           <div
             title={"Plus d'actions"}
             className="fill-gray-600 cursor-pointer hover:bg-slate-200 w-fit p-0.5 rounded"
@@ -26,16 +52,34 @@ export default function Menu({ title }: Readonly<MenuProps>) {
           </div>
         </UIMenu.Trigger>
       )}
+
       <UIMenu.Portal>
         <UIMenu.Positioner className="outline-hidden" sideOffset={8}>
           <UIMenu.Popup className="origin-[var(--transform-origin)] rounded-md bg-[canvas] py-1 text-gray-900 shadow-lg shadow-gray-200 outline outline-gray-200 transition-[transform,scale,opacity] data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
             <UIMenu.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
               <ArrowSvg />
             </UIMenu.Arrow>
-            <UIMenu.Item className="flex cursor-pointer py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200">
-              <DeleteIcon width="12.5px" height="12.5px" className="mr-1" />{' '}
-              {i18next.t('common.delete')}
-            </UIMenu.Item>
+            {items.map((item, idx) => (
+              <UIMenu.Item
+                key={idx}
+                className={`flex items-center py-2 pr-8 pl-4 text-sm leading-4 outline-hidden select-none
+ 'data-disabled:cursor-not-allowed data-disabled:text-gray-500 data-disabled:bg-transparent data-disabled:opacity-50
+         cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200
+    `}
+                onClick={item.onClick}
+                disabled={item.disabled}
+                data-disabled={item.disabled ? true : undefined}
+              >
+                {item.icon && (
+                  <span
+                    className={`mr-1 data-disabled:bg-transparent data-disabled:opacity-50`}
+                  >
+                    {item.icon}
+                  </span>
+                )}
+                {item.label || i18next.t('common.delete')}
+              </UIMenu.Item>
+            ))}
           </UIMenu.Popup>
         </UIMenu.Positioner>
       </UIMenu.Portal>
@@ -58,14 +102,6 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
         d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
         className="dark:fill-gray-300"
       />
-    </svg>
-  );
-}
-
-function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" {...props}>
-      <path d="M1 3.5L5 7.5L9 3.5" stroke="currentcolor" strokeWidth="1.5" />
     </svg>
   );
 }

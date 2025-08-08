@@ -12,7 +12,7 @@ import {
   putCodesList,
 } from '@/api/codesLists';
 import ButtonLink from '@/components/ui/ButtonLink';
-import Dialog from '@/components/ui/Dialog';
+import DialogButton from '@/components/ui/DialogButton';
 import type { CodesList } from '@/models/codesLists';
 import { uid } from '@/utils/utils';
 
@@ -126,7 +126,7 @@ export default function CodesListOverviewItemDetails({
           >
             {t('common.edit')}
           </ButtonLink>
-          <Dialog
+          <DialogButton
             label={t('codesList.duplicate.label')}
             title={t('codesList.duplicate.dialogTitle', {
               label: codesList.label,
@@ -134,7 +134,7 @@ export default function CodesListOverviewItemDetails({
             body={t('codesList.duplicate.dialogConfirm')}
             onValidate={onDuplicate}
           />
-          <Dialog
+          <DialogButton
             label={t('common.delete')}
             title={t('codesList.delete.dialogTitle', {
               label: codesList.label,
