@@ -1,4 +1,7 @@
-import type { Variable } from '@/models/variables';
+import {
+  VariableType as ModelVariableType,
+  type Variable,
+} from '@/models/variables';
 
 import VariableDatatype from '../VariableDatatype';
 import VariableType from '../VariableType';
@@ -19,7 +22,14 @@ export default function VariableLine({ variable }: Readonly<Props>) {
         <VariableDatatype datatype={variable.datatype.typeName} />
       </td>
       <td>
-        <VariableType type={variable.type} />
+        <VariableType
+          formula={
+            variable.type === ModelVariableType.Calculated
+              ? variable.formula
+              : undefined
+          }
+          type={variable.type}
+        />
       </td>
     </tr>
   );

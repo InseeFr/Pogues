@@ -3,8 +3,8 @@ import { queryOptions } from '@tanstack/react-query';
 import { Variable } from '@/models/variables';
 
 import { instance } from './instance';
-import { VariablesObject as PoguesVariables } from './models/pogues';
-import { computeVariables } from './utils/variables';
+import { VariableDTO } from './models/variableDTO';
+import { computeVariableDTO, computeVariables } from './utils/variables';
 
 export const variablesKeys = {
   all: (questionnaireId: string) => ['variables', questionnaireId] as const,
@@ -27,8 +27,8 @@ export async function getVariables(
     .get(`/persistence/questionnaire/${questionnaireId}/variables`, {
       headers: { Accept: 'application/json' },
     })
-    .then(({ data }: { data: PoguesVariables }) => {
-      return computeVariables(data.Variable ?? []);
+    .then(({ data }: { data: VariableDTO[] }) => {
+      return computeVariables(data);
     });
 }
 
@@ -39,7 +39,7 @@ export async function postVariable(
 ): Promise<Response> {
   return instance.post(
     `/persistence/questionnaire/${questionnaireId}/variables`,
-    variable /* TODO compute pogues variable */,
+    computeVariableDTO(variable),
     {
       headers: { 'Content-Type': 'application/json' },
     },

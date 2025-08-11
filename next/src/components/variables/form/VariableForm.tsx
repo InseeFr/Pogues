@@ -87,7 +87,7 @@ export default function VariableForm({
   variable = {
     name: '',
     description: '',
-    scope: null,
+    scope: '',
     datatype: { typeName: DatatypeType.Text },
     type: VariableType.External,
   },
@@ -211,24 +211,8 @@ export default function VariableForm({
           </>
         )}
       />
-      {selectedTypeName === DatatypeType.Text ? (
-        <Controller
-          name="datatype.maxLength"
-          control={control}
-          render={({ field, fieldState: { error } }) => (
-            <Input
-              label={t('variable.maxLength')}
-              error={error?.message}
-              type="number"
-              {...field}
-              onChange={(v) => {
-                const value = v.target.value;
-                field.onChange(value ? Number(value) : undefined);
-              }}
-            />
-          )}
-        />
-      ) : null}
+      {selectedTypeName === DatatypeType.Date ? <div>Date</div> : null}
+      {selectedTypeName === DatatypeType.Duration ? <div>Duration</div> : null}
       {selectedTypeName === DatatypeType.Numeric ? (
         <>
           <Controller
@@ -280,6 +264,24 @@ export default function VariableForm({
             )}
           />
         </>
+      ) : null}
+      {selectedTypeName === DatatypeType.Text ? (
+        <Controller
+          name="datatype.maxLength"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <Input
+              label={t('variable.maxLength')}
+              error={error?.message}
+              type="number"
+              {...field}
+              onChange={(v) => {
+                const value = v.target.value;
+                field.onChange(value ? Number(value) : undefined);
+              }}
+            />
+          )}
+        />
       ) : null}
       <div className="flex gap-x-2 mt-6 justify-end">
         <ButtonLink to="/questionnaires">{t('common.cancel')}</ButtonLink>
