@@ -9,15 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- A variables page that display every variables defined by the questionnaire. It is only accessible with `VITE_ENABLE_VARIABLES_PAGE` for now since it is still a feature in progress.
+- A variables page that display every variables defined by the questionnaire.
+- Logout button in the header.
+- A variable form page that can only be accessed with `VITE_ENABLE_VARIABLES_PAGE_FORM`. It is still a work in progress.
+- A personalization page that can only be accessed with `VITE_ENABLE_PERSONALIZATION_PAGE`. It is still a work in progress.
 
 ### Changed
 
+- New variable definition fetched from API, accessible from pogues-back-office 4.21.0.
 - Filters' design has been changed a bit.
 
 ### Removed
 
 - Button to delete all saves in history page.
+
+### Fixed
+
+- Breadcrumb now correctly redirects to clicked crumb.
 
 ## [2.0.1] - 2025-07-10
 
