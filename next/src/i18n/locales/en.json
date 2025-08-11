@@ -97,6 +97,7 @@
     "nomenclatures": "Nomenclatures",
     "questionnaire": "Questionnaire {{id}}",
     "questionnaires": "Questionnaires",
+    "variables": "Variables",
     "version": "Version {{id}}"
   },
   "error": {
@@ -249,6 +250,7 @@
   "variables": {
     "create": "Create a variable",
     "datatype": "Datatype",
+    "questionnaireHasNoVariable": "The questionnaire does not have any variables.",
     "name": "Name",
     "none": "No variables",
     "scope": "Scope {{ scope}}",

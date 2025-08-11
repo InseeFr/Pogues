@@ -14,7 +14,6 @@ import { useAltIcon } from '@/hooks/useAltIcon';
 import Button, { ButtonSize } from '../ui/Button';
 import NavigationBar, { type NavigationItem } from './NavigationBar';
 
-const enableVariablesPage = import.meta.env.VITE_ENABLE_VARIABLES_PAGE;
 const enablePersonalizationPage = import.meta.env
   .VITE_ENABLE_PERSONALIZATION_PAGE;
 
@@ -41,8 +40,6 @@ export default function QuestionnaireNavigation() {
       path: versionId
         ? `/questionnaire/$questionnaireId/version/$versionId/variables`
         : '/questionnaire/$questionnaireId/variables',
-      isDisabled: !enableVariablesPage,
-      isHidden: !enableVariablesPage,
     },
     {
       label: t('codesLists.title'),

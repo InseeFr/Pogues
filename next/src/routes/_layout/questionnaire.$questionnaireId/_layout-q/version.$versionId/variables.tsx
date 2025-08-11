@@ -2,28 +2,36 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { variablesQueryOptions } from '@/api/variables';
+import { variablesFromVersionQueryOptions } from '@/api/variables';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-import ButtonLink from '@/components/ui/ButtonLink';
 import VariablesOverview from '@/components/variables/overview/VariablesOverview';
 import type { Variable } from '@/models/variables';
 
-const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
-
+/**
+ * Main variables page where we display the various variables used by
+ * our version of a questionnaire for information.
+ */
 export const Route = createFileRoute(
-  '/_layout/questionnaire/$questionnaireId/_layout-q/variables/',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables',
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
-  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId)),
+  loader: async ({
+    context: { queryClient, t },
+    params: { questionnaireId, versionId },
+  }) => {
+    queryClient.ensureQueryData(
+      variablesFromVersionQueryOptions(questionnaireId, versionId),
+    );
+    return { crumb: t('crumb.variables') };
+  },
 });
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const { questionnaireId, versionId } = Route.useParams();
   const { data }: { data: Variable[] } = useSuspenseQuery(
-    variablesQueryOptions(questionnaireId),
+    variablesFromVersionQueryOptions(questionnaireId, versionId),
   );
 
   return (
@@ -45,23 +53,15 @@ function ComponentWrapper({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const { t } = useTranslation();
-  const questionnaireId = Route.useParams().questionnaireId;
+  const { questionnaireId, versionId } = Route.useParams();
 
   return (
     <>
       <ContentHeader
+        isReadonly
+        questionnaireId={questionnaireId}
         title={t('variables.title')}
-        action={
-          enableVariablesPageForm ? (
-            <ButtonLink
-              to="/questionnaire/$questionnaireId/variables/new"
-              params={{ questionnaireId }}
-              disabled
-            >
-              {t('variables.create')}
-            </ButtonLink>
-          ) : null
-        }
+        versionId={versionId}
       />
       <ContentMain>{children}</ContentMain>
     </>

@@ -8,7 +8,11 @@ import {
   VariableDTODatatypeTypename,
   VariableDTOType,
 } from './models/variableDTO';
-import { getVariables, postVariable } from './variables';
+import {
+  getVariables,
+  getVariablesFromVersion,
+  postVariable,
+} from './variables';
 
 vi.mock('@/contexts/oidc');
 
@@ -44,6 +48,19 @@ it('Get variables works', async () => {
     .reply(200, variables);
 
   const res = await getVariables('my-questionnaire');
+  expect(res).toEqual([variable]);
+});
+
+it('Get variables from version works', async () => {
+  const variables: VariableDTO[] = [variableDTO];
+
+  nock('https://mock-api')
+    .get(
+      '/persistence/questionnaire/my-questionnaire/version/my-version/variables',
+    )
+    .reply(200, variables);
+
+  const res = await getVariablesFromVersion('my-questionnaire', 'my-version');
   expect(res).toEqual([variable]);
 });
 
