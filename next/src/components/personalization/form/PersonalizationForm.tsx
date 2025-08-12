@@ -110,6 +110,7 @@ export default function PersonalizationForm({
     onError: (error: AxiosError) => {
       toast.error(t('personalization.create.uploadError'));
       setUploadMessage(error.response?.data as UploadMessage);
+      console.log('File data checked with error:', error);
       setIsErrorUpload(true);
     },
     onSuccess: () => {
@@ -274,7 +275,7 @@ export default function PersonalizationForm({
         >
           {t('personalization.create.expectedFileSchema')}
         </Button>
-        {uploadMessage && uploadMessage.details && (
+        {uploadMessage && uploadMessage.message && (
           <UploadMessageTile
             messages={uploadMessage}
             isErrorUpload={isErrorUpload}

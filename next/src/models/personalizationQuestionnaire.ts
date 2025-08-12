@@ -26,7 +26,7 @@ export type FileType = {
 
 export type UploadMessage = {
   message: string;
-  details: UploadMessageDetails[];
+  details?: UploadMessageDetails[];
 };
 
 export type UploadMessageDetails = {
