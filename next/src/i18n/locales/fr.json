@@ -11,6 +11,7 @@
     "documentation": "Documentation",
     "edit": "Modifier",
     "expand": "Étendre",
+    "home": "Accueil",
     "lastUpdated": "Dernière modification",
     "loading": "Chargement...",
     "login": "Se connecter",
@@ -97,6 +98,7 @@
     "nomenclatures": "Nomenclatures",
     "questionnaire": "Questionnaire {{id}}",
     "questionnaires": "Questionnaires",
+    "variables": "Variables",
     "version": "Version {{id}}"
   },
   "error": {
@@ -240,7 +242,16 @@
       "text": "Texte"
     },
     "description": "Description",
+    "form": {
+      "mustProvideName": "Vous devez renseigner un nom",
+      "mustProvideScreamingSnakeCaseName": "Le nom doit être au format SCREAMING_SNAKE_CASE"
+    },
+    "maxLength": "Taille max",
+    "maximum": "Max",
+    "minimum": "Min",
     "name": "Nom",
+    "precision": "Précision",
+    "scope": "Portée",
     "type": {
       "calculated": "Calculée",
       "collected": "Collectée",
@@ -251,6 +262,7 @@
   "variables": {
     "create": "Créer une variable",
     "datatype": "Type de réponse",
+    "questionnaireHasNoVariable": "Le questionnaire n'a pas de variable.",
     "name": "Nom",
     "none": "Aucune variable",
     "search": "Rechercher une variable",

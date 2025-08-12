@@ -49,7 +49,7 @@ export async function getNomenclatures(
     });
 }
 
-/** Retrieve all nomenclature used by a questionnaire. */
+/** Retrieve all nomenclature used by a version of a aquestionnaire. */
 export async function getNomenclaturesFromVersion(
   questionnaireId: string,
   versionId: string,

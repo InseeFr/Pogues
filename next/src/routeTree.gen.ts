@@ -29,6 +29,7 @@ import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodes
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/index';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/nomenclatures';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/route';
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/variables';
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionsRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/versions';
 import { Route as LayoutQuestionnaireQuestionnaireIdRouteRouteImport } from './routes/_layout/questionnaire.$questionnaireId/route';
 import { Route as LayoutQuestionnairesIndexRouteImport } from './routes/_layout/questionnaires/index';
@@ -228,6 +229,15 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute =
         LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
     } as any,
   );
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRouteImport.update(
+    {
+      id: '/variables',
+      path: '/variables',
+      getParentRoute: () =>
+        LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
+    } as any,
+  );
 const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRouteImport.update(
     {
@@ -275,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/questionnaire/$questionnaireId/variables/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesIndexRoute;
   '/questionnaire/$questionnaireId/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
   '/questionnaire/$questionnaireId/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute;
   '/questionnaire/$questionnaireId/version/$versionId/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 export interface FileRoutesByTo {
@@ -298,6 +309,7 @@ export interface FileRoutesByTo {
   '/questionnaire/$questionnaireId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesIndexRoute;
   '/questionnaire/$questionnaireId/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
   '/questionnaire/$questionnaireId/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  '/questionnaire/$questionnaireId/version/$versionId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute;
   '/questionnaire/$questionnaireId/version/$versionId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 export interface FileRoutesById {
@@ -331,6 +343,7 @@ export interface FileRoutesById {
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesIndexRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute;
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 export interface FileRouteTypes {
@@ -363,6 +376,7 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/variables/'
     | '/questionnaire/$questionnaireId/version/$versionId/codes-lists'
     | '/questionnaire/$questionnaireId/version/$versionId/nomenclatures'
+    | '/questionnaire/$questionnaireId/version/$versionId/variables'
     | '/questionnaire/$questionnaireId/version/$versionId/';
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -386,6 +400,7 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/variables'
     | '/questionnaire/$questionnaireId/version/$versionId/codes-lists'
     | '/questionnaire/$questionnaireId/version/$versionId/nomenclatures'
+    | '/questionnaire/$questionnaireId/version/$versionId/variables'
     | '/questionnaire/$questionnaireId/version/$versionId';
   id:
     | '__root__'
@@ -418,6 +433,7 @@ export interface FileRouteTypes {
     | '/_layout/questionnaire/$questionnaireId/_layout-q/variables/'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/';
   fileRoutesById: FileRoutesById;
 }
@@ -624,6 +640,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRouteImport;
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute;
     };
+    '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables';
+      path: '/variables';
+      fullPath: '/questionnaire/$questionnaireId/version/$versionId/variables';
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRouteImport;
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute;
+    };
     '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures';
       path: '/nomenclatures';
@@ -732,6 +755,7 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVariablesRouteRouteWithChildren =
 interface LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildren {
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute;
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute;
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute;
 }
 
@@ -741,6 +765,8 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildre
       LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRoute,
   };

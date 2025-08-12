@@ -10,6 +10,7 @@ import { type Variable, VariableType } from '@/models/variables';
 
 import VariablesScopeOverviewItem from './VariablesScopeOverviewItem';
 
+const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
 interface Props {
   questionnaireId: string;
   variables: Variable[];
@@ -31,8 +32,10 @@ export default function VariablesOverview({
       label: t('variables.name'),
       onFilter: (v: Variable, input?: string) =>
         input
-          ? v.name.toLowerCase().includes(input.toLowerCase()) ||
-            v.label.toLowerCase().includes(input.toLowerCase())
+          ? !!(
+              v.name.toLowerCase().includes(input.toLowerCase()) ||
+              v.description?.toLowerCase().includes(input.toLowerCase())
+            )
           : true,
       placeholder: t('variables.search'),
       type: FilterType.Text,
@@ -57,14 +60,20 @@ export default function VariablesOverview({
     {
       label: t('variables.type'),
       onFilter: (v: Variable, filter: string[] = []) =>
-        filter.length > 0 ? filter.includes(v.type) : true,
+        filter.length > 0 ? filter.includes(v.type.toString()) : true,
       options: [
-        { label: t('variable.type.collected'), value: VariableType.Collected },
+        {
+          label: t('variable.type.collected'),
+          value: VariableType.Collected.toString(),
+        },
         {
           label: t('variable.type.calculated'),
-          value: VariableType.Calculated,
+          value: VariableType.Calculated.toString(),
         },
-        { label: t('variable.type.external'), value: VariableType.External },
+        {
+          label: t('variable.type.external'),
+          value: VariableType.External.toString(),
+        },
       ],
       type: FilterType.ToggleGroup,
     },
@@ -98,7 +107,7 @@ export default function VariablesOverview({
         ))}
       </div>
     </>
-  ) : (
+  ) : enableVariablesPageForm ? (
     <ButtonLink
       to="/questionnaire/$questionnaireId/variables/new"
       params={{ questionnaireId }}
@@ -106,5 +115,7 @@ export default function VariablesOverview({
     >
       {t('variables.create')}
     </ButtonLink>
+  ) : (
+    <div>{t('variables.questionnaireHasNoVariable')}</div>
   );
 }

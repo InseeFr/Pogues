@@ -4,345 +4,317 @@ import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
 
 import {
-  DatatypeTypeEnum as PoguesDatatypeType,
-  DateFormatEnum as PoguesDateFormat,
-  Variable as PoguesVariable,
-  VariableTypeType as PoguesVariableType,
-} from '../models/pogues';
-import { computeVariable } from './variables';
+  VariableDTO,
+  VariableDTODatatypeFormat,
+  VariableDTODatatypeTypename,
+  VariableDTOType,
+} from '../models/variableDTO';
+import { computeVariable, computeVariableDTO } from './variables';
 
 describe('computeVariable', () => {
   describe('text variable', () => {
-    it('should compute a Collected text variable correctly', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Text variable',
-        Datatype: {
-          type: 'TextDatatypeType',
-          typeName: PoguesDatatypeType.Text,
-        },
-        CodeListReference: 'ref',
-        Scope: 'scope',
+    it('should compute a collected text variable correctly', () => {
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type texte',
+        datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
+        scope: 'mon-scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Text variable',
-        datatype: { typeName: DatatypeType.Text },
-        codeListReference: 'ref',
-        scope: 'scope',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type texte',
+        datatype: { typeName: DatatypeType.Text, maxLength: 42 },
+        scope: 'mon-scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
 
     it('should compute a Calculated text variable correctly', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CalculatedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Text variable',
-        Datatype: {
-          type: 'TextDatatypeType',
-          typeName: PoguesDatatypeType.Text,
-        },
-        CodeListReference: 'ref',
-        Scope: 'scope',
-        Formula: 'formula',
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Calculated,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable calculée de type texte',
+        datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
+        scope: 'mon-scope',
+        formula: '1+2',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Calculated,
-        id: '1',
-        name: 'variable1',
-        label: 'Text variable',
-        datatype: { typeName: DatatypeType.Text },
-        codeListReference: 'ref',
-        scope: 'scope',
-        formula: 'formula',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable calculée de type texte',
+        datatype: { typeName: DatatypeType.Text, maxLength: 42 },
+        scope: 'mon-scope',
+        formula: '1+2',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
 
     it('should compute an External text variable correctly', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.ExternalVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Text variable',
-        Datatype: {
-          type: 'TextDatatypeType',
-          typeName: PoguesDatatypeType.Text,
-        },
-        CodeListReference: 'ref',
-        Scope: 'scope',
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.External,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type texte',
+        datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
+        scope: 'mon-scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.External,
-        id: '1',
-        name: 'variable1',
-        label: 'Text variable',
-        datatype: { typeName: DatatypeType.Text },
-        codeListReference: 'ref',
-        scope: 'scope',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type texte',
+        datatype: { typeName: DatatypeType.Text, maxLength: 42 },
+        scope: 'mon-scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
   });
 
-  describe('boolean variable', () => {
-    it('should compute a Collected boolean variable correctly', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Boolean variable',
-        Datatype: {
-          type: 'BooleanDatatypeType',
-          typeName: PoguesDatatypeType.Boolean,
-        },
-        CodeListReference: 'ref',
-        Scope: 'scope',
-      };
+  it('should compute a Collected boolean variable correctly', () => {
+    const variableDTO: VariableDTO = {
+      type: VariableDTOType.Collected,
+      id: 'mon-id',
+      name: 'MA_VAR',
+      description: 'Une variable collectée de type booléen',
+      datatype: { typeName: VariableDTODatatypeTypename.Boolean },
+    };
 
-      const result = computeVariable(poguesVariable);
-
-      expect(result).toEqual({
-        type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Boolean variable',
-        datatype: { typeName: DatatypeType.Boolean },
-        codeListReference: 'ref',
-        scope: 'scope',
-      });
+    const result = computeVariable(variableDTO);
+    expect(result).toEqual({
+      type: VariableType.Collected,
+      id: 'mon-id',
+      name: 'MA_VAR',
+      description: 'Une variable collectée de type booléen',
+      datatype: { typeName: DatatypeType.Boolean },
     });
+
+    const resultDTO = computeVariableDTO(result);
+    expect(resultDTO).toEqual(variableDTO);
   });
 
   describe('date variable', () => {
     it('should compute a Collected date variable with YearMonthDay format', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Date variable',
-        Datatype: {
-          type: 'DateDatatypeType',
-          typeName: PoguesDatatypeType.Date,
-          Format: PoguesDateFormat.YearMonthDay,
-          Minimum: '1900-01-10',
-          Maximum: '2020-12-20',
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description:
+          'Une variable collectée de type date avec année, mois et jour',
+        datatype: {
+          typeName: VariableDTODatatypeTypename.Date,
+          format: VariableDTODatatypeFormat.DateYearMonthDay,
+          minimum: '1900-01-10',
+          maximum: '2020-12-20',
         },
-        CodeListReference: 'ref',
-        Scope: 'scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Date variable',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description:
+          'Une variable collectée de type date avec année, mois et jour',
         datatype: {
           typeName: DatatypeType.Date,
           format: DateFormat.YearMonthDay,
           minimum: new Date('1900-01-10'),
           maximum: new Date('2020-12-20'),
         },
-        codeListReference: 'ref',
-        scope: 'scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
 
     it('should compute a Collected date variable with YearMonth format', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Date variable',
-        Datatype: {
-          type: 'DateDatatypeType',
-          typeName: PoguesDatatypeType.Date,
-          Format: PoguesDateFormat.YearMonth,
-          Minimum: '1900-01',
-          Maximum: '2020-12',
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type date avec année et mois',
+        datatype: {
+          typeName: VariableDTODatatypeTypename.Date,
+          format: VariableDTODatatypeFormat.DateYearMonth,
+          minimum: '1900-01',
+          maximum: '2020-12',
         },
-        CodeListReference: 'ref',
-        Scope: 'scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Date variable',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type date avec année et mois',
         datatype: {
           typeName: DatatypeType.Date,
           format: DateFormat.YearMonth,
           minimum: new Date('1900-01'),
           maximum: new Date('2020-12'),
         },
-        codeListReference: 'ref',
-        scope: 'scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
 
-    it('should compute a Collected date variable with YearMonth format', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Date variable',
-        Datatype: {
-          type: 'DateDatatypeType',
-          typeName: PoguesDatatypeType.Date,
-          Format: PoguesDateFormat.Year,
-          Minimum: '1900',
-          Maximum: '2020',
+    it('should compute a Collected date variable with Year format', () => {
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type date avec année',
+        datatype: {
+          typeName: VariableDTODatatypeTypename.Date,
+          format: VariableDTODatatypeFormat.DateYear,
+          minimum: '1900',
+          maximum: '2020',
         },
-        CodeListReference: 'ref',
-        Scope: 'scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Date variable',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type date avec année',
         datatype: {
           typeName: DatatypeType.Date,
           format: DateFormat.Year,
           minimum: new Date('1900'),
           maximum: new Date('2020'),
         },
-        codeListReference: 'ref',
-        scope: 'scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
   });
 
   describe('duration variable', () => {
     it('should compute a Collected duration variable with YearMonth format', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Duration variable',
-        Datatype: {
-          type: 'DurationDatatypeType',
-          typeName: PoguesDatatypeType.Duration,
-          Format: 'PnYnM',
-          Minimum: 'P1Y2M',
-          Maximum: 'P5Y6M',
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description:
+          'Une variable collectée de type duration avec années et mois',
+        datatype: {
+          typeName: VariableDTODatatypeTypename.Duration,
+          format: VariableDTODatatypeFormat.DurationYearMonth,
+          minimum: 'P1Y2M',
+          maximum: 'P5Y6M',
         },
-        CodeListReference: 'ref',
-        Scope: 'scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Duration variable',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description:
+          'Une variable collectée de type duration avec années et mois',
         datatype: {
           typeName: DatatypeType.Duration,
           format: DurationFormat.YearMonth,
           minimum: { years: 1, months: 2 },
           maximum: { years: 5, months: 6 },
         },
-        codeListReference: 'ref',
-        scope: 'scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
 
-    it('should compute a Collected duration variable with MinuteSecond format', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Duration variable',
-        Datatype: {
-          type: 'DurationDatatypeType',
-          typeName: PoguesDatatypeType.Duration,
-          Format: 'PTnHnM',
-          Minimum: 'PT1H2M',
-          Maximum: 'PT5H6M',
+    it('should compute a Collected duration variable with HourMinute format', () => {
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description:
+          'Une variable collectée de type duration avec heures et minutes',
+        datatype: {
+          typeName: VariableDTODatatypeTypename.Duration,
+          format: VariableDTODatatypeFormat.DurationHourMinute,
+          minimum: 'PT1H2M',
+          maximum: 'PT5H6M',
         },
-        CodeListReference: 'ref',
-        Scope: 'scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Duration variable',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description:
+          'Une variable collectée de type duration avec heures et minutes',
         datatype: {
           typeName: DatatypeType.Duration,
-          format: DurationFormat.MinuteSecond,
+          format: DurationFormat.HourMinute,
           minimum: { hours: 1, minutes: 2 },
           maximum: { hours: 5, minutes: 6 },
         },
-        codeListReference: 'ref',
-        scope: 'scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
   });
 
   describe('numeric variable', () => {
     it('should compute a Collected numeric variable correctly', () => {
-      const poguesVariable: PoguesVariable = {
-        type: PoguesVariableType.CollectedVariableType,
-        id: '1',
-        Name: 'variable1',
-        Label: 'Numeric variable',
-        Datatype: {
-          type: 'NumericDatatypeType',
-          typeName: PoguesDatatypeType.Numeric,
-          Minimum: '1',
-          Maximum: '10',
-          Decimals: '2',
-          IsDynamicUnit: false,
-          Unit: '€',
+      const variableDTO: VariableDTO = {
+        type: VariableDTOType.Collected,
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type numérique',
+        datatype: {
+          typeName: VariableDTODatatypeTypename.Numeric,
+          minimum: 1,
+          maximum: 10,
+          decimals: 2,
+          isDynamicUnit: true,
+          unit: '€',
         },
-        CodeListReference: 'ref',
-        Scope: 'scope',
       };
 
-      const result = computeVariable(poguesVariable);
-
+      const result = computeVariable(variableDTO);
       expect(result).toEqual({
         type: VariableType.Collected,
-        id: '1',
-        name: 'variable1',
-        label: 'Numeric variable',
+        id: 'mon-id',
+        name: 'MA_VAR',
+        description: 'Une variable collectée de type numérique',
         datatype: {
           typeName: DatatypeType.Numeric,
           minimum: 1,
           maximum: 10,
           decimals: 2,
-          isDynamicUnit: false,
+          isDynamicUnit: true,
           unit: '€',
         },
-        codeListReference: 'ref',
-        scope: 'scope',
       });
+
+      const resultDTO = computeVariableDTO(result);
+      expect(resultDTO).toEqual(variableDTO);
     });
   });
 });

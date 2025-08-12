@@ -13,17 +13,17 @@ export type DataType =
   | NumericDatatype
   | TextDatatype;
 
-/**
- * Boolean variable
- */
+/*
+Boolean variable
+*/
 
 type BooleanDatatype = {
   typeName: DatatypeType.Boolean;
 };
 
-/**
- * Date variable
- */
+/*
+Date variable
+*/
 
 export enum DateFormat {
   YearMonthDay = 'YYYY-MM-DD',
@@ -38,13 +38,13 @@ type DateDatatype<F extends DateFormat> = {
   maximum?: Date;
 };
 
-/**
- * Duration variable
- */
+/*
+Duration variable
+*/
 
 export enum DurationFormat {
   YearMonth = 'PnYnM',
-  MinuteSecond = 'PTnHnM',
+  HourMinute = 'PTnHnM',
 }
 
 export interface YearMonthDuration {
@@ -52,15 +52,15 @@ export interface YearMonthDuration {
   months: number;
 }
 
-export interface MinuteSecondDuration {
+export interface HourMinuteDuration {
   hours: number;
   minutes: number;
 }
 
 type Duration<F extends DurationFormat> = F extends DurationFormat.YearMonth
   ? YearMonthDuration
-  : F extends DurationFormat.MinuteSecond
-    ? MinuteSecondDuration
+  : F extends DurationFormat.HourMinute
+    ? HourMinuteDuration
     : never;
 
 type DurationDatatype<F extends DurationFormat> = {
@@ -70,9 +70,9 @@ type DurationDatatype<F extends DurationFormat> = {
   maximum?: Duration<F>;
 };
 
-/**
- * Numeric variable
- */
+/*
+Numeric variable
+*/
 
 type NumericDatatype = {
   typeName: DatatypeType.Numeric;
@@ -83,9 +83,9 @@ type NumericDatatype = {
   unit?: string;
 };
 
-/**
- * Text variable
- */
+/*
+Text variable
+*/
 
 type TextDatatype = {
   typeName: DatatypeType.Text;

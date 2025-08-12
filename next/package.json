@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.0.2-rc-precollected-interrogations.3",
+  "version": "2.0.2-rc-precollected-interrogations.4",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",

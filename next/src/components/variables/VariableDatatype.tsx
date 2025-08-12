@@ -12,14 +12,14 @@ export default function VariableDatatype({ datatype }: Readonly<Props>) {
 
   switch (datatype) {
     case DatatypeType.Boolean:
-      return <div>{t('variable.datatype.boolean')}</div>;
+      return t('variable.datatype.boolean');
     case DatatypeType.Date:
-      return <div>{t('variable.datatype.date')}</div>;
+      return t('variable.datatype.date');
     case DatatypeType.Duration:
-      return <div>{t('variable.datatype.duration')}</div>;
+      return t('variable.datatype.duration');
     case DatatypeType.Numeric:
-      return <div>{t('variable.datatype.numeric')}</div>;
+      return t('variable.datatype.numeric');
     case DatatypeType.Text:
-      return <div>{t('variable.datatype.text')}</div>;
+      return t('variable.datatype.text');
   }
 }
