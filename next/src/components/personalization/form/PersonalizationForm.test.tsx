@@ -11,9 +11,29 @@ import { renderWithRouter } from '@/tests/tests';
 
 import PersonalizationForm from './PersonalizationForm';
 
-vi.mock('@/api/personalization', () => ({
-  checkInterrogationsData: vi.fn(() => Promise.resolve()),
-}));
+vi.mock('@/api/personalization', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/api/personalization')>();
+
+  return {
+    ...actual,
+    // Had to redefine the whole constant to avoid vitest throwing an error
+    personalizationKeys: {
+      base: (poguesId: string) =>
+        ['personalization', 'base', poguesId] as const,
+      fromPogues: (poguesId: string) =>
+        ['personalizationFromPogues', { poguesId }] as const,
+      file: (poguesId: string) =>
+        ['personalizationFile', { poguesId }] as const,
+      interrogationData: (poguesId: string) =>
+        ['getPersonalizationInterrogationData', { poguesId }] as const,
+      checkFileData: (poguesId: string) =>
+        ['checkFileData', { poguesId }] as const,
+      csvSchema: (poguesId: string) => ['csvSchema', { poguesId }] as const,
+    },
+    checkInterrogationsData: vi.fn(() => Promise.resolve()),
+  };
+});
+
 vi.mock('papaparse', () => ({
   __esModule: true,
   default: {
@@ -33,10 +53,6 @@ vi.mock('papaparse', () => ({
 vi.mock('react-hot-toast', () => ({
   __esModule: true,
   default: { error: vi.fn(), success: vi.fn(), promise: vi.fn() },
-}));
-
-vi.mock('@/api/personalization', () => ({
-  checkInterrogationsData: vi.fn(),
 }));
 
 describe('PersonalizationForm', () => {

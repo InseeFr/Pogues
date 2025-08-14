@@ -12,10 +12,29 @@ import { renderWithRouter } from '@/tests/tests';
 
 import PersonalizationCheckPanel from './PersonalizationCheckPanel';
 
-vi.mock('@/api/personalization', () => ({
-  checkInterrogationsData: vi.fn(() => Promise.resolve()),
-  editQuestionnaireData: vi.fn(() => Promise.resolve()),
-}));
+vi.mock('@/api/personalization', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/api/personalization')>();
+
+  return {
+    ...actual,
+    personalizationKeys: {
+      base: (poguesId: string) =>
+        ['personalization', 'base', poguesId] as const,
+      fromPogues: (poguesId: string) =>
+        ['personalizationFromPogues', { poguesId }] as const,
+      file: (poguesId: string) =>
+        ['personalizationFile', { poguesId }] as const,
+      interrogationData: (poguesId: string) =>
+        ['getPersonalizationInterrogationData', { poguesId }] as const,
+      checkFileData: (poguesId: string) =>
+        ['checkFileData', { poguesId }] as const,
+      csvSchema: (poguesId: string) => ['csvSchema', { poguesId }] as const,
+    },
+    checkInterrogationsData: vi.fn(() => Promise.resolve()),
+    editQuestionnaireData: vi.fn(() => Promise.resolve()),
+  };
+});
+
 vi.mock('@/api/utils/personalization', () => ({
   openDocument: vi.fn(),
   openParsedCsv: vi.fn(),
