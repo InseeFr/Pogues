@@ -4,7 +4,10 @@ import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { deleteQuestionnaireData } from '@/api/personalization';
+import {
+  deleteQuestionnaireData,
+  personalizationKeys,
+} from '@/api/personalization';
 import { openParsedCsv, openParsedJson } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
@@ -70,7 +73,7 @@ export default function PersonalizationOverview({
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({
-        queryKey: ['allPersonalization', { questionnaireId }],
+        queryKey: personalizationKeys.fromPogues(questionnaireId),
       });
       navigate({
         to: '/questionnaire/$questionnaireId/personalization/new',

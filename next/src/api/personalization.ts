@@ -1,4 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
+// I have to use ParseResult<unknown> because the type changes based on the CSV content.
 import Papa, { ParseResult } from 'papaparse';
 
 import {
@@ -10,25 +11,35 @@ import {
 import { instancePersonalization } from './instancePersonalization';
 import { getFileName, openDocument } from './utils/personalization';
 
+export const personalizationKeys = {
+  base: (poguesId: string) => ['personalization', 'base', poguesId] as const,
+  fromPogues: (poguesId: string) =>
+    ['personalizationFromPogues', { poguesId }] as const,
+  file: (poguesId: string) => ['personalizationFile', { poguesId }] as const,
+  interrogationData: (poguesId: string) =>
+    ['getPersonalizationInterrogationData', { poguesId }] as const,
+  checkFileData: (poguesId: string) => ['checkFileData', { poguesId }] as const,
+  csvSchema: (poguesId: string) => ['csvSchema', { poguesId }] as const,
+};
+
 /**
  * Used to retrieve questionnaireData used by a Public Enemy.
  *
  * @see {@link getPublicEnemyBaseData}
  */
 export const basePersonalizationQueryOptions = (poguesId: string) => ({
-  queryKey: ['personalization', 'base', poguesId],
+  queryKey: personalizationKeys.base(poguesId),
   queryFn: () => getPublicEnemyBaseData(poguesId),
 });
 
 export async function getPublicEnemyBaseData(
   poguesId: string,
-): Promise<[InterrogationModeDataResponse, ParseResult | string]> {
+): Promise<[InterrogationModeDataResponse, ParseResult<unknown> | string]> {
   try {
-    const interrogations: InterrogationModeDataResponse =
-      await getAllInterrogationData(poguesId);
-    const fileData: ParseResult | string =
-      await getExistingFileSchema(poguesId);
-
+    const [interrogations, fileData] = await Promise.all([
+      getAllInterrogationData(poguesId),
+      getExistingFileSchema(poguesId),
+    ]);
     return [interrogations, fileData];
   } catch (error) {
     console.error('Error fetching Public Enemy base data:', error);
@@ -43,7 +54,7 @@ export async function getPublicEnemyBaseData(
  */
 export const personalizationFromPoguesQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['personalizationFromPogues', { poguesId }],
+    queryKey: personalizationKeys.fromPogues(poguesId),
     queryFn: () => getPublicEnemyDataFromPogues(poguesId),
     staleTime: 0,
     gcTime: 0,
@@ -72,7 +83,7 @@ export async function getPublicEnemyDataFromPogues(
  */
 export const getInterrogationDataQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['getPersonalizationInterrogationData', { poguesId }],
+    queryKey: personalizationKeys.interrogationData(poguesId),
     queryFn: () => getAllInterrogationData(poguesId),
     retryOnMount: true,
   });
@@ -116,7 +127,7 @@ export async function getInitialCsvSchema(poguesId: string): Promise<void> {
  */
 export const personalizationFileQueryOptions = (poguesId: string) =>
   queryOptions({
-    queryKey: ['personalizationFile', { poguesId }],
+    queryKey: personalizationKeys.file(poguesId),
     queryFn: () => getExistingFileSchema(poguesId),
     retryOnMount: true,
   });
@@ -127,7 +138,7 @@ export const personalizationFileQueryOptions = (poguesId: string) =>
  */
 export async function getExistingFileSchema(
   poguesId: string,
-): Promise<ParseResult | string> {
+): Promise<ParseResult<unknown> | string> {
   try {
     const response = await instancePersonalization.get(
       `/questionnaires/${poguesId}/data`,

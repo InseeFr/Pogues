@@ -3,14 +3,20 @@ import { ParseResult } from 'papaparse';
 
 import CsvViewerTable from './CsvViewerTable';
 
-const mockParsedCsv: ParseResult = {
+const mockParsedCsv: ParseResult<unknown> = {
   data: [
     { Name: 'Rathalos', Age: '30', City: 'Ancient Forest' },
     { Name: 'Palico', Age: '5', City: 'Ruins Of Wyveria' },
   ],
   meta: {
     fields: ['Name', 'Age', 'City'],
+    delimiter: '',
+    linebreak: '',
+    aborted: false,
+    truncated: false,
+    cursor: 0,
   },
+  errors: [],
 };
 
 describe('CsvViewerTable', () => {

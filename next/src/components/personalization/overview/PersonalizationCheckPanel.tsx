@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
   checkInterrogationsData,
   editQuestionnaireData,
+  personalizationKeys,
 } from '@/api/personalization';
 import { createInterrogationFile } from '@/api/utils/personalization';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
@@ -43,7 +44,7 @@ export default function PersonalizationCheckPanel({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['allPersonalization', { questionnaireId }],
+        queryKey: personalizationKeys.fromPogues(questionnaireId),
       });
     },
   });
@@ -57,7 +58,7 @@ export default function PersonalizationCheckPanel({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['checkFileData', { questionnaireId }],
+        queryKey: personalizationKeys.checkFileData(questionnaireId),
       });
       updateMutation.mutateAsync({ data });
     },

@@ -6,7 +6,10 @@ import type { ParseResult } from 'papaparse';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { editQuestionnaireData } from '@/api/personalization';
+import {
+  editQuestionnaireData,
+  personalizationKeys,
+} from '@/api/personalization';
 import PersonalizationForm from '@/components/personalization/form/PersonalizationForm';
 import PersonalisationTile from '@/components/personalization/overview/PersonalizationTile';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
@@ -14,7 +17,7 @@ import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionna
 interface EditPersonalizationProps {
   questionnaireId: string;
   data: PersonalizationQuestionnaire;
-  fileData: ParseResult | string | null;
+  fileData: ParseResult<unknown> | string | null;
 }
 
 /** Display the personalization windows */
@@ -36,14 +39,11 @@ export default function EditPersonalization({
     onSuccess: async (result) => {
       if (result.state === 'COMPLETED') {
         await queryClient.refetchQueries({
-          queryKey: [
-            'personalizationFromPogues',
-            { poguesId: questionnaireId },
-          ],
+          queryKey: personalizationKeys.fromPogues(questionnaireId),
         });
       }
       queryClient.invalidateQueries({
-        queryKey: ['editQuestionnaire', { questionnaireId }],
+        queryKey: personalizationKeys.fromPogues(questionnaireId),
       });
     },
   });

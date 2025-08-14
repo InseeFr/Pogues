@@ -5,7 +5,10 @@ import { useNavigate } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { addQuestionnaireData } from '@/api/personalization';
+import {
+  addQuestionnaireData,
+  personalizationKeys,
+} from '@/api/personalization';
 import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
 
 import PersonalisationTile from '../../overview/PersonalizationTile';
@@ -34,14 +37,11 @@ export default function CreatePersonalization({
     onSuccess: async (result) => {
       if (result.state === 'COMPLETED') {
         await queryClient.refetchQueries({
-          queryKey: [
-            'personalizationFromPogues',
-            { poguesId: questionnaireId },
-          ],
+          queryKey: personalizationKeys.fromPogues(questionnaireId),
         });
       }
       queryClient.invalidateQueries({
-        queryKey: ['saveQuestionnaire', { questionnaireId }],
+        queryKey: personalizationKeys.fromPogues(questionnaireId),
       });
     },
   });

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import {
   basePersonalizationQueryOptions,
   personalizationFromPoguesQueryOptions,
+  personalizationKeys,
 } from '@/api/personalization';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
@@ -24,7 +25,7 @@ export const Route = createFileRoute(
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
     queryClient.invalidateQueries({
-      queryKey: ['personalizationFromPogues', { poguesId: questionnaireId }],
+      queryKey: personalizationKeys.fromPogues(questionnaireId),
     });
     await queryClient.ensureQueryData({
       ...personalizationFromPoguesQueryOptions(questionnaireId),
@@ -43,8 +44,11 @@ function RouteComponent() {
     personalizationFromPoguesQueryOptions(questionnaireId),
   );
   const {
-    data = [{} as InterrogationModeDataResponse, '' as ParseResult | string],
-  } = useQuery<[InterrogationModeDataResponse, ParseResult | string]>({
+    data = [
+      {} as InterrogationModeDataResponse,
+      '' as ParseResult<unknown> | string,
+    ],
+  } = useQuery<[InterrogationModeDataResponse, ParseResult<unknown> | string]>({
     ...basePersonalizationQueryOptions(questionnaire?.poguesId),
     enabled: !!questionnaire?.id,
     retry: false,

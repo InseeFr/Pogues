@@ -140,7 +140,7 @@ describe('PersonalizationOverview', () => {
         aborted: false,
         truncated: false,
       },
-    } as ParseResult;
+    } as unknown as ParseResult<unknown>;
 
     await waitFor(() =>
       renderWithRouter(

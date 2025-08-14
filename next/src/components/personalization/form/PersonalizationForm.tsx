@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import {
   checkInterrogationsData,
   getInitialCsvSchema,
+  personalizationKeys,
 } from '@/api/personalization';
 import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
@@ -37,7 +38,7 @@ interface PersonalizationFormProps {
   questionnaire: PersonalizationQuestionnaire;
   setQuestionnaire: (questionnaire: PersonalizationQuestionnaire) => void;
   handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void;
-  fileData?: ParseResult | string | null;
+  fileData?: ParseResult<unknown> | string | null;
 }
 
 /** Display the personalization windows */
@@ -82,7 +83,7 @@ export default function PersonalizationForm({
       : fileTypes[1], // JSON
   );
   const [parsedFileData, setParsedFileData] = useState<
-    ParseResult | string | null
+    ParseResult<unknown> | string | null
   >(null);
 
   useEffect(() => {
@@ -110,13 +111,13 @@ export default function PersonalizationForm({
     onError: (error: AxiosError) => {
       toast.error(t('personalization.create.uploadError'));
       setUploadMessage(error.response?.data as UploadMessage);
-      console.log('File data checked with error:', error);
+      console.error('File data checked with error:', error);
       setIsErrorUpload(true);
     },
     onSuccess: () => {
       toast.success(t('personalization.create.uploadSuccess'));
       queryClient.invalidateQueries({
-        queryKey: ['checkFileData', { questionnaireId }],
+        queryKey: personalizationKeys.checkFileData(questionnaireId),
       });
     },
   });
@@ -187,7 +188,7 @@ export default function PersonalizationForm({
   };
 
   const { refetch: fetchCsvSchema } = useQuery({
-    queryKey: ['personalization-csv-schema', { questionnaireId }],
+    queryKey: personalizationKeys.csvSchema(questionnaireId),
     queryFn: async () => {
       const result = await getInitialCsvSchema(questionnaireId);
       return result ?? null;
@@ -281,15 +282,19 @@ export default function PersonalizationForm({
             isErrorUpload={isErrorUpload}
           />
         )}
-        {fileType.name === 'CSV' && parsedFileData && (
-          <CsvViewerTable
-            data-testid="csv-viewer-table"
-            parsedCsv={parsedFileData}
-          />
-        )}
-        {fileType.name === 'JSON' && parsedFileData && (
-          <JsonViewer data-testid="json-viewer" data={parsedFileData} />
-        )}
+        {fileType.name === 'CSV' &&
+          parsedFileData &&
+          typeof parsedFileData === 'object' && (
+            <CsvViewerTable
+              data-testid="csv-viewer-table"
+              parsedCsv={parsedFileData}
+            />
+          )}
+        {fileType.name === 'JSON' &&
+          parsedFileData &&
+          typeof parsedFileData === 'string' && (
+            <JsonViewer data-testid="json-viewer" data={parsedFileData} />
+          )}
       </div>
       <div className="mt-auto w-auto inline-block my-1">
         <DialogButton
