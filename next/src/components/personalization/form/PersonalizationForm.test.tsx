@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
@@ -88,6 +88,10 @@ describe('PersonalizationForm', () => {
         />,
       ),
     );
+    expect(screen.getByText('Context')).toBeInTheDocument();
+    const radiogroups = screen.getAllByRole('radiogroup');
+    expect(radiogroups).toHaveLength(2);
+    expect(screen.getByText('Personalization type')).toBeInTheDocument();
     expect(screen.getByText('Upload survey units data')).toBeInTheDocument();
   });
 
@@ -169,11 +173,14 @@ describe('PersonalizationForm', () => {
         />,
       ),
     );
-    const combobox = screen.getByRole('combobox');
-    fireEvent.click(combobox);
-    const jsonSelectOption = screen.getAllByText('JSON');
+    const radiogroups = screen.getAllByRole('radiogroup');
+    const personalizationTypeGroup = radiogroups.find((group) =>
+      within(group).queryByText(/Personalization type/i),
+    );
+    expect(personalizationTypeGroup).toBeTruthy();
 
-    fireEvent.click(jsonSelectOption[0]);
+    const jsonOption = within(personalizationTypeGroup!).getByText(/JSON/i);
+    fireEvent.click(jsonOption);
 
     expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
     expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument();
@@ -199,11 +206,14 @@ describe('PersonalizationForm', () => {
       ),
     );
 
-    const combobox = screen.getByRole('combobox');
-    fireEvent.click(combobox);
-    const jsonSelectOption = screen.getAllByText('JSON');
+    const radiogroups = screen.getAllByRole('radiogroup');
+    const personalizationTypeGroup = radiogroups.find((group) =>
+      within(group).queryByText(/Personalization type/i),
+    );
+    expect(personalizationTypeGroup).toBeTruthy();
 
-    fireEvent.click(jsonSelectOption[0]);
+    const jsonOption = within(personalizationTypeGroup!).getByText(/JSON/i);
+    fireEvent.click(jsonOption);
 
     const uploadButton = screen.getByText('Upload survey units data');
     fireEvent.click(uploadButton);
@@ -234,9 +244,13 @@ describe('PersonalizationForm', () => {
       ),
     );
 
-    const contextSelect = screen.getByRole('combobox');
-    fireEvent.click(contextSelect);
-    const businessOption = screen.getByText('Entreprise');
+    const radiogroups = screen.getAllByRole('radiogroup');
+    const contextTypeGroup = radiogroups.find((group) =>
+      within(group).queryByText(/Context/i),
+    );
+    expect(contextTypeGroup).toBeTruthy();
+
+    const businessOption = within(contextTypeGroup!).getByText(/Entreprise/i);
     fireEvent.click(businessOption);
 
     expect(setQuestionnaire).toHaveBeenCalledWith(

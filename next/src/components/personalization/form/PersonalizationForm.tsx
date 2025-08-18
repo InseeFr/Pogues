@@ -16,9 +16,7 @@ import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import DialogButton from '@/components/ui/DialogButton';
 import Input from '@/components/ui/form/Input';
-import Option from '@/components/ui/form/Option';
 import RadioGroup from '@/components/ui/form/RadioGroup';
-import Select from '@/components/ui/form/Select';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import {
   FileType,
@@ -69,18 +67,18 @@ export default function PersonalizationForm({
   ];
   const fileTypes: FileType[] = [
     {
-      name: 'CSV',
+      name: t('personalization.create.csvDescription'),
       value: 'text/csv',
     },
     {
-      name: 'JSON',
+      name: t('personalization.create.jsonDescription'),
       value: 'application/json',
     },
   ];
   const [fileType, setFileType] = useState<FileType>(
-    typeof fileData !== 'string' && fileData && 'data' in fileData
-      ? fileTypes[0] // CSV
-      : fileTypes[1], // JSON
+    typeof fileData === 'string' && fileData
+      ? fileTypes[1] // JSON
+      : fileTypes[0], // CSV
   );
   const [parsedFileData, setParsedFileData] = useState<
     ParseResult<unknown> | string | null
@@ -161,13 +159,13 @@ export default function PersonalizationForm({
     if (file.type !== fileType.value) {
       toast.error(
         t('personalization.create.invalidFileType', {
-          expected: fileType.name,
+          expected: fileType.value,
         }),
       );
       event.target.value = '';
       return;
     }
-    if (fileType.name === 'JSON') {
+    if (fileType.value === 'application/json') {
       file.text().then((text) => {
         setParsedFileData(text);
       });
@@ -224,21 +222,23 @@ export default function PersonalizationForm({
             }}
           />
         </div>
-        <div className="flex flex-row gap-x-2 mt-6 items-center">
-          <Select
-            onChange={(v: unknown) => {
-              if (v && typeof v === 'object' && 'name' in v) {
-                onFileTypeChange(v as FileType);
+        <div className="flex flex-row items-end gap-2 mt-6">
+          <RadioGroup
+            label={t('personalization.create.personalizationType')}
+            options={fileTypes.map((type) => ({
+              label: type.name ?? '',
+              value: type.value,
+            }))}
+            defaultValue={fileType.value}
+            onChange={(value: unknown) => {
+              const selected = fileTypes.find((t) => t.value === value);
+              if (selected) {
+                onFileTypeChange(selected);
               }
             }}
-            value={fileType}
-          >
-            {fileTypes.map((type) => (
-              <Option key={type.value} value={type}>
-                {type.name}
-              </Option>
-            ))}
-          </Select>
+          />
+        </div>
+        <div className="flex flex-row gap-x-2 mt-2 items-center">
           <Input
             type="file"
             ref={emptyFileInputRef}
@@ -282,7 +282,7 @@ export default function PersonalizationForm({
             isErrorUpload={isErrorUpload}
           />
         )}
-        {fileType.name === 'CSV' &&
+        {fileType.value === 'text/csv' &&
           parsedFileData &&
           typeof parsedFileData === 'object' && (
             <CsvViewerTable
@@ -290,7 +290,7 @@ export default function PersonalizationForm({
               parsedCsv={parsedFileData}
             />
           )}
-        {fileType.name === 'JSON' &&
+        {fileType.value === 'application/json' &&
           parsedFileData &&
           typeof parsedFileData === 'string' && (
             <JsonViewer data-testid="json-viewer" data={parsedFileData} />
