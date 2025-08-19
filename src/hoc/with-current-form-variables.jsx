@@ -54,7 +54,7 @@ const withCurrentFormVariables = (
         (acc, key) => acc.concat(externalVarsAvailable[key].variables),
         [],
       )
-      .map((v) => v.Name);
+      .map((v) => v?.Name);
 
     // Dedupe using a Set, which is then spread into a new Array
     const availableSuggestions = [
