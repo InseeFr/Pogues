@@ -1,5 +1,5 @@
 import Dictionary from '../../../utils/dictionary/dictionary';
-import * as rules from '../../../utils/validation/validation-rules';
+import * as rules from '../../../utils/validation/rules';
 
 export const validationSchema = {};
 

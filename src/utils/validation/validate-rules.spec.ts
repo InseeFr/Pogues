@@ -21,7 +21,7 @@ import {
 describe('required', () => {
   it('should return required field message if value is null or undefined', () => {
     expect(required(null)).toEqual(Dictionary.validationRequired);
-    expect(required(undefined)).toEqual(Dictionary.validationRequired);
+    expect(required()).toEqual(Dictionary.validationRequired);
   });
   it('should handle string value, returning required field message only if empty string', () => {
     expect(required('')).toEqual(Dictionary.validationRequired);

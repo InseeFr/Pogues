@@ -18,7 +18,9 @@ const { NUMERIC } = DATATYPE_NAME;
  *
  * It accepts `0`, `false`, and other falsy but valid inputs.
  */
-export function required(value = '') {
+export function required(
+  value: string | null | undefined | number = '',
+): string | undefined {
   if (value === null || value === undefined) {
     return Dictionary.validationRequired;
   }
@@ -32,7 +34,8 @@ export function required(value = '') {
   return undefined;
 }
 
-export function maxLength(max) {
+/** Check that the size of the provided string is below max. */
+export function maxLength(max: number): (value?: string) => string | undefined {
   return function (value) {
     return value && value.length > max
       ? `Must be ${max} characters or less`
@@ -40,33 +43,42 @@ export function maxLength(max) {
   };
 }
 
-export function number(value) {
+/** Check that the provided value is a number. */
+export function number(value?: number): string | undefined {
   return value && isNaN(Number(value))
     ? Dictionary.validationNumber
     : undefined;
 }
 
-export function minValue(min) {
+/** Check that the provided value is below min. */
+export function minValue(
+  min: number,
+): (value?: string | number) => string | undefined {
   return function (value) {
-    if (value === undefined || value === '')
+    if (value === undefined || value === '') {
       return `${Dictionary.validationMinNumber} ${min}`;
-    return parseInt(value, 10) < min
+    }
+    return parseInt(`${value}`, 10) < min
       ? `${Dictionary.validationMinNumber} ${min}`
       : undefined;
   };
 }
 
-export function maxValue(max) {
+/** Check that the provided value is above max. */
+export function maxValue(
+  max: number,
+): (value?: string | number) => string | undefined {
   return function (value) {
-    if (value === undefined || value === '')
+    if (value === undefined || value === '') {
       return `${Dictionary.validationMaxNumber} ${max}`;
-    return parseInt(value, 10) > max
+    }
+    return parseInt(`${value}`, 10) > max
       ? `${Dictionary.validationMaxNumber} ${max}`
       : undefined;
   };
 }
 
-export function requiredSelect(value = '') {
+export function requiredSelect(value: string | string[] = '') {
   return value !== '' ? undefined : Dictionary.validationRequired;
 }
 
@@ -80,27 +92,42 @@ export function nameLoop(value = '') {
   return name(value);
 }
 
-export function minimumRequired(value, { form: { maximum } }) {
-  return maximum && !value;
+/** Return the error message if maximum is defined and mimimum is not. */
+export function minimumRequired(
+  value: string,
+  { form: { maximum } }: { form: { maximum: string } },
+): boolean {
+  return !!(maximum && !value);
 }
 
-export function maximumRequired(value, { form: { minimum } }) {
-  return minimum && !value;
+/** Return the error message if minimum is defined and maximum is not. */
+export function maximumRequired(
+  value: string,
+  { form: { minimum } }: { form: { minimum: string } },
+): boolean {
+  return !!(minimum && !value);
 }
 
-export function nameSize(value) {
+export function nameSize(value: string): string | undefined {
   return value && value.length > 32
     ? Dictionary.validationInvalidNameSize
     : undefined;
 }
 
-export function emptyMeasures(measures) {
+export function emptyMeasures(measures: unknown[]): string | undefined {
   return measures.length === 0 ? Dictionary.noMeasureYet : undefined;
 }
 
 export function validateEarlyTarget(
-  value,
-  { stores: { componentsStore, editingComponentId } },
+  value: string,
+  {
+    stores: { componentsStore, editingComponentId },
+  }: {
+    stores: {
+      componentsStore: { [key: string]: never };
+      editingComponentId: string;
+    };
+  },
 ) {
   let result;
 
@@ -119,21 +146,35 @@ export function validateEarlyTarget(
   return result;
 }
 
-export function validateExistingTarget(value, { stores: { componentsStore } }) {
+export function validateExistingTarget(
+  value: string,
+  {
+    stores: { componentsStore },
+  }: { stores: { componentsStore: { [key: string]: unknown } } },
+): string | undefined {
   return value !== '' && !componentsStore[value]
     ? Dictionary.errorGoToNonExistingTgt
     : undefined;
 }
 
-export function validateDuplicates(value, { form }) {
+export function validateDuplicates(
+  value: string,
+  { form }: { form: { name: string }[] },
+): string | undefined {
   return value !== '' && form.filter((i) => i.name === value).length > 0
     ? 'Duplicated'
     : undefined;
 }
 
 export function validateDuplicatesCalculated(
-  value,
-  { form: { calculatedVariables: values }, state: { selectedItemIndex } },
+  value: string,
+  {
+    form: { calculatedVariables: values },
+    state: { selectedItemIndex },
+  }: {
+    form: { calculatedVariables: { calculatedVariables: { name: string }[] } };
+    state: { selectedItemIndex: number };
+  },
 ) {
   const listItems = cloneDeep(values.calculatedVariables);
 
@@ -145,15 +186,31 @@ export function validateDuplicatesCalculated(
   return validateDuplicates(value, { form: listItems });
 }
 
-export function typeExternal({ form: { externalVariables: values } }) {
+export function typeExternal({
+  form: { externalVariables: values },
+}: {
+  form: { externalVariables: { type: string } };
+}) {
   return values.type === NUMERIC;
 }
-export function typeCalculated({ form: { calculatedVariables: values } }) {
+
+export function typeCalculated({
+  form: { calculatedVariables: values },
+}: {
+  form: { calculatedVariables: { type: string } };
+}) {
   return values.type === NUMERIC;
 }
+
 export function validateDuplicatesExternal(
-  value,
-  { form: { externalVariables: values }, state: { selectedItemIndex } },
+  value: string,
+  {
+    form: { externalVariables: values },
+    state: { selectedItemIndex },
+  }: {
+    form: { externalVariables: { externalVariables: { name: string }[] } };
+    state: { selectedItemIndex: number };
+  },
 ) {
   const listItems = cloneDeep(values.externalVariables);
 
@@ -166,8 +223,14 @@ export function validateDuplicatesExternal(
 }
 
 export function validateDuplicatesCollected(
-  value,
-  { form: { collectedVariables: values }, state: { selectedItemIndex } },
+  value: string,
+  {
+    form: { collectedVariables: values },
+    state: { selectedItemIndex },
+  }: {
+    form: { collectedVariables: { collectedVariables: { name: string }[] } };
+    state: { selectedItemIndex: number };
+  },
 ) {
   const listItems = cloneDeep(values.collectedVariables);
 
@@ -179,16 +242,18 @@ export function validateDuplicatesCollected(
   return validateDuplicates(value, { form: listItems });
 }
 
-// We need to check is element start with a number
-export function letterStart(value) {
+/** We need to check is element start with a number. */
+export function letterStart(value?: string): string | undefined {
   return value && !isNaN(Number(value.charAt(0)))
     ? Dictionary.IsNotLetter
     : undefined;
 }
 
 export function cartCodeModeCollecte(
-  value,
-  { form: { declarations: values } },
+  value: string,
+  {
+    form: { declarations: values },
+  }: { form: { declarations: { TargetMode: string } } },
 ) {
   return (
     value === 'CODECARD' &&

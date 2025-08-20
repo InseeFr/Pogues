@@ -11,7 +11,6 @@ import {
   TABS_PATHS,
 } from '../../constants/pogues-constants';
 import { Component } from '../../model';
-import { getErrorsObject, validate } from './validate-utils';
 import {
   calculatedVariableRules,
   collectedVariableRules,
@@ -28,7 +27,8 @@ import {
   roundaboutRules,
   sequenceRules,
   tableListMeasuresRules,
-} from './validation-rules';
+} from './rules';
+import { getErrorsObject, validate } from './validate-utils';
 
 export function validateQuestionnaireForm(values, setErrors) {
   const errors = validate(values, questionnaireRules);

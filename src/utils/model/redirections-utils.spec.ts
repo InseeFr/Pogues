@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
-import { componentsStore } from './__mocks__/redirections-utils';
+import { componentsStore } from './__mocks__/redirections-utils-data';
 import {
   getComponentsTargetsByComponent,
   getComponentsTargetsByPosition,
@@ -81,7 +81,7 @@ describe('Redirections utils', () => {
     describe('Without a selected component', () => {
       test('Should obtains the right targets for a SEQUENCE', () => {
         const type = SEQUENCE;
-        const expectedComponentsIds = [];
+        const expectedComponentsIds: string[] = [];
 
         expect(getComponentsTargetsByPosition(componentsStore, type)).toEqual(
           expectedComponentsIds,
@@ -103,7 +103,7 @@ describe('Redirections utils', () => {
 
       test('Should obtains the right targets for a QUESTION', () => {
         const type = QUESTION;
-        const expectedComponentsIds = [];
+        const expectedComponentsIds: string[] = [];
 
         expect(getComponentsTargetsByPosition(componentsStore, type)).toEqual(
           expectedComponentsIds,
