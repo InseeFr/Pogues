@@ -1,15 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import Dictionary from '../dictionary/dictionary';
+import Dictionary from '@/utils/dictionary/dictionary';
+
 import {
   cartCodeModeCollecte,
   emptyMeasures,
   letterStart,
-  maxLength,
   maxValue,
-  maximumRequired,
   minValue,
-  minimumRequired,
   name,
   nameSize,
   required,
@@ -31,21 +29,6 @@ describe('required', () => {
     expect(required(2)).toBeUndefined();
     expect(required(-2)).toBeUndefined();
     expect(required(0)).toBeUndefined();
-  });
-});
-
-describe('maxLength', () => {
-  const max = 5;
-  it('should return the error message if undefined', () => {
-    expect(maxLength(max)()).toBeUndefined();
-  });
-  it('should return the error message if defined', () => {
-    expect(maxLength(max)('sdfsfsdfsdfsdfs')).toEqual(
-      `Must be ${max} characters or less`,
-    );
-  });
-  it('should return undefined', () => {
-    expect(maxLength(max)('sdfs')).toBeUndefined();
   });
 });
 
@@ -150,61 +133,7 @@ describe('letterStart', () => {
     expect(letterStart('5TTJDJ')).toEqual(Dictionary.IsNotLetter);
   });
   it('should return undefined if value undefined', () => {
-    expect(letterStart(undefined)).toBeUndefined();
-  });
-});
-
-describe('minimumRequired', () => {
-  const value = '';
-  const state = {
-    form: {
-      TargetMode: '',
-      addButtonLibel: '',
-      basedOn: 'j6qg8rc6',
-      controls: {},
-      declarations: {},
-      description: '',
-      filter: '',
-      filterImbriquer: [],
-      finalMember: 'j6p0ti5h',
-      initialMember: 'j6p0ti5h',
-      label: '',
-      maximum: '$MAYOR$  > 1',
-      minimum: '',
-      name: '',
-      nameLoop: 'loop1',
-      redirections: {},
-    },
-  };
-  it('should return the error message if maximum is defined and mimimum is not', () => {
-    expect(minimumRequired(value, state)).toEqual(true);
-  });
-});
-
-describe('maximumRequired', () => {
-  const value = '';
-  const state = {
-    form: {
-      TargetMode: '',
-      addButtonLibel: '',
-      basedOn: 'j6qg8rc6',
-      controls: {},
-      declarations: {},
-      description: '',
-      filter: '',
-      filterImbriquer: [],
-      finalMember: 'j6p0ti5h',
-      initialMember: 'j6p0ti5h',
-      label: '',
-      maximum: '',
-      minimum: '$MAYOR$  > 1',
-      name: '',
-      nameLoop: 'loop1',
-      redirections: {},
-    },
-  };
-  it('should return the error message if maximum is defined and mimimum is not', () => {
-    expect(maximumRequired(value, state)).toEqual(true);
+    expect(letterStart()).toBeUndefined();
   });
 });
 
@@ -223,7 +152,7 @@ describe('cartCodeModeCollecte', () => {
       },
       stores: {},
     };
-    expect(cartCodeModeCollecte(value, state)).toEqual(true);
+    expect(cartCodeModeCollecte(value, state)).toBeTruthy();
   });
   it('should return true declaration CAWI or PAPI include in TargetMode and declaration type is CODECARD', () => {
     const value = 'CODECARD';
@@ -239,6 +168,6 @@ describe('cartCodeModeCollecte', () => {
       },
       stores: {},
     };
-    expect(cartCodeModeCollecte(value, state)).toEqual(true);
+    expect(cartCodeModeCollecte(value, state)).toBeTruthy();
   });
 });

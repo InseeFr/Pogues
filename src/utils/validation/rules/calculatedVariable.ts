@@ -15,11 +15,11 @@ const { CALCULATED_VARIABLES } = TABS_PATHS;
 
 export const calculatedVariableRules = {
   [`${CALCULATED_VARIABLES}.label`]: [
-    (value?: string | number) =>
+    (value?: string) =>
       required(value) && Dictionary.validation_calculatedvariable_label,
   ],
   [`${CALCULATED_VARIABLES}.name`]: [
-    (value?: string | number) =>
+    (value?: string) =>
       required(value) && Dictionary.validation_calculatedvariable_name,
     name,
     nameSize,
@@ -37,7 +37,7 @@ export const calculatedVariableRules = {
       Dictionary.validation_calculatedvariable_existing,
   ],
   [`${CALCULATED_VARIABLES}.formula`]: [
-    (value?: string | number) =>
+    (value?: string) =>
       required(value) && Dictionary.validation_calculatedvariable_formula,
   ],
 

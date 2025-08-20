@@ -21,15 +21,22 @@ const mapStateToProps = (state, { path, includeSubPaths }) => {
     ...state.errors.errorsValidation,
     ...state.errors.errorsSubformValidation,
   };
+  if (Object.keys(errorsValidation).length === 0) return {};
+
   const regex = includeSubPaths
     ? new RegExp(`^${path}(.)*$`)
     : new RegExp(`^${path}$`);
 
-  const errors = Object.keys(errorsValidation)
-    .filter((p) => regex.test(p))
-    .reduce((acc, p) => {
-      return [...acc, ...errorsValidation[p]];
-    }, []);
+  const errors = [];
+  for (const [filteredErrorPath, filteredErrors] of Object.entries(
+    errorsValidation,
+  )) {
+    if (!regex.test(filteredErrorPath)) continue;
+
+    for (const filteredError of filteredErrors) {
+      errors.push({ path: filteredErrorPath, error: filteredError });
+    }
+  }
 
   return { errors };
 };

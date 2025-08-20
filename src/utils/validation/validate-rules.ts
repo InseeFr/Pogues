@@ -3,9 +3,9 @@ Common business rules logic to be applied to the form's values.
 */
 import cloneDeep from 'lodash.clonedeep';
 
-import { DATATYPE_NAME } from '../../constants/pogues-constants';
-import Dictionary from '../dictionary/dictionary';
-import { getComponentsTargetsByComponent } from '../model/redirections-utils';
+import { DATATYPE_NAME } from '@/constants/pogues-constants';
+import Dictionary from '@/utils/dictionary/dictionary';
+import { getComponentsTargetsByComponent } from '@/utils/model/redirections-utils';
 
 const { NUMERIC } = DATATYPE_NAME;
 
@@ -32,22 +32,6 @@ export function required(
   }
 
   return undefined;
-}
-
-/** Check that the size of the provided string is below max. */
-export function maxLength(max: number): (value?: string) => string | undefined {
-  return function (value) {
-    return value && value.length > max
-      ? `Must be ${max} characters or less`
-      : undefined;
-  };
-}
-
-/** Check that the provided value is a number. */
-export function number(value?: number): string | undefined {
-  return value && isNaN(Number(value))
-    ? Dictionary.validationNumber
-    : undefined;
 }
 
 /** Check that the provided value is below min. */
@@ -90,22 +74,6 @@ export function name(value = '') {
 
 export function nameLoop(value = '') {
   return name(value);
-}
-
-/** Return the error message if maximum is defined and mimimum is not. */
-export function minimumRequired(
-  value: string,
-  { form: { maximum } }: { form: { maximum: string } },
-): boolean {
-  return !!(maximum && !value);
-}
-
-/** Return the error message if minimum is defined and maximum is not. */
-export function maximumRequired(
-  value: string,
-  { form: { minimum } }: { form: { minimum: string } },
-): boolean {
-  return !!(minimum && !value);
 }
 
 export function nameSize(value: string): string | undefined {

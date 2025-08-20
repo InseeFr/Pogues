@@ -54,13 +54,17 @@ export const validationDictionary: Dictionary = {
     fr: 'Il existe une variable calculée avec le même nom',
     en: 'It already exists a calculated variable with this name',
   },
+  validation_format: {
+    fr: 'Format obligatoire',
+    en: 'Format required',
+  },
   validation_minimum: {
-    fr: 'minimum obligatoire',
-    en: 'minimum required',
+    fr: 'Minimum obligatoire',
+    en: 'Minimum required',
   },
   validation_maximum: {
-    fr: 'maximum obligatoire',
-    en: 'maximum required',
+    fr: 'Maximum obligatoire',
+    en: 'Maximum required',
   },
   validation_externalvariable_label: {
     fr: 'Libellé de la variable externe obligatoire',
@@ -101,6 +105,14 @@ export const validationDictionary: Dictionary = {
   validationCodeListLabel: {
     fr: 'Libellé obligatoire.',
     en: 'Label required.',
+  },
+  validationDurationMinutesMustBeBetween0And59: {
+    fr: 'Les minutes doivent être un nombre entre 0 et 59.',
+    en: 'Minutes must be a number between 0 and 59.',
+  },
+  validationDurationMonthsMustBeBetween0And11: {
+    fr: 'Les mois doivent être un nombre entre 0 et 11.',
+    en: 'Months must be a number between 0 and 11.',
   },
   validationMeasureLabel: {
     fr: "Libellé de l'information mesurée obligatoire",

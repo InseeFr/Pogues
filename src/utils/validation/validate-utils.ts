@@ -15,7 +15,7 @@ export function validate(
   },
   stores?: unknown,
   state?: unknown,
-): unknown[] {
+): { path: string; errors: string[] }[] {
   const res = [];
   for (const [path, rules] of Object.entries(items)) {
     const value = get(form, path);
@@ -23,12 +23,12 @@ export function validate(
     if (value !== undefined) {
       for (const rule of rules) {
         // The rule is executed with the value
-        let errors = rule(value, { form, stores, state }) || [];
+        const ruleResult = rule(value, { form, stores, state });
+        if (!ruleResult) continue;
 
-        if (!Array.isArray(errors)) errors = [errors];
+        const errors = Array.isArray(ruleResult) ? ruleResult : [ruleResult];
 
-        // If error messages are obtained from the rule an error object is created
-        if (errors.length > 0) res.push({ path, errors });
+        res.push({ path, errors });
       }
     }
   }

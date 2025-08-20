@@ -10,13 +10,7 @@ exports[`Special validation for duration > should validate have right rules for 
   },
   {
     "errors": [
-      "Must be at least 0",
-    ],
-    "path": "responseFormat.SIMPLE.DURATION.maminutes",
-  },
-  {
-    "errors": [
-      "Must be at most 59",
+      "Minutes must be a number between 0 and 59.",
     ],
     "path": "responseFormat.SIMPLE.DURATION.maminutes",
   },
@@ -28,13 +22,7 @@ exports[`Special validation for duration > should validate have right rules for 
   },
   {
     "errors": [
-      "Must be at least 0",
-    ],
-    "path": "responseFormat.SIMPLE.DURATION.miminutes",
-  },
-  {
-    "errors": [
-      "Must be at most 59",
+      "Minutes must be a number between 0 and 59.",
     ],
     "path": "responseFormat.SIMPLE.DURATION.miminutes",
   },
@@ -63,13 +51,7 @@ exports[`Special validation for duration > should validate have right rules for 
   },
   {
     "errors": [
-      "Must be at least 0",
-    ],
-    "path": "responseFormat.SIMPLE.DURATION.mamonths",
-  },
-  {
-    "errors": [
-      "Must be at most 11",
+      "Months must be a number between 0 and 11.",
     ],
     "path": "responseFormat.SIMPLE.DURATION.mamonths",
   },
@@ -81,13 +63,7 @@ exports[`Special validation for duration > should validate have right rules for 
   },
   {
     "errors": [
-      "Must be at least 0",
-    ],
-    "path": "responseFormat.SIMPLE.DURATION.mimonths",
-  },
-  {
-    "errors": [
-      "Must be at most 11",
+      "Months must be a number between 0 and 11.",
     ],
     "path": "responseFormat.SIMPLE.DURATION.mimonths",
   },

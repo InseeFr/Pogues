@@ -15,13 +15,13 @@ const defaultProps = {
 function ErrrosPanel({ errors }) {
   return (
     <div className="widget-errors-panel">
-      {errors.length > 0 && (
+      {errors.length > 0 ? (
         <ul className="widget-errors-panel__inner">
-          {errors.map((e) => (
-            <li key={e}>{e}</li>
+          {errors.map(({ path, error }) => (
+            <li key={`${path}_${error}`}>{error}</li>
           ))}
         </ul>
-      )}
+      ) : null}
     </div>
   );
 }
