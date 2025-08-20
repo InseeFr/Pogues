@@ -271,7 +271,7 @@ export default function PersonalizationForm({
         </div>
         <Button
           onClick={onDownload}
-          disabled={fileType.name !== 'CSV'}
+          disabled={fileType.value !== 'text/csv'}
           buttonStyle={ButtonStyle.Secondary}
         >
           {t('personalization.create.expectedFileSchema')}
