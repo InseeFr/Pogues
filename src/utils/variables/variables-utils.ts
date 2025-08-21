@@ -74,9 +74,10 @@ export function getAllVariables(
         externalQuestionnaires.includes(questionnaire.id),
       )
       .reduce((acc, quest) => {
+        if (!quest.variables) return acc;
         return [
           ...acc,
-          ...Object.values(quest.variables).map((variable) => variable.Name),
+          ...Object.values(quest.variables).map((variable) => variable?.Name),
         ];
       }, initialQVar);
 
