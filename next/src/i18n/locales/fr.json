@@ -184,7 +184,9 @@
       "updateSuccess": "Le questionnaire a bien été mis à jour",
       "updateError": "Erreur lors de la mise à jour du questionnaire",
       "updateFileCheckError": "Le fichier actuel n'est plus valide. Veuillez télécharger un nouveau fichier.",
-      "visualiseInterrogations": "Visualiser les unités enquêtées"
+      "visualiseInterrogations": "Visualiser les unités enquêtées",
+      "downloadExistingDataError": "Erreur lors du téléchargement du jeu de données",
+      "downloadExistingDataSuccess": "Jeu de données téléchargé avec succès"
     },
     "title": "Personnalisation"
   },

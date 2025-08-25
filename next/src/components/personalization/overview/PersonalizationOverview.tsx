@@ -47,21 +47,21 @@ export default function PersonalizationOverview({
       if (typeof fileData !== 'string' && 'data' in fileData) {
         openParsedCsv(fileData, `${fileName}.csv`);
       } else {
-        openParsedJson(JSON.parse(fileData as string), `${fileName}.json`);
+        openParsedJson(fileData, `${fileName}.json`);
       }
       return fileName;
     },
     onSuccess: (fileName: string) => {
       toast.success(
-        t('personalization.create.downloadSuccess', {
+        t('personalization.overview.downloadExistingDataSuccess', {
           fileName,
         }),
       );
     },
     onError: () => {
       toast.error(
-        t('personalization.create.downloadError', {
-          error: t('personalization.create.downloadError'),
+        t('personalization.overview.downloadExistingDataError', {
+          error: t('personalization.overview.downloadExistingDataError'),
         }),
       );
     },

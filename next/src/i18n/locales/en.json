@@ -184,7 +184,9 @@
       "updateSuccess": "The questionnaire has been updated",
       "updateError": "Error updating the questionnaire",
       "updateFileCheckError": "The current file is not valid anymore. Please upload a new file.",
-      "visualiseInterrogations": "Visualize survey units"
+      "visualiseInterrogations": "Visualize survey units",
+      "downloadExistingDataError": "Error donwloading existing dataset",
+      "downloadExistingDataSuccess": "Existing dataset downloaded successfully"
     },
     "title": "Personalization"
   },
