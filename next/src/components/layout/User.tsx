@@ -18,7 +18,6 @@ export default function User({ user }: Readonly<UserProps>) {
     user?.givenName && user?.familyName
       ? `${user.givenName.charAt(0).toUpperCase()}${user.familyName.charAt(0).toUpperCase()}`
       : '';
-  const logoutEnabled = import.meta.env.VITE_ENABLE_LOGOUT === 'true';
 
   function onLogout() {
     logout({
@@ -41,7 +40,6 @@ export default function User({ user }: Readonly<UserProps>) {
               label: t('common.logoutDialog.label'),
               icon: <LogoutIcon />,
               onClick: onLogout,
-              disabled: !logoutEnabled,
             },
       ]}
     >
