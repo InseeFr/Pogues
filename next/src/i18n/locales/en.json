@@ -17,12 +17,6 @@
     "login": "Login",
     "pleaseLogin": "You should login to access the application.",
     "logout": "Logout",
-    "logoutDialog": {
-      "body": "You will lose your unsaved changes. Are you sure you want to logout?",
-      "label": "Logout",
-      "title": "Logout confirmation"
-    },
-    "moreActions": "More actions",
     "new": "New",
     "notUsedByQuestions": "Not used by any questions.",
     "question": "{{count}} question",
@@ -34,7 +28,6 @@
     "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
     "usedByQuestion": "Used by question:",
     "usedByQuestion_other": "Used by questions:",
-    "unknownUser": "Unknown user",
     "validate": "Validate"
   },
   "codesList": {
@@ -78,11 +71,9 @@
       "mustProvideUniqueValue": "Value must be unique: \"{{value}}\"",
       "moveUp": "Move up",
       "moveDown": "Move down"
-    },
-    "title": "Codes list"
+    }
   },
   "codesLists": {
-    "all": "All",
     "create": "Create a codes list",
     "name": "Name",
     "notUsed": "Not used",
@@ -92,7 +83,6 @@
   "crumb": {
     "codesList": "Codes list {{id}}",
     "codesLists": "Codes lists",
-    "edit": "Edit",
     "history": "History",
     "new": "New",
     "nomenclatures": "Nomenclatures",
@@ -105,11 +95,9 @@
     "boundary": "An error occurred, if the problem persists, please contact support."
   },
   "filter": {
-    "filters": "Filters:",
     "result": "{{count}} result",
     "result_other": "{{count}} results",
-    "result_zero": "{{count}} results",
-    "labelValue": "{{label}}: {{value}}"
+    "result_zero": "{{count}} results"
   },
   "history": {
     "author": "Author",
@@ -124,47 +112,34 @@
       "dialogTitle": "Restore this save data",
       "success": "A new save has been created"
     },
-    "timestamp": "Timestamp",
     "title": "History",
     "versionToday": "{{count}} version today",
     "view": "View"
   },
   "personalization": {
     "create": {
-      "business": "Business",
       "brokenQuestionnaire": "Please check that your questionnaire is functional and complete.",
       "context": "Context",
       "createQuestionnaire": "Load questionnaire in orchestrator",
       "createQuestionnaireDescription": "Create a questionnaire in the orchestrator with the uploaded survey units.",
       "csvDescription": "External variables (CSV)",
-      "description": "Upload survey units to pre-fill the questionnaire.",
-      "downloadError": "Error downloading CSV schema",
       "downloadSuccess": "CSV schema downloaded successfully",
-      "error": "Error creating personalization",
       "expectedFileSchema": "Expected file schema",
-      "fileViewerError": "Error displaying the file.",
-      "household": "Household",
       "invalidFileType": "Invalid file type. Expected: {{expected}}.",
       "jsonDescription": "External & pre-collected variables (JSON)",
       "noFileChosen": "No file chosen",
       "personalizationType": "Personalization type",
       "saveError": "Error saving questionnaire",
       "saveSuccess": "Questionnaire saved successfully",
-      "success": "Personalization created successfully",
       "title": "Create a personalization",
       "uploadData": "Upload survey units data",
-      "uploadEmptyError": "No survey units provided in the upload",
       "uploadError": "Error uploading survey units",
       "uploadSuccess": "Survey units uploaded successfully"
     },
     "edit": {
-      "editQuestionnaire": "Edit questionnaire",
-      "editQuestionnaireDescription": "Edit the questionnaire with the uploaded survey units.",
       "resetInterrogationDescription": "Reset the survey unit",
       "resetInterrogationSuccess": "The survey unit has been reset",
-      "resetInterrogationError": "Error resetting the survey unit",
       "saveSuccess": "The questionnaire has been reloaded",
-      "saveError": "Error reloading the questionnaire",
       "title": "Edit personalization"
     },
     "overview": {
@@ -174,15 +149,11 @@
       "deleteDialogConfirm": "Are you sure you want to delete this personalization?",
       "deleteDialogTitle": "Delete personalization",
       "deleteSuccess": "Personalization deleted successfully",
-      "editDisabledTooltip": "Personalization cannot be edited yet.",
       "existingFileData": "Existing dataset",
       "modes": "Modes: ",
       "syncErrorContent": "The questionnaire is out of date. Please reload it by clicking the sync icon.",
       "syncErrorTitle": "Warning",
       "title": "Personalization",
-      "updateQuestionnaire": "Update questionnaire",
-      "updateSuccess": "The questionnaire has been updated",
-      "updateError": "Error updating the questionnaire",
       "updateFileCheckError": "The current file is not valid anymore. Please upload a new file.",
       "visualiseInterrogations": "Visualize survey units",
       "downloadExistingDataError": "Error donwloading existing dataset",
@@ -193,9 +164,7 @@
   "questionnaire": {
     "common": {
       "dynamicField": "Dynamic specification",
-      "filter": "Filtre",
       "formulaField": "Formula specification",
-      "redirect": "Redirect",
       "targetMode": "Collection mode"
     },
     "create": {
@@ -206,16 +175,7 @@
       "mustProvideTarget": "You must select at least one target mode",
       "mustProvideTitle": "You must provide a title"
     },
-    "navigation": {
-      "codesLists": "Codes lists",
-      "history": "History",
-      "metadata": "Metadata",
-      "nomenclatures": "Nomenclatures",
-      "personalize": "Personalization",
-      "questionnaire": "Questionnaire",
-      "variables": "Variables"
-    },
-    "title": "Questionnaire {{id}}"
+    "title": "Questionnaire"
   },
   "questionnaires": {
     "create": "Create a questionnaire",
@@ -223,15 +183,11 @@
     "stamp": "Stamp",
     "title": "Questionnaires"
   },
-  "metadata": {
-    "title": "Metadata"
-  },
   "nomenclatures": {
     "name": "Name",
     "notUsedByQuestionnaire": "The questionnaire does not use nomenclatures.",
     "search": "Search for a nomenclature",
-    "title": "Nomenclatures",
-    "version": "Version"
+    "title": "Nomenclatures"
   },
   "variable": {
     "create": {

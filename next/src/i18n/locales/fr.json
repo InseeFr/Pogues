@@ -17,12 +17,6 @@
     "login": "Se connecter",
     "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
     "logout": "Déconnexion",
-    "logoutDialog": {
-      "body": "Vous allez perdre vos modifications non enregistrées. Êtes-vous sûr de vouloir vous déconnecter ?",
-      "label": "Se déconnecter",
-      "title": "Confirmation de déconnexion"
-    },
-    "moreActions": "Plus d'actions",
     "new": "Nouveau",
     "notUsedByQuestions": "Utilisé par aucune question.",
     "question": "{{count}} question",
@@ -31,7 +25,6 @@
     "questionnaire": "Questionnaire",
     "questionnaires": "Questionnaires",
     "title": "Titre",
-    "unknownUser": "Utilisateur inconnu",
     "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
     "usedByQuestion": "Utilisé dans la question :",
     "usedByQuestion_other": "Utilisé dans les questions :",
@@ -78,11 +71,9 @@
       "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",
       "moveUp": "Monter d'un niveau",
       "moveDown": "Descendre d'un niveau"
-    },
-    "title": "Liste de codes"
+    }
   },
   "codesLists": {
-    "all": "Toutes",
     "create": "Créer une liste de codes",
     "name": "Nom",
     "notUsed": "Non utilisées",
@@ -92,7 +83,6 @@
   "crumb": {
     "codesList": "Liste de code {{id}}",
     "codesLists": "Listes de codes",
-    "edit": "Editer",
     "history": "Historique",
     "new": "Nouveau",
     "nomenclatures": "Nomenclatures",
@@ -105,11 +95,9 @@
     "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
   },
   "filter": {
-    "filters": "Filtres :",
     "result": "{{count}} résultat",
     "result_other": "{{count}} résultats",
-    "result_zero": "{{count}} résultat",
-    "labelValue": "{{label}} : {{value}}"
+    "result_zero": "{{count}} résultat"
   },
   "history": {
     "author": "Auteur",
@@ -124,47 +112,34 @@
       "dialogTitle": "Restaurer cette sauvegarde",
       "success": "La nouvelle sauvegarde a été créée"
     },
-    "timestamp": "Date",
     "title": "Historique",
     "versionToday": "{{count}} sauvegardes aujourd'hui",
     "view": "Consulter"
   },
   "personalization": {
     "create": {
-      "business": "Entreprise",
       "brokenQuestionnaire": "Veuillez vérifier que votre questionnaire est bien fonctionnel et intègre.",
       "context": "Contexte",
       "createQuestionnaire": "Charger les données dans les orchestrateurs",
       "createQuestionnaireDescription": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
       "csvDescription": "Variables externes seules (CSV)",
-      "description": "Créez une personnalisation pour pré-remplir le questionnaire avec les données des unités enquêtées.",
-      "downloadError": "Erreur lors du téléchargement du schéma CSV",
       "downloadSuccess": "Schéma CSV téléchargé avec succès",
-      "error": "Erreur lors de la création du jeu de données",
       "expectedFileSchema": "Schéma de fichier attendu",
-      "fileViewerError": "Erreur lors des l'affichage du fichier.",
-      "household": "Ménage",
       "invalidFileType": "Type de fichier invalide. Format attendu : {{expected}}.",
       "jsonDescription": "Variables externes et pré-remplissage (JSON)",
       "noFileChosen": "Aucun fichier choisi",
       "personalizationType": "Type de personnalisation",
       "saveError": "Erreur lors du chargement des interrogations",
       "saveSuccess": "Questionnaire sauvegardé avec succès",
-      "success": "La personnalisation a été créée avec succès",
       "title": "Personnaliser mon questionnaire",
       "uploadData": "Charger les unités enquêtées",
-      "uploadEmptyError": "Aucune unité enquêtée trouvée dans le fichier",
       "uploadError": "Erreur lors du chargement des unités enquêtées",
       "uploadSuccess": "Unités enquêtées importées avec succès"
     },
     "edit": {
-      "editQuestionnaire": "Confirmer le rechargement",
-      "editQuestionnaireDescription": "Attention, le rechargement du questionnaire dans les orchestrateurs entraîne la suppression du questionnaire actuel. Souhaitez vous continuer ?",
       "resetInterrogationDescription": "Réinitialiser les données de l'unité enquêtée",
       "resetInterrogationSuccess": "L'intorrogation a été réinitialisée avec succès",
-      "resetInterrogationError": "Erreur lors de la réinitialisation de l'interrogation",
       "saveSuccess": "Le questionnaire a bien été rechargé",
-      "saveError": "Erreur lors du rechargement du questionnaire",
       "title": "Modifier la personnalisation"
     },
     "overview": {
@@ -174,15 +149,11 @@
       "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
       "deleteDialogTitle": "Supprimer la personnalisation",
       "deleteSuccess": "Personnalisation supprimée avec succès",
-      "editDisabledTooltip": "La personnalisation ne peut pas être modifiée pour le moment.",
       "existingFileData": "Télécharger le jeu de données existantes",
       "modes": "Modes : ",
       "syncErrorContent": "Le questionnaire n'est plus à jour. Merci de bien vouloir le recharger en cliquant sur l'icône de synchronisation.",
       "syncErrorTitle": "Avertissement",
       "title": "Personnaliser mon questionnaire",
-      "updateQuestionnaire": "Mettre à jour le questionnaire",
-      "updateSuccess": "Le questionnaire a bien été mis à jour",
-      "updateError": "Erreur lors de la mise à jour du questionnaire",
       "updateFileCheckError": "Le fichier actuel n'est plus valide. Veuillez télécharger un nouveau fichier.",
       "visualiseInterrogations": "Visualiser les unités enquêtées",
       "downloadExistingDataError": "Erreur lors du téléchargement du jeu de données",
@@ -193,9 +164,7 @@
   "questionnaire": {
     "common": {
       "dynamicField": "Spécification dynamique",
-      "filter": "Filtre",
       "formulaField": "Spécification des formules",
-      "redirect": "Redirect",
       "targetMode": "Mode de collecte"
     },
     "create": {
@@ -206,15 +175,6 @@
       "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
       "mustProvideTitle": "Vous devez renseigner un titre"
     },
-    "navigation": {
-      "codesLists": "Listes de codes",
-      "history": "Historique",
-      "metadata": "Métadonnées",
-      "nomenclatures": "Nomenclatures",
-      "personalize": "Personnalisation",
-      "questionnaire": "Questionnaire",
-      "variables": "Variables"
-    },
     "title": "Questionnaire"
   },
   "questionnaires": {
@@ -223,15 +183,11 @@
     "stamp": "Timbre",
     "title": "Questionnaires"
   },
-  "metadata": {
-    "title": "Métadonnées"
-  },
   "nomenclatures": {
     "name": "Nom",
     "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de nomenclature.",
     "search": "Rechercher une nomenclature",
-    "title": "Nomenclatures",
-    "version": "Version"
+    "title": "Nomenclatures"
   },
   "variable": {
     "create": {

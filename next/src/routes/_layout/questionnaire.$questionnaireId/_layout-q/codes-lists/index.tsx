@@ -54,7 +54,7 @@ function ComponentWrapper({
   return (
     <>
       <ContentHeader
-        title={t('questionnaire.navigation.codesLists')}
+        title={t('codesLists.title')}
         action={
           <ButtonLink
             to="/questionnaire/$questionnaireId/codes-lists/new"

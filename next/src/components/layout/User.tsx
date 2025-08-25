@@ -37,7 +37,7 @@ export default function User({ user }: Readonly<UserProps>) {
               disabled: true,
             }
           : {
-              label: t('common.logoutDialog.label'),
+              label: t('common.logout'),
               icon: <LogoutIcon />,
               onClick: onLogout,
             },
