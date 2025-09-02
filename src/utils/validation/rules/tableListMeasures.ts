@@ -21,6 +21,7 @@ const { RESPONSE_FORMAT } = TABS_PATHS;
 
 const tableListSingleChoiceVisHint = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.visHint`;
 const tableListDurationFormat = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DURATION}.format`;
+const tableListDateFormat = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.format`;
 
 export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [
@@ -77,9 +78,9 @@ export const tableListMeasuresRules = {
   ],
 
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.minimum`]:
-    dateMinimumRules,
+    dateMinimumRules(tableListDateFormat),
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.maximum`]:
-    dateMaximumRules,
+    dateMaximumRules(tableListDateFormat),
 
   /* Duration measure must have format / minimum / maximum. */
   [tableListDurationFormat]: [
