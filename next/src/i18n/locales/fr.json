@@ -157,7 +157,10 @@
       "updateFileCheckError": "Le fichier actuel n'est plus valide. Veuillez télécharger un nouveau fichier.",
       "visualiseInterrogations": "Visualiser les unités enquêtées",
       "downloadExistingDataError": "Erreur lors du téléchargement du jeu de données",
-      "downloadExistingDataSuccess": "Jeu de données téléchargé avec succès"
+      "downloadExistingDataSuccess": "Jeu de données téléchargé avec succès",
+      "downladPdfRecap": "Télécharger le récapitulatif pdf des données",
+      "downladPdfRecapSuccess": "Récapitulatif pdf des données téléchargé avec succès",
+      "downladPdfRecapError": "Erreur lors du téléchargement du récapitulatif pdf des données téléchargé avec succès"
     },
     "title": "Personnalisation"
   },

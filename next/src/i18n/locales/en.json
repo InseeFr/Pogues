@@ -157,7 +157,10 @@
       "updateFileCheckError": "The current file is not valid anymore. Please upload a new file.",
       "visualiseInterrogations": "Visualize survey units",
       "downloadExistingDataError": "Error donwloading existing dataset",
-      "downloadExistingDataSuccess": "Existing dataset downloaded successfully"
+      "downloadExistingDataSuccess": "Existing dataset downloaded successfully",
+      "downladPdfRecap": "Download PDF data summary",
+      "downladPdfRecapSuccess": "PDF data summary downloaded successfully",
+      "downladPdfRecapError": "Error donwloading PDF data summary"
     },
     "title": "Personalization"
   },
