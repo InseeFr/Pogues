@@ -1,11 +1,11 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import { articulationVariablesQueryOptions } from '@/api/articulation';
 import CreateArticulation from '@/components/articulation/create/CreateArticulation';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-
-import { mockLoopVariables } from './mock';
 
 /**
  * Page for creating an articulation for a questionnaire.
@@ -15,14 +15,17 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
+    queryClient.ensureQueryData(
+      articulationVariablesQueryOptions(questionnaireId),
+    ),
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
-
-  // TODO: get the list of variables when endpoint will be available,
-  // it will be the variables with the scope of the loop on which the roundabout is based
-  const variables = mockLoopVariables;
+  const { data: variables } = useSuspenseQuery(
+    articulationVariablesQueryOptions(questionnaireId),
+  );
 
   return (
     <ComponentWrapper>
@@ -49,7 +52,7 @@ function ComponentWrapper({
 
   return (
     <>
-      <ContentHeader title={t('questionnaire.navigation.articulation')} />
+      <ContentHeader title={t('articulation.create.title')} />
       <ContentMain>{children}</ContentMain>
     </>
   );

@@ -243,14 +243,22 @@
     },
     "overview": {
       "noRoundabout": "Votre questionnaire ne comporte pas de rond-point",
-      "variableTable": "Variables du tableau d'articulation"
+      "variableTable": "Variables du tableau d'articulation",
+      "title": "Articulation"
     },
     "create": {
-      "create": "Créer une articulation"
+      "create": "Créer une articulation",
+      "success": "L'articulation a été créée",
+      "title": "Nouvelle articulation"
     },
     "delete": {
       "dialogTitle": "Supprimer l'articulation",
-      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer l'articulation ?"
+      "dialogConfirm": "Êtes-vous sûr de vouloir supprimer l'articulation ?",
+      "success": "L'articulation a été supprimée"
+    },
+    "edit": {
+      "success": "L'articulation a été modifiée",
+      "title": "Editer l'articulation"
     },
     "form": {
       "mustProvideFirstName": "Vous devez renseigner une formule pour le prénom",

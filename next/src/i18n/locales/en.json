@@ -243,14 +243,22 @@
     },
     "overview": {
       "mustHaveRoundabout": "There is no roundabout in your questionnaire",
-      "variableTable": "Articulation table variables"
+      "variableTable": "Articulation table variables",
+      "title": "Articulation"
     },
     "create": {
-      "create": "Create an articulation"
+      "create": "Create an articulation",
+      "success": "The articulation has been created",
+      "title": "New articulation"
     },
     "delete": {
       "dialogTitle": "Delete articulation",
-      "dialogConfirm": "Are you sure you want to delete articulation?"
+      "dialogConfirm": "Are you sure you want to delete articulation?",
+      "success": "Articulation has been deleted"
+    },
+    "edit": {
+      "success": "The articulation has been updated",
+      "title": "Edit the articulation"
     },
     "form": {
       "mustProvideFirstName": "You must provide a formula for first name",

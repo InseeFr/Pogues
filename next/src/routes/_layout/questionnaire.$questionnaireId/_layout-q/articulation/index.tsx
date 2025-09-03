@@ -1,11 +1,14 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import {
+  articulationQueryOptions,
+  articulationVariablesQueryOptions,
+} from '@/api/articulation';
 import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
-
-import { mockArticulationItems, mockLoopVariables } from './mock';
 
 /**
  * Main articulation page where we display the articulation items of our
@@ -16,24 +19,31 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
+    await Promise.all([
+      queryClient.ensureQueryData(articulationQueryOptions(questionnaireId)),
+      queryClient.ensureQueryData(
+        articulationVariablesQueryOptions(questionnaireId),
+      ),
+    ]);
+  },
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
-
-  // TODO: get the list of variables when endpoint will be available,
-  // it will be the variables with the scope of the loop on which the roundabout is based
-  const variables = mockLoopVariables;
-
-  // TODO: get articulation when endpoint will be available, then extract its items object
-  const articulationItems = mockArticulationItems;
+  const { data: articulation } = useSuspenseQuery(
+    articulationQueryOptions(questionnaireId),
+  );
+  const { data: variables } = useSuspenseQuery(
+    articulationVariablesQueryOptions(questionnaireId),
+  );
 
   return (
     <ComponentWrapper>
       <ArticulationOverview
         questionnaireId={questionnaireId}
         variables={variables}
-        articulationItems={articulationItems}
+        articulationItems={articulation.items}
       />
     </ComponentWrapper>
   );
@@ -54,7 +64,7 @@ function ComponentWrapper({
 
   return (
     <>
-      <ContentHeader title={t('questionnaire.navigation.articulation')} />
+      <ContentHeader title={t('articulation.overview.title')} />
       <ContentMain>{children}</ContentMain>
     </>
   );

@@ -1,7 +1,10 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
+import { articulationKeys, deleteArticulation } from '@/api/articulation';
 import ButtonLink from '@/components/ui/ButtonLink';
-import Dialog from '@/components/ui/Dialog';
+import DialogButton from '@/components/ui/DialogButton';
 import { ArticulationItems } from '@/models/articulation';
 
 import { ArticulationTable } from './ArticulationTable';
@@ -17,8 +20,28 @@ export function ArticulationOverviewDetails({
 }: Readonly<ArticulationOverviewDetailsProps>) {
   const { t } = useTranslation();
 
-  // TODO: handle delete with refresh when endpoint will be available
-  const onDelete = () => {};
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
+      return deleteArticulation(questionnaireId);
+    },
+    onSuccess: (_, { questionnaireId }) =>
+      queryClient.invalidateQueries({
+        queryKey: articulationKeys.all(questionnaireId),
+      }),
+  });
+
+  function onDelete() {
+    const promise = deleteMutation.mutateAsync({
+      questionnaireId,
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('articulation.delete.success'),
+      error: (err: Error) => err.toString(),
+    });
+  }
 
   return (
     <div className="overflow-hidden space-y-3">
@@ -33,11 +56,9 @@ export function ArticulationOverviewDetails({
         >
           {t('common.edit')}
         </ButtonLink>
-        <Dialog
+        <DialogButton
           label={t('common.delete')}
-          title={t('articulation.delete.dialogTitle', {
-            label: 'test',
-          })}
+          title={t('articulation.delete.dialogTitle')}
           body={t('articulation.delete.dialogConfirm')}
           onValidate={onDelete}
         />

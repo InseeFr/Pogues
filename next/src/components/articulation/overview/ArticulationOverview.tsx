@@ -38,6 +38,7 @@ export function ArticulationOverview({
         {t('articulation.create.create')}
       </ButtonLink>
     );
+
   return (
     <OverviewItem
       content={
