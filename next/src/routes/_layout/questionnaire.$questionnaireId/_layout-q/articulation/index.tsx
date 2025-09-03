@@ -3,8 +3,9 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import {
+  ARTICULATION_ERROR_CODES,
   articulationQueryOptions,
-  articulationVariablesQueryOptions,
+  isArticulationApiError,
 } from '@/api/articulation';
 import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
 import ContentHeader from '@/components/layout/ContentHeader';
@@ -19,14 +20,8 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
-  loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
-    await Promise.all([
-      queryClient.ensureQueryData(articulationQueryOptions(questionnaireId)),
-      queryClient.ensureQueryData(
-        articulationVariablesQueryOptions(questionnaireId),
-      ),
-    ]);
-  },
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
+    queryClient.ensureQueryData(articulationQueryOptions(questionnaireId)),
 });
 
 function RouteComponent() {
@@ -34,15 +29,11 @@ function RouteComponent() {
   const { data: articulation } = useSuspenseQuery(
     articulationQueryOptions(questionnaireId),
   );
-  const { data: variables } = useSuspenseQuery(
-    articulationVariablesQueryOptions(questionnaireId),
-  );
 
   return (
     <ComponentWrapper>
       <ArticulationOverview
         questionnaireId={questionnaireId}
-        variables={variables}
         articulationItems={articulation.items}
       />
     </ComponentWrapper>
@@ -50,9 +41,23 @@ function RouteComponent() {
 }
 
 function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+  const { t } = useTranslation();
+  let errorMessage = error.message;
+
+  if (isArticulationApiError(error)) {
+    switch (error.response?.data.errorCode) {
+      case ARTICULATION_ERROR_CODES.FORMULA_NOT_VTL:
+        errorMessage = t('articulation.overview.error.formulaNotVtl');
+        break;
+      case ARTICULATION_ERROR_CODES.ROUNDABOUT_NOT_FOUND:
+        errorMessage = t('articulation.overview.error.roundaboutNotFound');
+        break;
+    }
+  }
+
   return (
     <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
+      <div className="text-error">{errorMessage}</div>
     </ComponentWrapper>
   );
 }

@@ -19,14 +19,9 @@ interface ArticulationOverviewProps {
 
 export function ArticulationOverview({
   questionnaireId,
-  variables,
   articulationItems,
 }: Readonly<ArticulationOverviewProps>) {
   const { t } = useTranslation();
-
-  if (!variables || variables.length === 0) {
-    return t('articulation.overview.mustHaveRoundabout');
-  }
 
   if (!articulationItems)
     return (

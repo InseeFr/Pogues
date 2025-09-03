@@ -1,9 +1,30 @@
 import { queryOptions } from '@tanstack/react-query';
+import { AxiosError, isAxiosError } from 'axios';
 
 import type { Articulation } from '@/models/articulation';
 import { Variable } from '@/models/variables';
 
 import { instance } from './instance';
+
+export enum ARTICULATION_ERROR_CODES {
+  FORMULA_NOT_VTL = 'questionnaire:formulalanguage:notvtl',
+  ROUNDABOUT_NOT_FOUND = 'questionnaire:roundaboutnotfound',
+}
+
+export type ArticulationError = {
+  errorCode: ARTICULATION_ERROR_CODES;
+};
+
+export function isArticulationApiError(
+  error: Error,
+): error is AxiosError<ArticulationError> {
+  if (!isAxiosError(error)) {
+    return false;
+  }
+
+  const errorCode = error.response?.data.errorCode;
+  return Object.values(ARTICULATION_ERROR_CODES).includes(errorCode);
+}
 
 export const articulationKeys = {
   all: (questionnaireId: string) => ['articulation', questionnaireId] as const,

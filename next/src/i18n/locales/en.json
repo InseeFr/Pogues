@@ -242,9 +242,12 @@
       "age": "Age"
     },
     "overview": {
-      "mustHaveRoundabout": "There is no roundabout in your questionnaire",
       "variableTable": "Articulation table variables",
-      "title": "Articulation"
+      "title": "Articulation",
+      "error": {
+        "formulaNotVtl": "The questionnaire needs to use the formula language VTL",
+        "roundaboutNotFound": "The questionnaire does not have a roundabout"
+      }
     },
     "create": {
       "create": "Create an articulation",
