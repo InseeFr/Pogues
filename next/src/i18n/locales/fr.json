@@ -244,6 +244,7 @@
     "overview": {
       "variableTable": "Variables du tableau d'articulation",
       "title": "Articulation",
+      "noArticulation": "Aucune articulation n'a été définie",
       "error": {
         "formulaNotVtl": "Le questionnaire doit utiliser le language VTL",
         "roundaboutNotFound": "Le questionnaire ne comporte pas de rond-point"

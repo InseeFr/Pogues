@@ -12,11 +12,13 @@ import { ArticulationTable } from './ArticulationTable';
 interface ArticulationOverviewDetailsProps {
   questionnaireId: string;
   articulationItems: ArticulationItems;
+  readonly?: boolean;
 }
 
 export function ArticulationOverviewDetails({
   questionnaireId,
   articulationItems,
+  readonly = false,
 }: Readonly<ArticulationOverviewDetailsProps>) {
   const { t } = useTranslation();
 
@@ -49,20 +51,22 @@ export function ArticulationOverviewDetails({
         <ArticulationTable articulationItems={articulationItems} />
       </div>
 
-      <div className="flex gap-x-2">
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/articulation/edit"
-          params={{ questionnaireId }}
-        >
-          {t('common.edit')}
-        </ButtonLink>
-        <DialogButton
-          label={t('common.delete')}
-          title={t('articulation.delete.dialogTitle')}
-          body={t('articulation.delete.dialogConfirm')}
-          onValidate={onDelete}
-        />
-      </div>
+      {!readonly && (
+        <div className="flex gap-x-2">
+          <ButtonLink
+            to="/questionnaire/$questionnaireId/articulation/edit"
+            params={{ questionnaireId }}
+          >
+            {t('common.edit')}
+          </ButtonLink>
+          <DialogButton
+            label={t('common.delete')}
+            title={t('articulation.delete.dialogTitle')}
+            body={t('articulation.delete.dialogConfirm')}
+            onValidate={onDelete}
+          />
+        </div>
+      )}
     </div>
   );
 }

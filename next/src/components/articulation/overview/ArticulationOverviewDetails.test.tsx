@@ -64,4 +64,24 @@ describe('ArticulationOverviewDetails', () => {
 
     expect(getByRole('button', { name: /Delete/i })).toBeEnabled();
   });
+
+  it('cannot edit articulation if readonly', async () => {
+    const { queryByRole } = await waitFor(() =>
+      renderWithRouter(
+        <ArticulationOverviewDetails {...defaultProps} readonly />,
+      ),
+    );
+
+    expect(queryByRole('link', { name: /Edit/i })).toBeNull();
+  });
+
+  it('cannot delete articulation if readonly', async () => {
+    const { queryByRole } = await waitFor(() =>
+      renderWithRouter(
+        <ArticulationOverviewDetails {...defaultProps} readonly />,
+      ),
+    );
+
+    expect(queryByRole('button', { name: /Delete/i })).toBeNull();
+  });
 });

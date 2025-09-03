@@ -7,23 +7,27 @@ import {
   ArticulationItems,
   defaultArticulationItems,
 } from '@/models/articulation';
-import { Variable } from '@/models/variables';
 
 import { ArticulationOverviewDetails } from './ArticulationOverviewDetails';
 
 interface ArticulationOverviewProps {
   questionnaireId: string;
-  variables?: Variable[];
   articulationItems?: ArticulationItems;
+  readonly?: boolean;
 }
 
 export function ArticulationOverview({
   questionnaireId,
   articulationItems,
+  readonly = false,
 }: Readonly<ArticulationOverviewProps>) {
   const { t } = useTranslation();
 
-  if (!articulationItems)
+  if (!articulationItems && readonly) {
+    return <div>{t('articulation.overview.noArticulation')}</div>;
+  }
+
+  if (!articulationItems && !readonly)
     return (
       <ButtonLink
         to="/questionnaire/$questionnaireId/articulation/new"
@@ -45,6 +49,7 @@ export function ArticulationOverview({
         <ArticulationOverviewDetails
           questionnaireId={questionnaireId}
           articulationItems={articulationItems ?? defaultArticulationItems}
+          readonly={readonly}
         />
       }
       defaultExpanded
