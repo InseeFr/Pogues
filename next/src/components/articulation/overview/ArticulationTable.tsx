@@ -30,9 +30,9 @@ export function ArticulationTable({
           {articulationItems.map((item) => (
             <td
               key={item.label}
-              className="border px-3 py-2 font-mono text-gray-800"
+              className="border px-3 py-2 font-mono text-gray-800 bg-gray-50"
             >
-              {item.value}
+              <code className="whitespace-pre text-primary">{item.value}</code>
             </td>
           ))}
         </tr>
