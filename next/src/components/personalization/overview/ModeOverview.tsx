@@ -42,8 +42,8 @@ export default function ModeOverview({
       downloadPdfInterrogationMutation.mutateAsync(interrogationId);
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('personalization.overview.downladPdfRecapSuccess'),
-      error: t('personalization.overview.downladPdfRecapError'),
+      success: t('personalization.overview.downladPdfRecap.success'),
+      error: t('personalization.overview.downladPdfRecap.error'),
     });
   }
 
@@ -126,7 +126,7 @@ export default function ModeOverview({
                             className="right-3 top-1/2 "
                             Icon={PDFIcon}
                             title={t(
-                              'personalization.overview.downladPdfRecap',
+                              'personalization.overview.downladPdfRecap.label',
                             )}
                             onClick={() => onDownloadPdf(interrogation.id)}
                           />

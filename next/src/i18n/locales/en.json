@@ -158,9 +158,11 @@
       "visualiseInterrogations": "Visualize survey units",
       "downloadExistingDataError": "Error donwloading existing dataset",
       "downloadExistingDataSuccess": "Existing dataset downloaded successfully",
-      "downladPdfRecap": "Download PDF data summary",
-      "downladPdfRecapSuccess": "PDF data summary downloaded successfully",
-      "downladPdfRecapError": "Error donwloading PDF data summary"
+      "downladPdfRecap": {
+        "label": "Download PDF data summary",
+        "success": "PDF data summary downloaded successfully",
+        "error": "Error donwloading PDF data summary"
+      }
     },
     "title": "Personalization"
   },
