@@ -16,7 +16,8 @@ const { RESPONSE_FORMAT } = TABS_PATHS;
 
 const simpleDateFormatPath = `${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`;
 
-/** Check that a date respects a given format.
+/**
+ * Check that a date respects a given format.
  *
  * Returns the error message, or undefined if the format is respected */
 function checkDate(format: string, value?: string): string | undefined {
@@ -25,29 +26,27 @@ function checkDate(format: string, value?: string): string | undefined {
   })(value) as string | undefined;
 }
 
-/** Minimum must be scpecified and respect the format. */
+/** Rule that returns a format error if a date does not respect a specific format. */
+function checkDateRule(formatPath: string) {
+  return (value?: string, { form }: { [formatPath]?: string } = {}) => {
+    // there is a value that does not match with the date format
+    const dateFormat = get(form, formatPath) as string;
+    return value && checkDate(dateFormat, value) !== undefined
+      ? Dictionary.formatDate
+      : undefined;
+  };
+}
+
+/** Minimum must be specified and respect the format. */
 export const dateMinimumRules = (formatPath: string) => [
   (value?: string) => required(value) && Dictionary.validation_minimum,
-  (value?: string, { form }: { [formatPath]?: string } = {}) => {
-    // there is a value that does not match with the date format
-    const dateFormat = get(form, formatPath) as string;
-    return value && checkDate(dateFormat, value) !== undefined
-      ? Dictionary.formatDate
-      : undefined;
-  },
+  checkDateRule(formatPath),
 ];
 
-/** Maximum must be scpecified and respect the format. */
+/** Maximum must be specified and respect the format. */
 export const dateMaximumRules = (formatPath: string) => [
   (value?: string) => required(value) && Dictionary.validation_maximum,
-  (value?: string, { form }: { [formatPath]?: string } = {}) => {
-    // there is a value that does not match with the date format
-    const dateFormat = get(form, formatPath) as string;
-
-    return value && checkDate(dateFormat, value) !== undefined
-      ? Dictionary.formatDate
-      : undefined;
-  },
+  checkDateRule(formatPath),
 ];
 
 export const dateRules = {
