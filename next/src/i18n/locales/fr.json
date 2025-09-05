@@ -246,8 +246,8 @@
       "title": "Articulation",
       "noArticulation": "Aucune articulation n'a été définie",
       "error": {
-        "formulaNotVtl": "Le questionnaire doit utiliser le language VTL",
-        "roundaboutNotFound": "Le questionnaire ne comporte pas de rond-point"
+        "formulaNotVtl": "L'articulation n'est disponible que pour les questionnaires en VTL",
+        "roundaboutNotFound": "L'articulation n'est disponible que pour les formulaires avec un rond-point"
       }
     },
     "create": {
