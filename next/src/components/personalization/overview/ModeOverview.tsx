@@ -19,6 +19,9 @@ interface ModeOverviewProps {
   interrogationData: InterrogationModeDataResponse;
 }
 
+const enableDownloadRcapPdf =
+  import.meta.env.VITE_ENABLE_DOWNLOAD_PDF_PERSO === 'true';
+
 export default function ModeOverview({
   interrogationData,
 }: Readonly<ModeOverviewProps>) {
@@ -122,14 +125,16 @@ export default function ModeOverview({
                             )}
                             onClick={() => onReset(interrogation.id)}
                           />
-                          <ButtonIcon
-                            className="right-3 top-1/2 "
-                            Icon={PDFIcon}
-                            title={t(
-                              'personalization.overview.downladPdfRecap.label',
-                            )}
-                            onClick={() => onDownloadPdf(interrogation.id)}
-                          />
+                          {enableDownloadRcapPdf && (
+                            <ButtonIcon
+                              className="right-3 top-1/2 "
+                              Icon={PDFIcon}
+                              title={t(
+                                'personalization.overview.downladPdfRecap.label',
+                              )}
+                              onClick={() => onDownloadPdf(interrogation.id)}
+                            />
+                          )}
                         </div>
                       )}
                     </td>

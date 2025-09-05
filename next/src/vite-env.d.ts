@@ -11,11 +11,12 @@ export type ImportMetaEnv = {
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_CLIENT_ID: string;
   VITE_ENABLE_VARIABLES_PAGE_FORM: string;
+  VITE_ENABLE_DOWNLOAD_PDF_PERSO: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;
   PROD: boolean;
-  APP_VERSION: any;
+  APP_VERSION: string;
   // @user-defined-start
   /*
    *  You can use this section to explicitly extend the type definition of `import.meta.env`
