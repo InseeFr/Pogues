@@ -30,6 +30,8 @@ export const articulationKeys = {
   all: (questionnaireId: string) => ['articulation', questionnaireId] as const,
   version: (questionnaireId: string, versionId: string) =>
     ['articulationVersion', questionnaireId, versionId] as const,
+  variables: (questionnaireId: string) =>
+    ['articulationVariables', questionnaireId] as const,
 };
 
 /**
@@ -65,7 +67,7 @@ export const articulationFromVersionQueryOptions = (
  */
 export const articulationVariablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: ['variables', questionnaireId] as const,
+    queryKey: articulationKeys.variables(questionnaireId),
     queryFn: () => getArticulationVariables(questionnaireId),
   });
 
