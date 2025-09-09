@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.11.3-rc.validation-table-date-format",
+  "version": "1.11.3",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",

@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.3](https://github.com/InseeFr/Pogues/releases/tag/1.11.3) - 2025-09-05
+
+### Changed
+
+- Handle questionnaire's new articulation and multimode props to prevent removing them on form update.
+
+### Fixed
+
+- Fixed some issues with form validation.
+
 ## [1.11.2](https://github.com/InseeFr/Pogues/releases/tag/1.11.2) - 2025-08-21
 
 ### Fixed

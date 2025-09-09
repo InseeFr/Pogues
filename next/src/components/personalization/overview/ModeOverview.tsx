@@ -2,9 +2,13 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
-import { resetInterrogation } from '@/api/personalization';
+import {
+  getPdfRecapOfInterrogation,
+  resetInterrogation,
+} from '@/api/personalization';
 import ButtonIcon from '@/components/ui/ButtonIcon';
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
+import PDFIcon from '@/components/ui/icons/PdfIcon';
 import ResetIcon from '@/components/ui/icons/ResetIcon';
 import {
   InterrogationModeData,
@@ -14,6 +18,9 @@ import {
 interface ModeOverviewProps {
   interrogationData: InterrogationModeDataResponse;
 }
+
+const enableDownloadRcapPdf =
+  import.meta.env.VITE_ENABLE_DOWNLOAD_PDF_PERSO === 'true';
 
 export default function ModeOverview({
   interrogationData,
@@ -25,6 +32,23 @@ export default function ModeOverview({
       return result ?? null;
     },
   });
+
+  const downloadPdfInterrogationMutation = useMutation({
+    mutationFn: async (interrogationId: string) => {
+      const result = await getPdfRecapOfInterrogation(interrogationId);
+      return result ?? null;
+    },
+  });
+
+  function onDownloadPdf(interrogationId: string) {
+    const promise =
+      downloadPdfInterrogationMutation.mutateAsync(interrogationId);
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('personalization.overview.downladPdfRecap.success'),
+      error: t('personalization.overview.downladPdfRecap.error'),
+    });
+  }
 
   function onReset(interrogationId: string) {
     const promise = resetInterrogationMutation.mutateAsync(interrogationId);
@@ -101,6 +125,16 @@ export default function ModeOverview({
                             )}
                             onClick={() => onReset(interrogation.id)}
                           />
+                          {enableDownloadRcapPdf && (
+                            <ButtonIcon
+                              className="right-3 top-1/2 "
+                              Icon={PDFIcon}
+                              title={t(
+                                'personalization.overview.downladPdfRecap.label',
+                              )}
+                              onClick={() => onDownloadPdf(interrogation.id)}
+                            />
+                          )}
                         </div>
                       )}
                     </td>

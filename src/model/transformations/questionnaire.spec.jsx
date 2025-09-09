@@ -28,6 +28,55 @@ describe('questionnaire', () => {
 
       agency: 'fr.insee',
       TargetMode: [''],
+      articulation: {
+        items: [
+          {
+            label: 'Prénom',
+            type: 'VTL',
+            value: 'PRENOMS',
+          },
+          {
+            label: 'Sexe',
+            type: 'VTL',
+            value: 'SEXE',
+          },
+          {
+            label: 'Age',
+            type: 'VTL',
+            value: 'AGE',
+          },
+        ],
+      },
+      multimode: {
+        questionnaire: {
+          rules: [
+            {
+              name: 'IS_MOVED',
+              type: 'VTL',
+              value: 'nvl(HABITEZ_VOUS_ICI, true)',
+            },
+          ],
+        },
+        leaf: {
+          rules: [
+            {
+              name: 'IS_MOVED',
+              type: 'VTL',
+              value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+            },
+            {
+              name: 'IS_MOVED',
+              type: 'VTL',
+              value: 'nvl(fzqfqzgjh, false)',
+            },
+            {
+              label: 'IS_SPLIT',
+              type: 'VTL',
+              value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+            },
+          ],
+        },
+      },
     };
     const currentStores = {};
     const output = remoteToState(remote, currentStores);
@@ -45,6 +94,55 @@ describe('questionnaire', () => {
       serie: '',
       dynamiqueSpecified: 'Redirections',
       formulaSpecified: 'XPATH',
+      articulation: {
+        items: [
+          {
+            label: 'Prénom',
+            type: 'VTL',
+            value: 'PRENOMS',
+          },
+          {
+            label: 'Sexe',
+            type: 'VTL',
+            value: 'SEXE',
+          },
+          {
+            label: 'Age',
+            type: 'VTL',
+            value: 'AGE',
+          },
+        ],
+      },
+      multimode: {
+        questionnaire: {
+          rules: [
+            {
+              name: 'IS_MOVED',
+              type: 'VTL',
+              value: 'nvl(HABITEZ_VOUS_ICI, true)',
+            },
+          ],
+        },
+        leaf: {
+          rules: [
+            {
+              name: 'IS_MOVED',
+              type: 'VTL',
+              value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+            },
+            {
+              name: 'IS_MOVED',
+              type: 'VTL',
+              value: 'nvl(fzqfqzgjh, false)',
+            },
+            {
+              label: 'IS_SPLIT',
+              type: 'VTL',
+              value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+            },
+          ],
+        },
+      },
     };
     expect(output).toEqual(expected);
   });
@@ -317,6 +415,55 @@ describe('questionnaire', () => {
         operation: 'operation01',
         owner: 'FAKEPERMISSION',
         serie: 'serie01',
+        articulation: {
+          items: [
+            {
+              label: 'Prénom',
+              type: 'VTL',
+              value: 'PRENOMS',
+            },
+            {
+              label: 'Sexe',
+              type: 'VTL',
+              value: 'SEXE',
+            },
+            {
+              label: 'Age',
+              type: 'VTL',
+              value: 'AGE',
+            },
+          ],
+        },
+        multimode: {
+          questionnaire: {
+            rules: [
+              {
+                name: 'IS_MOVED',
+                type: 'VTL',
+                value: 'nvl(HABITEZ_VOUS_ICI, true)',
+              },
+            ],
+          },
+          leaf: {
+            rules: [
+              {
+                name: 'IS_MOVED',
+                type: 'VTL',
+                value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+              },
+              {
+                name: 'IS_MOVED',
+                type: 'VTL',
+                value: 'nvl(fzqfqzgjh, false)',
+              },
+              {
+                label: 'IS_SPLIT',
+                type: 'VTL',
+                value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+              },
+            ],
+          },
+        },
       };
       const store = {
         componentsStore: {
@@ -544,6 +691,55 @@ describe('questionnaire', () => {
               type: 'CollectedVariableType',
             },
           ],
+        },
+        articulation: {
+          items: [
+            {
+              label: 'Prénom',
+              type: 'VTL',
+              value: 'PRENOMS',
+            },
+            {
+              label: 'Sexe',
+              type: 'VTL',
+              value: 'SEXE',
+            },
+            {
+              label: 'Age',
+              type: 'VTL',
+              value: 'AGE',
+            },
+          ],
+        },
+        multimode: {
+          questionnaire: {
+            rules: [
+              {
+                name: 'IS_MOVED',
+                type: 'VTL',
+                value: 'nvl(HABITEZ_VOUS_ICI, true)',
+              },
+            ],
+          },
+          leaf: {
+            rules: [
+              {
+                name: 'IS_MOVED',
+                type: 'VTL',
+                value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+              },
+              {
+                name: 'IS_MOVED',
+                type: 'VTL',
+                value: 'nvl(fzqfqzgjh, false)',
+              },
+              {
+                label: 'IS_SPLIT',
+                type: 'VTL',
+                value: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
+              },
+            ],
+          },
         },
         agency: 'fr.insee',
         flowLogic: 'FILTER',

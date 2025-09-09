@@ -100,6 +100,8 @@ export function remoteToState(remote, currentStores = {}) {
     flowLogic,
     formulasLanguage,
     childQuestionnaireRef,
+    articulation,
+    multimode,
   } = remote;
 
   const appState = currentStores.appState || {};
@@ -125,6 +127,8 @@ export function remoteToState(remote, currentStores = {}) {
       formulasLanguage && formulasLanguage === VTL ? VTL : XPATH,
     ComponentGroup,
     childQuestionnaireRef,
+    articulation,
+    multimode,
   };
 }
 
@@ -213,6 +217,8 @@ export function stateToRemote(state, stores) {
     dynamiqueSpecified,
     formulaSpecified,
     ComponentGroup,
+    articulation,
+    multimode,
   } = state;
 
   const dataCollections = campaigns.map((c) => ({
@@ -237,6 +243,8 @@ export function stateToRemote(state, stores) {
     formulasLanguage:
       formulaSpecified && formulaSpecified === VTL ? VTL : XPATH,
     childQuestionnaireRef: generateChildQuestionnaireRef(componentsStore),
+    articulation,
+    multimode,
   };
   const componentsRemote = Component.storeToRemote(
     componentsStore,

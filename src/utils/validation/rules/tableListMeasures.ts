@@ -11,6 +11,7 @@ import {
 import Dictionary from '@/utils/dictionary/dictionary';
 
 import { minValue, required, requiredSelect } from '../validate-rules';
+import { dateMaximumRules, dateMinimumRules } from './date';
 import { minutesRules, monthsRules } from './duration';
 
 const { SIMPLE, SINGLE_CHOICE, TABLE } = QUESTION_TYPE_ENUM;
@@ -20,6 +21,7 @@ const { RESPONSE_FORMAT } = TABS_PATHS;
 
 const tableListSingleChoiceVisHint = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.visHint`;
 const tableListDurationFormat = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DURATION}.format`;
+const tableListDateFormat = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.format`;
 
 export const tableListMeasuresRules = {
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.label`]: [
@@ -69,19 +71,16 @@ export const tableListMeasuresRules = {
         required(value) && Dictionary.validation_minimum,
     ],
 
-  /* Date measure must have format / minimum / maximum. */
+  /* Date measure must have format. */
   [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.format`]: [
     (value?: string | string[]) =>
       requiredSelect(value) && Dictionary.validation_format,
   ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.minimum`]: [
-    (value?: string | number) =>
-      required(value) && Dictionary.validation_minimum,
-  ],
-  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.maximum`]: [
-    (value?: string | number) =>
-      required(value) && Dictionary.validation_maximum,
-  ],
+
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.minimum`]:
+    dateMinimumRules(tableListDateFormat),
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.maximum`]:
+    dateMaximumRules(tableListDateFormat),
 
   /* Duration measure must have format / minimum / maximum. */
   [tableListDurationFormat]: [

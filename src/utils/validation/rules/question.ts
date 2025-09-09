@@ -42,8 +42,6 @@ export const questionRules = {
   [`${RESPONSE_FORMAT}.${SIMPLE}.${NUMERIC}.maximum`]: [required],
 
   [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`]: [requiredSelect],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.minimum`]: [required],
-  [`${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.maximum`]: [required],
 
   // for single response suggester, we need to select a nomenclature
   [`${RESPONSE_FORMAT}.${SINGLE_CHOICE}.${DEFAULT_NOMENCLATURE_SELECTOR_PATH}.id`]:

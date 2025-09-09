@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.3](https://github.com/InseeFr/Pogues/releases/tag/2.1.3) - 2025-08-25
+
 ### Changed
 
 - Logout functionality is now always enabled, env var `VITE_ENABLE_LOGOUT` has been removed.

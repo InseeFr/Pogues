@@ -15,6 +15,7 @@ import {
   calculatedVariableRules,
   collectedVariableRules,
   controlRules,
+  dateRules,
   declarationRules,
   durationRulesPTnHnM,
   durationRulesPnYnM,
@@ -40,17 +41,25 @@ export function validateQuestionnaireForm(values, setErrors) {
 }
 
 const { SIMPLE } = QUESTION_TYPE_ENUM;
-const { DURATION } = DATATYPE_NAME;
+const { DATE, DURATION } = DATATYPE_NAME;
 const { RESPONSE_FORMAT } = TABS_PATHS;
 
 export function validateQuestionForm(values, setErrors, codesListsStore) {
   let errors;
 
+  const dateFormat = get(values, `${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`);
+
   const durationFormat = get(
     values,
     `${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.format`,
   );
-  if (durationFormat === 'PTnHnM') {
+  if (dateFormat) {
+    errors = validate(
+      values,
+      { ...questionRules, ...dateRules },
+      { codesListsStore },
+    );
+  } else if (durationFormat === 'PTnHnM') {
     errors = validate(
       values,
       { ...questionRules, ...durationRulesPTnHnM },
