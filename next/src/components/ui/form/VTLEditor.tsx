@@ -14,7 +14,7 @@ import { Variable } from '@/models/variables';
 import { computeAntlrVariables } from './utils/vtlEditor';
 
 interface VTLEditorProps {
-  value: string;
+  value?: string;
   onChange: (value: string) => void;
   className?: string;
   disabled?: boolean;
@@ -26,7 +26,7 @@ interface VTLEditorProps {
 }
 
 export default function VTLEditor({
-  value,
+  value = '',
   onChange,
   className = '',
   disabled,

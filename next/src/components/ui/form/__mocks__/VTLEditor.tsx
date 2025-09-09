@@ -1,9 +1,11 @@
-import Input from '../Input';
+import { Variable } from '@/models/variables';
 
-interface VTLEditorProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  error?: string;
-}
+import Input, { InputProps } from '../Input';
 
-export default function VTLEditor({ error }: Readonly<VTLEditorProps>) {
-  return <Input className="col-start-2" error={error} />;
+export default function VTLEditor({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  suggestionsVariables,
+  ...props
+}: Readonly<{ suggestionsVariables: Variable[] } & InputProps>) {
+  return <Input className="col-start-2" {...props} />;
 }

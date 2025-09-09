@@ -9,6 +9,7 @@ export enum ButtonStyle {
 }
 
 interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  // Add any additional props you want to pass to the anchor element
   buttonStyle?: ButtonStyle;
   disabled?: boolean;
 }
@@ -20,14 +21,17 @@ const AnchorButtonComponent = React.forwardRef<
   (
     {
       buttonStyle = ButtonStyle.Secondary,
-      disabled = false,
       children,
+      disabled = false,
+      onClick,
+      onKeyDown,
+      tabIndex,
       ...props
     },
     ref,
   ) => {
     const baseClass =
-      'text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary';
+      'inline-block text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary';
 
     const primaryClass =
       'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed';
@@ -42,15 +46,15 @@ const AnchorButtonComponent = React.forwardRef<
       <a
         ref={ref}
         {...props}
-        tabIndex={disabled ? -1 : props.tabIndex}
+        tabIndex={disabled ? -1 : tabIndex}
         aria-disabled={disabled}
-        onClick={disabled ? (e) => e.preventDefault() : props.onClick}
+        onClick={disabled ? (e) => e.preventDefault() : onClick}
         onKeyDown={
           disabled
             ? (e) => {
                 if (e.key === 'Enter' || e.key === ' ') e.preventDefault();
               }
-            : props.onKeyDown
+            : onKeyDown
         }
         className={`${baseClass} ${buttonClass}`}
       >

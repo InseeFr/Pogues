@@ -13,7 +13,10 @@ import ContentMain from '@/components/layout/ContentMain';
 
 /**
  * Main articulation page where we display the articulation items of our
- * questionnaire and allow to create or edit it.
+ * questionnaire and allow to set them.
+ *
+ * This functionality is only available to questionnaire in CATI or CAPI,
+ * with a roundabout.
  */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/articulation/',

@@ -1,14 +1,11 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import Input, { InputProps } from '@/components/ui/form/Input';
 import { renderWithRouter } from '@/tests/tests';
 
 import ArticulationForm from './ArticulationForm';
 
 // mock VTLEditor as a classic input
-vi.mock('@/components/ui/form/VTLEditor', () => ({
-  default: (props: InputProps) => <Input {...props} />,
-}));
+vi.mock('@/components/ui/form/VTLEditor');
 
 describe('ArticulationForm', () => {
   const mockSubmit = vi.fn();

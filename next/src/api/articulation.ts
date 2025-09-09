@@ -100,7 +100,7 @@ export async function getArticulationFromVersion(
 }
 
 /** Retrieve articulation variables associated to the questionnaire. */
-export async function getArticulationVariables(
+async function getArticulationVariables(
   questionnaireId: string,
 ): Promise<Variable[]> {
   return instance

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- An articulation page, which allow to set VTL rules to display informations in the interviewer app.
+- A multimode page, which allow to set VTL rules to trigger a change in collect method from web to interviewer.
+- Personalization page allow to download PDF recap.
+
 ## [2.1.3](https://github.com/InseeFr/Pogues/releases/tag/2.1.3) - 2025-08-25
 
 ### Changed

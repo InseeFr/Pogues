@@ -9,6 +9,7 @@ import {
   VariableDTOType,
 } from './models/variableDTO';
 import {
+  getRoundaboutVariables,
   getVariables,
   getVariablesFromVersion,
   postVariable,
@@ -49,6 +50,28 @@ it('Get variables works', async () => {
 
   const res = await getVariables('my-questionnaire');
   expect(res).toEqual([variable]);
+});
+
+describe('Get variables from roundabout', () => {
+  it('works', async () => {
+    const variables: VariableDTO[] = [variableDTO];
+
+    nock('https://mock-api')
+      .get('/persistence/questionnaire/my-questionnaire/articulation/variables')
+      .reply(200, variables);
+
+    const res = await getRoundaboutVariables('my-questionnaire');
+    expect(res).toEqual([variable]);
+  });
+
+  it('returns an empty array when there is roundabout', async () => {
+    nock('https://mock-api')
+      .get('/persistence/questionnaire/my-questionnaire/articulation/variables')
+      .reply(422, { errorCode: 'questionnaire:roundaboutnotfound' });
+
+    const res = await getRoundaboutVariables('my-questionnaire');
+    expect(res).toEqual([]);
+  });
 });
 
 it('Get variables from version works', async () => {

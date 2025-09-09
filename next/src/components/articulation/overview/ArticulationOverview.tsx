@@ -23,37 +23,41 @@ export function ArticulationOverview({
 }: Readonly<ArticulationOverviewProps>) {
   const { t } = useTranslation();
 
-  if (!articulationItems && readonly) {
-    return <div>{t('articulation.overview.noArticulation')}</div>;
-  }
-
-  if (!articulationItems && !readonly)
-    return (
-      <ButtonLink
-        to="/questionnaire/$questionnaireId/articulation/new"
-        params={{ questionnaireId }}
-        buttonStyle={ButtonStyle.Primary}
-      >
-        {t('articulation.create.create')}
-      </ButtonLink>
-    );
-
   return (
-    <OverviewItem
-      content={
-        <div className="grid grid-cols-[1fr_auto]">
-          <h3>{t('articulation.overview.variableTable')}</h3>
-        </div>
-      }
-      details={
-        <ArticulationOverviewDetails
-          questionnaireId={questionnaireId}
-          articulationItems={articulationItems ?? defaultArticulationItems}
-          readonly={readonly}
+    <div className="space-y-6">
+      <div className="line space-y-2 text-gray-600">
+        <p>{t('articulation.overview.description')}</p>
+        <p>{t('articulation.overview.howToUse')}</p>
+      </div>
+
+      {articulationItems ? (
+        <OverviewItem
+          content={
+            <div className="grid grid-cols-[1fr_auto]">
+              <h3>{t('articulation.overview.variableTable')}</h3>
+            </div>
+          }
+          details={
+            <ArticulationOverviewDetails
+              questionnaireId={questionnaireId}
+              articulationItems={articulationItems ?? defaultArticulationItems}
+              readonly={readonly}
+            />
+          }
+          defaultExpanded
+          disableExpandButton
         />
-      }
-      defaultExpanded
-      disableExpandButton
-    />
+      ) : readonly ? (
+        <div>{t('articulation.overview.versionNoArticulation')}</div>
+      ) : (
+        <ButtonLink
+          to="/questionnaire/$questionnaireId/articulation/new"
+          params={{ questionnaireId }}
+          buttonStyle={ButtonStyle.Primary}
+        >
+          {t('articulation.create.label')}
+        </ButtonLink>
+      )}
+    </div>
   );
 }

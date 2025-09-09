@@ -83,7 +83,9 @@
   "crumb": {
     "codesList": "Codes list {{id}}",
     "codesLists": "Codes lists",
+    "edit": "Edit",
     "history": "History",
+    "multimode": "Multimode",
     "new": "New",
     "nomenclatures": "Nomenclatures",
     "questionnaire": "Questionnaire {{id}}",
@@ -116,6 +118,30 @@
     "title": "History",
     "versionToday": "{{count}} version today",
     "view": "View"
+  },
+  "multimode": {
+    "description": "Multimode allows to specify rules that will trigger a change in the survey collect method from web to interviewer.",
+    "edit": {
+      "label": "Edit multimode rules",
+      "success": "Multimode has been updated",
+      "title": "Specify multimode rules"
+    },
+    "error": {
+      "formulaNotVtl": "Multimode is available only to questionnaires using VTL."
+    },
+    "form": {
+      "questionnaireFormula": "Questionnaire-level rule",
+      "leafFormula": "Roundabout-level rule",
+      "noRoundaboutVariables": "Rule cannot be specified if there is no roundabout, or no variables associated to the roundabout."
+    },
+    "howToUse": "These rules may be specified in VTL from collected data to determinate when the survey collect method must be made by an interviewer. They can be specified on survey-level and/or on roundabout level.",
+    "leafRule": "Roundabout-level rule:",
+    "new": "Specify multimode rules for the questionnaire",
+    "noQuestionnaireRule": "There is no rule at the questionnaire level.",
+    "noLeafRule": "There is no rule at the roundabout level.",
+    "questionnaireRule": "Questionnaire-level rule:",
+    "title": "Multimode",
+    "versionNoMultimode": "Multimode has not been specified in this version."
   },
   "personalization": {
     "create": {
@@ -247,16 +273,18 @@
       "age": "Age"
     },
     "overview": {
-      "variableTable": "Articulation table variables",
-      "title": "Articulation",
-      "noArticulation": "No articulation is specified",
+      "description": "Articulation allows to display a summary of a roundabout information in the interviewer app, so that they know which person have already answered, and directly access the page of the respondent they will interview.",
       "error": {
-        "formulaNotVtl": "Articulation is available only for questionnaires using VTL",
-        "roundaboutNotFound": "Articulation is available only for questionnaires with a roundabout"
-      }
+        "formulaNotVtl": "Articulation is available only to questionnaires in VTL",
+        "roundaboutNotFound": "Articulation is available only to questionnaires with a roundabout"
+      },
+      "howToUse": "These rules may be specified in VTL to compute values from collected data that will be displayed in the interviewer app.",
+      "title": "Articulation",
+      "variableTable": "Articulation table variables",
+      "versionNoArticulation": "Articulation has not been specified in this version."
     },
     "create": {
-      "create": "Create an articulation",
+      "label": "Create an articulation",
       "success": "The articulation has been created",
       "title": "New articulation"
     },

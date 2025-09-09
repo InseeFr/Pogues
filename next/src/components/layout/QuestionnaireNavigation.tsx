@@ -1,22 +1,25 @@
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import Button, { ButtonSize } from '@/components/ui/Button';
+import ArticulationIcon from '@/components/ui/icons/ArticulationIcon';
 import DashboardIcon from '@/components/ui/icons/DashboardIcon';
 import DictionaryIcon from '@/components/ui/icons/DictionaryIcon';
 import HistoryIcon from '@/components/ui/icons/HistoryIcon';
 import HomeIcon from '@/components/ui/icons/HomeIcon';
 import LatestIcon from '@/components/ui/icons/LatestIcon';
 import ListIcon from '@/components/ui/icons/ListIcon';
+import MultimodeIcon from '@/components/ui/icons/MultimodeIcon';
 import NomenclatureAltIcon from '@/components/ui/icons/NomenclatureAltIcon';
 import PersonalizeIcon from '@/components/ui/icons/PersonalizeIcon';
 import VariableIcon from '@/components/ui/icons/VariableIcon';
 import { useAltIcon } from '@/hooks/useAltIcon';
 
-import Button, { ButtonSize } from '../ui/Button';
 import NavigationBar, { type NavigationItem } from './NavigationBar';
 import NavigationBarItem from './NavigationBarItem';
 
 const enableArticulationPage = import.meta.env.VITE_ENABLE_ARTICULATION_PAGE;
+const enableMultimodePage = import.meta.env.VITE_ENABLE_MULTIMODE_PAGE;
 
 /** Display the available navigation items in a questionnaire. */
 export default function QuestionnaireNavigation() {
@@ -64,12 +67,26 @@ export default function QuestionnaireNavigation() {
     },
     {
       label: 'Articulation',
-      Icon: ListIcon,
+      Icon: ArticulationIcon,
       path: versionId
         ? `/questionnaire/$questionnaireId/version/$versionId/articulation`
         : '/questionnaire/$questionnaireId/articulation',
+      innerPaths: [
+        '/questionnaire/$questionnaireId/articulation/new',
+        '/questionnaire/$questionnaireId/articulation/edit',
+      ],
       isDisabled: !enableArticulationPage,
       isHidden: !enableArticulationPage,
+    },
+    {
+      label: 'Multimode',
+      Icon: MultimodeIcon,
+      path: versionId
+        ? `/questionnaire/$questionnaireId/version/$versionId/multimode`
+        : '/questionnaire/$questionnaireId/multimode',
+      innerPaths: ['/questionnaire/$questionnaireId/multimode/edit'],
+      isDisabled: !enableMultimodePage,
+      isHidden: !enableMultimodePage,
     },
   ];
 
