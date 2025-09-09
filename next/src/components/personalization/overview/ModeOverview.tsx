@@ -125,7 +125,7 @@ export default function ModeOverview({
                             )}
                             onClick={() => onReset(interrogation.id)}
                           />
-                          {enableDownloadRcapPdf && (
+                          {enableDownloadRcapPdf && mode === 'CAWI' && (
                             <ButtonIcon
                               className="right-3 top-1/2 "
                               Icon={PDFIcon}
