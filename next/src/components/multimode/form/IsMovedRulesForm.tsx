@@ -68,7 +68,6 @@ export default function MultimodeIsMovedRulesForm({
               className="h-20"
               error={error?.message}
               suggestionsVariables={roundaboutVariables}
-              disabled={roundaboutVariables.length === 0}
               {...field}
             />
           )}

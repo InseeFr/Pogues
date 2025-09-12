@@ -2,10 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import {
-  ARTICULATION_ERROR_CODES,
-  isArticulationApiError,
-} from '@/api/articulation';
+import { ErrorCodes, isPoguesAPIError } from '@/api/error';
 import { multimodeFromVersionQueryOptions } from '@/api/multimode';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
@@ -51,13 +48,12 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
   const { t } = useTranslation();
   let errorMessage = error.message;
 
-  if (isArticulationApiError(error)) {
-    if (
-      error.response?.data.errorCode ===
-      ARTICULATION_ERROR_CODES.FORMULA_NOT_VTL
-    ) {
-      errorMessage = t('multimode.error.formulaNotVtl');
-    }
+  if (
+    isPoguesAPIError(error) &&
+    error.response?.data.errorCode ===
+      ErrorCodes.QuestionnaireFormulaLanguageNotVTL
+  ) {
+    errorMessage = t('multimode.error.formulaNotVtl');
   }
 
   return (

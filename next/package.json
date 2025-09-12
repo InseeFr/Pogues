@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.2.0-rc.multimode.1",
+  "version": "2.2.0-rc.multimode.2",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",

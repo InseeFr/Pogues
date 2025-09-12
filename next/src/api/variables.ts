@@ -2,13 +2,10 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { Variable } from '@/models/variables';
 
+import { ErrorCodes } from './error';
 import { instance } from './instance';
 import { VariableDTO } from './models/variableDTO';
 import { computeVariableDTO, computeVariables } from './utils/variables';
-
-export enum ERROR_CODES {
-  ROUNDABOUT_NOT_FOUND = 'questionnaire:roundaboutnotfound',
-}
 
 export const variablesKeys = {
   all: (questionnaireId: string) => ['variables', questionnaireId] as const,
@@ -101,7 +98,8 @@ export async function getRoundaboutVariables(
     })
     .catch((error) => {
       if (
-        error.response?.data?.errorCode === ERROR_CODES.ROUNDABOUT_NOT_FOUND
+        error.response?.data?.errorCode ===
+        ErrorCodes.QuestionnaireRoundaboutNotFound
       ) {
         return [];
       }

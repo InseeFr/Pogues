@@ -2,11 +2,8 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import {
-  ARTICULATION_ERROR_CODES,
-  articulationFromVersionQueryOptions,
-  isArticulationApiError,
-} from '@/api/articulation';
+import { articulationFromVersionQueryOptions } from '@/api/articulation';
+import { ErrorCodes, isPoguesAPIError } from '@/api/error';
 import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
@@ -52,12 +49,12 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
   const { t } = useTranslation();
   let errorMessage = error.message;
 
-  if (isArticulationApiError(error)) {
+  if (isPoguesAPIError(error)) {
     switch (error.response?.data.errorCode) {
-      case ARTICULATION_ERROR_CODES.FORMULA_NOT_VTL:
+      case ErrorCodes.QuestionnaireFormulaLanguageNotVTL:
         errorMessage = t('articulation.overview.error.formulaNotVtl');
         break;
-      case ARTICULATION_ERROR_CODES.ROUNDABOUT_NOT_FOUND:
+      case ErrorCodes.QuestionnaireRoundaboutNotFound:
         errorMessage = t('articulation.overview.error.roundaboutNotFound');
         break;
     }

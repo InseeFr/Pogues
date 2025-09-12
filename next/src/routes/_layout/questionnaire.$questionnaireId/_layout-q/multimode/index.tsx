@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import { ErrorCodes, isPoguesAPIError } from '@/api/error';
 import { multimodeQueryOptions } from '@/api/multimode';
 import ContentHeader from '@/components/layout/ContentHeader';
 import ContentMain from '@/components/layout/ContentMain';
@@ -40,9 +41,20 @@ function RouteComponent() {
 }
 
 function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+  const { t } = useTranslation();
+  let errorMessage = error.message;
+
+  if (
+    isPoguesAPIError(error) &&
+    error.response?.data.errorCode ===
+      ErrorCodes.QuestionnaireFormulaLanguageNotVTL
+  ) {
+    errorMessage = t('multimode.error.formulaNotVtl');
+  }
+
   return (
     <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
+      <div className="text-error">{errorMessage}</div>
     </ComponentWrapper>
   );
 }
