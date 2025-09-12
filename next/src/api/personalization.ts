@@ -260,23 +260,19 @@ export async function deleteQuestionnaireData(poguesId: string): Promise<void> {
 export async function getPdfRecapOfInterrogation(
   interrogationId: string,
 ): Promise<void> {
-  try {
-    const response = await instancePersonalization.get(
-      `/interrogations/${interrogationId}/recap-pdf`,
-      {
-        headers: { Accept: 'application/pdf' },
-        responseType: 'blob',
-      },
-    );
-    const disposition = response.headers['content-disposition'];
-    const fileName = disposition
-      ? getFileName(disposition)
-      : `pdf-${interrogationId}.pdf`;
-    openDocument(
-      new Blob([response.data], { type: 'application/pdf' }),
-      fileName,
-    );
-  } catch (error) {
-    console.error('Failed to download PDF:', error);
-  }
+  const response = await instancePersonalization.get(
+    `/interrogations/${interrogationId}/recap-pdf`,
+    {
+      headers: { Accept: 'application/pdf' },
+      responseType: 'blob',
+    },
+  );
+  const disposition = response.headers['content-disposition'];
+  const fileName = disposition
+    ? getFileName(disposition)
+    : `pdf-${interrogationId}.pdf`;
+  openDocument(
+    new Blob([response.data], { type: 'application/pdf' }),
+    fileName,
+  );
 }

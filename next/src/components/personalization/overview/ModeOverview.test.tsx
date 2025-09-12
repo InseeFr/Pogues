@@ -84,16 +84,13 @@ describe('ModeOverview', () => {
   });
 
   it('renders button for Download pdf', async () => {
-    const { getAllByRole } = await waitFor(() =>
+    const { getAllByTitle } = await waitFor(() =>
       renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
     );
-    const buttons = getAllByRole('button');
-    expect(buttons).toHaveLength(8);
+    const buttons = getAllByTitle('Download PDF data summary');
+    expect(buttons).toHaveLength(2);
     const downloadPdfBtn = buttons[1];
-    expect(downloadPdfBtn).toHaveAttribute(
-      'title',
-      'Download PDF data summary',
-    );
+    expect(downloadPdfBtn).toHaveAttribute('type', 'button');
   });
 
   it('should download PDF when clicking on button', async () => {
