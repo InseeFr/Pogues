@@ -1,7 +1,7 @@
-import en from '../locales/en.json';
+import { translation } from '../locales/en/translation';
 
 const resources = {
-  translation: en,
+  translation,
 } as const;
 
 export default resources;

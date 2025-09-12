@@ -1,0 +1,37 @@
+{
+  "common": {
+    "firstName": "First Name",
+    "gender": "Gender",
+    "age": "Age"
+  },
+  "overview": {
+    "description": "Articulation allows to display a summary of a roundabout information in the interviewer app, so that they know which person have already answered, and directly access the page of the respondent they will interview.",
+    "error": {
+      "formulaNotVtl": "Articulation is available only to questionnaires in VTL",
+      "roundaboutNotFound": "Articulation is available only to questionnaires with a roundabout"
+    },
+    "howToUse": "These rules may be specified in VTL to compute values from collected data that will be displayed in the interviewer app.",
+    "title": "Articulation",
+    "variableTable": "Articulation table variables",
+    "versionNoArticulation": "Articulation has not been specified in this version."
+  },
+  "create": {
+    "label": "Create an articulation",
+    "success": "The articulation has been created",
+    "title": "New articulation"
+  },
+  "delete": {
+    "dialogTitle": "Delete articulation",
+    "dialogConfirm": "Are you sure you want to delete the articulation?",
+    "success": "Articulation has been deleted"
+  },
+  "edit": {
+    "success": "The articulation has been updated",
+    "title": "Edit the articulation"
+  },
+  "form": {
+    "mustProvideFirstName": "You must provide a formula for first name",
+    "mustProvideGender": "You must provide a formula for gender",
+    "mustProvideAge": "You must provide a formula for age"
+  }
+}

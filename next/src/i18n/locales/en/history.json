@@ -1,0 +1,17 @@
+{
+  "author": "Author",
+  "backToLatest": "Back to latest save",
+  "id": "ID",
+  "noVersions": "No saves were found",
+  "oldVersions": "{{count}} older versions",
+  "questionnaireIsReadonly": "This save of the survey is on readonly.",
+  "restore": {
+    "label": "Restore",
+    "dialogConfirm": "A new save will be created with this save data.",
+    "dialogTitle": "Restore this save data",
+    "success": "A new save has been created"
+  },
+  "title": "History",
+  "versionToday": "{{count}} version today",
+  "view": "View"
+}

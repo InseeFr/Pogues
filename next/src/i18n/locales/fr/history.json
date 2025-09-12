@@ -1,0 +1,17 @@
+{
+  "author": "Auteur",
+  "backToLatest": "Retour à la dernière sauvegarde",
+  "id": "ID",
+  "noVersions": "Aucune sauvegarde disponible",
+  "oldVersions": "{{count}} sauvegardes plus anciennes",
+  "questionnaireIsReadonly": "Cette sauvegarde du questionnaire est en lecture seule.",
+  "restore": {
+    "label": "Restaurer",
+    "dialogConfirm": "Une nouvelle sauvegarde va être créée avec ces données.",
+    "dialogTitle": "Restaurer cette sauvegarde",
+    "success": "La nouvelle sauvegarde a été créée"
+  },
+  "title": "Historique",
+  "versionToday": "{{count}} sauvegardes aujourd'hui",
+  "view": "Consulter"
+}

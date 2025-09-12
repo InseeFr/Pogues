@@ -1,0 +1,37 @@
+{
+  "common": {
+    "firstName": "Prénom",
+    "gender": "Sexe",
+    "age": "Âge"
+  },
+  "overview": {
+    "description": "L'articulation sert à afficher un récapitulatif des informations du rond-point dans le poste de collecte enquêteur, afin de savoir quels individus ont déjà répondu, et accéder directement à la page des individus qu'il va interroger.",
+    "error": {
+      "formulaNotVtl": "L'articulation n'est disponible que pour les questionnaires en VTL",
+      "roundaboutNotFound": "L'articulation n'est disponible que pour les formulaires avec un rond-point"
+    },
+    "howToUse": "Ces règles peuvent être spécifiées en VTL pour calculer les valeurs qui seront affichées dans le poste de collecte selon les données collectées.",
+    "title": "Articulation",
+    "variableTable": "Variables du tableau d'articulation",
+    "versionNoArticulation": "Aucune articulation n'a été définie pour cette version."
+  },
+  "create": {
+    "label": "Créer une articulation",
+    "success": "L'articulation a été créée",
+    "title": "Nouvelle articulation"
+  },
+  "delete": {
+    "dialogTitle": "Supprimer l'articulation",
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer l'articulation ?",
+    "success": "L'articulation a été supprimée"
+  },
+  "edit": {
+    "success": "L'articulation a été modifiée",
+    "title": "Éditer l'articulation"
+  },
+  "form": {
+    "mustProvideFirstName": "Vous devez renseigner une formule pour le prénom",
+    "mustProvideGender": "Vous devez renseigner une formule pour le sexe",
+    "mustProvideAge": "Vous devez renseigner une formule pour l'âge"
+  }
+}

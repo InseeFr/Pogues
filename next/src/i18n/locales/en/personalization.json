@@ -1,0 +1,50 @@
+{
+  "create": {
+    "brokenQuestionnaire": "Please check that your questionnaire is functional and complete.",
+    "context": "Context",
+    "createQuestionnaire": "Load questionnaire in orchestrator",
+    "createQuestionnaireDescription": "Create a questionnaire in the orchestrator with the uploaded survey units.",
+    "csvDescription": "External variables (CSV)",
+    "downloadSuccess": "CSV schema downloaded successfully",
+    "expectedFileSchema": "Expected file schema",
+    "invalidFileType": "Invalid file type. Expected: {{expected}}.",
+    "jsonDescription": "External & pre-collected variables (JSON)",
+    "noFileChosen": "No file chosen",
+    "personalizationType": "Personalization type",
+    "saveError": "Error saving questionnaire",
+    "saveSuccess": "Questionnaire saved successfully",
+    "title": "Create a personalization",
+    "uploadData": "Upload survey units data",
+    "uploadError": "Error uploading survey units",
+    "uploadSuccess": "Survey units uploaded successfully"
+  },
+  "edit": {
+    "resetInterrogationDescription": "Reset the survey unit",
+    "resetInterrogationSuccess": "The survey unit has been reset",
+    "saveSuccess": "The questionnaire has been reloaded",
+    "title": "Edit personalization"
+  },
+  "overview": {
+    "currentInterrogations": "Current survey units",
+    "dataInterrogationError": "Error loading interrogation data",
+    "dataInterrogationErrorDetails": "An error occurred while loading the interrogation data. Please try again later.",
+    "deleteDialogConfirm": "Are you sure you want to delete this personalization?",
+    "deleteDialogTitle": "Delete personalization",
+    "deleteSuccess": "Personalization deleted successfully",
+    "existingFileData": "Existing dataset",
+    "modes": "Modes: ",
+    "syncErrorContent": "The questionnaire is out of date. Please reload it by clicking the sync icon.",
+    "syncErrorTitle": "Warning",
+    "title": "Personalization",
+    "updateFileCheckError": "The current file is not valid anymore. Please upload a new file.",
+    "visualiseInterrogations": "Visualize survey units",
+    "downloadExistingDataError": "Error donwloading existing dataset",
+    "downloadExistingDataSuccess": "Existing dataset downloaded successfully",
+    "downladPdfRecap": {
+      "label": "Download PDF data summary",
+      "success": "PDF data summary downloaded successfully",
+      "error": "Error donwloading PDF data summary"
+    }
+  },
+  "title": "Personalization"
+}

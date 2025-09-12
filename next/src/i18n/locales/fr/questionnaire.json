@@ -1,0 +1,16 @@
+{
+  "common": {
+    "dynamicField": "Spécification dynamique",
+    "formulaField": "Spécification des formules",
+    "targetMode": "Mode de collecte"
+  },
+  "create": {
+    "success": "Le questionnaire {{title}} a été crée",
+    "title": "Nouveau questionnaire"
+  },
+  "form": {
+    "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
+    "mustProvideTitle": "Vous devez renseigner un titre"
+  },
+  "title": "Questionnaire"
+}

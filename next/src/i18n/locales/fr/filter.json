@@ -1,0 +1,5 @@
+{
+  "result": "{{count}} résultat",
+  "result_other": "{{count}} résultats",
+  "result_zero": "{{count}} résultat"
+}

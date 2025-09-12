@@ -1,0 +1,43 @@
+{
+  "common": {
+    "codeLabel": "Modality label",
+    "codeValue": "Modality code",
+    "label": "Code list name"
+  },
+  "create": {
+    "success": "The code list has been created",
+    "title": "New code list"
+  },
+  "delete": {
+    "dialogConfirm": "Are you sure you want to delete this code list?",
+    "dialogTitle": "Delete code list: {{label}}",
+    "disabled": {
+      "usedByQuestions": "Code list cannot be deleted if it used by a question."
+    },
+    "error": {
+      "usedByQuestions": "The code list is used by questions: {{questions}}"
+    },
+    "success": "Code list {{label}} deleted"
+  },
+  "duplicate": {
+    "dialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
+    "dialogTitle": "Dupliquer la liste de codes : {{label}}",
+    "label": "Duplicate",
+    "success": "Liste de codes {{label}} dupliquée"
+  },
+  "edit": {
+    "success": "The code list {{label}} has been edited",
+    "title": "Edit the code list: {{label}}"
+  },
+  "form": {
+    "addCode": "+ Add a code",
+    "addSubCode": "Add a subcode",
+    "mustProvideLabel": "You must provide a label",
+    "mustProvideCodeLabel": "Your code must have a label",
+    "mustProvideCodeValue": "Your code must have a value",
+    "mustProvideCodes": "You must provide at least one code",
+    "mustProvideUniqueValue": "Value must be unique: \"{{value}}\"",
+    "moveUp": "Move up",
+    "moveDown": "Move down"
+  }
+}

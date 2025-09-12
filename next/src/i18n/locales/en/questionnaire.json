@@ -1,0 +1,16 @@
+{
+  "common": {
+    "dynamicField": "Dynamic specification",
+    "formulaField": "Formula specification",
+    "targetMode": "Collection mode"
+  },
+  "create": {
+    "success": "The questionnaire {{title}} has been created",
+    "title": "New questionnaire"
+  },
+  "form": {
+    "mustProvideTarget": "You must select at least one target mode",
+    "mustProvideTitle": "You must provide a title"
+  },
+  "title": "Questionnaire"
+}

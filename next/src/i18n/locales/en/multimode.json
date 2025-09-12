@@ -1,0 +1,24 @@
+{
+  "description": "Multimode allows to specify rules that will trigger a change in the survey collect method from web to interviewer.",
+  "edit": {
+    "label": "Edit multimode rules",
+    "success": "Multimode has been updated",
+    "title": "Specify multimode rules"
+  },
+  "error": {
+    "formulaNotVtl": "Multimode is available only to questionnaires using VTL."
+  },
+  "form": {
+    "questionnaireFormula": "Questionnaire-level rule",
+    "leafFormula": "Roundabout-level rule",
+    "noRoundaboutVariables": "Rule cannot be specified if there is no roundabout, or no variables associated to the roundabout."
+  },
+  "howToUse": "These rules may be specified in VTL from collected data to determinate when the survey collect method must be made by an interviewer. They can be specified on survey-level and/or on roundabout level.",
+  "leafRule": "Roundabout-level rule:",
+  "new": "Specify multimode rules for the questionnaire",
+  "noQuestionnaireRule": "There is no rule at the questionnaire level.",
+  "noLeafRule": "There is no rule at the roundabout level.",
+  "questionnaireRule": "Questionnaire-level rule:",
+  "title": "Multimode",
+  "versionNoMultimode": "Multimode has not been specified in this version."
+}

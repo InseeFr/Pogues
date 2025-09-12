@@ -1,0 +1,31 @@
+{
+  "create": {
+    "success": "The variable been created",
+    "title": "New variable"
+  },
+  "datatype": {
+    "boolean": "Boolean",
+    "date": "Date",
+    "duration": "Duration",
+    "label": "Datatype",
+    "numeric": "Number",
+    "text": "Text"
+  },
+  "description": "Description",
+  "form": {
+    "mustProvideName": "You must provide a name",
+    "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
+  },
+  "maxLength": "Max length",
+  "maximum": "Max",
+  "minimum": "Min",
+  "name": "Name",
+  "precision": "Precision",
+  "scope": "Scope",
+  "type": {
+    "calculated": "Calculated",
+    "collected": "Collected",
+    "external": "External",
+    "label": "Variable type"
+  }
+}

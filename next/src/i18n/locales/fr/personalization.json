@@ -1,0 +1,50 @@
+{
+  "create": {
+    "brokenQuestionnaire": "Veuillez vérifier que votre questionnaire est bien fonctionnel et intègre.",
+    "context": "Contexte",
+    "createQuestionnaire": "Charger les données dans les orchestrateurs",
+    "createQuestionnaireDescription": "Créer le questionnaire dans les orchestrateurs avec les données chargées.",
+    "csvDescription": "Variables externes seules (CSV)",
+    "downloadSuccess": "Schéma CSV téléchargé avec succès",
+    "expectedFileSchema": "Schéma de fichier attendu",
+    "invalidFileType": "Type de fichier invalide. Format attendu : {{expected}}.",
+    "jsonDescription": "Variables externes et pré-remplissage (JSON)",
+    "noFileChosen": "Aucun fichier choisi",
+    "personalizationType": "Type de personnalisation",
+    "saveError": "Erreur lors du chargement des interrogations",
+    "saveSuccess": "Questionnaire sauvegardé avec succès",
+    "title": "Personnaliser mon questionnaire",
+    "uploadData": "Charger les unités enquêtées",
+    "uploadError": "Erreur lors du chargement des unités enquêtées",
+    "uploadSuccess": "Unités enquêtées importées avec succès"
+  },
+  "edit": {
+    "resetInterrogationDescription": "Réinitialiser les données de l'unité enquêtée",
+    "resetInterrogationSuccess": "L'intorrogation a été réinitialisée avec succès",
+    "saveSuccess": "Le questionnaire a bien été rechargé",
+    "title": "Modifier la personnalisation"
+  },
+  "overview": {
+    "currentInterrogations": "Personnalisation existante",
+    "dataInterrogationError": "Erreur lors du chargement des interrogations",
+    "dataInterrogationErrorDetails": "Une erreur est survenue lors du chargement des données d'interrogation. Veuillez réessayer plus tard.",
+    "deleteDialogConfirm": "Êtes-vous sûr de vouloir supprimer ces unités enquêtées ?",
+    "deleteDialogTitle": "Supprimer la personnalisation",
+    "deleteSuccess": "Personnalisation supprimée avec succès",
+    "existingFileData": "Télécharger le jeu de données existantes",
+    "modes": "Modes : ",
+    "syncErrorContent": "Le questionnaire n'est plus à jour. Merci de bien vouloir le recharger en cliquant sur l'icône de synchronisation.",
+    "syncErrorTitle": "Avertissement",
+    "title": "Personnaliser mon questionnaire",
+    "updateFileCheckError": "Le fichier actuel n'est plus valide. Veuillez télécharger un nouveau fichier.",
+    "visualiseInterrogations": "Visualiser les unités enquêtées",
+    "downloadExistingDataError": "Erreur lors du téléchargement du jeu de données",
+    "downloadExistingDataSuccess": "Jeu de données téléchargé avec succès",
+    "downladPdfRecap": {
+      "label": "Télécharger le récapitulatif pdf des données",
+      "success": "Récapitulatif pdf des données téléchargé avec succès",
+      "error": "Erreur lors du téléchargement du récapitulatif pdf des données téléchargé avec succès"
+    }
+  },
+  "title": "Personnalisation"
+}

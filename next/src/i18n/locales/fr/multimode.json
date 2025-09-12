@@ -1,0 +1,24 @@
+{
+  "description": "Le multimode permet de spécifier des règles à partir desquelles un questionnaire qui commence à être rempli en web va basculer sur une collecte enquêteur.",
+  "edit": {
+    "label": "Mettre à jour les règles du multimode",
+    "success": "Le multimode a été mis à jour",
+    "title": "Spécifier les règles du multimode"
+  },
+  "error": {
+    "formulaNotVtl": "Le multimode n'est disponible que pour les questionnaires en VTL"
+  },
+  "form": {
+    "questionnaireFormula": "Règle au niveau du questionnaire",
+    "leafFormula": "Règle au niveau du rond-point",
+    "noRoundaboutVariables": "La règle ne peut pas être spécifiée s'il n'y a pas de rond-point, ou de variables associées au rond-point."
+  },
+  "howToUse": "Ces règles peuvent être spécifiées en VTL selon les données collectées pour déterminer quand le questionnaire doit basculer vers une collecte enquêteur. Elles peuvent être spécifiées au niveau du questionnaire et/ou au niveau individuel d'un rond-point.",
+  "leafRule": "Règle au niveau du rond-point :",
+  "new": "Spécifier du multimode pour le questionnaire",
+  "noQuestionnaireRule": "Il n'y a pas de règle au niveau du questionnaire.",
+  "noLeafRule": "Il n'y a pas de règle au niveau du rond-point.",
+  "questionnaireRule": "Règle au niveau du questionnaire :",
+  "title": "Multimode",
+  "versionNoMultimode": "Le multimode n'a pas été défini pour cette version."
+}

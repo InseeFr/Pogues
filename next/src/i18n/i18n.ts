@@ -2,8 +2,7 @@ import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-import en from './locales/en.json';
-import fr from './locales/fr.json';
+import { resources } from './locales/resources';
 
 i18next
   .use(LanguageDetector)
@@ -13,14 +12,7 @@ i18next
       convertDetectedLanguage: (lng) => lng.split('-')[0],
     },
     supportedLngs: ['fr', 'en'],
-    resources: {
-      fr: {
-        translation: fr,
-      },
-      en: {
-        translation: en,
-      },
-    },
+    resources,
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,

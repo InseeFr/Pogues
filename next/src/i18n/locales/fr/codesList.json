@@ -1,0 +1,43 @@
+{
+  "common": {
+    "codeLabel": "Libellé de la modalité",
+    "codeValue": "Code de la modalité",
+    "label": "Nom de la liste de codes"
+  },
+  "create": {
+    "success": "La liste de codes a été créée",
+    "title": "Nouvelle liste de codes"
+  },
+  "delete": {
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
+    "dialogTitle": "Supprimer la liste de codes : {{label}}",
+    "disabled": {
+      "usedByQuestions": "La liste de codes ne peut pas être supprimée si elle est utilisée dans une question."
+    },
+    "error": {
+      "usedByQuestions": "La liste de codes est utilisée dans les questions : {{questions}}"
+    },
+    "success": "Liste de codes {{label}} supprimée"
+  },
+  "duplicate": {
+    "dialogConfirm": "Voulez-vous créer une copie de cette liste de codes ?",
+    "dialogTitle": "Dupliquer la liste de codes : {{label}}",
+    "label": "Dupliquer",
+    "success": "Liste de codes {{label}} dupliquée"
+  },
+  "edit": {
+    "success": "La liste de codes {{label}} a été modifiée",
+    "title": "Éditer la liste de codes : {{label}}"
+  },
+  "form": {
+    "addCode": "+ Ajouter un code",
+    "addSubCode": "Ajouter un sous-code",
+    "mustProvideLabel": "Vous devez renseigner un libellé",
+    "mustProvideCodeLabel": "Votre code doit avoir un libellé",
+    "mustProvideCodeValue": "Votre code doit avoir une valeur",
+    "mustProvideCodes": "Vous devez renseigner au moins un code",
+    "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",
+    "moveUp": "Monter d'un niveau",
+    "moveDown": "Descendre d'un niveau"
+  }
+}
