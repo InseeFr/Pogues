@@ -6,7 +6,7 @@ import type { MultimodeIsMovedRules } from '@/models/multimode';
 
 interface Props {
   questionnaireId: string;
-  isMovedRules: MultimodeIsMovedRules;
+  isMovedRules?: MultimodeIsMovedRules;
   /** Whether we display the multimode as readonly (i.e. back-up version). */
   readonly?: boolean;
 }
