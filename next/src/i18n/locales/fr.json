@@ -123,7 +123,7 @@
     "description": "Le multimode permet de spécifier des règles à partir desquelles un questionnaire qui commence à être rempli en web va basculer sur une collecte enquêteur.",
     "edit": {
       "label": "Mettre à jour les règles du multimode",
-      "success": "Le multide a été mis à jour",
+      "success": "Le multimode a été mis à jour",
       "title": "Spécifier les règles du multimode"
     },
     "error": {
