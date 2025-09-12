@@ -21,7 +21,9 @@ describe('ArticulationOverview', () => {
       />,
     );
 
-    expect(getByText('No articulation is specified')).toBeInTheDocument();
+    expect(
+      getByText('Articulation has not been specified in this version.'),
+    ).toBeInTheDocument();
   });
 
   it('renders create button when not readonly and no items', async () => {
