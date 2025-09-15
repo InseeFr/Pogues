@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 
-import { OidcProvider } from '@/contexts/oidc';
 import { useAuth } from '@/hooks/useAuth';
-import i18next from '@/i18n/i18n';
+import { OidcProvider } from '@/lib/auth/oidc';
+import i18next from '@/lib/i18n';
 
 import { routeTree } from './routeTree.gen';
 

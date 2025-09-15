@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
-import { useOidc } from '@/contexts/oidc';
+import { useOidc } from '@/lib/auth/oidc';
 
 export default function Login() {
   const { t } = useTranslation();

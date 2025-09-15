@@ -4,7 +4,7 @@ import { Version } from '@/models/version';
 
 import { getAllVersions, restoreVersion } from './versions';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const version = {
   author: 'Guybrush Threepwood',

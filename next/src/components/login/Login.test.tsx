@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
-import { OidcProvider } from '@/contexts/oidc';
-import { renderWithRouter } from '@/tests/tests';
+import { OidcProvider } from '@/lib/auth/oidc';
+import { renderWithRouter } from '@/testing/render';
 
 import Login from './Login';
 
@@ -10,7 +10,7 @@ vi.mock('@/i18n', () => ({
   useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
 }));
 
-vi.mock('@/contexts/oidc', () => ({
+vi.mock('@/lib/auth/oidc', () => ({
   useOidc: () => ({
     login: vi.fn(),
   }),

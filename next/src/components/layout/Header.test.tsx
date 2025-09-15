@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import OpenInNewIcon from '../ui/icons/OpenInNewIcon';
 import Header from './Header';

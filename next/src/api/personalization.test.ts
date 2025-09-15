@@ -15,7 +15,7 @@ import {
   getPublicEnemyDataFromPogues,
 } from './personalization';
 
-vi.mock('@/contexts/oidc', () => ({
+vi.mock('@/lib/auth/oidc', () => ({
   getOidc: () =>
     Promise.resolve({
       getTokens: () => ({

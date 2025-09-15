@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { DatatypeType } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import IsMovedRulesForm from './IsMovedRulesForm';
 

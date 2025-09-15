@@ -9,7 +9,7 @@ import {
   putMultimode,
 } from './multimode';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const multimodeDTO: MultimodeDTO = {
   questionnaire: {

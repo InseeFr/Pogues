@@ -1,6 +1,6 @@
 import { redirect } from '@tanstack/react-router';
 
-import { getOidc } from '@/contexts/oidc';
+import { getOidc } from '@/lib/auth/oidc';
 
 export async function loginLoader() {
   const oidc = await getOidc();

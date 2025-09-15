@@ -1,5 +1,5 @@
 import { VariableType as Type } from '@/models/variables';
-import { renderWithI18n } from '@/tests/tests';
+import { renderWithI18n } from '@/testing/render';
 
 import VariableType from './VariableType';
 

@@ -9,7 +9,7 @@ import {
   putCodesList,
 } from './codesLists';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const codeList = {
   id: 'id1',

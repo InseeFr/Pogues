@@ -1,6 +1,6 @@
 import { DatatypeType } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
-import { renderWithI18n } from '@/tests/tests';
+import { renderWithI18n } from '@/testing/render';
 
 import VariableLine from './VariableLine';
 

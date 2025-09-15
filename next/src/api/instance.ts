@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getOidc } from '@/contexts/oidc';
+import { getOidc } from '@/lib/auth/oidc';
 
 /**
  * Axios instance used to call Pogues API.

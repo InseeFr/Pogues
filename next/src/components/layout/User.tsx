@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import Avatar from '@/components/ui/Avatar';
 import Menu from '@/components/ui/Menu';
 import LogoutIcon from '@/components/ui/icons/LogoutIcon';
-import { useOidc } from '@/contexts/oidc';
 import { User as UserType } from '@/hooks/useAuth';
+import { useOidc } from '@/lib/auth/oidc';
 
 interface UserProps {
   user?: UserType;

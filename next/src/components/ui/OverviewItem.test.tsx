@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect } from 'vitest';
 
-import { renderWithI18n } from '@/tests/tests';
+import { renderWithI18n } from '@/testing/render';
 
 import OverviewItem from './OverviewItem';
 

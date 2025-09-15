@@ -13,7 +13,7 @@ import {
   putQuestionnaire,
 } from './questionnaires';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const poguesQuestionnaire = {
   id: 'id',

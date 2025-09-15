@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 import { getPdfRecapOfInterrogation } from '@/api/personalization';
 import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire';
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import ModeOverview from './ModeOverview';
 

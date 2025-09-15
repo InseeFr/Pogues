@@ -3,13 +3,12 @@ import nock from 'nock';
 import { Articulation } from '@/models/articulation';
 
 import {
-  deleteArticulation,
   getArticulation,
   getArticulationFromVersion,
   putArticulation,
 } from './articulation';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const articulation: Articulation = {
   items: [

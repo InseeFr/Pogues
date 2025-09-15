@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import VariableForm from './VariableForm';
 

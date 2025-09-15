@@ -7,7 +7,7 @@ import {
   SurveyContextEnum,
   SurveyContextValueEnum,
 } from '@/models/personalizationQuestionnaire';
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import PersonalizationForm from './PersonalizationForm';
 

@@ -1,4 +1,4 @@
-import { DEFAULT_STAMP, useOidc } from '@/contexts/oidc';
+import { DEFAULT_STAMP, useOidc } from '@/lib/auth/oidc';
 
 export type User = {
   givenName?: string;

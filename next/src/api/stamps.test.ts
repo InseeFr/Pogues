@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import { getStamps } from './stamps';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 it('Get stamps works', async () => {
   const stamps = [{ label: 'my-stamp', value: 'stamp-1' }];

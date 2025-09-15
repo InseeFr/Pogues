@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/dom';
 
 import OverviewItem from '@/components/ui/OverviewItem';
 import { ArticulationItems } from '@/models/articulation';
-import { renderWithI18n, renderWithRouter } from '@/tests/tests';
+import { renderWithI18n, renderWithRouter } from '@/testing/render';
 
 import { ArticulationOverview } from './ArticulationOverview';
 import { ArticulationOverviewDetails } from './ArticulationOverviewDetails';

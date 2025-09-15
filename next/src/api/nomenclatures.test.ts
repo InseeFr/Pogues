@@ -4,7 +4,7 @@ import { Nomenclature } from '@/models/nomenclature';
 
 import { getNomenclatures, getNomenclaturesFromVersion } from './nomenclatures';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const nomenclature = {
   id: 'id1',

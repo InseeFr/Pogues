@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import QuestionnaireLine from './QuestionnaireLine';
 

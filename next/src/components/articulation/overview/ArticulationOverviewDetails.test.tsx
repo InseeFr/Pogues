@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import { ArticulationItems } from '@/models/articulation';
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import { ArticulationOverviewDetails } from './ArticulationOverviewDetails';
 import { ArticulationTable } from './ArticulationTable';

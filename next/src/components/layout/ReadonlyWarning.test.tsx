@@ -3,11 +3,11 @@ import userEvent from '@testing-library/user-event';
 import nock from 'nock';
 import { expect } from 'vitest';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import ReadonlyWarning from './ReadonlyWarning';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 describe('ReadonlyWarning', () => {
   it('display restore button', async () => {

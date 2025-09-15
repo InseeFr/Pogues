@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 import ContentMain from '@/components/layout/ContentMain';
 import Login from '@/components/login/Login';
-import { useOidc } from '@/contexts/oidc';
+import { useOidc } from '@/lib/auth/oidc';
 
 export const Route = createFileRoute('/_layout/login')({
   component: RouteComponent,

@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithI18n } from '@/tests/tests';
+import { renderWithI18n } from '@/testing/render';
 
 import DialogButton from './DialogButton';
 

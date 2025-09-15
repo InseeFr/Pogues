@@ -15,7 +15,7 @@ import {
   postVariable,
 } from './variables';
 
-vi.mock('@/contexts/oidc');
+vi.mock('@/lib/auth/oidc');
 
 const variableDTO: VariableDTO = {
   id: 'my-variable',

@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/dom';
 
-import { renderWithRouter } from '@/tests/tests';
+import { renderWithRouter } from '@/testing/render';
 
 import MultimodeOverview from './MultimodeOverview';
 
