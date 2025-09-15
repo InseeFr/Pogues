@@ -30,7 +30,6 @@ export default function Header({ user }: Readonly<HeaderProps>) {
         <div className="text-sm">v{appVersion}</div>
       </div>
       <div className="flex justify-center gap-x-15">
-        <Link to="/questionnaires">{t('common.questionnaires')}</Link>
         <a
           className="flex items-center hover:underline gap-x-1"
           href="https://inseefr.github.io/Bowie/1._Pogues/"
