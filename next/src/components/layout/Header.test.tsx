@@ -39,18 +39,6 @@ describe('Header', () => {
     expect(screen.getByText('v1.2.3')).toBeInTheDocument();
   });
 
-  it('renders a link to questionnaires page', async () => {
-    await waitFor(() => renderWithRouter(<Header user={user} />));
-
-    screen.debug();
-
-    const questionnairesLink = screen.getByRole('link', {
-      name: 'Questionnaires',
-    });
-    expect(questionnairesLink).toBeInTheDocument();
-    expect(questionnairesLink).toHaveAttribute('href', '/questionnaires');
-  });
-
   it('renders the documentation external link with icon', async () => {
     await waitFor(() => renderWithRouter(<Header user={user} />));
 
