@@ -1,10 +1,11 @@
 type Props = {
   ContentLayout?: ({
     children,
+    ...props
   }: {
     children: React.ReactNode;
   }) => React.ReactNode;
-  error: Error;
+  error: string;
 };
 
 /**
@@ -13,11 +14,11 @@ type Props = {
  */
 export default function ErrorComponent({
   ContentLayout = ({ children }) => children,
-  error,
+  error = '',
 }: Readonly<Props>) {
   return (
     <ContentLayout>
-      <div className="text-error">{error.message}</div>
+      <div className="text-error">{error}</div>
     </ContentLayout>
   );
 }

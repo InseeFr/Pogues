@@ -1,12 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import { articulationQueryOptions } from '@/api/articulation';
 import { ErrorCodes, isPoguesAPIError } from '@/api/error';
 import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
+import ArticulationOverviewLayout from '@/components/articulation/overview/ArticulationOverviewLayout';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 
 /**
  * Main articulation page where we display the articulation items of our
@@ -19,7 +20,7 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/articulation/',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => <CustomErrorComponent error={error} />,
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(articulationQueryOptions(questionnaireId)),
 });
@@ -31,46 +32,36 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <ArticulationOverviewLayout>
       <ArticulationOverview
         questionnaireId={questionnaireId}
         articulationItems={articulation.items}
       />
-    </ComponentWrapper>
+    </ArticulationOverviewLayout>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  const { t } = useTranslation();
-  let errorMessage = error.message;
-
+function computeErrorMessage(error: Error, t: TFunction): string {
   if (isPoguesAPIError(error)) {
     switch (error.response?.data.errorCode) {
       case ErrorCodes.QuestionnaireFormulaLanguageNotVTL:
-        errorMessage = t('articulation.overview.error.formulaNotVtl');
-        break;
+        return t('articulation.overview.error.formulaNotVtl');
       case ErrorCodes.QuestionnaireRoundaboutNotFound:
-        errorMessage = t('articulation.overview.error.roundaboutNotFound');
-        break;
+        return t('articulation.overview.error.roundaboutNotFound');
     }
   }
 
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{errorMessage}</div>
-    </ComponentWrapper>
-  );
+  return error.message;
 }
 
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+function CustomErrorComponent({ error }: Readonly<{ error: Error }>) {
   const { t } = useTranslation();
+  const errorMessage = computeErrorMessage(error, t);
 
   return (
-    <>
-      <ContentHeader title={t('articulation.overview.title')} />
-      <ContentMain>{children}</ContentMain>
-    </>
+    <ErrorComponent
+      ContentLayout={ArticulationOverviewLayout}
+      error={errorMessage}
+    />
   );
 }
