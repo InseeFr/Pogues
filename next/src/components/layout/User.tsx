@@ -24,26 +24,18 @@ export default function User({ user }: Readonly<UserProps>) {
       redirectTo: 'home',
     });
   }
-  return (
+
+  return isUserLoggedIn ? (
     <Menu
       items={[
-        !isUserLoggedIn
-          ? {
-              label: t('common.login'),
-              icon: <LogoutIcon />,
-              onClick: () => {
-                // Not active yet, button will be set later
-              },
-              disabled: true,
-            }
-          : {
-              label: t('common.logout'),
-              icon: <LogoutIcon />,
-              onClick: onLogout,
-            },
+        {
+          label: t('common.logout'),
+          icon: <LogoutIcon />,
+          onClick: onLogout,
+        },
       ]}
     >
       <Avatar initials={initials} />
     </Menu>
-  );
+  ) : null;
 }
