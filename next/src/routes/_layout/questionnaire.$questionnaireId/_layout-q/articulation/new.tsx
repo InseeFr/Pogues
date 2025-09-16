@@ -14,10 +14,9 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => (
-    <ErrorComponent
-      ContentLayout={CreateArticulationLayout}
-      error={error.message}
-    />
+    <CreateArticulationLayout>
+      <ErrorComponent error={error.message} />
+    </CreateArticulationLayout>
   ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(

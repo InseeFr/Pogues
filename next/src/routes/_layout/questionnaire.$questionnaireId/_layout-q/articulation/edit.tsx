@@ -17,10 +17,9 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => (
-    <ErrorComponent
-      ContentLayout={EditArticulationLayout}
-      error={error.message}
-    />
+    <EditArticulationLayout>
+      <ErrorComponent error={error.message} />
+    </EditArticulationLayout>
   ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
     await Promise.all([
