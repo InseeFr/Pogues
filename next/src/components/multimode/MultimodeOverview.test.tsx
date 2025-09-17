@@ -1,18 +1,14 @@
-import { waitFor } from '@testing-library/dom';
-
 import { renderWithRouter } from '@/testing/render';
 
 import MultimodeOverview from './MultimodeOverview';
 
 describe('MultimodeOverview', () => {
   it('display multimode questionnaire rule', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <MultimodeOverview
-          questionnaireId="q-id"
-          isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
+      />,
     );
 
     expect(getByText('my-q-formula')).toBeInTheDocument();
@@ -22,13 +18,11 @@ describe('MultimodeOverview', () => {
   });
 
   it('display multimode leaf rule', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <MultimodeOverview
-          questionnaireId="q-id"
-          isMovedRules={{ leafFormula: 'my-l-formula' }}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ leafFormula: 'my-l-formula' }}
+      />,
     );
 
     expect(
@@ -38,8 +32,8 @@ describe('MultimodeOverview', () => {
   });
 
   it('allow to set multimode rules from scratch when empty ', async () => {
-    const { getByRole } = await waitFor(() =>
-      renderWithRouter(<MultimodeOverview questionnaireId="q-id" />),
+    const { getByRole } = await renderWithRouter(
+      <MultimodeOverview questionnaireId="q-id" />,
     );
 
     const button = getByRole('link', {
@@ -53,8 +47,8 @@ describe('MultimodeOverview', () => {
   });
 
   it('display that there are no multimode rules when empty in readonly and does not allow to set rules', async () => {
-    const { queryByRole, getByText } = await waitFor(() =>
-      renderWithRouter(<MultimodeOverview questionnaireId="q-id" readonly />),
+    const { queryByRole, getByText } = await renderWithRouter(
+      <MultimodeOverview questionnaireId="q-id" readonly />,
     );
 
     const button = queryByRole('link', {
@@ -67,13 +61,11 @@ describe('MultimodeOverview', () => {
   });
 
   it('allow to update multimode rules', async () => {
-    const { getByRole } = await waitFor(() =>
-      renderWithRouter(
-        <MultimodeOverview
-          questionnaireId="q-id"
-          isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
-        />,
-      ),
+    const { getByRole } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
+      />,
     );
 
     const button = getByRole('link', { name: 'Edit' });
@@ -85,14 +77,12 @@ describe('MultimodeOverview', () => {
   });
 
   it('does not allow to update multimode rules in readonly', async () => {
-    const { queryByRole } = await waitFor(() =>
-      renderWithRouter(
-        <MultimodeOverview
-          questionnaireId="q-id"
-          isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
-          readonly
-        />,
-      ),
+    const { queryByRole } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
+        readonly
+      />,
     );
 
     const button = queryByRole('link', { name: 'Edit' });

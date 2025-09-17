@@ -10,10 +10,8 @@ vi.mock('@/components/ui/form/VTLEditor');
 describe('ArticulationForm', () => {
   const mockSubmit = vi.fn();
   it('should enable validate button only when all articulation items fields are filled', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
-      ),
+    await renderWithRouter(
+      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
 
     // no data for any articulation item
@@ -62,10 +60,8 @@ describe('ArticulationForm', () => {
   });
 
   it('should display error when first name field is empty', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
-      ),
+    await renderWithRouter(
+      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
 
     fireEvent.input(screen.getByTestId('items.0.value'), {
@@ -86,10 +82,8 @@ describe('ArticulationForm', () => {
   });
 
   it('should display error when gender field is empty', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
-      ),
+    await renderWithRouter(
+      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
 
     fireEvent.input(screen.getByTestId('items.1.value'), {
@@ -110,10 +104,8 @@ describe('ArticulationForm', () => {
   });
 
   it('should display error when age field is empty', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
-      ),
+    await renderWithRouter(
+      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
 
     fireEvent.input(screen.getByTestId('items.2.value'), {
@@ -134,10 +126,8 @@ describe('ArticulationForm', () => {
   });
 
   it('should enable cancel button', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
-      ),
+    await renderWithRouter(
+      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
 
     const cancelButton = screen.getByRole('link', { name: /cancel/i });

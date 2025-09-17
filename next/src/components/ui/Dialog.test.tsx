@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithRouter } from '@/testing/render';
@@ -9,12 +9,10 @@ describe('Dialog', () => {
   it('can be opened and closed with a trigger button', async () => {
     const user = userEvent.setup();
 
-    const { queryByText, getByText } = await waitFor(() =>
-      renderWithRouter(
-        <Dialog body="body" title="title">
-          <button>Open Dialog</button>
-        </Dialog>,
-      ),
+    const { queryByText, getByText } = await renderWithRouter(
+      <Dialog body="body" title="title">
+        <button>Open Dialog</button>
+      </Dialog>,
     );
 
     const openButton = screen.getByRole('button', { name: 'Open Dialog' });

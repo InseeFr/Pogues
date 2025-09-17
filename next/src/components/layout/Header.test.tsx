@@ -1,5 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { screen } from '@testing-library/react';
 
 import { renderWithRouter } from '@/testing/render';
 
@@ -30,7 +29,7 @@ describe('Header', () => {
   });
 
   it('renders the app name and version', async () => {
-    await waitFor(() => renderWithRouter(<Header user={user} />));
+    await renderWithRouter(<Header user={user} />);
 
     const appNameLink = screen.getByRole('link', { name: 'Pogues' });
     expect(appNameLink).toBeInTheDocument();
@@ -40,7 +39,7 @@ describe('Header', () => {
   });
 
   it('renders the documentation external link with icon', async () => {
-    await waitFor(() => renderWithRouter(<Header user={user} />));
+    await renderWithRouter(<Header user={user} />);
 
     const docLink = screen.getByRole('link', {
       name: 'Documentation',
@@ -55,7 +54,7 @@ describe('Header', () => {
   });
 
   it('renders User component with correct props', async () => {
-    await waitFor(() => renderWithRouter(<Header user={user} />));
+    await renderWithRouter(<Header user={user} />);
 
     expect(User).toHaveBeenCalledWith(
       expect.objectContaining({

@@ -1,5 +1,3 @@
-import { waitFor } from '@testing-library/dom';
-
 import OverviewItem from '@/components/ui/OverviewItem';
 import { ArticulationItems } from '@/models/articulation';
 import { renderWithI18n, renderWithRouter } from '@/testing/render';
@@ -27,14 +25,12 @@ describe('ArticulationOverview', () => {
   });
 
   it('renders create button when not readonly and no items', async () => {
-    const { getByRole } = await waitFor(() =>
-      renderWithRouter(
-        <ArticulationOverview
-          questionnaireId="q1"
-          articulationItems={undefined}
-          readonly={false}
-        />,
-      ),
+    const { getByRole } = await renderWithRouter(
+      <ArticulationOverview
+        questionnaireId="q1"
+        articulationItems={undefined}
+        readonly={false}
+      />,
     );
 
     const button = getByRole('link', {
@@ -54,14 +50,12 @@ describe('ArticulationOverview', () => {
       { label: 'Age', value: 'age' },
     ];
 
-    await waitFor(() =>
-      renderWithRouter(
-        <ArticulationOverview
-          questionnaireId="q1"
-          articulationItems={articulationItems}
-          readonly={false}
-        />,
-      ),
+    await renderWithRouter(
+      <ArticulationOverview
+        questionnaireId="q1"
+        articulationItems={articulationItems}
+        readonly={false}
+      />,
     );
 
     expect(OverviewItem).toHaveBeenCalledWith(

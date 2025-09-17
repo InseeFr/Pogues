@@ -22,6 +22,7 @@ const mockParsedCsv: ParseResult<unknown> = {
 describe('CsvViewerTable', () => {
   it('renders table headers and rows from parsedCsv', () => {
     render(<CsvViewerTable parsedCsv={mockParsedCsv} />);
+
     expect(screen.getByText('Name')).toBeInTheDocument();
     expect(screen.getByText('Age')).toBeInTheDocument();
     expect(screen.getByText('City')).toBeInTheDocument();

@@ -1,6 +1,3 @@
-import { waitFor } from '@testing-library/react';
-import { expect } from 'vitest';
-
 import { renderWithRouter } from '@/testing/render';
 
 import VersionsOverview from './VersionsOverview';
@@ -29,13 +26,11 @@ describe('VersionsOverview', () => {
   ];
 
   it('display my saves', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <VersionsOverview
-          questionnaireId={questionnaireId}
-          versions={mockVersions}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <VersionsOverview
+        questionnaireId={questionnaireId}
+        versions={mockVersions}
+      />,
     );
 
     expect(getByText('John')).toBeInTheDocument();

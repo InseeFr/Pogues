@@ -1,7 +1,5 @@
-import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import nock from 'nock';
-import { expect } from 'vitest';
 
 import { renderWithRouter } from '@/testing/render';
 
@@ -12,13 +10,11 @@ vi.mock('@/lib/auth/oidc');
 describe('ReadonlyWarning', () => {
   it('display restore button', async () => {
     const user = userEvent.setup();
-    const { getByRole, getByText } = await waitFor(() =>
-      renderWithRouter(
-        <ReadonlyWarning
-          questionnaireId="my-questionnaire"
-          versionId="my-version"
-        />,
-      ),
+    const { getByRole, getByText } = await renderWithRouter(
+      <ReadonlyWarning
+        questionnaireId="my-questionnaire"
+        versionId="my-version"
+      />,
     );
 
     expect(getByRole('button', { name: /Restore/i })).toBeInTheDocument();
@@ -39,9 +35,7 @@ describe('ReadonlyWarning', () => {
   });
 
   it('do not display restore button when a version is not provided', async () => {
-    const { queryByRole } = await waitFor(() =>
-      renderWithRouter(<ReadonlyWarning />),
-    );
+    const { queryByRole } = await renderWithRouter(<ReadonlyWarning />);
 
     expect(queryByRole('button', { name: /Restore/i })).toBeNull();
   });

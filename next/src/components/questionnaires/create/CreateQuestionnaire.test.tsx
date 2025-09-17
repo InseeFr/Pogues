@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithRouter } from '@/testing/render';
@@ -7,8 +7,8 @@ import CreateQuestionnaire from './CreateQuestionnaire';
 
 describe('CreateQuestionnaire', () => {
   it('is disabled on mount', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<CreateQuestionnaire userStamp="my-stamp" />),
+    const { getByText } = await renderWithRouter(
+      <CreateQuestionnaire userStamp="my-stamp" />,
     );
     expect(getByText('Create')).toBeInTheDocument();
     expect(getByText('Create')).toBeDisabled();
@@ -16,8 +16,8 @@ describe('CreateQuestionnaire', () => {
 
   it('can be submitted when form is filled with mandatory values', async () => {
     const user = userEvent.setup();
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<CreateQuestionnaire userStamp="my-stamp" />),
+    const { getByText } = await renderWithRouter(
+      <CreateQuestionnaire userStamp="my-stamp" />,
     );
 
     expect(getByText('Create')).toBeDisabled();

@@ -85,16 +85,15 @@ describe('PersonalizationOverview', () => {
   };
 
   it('display my csv file', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationsOverview
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={mockCsvData}
-          interrogationData={null}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <PersonalizationsOverview
+        questionnaireId={questionnaireId}
+        data={mockData}
+        fileData={mockCsvData}
+        interrogationData={null}
+      />,
     );
+
     expect(getByText('LabelQuestionnaire')).toBeInTheDocument();
     expect(getByText('Teemo')).toBeInTheDocument();
     expect(getByText('Panda')).toBeInTheDocument();
@@ -105,16 +104,15 @@ describe('PersonalizationOverview', () => {
       { id: '1', name: 'Teemo' },
       { id: '2', name: 'Panda' },
     ];
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationsOverview
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={JSON.stringify(mockJsonData)}
-          interrogationData={null}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <PersonalizationsOverview
+        questionnaireId={questionnaireId}
+        data={mockData}
+        fileData={JSON.stringify(mockJsonData)}
+        interrogationData={null}
+      />,
     );
+
     expect(
       getByText((content) => content.includes('Teemo')),
     ).toBeInTheDocument();
@@ -124,16 +122,15 @@ describe('PersonalizationOverview', () => {
   });
 
   it('delete the personalzation when the delete button is clicked', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationsOverview
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={mockCsvData}
-          interrogationData={null}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <PersonalizationsOverview
+        questionnaireId={questionnaireId}
+        data={mockData}
+        fileData={mockCsvData}
+        interrogationData={null}
+      />,
     );
+
     const button = getByText('Delete');
     fireEvent.click(button);
 
@@ -161,15 +158,13 @@ describe('PersonalizationOverview', () => {
       },
     } as unknown as ParseResult<unknown>;
 
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationsOverview
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={mockParsedCsv}
-          interrogationData={null}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationsOverview
+        questionnaireId={questionnaireId}
+        data={mockData}
+        fileData={mockParsedCsv}
+        interrogationData={null}
+      />,
     );
 
     const button = screen.getByText('Existing dataset');

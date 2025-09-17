@@ -97,16 +97,14 @@ describe('PersonalizationCheckPanel', () => {
   };
 
   it('shows interrogation data when provided', async () => {
-    const { container } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationCheckPanel
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={mockCsvData}
-          interrogationData={mockInterrogationData}
-          hasValidInterrogationData={true}
-        />,
-      ),
+    const { container } = await renderWithRouter(
+      <PersonalizationCheckPanel
+        questionnaireId={questionnaireId}
+        data={mockData}
+        fileData={mockCsvData}
+        interrogationData={mockInterrogationData}
+        hasValidInterrogationData={true}
+      />,
     );
     expect(screen.getByText('CAWI')).toBeInTheDocument();
     expect(screen.queryByText('PAPI')).not.toBeInTheDocument();
@@ -116,16 +114,14 @@ describe('PersonalizationCheckPanel', () => {
   });
 
   it('shows error message when interrogation data is invalid', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationCheckPanel
-          questionnaireId={questionnaireId}
-          data={mockData}
-          fileData={mockCsvData}
-          interrogationData={mockInterrogationData}
-          hasValidInterrogationData={false}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <PersonalizationCheckPanel
+        questionnaireId={questionnaireId}
+        data={mockData}
+        fileData={mockCsvData}
+        interrogationData={mockInterrogationData}
+        hasValidInterrogationData={false}
+      />,
     );
     expect(getByText('Error loading interrogation data')).toBeInTheDocument();
   });
@@ -135,16 +131,14 @@ describe('PersonalizationCheckPanel', () => {
       ...mockData,
       isOutdated: true,
     };
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationCheckPanel
-          questionnaireId={questionnaireId}
-          data={outdatedData}
-          fileData={mockCsvData}
-          interrogationData={mockInterrogationData}
-          hasValidInterrogationData={true}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationCheckPanel
+        questionnaireId={questionnaireId}
+        data={outdatedData}
+        fileData={mockCsvData}
+        interrogationData={mockInterrogationData}
+        hasValidInterrogationData={true}
+      />,
     );
     expect(
       screen.getByText(
@@ -158,16 +152,14 @@ describe('PersonalizationCheckPanel', () => {
       ...mockData,
       isOutdated: true,
     };
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationCheckPanel
-          questionnaireId={questionnaireId}
-          data={outdatedData}
-          fileData={mockCsvData}
-          interrogationData={mockInterrogationData}
-          hasValidInterrogationData={true}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationCheckPanel
+        questionnaireId={questionnaireId}
+        data={outdatedData}
+        fileData={mockCsvData}
+        interrogationData={mockInterrogationData}
+        hasValidInterrogationData={true}
+      />,
     );
 
     const updateButton = screen.getByRole('button', {

@@ -9,14 +9,12 @@ vi.mock('@/components/ui/form/VTLEditor');
 describe('CodesListForm', () => {
   it('should enable the button only when all fields are filled', async () => {
     const submitFn = vi.fn();
-    await waitFor(() =>
-      renderWithRouter(
-        <CodesListForm
-          questionnaireId="q-id"
-          onSubmit={submitFn}
-          variables={[]}
-        />,
-      ),
+    await renderWithRouter(
+      <CodesListForm
+        questionnaireId="q-id"
+        onSubmit={submitFn}
+        variables={[]}
+      />,
     );
 
     await waitFor(() => {
@@ -55,10 +53,8 @@ describe('CodesListForm', () => {
   });
 
   it('should display "must have label" error when empty', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
-      ),
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
 
     fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
@@ -73,10 +69,8 @@ describe('CodesListForm', () => {
   });
 
   it('should display "code must have value" error when empty', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
-      ),
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
 
     fireEvent.input(screen.getByTestId('codes.0.value'), {
@@ -93,10 +87,8 @@ describe('CodesListForm', () => {
   });
 
   it('should display "code must have label" error when empty', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
-      ),
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
 
     fireEvent.input(screen.getByTestId('codes.0.label'), {
@@ -111,10 +103,8 @@ describe('CodesListForm', () => {
   });
 
   it('should display "value must be unique" error when duplicate value', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
-      ),
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
 
     fireEvent.click(screen.getByRole('button', { name: /Add a code/i }));
@@ -134,14 +124,12 @@ describe('CodesListForm', () => {
   });
 
   it('should add and remove a code correctly', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <CodesListForm
-          questionnaireId="q-id"
-          onSubmit={vi.fn()}
-          variables={[]}
-        />,
-      ),
+    await renderWithRouter(
+      <CodesListForm
+        questionnaireId="q-id"
+        onSubmit={vi.fn()}
+        variables={[]}
+      />,
     );
 
     // Adding a code

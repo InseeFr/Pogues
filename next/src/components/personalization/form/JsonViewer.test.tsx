@@ -11,6 +11,7 @@ const jsonString = JSON.stringify(
 describe('JsonViewer', () => {
   it('renders highlighted JSON', () => {
     render(<JsonViewer data={jsonString} />);
+
     expect(screen.getByText('"Name"')).toBeInTheDocument();
     expect(screen.getByText('"Rathalos"')).toBeInTheDocument();
     expect(screen.getByText('"30"')).toBeInTheDocument();

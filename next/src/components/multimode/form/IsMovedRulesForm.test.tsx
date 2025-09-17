@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { DatatypeType } from '@/models/datatype';
@@ -11,10 +10,8 @@ vi.mock('@/components/ui/form/VTLEditor');
 
 describe('IsMovedRulesForm', () => {
   it('is disabled on mount', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
     );
     expect(getByText('Validate')).toBeInTheDocument();
     expect(getByText('Validate')).toBeDisabled();
@@ -24,10 +21,8 @@ describe('IsMovedRulesForm', () => {
     const user = userEvent.setup();
 
     const onSubmitMock = vi.fn();
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <IsMovedRulesForm questionnaireId="my-id" onSubmit={onSubmitMock} />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <IsMovedRulesForm questionnaireId="my-id" onSubmit={onSubmitMock} />,
     );
 
     expect(getByText('Validate')).toBeDisabled();
@@ -43,21 +38,19 @@ describe('IsMovedRulesForm', () => {
   });
 
   it('has a roundabout-level rule input when there is roundabout variables', async () => {
-    const { getByRole, getByText } = await waitFor(() =>
-      renderWithRouter(
-        <IsMovedRulesForm
-          questionnaireId="my-id"
-          onSubmit={vi.fn()}
-          roundaboutVariables={[
-            {
-              id: 'my-id',
-              name: "It's me, variable",
-              datatype: { typeName: DatatypeType.Boolean },
-              type: VariableType.Collected,
-            },
-          ]}
-        />,
-      ),
+    const { getByRole, getByText } = await renderWithRouter(
+      <IsMovedRulesForm
+        questionnaireId="my-id"
+        onSubmit={vi.fn()}
+        roundaboutVariables={[
+          {
+            id: 'my-id',
+            name: "It's me, variable",
+            datatype: { typeName: DatatypeType.Boolean },
+            type: VariableType.Collected,
+          },
+        ]}
+      />,
     );
 
     expect(getByText('Roundabout-level rule')).toBeInTheDocument();
@@ -67,10 +60,8 @@ describe('IsMovedRulesForm', () => {
   });
 
   it('has no roundabout-level rule input when there is no roundabout variables', async () => {
-    const { getByText, queryByRole } = await waitFor(() =>
-      renderWithRouter(
-        <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
-      ),
+    const { getByText, queryByRole } = await renderWithRouter(
+      <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
     );
 
     expect(getByText('Roundabout-level rule')).toBeInTheDocument();

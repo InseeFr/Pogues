@@ -1,5 +1,3 @@
-import { waitFor } from '@testing-library/react';
-
 import {
   makeAPIErrorWithErrorCode,
   makeAPIErrorWithNoErrorCode,
@@ -13,8 +11,8 @@ describe('ArticulationOverviewErrorComponent', () => {
     const error = makeAPIErrorWithErrorCode(
       'questionnaire:formulalanguage:notvtl',
     );
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<ArticulationOverviewErrorComponent error={error} />),
+    const { getByText } = await renderWithRouter(
+      <ArticulationOverviewErrorComponent error={error} />,
     );
 
     expect(
@@ -24,8 +22,8 @@ describe('ArticulationOverviewErrorComponent', () => {
 
   it('displays custom error when questionnaire has no roundabouts', async () => {
     const error = makeAPIErrorWithErrorCode('questionnaire:roundaboutnotfound');
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<ArticulationOverviewErrorComponent error={error} />),
+    const { getByText } = await renderWithRouter(
+      <ArticulationOverviewErrorComponent error={error} />,
     );
 
     expect(
@@ -37,8 +35,8 @@ describe('ArticulationOverviewErrorComponent', () => {
 
   it('displays generic error when no code is returned by the API', async () => {
     const error = makeAPIErrorWithNoErrorCode();
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<ArticulationOverviewErrorComponent error={error} />),
+    const { getByText } = await renderWithRouter(
+      <ArticulationOverviewErrorComponent error={error} />,
     );
 
     expect(getByText('An unexpected error occured')).toBeInTheDocument();

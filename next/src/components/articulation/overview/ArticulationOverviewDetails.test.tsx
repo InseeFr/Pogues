@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react';
 import { expect } from 'vitest';
 
 import { ArticulationItems } from '@/models/articulation';
@@ -31,9 +30,7 @@ describe('ArticulationOverviewDetails', () => {
   };
 
   it('displays articulation table', async () => {
-    await waitFor(() =>
-      renderWithRouter(<ArticulationOverviewDetails {...defaultProps} />),
-    );
+    await renderWithRouter(<ArticulationOverviewDetails {...defaultProps} />);
 
     expect(ArticulationTable).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -44,8 +41,8 @@ describe('ArticulationOverviewDetails', () => {
   });
 
   it('can edit articulation', async () => {
-    const { getByRole } = await waitFor(() =>
-      renderWithRouter(<ArticulationOverviewDetails {...defaultProps} />),
+    const { getByRole } = await renderWithRouter(
+      <ArticulationOverviewDetails {...defaultProps} />,
     );
 
     const editButton = getByRole('link', { name: /Edit/i });
@@ -58,28 +55,24 @@ describe('ArticulationOverviewDetails', () => {
   });
 
   it('can delete articulation', async () => {
-    const { getByRole } = await waitFor(() =>
-      renderWithRouter(<ArticulationOverviewDetails {...defaultProps} />),
+    const { getByRole } = await renderWithRouter(
+      <ArticulationOverviewDetails {...defaultProps} />,
     );
 
     expect(getByRole('button', { name: /Delete/i })).toBeEnabled();
   });
 
   it('cannot edit articulation if readonly', async () => {
-    const { queryByRole } = await waitFor(() =>
-      renderWithRouter(
-        <ArticulationOverviewDetails {...defaultProps} readonly />,
-      ),
+    const { queryByRole } = await renderWithRouter(
+      <ArticulationOverviewDetails {...defaultProps} readonly />,
     );
 
     expect(queryByRole('link', { name: /Edit/i })).toBeNull();
   });
 
   it('cannot delete articulation if readonly', async () => {
-    const { queryByRole } = await waitFor(() =>
-      renderWithRouter(
-        <ArticulationOverviewDetails {...defaultProps} readonly />,
-      ),
+    const { queryByRole } = await renderWithRouter(
+      <ArticulationOverviewDetails {...defaultProps} readonly />,
     );
 
     expect(queryByRole('button', { name: /Delete/i })).toBeNull();

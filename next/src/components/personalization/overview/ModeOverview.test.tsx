@@ -56,9 +56,10 @@ describe('ModeOverview', () => {
   });
 
   it('renders table headers for web modes only', async () => {
-    const { getByText, container } = await waitFor(() =>
-      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
+    const { getByText, container } = await renderWithRouter(
+      <ModeOverview interrogationData={interrogationData} />,
     );
+
     expect(getByText('ID')).toBeInTheDocument();
     expect(getByText('CAWI')).toBeInTheDocument();
     const headerRow = container.querySelector('thead tr');
@@ -66,17 +67,18 @@ describe('ModeOverview', () => {
   });
 
   it('renders a row for each unique displayableId', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
+    const { getByText } = await renderWithRouter(
+      <ModeOverview interrogationData={interrogationData} />,
     );
     expect(getByText('1')).toBeInTheDocument();
     expect(getByText('2')).toBeInTheDocument();
   });
 
   it('renders links for available URLs', async () => {
-    const { getAllByRole } = await waitFor(() =>
-      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
+    const { getAllByRole } = await renderWithRouter(
+      <ModeOverview interrogationData={interrogationData} />,
     );
+
     const links = getAllByRole('link');
     expect(links).toHaveLength(4);
     expect(links[0]).toHaveAttribute('href', 'https://visu.com/milk');
@@ -84,9 +86,10 @@ describe('ModeOverview', () => {
   });
 
   it('renders button for Download pdf', async () => {
-    const { getAllByTitle } = await waitFor(() =>
-      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
+    const { getAllByTitle } = await renderWithRouter(
+      <ModeOverview interrogationData={interrogationData} />,
     );
+
     const buttons = getAllByTitle('Download PDF data summary');
     expect(buttons).toHaveLength(2);
     const downloadPdfBtn = buttons[1];
@@ -94,9 +97,10 @@ describe('ModeOverview', () => {
   });
 
   it('should download PDF when clicking on button', async () => {
-    const { getAllByRole } = await waitFor(() =>
-      renderWithRouter(<ModeOverview interrogationData={interrogationData} />),
+    const { getAllByRole } = await renderWithRouter(
+      <ModeOverview interrogationData={interrogationData} />,
     );
+
     const buttons = getAllByRole('button');
     const downloadPdfBtn = buttons[1];
 

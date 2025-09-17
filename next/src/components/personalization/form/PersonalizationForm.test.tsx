@@ -77,16 +77,14 @@ describe('PersonalizationForm', () => {
   });
 
   it('renders context select and file upload button', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationForm
-          questionnaireId="1"
-          questionnaire={baseQuestionnaire}
-          setQuestionnaire={setQuestionnaire}
-          handleSubmit={vi.fn()}
-          fileData={null}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationForm
+        questionnaireId="1"
+        questionnaire={baseQuestionnaire}
+        setQuestionnaire={setQuestionnaire}
+        handleSubmit={vi.fn()}
+        fileData={null}
+      />,
     );
     expect(screen.getByText('Context')).toBeInTheDocument();
     const radiogroups = screen.getAllByRole('radiogroup');
@@ -95,8 +93,8 @@ describe('PersonalizationForm', () => {
     expect(screen.getByText('Upload survey units data')).toBeInTheDocument();
   });
 
-  it('does not show error component initially', () => {
-    renderWithRouter(
+  it('does not show error component initially', async () => {
+    await renderWithRouter(
       <PersonalizationForm
         questionnaireId="1"
         questionnaire={baseQuestionnaire}
@@ -109,15 +107,13 @@ describe('PersonalizationForm', () => {
   });
 
   it('disables validate button if no file is uploaded', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationForm
-          questionnaireId="1"
-          questionnaire={{ ...baseQuestionnaire, interrogationData: undefined }}
-          setQuestionnaire={setQuestionnaire}
-          handleSubmit={vi.fn()}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationForm
+        questionnaireId="1"
+        questionnaire={{ ...baseQuestionnaire, interrogationData: undefined }}
+        setQuestionnaire={setQuestionnaire}
+        handleSubmit={vi.fn()}
+      />,
     );
     const button = screen.getByText('Validate');
     expect(button).toBeDisabled();
@@ -140,16 +136,14 @@ describe('PersonalizationForm', () => {
       },
     };
 
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationForm
-          questionnaireId="1"
-          questionnaire={baseQuestionnaire}
-          setQuestionnaire={setQuestionnaire}
-          handleSubmit={vi.fn()}
-          fileData={mockCsvData}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationForm
+        questionnaireId="1"
+        questionnaire={baseQuestionnaire}
+        setQuestionnaire={setQuestionnaire}
+        handleSubmit={vi.fn()}
+        fileData={mockCsvData}
+      />,
     );
 
     expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
@@ -162,16 +156,14 @@ describe('PersonalizationForm', () => {
       { id: '2', name: 'Panda' },
     ];
 
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationForm
-          questionnaireId="1"
-          questionnaire={baseQuestionnaire}
-          setQuestionnaire={setQuestionnaire}
-          handleSubmit={vi.fn()}
-          fileData={JSON.stringify(mockJsonData)}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationForm
+        questionnaireId="1"
+        questionnaire={baseQuestionnaire}
+        setQuestionnaire={setQuestionnaire}
+        handleSubmit={vi.fn()}
+        fileData={JSON.stringify(mockJsonData)}
+      />,
     );
     const radiogroups = screen.getAllByRole('radiogroup');
     const personalizationTypeGroup = radiogroups.find((group) =>
@@ -194,16 +186,14 @@ describe('PersonalizationForm', () => {
     );
     mockJsonFile.text = () =>
       Promise.resolve(JSON.stringify({ id: '1', name: 'Teemo' }));
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationForm
-          questionnaireId="1"
-          questionnaire={baseQuestionnaire}
-          setQuestionnaire={setQuestionnaire}
-          handleSubmit={vi.fn()}
-          fileData={null}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationForm
+        questionnaireId="1"
+        questionnaire={baseQuestionnaire}
+        setQuestionnaire={setQuestionnaire}
+        handleSubmit={vi.fn()}
+        fileData={null}
+      />,
     );
 
     const radiogroups = screen.getAllByRole('radiogroup');
@@ -232,16 +222,14 @@ describe('PersonalizationForm', () => {
   });
 
   it('handle context change', async () => {
-    await waitFor(() =>
-      renderWithRouter(
-        <PersonalizationForm
-          questionnaireId="1"
-          questionnaire={baseQuestionnaire}
-          setQuestionnaire={setQuestionnaire}
-          handleSubmit={vi.fn()}
-          fileData={null}
-        />,
-      ),
+    await renderWithRouter(
+      <PersonalizationForm
+        questionnaireId="1"
+        questionnaire={baseQuestionnaire}
+        setQuestionnaire={setQuestionnaire}
+        handleSubmit={vi.fn()}
+        fileData={null}
+      />,
     );
 
     const radiogroups = screen.getAllByRole('radiogroup');

@@ -9,14 +9,12 @@ vi.mock('@/components/ui/form/VTLEditor');
 describe('VariableForm', () => {
   it('should enable the button only when all fields are filled', async () => {
     const submitFn = vi.fn();
-    const { getByRole } = await waitFor(() =>
-      renderWithRouter(
-        <VariableForm
-          onSubmit={submitFn}
-          submitLabel="Validate"
-          scopes={new Set<string>()}
-        />,
-      ),
+    const { getByRole } = await renderWithRouter(
+      <VariableForm
+        onSubmit={submitFn}
+        submitLabel="Validate"
+        scopes={new Set<string>()}
+      />,
     );
 
     await waitFor(() => {
@@ -38,16 +36,14 @@ describe('VariableForm', () => {
   });
 
   it('should display form error when values are invalid', async () => {
-    const { findAllByRole, getByRole, getByText, queryByRole } = await waitFor(
-      () =>
-        renderWithRouter(
-          <VariableForm
-            onSubmit={vi.fn()}
-            submitLabel="Validate"
-            scopes={new Set<string>()}
-          />,
-        ),
-    );
+    const { findAllByRole, getByRole, getByText, queryByRole } =
+      await renderWithRouter(
+        <VariableForm
+          onSubmit={vi.fn()}
+          submitLabel="Validate"
+          scopes={new Set<string>()}
+        />,
+      );
 
     expect(queryByRole('alert')).toBeNull();
 

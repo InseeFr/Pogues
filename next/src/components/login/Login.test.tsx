@@ -1,6 +1,3 @@
-import { waitFor } from '@testing-library/react';
-import { expect } from 'vitest';
-
 import { OidcProvider } from '@/lib/auth/oidc';
 import { renderWithRouter } from '@/testing/render';
 
@@ -25,12 +22,10 @@ describe('Login', () => {
   });
 
   it('Display login button', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <OidcProvider>
-          <Login />
-        </OidcProvider>,
-      ),
+    const { getByText } = await renderWithRouter(
+      <OidcProvider>
+        <Login />
+      </OidcProvider>,
     );
     expect(
       getByText('You should login to access the application.'),

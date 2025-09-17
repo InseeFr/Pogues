@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import { renderWithRouter } from '@/testing/render';
 
@@ -9,7 +9,6 @@ vi.mock('@/i18n', () => ({
 }));
 
 describe('NomenclatureOverview', () => {
-  const questionnaireId = '123';
   const mockNomenclatures = [
     {
       id: '1',
@@ -31,13 +30,8 @@ describe('NomenclatureOverview', () => {
     },
   ];
   it('display my nomenclatures', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <NomenclaturesOverview
-          questionnaireId={questionnaireId}
-          nomenclatures={mockNomenclatures}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <NomenclaturesOverview nomenclatures={mockNomenclatures} />,
     );
 
     expect(getByText('Le poisson steve')).toBeInTheDocument();
@@ -45,13 +39,8 @@ describe('NomenclatureOverview', () => {
   });
 
   it('filters the nomenclature list based on the search input', async () => {
-    const { getByText } = await waitFor(() =>
-      renderWithRouter(
-        <NomenclaturesOverview
-          questionnaireId={questionnaireId}
-          nomenclatures={mockNomenclatures}
-        />,
-      ),
+    const { getByText } = await renderWithRouter(
+      <NomenclaturesOverview nomenclatures={mockNomenclatures} />,
     );
 
     const input = screen.getByPlaceholderText('Search for a nomenclature');
@@ -63,13 +52,8 @@ describe('NomenclatureOverview', () => {
   });
 
   it('sorts the nomenclatures by label', async () => {
-    const { container } = await waitFor(() =>
-      renderWithRouter(
-        <NomenclaturesOverview
-          questionnaireId={questionnaireId}
-          nomenclatures={mockNomenclatures}
-        />,
-      ),
+    const { container } = await renderWithRouter(
+      <NomenclaturesOverview nomenclatures={mockNomenclatures} />,
     );
 
     const items = container.querySelectorAll('h3');

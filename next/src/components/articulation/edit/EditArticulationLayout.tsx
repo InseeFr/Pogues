@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-/** Display "edit articulation" title and use default content style. */
+/** Display "edit the articulation" title and use default content style. */
 export default function EditArticulationLayout({ children }: Readonly<Props>) {
   const { t } = useTranslation();
 
