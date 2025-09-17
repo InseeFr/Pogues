@@ -5,15 +5,15 @@ import ButtonLink from '@/components/ui/ButtonLink';
 
 type Props = {
   children: React.ReactNode;
-  enableVariablesPageForm: boolean;
-  questionnaireId: string;
+  enableVariablesPageForm?: boolean;
+  questionnaireId?: string;
 };
 
 /** Display "variables" title and use default content style. */
 export default function VariablesOverviewLayout({
   children,
   enableVariablesPageForm = false,
-  questionnaireId,
+  questionnaireId = '',
 }: Readonly<Props>) {
   const { t } = useTranslation();
 
