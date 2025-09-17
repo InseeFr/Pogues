@@ -24,7 +24,6 @@ export default function VariablesOverviewLayout({
           <ButtonLink
             to="/questionnaire/$questionnaireId/variables/new"
             params={{ questionnaireId }}
-            disabled
           >
             {t('variables.create')}
           </ButtonLink>
