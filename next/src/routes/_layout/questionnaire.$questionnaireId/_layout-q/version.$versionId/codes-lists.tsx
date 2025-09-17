@@ -1,21 +1,24 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { codesListsFromVersionQueryOptions } from '@/api/codesLists';
+import CodesListOverviewVersionLayout from '@/components/codesLists/overview/CodesListOverviewVersionLayout';
 import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 
 /**
- * Main code lists page where we display the various codes lists related to our
- * version of a questionnaire for information.
+ * Codes lists page that provide a recap of the the various codes lists used by
+ * our questionnaire backup.
  */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <CustomLayout>
+      <ErrorComponent error={error.message} />
+    </CustomLayout>
+  ),
   loader: async ({
     context: { queryClient, t },
     params: { questionnaireId, versionId },
@@ -34,39 +37,25 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <CustomLayout>
       <CodesListsOverview
         questionnaireId={questionnaireId}
         codesLists={codesLists}
         readonly
       />
-    </ComponentWrapper>
+    </CustomLayout>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
+function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { questionnaireId, versionId } = Route.useParams();
 
   return (
-    <>
-      <ContentHeader
-        isReadonly
-        questionnaireId={questionnaireId}
-        title={t('codesLists.title')}
-        versionId={versionId}
-      />
-      <ContentMain>{children}</ContentMain>
-    </>
+    <CodesListOverviewVersionLayout
+      questionnaireId={questionnaireId}
+      versionId={versionId}
+    >
+      {children}
+    </CodesListOverviewVersionLayout>
   );
 }

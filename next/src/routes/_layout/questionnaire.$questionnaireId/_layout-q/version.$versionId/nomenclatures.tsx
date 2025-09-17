@@ -1,22 +1,25 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { nomenclaturesFromVersionQueryOptions } from '@/api/nomenclatures';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 import NomenclaturesOverview from '@/components/nomenclatures/NomenclatureOverview';
-import { Nomenclature } from '@/models/nomenclature';
+import NomenclatureOverviewVersionLayout from '@/components/nomenclatures/NomenclatureOverviewVersionLayout';
+import { type Nomenclature } from '@/models/nomenclature';
 
 /**
- * Main nomenclatures page where we display the various nomenclatures used by
- * our version of a questionnaire for information.
+ * Nomenclatures page that provide a recap of the the various nomenclatures used
+ * by our questionnaire backup.
  */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <CustomLayout>
+      <ErrorComponent error={error.message} />
+    </CustomLayout>
+  ),
   loader: async ({
     context: { queryClient, t },
     params: { questionnaireId, versionId },
@@ -35,38 +38,21 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
-      <NomenclaturesOverview
-        questionnaireId={questionnaireId}
-        nomenclatures={data}
-      />
-    </ComponentWrapper>
+    <CustomLayout>
+      <NomenclaturesOverview nomenclatures={data} />
+    </CustomLayout>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
+function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { questionnaireId, versionId } = Route.useParams();
 
   return (
-    <>
-      <ContentHeader
-        isReadonly
-        questionnaireId={questionnaireId}
-        title={t('nomenclatures.title')}
-        versionId={versionId}
-      />
-      <ContentMain>{children}</ContentMain>
-    </>
+    <NomenclatureOverviewVersionLayout
+      questionnaireId={questionnaireId}
+      versionId={versionId}
+    >
+      {children}
+    </NomenclatureOverviewVersionLayout>
   );
 }

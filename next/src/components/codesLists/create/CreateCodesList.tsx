@@ -9,10 +9,7 @@ interface CreateCodesListProps {
   variables: Variable[];
 }
 
-/**
- * Allow to create a new codes list (either by filling the form or by importing
- * a CSV).
- */
+/** Allow to create a new codes list through a form. */
 export default function CreateCodesList({
   questionnaireId,
   formulasLanguage,

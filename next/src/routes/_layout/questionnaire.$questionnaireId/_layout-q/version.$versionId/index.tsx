@@ -5,8 +5,8 @@ import ContentHeader from '@/components/layout/ContentHeader';
 import { LegacyComponent } from '@/components/legacy';
 
 /**
- * Main questionnaire page where we display the various questions and allow to
- * edit them and create new ones.
+ * Questionnaire page that provide a recap of the various questions used by our
+ * questionnaire backup.
  */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/',

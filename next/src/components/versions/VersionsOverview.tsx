@@ -10,8 +10,7 @@ interface VersionsProps {
 }
 
 /**
- * Display the versions of the selected questionnaire and allow to restore
- * or delete them.
+ * Display the versions of the selected questionnaire and allow to restore them.
  */
 export default function VersionsOverview({
   questionnaireId,

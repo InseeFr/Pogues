@@ -3,16 +3,14 @@ import { useEffect } from 'react';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { ParseResult } from 'papaparse';
-import { useTranslation } from 'react-i18next';
 
 import {
   basePersonalizationQueryOptions,
   personalizationFromPoguesQueryOptions,
   personalizationKeys,
 } from '@/api/personalization';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
-import PersonalizationsOverview from '@/components/personalization/overview/PersonalizationOverview';
+import PersonalizationOverview from '@/components/personalization/overview/PersonalizationOverview';
+import PersonalizationOverviewLayout from '@/components/personalization/overview/PersonalizationOverviewLayout';
 import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire';
 
 /**
@@ -22,7 +20,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/personalization/',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <PersonalizationOverviewLayout>
+      <CustomErrorComponent error={error} />
+    </PersonalizationOverviewLayout>
+  ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
     queryClient.invalidateQueries({
       queryKey: personalizationKeys.fromPogues(questionnaireId),
@@ -67,18 +69,18 @@ function RouteComponent() {
   }
 
   return (
-    <ComponentWrapper>
-      <PersonalizationsOverview
+    <PersonalizationOverviewLayout>
+      <PersonalizationOverview
         questionnaireId={questionnaireId}
         data={questionnaire}
         fileData={fileData}
         interrogationData={interrogationData || null}
       />
-    </ComponentWrapper>
+    </PersonalizationOverviewLayout>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
+function CustomErrorComponent({ error }: Readonly<{ error: Error }>) {
   const navigate = useNavigate();
   const questionnaireId = Route.useParams().questionnaireId;
 
@@ -98,18 +100,4 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
   }
 
   return <div className="text-error">{error.message}</div>;
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const { t } = useTranslation();
-  return (
-    <>
-      <ContentHeader title={`${t('personalization.overview.title')}`} />
-      <ContentMain>{children}</ContentMain>
-    </>
-  );
 }

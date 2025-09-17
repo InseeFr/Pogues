@@ -1,12 +1,10 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { codesListsQueryOptions } from '@/api/codesLists';
+import CodesListOverviewLayout from '@/components/codesLists/overview/CodesListOverviewLayout';
 import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
-import ButtonLink from '@/components/ui/ButtonLink';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 
 /**
  * Main code lists page where we display the various codes lists related to our
@@ -16,7 +14,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <CustomLayout>
+      <ErrorComponent error={error.message} />
+    </CustomLayout>
+  ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(codesListsQueryOptions(questionnaireId)),
 });
@@ -28,43 +30,21 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <CustomLayout>
       <CodesListsOverview
         questionnaireId={questionnaireId}
         codesLists={codesLists}
       />
-    </ComponentWrapper>
+    </CustomLayout>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
-  const questionnaireId = Route.useParams().questionnaireId;
+function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const { questionnaireId } = Route.useParams();
 
   return (
-    <>
-      <ContentHeader
-        title={t('codesLists.title')}
-        action={
-          <ButtonLink
-            to="/questionnaire/$questionnaireId/codes-lists/new"
-            params={{ questionnaireId }}
-          >
-            {t('codesLists.create')}
-          </ButtonLink>
-        }
-      />
-      <ContentMain>{children}</ContentMain>
-    </>
+    <CodesListOverviewLayout questionnaireId={questionnaireId}>
+      {children}
+    </CodesListOverviewLayout>
   );
 }

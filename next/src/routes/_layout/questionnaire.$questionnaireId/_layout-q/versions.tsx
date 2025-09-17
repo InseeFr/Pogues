@@ -1,12 +1,10 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { versionsQueryOptions } from '@/api/versions';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
 import VersionsOverview from '@/components/versions/VersionsOverview';
-import { Version } from '@/models/version';
+import VersionsOverviewLayout from '@/components/versions/VersionsOverviewLayout';
+import { type Version } from '@/models/version';
 
 /**
  * Versions page where we display the previous questionnaire save and allow to
@@ -32,22 +30,8 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <VersionsOverviewLayout>
       <VersionsOverview questionnaireId={questionnaireId} versions={data} />
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const { t } = useTranslation();
-  return (
-    <>
-      <ContentHeader title={`${t('history.title')}`} />
-      <ContentMain>{children}</ContentMain>
-    </>
+    </VersionsOverviewLayout>
   );
 }

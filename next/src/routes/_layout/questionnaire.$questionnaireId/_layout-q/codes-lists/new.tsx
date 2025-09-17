@@ -1,12 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
 import { variablesQueryOptions } from '@/api/variables';
 import CreateCodesList from '@/components/codesLists/create/CreateCodesList';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
+import CreateCodesListLayout from '@/components/codesLists/create/CreateCodesListLayout';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 
 /**
  * Page that allow to create a new code list.
@@ -15,7 +14,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/new',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <CreateCodesListLayout>
+      <ErrorComponent error={error.message} />
+    </CreateCodesListLayout>
+  ),
   loader: async ({
     context: { queryClient, t },
     params: { questionnaireId },
@@ -36,32 +39,12 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <CreateCodesListLayout>
       <CreateCodesList
         questionnaireId={questionnaireId}
         formulasLanguage={formulasLanguage}
         variables={variables}
       />
-    </ComponentWrapper>
-  );
-}
-
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
-  return (
-    <>
-      <ContentHeader title={t('codesList.create.title')} />
-      <ContentMain>{children}</ContentMain>
-    </>
+    </CreateCodesListLayout>
   );
 }

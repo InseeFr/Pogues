@@ -1,13 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
 import { variablesQueryOptions } from '@/api/variables';
 import EditCodesList from '@/components/codesLists/edit/EditCodesList';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
-import { CodesList } from '@/models/codesLists';
+import EditCodesListLayout from '@/components/codesLists/edit/EditCodesListLayout';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 
 /**
  * Page that allow to update an existing code list.
@@ -16,7 +14,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-list/$codesListId',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <EditCodesListLayout>
+      <ErrorComponent error={error.message} />
+    </EditCodesListLayout>
+  ),
   loader: async ({
     context: { queryClient, t },
     params: { codesListId, questionnaireId },
@@ -44,36 +46,13 @@ function RouteComponent() {
   }
 
   return (
-    <ComponentWrapper codesList={codesList}>
+    <EditCodesListLayout codesList={codesList}>
       <EditCodesList
         questionnaireId={questionnaireId}
         codesList={codesList}
         formulasLanguage={formulasLanguage}
         variables={variables}
       />
-    </ComponentWrapper>
-  );
-}
-
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-  codesList,
-}: Readonly<{ children: React.ReactNode; codesList?: CodesList }>) {
-  const { t } = useTranslation();
-  return (
-    <>
-      <ContentHeader
-        title={t('codesList.edit.title', { label: codesList?.label })}
-      />
-      <ContentMain>{children}</ContentMain>
-    </>
+    </EditCodesListLayout>
   );
 }

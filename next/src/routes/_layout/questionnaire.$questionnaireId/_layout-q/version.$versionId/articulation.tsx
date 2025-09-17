@@ -7,8 +7,8 @@ import ArticulationOverviewErrorComponent from '@/components/articulation/overvi
 import ArticulationOverviewVersionLayout from '@/components/articulation/overview/ArticulationOverviewVersionLayout';
 
 /**
- * Main articulation page where we display the articulation items related to our
- * version of a questionnaire for information.
+ * Articulation page that provide a recap of the the articulation items used by
+ * our questionnaire backup.
  */
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/articulation',

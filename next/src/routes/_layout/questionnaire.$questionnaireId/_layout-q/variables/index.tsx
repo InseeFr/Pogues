@@ -1,13 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { variablesQueryOptions } from '@/api/variables';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
-import ButtonLink from '@/components/ui/ButtonLink';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 import VariablesOverview from '@/components/variables/overview/VariablesOverview';
-import type { Variable } from '@/models/variables';
+import VariablesOverviewLayout from '@/components/variables/overview/VariablesOverviewLayout';
+import { type Variable } from '@/models/variables';
 
 const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
 
@@ -15,7 +13,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <CustomLayout>
+      <ErrorComponent error={error.message} />
+    </CustomLayout>
+  ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(variablesQueryOptions(questionnaireId)),
 });
@@ -27,43 +29,21 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <CustomLayout>
       <VariablesOverview questionnaireId={questionnaireId} variables={data} />
-    </ComponentWrapper>
+    </CustomLayout>
   );
 }
 
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
-  const questionnaireId = Route.useParams().questionnaireId;
+function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const { questionnaireId } = Route.useParams();
 
   return (
-    <>
-      <ContentHeader
-        title={t('variables.title')}
-        action={
-          enableVariablesPageForm ? (
-            <ButtonLink
-              to="/questionnaire/$questionnaireId/variables/new"
-              params={{ questionnaireId }}
-              disabled
-            >
-              {t('variables.create')}
-            </ButtonLink>
-          ) : null
-        }
-      />
-      <ContentMain>{children}</ContentMain>
-    </>
+    <VariablesOverviewLayout
+      enableVariablesPageForm={enableVariablesPageForm}
+      questionnaireId={questionnaireId}
+    >
+      {children}
+    </VariablesOverviewLayout>
   );
 }

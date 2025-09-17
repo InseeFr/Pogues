@@ -1,12 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 
 import { nomenclaturesQueryOptions } from '@/api/nomenclatures';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
+import ErrorComponent from '@/components/layout/ErrorComponent';
 import NomenclaturesOverview from '@/components/nomenclatures/NomenclatureOverview';
-import { Nomenclature } from '@/models/nomenclature';
+import NomenclatureOverviewLayout from '@/components/nomenclatures/NomenclatureOverviewLayout';
+import { type Nomenclature } from '@/models/nomenclature';
 
 /**
  * Main nomenclatures page where we display the various nomenclatures used by
@@ -16,7 +15,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/',
 )({
   component: RouteComponent,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  errorComponent: ({ error }) => (
+    <NomenclatureOverviewLayout>
+      <ErrorComponent error={error.message} />
+    </NomenclatureOverviewLayout>
+  ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(nomenclaturesQueryOptions(questionnaireId)),
 });
@@ -28,29 +31,8 @@ function RouteComponent() {
   );
 
   return (
-    <ComponentWrapper>
+    <NomenclatureOverviewLayout>
       <NomenclaturesOverview nomenclatures={data} />
-    </ComponentWrapper>
-  );
-}
-
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
-    </ComponentWrapper>
-  );
-}
-
-function ComponentWrapper({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
-
-  return (
-    <>
-      <ContentHeader title={t('nomenclatures.title')} />
-      <ContentMain>{children}</ContentMain>
-    </>
+    </NomenclatureOverviewLayout>
   );
 }
