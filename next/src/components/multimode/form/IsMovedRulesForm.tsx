@@ -1,11 +1,15 @@
+import { useEffect } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
+import { flushSync } from 'react-dom';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
+import { useDirtyState } from '@/contexts/DirtyStateContext';
 import type { MultimodeIsMovedRules } from '@/models/multimode';
 import { Variable } from '@/models/variables';
 
@@ -33,6 +37,8 @@ export default function MultimodeIsMovedRulesForm({
   onSubmit,
 }: Readonly<Props>) {
   const { t } = useTranslation();
+  const { setDirty } = useDirtyState();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -42,6 +48,21 @@ export default function MultimodeIsMovedRulesForm({
     resolver: zodResolver(schema),
     defaultValues: isMovedRules,
   });
+
+  useEffect(() => {
+    setDirty(isDirty);
+  }, [isDirty, setDirty]);
+
+  const handleCancel = () => {
+    // flushSync forces the state to update immediately, before trying to navigate
+    flushSync(() => {
+      setDirty(false);
+    });
+    navigate({
+      to: '/questionnaire/$questionnaireId/multimode',
+      params: { questionnaireId },
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -82,12 +103,9 @@ export default function MultimodeIsMovedRulesForm({
       )}
 
       <div className="flex gap-x-2 mt-6 justify-end">
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/multimode"
-          params={{ questionnaireId }}
-        >
+        <Button type="button" onClick={handleCancel}>
           {t('common.cancel')}
-        </ButtonLink>
+        </Button>
         <Button type="submit" disabled={!isDirty || !isValid}>
           {t('common.validate')}
         </Button>

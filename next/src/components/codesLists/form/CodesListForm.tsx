@@ -1,5 +1,9 @@
+import { useEffect } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import i18next from 'i18next';
+import { flushSync } from 'react-dom';
 import {
   type Control,
   Controller,
@@ -15,7 +19,6 @@ import { z } from 'zod';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
-import ButtonLink from '@/components/ui/ButtonLink';
 import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
@@ -23,6 +26,7 @@ import AddIcon from '@/components/ui/icons/AddIcon';
 import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
 import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
+import { useDirtyState } from '@/contexts/DirtyStateContext';
 import { type CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
 import { Variable } from '@/models/variables';
@@ -87,6 +91,9 @@ export default function CodesListForm({
   onSubmit,
 }: Readonly<CodesListFormProps>) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { setDirty } = useDirtyState();
+
   const {
     control,
     handleSubmit,
@@ -101,6 +108,21 @@ export default function CodesListForm({
     values: codesList,
     resolver: zodResolver(schema),
   });
+
+  useEffect(() => {
+    setDirty(isDirty);
+  }, [isDirty, setDirty]);
+
+  const handleCancel = () => {
+    // flushSync forces the state to update immediately, before trying to navigate
+    flushSync(() => {
+      setDirty(false);
+    });
+    navigate({
+      to: '/questionnaire/$questionnaireId/codes-lists',
+      params: { questionnaireId },
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -127,12 +149,9 @@ export default function CodesListForm({
         />
       </div>
       <div className="flex gap-x-2 mt-6 justify-end">
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/codes-lists"
-          params={{ questionnaireId }}
-        >
+        <Button type="button" onClick={handleCancel}>
           {t('common.cancel')}
-        </ButtonLink>
+        </Button>
         <Button
           type="submit"
           buttonStyle={ButtonStyle.Primary}

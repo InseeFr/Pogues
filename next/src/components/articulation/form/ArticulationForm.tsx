@@ -1,13 +1,17 @@
+import { useEffect } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import i18next from 'i18next';
+import { flushSync } from 'react-dom';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import Button from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
+import { useDirtyState } from '@/contexts/DirtyStateContext';
 import {
   ARTICULATION_ITEMS_TRANSLATIONS,
   ArticulationItems,
@@ -54,6 +58,8 @@ export default function ArticulationForm({
   onSubmit,
 }: Readonly<ArticulationFormProps>) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { setDirty } = useDirtyState();
 
   const {
     control,
@@ -65,6 +71,21 @@ export default function ArticulationForm({
     defaultValues: { items: defaultArticulationItems },
     values: { items: articulationItems },
   });
+
+  useEffect(() => {
+    setDirty(isDirty);
+  }, [isDirty, setDirty]);
+
+  const handleCancel = () => {
+    // flushSync forces the state to update immediately, before trying to navigate
+    flushSync(() => {
+      setDirty(false);
+    });
+    navigate({
+      to: '/questionnaire/$questionnaireId/articulation',
+      params: { questionnaireId },
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -90,12 +111,9 @@ export default function ArticulationForm({
       ))}
 
       <div className="flex gap-x-2 mt-6 justify-end">
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/articulation"
-          params={{ questionnaireId }}
-        >
+        <Button type="button" onClick={handleCancel}>
           {t('common.cancel')}
-        </ButtonLink>
+        </Button>
         <Button type="submit" disabled={!isDirty || !isValid}>
           {t('common.validate')}
         </Button>

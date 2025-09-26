@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { OidcProvider } from '@/lib/auth/oidc';
 import i18next from '@/lib/i18n';
 
+import { DirtyStateProvider } from './contexts/DirtyStateContext';
 import { routeTree } from './routeTree.gen';
 
 const queryClient = new QueryClient();
@@ -55,7 +56,9 @@ function InnerApp() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} context={{ user }} />
+      <DirtyStateProvider>
+        <RouterProvider router={router} context={{ user }} />
+      </DirtyStateProvider>
     </QueryClientProvider>
   );
 }

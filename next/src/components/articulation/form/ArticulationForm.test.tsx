@@ -4,8 +4,18 @@ import { renderWithRouter } from '@/testing/render';
 
 import ArticulationForm from './ArticulationForm';
 
-// mock VTLEditor as a classic input
+const mockNavigate = vi.fn();
+
 vi.mock('@/components/ui/form/VTLEditor');
+
+// Mock useNavigate from @tanstack/react-router
+vi.mock('@tanstack/react-router', async () => {
+  const actual = await vi.importActual('@tanstack/react-router');
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe('ArticulationForm', () => {
   const mockSubmit = vi.fn();
@@ -125,17 +135,27 @@ describe('ArticulationForm', () => {
     ).toBeDefined();
   });
 
-  it('should enable cancel button', async () => {
+  it('should enable cancel button, going back to articulation page', async () => {
     await renderWithRouter(
       <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
 
-    const cancelButton = screen.getByRole('link', { name: /cancel/i });
+    // edit form for being in dirty state
+    fireEvent.input(screen.getByTestId('items.0.value'), {
+      target: {
+        value: 'first name formula',
+      },
+    });
+
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
 
     expect(cancelButton).toBeEnabled();
-    expect(cancelButton).toHaveAttribute(
-      'href',
-      '/questionnaire/q-id/articulation',
-    );
+    fireEvent.click(cancelButton);
+
+    // navigate to articulation page, reseting the dirty state
+    expect(mockNavigate).toHaveBeenCalledWith({
+      to: '/questionnaire/$questionnaireId/articulation',
+      params: { questionnaireId: 'q-id' },
+    });
   });
 });

@@ -8,6 +8,8 @@ import Button, { ButtonStyle } from './Button';
 interface DialogButtonProps {
   /** Body message in the dialog. */
   body: React.ReactNode;
+  /** Function to execute if the user click on "close". */
+  onCancel?: () => void;
   /**
    * Function to execute if the user click on "validate".
    *
@@ -29,6 +31,7 @@ interface DialogButtonProps {
 /** Display a button that opens a confirmation dialog. */
 export default function Dialog({
   body,
+  onCancel,
   onValidate,
   title,
   children,
@@ -54,7 +57,13 @@ export default function Dialog({
             {body}
           </UIDialog.Description>
           <div className="flex justify-end gap-4">
-            <UIDialog.Close render={<Button>{t('common.cancel')}</Button>} />
+            <UIDialog.Close
+              render={
+                <Button onClick={onCancel ?? (() => setOpen(false))}>
+                  {t('common.cancel')}
+                </Button>
+              }
+            />
             {onValidate ? (
               <Button
                 onClick={() => {

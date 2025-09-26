@@ -6,7 +6,18 @@ import { renderWithRouter } from '@/testing/render';
 
 import IsMovedRulesForm from './IsMovedRulesForm';
 
+const mockNavigate = vi.fn();
+
 vi.mock('@/components/ui/form/VTLEditor');
+
+// Mock useNavigate from @tanstack/react-router
+vi.mock('@tanstack/react-router', async () => {
+  const actual = await vi.importActual('@tanstack/react-router');
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe('IsMovedRulesForm', () => {
   it('is disabled on mount', async () => {
@@ -73,5 +84,27 @@ describe('IsMovedRulesForm', () => {
         'Rule cannot be specified if there is no roundabout, or no variables associated to the roundabout.',
       ),
     ).toBeInTheDocument();
+  });
+
+  it('should enable cancel button, going back to multimode page', async () => {
+    const user = userEvent.setup();
+    const { getByRole, getByText } = await renderWithRouter(
+      <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
+    );
+
+    // edit form for being in dirty state
+    await user.click(getByText('Questionnaire-level rule'));
+    await user.keyboard('my questionnaire');
+
+    const cancelButton = getByRole('button', { name: /cancel/i });
+
+    expect(cancelButton).toBeEnabled();
+    await user.click(cancelButton);
+
+    // navigate to multimode page, reseting the dirty state
+    expect(mockNavigate).toHaveBeenCalledWith({
+      to: '/questionnaire/$questionnaireId/multimode',
+      params: { questionnaireId: 'my-id' },
+    });
   });
 });
