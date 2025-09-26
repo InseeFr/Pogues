@@ -1,6 +1,18 @@
+import { fireEvent, waitFor } from '@testing-library/dom';
+
+import { deleteMultimode } from '@/api/multimode';
 import { renderWithRouter } from '@/testing/render';
 
 import MultimodeOverview from './MultimodeOverview';
+
+// mock the API function
+vi.mock('@/api/multimode', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/api/multimode')>();
+  return {
+    ...actual,
+    deleteMultimode: vi.fn(),
+  };
+});
 
 describe('MultimodeOverview', () => {
   it('display multimode questionnaire rule', async () => {
@@ -76,6 +88,27 @@ describe('MultimodeOverview', () => {
     );
   });
 
+  it('allow to delete multimode rules', async () => {
+    const { getByRole } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
+      />,
+    );
+
+    expect(getByRole('button', { name: 'Delete' })).toBeEnabled();
+
+    // click on delete button
+    fireEvent.click(getByRole('button', { name: 'Delete' }));
+    // confirm in dialog
+    fireEvent.click(getByRole('button', { name: 'Validate' }));
+
+    await waitFor(() => {
+      // multimode has been deleted
+      expect(deleteMultimode).toHaveBeenCalledWith('q-id');
+    });
+  });
+
   it('does not allow to update multimode rules in readonly', async () => {
     const { queryByRole } = await renderWithRouter(
       <MultimodeOverview
@@ -87,5 +120,17 @@ describe('MultimodeOverview', () => {
 
     const button = queryByRole('link', { name: 'Edit' });
     expect(button).toBeNull();
+  });
+
+  it('does not allow to delete multimode rules in readonly', async () => {
+    const { queryByRole } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
+        readonly
+      />,
+    );
+
+    expect(queryByRole('button', { name: 'Delete' })).toBeNull();
   });
 });

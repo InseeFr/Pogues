@@ -1,8 +1,13 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
+import { deleteMultimode, multimodeKeys } from '@/api/multimode';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Card from '@/components/ui/Card';
 import type { MultimodeIsMovedRules } from '@/models/multimode';
+
+import DialogButton from '../ui/DialogButton';
 
 interface Props {
   questionnaireId: string;
@@ -24,8 +29,32 @@ export default function MultimodeOverview({
   readonly = false,
 }: Readonly<Props>) {
   const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+
   const hasRules =
     isMovedRules.leafFormula || isMovedRules.questionnaireFormula;
+
+  const deleteMutation = useMutation({
+    mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
+      return deleteMultimode(questionnaireId);
+    },
+    onSuccess: (_, { questionnaireId }) =>
+      queryClient.invalidateQueries({
+        queryKey: multimodeKeys.all(questionnaireId),
+      }),
+  });
+
+  function onDelete() {
+    const promise = deleteMutation.mutateAsync({
+      questionnaireId,
+    });
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('multimode.delete.success'),
+      error: (err: Error) => err.toString(),
+    });
+  }
 
   return (
     <div className="space-y-6">
@@ -61,12 +90,20 @@ export default function MultimodeOverview({
             <div>{t('multimode.noLeafRule')}</div>
           )}
           {readonly ? null : (
-            <ButtonLink
-              to="/questionnaire/$questionnaireId/multimode/edit"
-              params={{ questionnaireId }}
-            >
-              {t('common.edit')}
-            </ButtonLink>
+            <div className="flex gap-x-2">
+              <ButtonLink
+                to="/questionnaire/$questionnaireId/multimode/edit"
+                params={{ questionnaireId }}
+              >
+                {t('common.edit')}
+              </ButtonLink>
+              <DialogButton
+                label={t('common.delete')}
+                title={t('multimode.delete.dialogTitle')}
+                body={t('multimode.delete.dialogConfirm')}
+                onValidate={onDelete}
+              />
+            </div>
           )}
         </Card>
       ) : readonly ? (
