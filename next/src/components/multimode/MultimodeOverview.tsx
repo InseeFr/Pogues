@@ -5,9 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { deleteMultimode, multimodeKeys } from '@/api/multimode';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Card from '@/components/ui/Card';
+import DialogButton from '@/components/ui/DialogButton';
 import type { MultimodeIsMovedRules } from '@/models/multimode';
-
-import DialogButton from '../ui/DialogButton';
 
 interface Props {
   questionnaireId: string;
