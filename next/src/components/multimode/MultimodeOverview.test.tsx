@@ -1,18 +1,11 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
+import nock from 'nock';
 
-import { deleteMultimode } from '@/api/multimode';
 import { renderWithRouter } from '@/testing/render';
 
 import MultimodeOverview from './MultimodeOverview';
 
-// mock the API function
-vi.mock('@/api/multimode', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@/api/multimode')>();
-  return {
-    ...actual,
-    deleteMultimode: vi.fn(),
-  };
-});
+vi.mock('@/lib/auth/oidc');
 
 describe('MultimodeOverview', () => {
   it('display multimode questionnaire rule', async () => {
@@ -98,14 +91,18 @@ describe('MultimodeOverview', () => {
 
     expect(getByRole('button', { name: 'Delete' })).toBeEnabled();
 
+    const scope = nock('https://mock-api')
+      .delete('/persistence/questionnaire/q-id/multimode')
+      .reply(200);
+
     // click on delete button
     fireEvent.click(getByRole('button', { name: 'Delete' }));
     // confirm in dialog
     fireEvent.click(getByRole('button', { name: 'Validate' }));
 
+    // multimode has been deleted
     await waitFor(() => {
-      // multimode has been deleted
-      expect(deleteMultimode).toHaveBeenCalledWith('q-id');
+      expect(scope.isDone()).toBeTruthy();
     });
   });
 
