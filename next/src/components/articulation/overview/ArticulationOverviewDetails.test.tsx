@@ -4,11 +4,6 @@ import { ArticulationItems } from '@/models/articulation';
 import { renderWithRouter } from '@/testing/render';
 
 import { ArticulationOverviewDetails } from './ArticulationOverviewDetails';
-import { ArticulationTable } from './ArticulationTable';
-
-vi.mock('./ArticulationTable', () => ({
-  ArticulationTable: vi.fn(),
-}));
 
 describe('ArticulationOverviewDetails', () => {
   const defaultProps = {
@@ -29,18 +24,20 @@ describe('ArticulationOverviewDetails', () => {
     ] as ArticulationItems,
   };
 
-  it('displays articulation table', async () => {
-    await renderWithRouter(<ArticulationOverviewDetails {...defaultProps} />);
-
-    expect(ArticulationTable).toHaveBeenCalledWith(
-      expect.objectContaining({
-        articulationItems: defaultProps.articulationItems,
-      }),
-      expect.anything(),
+  it('displays articulation information', async () => {
+    const { getByText } = await renderWithRouter(
+      <ArticulationOverviewDetails {...defaultProps} />,
     );
+
+    expect(getByText('Prénom')).toBeInTheDocument();
+    expect(getByText('prenom formula')).toBeInTheDocument();
+    expect(getByText('Sexe')).toBeInTheDocument();
+    expect(getByText('gender formula')).toBeInTheDocument();
+    expect(getByText('Age')).toBeInTheDocument();
+    expect(getByText('age formula')).toBeInTheDocument();
   });
 
-  it('can edit articulation', async () => {
+  it('allows to edit or delete articulation', async () => {
     const { getByRole } = await renderWithRouter(
       <ArticulationOverviewDetails {...defaultProps} />,
     );
@@ -52,29 +49,15 @@ describe('ArticulationOverviewDetails', () => {
       'href',
       '/questionnaire/q-id/articulation/edit',
     );
-  });
-
-  it('can delete articulation', async () => {
-    const { getByRole } = await renderWithRouter(
-      <ArticulationOverviewDetails {...defaultProps} />,
-    );
-
     expect(getByRole('button', { name: /Delete/i })).toBeEnabled();
   });
 
-  it('cannot edit articulation if readonly', async () => {
+  it('does not allow to edit or delete articulation in readonly', async () => {
     const { queryByRole } = await renderWithRouter(
       <ArticulationOverviewDetails {...defaultProps} readonly />,
     );
 
     expect(queryByRole('link', { name: /Edit/i })).toBeNull();
-  });
-
-  it('cannot delete articulation if readonly', async () => {
-    const { queryByRole } = await renderWithRouter(
-      <ArticulationOverviewDetails {...defaultProps} readonly />,
-    );
-
     expect(queryByRole('button', { name: /Delete/i })).toBeNull();
   });
 });

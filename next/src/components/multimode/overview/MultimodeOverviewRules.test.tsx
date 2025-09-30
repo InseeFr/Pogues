@@ -3,14 +3,14 @@ import nock from 'nock';
 
 import { renderWithRouter } from '@/testing/render';
 
-import MultimodeOverview from './MultimodeOverview';
+import MultimodeOverviewRules from './MultimodeOverviewRules';
 
 vi.mock('@/lib/auth/oidc');
 
-describe('MultimodeOverview', () => {
-  it('display multimode questionnaire rule', async () => {
+describe('MultimodeOverviewRules', () => {
+  it('displays multimode questionnaire rule and empty roundabout rule', async () => {
     const { getByText } = await renderWithRouter(
-      <MultimodeOverview
+      <MultimodeOverviewRules
         questionnaireId="q-id"
         isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
       />,
@@ -22,9 +22,9 @@ describe('MultimodeOverview', () => {
     ).toBeInTheDocument();
   });
 
-  it('display multimode leaf rule', async () => {
+  it('displays multimode leaf rule and empty questionnaire rule', async () => {
     const { getByText } = await renderWithRouter(
-      <MultimodeOverview
+      <MultimodeOverviewRules
         questionnaireId="q-id"
         isMovedRules={{ leafFormula: 'my-l-formula' }}
       />,
@@ -36,38 +36,9 @@ describe('MultimodeOverview', () => {
     expect(getByText('my-l-formula')).toBeInTheDocument();
   });
 
-  it('allow to set multimode rules from scratch when empty ', async () => {
+  it('allows to update multimode rules', async () => {
     const { getByRole } = await renderWithRouter(
-      <MultimodeOverview questionnaireId="q-id" />,
-    );
-
-    const button = getByRole('link', {
-      name: '+ Specify multimode rules for the questionnaire',
-    });
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute(
-      'href',
-      '/questionnaire/q-id/multimode/edit',
-    );
-  });
-
-  it('display that there are no multimode rules when empty in readonly and does not allow to set rules', async () => {
-    const { queryByRole, getByText } = await renderWithRouter(
-      <MultimodeOverview questionnaireId="q-id" readonly />,
-    );
-
-    const button = queryByRole('link', {
-      name: '+ Specify multimode rules for the questionnaire',
-    });
-    expect(button).toBeNull();
-    expect(
-      getByText('Multimode has not been specified in this version.'),
-    ).toBeInTheDocument();
-  });
-
-  it('allow to update multimode rules', async () => {
-    const { getByRole } = await renderWithRouter(
-      <MultimodeOverview
+      <MultimodeOverviewRules
         questionnaireId="q-id"
         isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
       />,
@@ -81,9 +52,9 @@ describe('MultimodeOverview', () => {
     );
   });
 
-  it('allow to delete multimode rules', async () => {
+  it('allows to delete multimode rules', async () => {
     const { getByRole } = await renderWithRouter(
-      <MultimodeOverview
+      <MultimodeOverviewRules
         questionnaireId="q-id"
         isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
       />,
@@ -106,28 +77,16 @@ describe('MultimodeOverview', () => {
     });
   });
 
-  it('does not allow to update multimode rules in readonly', async () => {
+  it('does not allow to update or delete multimode rules in readonly', async () => {
     const { queryByRole } = await renderWithRouter(
-      <MultimodeOverview
+      <MultimodeOverviewRules
         questionnaireId="q-id"
         isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
         readonly
       />,
     );
 
-    const button = queryByRole('link', { name: 'Edit' });
-    expect(button).toBeNull();
-  });
-
-  it('does not allow to delete multimode rules in readonly', async () => {
-    const { queryByRole } = await renderWithRouter(
-      <MultimodeOverview
-        questionnaireId="q-id"
-        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
-        readonly
-      />,
-    );
-
+    expect(queryByRole('link', { name: 'Edit' })).toBeNull();
     expect(queryByRole('button', { name: 'Delete' })).toBeNull();
   });
 });

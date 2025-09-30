@@ -1,6 +1,6 @@
 interface Props {
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 /** Display the content in a card. */

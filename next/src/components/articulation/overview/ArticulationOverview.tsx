@@ -1,14 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { ButtonStyle } from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
-import OverviewItem from '@/components/ui/OverviewItem';
-import {
-  ArticulationItems,
-  defaultArticulationItems,
-} from '@/models/articulation';
+import { ArticulationItems } from '@/models/articulation';
 
-import { ArticulationOverviewDetails } from './ArticulationOverviewDetails';
+import { ArticulationOverviewContent } from './ArticulationOverviewContent';
 
 interface ArticulationOverviewProps {
   questionnaireId: string;
@@ -16,6 +10,12 @@ interface ArticulationOverviewProps {
   readonly?: boolean;
 }
 
+/**
+ * Display the articulation of the selected questionnaire and allow to create or
+ * edit it (if not set as readonly).
+ *
+ * Briefly explain when and how one should use articulation.
+ */
 export function ArticulationOverview({
   questionnaireId,
   articulationItems,
@@ -30,34 +30,11 @@ export function ArticulationOverview({
         <p>{t('articulation.overview.howToUse')}</p>
       </div>
 
-      {articulationItems ? (
-        <OverviewItem
-          content={
-            <div className="grid grid-cols-[1fr_auto]">
-              <h3>{t('articulation.overview.variableTable')}</h3>
-            </div>
-          }
-          details={
-            <ArticulationOverviewDetails
-              questionnaireId={questionnaireId}
-              articulationItems={articulationItems ?? defaultArticulationItems}
-              readonly={readonly}
-            />
-          }
-          defaultExpanded
-          disableExpandButton
-        />
-      ) : readonly ? (
-        <div>{t('articulation.overview.versionNoArticulation')}</div>
-      ) : (
-        <ButtonLink
-          to="/questionnaire/$questionnaireId/articulation/new"
-          params={{ questionnaireId }}
-          buttonStyle={ButtonStyle.Primary}
-        >
-          {t('articulation.create.label')}
-        </ButtonLink>
-      )}
+      <ArticulationOverviewContent
+        questionnaireId={questionnaireId}
+        articulationItems={articulationItems}
+        readonly={readonly}
+      />
     </div>
   );
 }

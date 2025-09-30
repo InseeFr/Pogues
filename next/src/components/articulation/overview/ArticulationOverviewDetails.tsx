@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -5,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { articulationKeys, deleteArticulation } from '@/api/articulation';
 import ButtonLink from '@/components/ui/ButtonLink';
 import DialogButton from '@/components/ui/DialogButton';
+import InlineCode from '@/components/ui/InlineCode';
 import { ArticulationItems } from '@/models/articulation';
-
-import { ArticulationTable } from './ArticulationTable';
 
 interface ArticulationOverviewDetailsProps {
   questionnaireId: string;
@@ -15,6 +16,13 @@ interface ArticulationOverviewDetailsProps {
   readonly?: boolean;
 }
 
+/**
+ * Display the articulation rules of the selected questionnaire and allow to
+ * edit or delete them.
+ *
+ * Although it could be generic, only "prénom", "sexe" and "age" are truly
+ * handled for now.
+ */
 export function ArticulationOverviewDetails({
   questionnaireId,
   articulationItems,
@@ -47,11 +55,16 @@ export function ArticulationOverviewDetails({
 
   return (
     <div className="overflow-hidden space-y-3">
-      <div className="pt-3">
-        <ArticulationTable articulationItems={articulationItems} />
+      <div className="w-full grid grid-cols-[auto_1fr] items-center">
+        {articulationItems.map(({ label, value }) => (
+          <React.Fragment key={label}>
+            <div>{label}</div>
+            <InlineCode value={value} />
+          </React.Fragment>
+        ))}
       </div>
 
-      {!readonly && (
+      {readonly ? null : (
         <div className="flex gap-x-2">
           <ButtonLink
             to="/questionnaire/$questionnaireId/articulation/edit"

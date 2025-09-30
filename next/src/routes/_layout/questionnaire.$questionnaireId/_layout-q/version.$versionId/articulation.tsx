@@ -3,8 +3,8 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { articulationFromVersionQueryOptions } from '@/api/articulation';
 import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
-import ArticulationOverviewErrorComponent from '@/components/articulation/overview/ArticulationOverviewErrorComponent';
-import ArticulationOverviewVersionLayout from '@/components/articulation/overview/ArticulationOverviewVersionLayout';
+import ArticulationOverviewErrorComponent from '@/components/articulation/overview/layout/ArticulationOverviewErrorComponent';
+import ArticulationOverviewVersionLayout from '@/components/articulation/overview/layout/ArticulationOverviewVersionLayout';
 
 /**
  * Articulation page that provide a recap of the the articulation items used by
