@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { flushSync } from 'react-dom';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { codesListsKeys, putCodesList } from '@/api/codesLists';
-import { useDirtyState } from '@/contexts/DirtyStateContext';
 import { CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
 import { Variable } from '@/models/variables';
@@ -29,7 +27,6 @@ export default function EditCodesListForm({
   variables,
 }: Readonly<EditCodesListFormProps>) {
   const { t } = useTranslation();
-  const { setDirty } = useDirtyState();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -54,16 +51,11 @@ export default function EditCodesListForm({
     const promise = mutation.mutateAsync(
       { questionnaireId, codesList: updatedCodesList },
       {
-        onSuccess: () => {
-          // flushSync forces the state to update immediately, before trying to navigate
-          flushSync(() => {
-            setDirty(false);
-          });
-          navigate({
+        onSuccess: () =>
+          void navigate({
             to: '/questionnaire/$questionnaireId/codes-lists',
             params: { questionnaireId },
-          });
-        },
+          }),
       },
     );
     toast.promise(promise, {

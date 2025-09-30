@@ -105,6 +105,7 @@ describe('IsMovedRulesForm', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/multimode',
       params: { questionnaireId: 'my-id' },
+      ignoreBlocker: true,
     });
   });
 });

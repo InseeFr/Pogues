@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { flushSync } from 'react-dom';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { multimodeKeys, putMultimode } from '@/api/multimode';
-import { useDirtyState } from '@/contexts/DirtyStateContext';
 import type { MultimodeIsMovedRules } from '@/models/multimode';
 import type { Variable } from '@/models/variables';
 
@@ -26,7 +24,6 @@ export default function EditMultimode({
   variables = [],
 }: Readonly<Props>) {
   const { t } = useTranslation();
-  const { setDirty } = useDirtyState();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -50,16 +47,11 @@ export default function EditMultimode({
     const promise = mutation.mutateAsync(
       { isMovedRules, questionnaireId },
       {
-        onSuccess: () => {
-          // flushSync forces the state to update immediately, before trying to navigate
-          flushSync(() => {
-            setDirty(false);
-          });
+        onSuccess: () =>
           navigate({
             to: '/questionnaire/$questionnaireId/multimode',
             params: { questionnaireId },
-          });
-        },
+          }),
       },
     );
     toast.promise(promise, {

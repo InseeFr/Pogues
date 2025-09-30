@@ -185,6 +185,7 @@ describe('CodesListForm', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/codes-lists',
       params: { questionnaireId: 'q-id' },
+      ignoreBlocker: true,
     });
   });
 });

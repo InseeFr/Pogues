@@ -24,8 +24,10 @@
   "questionnaire": "Questionnaire",
   "questionnaires": "Questionnaires",
   "title": "Title",
-  "unsavedModification": "You didn't save your changes. Are you sure you want to leave?",
-  "unsavedModificationTitle": "Unsaved modifications",
+  "unsavedModification": {
+    "body": "You didn't save your changes. Are you sure you want to leave?",
+    "title": "Unsaved modifications"
+  },
   "usedByQuestion": "Used by question:",
   "usedByQuestion_other": "Used by questions:",
   "validate": "Validate"

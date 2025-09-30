@@ -24,8 +24,10 @@
   "questionnaire": "Questionnaire",
   "questionnaires": "Questionnaires",
   "title": "Titre",
-  "unsavedModification": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
-  "unsavedModificationTitle": "Modifications non enregistrées",
+  "unsavedModification": {
+    "body": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
+    "title": "Modifications non enregistrées"
+  },
   "usedByQuestion": "Utilisé dans la question :",
   "usedByQuestion_other": "Utilisé dans les questions :",
   "validate": "Valider"

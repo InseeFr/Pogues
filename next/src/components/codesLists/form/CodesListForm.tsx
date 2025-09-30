@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
+import { useBlocker, useNavigate } from '@tanstack/react-router';
 import i18next from 'i18next';
-import { flushSync } from 'react-dom';
 import {
   type Control,
   Controller,
@@ -17,6 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
+import { DirtyStateDialog } from '@/components/layout/DirtyStateDialog';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import Input from '@/components/ui/form/Input';
@@ -26,7 +24,6 @@ import AddIcon from '@/components/ui/icons/AddIcon';
 import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
 import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
-import { useDirtyState } from '@/contexts/DirtyStateContext';
 import { type CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
 import { Variable } from '@/models/variables';
@@ -92,12 +89,11 @@ export default function CodesListForm({
 }: Readonly<CodesListFormProps>) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setDirty } = useDirtyState();
 
   const {
     control,
     handleSubmit,
-    formState: { isDirty, isValid },
+    formState: { isDirty, isValid, isSubmitted },
     trigger,
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -109,18 +105,16 @@ export default function CodesListForm({
     resolver: zodResolver(schema),
   });
 
-  useEffect(() => {
-    setDirty(isDirty);
-  }, [isDirty, setDirty]);
+  const { proceed, reset, status } = useBlocker({
+    shouldBlockFn: () => isDirty && !isSubmitted,
+    withResolver: true,
+  });
 
   const handleCancel = () => {
-    // flushSync forces the state to update immediately, before trying to navigate
-    flushSync(() => {
-      setDirty(false);
-    });
     navigate({
       to: '/questionnaire/$questionnaireId/codes-lists',
       params: { questionnaireId },
+      ignoreBlocker: true,
     });
   };
 
@@ -160,6 +154,10 @@ export default function CodesListForm({
           {t('common.validate')}
         </Button>
       </div>
+
+      {status === 'blocked' ? (
+        <DirtyStateDialog onValidate={proceed} onCancel={reset} />
+      ) : null}
     </form>
   );
 }

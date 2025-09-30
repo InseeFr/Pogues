@@ -1,15 +1,12 @@
-import { useEffect } from 'react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { flushSync } from 'react-dom';
+import { useBlocker, useNavigate } from '@tanstack/react-router';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import Button from '@/components/ui/Button';
+import { DirtyStateDialog } from '@/components/layout/DirtyStateDialog';
+import Button, { ButtonStyle } from '@/components/ui/Button';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
-import { useDirtyState } from '@/contexts/DirtyStateContext';
 import type { MultimodeIsMovedRules } from '@/models/multimode';
 import { Variable } from '@/models/variables';
 
@@ -37,30 +34,27 @@ export default function MultimodeIsMovedRulesForm({
   onSubmit,
 }: Readonly<Props>) {
   const { t } = useTranslation();
-  const { setDirty } = useDirtyState();
   const navigate = useNavigate();
 
   const {
     control,
     handleSubmit,
-    formState: { isDirty, isValid },
+    formState: { isDirty, isValid, isSubmitted },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: isMovedRules,
   });
 
-  useEffect(() => {
-    setDirty(isDirty);
-  }, [isDirty, setDirty]);
+  const { proceed, reset, status } = useBlocker({
+    shouldBlockFn: () => isDirty && !isSubmitted,
+    withResolver: true,
+  });
 
   const handleCancel = () => {
-    // flushSync forces the state to update immediately, before trying to navigate
-    flushSync(() => {
-      setDirty(false);
-    });
     navigate({
       to: '/questionnaire/$questionnaireId/multimode',
       params: { questionnaireId },
+      ignoreBlocker: true,
     });
   };
 
@@ -106,10 +100,18 @@ export default function MultimodeIsMovedRulesForm({
         <Button type="button" onClick={handleCancel}>
           {t('common.cancel')}
         </Button>
-        <Button type="submit" disabled={!isDirty || !isValid}>
+        <Button
+          type="submit"
+          disabled={!isDirty || !isValid}
+          buttonStyle={ButtonStyle.Primary}
+        >
           {t('common.validate')}
         </Button>
       </div>
+
+      {status === 'blocked' ? (
+        <DirtyStateDialog onValidate={proceed} onCancel={reset} />
+      ) : null}
     </form>
   );
 }

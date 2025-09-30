@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { flushSync } from 'react-dom';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 import { articulationKeys, putArticulation } from '@/api/articulation';
-import { useDirtyState } from '@/contexts/DirtyStateContext';
 import {
   type Articulation,
   defaultArticulationItems,
@@ -25,7 +23,6 @@ export default function CreateArticulation({
   variables,
 }: Readonly<CreateArticulationProps>) {
   const { t } = useTranslation();
-  const { setDirty } = useDirtyState();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -49,16 +46,11 @@ export default function CreateArticulation({
     const promise = mutation.mutateAsync(
       { articulation, questionnaireId },
       {
-        onSuccess: () => {
-          // flushSync forces the state to update immediately, before trying to navigate
-          flushSync(() => {
-            setDirty(false);
-          });
-          navigate({
+        onSuccess: () =>
+          void navigate({
             to: '/questionnaire/$questionnaireId/articulation',
             params: { questionnaireId },
-          });
-        },
+          }),
       },
     );
     toast.promise(promise, {

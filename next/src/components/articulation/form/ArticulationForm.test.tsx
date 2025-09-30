@@ -156,6 +156,7 @@ describe('ArticulationForm', () => {
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/articulation',
       params: { questionnaireId: 'q-id' },
+      ignoreBlocker: true,
     });
   });
 });
