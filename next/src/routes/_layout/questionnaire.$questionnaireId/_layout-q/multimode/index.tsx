@@ -2,9 +2,9 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { multimodeQueryOptions } from '@/api/multimode';
-import MultimodeOverview from '@/components/multimode/MultimodeOverview';
-import MultimodeOverviewErrorComponent from '@/components/multimode/MultimodeOverviewErrorComponent';
-import MultimodeOverviewLayout from '@/components/multimode/MultimodeOverviewLayout';
+import MultimodeOverview from '@/components/multimode/overview/MultimodeOverview';
+import MultimodeOverviewErrorComponent from '@/components/multimode/overview/layout/MultimodeOverviewErrorComponent';
+import MultimodeOverviewLayout from '@/components/multimode/overview/layout/MultimodeOverviewLayout';
 import { type MultimodeIsMovedRules } from '@/models/multimode';
 
 /**

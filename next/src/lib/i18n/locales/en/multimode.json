@@ -1,4 +1,9 @@
 {
+  "delete": {
+    "dialogTitle": "Delete multimode rules",
+    "dialogConfirm": "Are you sure you want to delete the multimode rules?",
+    "success": "Multimode rules have been deleted"
+  },
   "description": "Multimode allows to specify rules that will trigger a change in the survey collect method from web to interviewer.",
   "edit": {
     "label": "Edit multimode rules",

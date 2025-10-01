@@ -4,6 +4,7 @@ import { MultimodeIsMovedRules } from '@/models/multimode';
 
 import { MultimodeDTO, MultimodeRuleName } from './models/multimodeDTO';
 import {
+  deleteMultimode,
   getMultimode,
   getMultimodeFromVersion,
   putMultimode,
@@ -65,5 +66,14 @@ it('Put multimode works', async () => {
     .reply(204);
 
   const res = await putMultimode('my-questionnaire', multimodeIsMovedRules);
+  expect(res.status).toEqual(204);
+});
+
+it('Delete multimode works', async () => {
+  nock('https://mock-api')
+    .delete('/persistence/questionnaire/my-questionnaire/multimode')
+    .reply(204);
+
+  const res = await deleteMultimode('my-questionnaire');
   expect(res.status).toEqual(204);
 });

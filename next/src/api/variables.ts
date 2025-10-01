@@ -29,7 +29,7 @@ export const variablesQueryOptions = (questionnaireId: string) =>
  */
 export const roundaboutVariablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
-    queryKey: variablesKeys.all(questionnaireId),
+    queryKey: variablesKeys.roundabout(questionnaireId),
     queryFn: () => getRoundaboutVariables(questionnaireId),
   });
 

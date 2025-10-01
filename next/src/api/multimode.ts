@@ -82,3 +82,12 @@ export async function putMultimode(
     { headers: { 'Content-Type': 'application/json' } },
   );
 }
+
+/** Delete multimode. */
+export async function deleteMultimode(
+  questionnaireId: string,
+): Promise<Response> {
+  return instance.delete(
+    `/persistence/questionnaire/${questionnaireId}/multimode`,
+  );
+}

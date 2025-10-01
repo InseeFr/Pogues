@@ -1,4 +1,9 @@
 {
+  "delete": {
+    "dialogTitle": "Supprimer les règles du multimode",
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer les règles du multimode ?",
+    "success": "Les règles du multimode ont été supprimées"
+  },
   "description": "Le multimode permet de spécifier des règles à partir desquelles un questionnaire qui commence à être rempli en web va basculer sur une collecte enquêteur.",
   "edit": {
     "label": "Mettre à jour les règles du multimode",

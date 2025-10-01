@@ -33,7 +33,7 @@ export default function DialogButton({
   title,
 }: Readonly<DialogButtonProps>) {
   return (
-    <Dialog label={label} title={title} body={body} onValidate={onValidate}>
+    <Dialog title={title} body={body} onValidate={onValidate}>
       <Button buttonSize={buttonSize} title={buttonTitle} disabled={disabled}>
         {label}
       </Button>
