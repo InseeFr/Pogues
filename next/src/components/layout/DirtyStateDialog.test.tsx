@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 
 import { renderWithRouter } from '@/testing/render';
 
-import { DirtyStateDialog } from './DirtyStateDialog';
+import DirtyStateDialog from './DirtyStateDialog';
 
 describe('DirtyStateDialog', () => {
   it('renders dialog with correct title and body', async () => {

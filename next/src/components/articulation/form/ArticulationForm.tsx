@@ -5,7 +5,7 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { DirtyStateDialog } from '@/components/layout/DirtyStateDialog';
+import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';

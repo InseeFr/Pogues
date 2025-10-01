@@ -7,7 +7,7 @@ interface DirtyStateDialogProps {
   onCancel: () => void;
 }
 
-export function DirtyStateDialog({
+export default function DirtyStateDialog({
   onValidate,
   onCancel,
 }: Readonly<DirtyStateDialogProps>) {

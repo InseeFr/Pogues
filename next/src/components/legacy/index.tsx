@@ -7,7 +7,7 @@ import { TFunction } from 'i18next';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
-import { DirtyStateDialog } from '@/components/layout/DirtyStateDialog';
+import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
 
 export const LegacyComponent = () => {
   const { t } = useTranslation();

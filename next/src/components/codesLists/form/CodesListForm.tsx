@@ -14,7 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { DirtyStateDialog } from '@/components/layout/DirtyStateDialog';
+import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import Input from '@/components/ui/form/Input';
