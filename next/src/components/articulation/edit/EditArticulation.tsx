@@ -46,7 +46,7 @@ export default function EditArticulation({
       { articulation, questionnaireId },
       {
         onSuccess: () =>
-          void navigate({
+          navigate({
             to: '/questionnaire/$questionnaireId/articulation',
             params: { questionnaireId },
           }),

@@ -52,7 +52,7 @@ export default function EditCodesListForm({
       { questionnaireId, codesList: updatedCodesList },
       {
         onSuccess: () =>
-          void navigate({
+          navigate({
             to: '/questionnaire/$questionnaireId/codes-lists',
             params: { questionnaireId },
           }),

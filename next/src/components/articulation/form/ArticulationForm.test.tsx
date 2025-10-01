@@ -135,7 +135,7 @@ describe('ArticulationForm', () => {
     ).toBeDefined();
   });
 
-  it('should enable cancel button, going back to articulation page', async () => {
+  it("allows to go back to articulation overview page by clicking 'cancel' button", async () => {
     await renderWithRouter(
       <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
     );
@@ -152,7 +152,7 @@ describe('ArticulationForm', () => {
     expect(cancelButton).toBeEnabled();
     fireEvent.click(cancelButton);
 
-    // navigate to articulation page, reseting the dirty state
+    // navigate to articulation page, ignoring the dirty state
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/articulation',
       params: { questionnaireId: 'q-id' },

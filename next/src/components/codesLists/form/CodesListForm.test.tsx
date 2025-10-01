@@ -160,7 +160,7 @@ describe('CodesListForm', () => {
     });
   });
 
-  it('should enable cancel button, going back to codesLists page', async () => {
+  it("allows to go back to codesLists overview page by clicking 'cancel' button", async () => {
     await renderWithRouter(
       <CodesListForm
         questionnaireId="q-id"
@@ -181,7 +181,7 @@ describe('CodesListForm', () => {
     expect(cancelButton).toBeEnabled();
     fireEvent.click(cancelButton);
 
-    // navigate to codesList page, reseting the dirty state
+    // navigate to codesList page, ignoring the dirty state
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/codes-lists',
       params: { questionnaireId: 'q-id' },

@@ -47,7 +47,7 @@ export default function CreateArticulation({
       { articulation, questionnaireId },
       {
         onSuccess: () =>
-          void navigate({
+          navigate({
             to: '/questionnaire/$questionnaireId/articulation',
             params: { questionnaireId },
           }),

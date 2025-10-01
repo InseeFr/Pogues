@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react';
-import { vi } from 'vitest';
 
 import { renderWithRouter } from '@/testing/render';
 

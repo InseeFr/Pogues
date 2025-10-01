@@ -86,7 +86,7 @@ describe('IsMovedRulesForm', () => {
     ).toBeInTheDocument();
   });
 
-  it('should enable cancel button, going back to multimode page', async () => {
+  it("allows to go back to multimode overview page by clicking 'cancel' button", async () => {
     const user = userEvent.setup();
     const { getByRole, getByText } = await renderWithRouter(
       <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
@@ -101,7 +101,7 @@ describe('IsMovedRulesForm', () => {
     expect(cancelButton).toBeEnabled();
     await user.click(cancelButton);
 
-    // navigate to multimode page, reseting the dirty state
+    // navigate to multimode page, ignoring the dirty state
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/multimode',
       params: { questionnaireId: 'my-id' },
