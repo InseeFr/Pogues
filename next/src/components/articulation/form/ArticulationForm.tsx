@@ -82,44 +82,45 @@ export default function ArticulationForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {articulationItems.map((item, index) => (
-        <div key={item.label} className="space-y-1">
-          <Label className="block font-semibold text-sm" required>
-            {t(ARTICULATION_ITEMS_TRANSLATIONS[item.label])}
-          </Label>
-          <Controller
-            name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <VTLEditor
-                className="h-20"
-                error={error?.message}
-                data-testid={`items.${index}.value`}
-                suggestionsVariables={variables}
-                {...field}
-              />
-            )}
-          />
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {articulationItems.map((item, index) => (
+          <div key={item.label} className="space-y-1">
+            <Label className="block font-semibold text-sm" required>
+              {t(ARTICULATION_ITEMS_TRANSLATIONS[item.label])}
+            </Label>
+            <Controller
+              name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <VTLEditor
+                  className="h-20"
+                  error={error?.message}
+                  data-testid={`items.${index}.value`}
+                  suggestionsVariables={variables}
+                  {...field}
+                />
+              )}
+            />
+          </div>
+        ))}
+
+        <div className="flex gap-x-2 mt-6 justify-end">
+          <Button type="button" onClick={handleCancel}>
+            {t('common.cancel')}
+          </Button>
+          <Button
+            type="submit"
+            disabled={!isDirty || !isValid}
+            buttonStyle={ButtonStyle.Primary}
+          >
+            {t('common.validate')}
+          </Button>
         </div>
-      ))}
-
-      <div className="flex gap-x-2 mt-6 justify-end">
-        <Button type="button" onClick={handleCancel}>
-          {t('common.cancel')}
-        </Button>
-        <Button
-          type="submit"
-          disabled={!isDirty || !isValid}
-          buttonStyle={ButtonStyle.Primary}
-        >
-          {t('common.validate')}
-        </Button>
-      </div>
-
+      </form>
       {status === 'blocked' ? (
         <DirtyStateDialog onValidate={proceed} onCancel={reset} />
       ) : null}
-    </form>
+    </>
   );
 }

@@ -59,59 +59,60 @@ export default function MultimodeIsMovedRulesForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <Controller
-        name="questionnaireFormula"
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <VTLEditor
-            label={t('multimode.form.questionnaireFormula')}
-            className="h-20"
-            error={error?.message}
-            suggestionsVariables={variables}
-            {...field}
-          />
-        )}
-      />
-      {roundaboutVariables.length > 0 ? (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <Controller
-          name="leafFormula"
+          name="questionnaireFormula"
           control={control}
           render={({ field, fieldState: { error } }) => (
             <VTLEditor
-              label={t('multimode.form.leafFormula')}
+              label={t('multimode.form.questionnaireFormula')}
               className="h-20"
               error={error?.message}
-              suggestionsVariables={roundaboutVariables}
+              suggestionsVariables={variables}
               {...field}
             />
           )}
         />
-      ) : (
-        <div>
-          <Label>{t('multimode.form.leafFormula')}</Label>
-          <div className="py-3 text-disabled text-sm italic">
-            {t('multimode.form.noRoundaboutVariables')}
+        {roundaboutVariables.length > 0 ? (
+          <Controller
+            name="leafFormula"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <VTLEditor
+                label={t('multimode.form.leafFormula')}
+                className="h-20"
+                error={error?.message}
+                suggestionsVariables={roundaboutVariables}
+                {...field}
+              />
+            )}
+          />
+        ) : (
+          <div>
+            <Label>{t('multimode.form.leafFormula')}</Label>
+            <div className="py-3 text-disabled text-sm italic">
+              {t('multimode.form.noRoundaboutVariables')}
+            </div>
           </div>
+        )}
+
+        <div className="flex gap-x-2 mt-6 justify-end">
+          <Button type="button" onClick={handleCancel}>
+            {t('common.cancel')}
+          </Button>
+          <Button
+            type="submit"
+            disabled={!isDirty || !isValid}
+            buttonStyle={ButtonStyle.Primary}
+          >
+            {t('common.validate')}
+          </Button>
         </div>
-      )}
-
-      <div className="flex gap-x-2 mt-6 justify-end">
-        <Button type="button" onClick={handleCancel}>
-          {t('common.cancel')}
-        </Button>
-        <Button
-          type="submit"
-          disabled={!isDirty || !isValid}
-          buttonStyle={ButtonStyle.Primary}
-        >
-          {t('common.validate')}
-        </Button>
-      </div>
-
+      </form>
       {status === 'blocked' ? (
         <DirtyStateDialog onValidate={proceed} onCancel={reset} />
       ) : null}
-    </form>
+    </>
   );
 }

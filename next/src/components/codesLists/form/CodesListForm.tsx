@@ -119,46 +119,51 @@ export default function CodesListForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <Controller
-        name="label"
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
-            label={t('codesList.common.label')}
-            error={error?.message}
-            {...field}
-            required
-          />
-        )}
-      />
-      <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
-        <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
-        <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>
-        <CodesFields
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <Controller
+          name="label"
           control={control}
-          formulasLanguage={formulasLanguage}
-          variables={variables}
-          trigger={trigger}
+          render={({ field, fieldState: { error } }) => (
+            <Input
+              label={t('codesList.common.label')}
+              error={error?.message}
+              {...field}
+              required
+            />
+          )}
         />
-      </div>
-      <div className="flex gap-x-2 mt-6 justify-end">
-        <Button type="button" onClick={handleCancel}>
-          {t('common.cancel')}
-        </Button>
-        <Button
-          type="submit"
-          buttonStyle={ButtonStyle.Primary}
-          disabled={!isDirty || !isValid}
-        >
-          {t('common.validate')}
-        </Button>
-      </div>
-
+        <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
+          <Label className="col-start-1">
+            {t('codesList.common.codeValue')}
+          </Label>
+          <Label className="col-start-2">
+            {t('codesList.common.codeLabel')}
+          </Label>
+          <CodesFields
+            control={control}
+            formulasLanguage={formulasLanguage}
+            variables={variables}
+            trigger={trigger}
+          />
+        </div>
+        <div className="flex gap-x-2 mt-6 justify-end">
+          <Button type="button" onClick={handleCancel}>
+            {t('common.cancel')}
+          </Button>
+          <Button
+            type="submit"
+            buttonStyle={ButtonStyle.Primary}
+            disabled={!isDirty || !isValid}
+          >
+            {t('common.validate')}
+          </Button>
+        </div>
+      </form>
       {status === 'blocked' ? (
         <DirtyStateDialog onValidate={proceed} onCancel={reset} />
       ) : null}
-    </form>
+    </>
   );
 }
 
