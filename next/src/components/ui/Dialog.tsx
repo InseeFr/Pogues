@@ -61,17 +61,11 @@ export default function Dialog({
             {body}
           </UIDialog.Description>
           <div className="flex justify-end gap-4">
-            <UIDialog.Close
-              render={
-                onCancel ? (
-                  <Button onClick={onCancel}>{t('common.cancel')}</Button>
-                ) : (
-                  <UIDialog.Close
-                    render={<Button>{t('common.cancel')}</Button>}
-                  />
-                )
-              }
-            />
+            {onCancel ? (
+              <Button onClick={onCancel}>{t('common.cancel')}</Button>
+            ) : (
+              <UIDialog.Close render={<Button>{t('common.cancel')}</Button>} />
+            )}
             {onValidate ? (
               <Button
                 onClick={() => {
