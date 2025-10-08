@@ -96,6 +96,34 @@
       "urn": "urn:ddi:fr.insee:l_communes-2024:1",
       "codes": []
     },
+    "L_COMMUNES-2025": {
+      "id": "L_COMMUNES-2025",
+      "name": "L_COMMUNES-2025",
+      "label": "Communes 2025",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_communes-2025:1",
+      "codes": []
+    },
     "L_DEP-1-1-0": {
       "id": "L_DEP-1-1-0",
       "name": "L_DEP-1-1-0",
@@ -155,6 +183,90 @@
         }
       },
       "urn": "urn:ddi:fr.insee:l_pays-2-0-0:1",
+      "codes": []
+    },
+    "L_NAF2008-1-0-0": {
+      "id": "L_NAF2008-1-0-0",
+      "name": "L_NAF2008-1-0-0",
+      "label": "Naf rév.2 2008",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_naf2008-1-0-0:1",
+      "codes": []
+    },
+    "L_NAF2025-1-0-0": {
+      "id": "L_NAF2025-1-0-0",
+      "name": "L_NAF2025-1-0-0",
+      "label": "Naf 2025",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_naf2025-1-0-0:1",
       "codes": []
     },
     "L_NATIONALITE-2-0-0": {
