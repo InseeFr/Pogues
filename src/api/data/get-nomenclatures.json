@@ -323,9 +323,9 @@
       "urn": "urn:ddi:fr.insee:l_pcs_femmes-2-2-0:1",
       "codes": []
     },
-    "L_DIPLOMES-2-0-0": {
-      "id": "L_DIPLOMES-2-0-0",
-      "name": "L_DIPLOMES-2-0-0",
+    "L_DIPLOMES-2-1-0": {
+      "id": "L_DIPLOMES-2-1-0",
+      "name": "L_DIPLOMES-2-1-0",
       "label": "Diplomes",
       "parameters": {
         "version": 1,
@@ -348,7 +348,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_diplomes-2-0-0:1",
+      "urn": "urn:ddi:fr.insee:l_diplomes-2-1-0:1",
       "codes": []
     },
     "L_SPECIALITES-1-0-0": {
