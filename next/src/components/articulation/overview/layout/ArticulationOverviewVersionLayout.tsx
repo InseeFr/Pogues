@@ -20,7 +20,7 @@ export default function ArticulationOverviewVersionLayout({
     <ContentWrapper
       isReadonly
       questionnaireId={questionnaireId}
-      title={t('articulation.overview.title')}
+      title={t('articulation.title')}
       versionId={versionId}
     >
       {children}

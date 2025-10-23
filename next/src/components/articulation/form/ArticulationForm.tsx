@@ -10,11 +10,12 @@ import Button, { ButtonStyle } from '@/components/ui/Button';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
 import {
-  ARTICULATION_ITEMS_TRANSLATIONS,
-  ArticulationItems,
+  type ArticulationItems,
   defaultArticulationItems,
 } from '@/models/articulation';
-import { Variable } from '@/models/variables';
+import type { Variable } from '@/models/variables';
+
+import ArticulationVariableLabel from '../ArticulationVariableLabel';
 
 interface ArticulationFormProps {
   questionnaireId: string;
@@ -87,7 +88,7 @@ export default function ArticulationForm({
         {articulationItems.map((item, index) => (
           <div key={item.label} className="space-y-1">
             <Label className="block font-semibold text-sm" required>
-              {t(ARTICULATION_ITEMS_TRANSLATIONS[item.label])}
+              <ArticulationVariableLabel label={item.label} />
             </Label>
             <Controller
               name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values

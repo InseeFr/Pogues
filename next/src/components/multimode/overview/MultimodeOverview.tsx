@@ -26,9 +26,8 @@ export default function MultimodeOverview({
 
   return (
     <div className="space-y-6">
-      <div className="space-y-2 text-gray-600">
+      <div className="text-gray-600 whitespace-pre-line">
         <p>{t('multimode.description')}</p>
-        <p>{t('multimode.howToUse')}</p>
       </div>
 
       <MultimodeOverviewContent

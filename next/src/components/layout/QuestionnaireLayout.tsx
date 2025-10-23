@@ -1,4 +1,4 @@
-import QuestionnaireNavigation from './QuestionnaireNavigation';
+import QuestionnaireNavigation from './QuestionnaireSidebar';
 
 interface QuestionnaireLayoutProps {
   children: React.ReactNode;
