@@ -15,7 +15,7 @@ describe('ArticulationOverviewContent', () => {
       />,
     );
 
-    expect(getByText('Prénom')).toBeInTheDocument();
+    expect(getByText('First Name')).toBeInTheDocument();
     expect(getByText('prenom formula')).toBeInTheDocument();
   });
 
