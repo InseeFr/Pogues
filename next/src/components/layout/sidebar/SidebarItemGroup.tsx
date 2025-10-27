@@ -64,8 +64,8 @@ export default function SidebarItemGroup({
           </NavigationMenu.Positioner>
         </NavigationMenu.Portal>
       </NavigationMenu.Root>
-      <ul className="2xl:block hidden">
-        <div className="pl-6">{children}</div>
+      <ul className="2xl:block hidden relative ml-5 pl-4 before:absolute before:left-0 before:top-0 before:w-0.5 before:h-full before:bg-gray-200 before:rounded">
+        {children}
       </ul>
     </>
   );
