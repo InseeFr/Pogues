@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 import { NavigationMenu } from '@base-ui-components/react/navigation-menu';
+
+import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
 
 import SidebarIcon from './SidebarIcon';
 
@@ -22,12 +26,15 @@ export default function SidebarItemGroup({
   isHidden,
   label,
 }: Readonly<Props>) {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const toggleExpanded = () => setIsExpanded(!isExpanded);
+
   if (isHidden) return null;
 
   return (
     <>
       {/** Submenu for small screen. */}
-      <NavigationMenu.Root>
+      <NavigationMenu.Root className="2xl:hidden">
         <NavigationMenu.List className="relative flex">
           <NavigationMenu.Item className="w-full">
             <NavigationMenu.Trigger className="w-full">
@@ -37,15 +44,13 @@ export default function SidebarItemGroup({
                 label={label}
               />
             </NavigationMenu.Trigger>
-
-            <NavigationMenu.Content className="2xl:hidden">
+            <NavigationMenu.Content>
               <ul className="grid list-none grid-cols-1 gap-0 xs:grid-cols-[12rem_12rem]">
                 {children}
               </ul>
             </NavigationMenu.Content>
           </NavigationMenu.Item>
         </NavigationMenu.List>
-
         <NavigationMenu.Portal>
           <NavigationMenu.Positioner
             sideOffset={0}
@@ -64,9 +69,33 @@ export default function SidebarItemGroup({
           </NavigationMenu.Positioner>
         </NavigationMenu.Portal>
       </NavigationMenu.Root>
-      <ul className="2xl:block hidden relative ml-5 pl-4 before:absolute before:left-0 before:top-0 before:w-0.5 before:h-full before:bg-gray-200 before:rounded">
-        {children}
-      </ul>
+
+      {/** Toggle button and list for large screen */}
+      <div className="hidden 2xl:flex items-center gap-2">
+        <button
+          onClick={toggleExpanded}
+          className="flex-1 text-left hover:text-blue-600 hover:bg-blue-50 group"
+          aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${label} menu`}
+          aria-expanded={isExpanded}
+        >
+          <div className="flex items-center flex-start gap-2">
+            <SidebarIcon
+              Icon={Icon}
+              iconClassName={iconClassName}
+              label={label}
+            />
+            <ArrowDownIcon
+              className={`transition-transform duration-200 group-hover:text-blue-600 group-hover:fill-blue-600 ${isExpanded ? '' : '-rotate-90'}`}
+            />
+          </div>
+        </button>
+      </div>
+
+      {isExpanded && (
+        <ul className="hidden 2xl:block relative ml-5 pl-4 before:absolute before:left-0 before:top-0 before:w-0.5 before:h-full before:bg-gray-200 before:rounded">
+          {children}
+        </ul>
+      )}
     </>
   );
 }
