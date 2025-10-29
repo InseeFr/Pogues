@@ -26,7 +26,7 @@ export default function SidebarItemGroup({
   isHidden,
   label,
 }: Readonly<Props>) {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
   if (isHidden) return null;
