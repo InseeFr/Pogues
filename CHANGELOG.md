@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.5](https://github.com/InseeFr/Pogues/releases/tag/1.11.5) - 2025-10-14
+
+### Changed
+
+- Updated Dockerfile image.
+
+## [1.11.4](https://github.com/InseeFr/Pogues/releases/tag/1.11.4) - 2025-10-09
+
+### Added
+
+- Added nomenclatures: "L_COMMUNES-2025", "L_NAF2008-1-0-0" and "L_NAF2025-1-0-0".
+
+### Changed
+
+- Updated nomenclature: "L_DIPLOMES-2-0-0" -> "L_DIPLOMES-2-1-0".
+
 ## [1.11.3](https://github.com/InseeFr/Pogues/releases/tag/1.11.3) - 2025-09-05
 
 ### Changed

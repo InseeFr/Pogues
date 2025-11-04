@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1](https://github.com/InseeFr/Pogues/releases/tag/2.1.3) - 2025-10-14
+
+### Changed
+
+- Updated Dockerfile image.
+
+## [2.2.0](https://github.com/InseeFr/Pogues/releases/tag/2.2.0) - 2025-10-09
+
 ### Added
 
 - An articulation page, which allow to set VTL rules to display informations in the interviewer app.
@@ -15,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Handle dirty state in forms to display a confirmation modal when one leaves the form with unsaved modifications.
 - Removed user information from header when not logged in.
 - Removed questionnaires link from header.
 
