@@ -14,6 +14,7 @@ const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 const { CHECKBOX } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
+  mandatory: false,
   [PRIMARY]: {},
   [MEASURE]: {
     type: BOOL,
@@ -25,6 +26,7 @@ export const defaultState = {
 };
 
 export const defaultForm = {
+  mandatory: false,
   [PRIMARY]: {},
   [MEASURE]: {
     type: BOOL,
@@ -58,10 +60,13 @@ export function formToStateMeasure(form, codesListMeasure) {
 
 export function formToState(form, transformers) {
   const {
+    mandatory,
     [PRIMARY]: { [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm },
     [MEASURE]: measureForm,
   } = form;
+
   return {
+    mandatory,
     [PRIMARY]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]:
         transformers.codesListPrimary.formToStateComponent(codesListForm),
@@ -72,6 +77,7 @@ export function formToState(form, transformers) {
 
 export function stateToForm(currentState, transformers) {
   const {
+    mandatory,
     [MEASURE]: {
       type,
       [type]: { visHint },
@@ -79,6 +85,7 @@ export function stateToForm(currentState, transformers) {
   } = currentState;
 
   return {
+    mandatory,
     [PRIMARY]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]:
         transformers.codesListPrimary.stateComponentToForm(),

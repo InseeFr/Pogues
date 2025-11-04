@@ -8,6 +8,7 @@ describe('response format multiple', () => {
       responses: [
         {
           id: 'jf0wxgwc',
+          mandatory: true,
           Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
           CollectedVariableReference: 'jf0wtl3p',
         },
@@ -23,6 +24,7 @@ describe('response format multiple', () => {
     };
     const output = remoteToState(remote);
     const expected = {
+      mandatory: true,
       MEASURE: { BOOL: {}, type: 'BOOL' },
       PRIMARY: { CodesList: { id: 'jf0w3fab' } },
     };
@@ -34,6 +36,7 @@ describe('response format multiple', () => {
       responses: [
         {
           id: 'jf0wxgwc',
+          mandatory: true,
           Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
           CollectedVariableReference: 'jf0wtl3p',
         },
@@ -49,6 +52,7 @@ describe('response format multiple', () => {
     };
     const output = remoteToState(remote);
     const expected = {
+      mandatory: true,
       MEASURE: { BOOL: {}, type: 'BOOL' },
       PRIMARY: { CodesList: { id: 'jf0w3fab' } },
     };
@@ -58,6 +62,7 @@ describe('response format multiple', () => {
   describe('stateToRemote', () => {
     it('should return the state representation of a table if question is new', () => {
       const state = {
+        mandatory: true,
         PRIMARY: { CodesList: { id: 'jf0w3fab' } },
         MEASURE: { type: 'BOOL', BOOL: {} },
       };
@@ -100,9 +105,10 @@ describe('response format multiple', () => {
         Mapping: [{ MappingSource: output.Response[0].id, MappingTarget: '1' }],
         Response: [
           {
+            id: output.Response[0].id,
+            mandatory: true,
             CollectedVariableReference: 'jf0wtl3p',
             Datatype: { type: 'BooleanDatatypeType', typeName: 'BOOLEAN' },
-            id: output.Response[0].id,
           },
         ],
       };
@@ -111,6 +117,7 @@ describe('response format multiple', () => {
 
     it('should return the state representation of a table if editing question', () => {
       const state = {
+        mandatory: true,
         PRIMARY: { CodesList: { id: 'kgs19ihv' } },
         MEASURE: { type: 'BOOL', BOOL: {} },
       };
@@ -187,14 +194,16 @@ describe('response format multiple', () => {
         ],
         Response: [
           {
+            id: 'kgs1hrro',
+            mandatory: true,
             CollectedVariableReference: 'kgs1g55j',
             Datatype: { type: 'BooleanDatatypeType', typeName: 'BOOLEAN' },
-            id: 'kgs1hrro',
           },
           {
+            id: 'kgs1rliw',
+            mandatory: true,
             CollectedVariableReference: 'kgs1cxfn',
             Datatype: { type: 'BooleanDatatypeType', typeName: 'BOOLEAN' },
-            id: 'kgs1rliw',
           },
         ],
       };

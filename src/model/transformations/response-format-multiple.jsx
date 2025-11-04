@@ -27,12 +27,14 @@ export function remoteToState(remote) {
       {
         Datatype: { typeName: type, visualizationHint: visHint },
         CodeListReference,
+        mandatory,
       },
     ],
   } = remote;
   const primaryDimension = getDimension(PRIMARY, dimensions);
 
   const state = {
+    mandatory,
     [PRIMARY]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: CodeList.remoteToState(
         primaryDimension.CodeListReference,
@@ -67,6 +69,7 @@ export function stateToRemote(
   response,
 ) {
   const {
+    mandatory,
     [PRIMARY]: primaryState,
     [MEASURE]: { type: typeMeasure, [typeMeasure]: measureState },
   } = state;
@@ -84,13 +87,17 @@ export function stateToRemote(
       visHint,
     } = measureState;
     responseState = {
+      mandatory,
       codesListId,
       typeName: TEXT,
       visHint,
       maxLength: 1,
     };
   } else {
-    responseState = { typeName: BOOLEAN };
+    responseState = {
+      mandatory,
+      typeName: BOOLEAN,
+    };
   }
 
   const responsesModel = Responses.stateToModel(
