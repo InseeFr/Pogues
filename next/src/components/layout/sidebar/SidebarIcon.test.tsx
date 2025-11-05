@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 
-import NavigationBarItem from './NavigationBarItem';
+import SidebarIcon from './SidebarIcon';
 
-describe('NavigationBarItem', () => {
-  it('display label', () => {
+describe('SidebarIcon', () => {
+  it('displays label', () => {
     const { getByText } = render(
-      <NavigationBarItem
+      <SidebarIcon
         Icon={() => <svg />}
         label="my navigation item"
         active={false}
@@ -15,13 +15,9 @@ describe('NavigationBarItem', () => {
     expect(getByText(/my navigation item/i)).toBeInTheDocument();
   });
 
-  it('is accessible when active', () => {
+  it('has the "aria-current" attribute when active', () => {
     const { getByText } = render(
-      <NavigationBarItem
-        Icon={() => <svg />}
-        label="my navigation item"
-        active
-      />,
+      <SidebarIcon Icon={() => <svg />} label="my navigation item" active />,
     );
 
     expect(getByText(/my navigation item/i).parentElement).toHaveAttribute(

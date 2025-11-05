@@ -13,7 +13,7 @@ describe('MultimodeOverviewVersionLayout', () => {
       </MultimodeOverviewVersionLayout>,
     );
 
-    expect(getByText('Multimode')).toBeInTheDocument();
+    expect(getByText('Mode-change rules')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
     expect(
       getByText('This save of the survey is on readonly.'),

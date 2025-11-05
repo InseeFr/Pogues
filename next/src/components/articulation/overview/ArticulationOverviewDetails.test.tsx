@@ -29,9 +29,9 @@ describe('ArticulationOverviewDetails', () => {
       <ArticulationOverviewDetails {...defaultProps} />,
     );
 
-    expect(getByText('Prénom')).toBeInTheDocument();
+    expect(getByText('First Name')).toBeInTheDocument();
     expect(getByText('prenom formula')).toBeInTheDocument();
-    expect(getByText('Sexe')).toBeInTheDocument();
+    expect(getByText('Gender')).toBeInTheDocument();
     expect(getByText('gender formula')).toBeInTheDocument();
     expect(getByText('Age')).toBeInTheDocument();
     expect(getByText('age formula')).toBeInTheDocument();

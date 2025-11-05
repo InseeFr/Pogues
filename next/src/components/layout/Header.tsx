@@ -29,7 +29,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
         </h1>{' '}
         <div className="text-sm">v{appVersion}</div>
       </div>
-      <div className="flex justify-center gap-x-15">
+      <div className="w-screen absolute left-1/2 right-1/2 -mx-[50vw] flex justify-center">
         <a
           className="flex items-center hover:underline gap-x-1"
           href="https://inseefr.github.io/Bowie/1._Pogues/"

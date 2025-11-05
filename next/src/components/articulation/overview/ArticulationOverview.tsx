@@ -25,9 +25,8 @@ export function ArticulationOverview({
 
   return (
     <div className="space-y-6">
-      <div className="line space-y-2 text-gray-600">
-        <p>{t('articulation.overview.description')}</p>
-        <p>{t('articulation.overview.howToUse')}</p>
+      <div className="text-gray-600 whitespace-pre-line">
+        {t('articulation.overview.description')}
       </div>
 
       <ArticulationOverviewContent

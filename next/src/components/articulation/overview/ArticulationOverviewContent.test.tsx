@@ -3,7 +3,7 @@ import { renderWithI18n, renderWithRouter } from '@/testing/render';
 import { ArticulationOverviewContent } from './ArticulationOverviewContent';
 
 describe('ArticulationOverviewContent', () => {
-  it('displays articulation information', async () => {
+  it('displays roundabout summary information', async () => {
     const { getByText } = await renderWithRouter(
       <ArticulationOverviewContent
         questionnaireId="q-id"
@@ -15,11 +15,11 @@ describe('ArticulationOverviewContent', () => {
       />,
     );
 
-    expect(getByText('Prénom')).toBeInTheDocument();
+    expect(getByText('First Name')).toBeInTheDocument();
     expect(getByText('prenom formula')).toBeInTheDocument();
   });
 
-  it('displays that there are no articulation when empty in readonly and does not allow to set articulation', async () => {
+  it('displays that there are no summary when empty in readonly and does not allow to set articulation', async () => {
     const { getByText, queryByRole } = renderWithI18n(
       <ArticulationOverviewContent
         questionnaireId="q1"
@@ -30,11 +30,11 @@ describe('ArticulationOverviewContent', () => {
 
     expect(queryByRole('link', { name: 'Create an articulation' })).toBeNull();
     expect(
-      getByText('Articulation has not been specified in this version.'),
+      getByText('Roundabout summary has not been specified in this version.'),
     ).toBeInTheDocument();
   });
 
-  it('allows to set articulation from scratch when empty ', async () => {
+  it('allows to set roundabout summary from scratch when empty ', async () => {
     const { getByRole } = await renderWithRouter(
       <ArticulationOverviewContent
         questionnaireId="q1"
@@ -43,7 +43,7 @@ describe('ArticulationOverviewContent', () => {
       />,
     );
 
-    const button = getByRole('link', { name: 'Create an articulation' });
+    const button = getByRole('link', { name: 'Create the roundabout summary' });
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute(
       'href',

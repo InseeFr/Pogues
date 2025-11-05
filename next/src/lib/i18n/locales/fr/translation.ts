@@ -9,6 +9,7 @@ import history from './history.json';
 import multimode from './multimode.json';
 import nomenclatures from './nomenclatures.json';
 import personalization from './personalization.json';
+import protocoles from './protocoles.json';
 import questionnaire from './questionnaire.json';
 import questionnaires from './questionnaires.json';
 import variable from './variable.json';
@@ -26,6 +27,7 @@ export const translation = {
   multimode,
   nomenclatures,
   personalization,
+  protocoles,
   questionnaire,
   questionnaires,
   variable,

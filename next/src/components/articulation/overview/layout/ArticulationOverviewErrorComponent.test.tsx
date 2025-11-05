@@ -16,7 +16,9 @@ describe('ArticulationOverviewErrorComponent', () => {
     );
 
     expect(
-      getByText('Articulation is available only to questionnaires in VTL'),
+      getByText(
+        'Roundabout summary is available only to questionnaires in VTL',
+      ),
     ).toBeInTheDocument();
   });
 
@@ -28,7 +30,7 @@ describe('ArticulationOverviewErrorComponent', () => {
 
     expect(
       getByText(
-        'Articulation is available only to questionnaires with a roundabout',
+        'Roundabout summary is available only to questionnaires with a roundabout',
       ),
     ).toBeInTheDocument();
   });

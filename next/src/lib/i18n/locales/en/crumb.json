@@ -3,12 +3,12 @@
   "codesLists": "Codes lists",
   "edit": "Edit",
   "history": "History",
-  "multimode": "Multimode",
+  "multimode": "Mode change",
   "new": "New",
   "nomenclatures": "Nomenclatures",
   "questionnaire": "Questionnaire {{id}}",
   "questionnaires": "Questionnaires",
   "variables": "Variables",
   "version": "Version {{id}}",
-  "articulation": "Articulation"
+  "articulation": "Roundabout summary"
 }

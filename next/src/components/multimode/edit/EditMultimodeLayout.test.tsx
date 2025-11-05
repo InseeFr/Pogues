@@ -8,7 +8,7 @@ describe('EditMultimodeLayout', () => {
       <EditMultimodeLayout>Hello world</EditMultimodeLayout>,
     );
 
-    expect(getByText('Specify multimode rules')).toBeInTheDocument();
+    expect(getByText('Specify mode-change rules')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
   });
 });
