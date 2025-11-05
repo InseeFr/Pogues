@@ -8,7 +8,7 @@ describe('ArticulationOverviewLayout', () => {
       <ArticulationOverviewLayout>Hello world</ArticulationOverviewLayout>,
     );
 
-    expect(getByText('Articulation')).toBeInTheDocument();
+    expect(getByText('Roundabout Summary')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
   });
 });

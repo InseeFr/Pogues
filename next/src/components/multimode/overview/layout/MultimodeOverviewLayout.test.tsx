@@ -8,7 +8,7 @@ describe('MultimodeOverviewLayout', () => {
       <MultimodeOverviewLayout>Hello world</MultimodeOverviewLayout>,
     );
 
-    expect(getByText('Multimode')).toBeInTheDocument();
+    expect(getByText('Mode-change rules')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
   });
 });

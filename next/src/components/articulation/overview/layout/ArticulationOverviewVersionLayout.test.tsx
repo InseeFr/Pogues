@@ -13,7 +13,7 @@ describe('ArticulationOverviewVersionLayout', () => {
       </ArticulationOverviewVersionLayout>,
     );
 
-    expect(getByText('Articulation')).toBeInTheDocument();
+    expect(getByText('Roundabout Summary')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
     expect(
       getByText('This save of the survey is on readonly.'),
