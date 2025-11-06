@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { remoteToState, stateToRemote } from './response-format-single';
+import { DATATYPE_VIS_HINT } from '@/constants/pogues-constants';
+
+import {
+  StateResponseFormatSingle,
+  remoteToState,
+  stateToRemote,
+} from './response-format-single';
 
 describe('response format single', () => {
   describe('remoteToState', () => {
@@ -8,23 +14,23 @@ describe('response format single', () => {
       const remote = {
         responses: [
           {
-            id: 'jf0w19iw',
+            id: 'my-response-id',
             Datatype: {
               typeName: 'TEXT',
               type: 'TextDatatypeType',
-              visualizationHint: 'CHECKBOX',
+              visualizationHint: DATATYPE_VIS_HINT.CHECKBOX,
               MaxLength: 1,
             },
-            CollectedVariableReference: 'jf0vqq4j',
-            CodeListReference: 'jf0w3fab',
+            CollectedVariableReference: 'my-var-id',
+            CodeListReference: 'my-cl-id',
             mandatory: true,
           },
         ],
       };
       const output = remoteToState(remote);
       const expected = {
-        CodesList: { id: 'jf0w3fab' },
-        id: 'jf0w19iw',
+        CodesList: { id: 'my-cl-id' },
+        id: 'my-response-id',
         mandatory: true,
         visHint: 'CHECKBOX',
       };
@@ -35,51 +41,52 @@ describe('response format single', () => {
       const remote = {
         responses: [
           {
-            id: 'jf0w19iw',
+            id: 'my-response-id',
             Datatype: {
               typeName: 'TEXT',
               type: 'TextDatatypeType',
-              visualizationHint: 'SUGGESTER',
+              visualizationHint: DATATYPE_VIS_HINT.SUGGESTER,
               MaxLength: 1,
             },
-            CollectedVariableReference: 'jf0vqq4j',
-            CodeListReference: 'jf0w3fab',
+            CollectedVariableReference: 'my-var-id',
+            CodeListReference: 'my-cl-id',
             mandatory: true,
           },
         ],
       };
       const output = remoteToState(remote);
       const expected = {
-        Nomenclature: { id: 'jf0w3fab' },
-        id: 'jf0w19iw',
+        Nomenclature: { id: 'my-cl-id' },
+        id: 'my-response-id',
         mandatory: true,
         visHint: 'SUGGESTER',
       };
       expect(output).toEqual(expected);
     });
   });
+
   describe('stateToRemote', () => {
     it('handles radio', () => {
-      const state = {
-        id: 'jf0w19iw',
+      const state: StateResponseFormatSingle = {
+        id: 'my-response-id',
         mandatory: true,
-        visHint: 'RADIO',
-        CodesList: { id: 'jf0w3fab' },
+        visHint: DATATYPE_VIS_HINT.RADIO,
+        CodesList: { id: 'my-cl-id' },
       };
-      const collectedVariables = ['jf0vqq4j'];
+      const collectedVariables = ['my-var-id'];
       const output = stateToRemote(state, collectedVariables);
       const expected = {
         Response: [
           {
-            CodeListReference: 'jf0w3fab',
-            CollectedVariableReference: 'jf0vqq4j',
+            CodeListReference: 'my-cl-id',
+            CollectedVariableReference: 'my-var-id',
             Datatype: {
               MaxLength: 1,
               type: 'TextDatatypeType',
               typeName: 'TEXT',
               visualizationHint: 'RADIO',
             },
-            id: 'jf0w19iw',
+            id: 'my-response-id',
             mandatory: true,
           },
         ],
@@ -88,26 +95,26 @@ describe('response format single', () => {
     });
 
     it('handles suggester', () => {
-      const state = {
-        id: 'jf0w19iw',
+      const state: StateResponseFormatSingle = {
+        id: 'my-response-id',
         mandatory: true,
-        visHint: 'SUGGESTER',
-        Nomenclature: { id: 'jf0w3fab' },
+        visHint: DATATYPE_VIS_HINT.SUGGESTER,
+        Nomenclature: { id: 'my-cl-id' },
       };
-      const collectedVariables = ['jf0vqq4j'];
+      const collectedVariables = ['my-var-id'];
       const output = stateToRemote(state, collectedVariables);
       const expected = {
         Response: [
           {
-            CodeListReference: 'jf0w3fab',
-            CollectedVariableReference: 'jf0vqq4j',
+            CodeListReference: 'my-cl-id',
+            CollectedVariableReference: 'my-var-id',
             Datatype: {
               MaxLength: 1,
               type: 'TextDatatypeType',
               typeName: 'TEXT',
               visualizationHint: 'SUGGESTER',
             },
-            id: 'jf0w19iw',
+            id: 'my-response-id',
             mandatory: true,
           },
         ],

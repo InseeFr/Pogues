@@ -4,7 +4,7 @@ import {
 } from '@/constants/pogues-constants';
 import { uuid } from '@/utils/utils';
 
-import { RemoteResponse, StateResponse } from './types';
+import type { RemoteResponse, StateResponse } from './types';
 
 export type Response = {
   id: string;
@@ -66,8 +66,7 @@ export function stateToRemote(
 
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;
-  if (mandatory !== undefined)
-    model.mandatory = mandatory === '' ? false : mandatory;
+  if (mandatory !== undefined) model.mandatory = mandatory;
   if (allowArbitraryResponse !== undefined)
     // we keep allowArbitraryResponse value only for suggester
     model.Datatype.allowArbitraryResponse =

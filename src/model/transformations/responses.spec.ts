@@ -1,39 +1,27 @@
 import { describe, expect, test } from 'vitest';
 
-import { QUESTION_TYPE_ENUM } from '@/constants/pogues-constants';
+import {
+  DATATYPE_NAME,
+  DATATYPE_VIS_HINT,
+  QUESTION_TYPE_ENUM,
+} from '@/constants/pogues-constants';
 
 import { stateToModel } from './responses';
 
-const collectedVariablesStore = {
-  jbdxtl1d: {
-    id: 'jbdxtl1d',
-    x: 1,
-    y: 1,
-  },
-  jbdxvai9: {
-    id: 'jbdxvai9',
-    x: 2,
-    y: 1,
-  },
-  jbdxpltw: {
-    id: 'jbdxpltw',
-    x: 3,
-    y: 1,
-  },
-  jbdxzx2x: {
-    id: 'jbdxzx2x',
-    x: 4,
-    y: 1,
-  },
-};
-
 describe('responses tranformations', () => {
+  const collectedVariablesStore = {
+    jbdxtl1d: { id: 'jbdxtl1d', x: 1, y: 1 },
+    jbdxvai9: { id: 'jbdxvai9', x: 2, y: 1 },
+    jbdxpltw: { id: 'jbdxpltw', x: 3, y: 1 },
+    jbdxzx2x: { id: 'jbdxzx2x', x: 4, y: 1 },
+  };
+
   test('should return only x coordinate if y is not defined', () => {
     const results = stateToModel(
       {
         codesListId: 'jbdxh138',
-        typeName: 'TEXT',
-        visHint: 'RADIO',
+        typeName: DATATYPE_NAME.TEXT,
+        visHint: DATATYPE_VIS_HINT.RADIO,
         maxLength: 1,
       },
       ['jbdxtl1d', 'jbdxvai9', 'jbdxpltw', 'jbdxzx2x'],
@@ -50,8 +38,8 @@ describe('responses tranformations', () => {
     const results = stateToModel(
       {
         codesListId: 'jbdxh138',
-        typeName: 'TEXT',
-        visHint: 'RADIO',
+        typeName: DATATYPE_NAME.TEXT,
+        visHint: DATATYPE_VIS_HINT.RADIO,
         maxLength: 1,
       },
       ['jbdxtl1d', 'jbdxvai9', 'jbdxpltw', 'jbdxzx2x'],

@@ -2,6 +2,7 @@ import { format } from 'url';
 import { describe, expect, test } from 'vitest';
 
 import {
+  DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
   DATATYPE_VIS_HINT,
 } from '../../constants/pogues-constants';
@@ -9,10 +10,9 @@ import { stateToRemote } from './response';
 
 describe('response tranformations', () => {
   test('should return the default object with a generated id', () => {
-    const typeName = 'DATE';
-    const result = stateToRemote({
-      typeName,
-    });
+    const typeName = DATATYPE_NAME.DATE;
+
+    const result = stateToRemote({ typeName });
 
     expect(result.Datatype).toEqual({
       typeName,
@@ -22,11 +22,9 @@ describe('response tranformations', () => {
   });
 
   test('should return the default object with the id passed as a parameter', () => {
-    const typeName = 'DATE';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-    });
+    const typeName = DATATYPE_NAME.DATE;
+
+    const result = stateToRemote({ id: '1', typeName });
 
     expect(result.Datatype).toEqual({
       typeName,
@@ -36,13 +34,10 @@ describe('response tranformations', () => {
   });
 
   test('when CollectedVariableReference is defined', () => {
-    const typeName = 'DATE';
+    const typeName = DATATYPE_NAME.DATE;
     const collectedVariable = 'CollectedVariableReference';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      collectedVariable,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, collectedVariable });
 
     expect(result.CollectedVariableReference).toEqual(collectedVariable);
   });
@@ -54,133 +49,112 @@ describe('response tranformations', () => {
   ])(
     'when visHint is not a suggester, with a defined codesListId',
     (visHint) => {
-      const typeName = 'DATE';
+      const typeName = DATATYPE_NAME.DATE;
       const codesListId = 'codesListId';
-      const result = stateToRemote({
-        typeName,
-        id: '1',
-        codesListId,
-        visHint,
-      });
+
+      const result = stateToRemote({ id: '1', typeName, codesListId, visHint });
 
       expect(result.CodeListReference).toEqual(codesListId);
     },
   );
+
   test('when visHint is a suggester, with a defined nomenclatureId', () => {
-    const typeName = 'DATE';
+    const typeName = DATATYPE_NAME.DATE;
     const nomenclatureId = 'nomenclatureId';
+
     const result = stateToRemote({
-      typeName,
       id: '1',
+      typeName,
       nomenclatureId,
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
     });
 
     expect(result.CodeListReference).toEqual(nomenclatureId);
   });
+
   test('when mandatory is defined and is a boolean', () => {
-    const typeName = 'DATE';
+    const typeName = DATATYPE_NAME.DATE;
     const mandatory = true;
+
     const result = stateToRemote({
-      typeName,
       id: '1',
+      typeName,
       mandatory,
     });
 
     expect(result.mandatory).toEqual(mandatory);
   });
-  test('when mandatory is defined and is an empty string', () => {
-    const typeName = 'DATE';
-    const mandatory = '';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      mandatory,
-    });
 
-    expect(result.mandatory).toEqual(false);
+  test('when mandatory is not defined', () => {
+    const result = stateToRemote({ id: '1', typeName: DATATYPE_NAME.DATE });
+
+    expect(result.mandatory).toBeUndefined();
   });
+
   test('when visualizationHint is defined', () => {
-    const typeName = 'DATE';
-    const visHint = 'visualizationHint';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      visHint,
-    });
+    const typeName = DATATYPE_NAME.DATE;
+    const visHint = DATATYPE_VIS_HINT.CHECKBOX;
+
+    const result = stateToRemote({ id: '1', typeName, visHint });
 
     expect(result.Datatype.visualizationHint).toEqual(visHint);
   });
 
   test('when MaxLength is defined', () => {
-    const typeName = 'DATE';
+    const typeName = DATATYPE_NAME.DATE;
     const maxLength = 1;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      maxLength,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, maxLength });
 
     expect(result.Datatype.MaxLength).toEqual(maxLength);
   });
   test('when Minimum is defined', () => {
-    const typeName = 'DATE';
+    const typeName = DATATYPE_NAME.DATE;
     const minimum = 1;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      minimum,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, minimum });
 
     expect(result.Datatype.Minimum).toEqual(minimum);
   });
+
   test('when Maximum is defined', () => {
-    const typeName = 'DATE';
+    const typeName = DATATYPE_NAME.DATE;
     const maximum = 1;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      maximum,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, maximum });
 
     expect(result.Datatype.Maximum).toEqual(maximum);
   });
+
   test('when Decimals is defined', () => {
-    const typeName = 'NUMERIC';
+    const typeName = DATATYPE_NAME.NUMERIC;
     const decimals = 1;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      decimals,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, decimals });
 
     expect(result.Datatype.Decimals).toEqual(decimals);
   });
+
   test('when IsDynamicUnit is defined', () => {
-    const typeName = 'NUMERIC';
+    const typeName = DATATYPE_NAME.NUMERIC;
     const isDynamicUnit = true;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      isDynamicUnit,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, isDynamicUnit });
 
     expect(result.Datatype.IsDynamicUnit).toEqual(isDynamicUnit);
   });
+
   test('when Unit is defined', () => {
-    const typeName = 'NUMERIC';
+    const typeName = DATATYPE_NAME.NUMERIC;
     const unit = 1;
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      unit,
-    });
+
+    const result = stateToRemote({ id: '1', typeName, unit });
 
     expect(result.Datatype.Unit).toEqual(unit);
   });
 
   test('when allowArbitraryResponse is defined', () => {
-    const typeName = 'TEXT';
+    const typeName = DATATYPE_NAME.TEXT;
     const allowArbitraryResponse = true;
 
     // Get all values of DATATYPE_VIS_HINT except 'SUGGESTER'
@@ -213,46 +187,48 @@ describe('response tranformations', () => {
   });
 
   test('when Format is defined', () => {
-    const typeName = 'DATE';
-    const result = stateToRemote({
-      typeName,
-      id: '1',
-      format,
-    });
+    const typeName = DATATYPE_NAME.DATE;
+
+    const result = stateToRemote({ id: '1', typeName, format });
+
     expect(result.Datatype.Format).toEqual(format);
   });
 
   test('test when response is undefined ', () => {
     const response = undefined;
     const state = {
-      collectedVariable: 'kgs406le',
-      typeName: 'BOOLEAN' as keyof typeof DATATYPE_TYPE_FROM_NAME,
+      collectedVariable: 'my-var-id',
+      typeName: DATATYPE_NAME.BOOLEAN,
     };
+
     const result = stateToRemote(state, response);
+
     expect(result.Datatype).toEqual({
       typeName: 'BOOLEAN',
       type: 'BooleanDatatypeType',
     });
     expect(result.id).toBeDefined();
   });
+
   test('test when response is not undefined ', () => {
     const response = [
       {
-        CollectedVariableReference: 'kgs406le',
+        CollectedVariableReference: 'my-var-id',
         Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
-        id: 'kgs3mlsd',
+        id: 'my-response-id',
       },
     ];
     const state = {
-      collectedVariable: 'kgs406le',
-      typeName: 'BOOLEAN' as keyof typeof DATATYPE_TYPE_FROM_NAME,
+      collectedVariable: 'my-var-id',
+      typeName: DATATYPE_NAME.BOOLEAN,
     };
+
     const result = stateToRemote(state, response);
 
     expect(result).toEqual({
-      CollectedVariableReference: 'kgs406le',
+      CollectedVariableReference: 'my-var-id',
       Datatype: { typeName: 'BOOLEAN', type: 'BooleanDatatypeType' },
-      id: 'kgs3mlsd',
+      id: 'my-response-id',
     });
   });
 });
