@@ -14,6 +14,8 @@ export function remoteToState(
   dimensions,
   codesListsStore,
   scope,
+  /** Add mandatory to response format if the response format is QCM. */
+  mandatory,
 ) {
   let datatypeState = {};
 
@@ -25,6 +27,7 @@ export function remoteToState(
     datatypeState = ResponseFormatMultiple.remoteToState({
       responses,
       dimensions,
+      mandatory,
     });
   } else if (type === TABLE) {
     datatypeState = ResponseFormatTable.remoteToState(

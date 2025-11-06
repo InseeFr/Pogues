@@ -119,7 +119,6 @@ describe('response format multiple', () => {
       );
 
       expect(output).toEqual({
-        mandatory: true,
         Attribute: [
           {
             AttributeTarget: '1',
@@ -213,7 +212,6 @@ describe('response format multiple', () => {
       );
 
       expect(output).toEqual({
-        mandatory: true,
         Attribute: [],
         Dimension: [
           {

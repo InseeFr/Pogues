@@ -130,7 +130,6 @@ export function stateToRemote(
   response: Response[],
 ): RemoteResponseFormatMultiple2 {
   const {
-    mandatory,
     [DIMENSION_TYPE.PRIMARY]: primaryDimension,
     [DIMENSION_TYPE.MEASURE]: measureDimension,
   } = state;
@@ -172,7 +171,6 @@ export function stateToRemote(
   );
 
   return {
-    mandatory,
     Dimension: dimensionsModel,
     ...responsesModel,
   };
