@@ -44,6 +44,7 @@ const ListWithInputPanel = ({
   canAddNew,
   resetObject,
   change,
+  isQuestionnaireModified,
   errors,
   componentId,
   removeIntegrityError,
@@ -226,7 +227,9 @@ const ListWithInputPanel = ({
             {canDuplicate && (
               <button
                 type="button"
-                disabled={selectedItemIndex === undefined}
+                disabled={
+                  selectedItemIndex === undefined || isQuestionnaireModified
+                }
                 className="widget-list-with-input-panel__duplicate"
                 onClick={(event) => {
                   event.preventDefault();
@@ -293,6 +296,7 @@ ListWithInputPanel.propTypes = {
   canRemove: PropTypes.bool,
   canDuplicate: PropTypes.bool,
   formValues: PropTypes.object.isRequired,
+  isQuestionnaireModified: PropTypes.bool,
   currentValues: PropTypes.object.isRequired,
   resetObject: PropTypes.object.isRequired,
   change: PropTypes.func.isRequired,
@@ -312,6 +316,7 @@ ListWithInputPanel.defaultProps = {
   canDuplicate: true,
   componentsStore: {},
   disableValidation: false,
+  isQuestionnaireModified: false,
 };
 
 export default ListWithInputPanel;
