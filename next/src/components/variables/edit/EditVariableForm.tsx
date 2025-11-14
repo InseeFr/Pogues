@@ -5,26 +5,30 @@ import { useTranslation } from 'react-i18next';
 
 import { postVariable, variablesKeys } from '@/api/variables';
 import { Variable } from '@/models/variables';
-import { uid } from '@/utils/utils';
 
 import VariableForm from '../form/VariableForm';
 import type { FormValues } from '../form/schema';
 
 type Props = {
-  /** Questionnaire to add the variable to. */
+  /** Initial variable value. */
+  variable: Variable;
+  /** Related questionnaire id. */
   questionnaireId: string;
-  /** Scopes availables in the questionnaire. */
+  /** Available scopes in the questionnaire. */
   scopes: Set<string>;
 };
 
-/** Form to create a questionnaire. */
-export default function CreateQuestionnaireForm({
+/** Form to edit an existing variable. */
+export default function EditVariableForm({
+  variable,
   questionnaireId,
   scopes,
 }: Readonly<Props>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const variableId = variable.id;
 
   const mutation = useMutation({
     mutationFn: ({
@@ -49,9 +53,8 @@ export default function CreateQuestionnaireForm({
     scope,
     type,
   }: FormValues) => {
-    const id = uid();
     const variable = {
-      id,
+      id: variableId,
       name,
       datatype,
       description,
@@ -59,10 +62,10 @@ export default function CreateQuestionnaireForm({
       type,
     };
     const promise = mutation.mutateAsync(
-      { variable, questionnaireId },
+      { questionnaireId, variable },
       {
         onSuccess: () =>
-          navigate({
+          void navigate({
             to: '/questionnaire/$questionnaireId/variables',
             params: { questionnaireId },
           }),
@@ -79,9 +82,10 @@ export default function CreateQuestionnaireForm({
 
   return (
     <VariableForm
+      variable={variable}
       questionnaireId={questionnaireId}
       onSubmit={onSubmit}
-      submitLabel={t('common.create')}
+      submitLabel={t('common.edit')}
       scopes={scopes}
     />
   );

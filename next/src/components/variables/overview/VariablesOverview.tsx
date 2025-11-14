@@ -10,15 +10,16 @@ import { type Variable, VariableType } from '@/models/variables';
 
 import VariablesScopeOverviewItem from './VariablesScopeOverviewItem';
 
-const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
 interface Props {
   questionnaireId: string;
+  readonly?: boolean;
   variables: Variable[];
 }
 
 /** Display the variables of the selected questionnaire. */
 export default function VariablesOverview({
   questionnaireId,
+  readonly = false,
   variables = [],
 }: Readonly<Props>) {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ export default function VariablesOverview({
 
   const filters: Filter<Variable>[] = [
     {
-      label: t('variables.name'),
+      label: t('variable.name'),
       onFilter: (v: Variable, input?: string) =>
         input
           ? !!(
@@ -86,28 +87,44 @@ export default function VariablesOverview({
     if (v.scope) scopes.add(v.scope);
   });
 
-  return variables.length > 0 ? (
-    <>
-      <Filters<Variable>
-        filters={filters}
-        data={variables}
-        setFilteredData={setFilteredVariables}
-      />
-      <div>
-        <VariablesScopeOverviewItem
-          scope={t('common.questionnaire')}
-          variables={sortedVariables.filter((n) => !n.scope)}
+  if (variables.length > 0) {
+    return (
+      <>
+        <Filters<Variable>
+          filters={filters}
+          data={variables}
+          setFilteredData={setFilteredVariables}
         />
-        {Array.from(scopes).map((scope) => (
+        <div>
           <VariablesScopeOverviewItem
-            key={scope}
-            scope={scope}
-            variables={sortedVariables.filter((n) => n.scope === scope)}
+            questionnaireId={questionnaireId}
+            readonly={readonly}
+            scope={t('common.questionnaire')}
+            variables={sortedVariables.filter((n) => !n.scope)}
           />
-        ))}
+          {Array.from(scopes).map((scope) => (
+            <VariablesScopeOverviewItem
+              key={scope}
+              questionnaireId={questionnaireId}
+              readonly={readonly}
+              scope={scope}
+              variables={sortedVariables.filter((n) => n.scope === scope)}
+            />
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  if (readonly) {
+    return (
+      <div>
+        <p>{t('variables.questionnaireHasNoVariables')}</p>
       </div>
-    </>
-  ) : enableVariablesPageForm ? (
+    );
+  }
+
+  return (
     <ButtonLink
       to="/questionnaire/$questionnaireId/variables/new"
       params={{ questionnaireId }}
@@ -115,7 +132,5 @@ export default function VariablesOverview({
     >
       {t('variables.create')}
     </ButtonLink>
-  ) : (
-    <div>{t('variables.questionnaireHasNoVariable')}</div>
   );
 }

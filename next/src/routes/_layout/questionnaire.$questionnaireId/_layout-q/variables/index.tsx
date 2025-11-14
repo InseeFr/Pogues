@@ -7,8 +7,6 @@ import VariablesOverview from '@/components/variables/overview/VariablesOverview
 import VariablesOverviewLayout from '@/components/variables/overview/VariablesOverviewLayout';
 import { type Variable } from '@/models/variables';
 
-const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
-
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/',
 )({
@@ -39,10 +37,7 @@ function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { questionnaireId } = Route.useParams();
 
   return (
-    <VariablesOverviewLayout
-      enableVariablesPageForm={enableVariablesPageForm}
-      questionnaireId={questionnaireId}
-    >
+    <VariablesOverviewLayout questionnaireId={questionnaireId}>
       {children}
     </VariablesOverviewLayout>
   );

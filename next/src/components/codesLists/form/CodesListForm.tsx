@@ -75,7 +75,7 @@ export type FormValues = z.infer<typeof schema>;
  *
  * A code can have subcodes.
  *
- * {@link CodesList}
+ * @see {@link CodesList}
  */
 export default function CodesListForm({
   codesList = {

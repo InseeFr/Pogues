@@ -5,15 +5,23 @@ import {
 
 import VariableDatatype from '../VariableDatatype';
 import VariableType from '../VariableType';
+import VariableLineActions from './VariableLineActions';
 
 interface Props {
+  questionnaireId: string;
   variable: Variable;
+  readonly?: boolean;
 }
 
 /**
- * Display a line with variable information to be used in the variables overview table.
+ * Display a line with variable information and actions to be used in the
+ * variables overview table.
  */
-export default function VariableLine({ variable }: Readonly<Props>) {
+export default function VariableLine({
+  questionnaireId,
+  variable,
+  readonly = false,
+}: Readonly<Props>) {
   return (
     <tr className="bg-default odd:bg-main *:p-4">
       <td>{variable.name}</td>
@@ -29,6 +37,13 @@ export default function VariableLine({ variable }: Readonly<Props>) {
               : undefined
           }
           type={variable.type}
+        />
+      </td>
+      <td>
+        <VariableLineActions
+          variable={variable}
+          questionnaireId={questionnaireId}
+          readonly={readonly}
         />
       </td>
     </tr>

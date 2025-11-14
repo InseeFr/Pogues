@@ -7,17 +7,21 @@ import DialogButton from './DialogButton';
 
 describe('DialogButton', () => {
   it('can be opened and closed', async () => {
-    expect(true).toBeTruthy();
     const user = userEvent.setup();
+
     const { queryByText, getByText } = renderWithI18n(
       <DialogButton body="body" label="label" title="title" />,
     );
-    expect(getByText('label')).toBeInTheDocument();
-    await user.click(screen.getByText('label'));
+
+    const openButton = screen.getByRole('button', { name: 'label' });
+    await user.click(openButton);
+
     expect(getByText('title')).toBeInTheDocument();
     expect(getByText('body')).toBeInTheDocument();
     expect(getByText('Cancel')).toBeInTheDocument();
+
     await user.click(screen.getByText('Cancel'));
+
     expect(queryByText('title')).toBeNull();
     expect(queryByText('body')).toBeNull();
   });

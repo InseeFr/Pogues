@@ -5,11 +5,16 @@ import VariablesScopeOverviewItemContent from './VariablesScopeOverviewItemConte
 import VariablesScopeOverviewItemDetails from './VariablesScopeOverviewItemDetails';
 
 interface Props {
+  questionnaireId: string;
+  readonly?: boolean;
   scope: string;
   variables: Variable[];
 }
 
+/** Display variables related to a specific scope. */
 export default function VariablesScopeOverviewItem({
+  questionnaireId,
+  readonly = false,
   scope,
   variables = [],
 }: Readonly<Props>) {
@@ -21,7 +26,13 @@ export default function VariablesScopeOverviewItem({
           variables={variables}
         />
       }
-      details={<VariablesScopeOverviewItemDetails variables={variables} />}
+      details={
+        <VariablesScopeOverviewItemDetails
+          questionnaireId={questionnaireId}
+          readonly={readonly}
+          variables={variables}
+        />
+      }
       defaultExpanded
       disableExpandButton
     />

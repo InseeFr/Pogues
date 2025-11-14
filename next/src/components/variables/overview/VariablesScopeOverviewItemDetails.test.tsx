@@ -8,6 +8,7 @@ describe('VariablesScopeOverviewItemDetails', () => {
   it('display provided variables', async () => {
     const { getByText } = renderWithI18n(
       <VariablesScopeOverviewItemDetails
+        questionnaireId="q-id"
         variables={[
           {
             id: 'my-id',
@@ -33,7 +34,10 @@ describe('VariablesScopeOverviewItemDetails', () => {
 
   it('display that there are no variable', async () => {
     const { getByText } = renderWithI18n(
-      <VariablesScopeOverviewItemDetails variables={[]} />,
+      <VariablesScopeOverviewItemDetails
+        questionnaireId="q-id"
+        variables={[]}
+      />,
     );
 
     expect(getByText(/No variables/i)).toBeInTheDocument();

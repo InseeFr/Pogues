@@ -5,7 +5,7 @@ import VariablesOverviewLayout from './VariablesOverviewLayout';
 describe('VariablesOverviewLayout', () => {
   it('displays title and children', async () => {
     const { getByRole, getByText } = await renderWithRouter(
-      <VariablesOverviewLayout enableVariablesPageForm questionnaireId="q-id">
+      <VariablesOverviewLayout questionnaireId="q-id">
         Hello world
       </VariablesOverviewLayout>,
     );

@@ -1,11 +1,11 @@
 {
   "create": "Créer une variable",
   "datatype": "Type de réponse",
-  "questionnaireHasNoVariable": "Le questionnaire n'a pas de variable.",
+  "questionnaireHasNoVariables": "Le questionnaire n'a pas de variable.",
   "name": "Nom",
   "none": "Aucune variable",
   "search": "Rechercher une variable",
-  "scope": "Portée {{ scope}}",
+  "scope": "Niveau de calcul {{scope}}",
   "title": "Variables",
   "type": "Type",
   "variable": "{{count}} variable",

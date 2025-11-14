@@ -1,12 +1,10 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
 import { variablesQueryOptions } from '@/api/variables';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import CreateVariable from '@/components/variables/create/CreateVariable';
 import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout';
-
-const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
 
 /**
  * Page that allow to create a new code list.
@@ -14,14 +12,6 @@ const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/new',
 )({
-  beforeLoad: ({ params: { questionnaireId } }) => {
-    if (!enableVariablesPageForm) {
-      throw redirect({
-        to: '/questionnaire/$questionnaireId/variables',
-        params: { questionnaireId },
-      });
-    }
-  },
   component: RouteComponent,
   errorComponent: ({ error }) => (
     <CreateVariableLayout>

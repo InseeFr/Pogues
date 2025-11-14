@@ -109,14 +109,24 @@ export async function getRoundaboutVariables(
 
 /** Create a new variable. */
 export async function postVariable(
-  variable: Variable,
   questionnaireId: string,
+  variable: Variable,
 ): Promise<Response> {
   return instance.post(
-    `/persistence/questionnaire/${questionnaireId}/variables`,
+    `/persistence/questionnaire/${questionnaireId}/variable`,
     computeVariableDTO(variable),
     {
       headers: { 'Content-Type': 'application/json' },
     },
+  );
+}
+
+/** Create a new variable. */
+export async function deleteVariable(
+  questionnaireId: string,
+  variableId: string,
+): Promise<Response> {
+  return instance.delete(
+    `/persistence/questionnaire/${questionnaireId}/variable/${variableId}`,
   );
 }
