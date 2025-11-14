@@ -34,6 +34,8 @@ const propTypes = {
   validateForm: PropTypes.func.isRequired,
 
   resetObject: PropTypes.object.isRequired,
+
+  isQuestionnaireModified: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -52,6 +54,7 @@ const mapStateToProps = (state, { formName, selectorPath }) => {
     componentId: state.appState.editingComponentId,
     formValues: getFormValues(formName)(state),
     currentValues: selector(state, selectorPath),
+    isQuestionnaireModified: state.appState.isQuestionnaireModified,
   };
 };
 
