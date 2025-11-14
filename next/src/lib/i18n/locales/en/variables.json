@@ -1,10 +1,10 @@
 {
   "create": "Create a variable",
   "datatype": "Datatype",
-  "questionnaireHasNoVariable": "The questionnaire does not have any variables.",
+  "questionnaireHasNoVariables": "The questionnaire does not have any variables.",
   "name": "Name",
   "none": "No variables",
-  "scope": "Scope {{ scope}}",
+  "scope": "Scope {{scope}}",
   "search": "Search for a variable",
   "title": "Variables",
   "type": "Type",

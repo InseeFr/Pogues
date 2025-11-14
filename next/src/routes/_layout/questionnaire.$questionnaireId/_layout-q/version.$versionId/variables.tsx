@@ -39,7 +39,11 @@ function RouteComponent() {
 
   return (
     <CustomLayout>
-      <VariablesOverview questionnaireId={questionnaireId} variables={data} />
+      <VariablesOverview
+        questionnaireId={questionnaireId}
+        readonly={true}
+        variables={data}
+      />
     </CustomLayout>
   );
 }

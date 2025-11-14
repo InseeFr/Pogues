@@ -11,17 +11,21 @@
     "numeric": "Nombre",
     "text": "Texte"
   },
-  "description": "Description",
+  "description": "Libellé",
+  "edit": {
+    "success": "La variable {{name}} a été modifiée",
+    "title": "Éditer la variable : {{name}}"
+  },
   "form": {
-    "mustProvideName": "Vous devez renseigner un nom",
+    "mustProvideName": "Vous devez renseigner un libellé",
     "mustProvideScreamingSnakeCaseName": "Le nom doit être au format SCREAMING_SNAKE_CASE"
   },
   "maxLength": "Taille max",
   "maximum": "Max",
   "minimum": "Min",
-  "name": "Nom",
+  "name": "Identifiant",
   "precision": "Précision",
-  "scope": "Portée",
+  "scope": "Niveau de calcul",
   "type": {
     "calculated": "Calculée",
     "collected": "Collectée",

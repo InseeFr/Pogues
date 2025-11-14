@@ -48,25 +48,37 @@ export default function CodesListsOverview({
     },
   ];
 
-  return codesLists.length > 0 ? (
-    <>
-      <Filters<CodesList>
-        filters={filters}
-        data={codesLists}
-        setFilteredData={setFilteredCodesLists}
-      />
-      <ul>
-        {filteredCodesLists.map((codesList) => (
-          <CodesListOverviewItem
-            key={codesList.id}
-            questionnaireId={questionnaireId}
-            codesList={codesList}
-            readonly={readonly}
-          />
-        ))}
-      </ul>
-    </>
-  ) : (
+  if (codesLists.length > 0) {
+    return (
+      <>
+        <Filters<CodesList>
+          filters={filters}
+          data={codesLists}
+          setFilteredData={setFilteredCodesLists}
+        />
+        <ul>
+          {filteredCodesLists.map((codesList) => (
+            <CodesListOverviewItem
+              key={codesList.id}
+              questionnaireId={questionnaireId}
+              codesList={codesList}
+              readonly={readonly}
+            />
+          ))}
+        </ul>
+      </>
+    );
+  }
+
+  if (readonly) {
+    return (
+      <div>
+        <p>{t('codesLists.notUsedByQuestionnaire')}</p>
+      </div>
+    );
+  }
+
+  return (
     <ButtonLink
       to="/questionnaire/$questionnaireId/codes-lists/new"
       params={{ questionnaireId }}

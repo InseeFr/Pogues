@@ -8,6 +8,7 @@ describe('VariablesTable', () => {
   it('display provided variables', async () => {
     const { getByText } = renderWithI18n(
       <VariablesTable
+        questionnaireId="q-id"
         variables={[
           {
             id: 'my-id',

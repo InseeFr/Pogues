@@ -8,6 +8,7 @@ describe('VariableLine', () => {
   it('display variable information', async () => {
     const { getByText } = renderWithI18n(
       <VariableLine
+        questionnaireId="q-id"
         variable={{
           id: 'my-id',
           name: 'MY_VAR',

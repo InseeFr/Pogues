@@ -11,6 +11,7 @@ describe('VariableForm', () => {
     const submitFn = vi.fn();
     const { getByRole } = await renderWithRouter(
       <VariableForm
+        questionnaireId={'q-id'}
         onSubmit={submitFn}
         submitLabel="Validate"
         scopes={new Set<string>()}
@@ -39,6 +40,7 @@ describe('VariableForm', () => {
     const { findAllByRole, getByRole, getByText, queryByRole } =
       await renderWithRouter(
         <VariableForm
+          questionnaireId={'q-id'}
           onSubmit={vi.fn()}
           submitLabel="Validate"
           scopes={new Set<string>()}
