@@ -8,7 +8,7 @@ import Checkbox from '@/components/ui/form/Checkbox';
 import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
 import Select from '@/components/ui/form/Select';
-import { DatatypeType } from '@/models/datatype';
+import { DatatypeType, DateFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
 import VariableDatatype from '../VariableDatatype';
@@ -184,22 +184,56 @@ export default function VariableForm({
           </>
         )}
       />
-      {selectedTypeName === DatatypeType.Date ? <div>Date</div> : null}
+      {selectedTypeName === DatatypeType.Date ? (
+        <Controller
+          name="datatype.format"
+          control={control}
+          rules={{ required: true }}
+          render={({ field, fieldState: { error } }) => (
+            <>
+              <Label required>{t('variable.format')}</Label>
+              {/* @ts-expect-error format is date format as datatype is date */}
+              <Select<DateFormat>
+                {...field}
+                options={[
+                  {
+                    label: DateFormat.YearMonthDay,
+                    value: DateFormat.YearMonthDay,
+                  },
+                  {
+                    label: DateFormat.YearMonth,
+                    value: DateFormat.YearMonth,
+                  },
+                  {
+                    label: DateFormat.Year,
+                    value: DateFormat.Year,
+                  },
+                ]}
+              />
+              {error ? (
+                <div className="text-sm text-error ml-1">{error.message}</div>
+              ) : null}
+            </>
+          )}
+        />
+      ) : null}
       {selectedTypeName === DatatypeType.Numeric ? (
         <>
           <Controller
             name="datatype.minimum"
             control={control}
+            rules={{ required: true }}
             render={({ field, fieldState: { error } }) => (
               /* @ts-expect-error minimum is a number as datatype is numeric */
               <Input
+                required
                 label={t('variable.minimum')}
                 error={error?.message}
                 type="number"
                 {...field}
                 onChange={(v) => {
                   const value = v.target.value;
-                  field.onChange(value ? Number(value) : undefined);
+                  if (value) field.onChange(Number(value));
                 }}
               />
             )}
@@ -207,16 +241,18 @@ export default function VariableForm({
           <Controller
             name="datatype.maximum"
             control={control}
+            rules={{ required: true }}
             render={({ field, fieldState: { error } }) => (
               /* @ts-expect-error maximum is a number as datatype is numeric */
               <Input
+                required
                 label={t('variable.maximum')}
                 error={error?.message}
                 type="number"
                 {...field}
                 onChange={(v) => {
                   const value = v.target.value;
-                  field.onChange(value ? Number(value) : undefined);
+                  if (value) field.onChange(Number(value));
                 }}
               />
             )}
@@ -232,7 +268,7 @@ export default function VariableForm({
                 {...field}
                 onChange={(v) => {
                   const value = v.target.value;
-                  field.onChange(value ? Number(value) : undefined);
+                  field.onChange(value ? Number(value) : 0);
                 }}
               />
             )}
@@ -248,10 +284,11 @@ export default function VariableForm({
               label={t('variable.maxLength')}
               error={error?.message}
               type="number"
+              min={1}
               {...field}
               onChange={(v) => {
                 const value = v.target.value;
-                field.onChange(value ? Number(value) : undefined);
+                field.onChange(value ? Number(value) : 1);
               }}
             />
           )}

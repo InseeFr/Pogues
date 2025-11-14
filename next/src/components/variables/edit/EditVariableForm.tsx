@@ -73,7 +73,7 @@ export default function EditVariableForm({
     );
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('variable.create.success', {
+      success: t('variable.edit.success', {
         name,
       }),
       error: (err: Error) => err.toString(),

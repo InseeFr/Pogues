@@ -20,6 +20,7 @@
     "mustProvideName": "Vous devez renseigner un libellé",
     "mustProvideScreamingSnakeCaseName": "Le nom doit être au format SCREAMING_SNAKE_CASE"
   },
+  "format": "format",
   "maxLength": "Taille max",
   "maximum": "Max",
   "minimum": "Min",

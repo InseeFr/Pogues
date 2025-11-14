@@ -3,8 +3,6 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
 import { variablesQueryOptions } from '@/api/variables';
-import EditCodesList from '@/components/codesLists/edit/EditCodesList';
-import EditCodesListLayout from '@/components/codesLists/edit/EditCodesListLayout';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import EditVariable from '@/components/variables/edit/EditVariable';
 import EditVariableLayout from '@/components/variables/edit/EditVariableLayout';
@@ -13,13 +11,13 @@ import EditVariableLayout from '@/components/variables/edit/EditVariableLayout';
  * Page that allow to update an existing variable.
  */
 export const Route = createFileRoute(
-  '/_layout/questionnaire/$questionnaireId/_layout-q/variable/$variableId',
+  '/_layout/questionnaire/$questionnaireId/_layout-q/variables/variable/$variableId',
 )({
   component: RouteComponent,
   errorComponent: ({ error }) => (
-    <EditCodesListLayout>
+    <EditVariableLayout>
       <ErrorComponent error={error.message} />
-    </EditCodesListLayout>
+    </EditVariableLayout>
   ),
   loader: async ({
     context: { queryClient, t },

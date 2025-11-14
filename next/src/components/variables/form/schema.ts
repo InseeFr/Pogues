@@ -25,9 +25,9 @@ const datatypeSchema = z.discriminatedUnion('typeName', [
   }),
   z.object({
     typeName: datatypeEnum.extract(['Numeric']),
-    minimum: z.number().optional(),
-    maximum: z.number().optional(),
-    decimals: z.number().optional(),
+    minimum: z.number(),
+    maximum: z.number(),
+    decimals: z.number().min(0).optional(),
     isDynamicUnit: z.boolean().optional(),
     unit: z.string().optional(),
   }),

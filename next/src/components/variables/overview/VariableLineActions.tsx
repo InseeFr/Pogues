@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { deleteVariable, variablesKeys } from '@/api/variables';
 import Dialog from '@/components/ui/Dialog';
 import Menu from '@/components/ui/Menu';
-import { type Variable } from '@/models/variables';
+import { type Variable, VariableType } from '@/models/variables';
 
 interface Props {
   questionnaireId: string;
@@ -67,15 +67,15 @@ export default function VariableLineActions({
             label: t('common.edit'),
             onClick: () =>
               void navigate({
-                to: '/questionnaire/$questionnaireId/variable/$variableId',
+                to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
                 params: { questionnaireId, variableId: variable.id },
               }),
-            disabled: readonly,
+            disabled: readonly || variable.type !== VariableType.External,
           },
           {
             label: t('common.delete'),
             onClick: () => setOpenDeleteDialog(true),
-            disabled: readonly,
+            disabled: readonly || variable.type !== VariableType.External,
           },
         ]}
       />
