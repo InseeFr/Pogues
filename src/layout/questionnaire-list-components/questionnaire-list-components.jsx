@@ -30,6 +30,7 @@ function withForwardRef(Component) {
 const QuestionnaireListComponents = (props) => {
   const {
     duplicateQuestionnaire,
+    isQuestionnaireModified,
     forwardedRef,
     token,
     questionnaire,
@@ -147,6 +148,7 @@ const QuestionnaireListComponents = (props) => {
               </button>
               <button
                 className="btn-yellow"
+                disabled={isQuestionnaireModified}
                 onClick={() => setShowDuplicateModal(true)}
               >
                 {Dictionary.duplicate}
@@ -309,6 +311,7 @@ const QuestionnaireListComponents = (props) => {
 // Prop types and default Props
 QuestionnaireListComponents.propTypes = {
   token: PropTypes.string,
+  isQuestionnaireModified: PropTypes.bool.isRequired,
   questionnaire: PropTypes.object.isRequired,
   componentsStore: PropTypes.object,
   errorsIntegrity: PropTypes.object,
@@ -333,6 +336,7 @@ QuestionnaireListComponents.defaultProps = {
   errorsIntegrity: {},
   activeCalculatedVariables: {},
   calculatedVariables: {},
+  isQuestionnaireModified: false,
 };
 
 const ForwardedQuestionnaireListComponents = withForwardRef(
