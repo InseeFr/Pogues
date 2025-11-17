@@ -62,6 +62,7 @@ export default function VariableLineActions({
   return (
     <>
       <Menu
+        label="actions"
         items={[
           {
             label: t('common.edit'),

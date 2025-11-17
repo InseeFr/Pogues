@@ -50,7 +50,7 @@ describe('VariableForm', () => {
     expect(queryByRole('alert')).toBeNull();
 
     fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: 'ma var' },
+      target: { value: 'ma_' },
     });
 
     expect(await findAllByRole('alert')).toHaveLength(1);

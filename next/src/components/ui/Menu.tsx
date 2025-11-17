@@ -1,7 +1,7 @@
 import { Menu as UIMenu } from '@base-ui-components/react/menu';
 
-import ArrowSvg from './icons/ArrowSvg';
 import MenuIcon from './icons/MenuIcon';
+import ArrowSvg from './icons/PopupArrow';
 
 interface MenuItem {
   /** Whether this action is disabled. */
@@ -19,10 +19,12 @@ interface MenuProps {
   children?: React.ReactNode;
   /** Actions that are available. */
   items: MenuItem[];
+  /** Readable text about the menu trigger. */
+  label: string;
 }
 
 /** A list of actions in a dropdown, enhanced with keyboard navigation. */
-export default function Menu({ children, items }: Readonly<MenuProps>) {
+export default function Menu({ children, items, label }: Readonly<MenuProps>) {
   return (
     <UIMenu.Root>
       {children ? (
@@ -30,13 +32,11 @@ export default function Menu({ children, items }: Readonly<MenuProps>) {
           {children}
         </UIMenu.Trigger>
       ) : (
-        <UIMenu.Trigger>
-          <div
-            title={"Plus d'actions"}
-            className="fill-gray-600 cursor-pointer hover:bg-slate-200 w-fit p-0.5 rounded"
-          >
-            <MenuIcon width="12.5px" height="12.5px" />
-          </div>
+        <UIMenu.Trigger
+          className="fill-gray-600 cursor-pointer hover:bg-slate-200 w-fit p-0.5 rounded"
+          aria-label={label}
+        >
+          <MenuIcon width="12.5px" height="12.5px" />
         </UIMenu.Trigger>
       )}
 

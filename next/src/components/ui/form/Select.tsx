@@ -4,12 +4,14 @@ import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 type Props<T> = {
   /** Override the default onChange (if controlled). */
-  onChange?: (v: T) => void;
+  onChange?: UISelect.Root.Props<T>['onValueChange'];
   /**
    * List of options to select from. If specified, label is displayed instead of
    * value.
    */
   options: { label: React.ReactNode; value: T }[];
+  /** Default value. Use value if controlled. */
+  defaultValue?: T;
   /** Currently selected value (if controlled). */
   value?: T;
 };
@@ -21,7 +23,8 @@ type Props<T> = {
  *
  * @example
  * ```
- * <Select options={[
+ * <Select
+ *   options={[
  *     { label: 'Value 1', value: 'value1' },
  *     { label: 'Value 2', value: 'value2' },
  *   ]}
@@ -31,10 +34,16 @@ type Props<T> = {
 export default function Select<T>({
   onChange = () => {},
   options = [],
+  defaultValue,
   value,
 }: Readonly<Props<T>>) {
   return (
-    <UISelect.Root items={options} value={value} onValueChange={onChange}>
+    <UISelect.Root
+      items={options}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onChange}
+    >
       <UISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-popup-open:bg-accent">
         <UISelect.Value className="overflow-hidden text-ellipsis text-nowrap" />
         <UISelect.Icon className="flex">

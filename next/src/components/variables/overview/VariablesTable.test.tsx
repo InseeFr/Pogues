@@ -1,12 +1,12 @@
 import { DatatypeType } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
-import { renderWithI18n } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render';
 
 import VariablesTable from './VariablesTable';
 
 describe('VariablesTable', () => {
   it('display provided variables', async () => {
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <VariablesTable
         questionnaireId="q-id"
         variables={[

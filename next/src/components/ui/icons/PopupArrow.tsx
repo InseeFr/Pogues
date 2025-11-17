@@ -1,7 +1,9 @@
 /**
  * Arrow displayed in various Base UI components popups to point toward them.
  */
-export default function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
+export default function PopupArrow(
+  props: Readonly<React.ComponentProps<'svg'>>,
+) {
   return (
     <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
       <path
