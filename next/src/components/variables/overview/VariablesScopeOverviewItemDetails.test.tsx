@@ -1,12 +1,12 @@
 import { DatatypeType } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
-import { renderWithI18n } from '@/testing/render';
+import { renderWithI18n, renderWithRouter } from '@/testing/render';
 
 import VariablesScopeOverviewItemDetails from './VariablesScopeOverviewItemDetails';
 
 describe('VariablesScopeOverviewItemDetails', () => {
   it('display provided variables', async () => {
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <VariablesScopeOverviewItemDetails
         questionnaireId="q-id"
         variables={[

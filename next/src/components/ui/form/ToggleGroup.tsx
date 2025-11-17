@@ -11,7 +11,7 @@ export default function ToggleGroup({ onChange, options }: Readonly<Props>) {
     <UIToggleGroup
       onValueChange={onChange}
       className="flex gap-px min-w-fit rounded-md border border-primary bg-default divide-x shadow-xs"
-      toggleMultiple
+      multiple
     >
       {options.map(({ label, value }) => (
         <Toggle

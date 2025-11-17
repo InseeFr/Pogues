@@ -10,6 +10,7 @@ interface Props {
   required?: boolean;
 }
 
+/** A control that indicates whether a setting is on or off. */
 export default function Switch({
   label,
   checked,

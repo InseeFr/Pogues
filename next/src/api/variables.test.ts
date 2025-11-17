@@ -1,14 +1,15 @@
 import nock from 'nock';
 
 import { DatatypeType } from '@/models/datatype';
-import { Variable, VariableType } from '@/models/variables';
+import { type Variable, VariableType } from '@/models/variables';
 
 import {
-  VariableDTO,
+  type VariableDTO,
   VariableDTODatatypeTypename,
   VariableDTOType,
 } from './models/variableDTO';
 import {
+  deleteVariable,
   getRoundaboutVariables,
   getVariables,
   getVariablesFromVersion,
@@ -89,9 +90,18 @@ it('Get variables from version works', async () => {
 
 it('Post variable works', async () => {
   nock('https://mock-api')
-    .post('/persistence/questionnaire/my-questionnaire/variables')
+    .post('/persistence/questionnaire/my-questionnaire/variable')
     .reply(201);
 
-  const res = await postVariable(variable, 'my-questionnaire');
+  const res = await postVariable('my-questionnaire', variable);
   expect(res.status).toEqual(201);
+});
+
+it('Delete variable works', async () => {
+  nock('https://mock-api')
+    .delete('/persistence/questionnaire/my-questionnaire/variable/my-variable')
+    .reply(204);
+
+  const res = await deleteVariable('my-questionnaire', 'my-variable');
+  expect(res.status).toEqual(204);
 });
