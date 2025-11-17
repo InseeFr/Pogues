@@ -336,7 +336,6 @@ QuestionnaireListComponents.defaultProps = {
   errorsIntegrity: {},
   activeCalculatedVariables: {},
   calculatedVariables: {},
-  isQuestionnaireModified: false,
 };
 
 const ForwardedQuestionnaireListComponents = withForwardRef(
