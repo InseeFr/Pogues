@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Some variables names have been reverted to legacy ones in French (e.g. Libellé).
+- Some variables names have been reverted to legacy ones in French (e.g. "Libellé").
+- Some visual improvements to Select component.
 
 ## [2.2.2](https://github.com/InseeFr/Pogues/releases/tag/2.2.2) - 2025-11-06
 
