@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle external variables' `isDeletedOnReset` property.
 
+### Removed
+
+- Questions no longer allow access to external variables tab (which allowed to create, update and delete from within a question), since it's now handled by next.
+
 ## [1.12.0](https://github.com/InseeFr/Pogues/releases/tag/1.12.0) - 2025-11-25
 
 ### Added
