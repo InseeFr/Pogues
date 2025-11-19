@@ -2,6 +2,7 @@ import { DATATYPE_NAME } from '../../../constants/pogues-constants';
 
 const { BOOLEAN, TEXT, DATE, NUMERIC, DURATION } = DATATYPE_NAME;
 
+/** Default form values for calculated and external variables. */
 export const defaultTypageForm = {
   type: TEXT,
   [TEXT]: {

@@ -67,13 +67,13 @@ export const TargetMode = [
   { value: 'PAPI', label: 'PAPI' },
 ];
 
-export const DATATYPE_NAME = {
-  DATE: 'DATE',
-  NUMERIC: 'NUMERIC',
-  TEXT: 'TEXT',
-  BOOLEAN: 'BOOLEAN',
-  DURATION: 'DURATION',
-};
+export enum DATATYPE_NAME {
+  DATE = 'DATE',
+  NUMERIC = 'NUMERIC',
+  TEXT = 'TEXT',
+  BOOLEAN = 'BOOLEAN',
+  DURATION = 'DURATION',
+}
 
 export const DURATION_UNIT = ['heures', 'mois', 'jours', 'années'];
 
@@ -152,11 +152,11 @@ export const QUESTION_TYPE_ENUM = {
   PAIRING: 'PAIRWISE',
 };
 
-export const VARIABLES_TYPES = {
-  COLLECTED: 'CollectedVariableType',
-  CALCULATED: 'CalculatedVariableType',
-  EXTERNAL: 'ExternalVariableType',
-};
+export enum VARIABLES_TYPES {
+  COLLECTED = 'CollectedVariableType',
+  CALCULATED = 'CalculatedVariableType',
+  EXTERNAL = 'ExternalVariableType',
+}
 
 export const TAB_NAMES = {
   RESPONSE_FORMAT: 'responseFormat',
