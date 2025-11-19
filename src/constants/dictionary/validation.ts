@@ -66,18 +66,6 @@ export const validationDictionary: Dictionary = {
     fr: 'Maximum obligatoire',
     en: 'Maximum required',
   },
-  validation_externalvariable_label: {
-    fr: 'Libellé de la variable externe obligatoire',
-    en: 'External variable label required',
-  },
-  validation_externalvariable_name: {
-    fr: 'Nom de la variable externe obligatoire',
-    en: 'External variable name required',
-  },
-  validation_externalvariable_existing: {
-    fr: 'Il existe une variable externe avec le même nom',
-    en: 'It already exists an external variable with this name',
-  },
   validation_collectedvariable_label: {
     fr: 'Libellé de la variable collectée obligatoire',
     en: 'Collected variable label required',
