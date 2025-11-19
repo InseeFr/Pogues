@@ -7,7 +7,6 @@ import { controlRules } from './control';
 import { dateRules } from './date';
 import { declarationRules } from './declaration';
 import { durationRulesPTnHnM, durationRulesPnYnM } from './duration';
-import { externalVariableRules } from './externalVariable';
 import { filterRules } from './filter';
 import { loopRules } from './loop';
 import { questionRules } from './question';
@@ -25,7 +24,6 @@ export {
   declarationRules,
   durationRulesPTnHnM,
   durationRulesPnYnM,
-  externalVariableRules,
   filterRules,
   loopRules,
   questionRules,

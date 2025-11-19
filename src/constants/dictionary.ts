@@ -247,10 +247,6 @@ const dictionary: Dictionary = {
     en: 'Calculated variables',
     fr: 'Variables calculées',
   },
-  externalVariables: {
-    en: 'External variables',
-    fr: 'Variables externes',
-  },
   collectedVariables: {
     en: 'Collected variables',
     fr: 'Variables collectées',
