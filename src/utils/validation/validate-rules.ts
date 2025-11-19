@@ -7,8 +7,6 @@ import { DATATYPE_NAME } from '@/constants/pogues-constants';
 import Dictionary from '@/utils/dictionary/dictionary';
 import { getComponentsTargetsByComponent } from '@/utils/model/redirections-utils';
 
-const { NUMERIC } = DATATYPE_NAME;
-
 /**
  * Validates that a form field has a meaningful, non-empty value.
  *
@@ -154,40 +152,13 @@ export function validateDuplicatesCalculated(
   return validateDuplicates(value, { form: listItems });
 }
 
-export function typeExternal({
-  form: { externalVariables: values },
-}: {
-  form: { externalVariables: { type: string } };
-}) {
-  return values.type === NUMERIC;
-}
-
 export function typeCalculated({
   form: { calculatedVariables: values },
 }: {
   form: { calculatedVariables: { type: string } };
 }) {
-  return values.type === NUMERIC;
-}
-
-export function validateDuplicatesExternal(
-  value: string,
-  {
-    form: { externalVariables: values },
-    state: { selectedItemIndex },
-  }: {
-    form: { externalVariables: { externalVariables: { name: string }[] } };
-    state: { selectedItemIndex: number };
-  },
-) {
-  const listItems = cloneDeep(values.externalVariables);
-
-  // We need to remove the element from the list
-  if (selectedItemIndex !== undefined) {
-    listItems.splice(selectedItemIndex, 1);
-  }
-
-  return validateDuplicates(value, { form: listItems });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  return values.type === DATATYPE_NAME.NUMERIC;
 }
 
 export function validateDuplicatesCollected(

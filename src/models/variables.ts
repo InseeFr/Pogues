@@ -1,6 +1,6 @@
 import { DATATYPE_NAME } from '@/constants/pogues-constants';
 
-/** External variable model used in the state. */
+/** External variable used in the app. */
 export type ExternalVariable = {
   id: string;
   name: string;

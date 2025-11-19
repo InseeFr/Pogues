@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.12.1-rc.4",
+  "version": "1.13.0-rc.remove-external-variables-form.1",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",

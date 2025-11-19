@@ -18,7 +18,6 @@ import Declarations from './declarations';
 import Redirections from './redirections';
 import ResponseFormat from './response-format/response-format';
 import CalculatedVariables from './variables/calculated-variables';
-import ExternalVariables from './variables/external-variables';
 
 export const QuestionNewEdit = ({
   form,
@@ -78,17 +77,6 @@ export const QuestionNewEdit = ({
         componentType={QUESTION}
         componentsStore={componentsStore}
         editingComponentId={componentId}
-      />
-    </Tab>,
-    <Tab
-      label={Dictionary.externalVariables}
-      path={TABS_PATHS.EXTERNAL_VARIABLES}
-      key={TABS_PATHS.EXTERNAL_VARIABLES}
-    >
-      <ExternalVariables
-        errors={errorsIntegrityByTab[TABS_PATHS.EXTERNAL_VARIABLES]}
-        addErrors={addSubformValidationErrors}
-        scopes={scopes}
       />
     </Tab>,
     <Tab
