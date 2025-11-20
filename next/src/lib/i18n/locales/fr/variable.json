@@ -17,11 +17,12 @@
     "title": "Éditer la variable : {{name}}"
   },
   "form": {
-    "mustProvideName": "Vous devez renseigner un libellé",
-    "mustProvideScreamingSnakeCaseName": "Le nom doit être au format SCREAMING_SNAKE_CASE"
+    "mustProvideName": "Vous devez renseigner un identifiant",
+    "mustProvideDescription": "Vous devez renseigner un libellé",
+    "mustProvideScreamingSnakeCaseName": "L'identifiant doit être au format SCREAMING_SNAKE_CASE"
   },
   "format": "format",
-  "maxLength": "Taille max",
+  "maxLength": "Taille",
   "maximum": "Max",
   "minimum": "Min",
   "name": "Identifiant",

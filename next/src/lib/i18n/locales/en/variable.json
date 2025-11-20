@@ -23,10 +23,11 @@
   },
   "form": {
     "mustProvideName": "You must provide a name",
+    "mustProvideDescription": "You must provide a description",
     "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
   },
   "format": "format",
-  "maxLength": "Max length",
+  "maxLength": "Length",
   "maximum": "Max",
   "minimum": "Min",
   "name": "Name",

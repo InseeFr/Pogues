@@ -23,7 +23,10 @@ describe('VariableForm', () => {
     });
 
     fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: 'MA_VAR' },
+      target: { value: 'MY_VAR' },
+    });
+    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
+      target: { value: 'A great variable' },
     });
 
     await waitFor(() => {
@@ -36,7 +39,7 @@ describe('VariableForm', () => {
     });
   });
 
-  it('should display form error when values are invalid', async () => {
+  it('should display form error when name is invalid', async () => {
     const { findAllByRole, getByRole, getByText, queryByRole } =
       await renderWithRouter(
         <VariableForm
@@ -64,5 +67,29 @@ describe('VariableForm', () => {
 
     expect(await findAllByRole('alert')).toHaveLength(1);
     expect(getByText('You must provide a name')).toBeDefined();
+  });
+
+  it('should display form error when description is invalid', async () => {
+    const { findAllByRole, getByRole, getByText, queryByRole } =
+      await renderWithRouter(
+        <VariableForm
+          questionnaireId={'q-id'}
+          onSubmit={vi.fn()}
+          submitLabel="Validate"
+          scopes={new Set<string>()}
+        />,
+      );
+
+    expect(queryByRole('alert')).toBeNull();
+
+    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
+      target: { value: 'ma_' },
+    });
+    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
+      target: { value: '' },
+    });
+
+    expect(await findAllByRole('alert')).toHaveLength(1);
+    expect(getByText('You must provide a description')).toBeDefined();
   });
 });
