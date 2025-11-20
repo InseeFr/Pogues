@@ -44,7 +44,9 @@ export const schema = z.object({
     .regex(/^[A-Z]+(_[A-Z]+)*$/, {
       message: i18next.t('variable.form.mustProvideScreamingSnakeCaseName'),
     }),
-  description: z.string(),
+  description: z
+    .string()
+    .min(1, { message: i18next.t('variable.form.mustProvideDescription') }),
   scope: z.string().optional(),
   datatype: datatypeSchema,
   type: z.enum(VariableType),

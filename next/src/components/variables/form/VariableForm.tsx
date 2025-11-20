@@ -124,6 +124,7 @@ export default function VariableForm({
             label={t('variable.description')}
             error={error?.message}
             {...field}
+            required
           />
         )}
       />
