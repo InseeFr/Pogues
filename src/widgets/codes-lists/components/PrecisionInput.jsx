@@ -102,7 +102,7 @@ class PrecisionInput extends ComponentWithValidation {
       } else {
         // default value on create
         change(formName, `${path}precisionid`, `${Question}${code.value}CL`);
-        change(formName, `${path}precisionlabel`, `${Dictionary.specify} :`);
+        change(formName, `${path}precisionlabel`, `${Dictionary.specify}`);
         change(formName, `${path}precisionsize`, 249);
       }
     }

@@ -1,17 +1,17 @@
 {
   "delete": {
-    "dialogTitle": "Delete multimode rules",
-    "dialogConfirm": "Are you sure you want to delete the multimode rules?",
-    "success": "Multimode rules have been deleted"
+    "dialogTitle": "Delete mode-change rules",
+    "dialogConfirm": "Are you sure you want to delete the mode-change rules?",
+    "success": "Mode-change rules have been updated"
   },
-  "description": "Multimode allows to specify rules that will trigger a change in the survey collect method from web to interviewer.",
+  "description": "On this page, the rules for switching the mode of data collection are described for complex survey protocols where interviewers take over from an online collection.\n\nThese rules are specified at the questionnaire level and/or at the roundabout occurrences.",
   "edit": {
-    "label": "Edit multimode rules",
-    "success": "Multimode has been updated",
-    "title": "Specify multimode rules"
+    "label": "Edit mode-change rules",
+    "success": "Mode-change rules have been updated",
+    "title": "Specify mode-change rules"
   },
   "error": {
-    "formulaNotVtl": "Multimode is available only to questionnaires using VTL."
+    "formulaNotVtl": "Mode-change rules are available only to questionnaires using VTL."
   },
   "form": {
     "questionnaireFormula": "Questionnaire-level rule",
@@ -20,10 +20,10 @@
   },
   "howToUse": "These rules may be specified in VTL from collected data to determinate when the survey collect method must be made by an interviewer. They can be specified on survey-level and/or on roundabout level.",
   "leafRule": "Roundabout-level rule:",
-  "new": "Specify multimode rules for the questionnaire",
+  "new": "Specify mode-change rules for the questionnaire",
   "noQuestionnaireRule": "There is no rule at the questionnaire level.",
   "noLeafRule": "There is no rule at the roundabout level.",
   "questionnaireRule": "Questionnaire-level rule:",
-  "title": "Multimode",
-  "versionNoMultimode": "Multimode has not been specified in this version."
+  "title": "Mode-change rules",
+  "versionNoMultimode": "Mode-change rules have not been specified in this version."
 }

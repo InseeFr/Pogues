@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { codesDictionary } from './dictionary/codes';
 import { declarationsDictionary } from './dictionary/declarations';
 import { loopDictionary } from './dictionary/loop';
@@ -279,8 +280,8 @@ const dictionary: Dictionary = {
     en: 'Scope Questionnaire',
   },
   specify: {
-    en: 'Specify',
-    fr: 'Préciser',
+    en: '\"Specify\"',
+    fr: '\"Préciser :\"',
   },
   hours: {
     en: 'hours',

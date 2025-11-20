@@ -13,8 +13,6 @@ export default function ArticulationOverviewLayout({
   const { t } = useTranslation();
 
   return (
-    <ContentWrapper title={t('articulation.overview.title')}>
-      {children}
-    </ContentWrapper>
+    <ContentWrapper title={t('articulation.title')}>{children}</ContentWrapper>
   );
 }

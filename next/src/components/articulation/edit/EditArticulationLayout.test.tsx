@@ -8,7 +8,7 @@ describe('EditArticulationLayout', () => {
       <EditArticulationLayout>Hello world</EditArticulationLayout>,
     );
 
-    expect(getByText('Edit the articulation')).toBeInTheDocument();
+    expect(getByText('Edit the roundabout summary')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
   });
 });

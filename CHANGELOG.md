@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - QCM can be set as mandatory.
+- Disable questionnaire duplication when the user has unsaved changes to prevent user mistake.
 
 ## [1.11.5](https://github.com/InseeFr/Pogues/releases/tag/1.11.5) - 2025-10-14
 

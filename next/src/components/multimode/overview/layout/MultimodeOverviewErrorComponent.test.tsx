@@ -16,7 +16,9 @@ describe('MultimodeOverviewErrorComponent', () => {
     );
 
     expect(
-      getByText('Multimode is available only to questionnaires using VTL.'),
+      getByText(
+        'Mode-change rules are available only to questionnaires using VTL.',
+      ),
     ).toBeInTheDocument();
   });
 

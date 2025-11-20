@@ -69,7 +69,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
         <Field.Error
           className="text-sm text-error ml-1"
-          forceShow={!!error}
+          match={!!error}
           role="alert"
         >
           {error}

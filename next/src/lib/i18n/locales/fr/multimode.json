@@ -1,29 +1,27 @@
 {
   "delete": {
-    "dialogTitle": "Supprimer les règles du multimode",
-    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer les règles du multimode ?",
-    "success": "Les règles du multimode ont été supprimées"
+    "dialogTitle": "Confirmer la suppression",
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer les règles de changement de mode ?",
+    "success": "Les règles de changement de mode ont été supprimées"
   },
-  "description": "Le multimode permet de spécifier des règles à partir desquelles un questionnaire qui commence à être rempli en web va basculer sur une collecte enquêteur.",
+  "description": "Dans cette page, on décrit, pour les protocoles d'enquêtes complexes où les enquêteurs prennent le relais d'une collecte sur internet, les règles de changement de mode de collecte.\n\nCes règles sont spécifiées au niveau du questionnaire et/ou des occurrences d'un rond-point.",
   "edit": {
-    "label": "Mettre à jour les règles du multimode",
-    "success": "Le multimode a été mis à jour",
-    "title": "Spécifier les règles du multimode"
+    "success": "Le changement de mode a été mis à jour",
+    "title": "Spécifier les règles de changement de mode"
   },
   "error": {
-    "formulaNotVtl": "Le multimode n'est disponible que pour les questionnaires en VTL"
+    "formulaNotVtl": "Le changement de mode n'est disponible que pour les questionnaires en VTL"
   },
   "form": {
     "questionnaireFormula": "Règle au niveau du questionnaire",
     "leafFormula": "Règle au niveau du rond-point",
     "noRoundaboutVariables": "La règle ne peut pas être spécifiée s'il n'y a pas de rond-point, ou de variables associées au rond-point."
   },
-  "howToUse": "Ces règles peuvent être spécifiées en VTL selon les données collectées pour déterminer quand le questionnaire doit basculer vers une collecte enquêteur. Elles peuvent être spécifiées au niveau du questionnaire et/ou au niveau individuel d'un rond-point.",
   "leafRule": "Règle au niveau du rond-point :",
-  "new": "Spécifier du multimode pour le questionnaire",
+  "new": "Spécifier les règles de changement du mode de collecte",
   "noQuestionnaireRule": "Il n'y a pas de règle au niveau du questionnaire.",
   "noLeafRule": "Il n'y a pas de règle au niveau du rond-point.",
   "questionnaireRule": "Règle au niveau du questionnaire :",
-  "title": "Multimode",
-  "versionNoMultimode": "Le multimode n'a pas été défini pour cette version."
+  "title": "Changement de mode",
+  "versionNoMultimode": "Le changement de mode n'a pas été défini pour cette version."
 }

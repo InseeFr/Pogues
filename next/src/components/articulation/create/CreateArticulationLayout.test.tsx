@@ -8,7 +8,7 @@ describe('CreateArticulationLayout', () => {
       <CreateArticulationLayout>Hello world</CreateArticulationLayout>,
     );
 
-    expect(getByText('New articulation')).toBeInTheDocument();
+    expect(getByText('New roundabout summary')).toBeInTheDocument();
     expect(getByText('Hello world')).toBeInTheDocument();
   });
 });

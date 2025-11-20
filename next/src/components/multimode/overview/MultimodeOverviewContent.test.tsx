@@ -20,7 +20,7 @@ describe('MultimodeOverviewContent', () => {
     );
 
     const button = getByRole('link', {
-      name: '+ Specify multimode rules for the questionnaire',
+      name: '+ Specify mode-change rules for the questionnaire',
     });
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute(
@@ -39,7 +39,7 @@ describe('MultimodeOverviewContent', () => {
     });
     expect(button).toBeNull();
     expect(
-      getByText('Multimode has not been specified in this version.'),
+      getByText('Mode-change rules have not been specified in this version.'),
     ).toBeInTheDocument();
   });
 });

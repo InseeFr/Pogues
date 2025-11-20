@@ -10,6 +10,8 @@ import DialogButton from '@/components/ui/DialogButton';
 import InlineCode from '@/components/ui/InlineCode';
 import { ArticulationItems } from '@/models/articulation';
 
+import ArticulationVariableLabel from '../ArticulationVariableLabel';
+
 interface ArticulationOverviewDetailsProps {
   questionnaireId: string;
   articulationItems: ArticulationItems;
@@ -58,7 +60,9 @@ export function ArticulationOverviewDetails({
       <div className="w-full grid grid-cols-[auto_1fr] items-center">
         {articulationItems.map(({ label, value }) => (
           <React.Fragment key={label}>
-            <div>{label}</div>
+            <div>
+              <ArticulationVariableLabel label={label} />
+            </div>
             <InlineCode value={value} />
           </React.Fragment>
         ))}

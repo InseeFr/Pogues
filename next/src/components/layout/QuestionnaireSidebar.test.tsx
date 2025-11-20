@@ -1,10 +1,10 @@
 import { renderWithRouter } from '@/testing/render';
 
-import QuestionnaireNavigation from './QuestionnaireNavigation';
+import QuestionnaireSidebar from './QuestionnaireSidebar';
 
-describe('QuestionnaireNavigation', () => {
-  it('display navigation links', async () => {
-    const { getByText } = await renderWithRouter(<QuestionnaireNavigation />);
+describe('QuestionnaireSidebar', () => {
+  it('displays navigation links', async () => {
+    const { getByText } = await renderWithRouter(<QuestionnaireSidebar />);
 
     expect(getByText(/Home/i)).toBeInTheDocument();
     expect(getByText(/Questionnaire/i)).toBeInTheDocument();
