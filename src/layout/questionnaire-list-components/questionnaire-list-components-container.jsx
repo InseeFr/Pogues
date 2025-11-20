@@ -25,6 +25,7 @@ const mapStateToProps = (state) => ({
   errorsIntegrity: state.errors.errorsIntegrity,
   activeCalculatedVariables: state.appState.activeCalculatedVariablesById,
   calculatedVariables: state.calculatedVariableByQuestionnaire,
+  isQuestionnaireModified: state.appState.isQuestionnaireModified,
 });
 
 const mapDispatchToProps = {

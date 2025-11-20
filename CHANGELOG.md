@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Disable questionnaire duplication in dirty state
+
 ## [1.11.5](https://github.com/InseeFr/Pogues/releases/tag/1.11.5) - 2025-10-14
 
 ### Changed
