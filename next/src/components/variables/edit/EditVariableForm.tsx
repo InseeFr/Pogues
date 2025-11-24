@@ -14,8 +14,8 @@ type Props = {
   variable: Variable;
   /** Related questionnaire id. */
   questionnaireId: string;
-  /** Available scopes in the questionnaire. */
-  scopes: Set<string>;
+  /** Scopes of the questionnaire with the mapping between id and name. */
+  scopes: Map<string, string>;
 };
 
 /** Form to edit an existing variable. */

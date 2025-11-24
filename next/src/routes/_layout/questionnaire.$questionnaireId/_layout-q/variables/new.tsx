@@ -1,10 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
-import { variablesQueryOptions } from '@/api/variables';
+import { questionnaireQueryOptions } from '@/api/questionnaires';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import CreateVariable from '@/components/variables/create/CreateVariable';
 import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout';
+import { computeQuestionnaireScopes } from '@/utils/scopes';
 
 /**
  * Page that allow to create a new code list.
@@ -22,23 +23,18 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId },
   }) => {
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
+    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
     return { crumb: t('crumb.new') };
   },
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
-  const { data: variables } = useSuspenseQuery(
-    variablesQueryOptions(questionnaireId),
+  const { data: questionnaire } = useSuspenseQuery(
+    questionnaireQueryOptions(questionnaireId),
   );
 
-  const scopes = new Set<string>();
-  for (const variable of variables) {
-    if (variable.scope) {
-      scopes.add(variable.scope);
-    }
-  }
+  const scopes = computeQuestionnaireScopes(questionnaire);
 
   return (
     <CreateVariableLayout>

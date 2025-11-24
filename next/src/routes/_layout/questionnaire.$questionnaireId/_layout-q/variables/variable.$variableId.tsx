@@ -6,6 +6,7 @@ import { variablesQueryOptions } from '@/api/variables';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import EditVariable from '@/components/variables/edit/EditVariable';
 import EditVariableLayout from '@/components/variables/edit/EditVariableLayout';
+import { computeQuestionnaireScopes } from '@/utils/scopes';
 
 /**
  * Page that allow to update an existing variable.
@@ -31,18 +32,16 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const { questionnaireId, variableId } = Route.useParams();
+  const { data: questionnaire } = useSuspenseQuery(
+    questionnaireQueryOptions(questionnaireId),
+  );
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
   );
 
   const variable = variables.find((v) => v.id === variableId);
 
-  const scopes = new Set<string>();
-  for (const variable of variables) {
-    if (variable.scope) {
-      scopes.add(variable.scope);
-    }
-  }
+  const scopes = computeQuestionnaireScopes(questionnaire);
 
   return (
     <EditVariableLayout variable={variable}>

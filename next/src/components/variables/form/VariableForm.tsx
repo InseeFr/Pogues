@@ -22,8 +22,8 @@ type Props = {
   onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
   submitLabel: string;
-  /** Available scopes. */
-  scopes: Set<string>;
+  /** Available scopes with the mapping between id and name. */
+  scopes: Map<string, string>;
 };
 
 /**
@@ -139,9 +139,9 @@ export default function VariableForm({
               {...field}
               options={[
                 { label: t('common.questionnaire'), value: '' },
-                ...Array.from(scopes).map((scope) => ({
-                  label: scope,
-                  value: scope,
+                ...Array.from(scopes).map(([id, name]) => ({
+                  label: name,
+                  value: id,
                 })),
               ]}
             />

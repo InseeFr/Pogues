@@ -32,6 +32,7 @@ const questionnaire = {
   lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
   codesLists: [],
   formulasLanguage: FormulasLanguages.VTL,
+  iterations: [],
 };
 
 it('Get questionnaires works', async () => {

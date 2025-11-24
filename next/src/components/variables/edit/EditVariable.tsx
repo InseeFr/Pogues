@@ -7,8 +7,8 @@ type Props = {
   variable?: Variable;
   /** Related questionnaire id. */
   questionnaireId: string;
-  /** Available scopes in the questionnaire. */
-  scopes: Set<string>;
+  /** Scopes of the questionnaire with the mapping between id and name. */
+  scopes: Map<string, string>;
 };
 
 /** Allow to edit an existing code list. */
@@ -17,9 +17,11 @@ export default function EditVariable({
   questionnaireId,
   scopes,
 }: Readonly<Props>) {
-  return variable === undefined ? (
-    <div>Not found</div>
-  ) : (
+  if (variable === undefined) {
+    return <div>Not found</div>;
+  }
+
+  return (
     <div className="bg-default p-4 border border-default shadow-xl">
       <EditVariableForm
         variable={variable}

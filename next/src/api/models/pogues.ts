@@ -1,6 +1,8 @@
 /**
  * The Pogues data model is highly inspired by the DDI model. See the DDI documentation :
  * https://ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/FieldLevelDocumentation/
+ *
+ * @version 1.5.0 (last updated 2025/01/21)
  */
 
 /**
@@ -137,7 +139,7 @@ type QuestionType = ComponentType & {
   questionType?: QuestionTypeEnum;
 };
 
-type IterationType = {
+export type IterationType = {
   Name: string;
   Label?: string;
   MemberReference?: string[];
