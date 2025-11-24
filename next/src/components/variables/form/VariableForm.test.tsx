@@ -14,7 +14,7 @@ describe('VariableForm', () => {
         questionnaireId={'q-id'}
         onSubmit={submitFn}
         submitLabel="Validate"
-        scopes={new Set<string>()}
+        scopes={new Map<string, string>()}
       />,
     );
 
@@ -46,7 +46,7 @@ describe('VariableForm', () => {
           questionnaireId={'q-id'}
           onSubmit={vi.fn()}
           submitLabel="Validate"
-          scopes={new Set<string>()}
+          scopes={new Map<string, string>()}
         />,
       );
 
@@ -76,7 +76,7 @@ describe('VariableForm', () => {
           questionnaireId={'q-id'}
           onSubmit={vi.fn()}
           submitLabel="Validate"
-          scopes={new Set<string>()}
+          scopes={new Map<string, string>()}
         />,
       );
 

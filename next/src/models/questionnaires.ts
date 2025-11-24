@@ -1,5 +1,6 @@
-import { Articulation } from './articulation';
-import { CodesList } from './codesLists';
+import type { Articulation } from './articulation';
+import type { CodesList } from './codesLists';
+import type { Iteration } from './iteration';
 
 export type Questionnaire = {
   id: string;
@@ -10,6 +11,7 @@ export type Questionnaire = {
   formulasLanguage?: FormulasLanguages;
   codesLists?: CodesList[];
   Articulation?: Articulation;
+  iterations?: Iteration[];
 };
 
 export enum TargetModes {

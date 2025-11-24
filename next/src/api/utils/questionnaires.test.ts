@@ -49,6 +49,12 @@ it('computeQuestionnaire works', () => {
         genericName: GenericNameEnum.Module,
       },
     ],
+    Iterations: {
+      Iteration: [
+        { id: 'id-iteration-1', Name: 'mon_itération_1' },
+        { id: 'id-iteration-2', Name: 'mon_itération_2' },
+      ],
+    },
   };
 
   const questionnaire: Questionnaire = {
@@ -58,6 +64,10 @@ it('computeQuestionnaire works', () => {
     codesLists: [{ id: 'idcl', label: 'cl', codes: [] }],
     lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
     formulasLanguage: FormulasLanguages.XPath,
+    iterations: [
+      { id: 'id-iteration-1', name: 'mon_itération_1' },
+      { id: 'id-iteration-2', name: 'mon_itération_2' },
+    ],
   };
 
   expect(computeQuestionnaire(poguesQuestionnaire)).toEqual(questionnaire);

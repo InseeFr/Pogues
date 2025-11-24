@@ -12,6 +12,7 @@ import {
   computeFormulasLanguage,
   computePoguesFormulasLanguage,
 } from './formulasLanguage';
+import { computeIterations } from './iterations';
 import { computePoguesTargetModes, computeTargetModes } from './targetModes';
 
 /** Compute a questionnaire that can be used in our app from API data. */
@@ -27,6 +28,7 @@ export function computeQuestionnaire(
       : undefined,
     codesLists: computeCodesLists(datum.CodeLists?.CodeList),
     formulasLanguage: computeFormulasLanguage(datum.formulasLanguage),
+    iterations: computeIterations(datum.Iterations?.Iteration),
   };
 }
 
