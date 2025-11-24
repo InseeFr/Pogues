@@ -1,12 +1,12 @@
 /**
  * Types used in the various state <-> remote transformations.
  */
-import { DATATYPE_TYPE_FROM_NAME } from '@/constants/pogues-constants';
+import { DATATYPE_NAME, DATATYPE_VIS_HINT } from '@/constants/pogues-constants';
 
 export type StateResponse = {
   id?: string;
-  mandatory?: unknown;
-  typeName?: keyof typeof DATATYPE_TYPE_FROM_NAME;
+  mandatory?: boolean;
+  typeName?: DATATYPE_NAME;
   type?: unknown;
   maxLength?: unknown;
   minimum?: unknown;
@@ -23,10 +23,10 @@ export type StateResponse = {
   maminutes?: unknown;
   mayears?: unknown;
   mamonths?: unknown;
-  codesListId?: unknown;
-  nomenclatureId?: unknown;
+  codesListId?: string;
+  nomenclatureId?: string;
   allowArbitraryResponse?: unknown;
-  visHint?: unknown;
+  visHint?: DATATYPE_VIS_HINT;
   collectedVariable?: string;
   conditionFilter?: string;
   conditionReadOnly?: string;
@@ -35,10 +35,10 @@ export type StateResponse = {
 export type RemoteResponse = {
   id: string;
   Datatype: {
-    typeName: keyof typeof DATATYPE_TYPE_FROM_NAME;
+    typeName: DATATYPE_NAME;
     type: string;
     allowArbitraryResponse?: unknown;
-    visualizationHint?: unknown;
+    visualizationHint?: DATATYPE_VIS_HINT;
     MaxLength?: unknown;
     Minimum?: unknown;
     Maximum?: unknown;
@@ -57,7 +57,7 @@ export type RemoteResponse = {
   };
   CollectedVariableReference?: string;
   CodeListReference?: unknown;
-  mandatory?: unknown;
+  mandatory?: boolean;
   conditionFilter?: string;
   conditionReadOnly?: string;
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { FormSection } from 'redux-form';
+import { Field, FormSection } from 'redux-form';
 
 import { QUESTION_TYPE_ENUM } from '../../../../../constants/pogues-constants';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
@@ -17,6 +17,17 @@ function ResponseFormatMultiple({ selectorPathParent }) {
 
   return (
     <FormSection name={selectorPath} className="response-format__multiple">
+      <div className="ctrl-checkbox">
+        <label htmlFor="rf-mandatory">{Dictionary.mandatory}</label>
+        <div>
+          <Field
+            name="mandatory"
+            id="rf-mandatory"
+            component="input"
+            type="checkbox"
+          />
+        </div>
+      </div>
       <h3 className="axis-primary__head">{Dictionary.primaryAxis}</h3>
       <ResponseFormatMultiplePrimary
         selectorPathParent={selectorPathComposed}

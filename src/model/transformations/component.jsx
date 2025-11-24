@@ -274,6 +274,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     id,
     type: remoteType,
     questionType,
+    mandatory,
     genericName,
     Name: name,
     Label: [label],
@@ -364,6 +365,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       dimensions,
       codesListsStore,
       scope,
+      mandatory,
     );
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);
@@ -699,26 +701,31 @@ function storeToRemoteNested(
 
       remote.codeFilters = codeFilters;
     }
-    if (
-      responseFormat.type === MULTIPLE_CHOICE &&
-      collectedVariablesStore !== undefined
-    ) {
-      const remoteclarification =
-        getClarificationResponseMultipleChoiceQuestion(
-          collectedVariablesStore,
-          collectedVariables,
-          codesListsStore,
-          responseFormat,
-          remote.FlowControl,
-          TargetMode,
-          responsesClarification,
-          flowControl,
-        );
-      remote.FlowControl = remoteclarification.flowcontrolefinal;
-      remote.ClarificationQuestion = remoteclarification.ClarificationQuestion;
 
-      remote.codeFilters = codeFilters;
+    if (responseFormat.type === MULTIPLE_CHOICE) {
+      // For QCM, we put the mandatory attribute at the question root.
+      remote.mandatory = responseFormat[MULTIPLE_CHOICE].mandatory;
+
+      if (collectedVariablesStore !== undefined) {
+        const remoteclarification =
+          getClarificationResponseMultipleChoiceQuestion(
+            collectedVariablesStore,
+            collectedVariables,
+            codesListsStore,
+            responseFormat,
+            remote.FlowControl,
+            TargetMode,
+            responsesClarification,
+            flowControl,
+          );
+        remote.FlowControl = remoteclarification.flowcontrolefinal;
+        remote.ClarificationQuestion =
+          remoteclarification.ClarificationQuestion;
+
+        remote.codeFilters = codeFilters;
+      }
     }
+
     if (responseFormat.type === PAIRING) {
       remote.Scope = responseFormat[PAIRING].scope;
     }
