@@ -454,7 +454,7 @@ type NonResponseModalityType = {
 };
 
 export type Sequence = ComponentType & {
-  Child?: ComponentType[];
+  Child?: (Sequence | ComponentType)[];
   depth?: number;
   /**
    * \Eno\src\main\resources\xslt\inputs\pogues-xml\source-fixed.xsl
