@@ -87,20 +87,20 @@ export const DATATYPE_TYPE_FROM_NAME = {
   BOOLEAN: 'BooleanDatatypeType',
 };
 
-export const DATATYPE_VIS_HINT = {
-  CHECKBOX: 'CHECKBOX',
-  RADIO: 'RADIO',
-  DROPDOWN: 'DROPDOWN',
-  SUGGESTER: 'SUGGESTER',
-};
+export enum DATATYPE_VIS_HINT {
+  CHECKBOX = 'CHECKBOX',
+  RADIO = 'RADIO',
+  DROPDOWN = 'DROPDOWN',
+  SUGGESTER = 'SUGGESTER',
+}
 
 /** Used in tables to determinate the target axis of the dimension. */
-export const DIMENSION_TYPE = {
-  PRIMARY: 'PRIMARY',
-  SECONDARY: 'SECONDARY',
-  MEASURE: 'MEASURE',
-  LIST_MEASURE: 'LIST_MEASURE',
-};
+export enum DIMENSION_TYPE {
+  PRIMARY = 'PRIMARY',
+  SECONDARY = 'SECONDARY',
+  MEASURE = 'MEASURE',
+  LIST_MEASURE = 'LIST_MEASURE',
+}
 
 export const DECLARATION_TYPE = {
   INSTRUCTION: 'INSTRUCTION',
@@ -117,40 +117,40 @@ export const DECLARATION_POSITION = {
   DETACHABLE: 'DETACHABLE',
 };
 
-export const DIMENSION_FORMATS = {
-  LIST: 'LIST', // dynamic
-  CODES_LIST: 'CODES_LIST', // static
-  BOOL: 'BOOL',
-};
+export enum DIMENSION_FORMATS {
+  LIST = 'LIST', // dynamic
+  CODES_LIST = 'CODES_LIST', // static
+  BOOL = 'BOOL',
+}
 
 /**
  * Used for dynamic table dimension to determinate how the size is calculated.
  */
-export const DIMENSION_CALCULATION = {
-  NUMBER: 'NUMBER',
-  FORMULA: 'FORMULA',
-};
+export enum DIMENSION_CALCULATION {
+  NUMBER = 'NUMBER',
+  FORMULA = 'FORMULA',
+}
 
 /**
  * How we determinate the way the table dimension size will be computed
  * (codeList, min max, or fixed size).
  */
-export const DIMENSION_LENGTH = {
+export enum DIMENSION_LENGTH {
   /** The size will depend on the provided code list size. */
-  NON_DYNAMIC: 'NON_DYNAMIC',
+  NON_DYNAMIC = 'NON_DYNAMIC',
   /** Set a size between a minimum and maximum. */
-  DYNAMIC_LENGTH: 'DYNAMIC_LENGTH',
+  DYNAMIC_LENGTH = 'DYNAMIC_LENGTH',
   /** Set a fixed size. */
-  DYNAMIC_FIXED: 'DYNAMIC_FIXED',
-};
+  DYNAMIC_FIXED = 'DYNAMIC_FIXED',
+}
 
-export const QUESTION_TYPE_ENUM = {
-  SIMPLE: 'SIMPLE',
-  SINGLE_CHOICE: 'SINGLE_CHOICE',
-  MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
-  TABLE: 'TABLE',
-  PAIRING: 'PAIRWISE',
-};
+export enum QUESTION_TYPE_ENUM {
+  SIMPLE = 'SIMPLE',
+  SINGLE_CHOICE = 'SINGLE_CHOICE',
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
+  TABLE = 'TABLE',
+  PAIRING = 'PAIRWISE',
+}
 
 export enum VARIABLES_TYPES {
   COLLECTED = 'CollectedVariableType',

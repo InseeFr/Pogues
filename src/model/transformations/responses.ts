@@ -1,9 +1,10 @@
 import { QUESTION_TYPE_ENUM } from '@/constants/pogues-constants';
 
-import * as Response from './response';
-import { StateResponse } from './types';
-
-const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
+import {
+  type Response,
+  stateToRemote as responseStateToRemote,
+} from './response';
+import type { StateResponse } from './types';
 
 export function stateToModel(
   state: StateResponse,
@@ -18,11 +19,14 @@ export function stateToModel(
       alternativeLabel?: unknown;
     };
   },
-  type: keyof typeof QUESTION_TYPE_ENUM,
-  response?: Response.Response[],
+  type: QUESTION_TYPE_ENUM,
+  response?: Response[],
 ) {
   let collectedVariablesFinal = collectedVariables;
-  if (type === MULTIPLE_CHOICE || type === TABLE) {
+  if (
+    type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ||
+    type === QUESTION_TYPE_ENUM.TABLE
+  ) {
     collectedVariables.forEach((collected) => {
       const find = Object.values(collectedVariablesStore).find(
         (variable) => variable.id === collected,
@@ -36,7 +40,7 @@ export function stateToModel(
   }
 
   const responsesModel = collectedVariablesFinal.map((cv) =>
-    Response.stateToRemote({ ...state, collectedVariable: cv }, response),
+    responseStateToRemote({ ...state, collectedVariable: cv }, response),
   );
   const attributeModel: {
     AttributeValue: unknown;
@@ -47,7 +51,8 @@ export function stateToModel(
     const { x, y, isCollected, alternativeLabel } =
       collectedVariablesStore[r.CollectedVariableReference!];
     // Table : Fix lines and look into columns
-    const MappingTarget = type === MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
+    const MappingTarget =
+      type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ? `${x}` : `${x} ${y}`;
 
     if (isCollected === '0') {
       attributeModel.push({

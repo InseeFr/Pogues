@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle external variables' `isDeletedOnReset` property.
 
+## [1.12.0](https://github.com/InseeFr/Pogues/releases/tag/1.12.0) - 2025-11-25
+
+### Added
+
+- QCM can be set as mandatory.
+
+### Changed
+
+- Disable questionnaire duplication when the user has unsaved changes to prevent user mistake.
+
+## [1.11.6](https://github.com/InseeFr/Pogues/releases/tag/1.11.6) - 2025-11-06
+
+### Added
+
+- Added nomenclatures: "L_AUTRE_TAB_2025", "L_DECHET_TAB_2025", "L_EAU_TAB_2025", "L_ELEC_TAB_2025", "L_GAZ_TAB_2025", "L_INST_REPAR_TAB_2025", "L_NEGOCE_TAB_2025", "L_PI_TAB_2025" and "L_VAPEUR_TAB_2025".
+
+### Fixed
+
+- Added double quotes to default precision label.
+
 ## [1.11.5](https://github.com/InseeFr/Pogues/releases/tag/1.11.5) - 2025-10-14
 
 ### Changed

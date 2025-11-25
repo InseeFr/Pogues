@@ -4,7 +4,8 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_TYPE,
-} from '../../constants/pogues-constants';
+} from '@/constants/pogues-constants';
+
 import { stateToRemote } from './dimension';
 
 const { PRIMARY, SECONDARY, MEASURE } = DIMENSION_TYPE;
@@ -20,6 +21,7 @@ describe('dimension tranformations', () => {
       dimensionType: MEASURE,
     });
   });
+
   test('when the type is MEASURE with a LABEL', () => {
     const result = stateToRemote({
       type: MEASURE,
@@ -44,6 +46,7 @@ describe('dimension tranformations', () => {
       CodeListReference: '1',
     });
   });
+
   test(`when the type is PRIMARY and has a minimum and maximum`, () => {
     const result = stateToRemote({
       type: PRIMARY,
@@ -59,6 +62,7 @@ describe('dimension tranformations', () => {
       maximum: { type: 'number', value: '2' },
     });
   });
+
   test(`when the type is PRIMARY and has a length fixed by a formula`, () => {
     const result = stateToRemote({
       type: PRIMARY,
@@ -72,6 +76,7 @@ describe('dimension tranformations', () => {
       size: { type: 'VTL', value: 'formula' },
     });
   });
+
   test(`when the type is PRIMARY and has a minLines but not maxLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
@@ -83,6 +88,7 @@ describe('dimension tranformations', () => {
       dimensionType: PRIMARY,
     });
   });
+
   test(`when the type is PRIMARY and has a maxLines but not minLines`, () => {
     const result = stateToRemote({
       type: PRIMARY,
@@ -109,11 +115,5 @@ describe('dimension tranformations', () => {
 });
 
 test('when the type is not PRIMARY, SECONDATY neither MEASURE', () => {
-  const result = stateToRemote({
-    type: 'FAKE TYPE',
-  });
-
-  expect(result).toEqual({
-    dimensionType: 'FAKE TYPE',
-  });
+  expect(() => stateToRemote({ type: 'FAKE TYPE' })).toThrowError();
 });
