@@ -134,7 +134,7 @@ type QuestionType = ComponentType & {
    * arbitrary answer if he cannot find an answer among the suggested options.
    * The arbitrary response is retrieved in a specific text variable. It is
    * currently used only for single response question for suggester.
-   * @version 1.16.0
+   * @version 1.6.0
    */
   ArbitraryResponse?: ResponseType;
   /**
