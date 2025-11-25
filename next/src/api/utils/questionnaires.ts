@@ -5,14 +5,14 @@ import {
   GenericNameEnum,
   type Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
-} from '../models/pogues';
+} from '../models/poguesModel';
 import { computeCodesLists } from './codesLists';
 import { computePoguesFlowLogic } from './flowLogic';
 import {
   computeFormulasLanguage,
   computePoguesFormulasLanguage,
 } from './formulasLanguage';
-import { computeIterations } from './iterations';
+import { computeScopes } from './scopes';
 import { computePoguesTargetModes, computeTargetModes } from './targetModes';
 
 /** Compute a questionnaire that can be used in our app from API data. */
@@ -28,13 +28,13 @@ export function computeQuestionnaire(
       : undefined,
     codesLists: computeCodesLists(datum.CodeLists?.CodeList),
     formulasLanguage: computeFormulasLanguage(datum.formulasLanguage),
-    iterations: computeIterations(datum.Iterations?.Iteration),
+    scopes: computeScopes(datum),
   };
 }
 
 /** Create a new questionnaire that can be sent to the API from our app data. */
 export function computeNewPoguesQuestionnaire(
-  datum: Questionnaire,
+  datum: Omit<Questionnaire, 'scopes'>,
   stamp: string,
 ) {
   const targetModes = computePoguesTargetModes(datum.targetModes);

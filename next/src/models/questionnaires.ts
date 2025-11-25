@@ -1,6 +1,6 @@
 import type { Articulation } from './articulation';
 import type { CodesList } from './codesLists';
-import type { Iteration } from './iteration';
+import type { Scopes } from './scopes';
 
 export type Questionnaire = {
   id: string;
@@ -11,7 +11,8 @@ export type Questionnaire = {
   formulasLanguage?: FormulasLanguages;
   codesLists?: CodesList[];
   Articulation?: Articulation;
-  iterations?: Iteration[];
+  /** Scopes of the questionnaire with the mapping between id and name. */
+  scopes: Scopes;
 };
 
 export enum TargetModes {

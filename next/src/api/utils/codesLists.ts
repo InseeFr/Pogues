@@ -3,7 +3,7 @@ import { Code, CodesList } from '@/models/codesLists';
 import {
   CodeType as PoguesCode,
   CodeList as PoguesCodesList,
-} from '../models/pogues';
+} from '../models/poguesModel';
 
 /** Compute codes lists that can be used in our app from API data. */
 export function computeCodesLists(

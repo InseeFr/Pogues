@@ -34,11 +34,12 @@ function RouteComponent() {
     questionnaireQueryOptions(questionnaireId),
   );
 
-  const scopes = computeQuestionnaireScopes(questionnaire);
-
   return (
     <CreateVariableLayout>
-      <CreateVariable questionnaireId={questionnaireId} scopes={scopes} />
+      <CreateVariable
+        questionnaireId={questionnaireId}
+        scopes={questionnaire.scopes}
+      />
     </CreateVariableLayout>
   );
 }

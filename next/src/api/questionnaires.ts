@@ -3,7 +3,7 @@ import { queryOptions } from '@tanstack/react-query';
 import type { Questionnaire } from '@/models/questionnaires';
 
 import { instance } from './instance';
-import type { Questionnaire as PoguesQuestionnaire } from './models/pogues';
+import type { Questionnaire as PoguesQuestionnaire } from './models/poguesModel';
 import {
   computeNewPoguesQuestionnaire,
   computeQuestionnaire,
@@ -71,7 +71,7 @@ export async function getQuestionnaire(id: string): Promise<Questionnaire> {
 
 /** Create a new questionnaire. */
 export async function postQuestionnaire(
-  qr: Questionnaire,
+  qr: Omit<Questionnaire, 'scopes'>,
   stamp: string,
 ): Promise<Response> {
   return instance.post(

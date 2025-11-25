@@ -41,14 +41,12 @@ function RouteComponent() {
 
   const variable = variables.find((v) => v.id === variableId);
 
-  const scopes = computeQuestionnaireScopes(questionnaire);
-
   return (
     <EditVariableLayout variable={variable}>
       <EditVariable
         questionnaireId={questionnaireId}
         variable={variable}
-        scopes={scopes}
+        scopes={questionnaire.scopes}
       />
     </EditVariableLayout>
   );

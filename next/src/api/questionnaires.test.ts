@@ -5,7 +5,7 @@ import { FormulasLanguages, TargetModes } from '@/models/questionnaires';
 import {
   type Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
-} from './models/pogues';
+} from './models/poguesModel';
 import {
   getQuestionnaire,
   getQuestionnaires,
@@ -32,7 +32,7 @@ const questionnaire = {
   lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
   codesLists: [],
   formulasLanguage: FormulasLanguages.VTL,
-  iterations: [],
+  scopes: new Map(),
 };
 
 it('Get questionnaires works', async () => {

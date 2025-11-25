@@ -1,6 +1,6 @@
 import { FlowLogics } from '@/models/questionnaires';
 
-import { FlowLogicEnum } from '../models/pogues';
+import { FlowLogicEnum } from '../models/poguesModel';
 
 export function computePoguesFlowLogic(flowLogic?: FlowLogics): FlowLogicEnum {
   switch (flowLogic) {

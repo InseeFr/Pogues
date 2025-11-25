@@ -1,6 +1,6 @@
 import { FormulasLanguages } from '@/models/questionnaires';
 
-import { FormulasLanguageEnum } from '../models/pogues';
+import { FormulasLanguageEnum } from '../models/poguesModel';
 import { computePoguesFormulasLanguage } from './formulasLanguage';
 
 describe('computePoguesFormulasLanguage', () => {
