@@ -1,66 +1,72 @@
 import type { Scopes } from '@/models/scopes';
 
-import type {
-  IterationType,
-  Questionnaire,
-  Sequence,
+import {
+  DimensionTypeEnum,
+  type QuestionType,
+  QuestionTypeEnum,
+  type Questionnaire,
+  type Sequence,
 } from '../models/poguesModel';
 
-/** Compute iterations that can be used in our app from API data. */
+/** Compute scopes that can be used in our app from API data. */
 export function computeScopes(questionnaire: Questionnaire): Scopes {
+  const res = computeScopesForComponents(questionnaire.Child);
+
   const iterations = questionnaire.Iterations?.Iteration;
-  if (iterations === undefined) return new Map();
+  if (iterations === undefined) return res;
 
-  const res = new Map();
   for (const iteration of iterations) {
-    if (iteration.IterableReference) {
-      // The iteration is based on another element,
-      // we need to get this element name.
-
-      // The scope mapping has already be done.
-      if (res.get(iteration.IterableReference)) continue;
-
-      // We search if it is linked to a loop.
-      const linkedIteration = getIterationById(
-        iteration.IterableReference,
-        iterations,
-      );
-      if (linkedIteration) {
-        res.set(iteration.IterableReference, linkedIteration.Name);
-        continue;
-      }
-
-      // We search if it is linked to a question.
-      const question = getQuestionById(
-        iteration.IterableReference,
-        questionnaire.Child,
-      );
-      if (question) {
-        res.set(iteration.IterableReference, question.Name);
-        continue;
-      }
+    if (!iteration.IterableReference) {
+      // Directly push iteration as a scope
+      res.set(iteration.id, iteration.Name);
+      continue;
     }
 
-    // Directly push iteration as a scope
-    res.set(iteration.id, iteration.Name);
+    // The iteration is based on another element, we need to get its name.
+
+    // The scope mapping has already be done.
+    if (res.get(iteration.IterableReference)) continue;
+
+    // We search if it is linked to a question which is not table or pairwise.
+    const question = getQuestionById(
+      iteration.IterableReference,
+      questionnaire.Child,
+    );
+    if (question) {
+      res.set(iteration.IterableReference, question.Name);
+    }
+
+    // If it is linked to another iteration, it will be computed either way
+    // since every "main" iterations are computed as a scope, so we don't need
+    // to do anything.
   }
   return res;
 }
 
 /**
- * Find the iteration associated to the provided ID from a list of iterations.
+ * Compute the scopes from a list of components (which can be (sub)sequence
+ * with compoonents).
+ *
+ * A scope can be computed from questions that are dynamic table or pairwise.
  */
-function getIterationById(
-  id: string,
-  iterations: IterationType[],
-): IterationType | undefined {
-  for (const linkedIteration of iterations) {
-    if (linkedIteration.id === id) {
-      return linkedIteration;
+function computeScopesForComponents(
+  components?: (Sequence | QuestionType)[],
+): Map<string, string> {
+  let res = new Map();
+  if (!components) return res;
+
+  for (const component of components) {
+    if (
+      isQuestion(component) &&
+      (isPairwiseQuestion(component) || isDynamicTable(component))
+    ) {
+      res.set(component.id, component.Name);
+    } else if (isSequence(component)) {
+      res = new Map([...res, ...computeScopesForComponents(component.Child)]);
     }
   }
 
-  return undefined;
+  return res;
 }
 
 /**
@@ -69,7 +75,7 @@ function getIterationById(
  */
 function getQuestionById(
   id: string,
-  components?: Sequence[],
+  components?: (Sequence | QuestionType)[],
 ): Sequence | undefined {
   if (!components) return undefined;
 
@@ -80,9 +86,32 @@ function getQuestionById(
   }
 
   for (const component of components) {
-    const res = getQuestionById(id, component.Child);
-    if (res) return res;
+    if (isSequence(component)) {
+      const res = getQuestionById(id, component.Child);
+      if (res) return res;
+    }
   }
 
   return undefined;
+}
+
+function isSequence(o: Sequence | QuestionType): o is Sequence {
+  return o && Object.hasOwn(o, 'Child');
+}
+
+function isQuestion(o: Sequence | QuestionType): o is QuestionType {
+  return o && Object.hasOwn(o, 'questionType');
+}
+
+function isPairwiseQuestion(o: QuestionType): boolean {
+  return o.questionType === QuestionTypeEnum.Pairwise;
+}
+
+function isDynamicTable(o: QuestionType): boolean {
+  return (
+    o.questionType === QuestionTypeEnum.Table &&
+    o.ResponseStructure?.Dimension.find(
+      (v) => v.dimensionType === DimensionTypeEnum.Primary,
+    )?.dynamic !== 'NON_DYNAMIC'
+  );
 }

@@ -125,8 +125,7 @@ type ComponentGroup = {
   id: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type QuestionType = ComponentType & {
+export type QuestionType = ComponentType & {
   Response: ResponseType[];
   ResponseStructure?: ResponseStructureType;
   /**
@@ -377,7 +376,7 @@ type MappingType = {
   MappingTarget: string;
 };
 
-enum DimensionTypeEnum {
+export enum DimensionTypeEnum {
   /**
    * In a fixed table (with row header in the first column and without the
    * possibility of dynamically adding a row to the table), the primary
@@ -455,7 +454,7 @@ type NonResponseModalityType = {
 };
 
 export type Sequence = ComponentType & {
-  Child?: (Sequence | ComponentType)[];
+  Child?: (Sequence | QuestionType)[];
   depth?: number;
   /**
    * \Eno\src\main\resources\xslt\inputs\pogues-xml\source-fixed.xsl
@@ -719,7 +718,7 @@ export enum SurveyModeEnum {
   PAPI = 'PAPI',
 }
 
-enum QuestionTypeEnum {
+export enum QuestionTypeEnum {
   /**
    * a SIMPLE question is a question made of a label and only one response
    * domain whichever its type be: text, numeric, date, boolean, or less
