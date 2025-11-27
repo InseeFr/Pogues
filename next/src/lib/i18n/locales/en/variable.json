@@ -11,12 +11,23 @@
     "numeric": "Number",
     "text": "Text"
   },
+  "delete": {
+    "dialogConfirm": "Are you sure you want to delete this variable?",
+    "dialogTitle": "Delete variable: {{name}}",
+    "success": "Variable {{name}} deleted"
+  },
   "description": "Description",
+  "edit": {
+    "success": "Variable {{name}} has been edited",
+    "title": "Edit variable: {{name}}"
+  },
   "form": {
     "mustProvideName": "You must provide a name",
+    "mustProvideDescription": "You must provide a description",
     "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
   },
-  "maxLength": "Max length",
+  "format": "format",
+  "maxLength": "Length",
   "maximum": "Max",
   "minimum": "Min",
   "name": "Name",

@@ -2,6 +2,7 @@
   "create": "Créer une liste de codes",
   "name": "Nom",
   "notUsed": "Non utilisées",
+  "notUsedByQuestionnaire": "Le questionnaire n'utilise pas de listes de codes.",
   "search": "Rechercher une liste de codes",
   "title": "Listes de codes"
 }

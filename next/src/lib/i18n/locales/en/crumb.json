@@ -8,6 +8,7 @@
   "nomenclatures": "Nomenclatures",
   "questionnaire": "Questionnaire {{id}}",
   "questionnaires": "Questionnaires",
+  "variable": "Variable {{id}}",
   "variables": "Variables",
   "version": "Version {{id}}",
   "articulation": "Roundabout summary"

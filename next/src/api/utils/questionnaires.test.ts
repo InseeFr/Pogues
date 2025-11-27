@@ -11,7 +11,7 @@ import {
   GenericNameEnum,
   Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
-} from '../models/pogues';
+} from '../models/poguesModel';
 import {
   computeNewPoguesQuestionnaire,
   computeQuestionnaire,
@@ -49,8 +49,17 @@ it('computeQuestionnaire works', () => {
         genericName: GenericNameEnum.Module,
       },
     ],
+    Iterations: {
+      Iteration: [
+        { id: 'id-iteration-1', Name: 'mon_itération_1' },
+        { id: 'id-iteration-2', Name: 'mon_itération_2' },
+      ],
+    },
   };
 
+  const scopes = new Map();
+  scopes.set('id-iteration-1', 'mon_itération_1');
+  scopes.set('id-iteration-2', 'mon_itération_2');
   const questionnaire: Questionnaire = {
     id: 'id',
     title: 'title',
@@ -58,6 +67,7 @@ it('computeQuestionnaire works', () => {
     codesLists: [{ id: 'idcl', label: 'cl', codes: [] }],
     lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
     formulasLanguage: FormulasLanguages.XPath,
+    scopes,
   };
 
   expect(computeQuestionnaire(poguesQuestionnaire)).toEqual(questionnaire);

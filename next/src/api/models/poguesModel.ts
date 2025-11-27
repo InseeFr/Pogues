@@ -1,7 +1,12 @@
 /**
- * The Pogues data model is highly inspired by the DDI model. See the DDI documentation :
- * https://ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/FieldLevelDocumentation/
+ * This is the manual typescript transcription of the
+ * {@link https://github.com/InseeFr/Pogues-Model Pogues Model.}
+ *
+ * This is what is fetched and sent to the raw questionnaire API call.
+ *
+ * @version 1.12.0 (last updated 2025/11/25)
  */
+import type { TypedValueType } from './poguesModelTypeUtils';
 
 /**
  * A data collection (or a data collection campaign) is a survey data collection
@@ -55,7 +60,7 @@ export type Questionnaire = Sequence & {
    *   question group is repeated. It can simply be (considering that by default
    *   we start at 1 and that the step is 1).
    */
-  Iterations?: { Iteration?: IterationType[] };
+  Iterations?: { Iteration?: DynamicIterationType[] };
   /**
    * The childQuestionnaireRef currently holds the IDs of the questionnaires on
    * which the current questionnaire depends.
@@ -120,10 +125,18 @@ type ComponentGroup = {
   id: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type QuestionType = ComponentType & {
+export type QuestionType = ComponentType & {
   Response: ResponseType[];
   ResponseStructure?: ResponseStructureType;
+  /**
+   * Arbitrary response is a possibility for the respondent to enter an
+   * arbitrary answer if he cannot find an answer among the suggested options.
+   * The arbitrary response is retrieved in a specific text variable. It is
+   * currently used only for single response question for suggester.
+   *
+   * @version 1.6.0
+   */
+  ArbitraryResponse?: ResponseType;
   /**
    * Clarification question is a request for additional information from a list
    * of choices defined a priori (single or multiple choice question). This
@@ -134,25 +147,84 @@ type QuestionType = ComponentType & {
    */
   ClarificationQuestion?: QuestionType[];
   Scope?: string;
+  /**
+   * codeFilters is list of CodeFilter, indicate in this question,
+   * codeValue filtered according to a condition.
+   *
+   * @version 1.6.4
+   */
+  codeFilters?: CodeFilter[];
   questionType?: QuestionTypeEnum;
+  /**
+   * Whether the question is mandatory. Only used by multiple choice question
+   * for now: we need it at the question root as it is related to multiple
+   * responses. For simple questions and QCU we put it at the response level.
+   *
+   * @version 1.12.0
+   */
+  mandatory?: boolean;
 };
 
-type IterationType = {
+/** @version 1.6.5 */
+type CodeFilter = {
+  codeValue: string;
+  conditionFilter: string;
+};
+
+export interface IterationType {
   Name: string;
   Label?: string;
   MemberReference?: string[];
   id: string;
-};
+}
 
-type DynamicIterationType = IterationType & {
+interface DynamicIterationType extends IterationType {
+  /** @deprecated since 1.10.0, use "minimum" instead (VTL formula) */
   Minimum?: ExpressionType;
+  /** @deprecated since 1.10.0, use "maximum" instead (VTL formula) */
   Maximum?: ExpressionType;
+  /**
+   * When there is no IterableReference, ables to know if a loop dimension is
+   * fixed (with a size value) or not (with minimum and maximum values)
+   *
+   * @defaultValue false
+   * @since 1.10.0
+   */
+  isFixedLength?: boolean;
+  /**
+   * Minimum allowed value for a loop dimension. Used only if isFixedLength is
+   * false/undefined.
+   *
+   * @since 1.10.0
+   */
+  minimum?: ExpressionType;
+  /**
+   * Maximum allowed value for a loop dimension. Used only if isFixedLength is
+   * false/undefined.
+   *
+   * @since 1.10.0
+   */
+  maximum?: ExpressionType;
+  /**
+   * Size of a loop. Used only if isFixedLength is true.
+   *
+   * @since 1.10.0
+   */
+  size?: ExpressionType;
+  /**
+   * When there is a size, it allows to display a loop with one page per
+   * iteration.
+   *
+   * @defaultValue false
+   * @since 1.10.0
+   */
+  shouldSplitIterations?: boolean;
   Step?: number;
   /** Could be a Roster (dynamic table) or another iteration */
-  IterableReference: string;
+  IterableReference?: string;
   /** Specifies a condition for filter for NOT displaying the code value */
   Filter?: ExpressionType;
-};
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Roundabout = ComponentType & {
@@ -224,30 +296,63 @@ type ResponseStructureType = {
   Mapping?: MappingType[];
 };
 
+/**
+ * Defines a dimension of a table (e.g., PRIMARY, SECONDARY, MEASURE).
+ *
+ * The behavior of the dimension is controlled by the 'dynamic' attribute:
+ * - NON_DYNAMIC: fixed size, potentially based on a codeList.
+ * - DYNAMIC: dynamic size with minimum different from maximum.
+ * - DYNAMIC_FIXED: dynamic size with minimum equal to maximum (using the 'size' field).
+ */
 type DimensionType = {
+  /**
+   * Reference to an external code list (codeList), used for NON_DYNAMIC
+   * dimensions.
+   */
   CodeListReference?: string;
+  /** Optional label for the dimension. */
   Label?: string;
+  /** @deprecated since 1.8.1, use "minimum" instead (VTL formula) */
   MinLines?: number;
+  /** @deprecated since 1.8.1, use "maximum" instead (VTL formula) */
   MaxLines?: number;
+  /**
+   * Minimum allowed value for a DYNAMIC dimension (type: number or VTL).
+   *
+   * @since 1.9.0
+   */
+  minimum?: TypedValueType;
+  /**
+   * Maximum allowed value for a DYNAMIC dimension (type: number or VTL).
+   *
+   * @since 1.9.0
+   */
+  maximum?: TypedValueType;
+  /**
+   * Used only if dynamic = DYNAMIC_FIXED. Size dynamically fixed by a formula
+   * or a value (min = max).
+   *
+   * @since 1.9.0
+   */
+  size?: TypedValueType;
+  /** @deprecated since 1.9.0, use "size" instead (VTL formula) */
   FixedLength?: ExpressionType;
   dimensionType: DimensionTypeEnum;
   /**
-   * previous modeling:
-   * - '0': no constraint;
-   * - 'm-': min m, no max;
-   * - '-n': no min, n max;
-   * - 'm-n': m min, n max
-   *
-   * new modeling (not Enum because of the existing questionnaires):
-   * - NON_DYNAMIC (previously '0'; default value);
-   * - DYNAMIC_LENGTH (used with MinLines and MaxLines)
-   *
-   * new value:
-   * - FIXED_LENGTH (used with FixedLength): dynamic dimension with length fixed
-   * by a formula based on previous values
+   * For now, we keep this as xs:token. Later, this will be replaced by an
+   * enumeration based on DynamicTypeEnum.
    */
   dynamic?: string;
 };
+
+/** @since 1.9.0 */
+// @ts-expect-error not used by pogues model yet
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+enum DynamicTypeEnum {
+  NonDynamic = 'NON_DYNAMIC',
+  Dynamic = 'DYNAMIC',
+  DynamicFixed = 'DYNAMIC_FIXED',
+}
 
 type AttributeType = {
   /** In the case of a "no data by definition", is "NoDataByDefinition" */
@@ -271,7 +376,7 @@ type MappingType = {
   MappingTarget: string;
 };
 
-enum DimensionTypeEnum {
+export enum DimensionTypeEnum {
   /**
    * In a fixed table (with row header in the first column and without the
    * possibility of dynamically adding a row to the table), the primary
@@ -311,9 +416,28 @@ type ResponseType = {
    * variable in the wrap and the variable created in the response element.
    */
   CollectedVariableReference: string;
+  /**
+   * conditionFilter is used in dynamic table to tell if cell that collects
+   * response has to be filtered or not.
+   *
+   * @since 1.7.0
+   */
+  conditionFilter: string;
+  /**
+   * conditionReadOnly allows defining a condition that makes the field
+   * non-editable (read-only).
+   *
+   * @since 1.8.0
+   */
+  conditionReadOnly?: string;
   /** an identifier to responses in order to be able to reference them in mappings */
   id: string;
   simple?: boolean;
+  /**
+   * Whether the response is mandatory. Used by simple and single choice
+   * questions. Note that for QCM we use the mandatory attribute at the question
+   * root since it is not related to a single response.
+   */
   mandatory?: boolean;
 };
 
@@ -329,8 +453,8 @@ type NonResponseModalityType = {
   firstIntentionDisplay: boolean;
 };
 
-type Sequence = ComponentType & {
-  Child?: ComponentType[];
+export type Sequence = ComponentType & {
+  Child?: (Sequence | QuestionType)[];
   depth?: number;
   /**
    * \Eno\src\main\resources\xslt\inputs\pogues-xml\source-fixed.xsl
@@ -376,8 +500,20 @@ type ControlType = {
   FailMessage?: string;
   id: string;
   criticity?: ControlCriticityEnum;
-  scope?: string;
+  /** @since 1.6.1 */
+  scope: ControlScopeEnum;
 };
+
+/**
+ * Scope can be: "occurrence" or "whole (occurrence: for control in row (dynamic
+ * table) or in occurrence level in Roundabout, whole: questionnaire scope)".
+ *
+ * @since 1.6.1
+ */
+enum ControlScopeEnum {
+  Occurence = 'occurence',
+  Whole = 'whole',
+}
 
 type FlowControlType = {
   Description?: string;
@@ -432,12 +568,6 @@ export type CodeType = {
   Value: string;
   /** The label of the code. */
   Label: string;
-  /**
-   * NOT USED
-   *
-   * Specifies a condition for NOT displaying the code value
-   */
-  Filter?: ExpressionType;
   /**
    * This attribute is used in hierarchical code lists case (a code may contain
    * a code that may contain a code, etc. (as a recursive description)). It
@@ -500,6 +630,16 @@ type DatatypeType = {
    * "GraphicalImplementation"
    */
   visualizationHint?: VisualizationHintEnum;
+  /**
+   * Allows the respondent to enter an arbitrary response if he cannot find an
+   * answer among the suggested options. In this case, the related question has
+   * an "ArbitraryResponse" object to define the arbitrary variable. It is
+   * currently used only for single response question for suggester.
+   *
+   * @defaultValue false
+   * @since 1.6.0
+   */
+  allowArbitraryResponse?: boolean;
 };
 
 type BooleanDatatypeType = DatatypeType & {
@@ -578,7 +718,7 @@ export enum SurveyModeEnum {
   PAPI = 'PAPI',
 }
 
-enum QuestionTypeEnum {
+export enum QuestionTypeEnum {
   /**
    * a SIMPLE question is a question made of a label and only one response
    * domain whichever its type be: text, numeric, date, boolean, or less
@@ -671,6 +811,12 @@ export enum GenericNameEnum {
   Module = 'MODULE',
   /** In DDI, type of Sequence "submodule */
   Submodule = 'SUBMODULE',
+  /**
+   * Indicates that Sequence is external (Composition of questionnaire)
+   *
+   * @since 1.6.6
+   */
+  ExternalElement = 'EXTERNAL_ELEMENT',
 }
 
 export enum DateFormatEnum {

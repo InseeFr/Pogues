@@ -7,6 +7,10 @@ interface DirtyStateDialogProps {
   onCancel: () => void;
 }
 
+/**
+ * A confirmation dialog used to warn the user they might lose data if they
+ * leave the page.
+ */
 export default function DirtyStateDialog({
   onValidate,
   onCancel,

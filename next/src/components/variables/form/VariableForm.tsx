@@ -1,78 +1,30 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import i18next, { t } from 'i18next';
+import { useNavigate } from '@tanstack/react-router';
+import { t } from 'i18next';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/form/Checkbox';
 import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
-import Option from '@/components/ui/form/Option';
 import Select from '@/components/ui/form/Select';
-import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
+import { DatatypeType, DateFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
 import VariableDatatype from '../VariableDatatype';
+import { FormValues, schema } from './schema';
 
-interface Props {
+type Props = {
+  questionnaireId: string;
   /** In an update case, initial questionnaire value. */
   variable?: Omit<Variable, 'id'>;
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
   submitLabel: string;
-  /** Scopes availables. */
-  scopes: Set<string>;
-}
-
-const datatypeEnum = z.enum(DatatypeType);
-const datatypeSchema = z.discriminatedUnion('typeName', [
-  z.object({
-    typeName: datatypeEnum.extract(['Boolean']),
-  }),
-  z.object({
-    typeName: datatypeEnum.extract(['Date']),
-    format: z.enum(DateFormat),
-    minimum: z.date().optional(),
-    maximum: z.date().optional(),
-  }),
-  z.object({
-    typeName: datatypeEnum.extract(['Duration']),
-    format: z.enum(DurationFormat),
-    years: z.number().optional(),
-    months: z.date().optional(),
-    hours: z.number().optional(),
-    minutes: z.date().optional(),
-  }),
-  z.object({
-    typeName: datatypeEnum.extract(['Numeric']),
-    minimum: z.number().optional(),
-    maximum: z.number().optional(),
-    decimals: z.number().optional(),
-    isDynamicUnit: z.boolean().optional(),
-    unit: z.string().optional(),
-  }),
-  z.object({
-    typeName: datatypeEnum.extract(['Text']),
-    maxLength: z.number().min(1).default(254).optional(),
-  }),
-]);
-
-const schema = z.object({
-  name: z
-    .string()
-    .min(1, { message: i18next.t('variable.form.mustProvideName') })
-    .regex(/^[A-Z]+(_[A-Z]+)*$/, {
-      message: i18next.t('variable.form.mustProvideScreamingSnakeCaseName'),
-    }),
-  description: z.string(),
-  scope: z.string().nullable().optional(),
-  datatype: datatypeSchema,
-  type: z.enum(VariableType),
-});
-
-export type FormValues = z.infer<typeof schema>;
+  /** Available scopes with the mapping between id and name. */
+  scopes: Map<string, string>;
+};
 
 /**
  * Create or edit a variable.
@@ -81,9 +33,10 @@ export type FormValues = z.infer<typeof schema>;
  * questionnaire), a type, a datatype and its related informations, and may have
  * a formula if it is of type calculated.
  *
- * {@link CodesList}
+ * @see {@link Variable}
  */
 export default function VariableForm({
+  questionnaireId,
   variable = {
     name: '',
     description: '',
@@ -95,6 +48,8 @@ export default function VariableForm({
   submitLabel,
   scopes,
 }: Readonly<Props>) {
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -108,6 +63,14 @@ export default function VariableForm({
 
   const selectedTypeName = watch('datatype.typeName');
 
+  const handleCancel = () => {
+    navigate({
+      to: '/questionnaire/$questionnaireId/variables',
+      params: { questionnaireId },
+      ignoreBlocker: true,
+    });
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
@@ -119,18 +82,12 @@ export default function VariableForm({
           render={({ field, fieldState: { isTouched, error } }) => (
             <>
               <div className="flex gap-x-4">
+                {/* We only handle external variable for now */}
                 <Checkbox
                   label={t('variable.type.external')}
                   checked={field.value === VariableType.External}
                   onChange={(v) => {
                     if (v) field.onChange(VariableType.External);
-                  }}
-                />
-                <Checkbox
-                  label={t('variable.type.calculated')}
-                  checked={field.value === VariableType.Calculated}
-                  onChange={(v) => {
-                    if (v) field.onChange(VariableType.Calculated);
                   }}
                 />
               </div>
@@ -151,6 +108,11 @@ export default function VariableForm({
             error={error?.message}
             {...field}
             required
+            onChange={(event) => {
+              field.onChange(
+                event.target.value.toUpperCase().replaceAll(/\s/g, '_'),
+              );
+            }}
           />
         )}
       />
@@ -162,6 +124,7 @@ export default function VariableForm({
             label={t('variable.description')}
             error={error?.message}
             {...field}
+            required
           />
         )}
       />
@@ -172,14 +135,16 @@ export default function VariableForm({
         render={({ field, fieldState: { error } }) => (
           <>
             <Label required>{t('variable.scope')}</Label>
-            <Select {...field}>
-              <Option value={null}>{t('common.questionnaire')}</Option>
-              {Array.from(scopes).map((scope) => (
-                <Option key={scope} value={scope}>
-                  {scope}
-                </Option>
-              ))}
-            </Select>
+            <Select<string>
+              {...field}
+              options={[
+                { label: t('common.questionnaire'), value: '' },
+                ...Array.from(scopes).map(([id, name]) => ({
+                  label: name,
+                  value: id,
+                })),
+              ]}
+            />
             {error ? (
               <div className="text-sm text-error ml-1">{error.message}</div>
             ) : null}
@@ -193,40 +158,83 @@ export default function VariableForm({
         render={({ field, fieldState: { error } }) => (
           <>
             <Label required>{t('variable.datatype.label')}</Label>
-            <Select {...field}>
-              {[
-                DatatypeType.Text,
-                DatatypeType.Date,
-                DatatypeType.Numeric,
-                DatatypeType.Boolean,
-              ].map((datatype) => (
-                <Option key={datatype} value={datatype}>
-                  <VariableDatatype datatype={datatype} />
-                </Option>
-              ))}
-            </Select>
+            <Select<DatatypeType>
+              {...field}
+              options={[
+                {
+                  label: <VariableDatatype datatype={DatatypeType.Text} />,
+                  value: DatatypeType.Text,
+                },
+                {
+                  label: <VariableDatatype datatype={DatatypeType.Date} />,
+                  value: DatatypeType.Date,
+                },
+                {
+                  label: <VariableDatatype datatype={DatatypeType.Numeric} />,
+                  value: DatatypeType.Numeric,
+                },
+                {
+                  label: <VariableDatatype datatype={DatatypeType.Boolean} />,
+                  value: DatatypeType.Boolean,
+                },
+              ]}
+            />
             {error ? (
               <div className="text-sm text-error ml-1">{error.message}</div>
             ) : null}
           </>
         )}
       />
-      {selectedTypeName === DatatypeType.Date ? <div>Date</div> : null}
-      {selectedTypeName === DatatypeType.Duration ? <div>Duration</div> : null}
+      {selectedTypeName === DatatypeType.Date ? (
+        <Controller
+          name="datatype.format"
+          control={control}
+          rules={{ required: true }}
+          render={({ field, fieldState: { error } }) => (
+            <>
+              <Label required>{t('variable.format')}</Label>
+              {/* @ts-expect-error format is date format as datatype is date */}
+              <Select<DateFormat>
+                {...field}
+                options={[
+                  {
+                    label: DateFormat.YearMonthDay,
+                    value: DateFormat.YearMonthDay,
+                  },
+                  {
+                    label: DateFormat.YearMonth,
+                    value: DateFormat.YearMonth,
+                  },
+                  {
+                    label: DateFormat.Year,
+                    value: DateFormat.Year,
+                  },
+                ]}
+              />
+              {error ? (
+                <div className="text-sm text-error ml-1">{error.message}</div>
+              ) : null}
+            </>
+          )}
+        />
+      ) : null}
       {selectedTypeName === DatatypeType.Numeric ? (
         <>
           <Controller
             name="datatype.minimum"
             control={control}
+            rules={{ required: true }}
             render={({ field, fieldState: { error } }) => (
+              /* @ts-expect-error minimum is a number as datatype is numeric */
               <Input
+                required
                 label={t('variable.minimum')}
                 error={error?.message}
                 type="number"
                 {...field}
                 onChange={(v) => {
                   const value = v.target.value;
-                  field.onChange(value ? Number(value) : undefined);
+                  if (value) field.onChange(Number(value));
                 }}
               />
             )}
@@ -234,15 +242,18 @@ export default function VariableForm({
           <Controller
             name="datatype.maximum"
             control={control}
+            rules={{ required: true }}
             render={({ field, fieldState: { error } }) => (
+              /* @ts-expect-error maximum is a number as datatype is numeric */
               <Input
+                required
                 label={t('variable.maximum')}
                 error={error?.message}
                 type="number"
                 {...field}
                 onChange={(v) => {
                   const value = v.target.value;
-                  field.onChange(value ? Number(value) : undefined);
+                  if (value) field.onChange(Number(value));
                 }}
               />
             )}
@@ -258,7 +269,7 @@ export default function VariableForm({
                 {...field}
                 onChange={(v) => {
                   const value = v.target.value;
-                  field.onChange(value ? Number(value) : undefined);
+                  field.onChange(value ? Number(value) : 0);
                 }}
               />
             )}
@@ -274,17 +285,20 @@ export default function VariableForm({
               label={t('variable.maxLength')}
               error={error?.message}
               type="number"
+              min={1}
               {...field}
               onChange={(v) => {
                 const value = v.target.value;
-                field.onChange(value ? Number(value) : undefined);
+                field.onChange(value ? Number(value) : 1);
               }}
             />
           )}
         />
       ) : null}
       <div className="flex gap-x-2 mt-6 justify-end">
-        <ButtonLink to="/questionnaires">{t('common.cancel')}</ButtonLink>
+        <Button type="button" onClick={handleCancel}>
+          {t('common.cancel')}
+        </Button>
         <Button
           type="submit"
           buttonStyle={ButtonStyle.Primary}

@@ -1,6 +1,6 @@
 import { CodesList } from '@/models/codesLists';
 
-import { CodeList as PoguesCodesList } from '../models/pogues';
+import { CodeList as PoguesCodesList } from '../models/poguesModel';
 import { computeCodesLists } from './codesLists';
 
 const codesLists: CodesList[] = [

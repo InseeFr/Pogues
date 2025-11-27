@@ -1,6 +1,6 @@
 import { TargetModes } from '@/models/questionnaires';
 
-import { SurveyModeEnum } from '../models/pogues';
+import { SurveyModeEnum } from '../models/poguesModel';
 import { computePoguesTargetModes, computeTargetModes } from './targetModes';
 
 describe('computeTargetModes', () => {

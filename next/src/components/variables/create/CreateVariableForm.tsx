@@ -7,14 +7,15 @@ import { postVariable, variablesKeys } from '@/api/variables';
 import { Variable } from '@/models/variables';
 import { uid } from '@/utils/utils';
 
-import VariableForm, { type FormValues } from '../form/VariableForm';
+import VariableForm from '../form/VariableForm';
+import type { FormValues } from '../form/schema';
 
-interface Props {
+type Props = {
   /** Questionnaire to add the variable to. */
   questionnaireId: string;
-  /** Scopes availables in the questionnaire. */
-  scopes: Set<string>;
-}
+  /** Scopes of the questionnaire with the mapping between id and name. */
+  scopes: Map<string, string>;
+};
 
 /** Form to create a questionnaire. */
 export default function CreateQuestionnaireForm({
@@ -33,7 +34,7 @@ export default function CreateQuestionnaireForm({
       variable: Variable;
       questionnaireId: string;
     }) => {
-      return postVariable(variable, questionnaireId);
+      return postVariable(questionnaireId, variable);
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
@@ -63,7 +64,7 @@ export default function CreateQuestionnaireForm({
         onSuccess: () =>
           navigate({
             to: '/questionnaire/$questionnaireId/variables',
-            params: { questionnaireId: id },
+            params: { questionnaireId },
           }),
       },
     );
@@ -78,6 +79,7 @@ export default function CreateQuestionnaireForm({
 
   return (
     <VariableForm
+      questionnaireId={questionnaireId}
       onSubmit={onSubmit}
       submitLabel={t('common.create')}
       scopes={scopes}

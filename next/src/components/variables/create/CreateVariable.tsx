@@ -1,11 +1,11 @@
 import CreateVariableForm from './CreateVariableForm';
 
-interface Props {
+type Props = {
   /** Questionnaire to add the variable to. */
   questionnaireId: string;
-  /** Scopes availables in the questionnaire. */
-  scopes: Set<string>;
-}
+  /** Scopes of the questionnaire with the mapping between id and name. */
+  scopes: Map<string, string>;
+};
 
 /**
  * Create a new variable.

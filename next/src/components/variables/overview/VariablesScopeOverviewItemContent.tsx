@@ -7,6 +7,10 @@ interface Props {
   variables: Variable[];
 }
 
+/**
+ * Used as header of variables scope overview. Display which scope the variables
+ * are related to, and how many variables there are.
+ */
 export default function VariablesScopeOverviewItemContent({
   scope,
   variables = [],

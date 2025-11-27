@@ -1,12 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
-import { variablesQueryOptions } from '@/api/variables';
+import { questionnaireQueryOptions } from '@/api/questionnaires';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import CreateVariable from '@/components/variables/create/CreateVariable';
 import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout';
-
-const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
+import { computeQuestionnaireScopes } from '@/utils/scopes';
 
 /**
  * Page that allow to create a new code list.
@@ -14,14 +13,6 @@ const enableVariablesPageForm = import.meta.env.VITE_ENABLE_VARIABLES_PAGE_FORM;
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/new',
 )({
-  beforeLoad: ({ params: { questionnaireId } }) => {
-    if (!enableVariablesPageForm) {
-      throw redirect({
-        to: '/questionnaire/$questionnaireId/variables',
-        params: { questionnaireId },
-      });
-    }
-  },
   component: RouteComponent,
   errorComponent: ({ error }) => (
     <CreateVariableLayout>
@@ -32,27 +23,23 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId },
   }) => {
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
+    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
     return { crumb: t('crumb.new') };
   },
 });
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId;
-  const { data: variables } = useSuspenseQuery(
-    variablesQueryOptions(questionnaireId),
+  const { data: questionnaire } = useSuspenseQuery(
+    questionnaireQueryOptions(questionnaireId),
   );
-
-  const scopes = new Set<string>();
-  for (const variable of variables) {
-    if (variable.scope) {
-      scopes.add(variable.scope);
-    }
-  }
 
   return (
     <CreateVariableLayout>
-      <CreateVariable questionnaireId={questionnaireId} scopes={scopes} />
+      <CreateVariable
+        questionnaireId={questionnaireId}
+        scopes={questionnaire.scopes}
+      />
     </CreateVariableLayout>
   );
 }

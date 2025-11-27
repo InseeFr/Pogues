@@ -15,6 +15,7 @@ export interface InputProps
   label?: string;
   required?: boolean;
   onClear?: () => void;
+  onValueChange?: UIInput.Props['onValueChange'];
   showClearButton?: boolean;
 }
 
@@ -30,6 +31,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       style = {},
       defaultValue,
       onClear,
+      onValueChange,
       showClearButton = false,
       ...props
     }: Readonly<InputProps>,
@@ -42,7 +44,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         disabled={disabled}
         className={`${className} flex w-full flex-col items-start gap-1`}
         style={style}
-        defaultValue={defaultValue}
       >
         {label ? (
           <Field.Label className="text-sm ml-1">
@@ -54,6 +55,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <UIInput
             ref={ref}
             required={required}
+            defaultValue={defaultValue}
+            onValueChange={onValueChange}
             className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-xs border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
             {...props}
           />

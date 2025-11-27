@@ -1,6 +1,6 @@
 import { FlowLogics } from '@/models/questionnaires';
 
-import { FlowLogicEnum } from '../models/pogues';
+import { FlowLogicEnum } from '../models/poguesModel';
 import { computePoguesFlowLogic } from './flowLogic';
 
 describe('computePoguesFlowLogic', () => {

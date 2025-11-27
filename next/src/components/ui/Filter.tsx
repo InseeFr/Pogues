@@ -2,7 +2,6 @@ import { type Filter as FilterModel, FilterType } from '@/models/filters';
 
 import Input from './form/Input';
 import Label from './form/Label';
-import Option from './form/Option';
 import Select from './form/Select';
 import Switch from './form/Switch';
 import ToggleGroup from './form/ToggleGroup';
@@ -25,13 +24,10 @@ export default function Filter<T>({
       return (
         <div className="grid grid-row grid-[auto_1fr] min-w-42">
           <Label>{filter.label}</Label>
-          <Select onChange={(e) => onActiveFilter(filter, e as string)}>
-            {filter.options.map(({ label, value }) => (
-              <Option key={value} value={value}>
-                {label}
-              </Option>
-            ))}
-          </Select>
+          <Select<string>
+            options={filter.options}
+            onChange={(e) => onActiveFilter(filter, e)}
+          />
         </div>
       );
     }
