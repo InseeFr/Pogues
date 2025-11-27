@@ -13,6 +13,7 @@ describe('external variable transformation', () => {
       Label: 'Label 1',
       type: 'ExternalVariableType',
       Scope: 'jqqchose',
+      isDeletedOnReset: true,
       Datatype: {
         type: 'TextDatatypeType',
         typeName: TEXT,
@@ -24,6 +25,7 @@ describe('external variable transformation', () => {
       Name: 'Name 2',
       Label: 'Label 2',
       type: 'ExternalVariableType',
+      isDeletedOnReset: false,
       Datatype: {
         Minimum: '1',
         Maximum: '10',
@@ -57,6 +59,7 @@ describe('external variable transformation', () => {
       label: 'Label 1',
       type: TEXT,
       scope: 'jqqchose',
+      isDeletedOnReset: true,
       [TEXT]: {
         maxLength: 'maxLength',
       },
@@ -67,6 +70,7 @@ describe('external variable transformation', () => {
       label: 'Label 2',
       type: NUMERIC,
       scope: '',
+      isDeletedOnReset: false,
       [NUMERIC]: {
         minimum: '1',
         maximum: '10',

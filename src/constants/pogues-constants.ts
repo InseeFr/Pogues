@@ -152,11 +152,11 @@ export enum QUESTION_TYPE_ENUM {
   PAIRING = 'PAIRWISE',
 }
 
-export const VARIABLES_TYPES = {
-  COLLECTED: 'CollectedVariableType',
-  CALCULATED: 'CalculatedVariableType',
-  EXTERNAL: 'ExternalVariableType',
-};
+export enum VARIABLES_TYPES {
+  COLLECTED = 'CollectedVariableType',
+  CALCULATED = 'CalculatedVariableType',
+  EXTERNAL = 'ExternalVariableType',
+}
 
 export const TAB_NAMES = {
   RESPONSE_FORMAT: 'responseFormat',
