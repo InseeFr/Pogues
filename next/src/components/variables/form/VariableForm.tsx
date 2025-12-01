@@ -280,6 +280,7 @@ export default function VariableForm({
         <Controller
           name="datatype.maxLength"
           control={control}
+          defaultValue={249}
           render={({ field, fieldState: { error } }) => (
             <Input
               label={t('variable.maxLength')}
