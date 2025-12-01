@@ -33,7 +33,7 @@ const datatypeSchema = z.discriminatedUnion('typeName', [
   }),
   z.object({
     typeName: datatypeEnum.extract(['Text']),
-    maxLength: z.number().min(1).default(254).optional(),
+    maxLength: z.number().min(1).default(249).optional(),
   }),
 ]);
 
