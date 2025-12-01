@@ -5,6 +5,7 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import Checkbox from '@/components/ui/form/Checkbox';
+import FormSwitch from '@/components/ui/form/FormSwitch';
 import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
 import Select from '@/components/ui/form/Select';
@@ -61,6 +62,7 @@ export default function VariableForm({
     resolver: zodResolver(schema),
   });
 
+  const selectedType = watch('type');
   const selectedTypeName = watch('datatype.typeName');
 
   const handleCancel = () => {
@@ -98,6 +100,28 @@ export default function VariableForm({
           )}
         />
       </div>
+      {selectedType === VariableType.External ? (
+        <Controller
+          name="isDeletedOnReset"
+          control={control}
+          render={({
+            field: { ref, name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty },
+          }) => (
+            <FormSwitch
+              name={name}
+              invalid={invalid}
+              touched={isTouched}
+              dirty={isDirty}
+              label={t('variable.isDeletedOnReset')}
+              value={value}
+              ref={ref}
+              onChange={onChange}
+              onBlur={onBlur}
+            />
+          )}
+        />
+      ) : null}
       <Controller
         name="name"
         control={control}

@@ -4,7 +4,7 @@
  *
  * This is what is fetched and sent to the raw questionnaire API call.
  *
- * @version 1.12.0 (last updated 2025/11/25)
+ * @version 1.13.0 (last updated 2025/12/01)
  */
 import type { TypedValueType } from './poguesModelTypeUtils';
 
@@ -283,9 +283,23 @@ export type CalculatedVariableType = VariableType & {
  * but useful for personalization. For example, it may be a collection wave
  * number for filtering questions, a date to be displayed in the wording of a
  * question, etc.
+ *
+ * External variables are immutable by default. The 'isDeletedOnReset' attribute
+ * indicates whether the variable value is allowed to be emptied when the
+ * questionnaire is reset.
  */
 export type ExternalVariableType = VariableType & {
   type: VariableTypeType.ExternalVariableType;
+  /**
+   * This attribute allows distinguishing external variables whose values should
+   * be reset in some scenarios from those that should remain unchanged.
+   * - true  : the value is deleted
+   * - false : the value is preserved
+   *
+   * @defaultValue false
+   * @since 1.13.0
+   */
+  isDeletedOnReset?: boolean;
 };
 
 type ResponseStructureType = {
