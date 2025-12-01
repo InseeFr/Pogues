@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.3.0-rc.1",
+  "version": "2.3.0-rc.resettable-external-variables.1",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",

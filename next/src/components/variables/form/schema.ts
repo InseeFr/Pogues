@@ -5,6 +5,7 @@ import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
 
 const datatypeEnum = z.enum(DatatypeType);
+/** Properties specific to selected datatype. */
 const datatypeSchema = z.discriminatedUnion('typeName', [
   z.object({
     typeName: datatypeEnum.extract(['Boolean']),
@@ -37,7 +38,8 @@ const datatypeSchema = z.discriminatedUnion('typeName', [
   }),
 ]);
 
-export const schema = z.object({
+/** Properties common to every variables, no matter the type. */
+const baseVariableSchema = z.object({
   name: z
     .string()
     .min(1, { message: i18next.t('variable.form.mustProvideName') })
@@ -49,7 +51,24 @@ export const schema = z.object({
     .min(1, { message: i18next.t('variable.form.mustProvideDescription') }),
   scope: z.string().optional(),
   datatype: datatypeSchema,
-  type: z.enum(VariableType),
 });
+
+const variableTypeEnum = z.enum(VariableType);
+/** Properties specific to selected variable type. */
+export const schema = z.discriminatedUnion('type', [
+  z.object({
+    ...baseVariableSchema.shape,
+    type: variableTypeEnum.extract(['Calculated']),
+  }),
+  z.object({
+    ...baseVariableSchema.shape,
+    type: variableTypeEnum.extract(['Collected']),
+  }),
+  z.object({
+    ...baseVariableSchema.shape,
+    type: variableTypeEnum.extract(['External']),
+    isDeletedOnReset: z.boolean().optional(),
+  }),
+]);
 
 export type FormValues = z.infer<typeof schema>;

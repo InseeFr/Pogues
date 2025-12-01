@@ -35,7 +35,17 @@ export function computeVariable(variableDTO: VariableDTO): Variable {
     datatype,
   };
 
-  if (variable.type === VariableType.Calculated) {
+  if (
+    variable.type === VariableType.External &&
+    variableDTO.type === VariableDTOType.External
+  ) {
+    variable.isDeletedOnReset = variableDTO.isDeletedOnReset;
+  }
+
+  if (
+    variable.type === VariableType.Calculated &&
+    variableDTO.type === VariableDTOType.Calculated
+  ) {
     variable.formula = variableDTO.formula || '';
   }
 
@@ -188,7 +198,17 @@ export function computeVariableDTO(variable: Variable): VariableDTO {
     datatype: datatypeDTO,
   };
 
-  if (variable.type === VariableType.Calculated) {
+  if (
+    variable.type === VariableType.External &&
+    variableDTO.type === VariableDTOType.External
+  ) {
+    variableDTO.isDeletedOnReset = variable.isDeletedOnReset;
+  }
+
+  if (
+    variable.type === VariableType.Calculated &&
+    variableDTO.type === VariableDTOType.Calculated
+  ) {
     variableDTO.formula = variable.formula;
   }
 

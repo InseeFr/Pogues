@@ -3,9 +3,7 @@ export type VariableDTO = {
   id: string;
   name: string;
   description?: string;
-  type: VariableDTOType;
   scope?: string;
-  formula?: string;
   datatype:
     | {
         typeName: VariableDTODatatypeTypename.Boolean;
@@ -34,7 +32,14 @@ export type VariableDTO = {
         typeName: VariableDTODatatypeTypename.Text;
         maxLength?: number;
       };
-};
+} & (
+  | {
+      type: VariableDTOType.Calculated;
+      formula?: string;
+    }
+  | { type: VariableDTOType.External; isDeletedOnReset?: boolean }
+  | { type: VariableDTOType.Collected }
+);
 
 export enum VariableDTOType {
   Collected = 'COLLECTED',
