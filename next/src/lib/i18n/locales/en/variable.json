@@ -27,6 +27,7 @@
     "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
   },
   "format": "format",
+  "isDeletedOnReset": "Resettable variable",
   "maxLength": "Length",
   "maximum": "Max",
   "minimum": "Min",

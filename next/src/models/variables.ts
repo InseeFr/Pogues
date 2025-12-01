@@ -18,5 +18,6 @@ export type Variable = {
       type: VariableType.Calculated;
       formula?: string;
     }
-  | { type: VariableType.External | VariableType.Collected }
+  | { type: VariableType.External; isDeletedOnReset?: boolean }
+  | { type: VariableType.Collected }
 );

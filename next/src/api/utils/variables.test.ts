@@ -88,6 +88,32 @@ describe('computeVariable', () => {
     });
   });
 
+  it('should compute an External variable with isDeletedOnReset attribute correctly', () => {
+    const variableDTO: VariableDTO = {
+      type: VariableDTOType.External,
+      id: 'mon-id',
+      name: 'MA_VAR',
+      description: 'Une variable collectée de type texte',
+      datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
+      isDeletedOnReset: true,
+      scope: 'mon-scope',
+    };
+
+    const result = computeVariable(variableDTO);
+    expect(result).toEqual({
+      type: VariableType.External,
+      id: 'mon-id',
+      name: 'MA_VAR',
+      description: 'Une variable collectée de type texte',
+      datatype: { typeName: DatatypeType.Text, maxLength: 42 },
+      isDeletedOnReset: true,
+      scope: 'mon-scope',
+    });
+
+    const resultDTO = computeVariableDTO(result);
+    expect(resultDTO).toEqual(variableDTO);
+  });
+
   it('should compute a Collected boolean variable correctly', () => {
     const variableDTO: VariableDTO = {
       type: VariableDTOType.Collected,

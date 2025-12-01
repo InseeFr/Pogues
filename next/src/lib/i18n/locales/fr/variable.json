@@ -22,6 +22,7 @@
     "mustProvideScreamingSnakeCaseName": "L'identifiant doit être au format SCREAMING_SNAKE_CASE"
   },
   "format": "format",
+  "isDeletedOnReset": "Variable réinitialisable",
   "maxLength": "Taille",
   "maximum": "Max",
   "minimum": "Min",
