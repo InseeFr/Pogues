@@ -42,22 +42,9 @@ export default function CreateQuestionnaireForm({
       }),
   });
 
-  const onSubmit = async ({
-    name,
-    datatype,
-    description,
-    scope,
-    type,
-  }: FormValues) => {
+  const onSubmit = async (formValues: FormValues) => {
     const id = uid();
-    const variable = {
-      id,
-      name,
-      datatype,
-      description,
-      scope,
-      type,
-    };
+    const variable = { id, ...formValues };
     const promise = mutation.mutateAsync(
       { variable, questionnaireId },
       {
@@ -70,9 +57,7 @@ export default function CreateQuestionnaireForm({
     );
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('variable.create.success', {
-        name,
-      }),
+      success: t('variable.create.success', { name }),
       error: (err: Error) => err.toString(),
     });
   };
