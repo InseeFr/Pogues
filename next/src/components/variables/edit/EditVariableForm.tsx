@@ -46,21 +46,8 @@ export default function EditVariableForm({
       }),
   });
 
-  const onSubmit = async ({
-    name,
-    datatype,
-    description,
-    scope,
-    type,
-  }: FormValues) => {
-    const variable = {
-      id: variableId,
-      name,
-      datatype,
-      description,
-      scope,
-      type,
-    };
+  const onSubmit = async (formValues: FormValues) => {
+    const variable = { id: variableId, ...formValues };
     const promise = mutation.mutateAsync(
       { questionnaireId, variable },
       {
@@ -73,9 +60,7 @@ export default function EditVariableForm({
     );
     toast.promise(promise, {
       loading: t('common.loading'),
-      success: t('variable.edit.success', {
-        name,
-      }),
+      success: t('variable.edit.success', { name }),
       error: (err: Error) => err.toString(),
     });
   };

@@ -41,10 +41,10 @@ export default function Filter<T>({
     }
     case FilterType.Boolean: {
       return (
-        <Switch
-          label={filter.label}
-          onChange={(e) => onActiveFilter(filter, e)}
-        />
+        <>
+          <Label>{filter.label}</Label>
+          <Switch onCheckedChange={(e) => onActiveFilter(filter, e)} />
+        </>
       );
     }
     case FilterType.Text: {
