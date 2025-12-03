@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.2](https://github.com/InseeFr/Pogues/releases/tag/2.2.2) - 2025-11-06
 
+### Changed
+
+- Multimode and articulation are in the "Protocoles" submenu in the navigation bar.
+- Changed multimode and articulation French translations into "changement de mode" and "récapitulatif de rond-point" to use more user-friendly names.
+- Improved navigation bar style in smaller screen.
+
 ## [2.2.1](https://github.com/InseeFr/Pogues/releases/tag/2.2.1) - 2025-10-14
 
 ### Changed
