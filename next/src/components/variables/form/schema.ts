@@ -4,6 +4,8 @@ import i18next from '@/lib/i18n';
 import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
 import { VariableType } from '@/models/variables';
 
+import { screamingCamelCaseRegex } from './utils/name';
+
 const datatypeEnum = z.enum(DatatypeType);
 /** Properties specific to selected datatype. */
 const datatypeSchema = z.discriminatedUnion('typeName', [
@@ -43,7 +45,7 @@ const baseVariableSchema = z.object({
   name: z
     .string()
     .min(1, { message: i18next.t('variable.form.mustProvideName') })
-    .regex(/^[A-Z]+(_[A-Z]+)*$/, {
+    .regex(screamingCamelCaseRegex, {
       message: i18next.t('variable.form.mustProvideScreamingSnakeCaseName'),
     }),
   description: z

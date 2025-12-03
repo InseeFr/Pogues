@@ -14,6 +14,7 @@ import { type Variable, VariableType } from '@/models/variables';
 
 import VariableDatatype from '../VariableDatatype';
 import { FormValues, schema } from './schema';
+import { convertToScreamingCamelCase } from './utils/name';
 
 type Props = {
   questionnaireId: string;
@@ -133,9 +134,7 @@ export default function VariableForm({
             {...field}
             required
             onChange={(event) => {
-              field.onChange(
-                event.target.value.toUpperCase().replaceAll(/\s/g, '_'),
-              );
+              field.onChange(convertToScreamingCamelCase(event.target.value));
             }}
           />
         )}
