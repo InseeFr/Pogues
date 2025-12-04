@@ -64,7 +64,6 @@ const ComponentNewEdit = ({
       componentType === QUESTION &&
       (data.collectedVariables.name ||
         data.calculatedVariables.name ||
-        data.externalVariables.name ||
         data.redirections.label ||
         data.controls.label ||
         data.declarations.label ||
