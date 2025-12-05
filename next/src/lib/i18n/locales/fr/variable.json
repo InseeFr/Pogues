@@ -18,8 +18,7 @@
   },
   "form": {
     "mustProvideName": "Vous devez renseigner un identifiant",
-    "mustProvideDescription": "Vous devez renseigner un libellé",
-    "mustProvideScreamingSnakeCaseName": "L'identifiant doit être au format SCREAMING_SNAKE_CASE"
+    "mustProvideDescription": "Vous devez renseigner un libellé"
   },
   "format": "format",
   "isDeletedOnReset": "Variable réinitialisable",

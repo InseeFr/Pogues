@@ -23,8 +23,7 @@
   },
   "form": {
     "mustProvideName": "You must provide a name",
-    "mustProvideDescription": "You must provide a description",
-    "mustProvideScreamingSnakeCaseName": "Name must be in SCREAMING_SNAKE_CASE format"
+    "mustProvideDescription": "You must provide a description"
   },
   "format": "format",
   "isDeletedOnReset": "Resettable variable",
