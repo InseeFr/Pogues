@@ -1,6 +1,6 @@
 import { type Filter as FilterModel, FilterType } from '@/models/filters';
 
-import Input from './form/Input';
+import Input from './form/FormInput';
 import Label from './form/Label';
 import Select from './form/Select';
 import Switch from './form/Switch';

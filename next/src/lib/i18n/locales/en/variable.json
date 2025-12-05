@@ -23,7 +23,10 @@
   },
   "form": {
     "mustProvideName": "You must provide a name",
-    "mustProvideDescription": "You must provide a description"
+    "mustProvideDescription": "You must provide a description",
+    "name": {
+      "placeholder": "e.g. MY_VARIABLE"
+    }
   },
   "format": "format",
   "isDeletedOnReset": "Resettable variable",

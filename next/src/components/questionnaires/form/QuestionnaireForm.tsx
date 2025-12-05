@@ -7,7 +7,7 @@ import { z } from 'zod';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/form/Checkbox';
-import Input from '@/components/ui/form/Input';
+import Input from '@/components/ui/form/FormInput';
 import Label from '@/components/ui/form/Label';
 import {
   FlowLogics,

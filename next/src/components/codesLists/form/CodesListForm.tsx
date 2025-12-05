@@ -17,7 +17,7 @@ import { z } from 'zod';
 import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
-import Input from '@/components/ui/form/Input';
+import Input from '@/components/ui/form/FormInput';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
 import AddIcon from '@/components/ui/icons/AddIcon';

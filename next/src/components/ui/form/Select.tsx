@@ -10,7 +10,7 @@ type Props<T> = {
    * value.
    */
   options: { label: React.ReactNode; value: T }[];
-  /** Default value. Use value if controlled. */
+  /** Default value. Use `value` if controlled. */
   defaultValue?: T;
   /** Currently selected value (if controlled). */
   value?: T;
@@ -44,8 +44,20 @@ export default function Select<T>({
       value={value}
       onValueChange={onChange}
     >
-      <BaseUISelect.Trigger className="flex p-4 cursor-pointer text-sm text-default bg-default items-center justify-between gap-3 rounded-lg border border-default select-none hover:bg-main focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary active:bg-accent data-popup-open:bg-accent">
-        <BaseUISelect.Value className="overflow-hidden text-ellipsis text-nowrap" />
+      <BaseUISelect.Trigger
+        className="
+          flex min-w-36 w-full cursor-pointer
+          text-sm text-default font-normal
+          bg-default hover:bg-main
+          items-center justify-between gap-3
+          rounded-md border border-default
+          pr-3 pl-3.5 py-4
+          select-none
+          focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary
+          active:bg-accent data-popup-open:bg-accent
+        "
+      >
+        <BaseUISelect.Value />
         <BaseUISelect.Icon className="flex">
           <ArrowDownIcon height="17.5" width="17.5" />
         </BaseUISelect.Icon>

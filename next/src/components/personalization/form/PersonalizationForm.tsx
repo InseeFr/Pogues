@@ -15,7 +15,7 @@ import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import DialogButton from '@/components/ui/DialogButton';
-import Input from '@/components/ui/form/Input';
+import Input from '@/components/ui/form/FormInput';
 import RadioGroup from '@/components/ui/form/RadioGroup';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import {
