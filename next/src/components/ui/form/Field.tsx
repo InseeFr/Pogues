@@ -5,7 +5,15 @@ export type Props = {
   name: BaseUIField.Root.Props['name'];
   /** Whether the field is forcefully marked as invalid. */
   invalid?: BaseUIField.Root.Props['invalid'];
+  /**
+   * Whether the field has been touched. Useful when the field state is
+   * controlled by an external library.
+   */
   touched?: BaseUIField.Root.Props['touched'];
+  /**
+   * Whether the field's value has been changed from its initial value. Useful
+   * when the field state is controlled by an external library.
+   */
   dirty?: BaseUIField.Root.Props['dirty'];
   /** Whether the field is mandatory. */
   required?: boolean;

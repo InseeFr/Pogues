@@ -5,7 +5,7 @@ import { CheckboxGroup as UICheckboxGroup } from '@base-ui-components/react/chec
 
 import Label from './Label';
 
-interface CheckboxGroupProps {
+type Props = {
   label?: string;
   onChange: (v: string[]) => void;
   checked?: boolean;
@@ -13,8 +13,21 @@ interface CheckboxGroupProps {
   required?: boolean;
   options: { label: string; value: string }[];
   defaultValue?: string[];
-}
+};
 
+/**
+ * Provides shared state to a series of checkboxes.
+ *
+ * @example
+ * ```
+ * <CheckboxGroup
+ *   options={[
+ *     { label: 'Value 1', value: 'id1' },
+ *     { label: 'Value 2', value: 'id2' },
+ *   ]}
+ * />
+ * ```
+ */
 export default function CheckboxGroup({
   label,
   disabled = false,
@@ -22,7 +35,7 @@ export default function CheckboxGroup({
   onChange,
   options,
   defaultValue,
-}: Readonly<CheckboxGroupProps>) {
+}: Readonly<Props>) {
   const id = useId();
 
   return (

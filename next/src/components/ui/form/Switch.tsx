@@ -4,7 +4,7 @@ export type Props = {
   /**
    * Whether the switch is currently active.
    *
-   * To render an uncontrolled switch, use the defaultChecked prop instead.
+   * To render an uncontrolled switch, use the `defaultChecked` prop instead.
    */
   checked?: BaseUISwitch.Root.Props['checked'];
   /** A ref to access the hidden <input> element. */
