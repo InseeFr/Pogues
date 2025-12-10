@@ -14,7 +14,7 @@ import { DatatypeType, DateFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
 import VariableDatatype from '../VariableDatatype';
-import { FormValues, schema } from './schema';
+import { type FormValues, schema } from './schema';
 import { convertToScreamingSnakeCase } from './utils/name';
 
 type Props = {

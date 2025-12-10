@@ -1,9 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useBlocker, useNavigate } from '@tanstack/react-router';
-import i18next from 'i18next';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
 import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
 import Button, { ButtonStyle } from '@/components/ui/Button';
@@ -16,6 +14,7 @@ import {
 import type { Variable } from '@/models/variables';
 
 import ArticulationVariableLabel from '../ArticulationVariableLabel';
+import { type FormValues, schema } from './schema';
 
 interface ArticulationFormProps {
   questionnaireId: string;
@@ -23,31 +22,6 @@ interface ArticulationFormProps {
   variables?: Variable[];
   onSubmit: SubmitHandler<FormValues>;
 }
-
-const schema = z.object({
-  items: z.tuple([
-    z.object({
-      label: z.literal('Prénom'),
-      value: z
-        .string()
-        .min(1, { error: i18next.t('articulation.form.mustProvideFirstName') }),
-    }),
-    z.object({
-      label: z.literal('Sexe'),
-      value: z
-        .string()
-        .min(1, { error: i18next.t('articulation.form.mustProvideGender') }),
-    }),
-    z.object({
-      label: z.literal('Age'),
-      value: z
-        .string()
-        .min(1, { error: i18next.t('articulation.form.mustProvideAge') }),
-    }),
-  ]),
-});
-
-export type FormValues = z.infer<typeof schema>;
 
 export default function ArticulationForm({
   questionnaireId,
