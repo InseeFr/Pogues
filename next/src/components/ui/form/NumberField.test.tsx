@@ -17,19 +17,19 @@ describe('NumberField', () => {
     await user.type(screen.getByRole('textbox'), '123');
 
     // Then the value is set
-    expect(screen.getByRole('textbox')).toHaveValue(123);
+    expect(screen.getByRole('textbox')).toHaveValue('123');
 
     // When we click on '+'
     await user.click(screen.getByRole('button', { name: 'Increase' }));
 
     // Then the value is increased
-    expect(screen.getByRole('textbox')).toHaveValue(124);
+    expect(screen.getByRole('textbox')).toHaveValue('124');
 
     // When we click on '-'
     await user.click(screen.getByRole('button', { name: 'Decrease' }));
 
     // Then the value is decreased
-    expect(screen.getByRole('textbox')).toHaveValue(123);
+    expect(screen.getByRole('textbox')).toHaveValue('123');
   });
 
   it('can have a default value', async () => {
@@ -37,7 +37,7 @@ describe('NumberField', () => {
     render(<NumberField defaultValue={123} />);
 
     // Then 123 is already typed
-    expect(screen.getByRole('textbox')).toHaveValue(123);
+    expect(screen.getByRole('textbox')).toHaveValue('123');
   });
 
   it('can be a controlled input', async () => {
@@ -47,7 +47,7 @@ describe('NumberField', () => {
     render(<NumberField onValueChange={foo} value={123} />);
 
     expect(screen.getByRole('textbox')).toBeEnabled();
-    expect(screen.getByRole('textbox')).toHaveValue(123);
+    expect(screen.getByRole('textbox')).toHaveValue('123');
 
     // When we type '4'
     await user.click(screen.getByRole('textbox'));

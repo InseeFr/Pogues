@@ -59,7 +59,7 @@ export default function Form({
             buttonStyle={ButtonStyle.Primary}
             disabled={!isDirty || !isValid}
           >
-            {validateLabel ?? t('common.validate')}
+            {validateLabel || t('common.validate')}
           </Button>
         </div>
       </form>
