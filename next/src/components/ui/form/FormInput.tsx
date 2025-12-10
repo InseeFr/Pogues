@@ -13,6 +13,7 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   showClearButton?: boolean;
 }
 
+/** @deprecated Use `Field` and `Input` instead. */
 const FormInput = React.forwardRef<HTMLInputElement, Props>(
   (
     {

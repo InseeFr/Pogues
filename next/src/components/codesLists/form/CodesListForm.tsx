@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useBlocker, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import {
   type Control,
   Controller,
@@ -12,9 +12,8 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
-import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
+import Form from '@/components/ui/form/Form';
 import Input from '@/components/ui/form/FormInput';
 import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
@@ -77,11 +76,6 @@ export default function CodesListForm({
     resolver: zodResolver(schema),
   });
 
-  const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => isDirty && !isSubmitted,
-    withResolver: true,
-  });
-
   const handleCancel = () => {
     navigate({
       to: '/questionnaire/$questionnaireId/codes-lists',
@@ -91,51 +85,36 @@ export default function CodesListForm({
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <Controller
-          name="label"
-          control={control}
-          render={({ field, fieldState: { error } }) => (
-            <Input
-              label={t('codesList.common.label')}
-              error={error?.message}
-              {...field}
-              required
-            />
-          )}
-        />
-        <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
-          <Label className="col-start-1">
-            {t('codesList.common.codeValue')}
-          </Label>
-          <Label className="col-start-2">
-            {t('codesList.common.codeLabel')}
-          </Label>
-          <CodesFields
-            control={control}
-            formulasLanguage={formulasLanguage}
-            variables={variables}
-            trigger={trigger}
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onCancel={handleCancel}
+      isDirty={isDirty}
+      isValid={isValid}
+      isSubmitted={isSubmitted}
+    >
+      <Controller
+        name="label"
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <Input
+            label={t('codesList.common.label')}
+            error={error?.message}
+            {...field}
+            required
           />
-        </div>
-        <div className="flex gap-x-2 mt-6 justify-end">
-          <Button type="button" onClick={handleCancel}>
-            {t('common.cancel')}
-          </Button>
-          <Button
-            type="submit"
-            buttonStyle={ButtonStyle.Primary}
-            disabled={!isDirty || !isValid}
-          >
-            {t('common.validate')}
-          </Button>
-        </div>
-      </form>
-      {status === 'blocked' ? (
-        <DirtyStateDialog onValidate={proceed} onCancel={reset} />
-      ) : null}
-    </>
+        )}
+      />
+      <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
+        <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
+        <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>
+        <CodesFields
+          control={control}
+          formulasLanguage={formulasLanguage}
+          variables={variables}
+          trigger={trigger}
+        />
+      </div>
+    </Form>
   );
 }
 

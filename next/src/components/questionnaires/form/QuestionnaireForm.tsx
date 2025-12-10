@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import Button, { ButtonStyle } from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/form/Checkbox';
+import Form from '@/components/ui/form/Form';
 import Input from '@/components/ui/form/FormInput';
 import Label from '@/components/ui/form/Label';
 import {
@@ -46,18 +46,34 @@ export default function QuestionnaireForm({
   submitLabel,
 }: Readonly<Props>) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
-    formState: { isDirty, isValid },
+    formState: { isDirty, isSubmitted, isValid },
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: questionnaire,
     resolver: zodResolver(schema),
   });
 
+  const handleCancel = () => {
+    navigate({
+      to: '/questionnaires',
+      ignoreBlocker: true,
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onCancel={handleCancel}
+      isDirty={isDirty}
+      isValid={isValid}
+      isSubmitted={isSubmitted}
+      validateLabel={submitLabel}
+    >
       <Controller
         name="title"
         control={control}
@@ -188,16 +204,6 @@ export default function QuestionnaireForm({
           )}
         />
       </div>
-      <div className="flex gap-x-2 mt-6 justify-end">
-        <ButtonLink to="/questionnaires">{t('common.cancel')}</ButtonLink>
-        <Button
-          type="submit"
-          buttonStyle={ButtonStyle.Primary}
-          disabled={!isDirty || !isValid}
-        >
-          {submitLabel}
-        </Button>
-      </div>
-    </form>
+    </Form>
   );
 }

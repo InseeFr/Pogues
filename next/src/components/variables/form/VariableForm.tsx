@@ -3,9 +3,9 @@ import { useNavigate } from '@tanstack/react-router';
 import { t } from 'i18next';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
-import Button, { ButtonStyle } from '@/components/ui/Button';
 import Checkbox from '@/components/ui/form/Checkbox';
 import Field from '@/components/ui/form/Field';
+import Form from '@/components/ui/form/Form';
 import Input from '@/components/ui/form/Input';
 import NumberField from '@/components/ui/form/NumberField';
 import Select from '@/components/ui/form/Select';
@@ -56,7 +56,7 @@ export default function VariableForm({
   const {
     control,
     handleSubmit,
-    formState: { isDirty, isValid },
+    formState: { isDirty, isSubmitted, isValid },
     watch,
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -67,6 +67,7 @@ export default function VariableForm({
   const selectedType = watch('type');
   const selectedTypeName = watch('datatype.typeName');
 
+  /** Ignore dirty state and return to the variables page. */
   const handleCancel = () => {
     navigate({
       to: '/questionnaire/$questionnaireId/variables',
@@ -76,7 +77,14 @@ export default function VariableForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onCancel={handleCancel}
+      isDirty={isDirty}
+      isValid={isValid}
+      isSubmitted={isSubmitted}
+      validateLabel={submitLabel}
+    >
       <div>
         <Controller
           name="type"
@@ -364,18 +372,6 @@ export default function VariableForm({
           )}
         />
       ) : null}
-      <div className="flex gap-x-2 mt-6 justify-end">
-        <Button type="button" onClick={handleCancel}>
-          {t('common.cancel')}
-        </Button>
-        <Button
-          type="submit"
-          buttonStyle={ButtonStyle.Primary}
-          disabled={!isDirty || !isValid}
-        >
-          {submitLabel}
-        </Button>
-      </div>
-    </form>
+    </Form>
   );
 }
