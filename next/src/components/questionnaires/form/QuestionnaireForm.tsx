@@ -1,8 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import i18next from 'i18next';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
@@ -16,29 +14,17 @@ import {
   TargetModes,
 } from '@/models/questionnaires';
 
+import { type FormValues, schema } from './schema';
 import { changeSetValue } from './utils/set';
 
-interface QuestionnaireFormProps {
+type Props = {
   /** In an update case, initial questionnaire value. */
-  questionnaire?: Omit<Questionnaire, 'id'>;
+  questionnaire?: Omit<Omit<Questionnaire, 'id'>, 'scopes'>;
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
   submitLabel: string;
-}
-
-const schema = z.object({
-  title: z
-    .string()
-    .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
-  targetModes: z
-    .set(z.enum(TargetModes))
-    .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),
-  flowLogic: z.enum(FlowLogics),
-  formulasLanguage: z.enum(FormulasLanguages),
-});
-
-export type FormValues = z.infer<typeof schema>;
+};
 
 /**
  * Create or edit a codes list.
@@ -58,7 +44,7 @@ export default function QuestionnaireForm({
   },
   onSubmit,
   submitLabel,
-}: Readonly<QuestionnaireFormProps>) {
+}: Readonly<Props>) {
   const { t } = useTranslation();
   const {
     control,

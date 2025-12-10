@@ -13,7 +13,7 @@ import Switch from '@/components/ui/form/Switch';
 import { DatatypeType, DateFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
-import VariableDatatype from '../VariableDatatype';
+import { datatypeOptions, dateFormatOptions } from './consts';
 import { type FormValues, schema } from './schema';
 import { convertToScreamingSnakeCase } from './utils/name';
 
@@ -225,24 +225,7 @@ export default function VariableForm({
             touched={isTouched}
           >
             <Select<DatatypeType>
-              options={[
-                {
-                  label: <VariableDatatype datatype={DatatypeType.Text} />,
-                  value: DatatypeType.Text,
-                },
-                {
-                  label: <VariableDatatype datatype={DatatypeType.Date} />,
-                  value: DatatypeType.Date,
-                },
-                {
-                  label: <VariableDatatype datatype={DatatypeType.Numeric} />,
-                  value: DatatypeType.Numeric,
-                },
-                {
-                  label: <VariableDatatype datatype={DatatypeType.Boolean} />,
-                  value: DatatypeType.Boolean,
-                },
-              ]}
+              options={datatypeOptions}
               value={value}
               onChange={onChange}
             />
@@ -268,20 +251,7 @@ export default function VariableForm({
               touched={isTouched}
             >
               <Select<DateFormat>
-                options={[
-                  {
-                    label: DateFormat.YearMonthDay,
-                    value: DateFormat.YearMonthDay,
-                  },
-                  {
-                    label: DateFormat.YearMonth,
-                    value: DateFormat.YearMonth,
-                  },
-                  {
-                    label: DateFormat.Year,
-                    value: DateFormat.Year,
-                  },
-                ]}
+                options={dateFormatOptions}
                 value={value as DateFormat | undefined}
                 onChange={onChange}
               />

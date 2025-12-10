@@ -10,7 +10,7 @@ import VTLEditor from '@/components/ui/form/VTLEditor';
 import type { MultimodeIsMovedRules } from '@/models/multimode';
 import { Variable } from '@/models/variables';
 
-import { FormValues, schema } from './schema';
+import { type FormValues, schema } from './schema';
 
 interface Props {
   questionnaireId: string;
