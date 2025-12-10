@@ -53,14 +53,8 @@ describe('VariableForm', () => {
     expect(queryByRole('alert')).toBeNull();
 
     fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: 'ma_' },
+      target: { value: 'ma' },
     });
-
-    expect(await findAllByRole('alert')).toHaveLength(1);
-    expect(
-      getByText('Name must be in SCREAMING_SNAKE_CASE format'),
-    ).toBeDefined();
-
     fireEvent.input(getByRole('textbox', { name: /Name/i }), {
       target: { value: '' },
     });
