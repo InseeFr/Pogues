@@ -107,9 +107,6 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.0)
-      '@types/i18next':
-        specifier: ^13.0.0
-        version: 13.0.0(typescript@5.8.3)
       '@types/papaparse':
         specifier: ^5.3.16
         version: 5.3.16
@@ -2148,13 +2145,6 @@ packages:
       {
         integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==,
       }
-
-  '@types/i18next@13.0.0':
-    resolution:
-      {
-        integrity: sha512-gp/SIShAuf4WOqi8ey0nuI7qfWaVpMNCcs/xLygrh/QTQIXmlDC1E0TtVejweNW+7SGDY7g0lyxyKZIJuCKIJw==,
-      }
-    deprecated: This is a stub types definition. i18next provides its own type definitions, so you do not need this installed.
 
   '@types/json-schema@7.0.15':
     resolution:
@@ -6678,12 +6668,6 @@ snapshots:
   '@types/deep-eql@4.0.2': {}
 
   '@types/estree@1.0.8': {}
-
-  '@types/i18next@13.0.0(typescript@5.8.3)':
-    dependencies:
-      i18next: 25.5.2(typescript@5.8.3)
-    transitivePeerDependencies:
-      - typescript
 
   '@types/json-schema@7.0.15': {}
 
