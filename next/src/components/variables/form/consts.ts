@@ -2,7 +2,7 @@ import { DatatypeType, DateFormat } from '@/models/datatype';
 
 import { computeDatatypeName } from '../utils/datatype';
 
-/** Available datatypes for variable creation / update. */
+/** Available datatypes to create / update a variable. */
 export const datatypeOptions = [
   {
     label: computeDatatypeName(DatatypeType.Text),
@@ -22,7 +22,7 @@ export const datatypeOptions = [
   },
 ];
 
-/** Available formats for variable of date datatype creation / update. */
+/** Available date formats to create / update a variable. */
 export const dateFormatOptions = [
   {
     label: DateFormat.YearMonthDay,

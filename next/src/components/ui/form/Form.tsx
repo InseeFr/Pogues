@@ -8,7 +8,7 @@ import Button, { ButtonStyle } from '@/components/ui/Button';
 
 type Props = {
   /** Form. */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Set to true after the user modifies any of the inputs. */
   isDirty?: boolean;
   /** Set to true after the form is submitted. Will remain true until the reset method is invoked. */
@@ -31,7 +31,7 @@ type Props = {
  * and dirty state control.
  */
 export default function Form({
-  children,
+  children = null,
   isDirty,
   isSubmitted,
   isValid,

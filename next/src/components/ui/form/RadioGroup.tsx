@@ -47,7 +47,7 @@ export default function RadioGroup({
       disabled={disabled}
       onValueChange={onChange}
     >
-      <p className=" mb-1 font-semibold">{label}</p>
+      <p className="mb-1 font-semibold">{label}</p>
       <div className="flex gap-x-4">
         {options.map(({ label, value }) => (
           <label className="flex items-center gap-2 text-md" key={label}>

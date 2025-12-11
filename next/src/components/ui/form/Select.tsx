@@ -11,9 +11,9 @@ type Props<T> = {
    */
   options: { label: React.ReactNode; value: T }[];
   /** Default value. Use `value` if controlled. */
-  defaultValue?: T;
+  defaultValue?: BaseUISelect.Root.Props<T>['defaultValue'];
   /** Currently selected value (if controlled). */
-  value?: T;
+  value?: BaseUISelect.Root.Props<T>['value'];
 };
 
 /**
