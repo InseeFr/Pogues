@@ -42,7 +42,7 @@ export default function Checkbox({
           <CheckIcon className="size-3" />
         </BaseUICheckbox.Indicator>
       </BaseUICheckbox.Root>
-      <span className="text-sm ml-1">{label}</span>
+      <span className="text-sm font-normal">{label}</span>
     </Label>
   );
 }

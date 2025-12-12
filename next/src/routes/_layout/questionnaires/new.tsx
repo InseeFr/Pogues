@@ -20,7 +20,7 @@ function RouteComponent() {
     <>
       <ContentHeader title={t('questionnaire.create.title')} />
       <ContentMain>
-        <CreateQuestionnaire userStamp={userStamp} />;
+        <CreateQuestionnaire userStamp={userStamp} />
       </ContentMain>
     </>
   );

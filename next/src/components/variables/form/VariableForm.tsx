@@ -3,11 +3,11 @@ import { useNavigate } from '@tanstack/react-router';
 import { t } from 'i18next';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
-import Checkbox from '@/components/ui/form/Checkbox';
 import Field from '@/components/ui/form/Field';
 import Form from '@/components/ui/form/Form';
 import Input from '@/components/ui/form/Input';
 import NumberField from '@/components/ui/form/NumberField';
+import RadioGroup from '@/components/ui/form/RadioGroup';
 import Select from '@/components/ui/form/Select';
 import Switch from '@/components/ui/form/Switch';
 import { DatatypeType, DateFormat } from '@/models/datatype';
@@ -44,7 +44,7 @@ export default function VariableForm({
     name: '',
     description: '',
     scope: '',
-    datatype: { typeName: DatatypeType.Text },
+    datatype: { typeName: DatatypeType.Text, maxLength: 249 },
     type: VariableType.External,
   },
   onSubmit,
@@ -91,7 +91,7 @@ export default function VariableForm({
           control={control}
           rules={{ required: true }}
           render={({
-            field: { name, value, onChange },
+            field: { name, value, onBlur, onChange },
             fieldState: { invalid, isTouched, isDirty, error },
           }) => (
             <Field
@@ -103,12 +103,16 @@ export default function VariableForm({
               required
               touched={isTouched}
             >
-              <Checkbox
-                label={t('variable.type.external')}
-                checked={value === VariableType.External}
-                onChange={(v) => {
-                  if (v) onChange(VariableType.External);
-                }}
+              <RadioGroup
+                options={[
+                  {
+                    label: t('variable.type.external'),
+                    value: VariableType.External,
+                  },
+                ]}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
               />
             </Field>
           )}

@@ -4,9 +4,11 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import Checkbox from '@/components/ui/form/Checkbox';
+import Field from '@/components/ui/form/Field';
 import Form from '@/components/ui/form/Form';
-import Input from '@/components/ui/form/FormInput';
+import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
+import RadioGroup from '@/components/ui/form/RadioGroup';
 import {
   FlowLogics,
   FormulasLanguages,
@@ -77,14 +79,21 @@ export default function QuestionnaireForm({
       <Controller
         name="title"
         control={control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
-            autoFocus
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
             label={t('common.title')}
-            error={error?.message}
-            {...field}
+            name={name}
             required
-          />
+            touched={isTouched}
+          >
+            <Input autoFocus value={value} onValueChange={onChange} />
+          </Field>
         )}
       />
       <Controller
@@ -143,64 +152,64 @@ export default function QuestionnaireForm({
         )}
       />
       <div>
-        <Label required>{t('questionnaire.common.dynamicField')}</Label>
         <Controller
           name="flowLogic"
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { isTouched, error } }) => (
-            <>
-              <div className="flex gap-x-4">
-                <Checkbox
-                  label={'Filtre'}
-                  checked={field.value === FlowLogics.Filter}
-                  onChange={(v) => {
-                    if (v) field.onChange(FlowLogics.Filter);
-                  }}
-                />
-                <Checkbox
-                  label={'Redirection'}
-                  checked={field.value === FlowLogics.Redirection}
-                  onChange={(v) => {
-                    if (v) field.onChange(FlowLogics.Redirection);
-                  }}
-                />
-              </div>
-              {error && isTouched ? (
-                <div className="text-sm text-error ml-1">{error.message}</div>
-              ) : null}
-            </>
+          render={({
+            field: { name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('questionnaire.common.dynamicField')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <RadioGroup
+                options={[
+                  { label: 'Filtre', value: FlowLogics.Filter },
+                  { label: 'Redirection', value: FlowLogics.Redirection },
+                ]}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+              />
+            </Field>
           )}
         />
       </div>
       <div>
-        <Label required>{t('questionnaire.common.formulaField')}</Label>
         <Controller
           name="formulasLanguage"
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { isTouched, error } }) => (
-            <>
-              <div className="flex gap-x-4">
-                <Checkbox
-                  label={'VTL'}
-                  checked={field.value === FormulasLanguages.VTL}
-                  onChange={(v) => {
-                    if (v) field.onChange(FormulasLanguages.VTL);
-                  }}
-                />
-                <Checkbox
-                  label={'XPath'}
-                  checked={field.value === FormulasLanguages.XPath}
-                  onChange={(v) => {
-                    if (v) field.onChange(FormulasLanguages.XPath);
-                  }}
-                />
-              </div>
-              {error && isTouched ? (
-                <div className="text-sm text-error ml-1">{error.message}</div>
-              ) : null}
-            </>
+          render={({
+            field: { name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('questionnaire.common.formulaField')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <RadioGroup
+                options={[
+                  { label: 'VTL', value: FormulasLanguages.VTL },
+                  { label: 'XPath', value: FormulasLanguages.XPath },
+                ]}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+              />
+            </Field>
           )}
         />
       </div>
