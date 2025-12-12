@@ -297,6 +297,34 @@
       "urn": "urn:ddi:fr.insee:l_nationalite-2-0-0:1",
       "codes": []
     },
+    "L_NATIONETR-1-1-0": {
+      "id": "L_NATIONETR-1-1-0",
+      "name": "L_NATIONETR-1-1-0",
+      "label": "Nationalités étrangères",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_nationetr-1-1-0:1",
+      "codes": []
+    },
     "L_PCS_HOMMES-2-2-0": {
       "id": "L_PCS_HOMMES-2-2-0",
       "name": "L_PCS_HOMMES-2-2-0",
