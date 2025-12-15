@@ -297,6 +297,34 @@
       "urn": "urn:ddi:fr.insee:l_nationalite-2-0-0:1",
       "codes": []
     },
+    "L_NATIONETR-1-1-0": {
+      "id": "L_NATIONETR-1-1-0",
+      "name": "L_NATIONETR-1-1-0",
+      "label": "Nationalités étrangères",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_nationetr-1-1-0:1",
+      "codes": []
+    },
     "L_PCS_HOMMES-2-2-0": {
       "id": "L_PCS_HOMMES-2-2-0",
       "name": "L_PCS_HOMMES-2-2-0",
@@ -771,9 +799,9 @@
       "urn": "urn:ddi:fr.insee:l_inst_repar_tab_2025:1",
       "codes": []
     },
-    "L_NEGOCE_TAB_2025": {
-      "id": "L_NEGOCE_TAB_2025",
-      "name": "L_NEGOCE_TAB_2025",
+    "L_NEGOCE_TAB_2025-1": {
+      "id": "L_NEGOCE_TAB_2025-1",
+      "name": "L_NEGOCE_TAB_2025-1",
       "label": "EAP2025 Négoce de produits industriels",
       "parameters": {
         "version": 1,
@@ -810,7 +838,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_negoce_tab_2025:1",
+      "urn": "urn:ddi:fr.insee:l_negoce_tab_2025-1:1",
       "codes": []
     },
     "L_PI_TAB_2025": {
@@ -1315,6 +1343,48 @@
         }
       },
       "urn": "urn:ddi:fr.insee:l_prodiaa_vpiz_2024:1",
+      "codes": []
+    },
+    "L_PRODUITS_LAITIERS2026": {
+      "id": "L_PRODUITS_LAITIERS2026",
+      "name": "L_PRODUITS_LAITIERS2026",
+      "label": "Produits laitiers 2026",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "id",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "label",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          },
+          {
+            "name": "nc",
+            "rules": ["[\\w]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_produits_laitiers2026:1",
       "codes": []
     },
     "L_REGFRONT_BE-1-0-0": {

@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Handle external variables' `isDeletedOnReset` property.
+- Added nomenclatures: "L_PRODUITS_LAITIERS2026", "L_NATIONETR-1-1-0".
+
+### Changed
+
+- Updated nomenclature: "L_NEGOCE_TAB_2025" -> "L_NEGOCE_TAB_2025-1".
 
 ## [1.12.0](https://github.com/InseeFr/Pogues/releases/tag/1.12.0) - 2025-11-25
 
