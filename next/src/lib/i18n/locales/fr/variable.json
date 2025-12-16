@@ -11,6 +11,11 @@
     "numeric": "Nombre",
     "text": "Texte"
   },
+  "delete": {
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette variable ?",
+    "dialogTitle": "Supprimer la variable: {{name}}",
+    "success": "Variable {{name}} supprimée"
+  },
   "description": "Libellé",
   "edit": {
     "success": "La variable {{name}} a été modifiée",
