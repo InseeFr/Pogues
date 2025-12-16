@@ -7,7 +7,6 @@ import ErrorComponent from '@/components/layout/ErrorComponent';
 import CreateVariable from '@/components/variables/create/CreateVariable';
 import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout';
 import { Variable } from '@/models/variables';
-import { computeQuestionnaireScopes } from '@/utils/scopes';
 
 /**
  * Page that allow to create a new code list.
