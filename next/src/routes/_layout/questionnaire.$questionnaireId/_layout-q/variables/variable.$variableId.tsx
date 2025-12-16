@@ -47,6 +47,7 @@ function RouteComponent() {
         questionnaireId={questionnaireId}
         variable={variable}
         scopes={questionnaire.scopes}
+        variables={variables}
       />
     </EditVariableLayout>
   );

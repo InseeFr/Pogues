@@ -9,6 +9,7 @@ import FormSwitch from '@/components/ui/form/FormSwitch';
 import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
 import Select from '@/components/ui/form/Select';
+import VTLEditor from '@/components/ui/form/VTLEditor';
 import { DatatypeType, DateFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
@@ -26,6 +27,8 @@ type Props = {
   submitLabel: string;
   /** Available scopes with the mapping between id and name. */
   scopes: Map<string, string>;
+  /** List of variables used for auto-completion in VTL editor. */
+  variables?: Variable[];
 };
 
 /**
@@ -49,6 +52,7 @@ export default function VariableForm({
   onSubmit,
   submitLabel,
   scopes,
+  variables = [],
 }: Readonly<Props>) {
   const navigate = useNavigate();
 
@@ -91,6 +95,13 @@ export default function VariableForm({
                   checked={field.value === VariableType.External}
                   onChange={(v) => {
                     if (v) field.onChange(VariableType.External);
+                  }}
+                />
+                <Checkbox
+                  label={t('variable.type.calculated')}
+                  checked={field.value === VariableType.Calculated}
+                  onChange={(v) => {
+                    if (v) field.onChange(VariableType.Calculated);
                   }}
                 />
               </div>
@@ -151,6 +162,23 @@ export default function VariableForm({
           />
         )}
       />
+      {selectedType === VariableType.Calculated ? (
+        <Controller
+          name="formula"
+          control={control}
+          rules={{ required: true }}
+          render={({ field, fieldState: { error } }) => (
+            <VTLEditor
+              label={t('variable.formula')}
+              className="h-20"
+              suggestionsVariables={variables}
+              error={error?.message}
+              {...field}
+              required
+            />
+          )}
+        />
+      ) : null}
       <Controller
         name="scope"
         control={control}

@@ -23,9 +23,11 @@
   },
   "form": {
     "mustProvideName": "You must provide a name",
-    "mustProvideDescription": "You must provide a description"
+    "mustProvideDescription": "You must provide a description",
+    "mustProvideFormula": "You must provide a formula"
   },
   "format": "format",
+  "formula": "formula",
   "isDeletedOnReset": "Resettable variable",
   "maxLength": "Length",
   "maximum": "Max",

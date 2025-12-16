@@ -7,7 +7,7 @@ import VariableForm from './VariableForm';
 vi.mock('@/components/ui/form/VTLEditor');
 
 describe('VariableForm', () => {
-  it('should enable the button only when all fields are filled', async () => {
+  it('should enable the button only when all required fields are filled for an external variable', async () => {
     const submitFn = vi.fn();
     const { getByRole } = await renderWithRouter(
       <VariableForm
@@ -27,6 +27,43 @@ describe('VariableForm', () => {
     });
     fireEvent.input(getByRole('textbox', { name: /Description/i }), {
       target: { value: 'A great variable' },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled();
+    });
+
+    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }));
+    await waitFor(() => {
+      expect(submitFn).toBeCalled();
+    });
+  });
+
+  it('should enable the button only when all required fields are filled for a calculated variable', async () => {
+    const submitFn = vi.fn();
+    const { getByRole } = await renderWithRouter(
+      <VariableForm
+        questionnaireId={'q-id'}
+        onSubmit={submitFn}
+        submitLabel="Validate"
+        scopes={new Map<string, string>()}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(getByRole('button', { name: /Validate/i })).toBeDisabled();
+    });
+
+    fireEvent.click(getByRole('checkbox', { name: /calculated/i }));
+
+    fireEvent.input(getByRole('textbox', { name: /Name/i }), {
+      target: { value: 'MY_VAR' },
+    });
+    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
+      target: { value: 'A great variable' },
+    });
+    fireEvent.input(getByRole('textbox', { name: /formula/i }), {
+      target: { value: 'my formula' },
     });
 
     await waitFor(() => {

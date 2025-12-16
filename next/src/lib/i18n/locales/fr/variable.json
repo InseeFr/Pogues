@@ -18,9 +18,11 @@
   },
   "form": {
     "mustProvideName": "Vous devez renseigner un identifiant",
-    "mustProvideDescription": "Vous devez renseigner un libellé"
+    "mustProvideDescription": "Vous devez renseigner un libellé",
+    "mustProvideFormula": "Vous devez renseigner une formule"
   },
   "format": "format",
+  "formula": "formule",
   "isDeletedOnReset": "Variable réinitialisable",
   "maxLength": "Taille",
   "maximum": "Max",

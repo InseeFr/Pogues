@@ -1,3 +1,5 @@
+import { Variable } from '@/models/variables';
+
 import CreateVariableForm from './CreateVariableForm';
 
 type Props = {
@@ -5,6 +7,8 @@ type Props = {
   questionnaireId: string;
   /** Scopes of the questionnaire with the mapping between id and name. */
   scopes: Map<string, string>;
+  /** List of variables used for auto-completion in VTL editor. */
+  variables?: Variable[];
 };
 
 /**
@@ -16,10 +20,15 @@ type Props = {
 export default function CreateVariable({
   questionnaireId,
   scopes,
+  variables,
 }: Readonly<Props>) {
   return (
     <div className="bg-default p-4 border border-default shadow-xl">
-      <CreateVariableForm questionnaireId={questionnaireId} scopes={scopes} />
+      <CreateVariableForm
+        questionnaireId={questionnaireId}
+        scopes={scopes}
+        variables={variables}
+      />
     </div>
   );
 }

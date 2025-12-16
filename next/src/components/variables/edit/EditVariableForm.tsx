@@ -16,6 +16,8 @@ type Props = {
   questionnaireId: string;
   /** Scopes of the questionnaire with the mapping between id and name. */
   scopes: Map<string, string>;
+  /** List of variables used for auto-completion in VTL editor. */
+  variables?: Variable[];
 };
 
 /** Form to edit an existing variable. */
@@ -23,6 +25,7 @@ export default function EditVariableForm({
   variable,
   questionnaireId,
   scopes,
+  variables,
 }: Readonly<Props>) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -72,6 +75,7 @@ export default function EditVariableForm({
       onSubmit={onSubmit}
       submitLabel={t('common.edit')}
       scopes={scopes}
+      variables={variables}
     />
   );
 }
