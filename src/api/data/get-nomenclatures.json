@@ -9,7 +9,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false,
@@ -34,7 +34,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -77,7 +77,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -87,7 +87,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -105,7 +105,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -115,7 +115,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -132,11 +132,11 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"]
+            "rules": ["[\\w-]+"]
           },
           {
             "name": "id",
-            "rules": ["[\\w]+"]
+            "rules": ["[\\w-]+"]
           }
         ],
         "order": {
@@ -147,7 +147,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 2,
             "stemmer": false
           }
@@ -166,7 +166,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -176,7 +176,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -194,21 +194,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -218,7 +218,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -236,21 +236,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -260,7 +260,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -278,7 +278,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -288,7 +288,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -306,7 +306,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -316,7 +316,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -333,7 +333,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false,
@@ -358,7 +358,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -403,7 +403,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false,
@@ -428,7 +428,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -472,7 +472,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -482,7 +482,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -500,7 +500,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -510,7 +510,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -528,7 +528,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -538,7 +538,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -556,21 +556,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -580,7 +580,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -598,21 +598,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -622,7 +622,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -640,21 +640,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -664,7 +664,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -682,21 +682,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -706,7 +706,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -724,21 +724,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -748,7 +748,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -766,21 +766,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -790,7 +790,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -808,21 +808,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -832,7 +832,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -850,21 +850,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -874,7 +874,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -892,21 +892,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -916,7 +916,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -934,21 +934,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -958,7 +958,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -976,21 +976,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1000,7 +1000,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1018,21 +1018,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1042,7 +1042,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1060,21 +1060,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1084,7 +1084,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1102,21 +1102,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1126,7 +1126,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1144,21 +1144,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1168,7 +1168,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1186,21 +1186,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1210,7 +1210,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1228,21 +1228,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1252,7 +1252,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1270,21 +1270,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1294,7 +1294,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1312,21 +1312,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1336,7 +1336,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1354,21 +1354,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1378,7 +1378,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1396,7 +1396,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1406,7 +1406,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1424,7 +1424,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1434,7 +1434,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1452,7 +1452,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1462,7 +1462,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1480,7 +1480,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1490,7 +1490,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1508,7 +1508,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1518,7 +1518,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1536,7 +1536,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1546,7 +1546,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1564,7 +1564,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1574,7 +1574,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1592,7 +1592,7 @@
         "fields": [
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1602,7 +1602,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
@@ -1620,21 +1620,21 @@
         "fields": [
           {
             "name": "id",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "label",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
           },
           {
             "name": "nc",
-            "rules": ["[\\w]+"],
+            "rules": ["[\\w-]+"],
             "language": "French",
             "min": 3,
             "stemmer": false
@@ -1644,7 +1644,7 @@
           "type": "tokenized",
           "params": {
             "language": "French",
-            "pattern": "[\\w.]+",
+            "pattern": "[\\w.-]+",
             "min": 3,
             "stemmer": false
           }
