@@ -19,7 +19,7 @@ export type Props = {
    * Identifies the field when a form is submitted. Takes precedence over the
    * `name` prop on the `<Field.Control>` component.
    */
-  name: BaseUIField.Root.Props['name'];
+  name?: BaseUIField.Root.Props['name'];
   /**
    * Whether the field has been touched. Useful when the field state is
    * controlled by an external library.

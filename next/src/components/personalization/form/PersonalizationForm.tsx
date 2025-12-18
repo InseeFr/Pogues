@@ -16,7 +16,7 @@ import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import DialogButton from '@/components/ui/DialogButton';
 import Field from '@/components/ui/form/Field';
-import Input from '@/components/ui/form/FormInput';
+import FormInput from '@/components/ui/form/FormInput';
 import RadioGroup from '@/components/ui/form/RadioGroup';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import {
@@ -245,7 +245,7 @@ export default function PersonalizationForm({
           </Field>
         </div>
         <div className="flex flex-row gap-x-2 mt-2 items-center">
-          <Input
+          <FormInput
             type="file"
             ref={emptyFileInputRef}
             style={{ display: 'none' }}
