@@ -1,7 +1,7 @@
 import { type Filter as FilterModel, FilterType } from '@/models/filters';
 
+import Field from './form/Field';
 import Input from './form/Input';
-import Label from './form/Label';
 import Select from './form/Select';
 import Switch from './form/Switch';
 import ToggleGroup from './form/ToggleGroup';
@@ -22,12 +22,13 @@ export default function Filter<T>({
   switch (filter.type) {
     case FilterType.Select: {
       return (
-        <div className="grid grid-row grid-[auto_1fr] min-w-42">
-          <Label>{filter.label}</Label>
-          <Select<string>
-            options={filter.options}
-            onChange={(e) => onActiveFilter(filter, e)}
-          />
+        <div className="min-w-42">
+          <Field label={filter.label}>
+            <Select<string>
+              options={filter.options}
+              onChange={(e) => onActiveFilter(filter, e)}
+            />
+          </Field>
         </div>
       );
     }
@@ -41,19 +42,19 @@ export default function Filter<T>({
     }
     case FilterType.Boolean: {
       return (
-        <>
-          <Label>{filter.label}</Label>
+        <Field label={filter.label}>
           <Switch onCheckedChange={(e) => onActiveFilter(filter, e)} />
-        </>
+        </Field>
       );
     }
     case FilterType.Text: {
       return (
-        <Input
-          label={filter.label}
-          onChange={(e) => onActiveFilter(filter, e.target.value)}
-          placeholder={filter.placeholder}
-        />
+        <Field label={filter.label}>
+          <Input
+            onValueChange={(value) => onActiveFilter(filter, value)}
+            placeholder={filter.placeholder}
+          />
+        </Field>
       );
     }
   }

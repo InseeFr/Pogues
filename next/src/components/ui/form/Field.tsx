@@ -1,15 +1,39 @@
+import React from 'react';
+
 import { Field as BaseUIField } from '@base-ui-components/react/field';
+import { FieldError } from 'react-hook-form';
 
 export type Props = {
+  /** Input to be associated with the labelling and form control. */
   children: React.ReactNode;
-  name: BaseUIField.Root.Props['name'];
+  /** Additional information about the field. */
+  description?: string;
   /** Whether the field is forcefully marked as invalid. */
   invalid?: BaseUIField.Root.Props['invalid'];
+  /**
+   * An accessible label that is automatically associated with the field
+   * control.
+   */
+  label: string | React.ReactNode;
+  /**
+   * Identifies the field when a form is submitted. Takes precedence over the
+   * `name` prop on the `<Field.Control>` component.
+   */
+  name?: BaseUIField.Root.Props['name'];
+  /**
+   * Whether the field has been touched. Useful when the field state is
+   * controlled by an external library.
+   */
   touched?: BaseUIField.Root.Props['touched'];
+  /**
+   * Whether the field's value has been changed from its initial value. Useful
+   * when the field state is controlled by an external library.
+   */
   dirty?: BaseUIField.Root.Props['dirty'];
+  /** Display an error from `react-hook-form`. */
+  error?: FieldError;
   /** Whether the field is mandatory. */
   required?: boolean;
-  label: string;
 };
 
 /**
@@ -30,25 +54,43 @@ export type Props = {
  */
 export default function Field({
   children,
+  description,
+  dirty = false,
+  error,
+  invalid = false,
   label,
   name,
-  invalid = false,
   required = false,
   touched = false,
-  dirty = false,
 }: Readonly<Props>) {
   return (
     <BaseUIField.Root
-      className="flex w-full max-w-64 flex-col items-start gap-1"
+      className="flex flex-col w-full items-start gap-1"
       name={name}
       invalid={invalid}
       touched={touched}
       dirty={dirty}
     >
-      <BaseUIField.Label className="text-sm font-medium text-gray-900">
-        {label} {required ? ' *' : null}
+      <BaseUIField.Label className="w-full space-y-1 text-sm font-semibold text-default">
+        <p>
+          {label}
+          {required ? '*' : null}
+        </p>
         {children}
       </BaseUIField.Label>
+      <BaseUIField.Description
+        className={`text-sm text-secondary ${description ? '' : 'hidden'}`}
+        aria-hidden={!description}
+      >
+        {description}
+      </BaseUIField.Description>
+      <BaseUIField.Error
+        className="text-sm text-error"
+        match={!!error}
+        role="alert"
+      >
+        {error?.message}
+      </BaseUIField.Error>
     </BaseUIField.Root>
   );
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import Field from '@/components/ui/form/Field';
 import Input from '@/components/ui/form/Input';
 import { Questionnaire } from '@/models/questionnaires';
 import { Stamp } from '@/models/stamps';
@@ -27,10 +28,11 @@ export default function Questionnaires({
   const navigate = useNavigate();
 
   /** Change page based on stamp chosen from the selector. */
-  function handleStampSelection(stamp: string) {
+  function handleStampSelection(stamp: string | null) {
+    const search = stamp ? { stamp } : undefined;
     navigate({
       to: '/questionnaires',
-      search: { stamp },
+      search,
     });
   }
 
@@ -45,12 +47,13 @@ export default function Questionnaires({
           />
         </div>
         <div>
-          <Input
-            label={t('questionnaires.search')}
-            placeholder={t('questionnaires.search')}
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
+          <Field label={t('questionnaires.search')}>
+            <Input
+              placeholder={t('questionnaires.search')}
+              value={filter}
+              onValueChange={(value) => setFilter(value)}
+            />
+          </Field>
         </div>
       </div>
       {questionnaires ? (

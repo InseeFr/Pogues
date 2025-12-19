@@ -15,7 +15,8 @@ import { getFileFromParseResult } from '@/api/utils/personalization';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
 import DialogButton from '@/components/ui/DialogButton';
-import Input from '@/components/ui/form/Input';
+import Field from '@/components/ui/form/Field';
+import FormInput from '@/components/ui/form/FormInput';
 import RadioGroup from '@/components/ui/form/RadioGroup';
 import DeleteIcon from '@/components/ui/icons/DeleteIcon';
 import {
@@ -207,39 +208,44 @@ export default function PersonalizationForm({
     <div className="flex flex-col min-h-[400px]">
       <div className="overflow-hidden space-y-3 my-2">
         <div className="flex flex-row items-end gap-2">
-          <RadioGroup
-            label={t('personalization.create.context')}
-            options={surveyContext.map((context) => ({
-              label: context.value ?? '',
-              value: context.name,
-            }))}
-            defaultValue={questionnaire.context?.name}
-            onChange={(value: unknown) => {
-              const selected = surveyContext.find((c) => c.name === value);
-              if (selected) {
-                onContextChange(selected);
-              }
-            }}
-          />
+          <Field name="context" label={t('personalization.create.context')}>
+            <RadioGroup
+              options={surveyContext.map((context) => ({
+                label: context.value ?? '',
+                value: context.name,
+              }))}
+              defaultValue={questionnaire.context?.name}
+              onValueChange={(value: unknown) => {
+                const selected = surveyContext.find((c) => c.name === value);
+                if (selected) {
+                  onContextChange(selected);
+                }
+              }}
+            />
+          </Field>
         </div>
         <div className="flex flex-row items-end gap-2 mt-6">
-          <RadioGroup
+          <Field
+            name="personalizationType"
             label={t('personalization.create.personalizationType')}
-            options={fileTypes.map((type) => ({
-              label: type.name ?? '',
-              value: type.value,
-            }))}
-            defaultValue={fileType.value}
-            onChange={(value: unknown) => {
-              const selected = fileTypes.find((t) => t.value === value);
-              if (selected) {
-                onFileTypeChange(selected);
-              }
-            }}
-          />
+          >
+            <RadioGroup
+              options={fileTypes.map((type) => ({
+                label: type.name ?? '',
+                value: type.value,
+              }))}
+              defaultValue={fileType.value}
+              onValueChange={(value: unknown) => {
+                const selected = fileTypes.find((t) => t.value === value);
+                if (selected) {
+                  onFileTypeChange(selected);
+                }
+              }}
+            />
+          </Field>
         </div>
         <div className="flex flex-row gap-x-2 mt-2 items-center">
-          <Input
+          <FormInput
             type="file"
             ref={emptyFileInputRef}
             style={{ display: 'none' }}

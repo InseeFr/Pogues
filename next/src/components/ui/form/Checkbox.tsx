@@ -1,38 +1,48 @@
 import * as React from 'react';
 
-import { Checkbox as UICheckbox } from '@base-ui-components/react/checkbox';
+import { Checkbox as BaseUICheckbox } from '@base-ui-components/react/checkbox';
 
 import Label from './Label';
 
-interface CheckboxProps {
+type Props = {
+  /**
+   * Whether the checkbox is currently ticked.
+   *
+   * To render an uncontrolled checkbox, use the `defaultChecked` prop instead.
+   */
+  checked?: BaseUICheckbox.Root.Props['checked'];
+  /** Whether the component should ignore user interaction. */
+  disabled?: BaseUICheckbox.Root.Props['disabled'];
+  /** Meaningful text label about the value the checkbox entails. */
   label?: string;
-  onChange: (v: boolean) => void;
-  checked?: boolean;
-  disabled?: boolean;
-  required?: boolean;
-}
+  onChange?: (v: boolean) => void;
+  /** Event handler called when the checkbox is ticked or unticked. */
+  onCheckedChange?: BaseUICheckbox.Root.Props['onCheckedChange'];
+  /** Whether the user must tick the checkbox before submitting a form. */
+  required?: BaseUICheckbox.Root.Props['required'];
+};
 
 export default function Checkbox({
-  label,
   checked,
   disabled,
-  required,
+  label,
   onChange,
-}: Readonly<CheckboxProps>) {
+  required,
+}: Readonly<Props>) {
   return (
     <Label className="flex items-center m-2 gap-2 text-default">
-      <UICheckbox.Root
+      <BaseUICheckbox.Root
         checked={checked}
         disabled={disabled}
-        required={required}
         onCheckedChange={onChange}
+        required={required}
         className="size-[1.125rem] p-2 flex items-center justify-center hover:shadow-sm rounded-xs outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary data-checked:bg-primary border-2 border-default hover:border-primary data-checked:border-primary"
       >
-        <UICheckbox.Indicator className="flex text-negative data-unchecked:hidden">
+        <BaseUICheckbox.Indicator className="flex text-negative data-unchecked:hidden">
           <CheckIcon className="size-3" />
-        </UICheckbox.Indicator>
-      </UICheckbox.Root>
-      <span className="text-sm ml-1">{label}</span>
+        </BaseUICheckbox.Indicator>
+      </BaseUICheckbox.Root>
+      <span className="text-sm font-normal">{label}</span>
     </Label>
   );
 }

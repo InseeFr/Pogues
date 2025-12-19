@@ -18,7 +18,10 @@
   },
   "form": {
     "mustProvideName": "Vous devez renseigner un identifiant",
-    "mustProvideDescription": "Vous devez renseigner un libellé"
+    "mustProvideDescription": "Vous devez renseigner un libellé",
+    "name": {
+      "placeholder": "ex: MA_VARIABLE"
+    }
   },
   "format": "format",
   "isDeletedOnReset": "Variable réinitialisable",

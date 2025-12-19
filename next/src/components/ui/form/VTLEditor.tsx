@@ -88,7 +88,7 @@ export default function VTLEditor({
         />
       </div>
 
-      <Field.Error className="text-sm text-error ml-1" forceShow={!!error}>
+      <Field.Error className="text-sm text-error ml-1" match={!!error}>
         {error}
       </Field.Error>
 
@@ -99,7 +99,7 @@ export default function VTLEditor({
               <Field.Error
                 key={`${line}_${column}`}
                 className="text-sm text-error ml-1"
-                forceShow
+                match
               >
                 <div>{`Ligne : ${line} - Colonne : ${column}`}</div>
                 <div>{message}</div>
