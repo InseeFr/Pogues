@@ -30,7 +30,7 @@
     }
   },
   "format": "format",
-  "formula": "formula",
+  "formula": "Formula",
   "isDeletedOnReset": "Resettable variable",
   "maxLength": "Length",
   "maximum": "Max",

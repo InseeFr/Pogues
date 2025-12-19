@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 
 import { renderWithRouter } from '@/testing/render';
 
@@ -41,7 +41,7 @@ describe('VariableForm', () => {
 
   it('should enable the button only when all required fields are filled for a calculated variable', async () => {
     const submitFn = vi.fn();
-    const { getByRole } = await renderWithRouter(
+    const { getByRole, getByText } = await renderWithRouter(
       <VariableForm
         questionnaireId={'q-id'}
         onSubmit={submitFn}
@@ -54,7 +54,7 @@ describe('VariableForm', () => {
       expect(getByRole('button', { name: /Validate/i })).toBeDisabled();
     });
 
-    fireEvent.click(getByRole('checkbox', { name: /calculated/i }));
+    fireEvent.click(within(getByText(/Calculated/i)).getByRole('radio'));
 
     fireEvent.input(getByRole('textbox', { name: /Name/i }), {
       target: { value: 'MY_VAR' },
@@ -62,7 +62,7 @@ describe('VariableForm', () => {
     fireEvent.input(getByRole('textbox', { name: /Description/i }), {
       target: { value: 'A great variable' },
     });
-    fireEvent.input(getByRole('textbox', { name: /formula/i }), {
+    fireEvent.input(getByRole('textbox', { name: /Formula/i }), {
       target: { value: 'my formula' },
     });
 
