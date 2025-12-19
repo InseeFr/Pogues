@@ -1,14 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import i18next from 'i18next';
+import { useNavigate } from '@tanstack/react-router';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
-import Button, { ButtonStyle } from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
 import Checkbox from '@/components/ui/form/Checkbox';
+import Field from '@/components/ui/form/Field';
+import Form from '@/components/ui/form/Form';
 import Input from '@/components/ui/form/Input';
 import Label from '@/components/ui/form/Label';
+import RadioGroup from '@/components/ui/form/RadioGroup';
 import {
   FlowLogics,
   FormulasLanguages,
@@ -16,29 +16,17 @@ import {
   TargetModes,
 } from '@/models/questionnaires';
 
+import { type FormValues, schema } from './schema';
 import { changeSetValue } from './utils/set';
 
-interface QuestionnaireFormProps {
+type Props = {
   /** In an update case, initial questionnaire value. */
-  questionnaire?: Omit<Questionnaire, 'id'>;
+  questionnaire?: Omit<Omit<Questionnaire, 'id'>, 'scopes'>;
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
   submitLabel: string;
-}
-
-const schema = z.object({
-  title: z
-    .string()
-    .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
-  targetModes: z
-    .set(z.enum(TargetModes))
-    .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),
-  flowLogic: z.enum(FlowLogics),
-  formulasLanguage: z.enum(FormulasLanguages),
-});
-
-export type FormValues = z.infer<typeof schema>;
+};
 
 /**
  * Create or edit a codes list.
@@ -58,31 +46,54 @@ export default function QuestionnaireForm({
   },
   onSubmit,
   submitLabel,
-}: Readonly<QuestionnaireFormProps>) {
+}: Readonly<Props>) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
-    formState: { isDirty, isValid },
+    formState: { isDirty, isSubmitted, isValid },
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: questionnaire,
     resolver: zodResolver(schema),
   });
 
+  const handleCancel = () => {
+    navigate({
+      to: '/questionnaires',
+      ignoreBlocker: true,
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onCancel={handleCancel}
+      isDirty={isDirty}
+      isValid={isValid}
+      isSubmitted={isSubmitted}
+      validateLabel={submitLabel}
+    >
       <Controller
         name="title"
         control={control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
-            autoFocus
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
             label={t('common.title')}
-            error={error?.message}
-            {...field}
+            name={name}
             required
-          />
+            touched={isTouched}
+          >
+            <Input autoFocus value={value} onValueChange={onChange} />
+          </Field>
         )}
       />
       <Controller
@@ -141,77 +152,67 @@ export default function QuestionnaireForm({
         )}
       />
       <div>
-        <Label required>{t('questionnaire.common.dynamicField')}</Label>
         <Controller
           name="flowLogic"
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { isTouched, error } }) => (
-            <>
-              <div className="flex gap-x-4">
-                <Checkbox
-                  label={'Filtre'}
-                  checked={field.value === FlowLogics.Filter}
-                  onChange={(v) => {
-                    if (v) field.onChange(FlowLogics.Filter);
-                  }}
-                />
-                <Checkbox
-                  label={'Redirection'}
-                  checked={field.value === FlowLogics.Redirection}
-                  onChange={(v) => {
-                    if (v) field.onChange(FlowLogics.Redirection);
-                  }}
-                />
-              </div>
-              {error && isTouched ? (
-                <div className="text-sm text-error ml-1">{error.message}</div>
-              ) : null}
-            </>
+          render={({
+            field: { name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('questionnaire.common.dynamicField')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <RadioGroup
+                options={[
+                  { label: 'Filtre', value: FlowLogics.Filter },
+                  { label: 'Redirection', value: FlowLogics.Redirection },
+                ]}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+              />
+            </Field>
           )}
         />
       </div>
       <div>
-        <Label required>{t('questionnaire.common.formulaField')}</Label>
         <Controller
           name="formulasLanguage"
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { isTouched, error } }) => (
-            <>
-              <div className="flex gap-x-4">
-                <Checkbox
-                  label={'VTL'}
-                  checked={field.value === FormulasLanguages.VTL}
-                  onChange={(v) => {
-                    if (v) field.onChange(FormulasLanguages.VTL);
-                  }}
-                />
-                <Checkbox
-                  label={'XPath'}
-                  checked={field.value === FormulasLanguages.XPath}
-                  onChange={(v) => {
-                    if (v) field.onChange(FormulasLanguages.XPath);
-                  }}
-                />
-              </div>
-              {error && isTouched ? (
-                <div className="text-sm text-error ml-1">{error.message}</div>
-              ) : null}
-            </>
+          render={({
+            field: { name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('questionnaire.common.formulaField')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <RadioGroup
+                options={[
+                  { label: 'VTL', value: FormulasLanguages.VTL },
+                  { label: 'XPath', value: FormulasLanguages.XPath },
+                ]}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+              />
+            </Field>
           )}
         />
       </div>
-      <div className="flex gap-x-2 mt-6 justify-end">
-        <ButtonLink to="/questionnaires">{t('common.cancel')}</ButtonLink>
-        <Button
-          type="submit"
-          buttonStyle={ButtonStyle.Primary}
-          disabled={!isDirty || !isValid}
-        >
-          {submitLabel}
-        </Button>
-      </div>
-    </form>
+    </Form>
   );
 }

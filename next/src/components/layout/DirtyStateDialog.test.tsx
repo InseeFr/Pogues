@@ -5,40 +5,36 @@ import { renderWithRouter } from '@/testing/render';
 import DirtyStateDialog from './DirtyStateDialog';
 
 describe('DirtyStateDialog', () => {
-  it('renders dialog with correct title and body', async () => {
-    const { getByText } = await renderWithRouter(
-      <DirtyStateDialog onValidate={() => {}} onCancel={() => {}} />,
+  it('displays information about dirty state and triggers appropriate actions on click', async () => {
+    // Given the dirty state dialog
+    const onValidateMock = vi.fn();
+    const onCancelMock = vi.fn();
+    const { getByRole, getByText } = await renderWithRouter(
+      <DirtyStateDialog onValidate={onValidateMock} onCancel={onCancelMock} />,
     );
 
+    // Then it warns the user about potential data loss and step to take
     expect(getByText('Unsaved modifications')).toBeInTheDocument();
     expect(
       getByText(
         "You didn't save your changes. Are you sure you want to leave?",
       ),
     ).toBeInTheDocument();
-  });
 
-  it('calls onValidate when validate button is clicked', async () => {
-    const onValidate = vi.fn();
-    const { getByRole } = await renderWithRouter(
-      <DirtyStateDialog onValidate={onValidate} onCancel={() => {}} />,
-    );
+    // When we click on 'validate' button
+    fireEvent.click(getByRole('button', { name: /validate/i }));
 
-    const validateButton = getByRole('button', { name: /validate/i });
-    fireEvent.click(validateButton);
+    // Then it triggers validate action
+    expect(onValidateMock).toHaveBeenCalledOnce();
+    expect(onCancelMock).not.toHaveBeenCalled();
 
-    expect(onValidate).toHaveBeenCalledTimes(1);
-  });
+    onValidateMock.mockClear();
 
-  it('calls onCancel when cancel button is clicked', async () => {
-    const onCancel = vi.fn();
-    const { getByRole } = await renderWithRouter(
-      <DirtyStateDialog onValidate={() => {}} onCancel={onCancel} />,
-    );
+    // When we click on 'cancel' button
+    fireEvent.click(getByRole('button', { name: /cancel/i }));
 
-    const cancelButton = getByRole('button', { name: /cancel/i });
-    fireEvent.click(cancelButton);
-
-    expect(onCancel).toHaveBeenCalledTimes(1);
+    // Then it triggers cancel action
+    expect(onValidateMock).not.toHaveBeenCalled();
+    expect(onCancelMock).toHaveBeenCalledOnce();
   });
 });

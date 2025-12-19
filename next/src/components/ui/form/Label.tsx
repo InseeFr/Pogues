@@ -9,9 +9,12 @@ export default function Label({
   ...props
 }: Readonly<LabelProps>) {
   return (
-    <label className={`text-sm mb-1 ml-1 ${className}`} {...props}>
+    <label
+      className={`text-sm font-semibold mb-1 ml-1 ${className}`}
+      {...props}
+    >
       {children}
-      {required ? ' *' : ''}
+      {required ? '*' : ''}
     </label>
   );
 }

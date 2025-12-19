@@ -165,14 +165,8 @@ describe('PersonalizationForm', () => {
         fileData={JSON.stringify(mockJsonData)}
       />,
     );
-    const radiogroups = screen.getAllByRole('radiogroup');
-    const personalizationTypeGroup = radiogroups.find((group) =>
-      within(group).queryByText(/Personalization type/i),
-    );
-    expect(personalizationTypeGroup).toBeTruthy();
 
-    const jsonOption = within(personalizationTypeGroup!).getByText(/JSON/i);
-    fireEvent.click(jsonOption);
+    fireEvent.click(within(screen.getByText(/JSON/i)).getByRole('radio'));
 
     expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
     expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument();
@@ -196,14 +190,7 @@ describe('PersonalizationForm', () => {
       />,
     );
 
-    const radiogroups = screen.getAllByRole('radiogroup');
-    const personalizationTypeGroup = radiogroups.find((group) =>
-      within(group).queryByText(/Personalization type/i),
-    );
-    expect(personalizationTypeGroup).toBeTruthy();
-
-    const jsonOption = within(personalizationTypeGroup!).getByText(/JSON/i);
-    fireEvent.click(jsonOption);
+    fireEvent.click(within(screen.getByText(/JSON/i)).getByRole('radio'));
 
     const uploadButton = screen.getByText('Upload survey units data');
     fireEvent.click(uploadButton);
@@ -232,14 +219,7 @@ describe('PersonalizationForm', () => {
       />,
     );
 
-    const radiogroups = screen.getAllByRole('radiogroup');
-    const contextTypeGroup = radiogroups.find((group) =>
-      within(group).queryByText(/Context/i),
-    );
-    expect(contextTypeGroup).toBeTruthy();
-
-    const businessOption = within(contextTypeGroup!).getByText(/Entreprise/i);
-    fireEvent.click(businessOption);
+    fireEvent.click(within(screen.getByText(/Entreprise/i)).getByRole('radio'));
 
     expect(setQuestionnaire).toHaveBeenCalledWith(
       expect.objectContaining({

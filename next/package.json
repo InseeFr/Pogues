@@ -16,7 +16,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@base-ui-components/react": "1.0.0-beta.4",
+    "@base-ui-components/react": "^1.0.0-rc.0",
     "@fontsource-variable/open-sans": "^5.1.1",
     "@hookform/resolvers": "^5.1.1",
     "@making-sense/antlr-editor": "2.0.0",
@@ -64,7 +64,7 @@
     "jsdom": "^26.0.0",
     "nock": "^14.0.1",
     "postcss": "^8.5.1",
-    "tailwindcss": "^4.0.0",
+    "tailwindcss": "^4.1.17",
     "typescript": "~5.8.0",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",

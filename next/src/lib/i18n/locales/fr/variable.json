@@ -24,7 +24,10 @@
   "form": {
     "mustProvideName": "Vous devez renseigner un identifiant",
     "mustProvideDescription": "Vous devez renseigner un libellé",
-    "mustProvideFormula": "Vous devez renseigner une formule"
+    "mustProvideFormula": "Vous devez renseigner une formule",
+    "name": {
+      "placeholder": "ex: MA_VARIABLE"
+    }
   },
   "format": "format",
   "formula": "formule",

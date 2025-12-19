@@ -8,8 +8,8 @@ importers:
   .:
     dependencies:
       '@base-ui-components/react':
-        specifier: 1.0.0-beta.4
-        version: 1.0.0-beta.4(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.0.0-rc.0
+        version: 1.0.0-rc.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@fontsource-variable/open-sans':
         specifier: ^5.1.1
         version: 5.1.1
@@ -147,8 +147,8 @@ importers:
         specifier: ^8.5.1
         version: 8.5.6
       tailwindcss:
-        specifier: ^4.0.0
-        version: 4.1.11
+        specifier: ^4.1.17
+        version: 4.1.18
       typescript:
         specifier: ~5.8.0
         version: 5.8.3
@@ -430,10 +430,10 @@ packages:
       }
     engines: { node: '>=6.9.0' }
 
-  '@base-ui-components/react@1.0.0-beta.4':
+  '@base-ui-components/react@1.0.0-rc.0':
     resolution:
       {
-        integrity: sha512-sPYKj26gbFHD2ZsrMYqQshXnMuomBodzPn+d0dDxWieTj232XCQ9QGt9fU9l5SDGC9hi8s24lDlg9FXPSI7T8A==,
+        integrity: sha512-9lhUFbJcbXvc9KulLev1WTFxS/alJRBWDH/ibKSQaNvmDwMFS2gKp1sTeeldYSfKuS/KC1w2MZutc0wHu2hRHQ==,
       }
     engines: { node: '>=14.0.0' }
     peerDependencies:
@@ -444,10 +444,10 @@ packages:
       '@types/react':
         optional: true
 
-  '@base-ui-components/utils@0.1.2':
+  '@base-ui-components/utils@0.2.2':
     resolution:
       {
-        integrity: sha512-aEitDGpMsYO2qnSpYOwZNykn9Rzn2ioyEVk2fyDRH7t+TIHVKpp9CeV7SPTq43M9mMSDxQ+7UeZJVkrj2dCVIQ==,
+        integrity: sha512-rNJCD6TFy3OSRDKVHJDzLpxO3esTV1/drRtWNUpe7rCpPN9HZVHUCuP+6rdDYDGWfXnQHbqi05xOyRP2iZAlkw==,
       }
     peerDependencies:
       '@types/react': ^17 || ^18 || ^19
@@ -4868,6 +4868,12 @@ packages:
         integrity: sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==,
       }
 
+  tailwindcss@4.1.18:
+    resolution:
+      {
+        integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==,
+      }
+
   tapable@2.2.2:
     resolution:
       {
@@ -5675,10 +5681,10 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@base-ui-components/react@1.0.0-beta.4(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@base-ui-components/react@1.0.0-rc.0(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.28.4
-      '@base-ui-components/utils': 0.1.2(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@base-ui-components/utils': 0.2.2(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@floating-ui/react-dom': 2.1.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@floating-ui/utils': 0.2.10
       react: 18.3.1
@@ -5689,7 +5695,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.23
 
-  '@base-ui-components/utils@0.1.2(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@base-ui-components/utils@0.2.2(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.28.4
       '@floating-ui/utils': 0.2.10
@@ -8250,6 +8256,8 @@ snapshots:
   tabbable@6.3.0: {}
 
   tailwindcss@4.1.11: {}
+
+  tailwindcss@4.1.18: {}
 
   tapable@2.2.2: {}
 
