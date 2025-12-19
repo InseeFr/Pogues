@@ -13,7 +13,6 @@ export type ImportMetaEnv = {
   VITE_ENABLE_ARTICULATION_PAGE: string;
   VITE_ENABLE_MULTIMODE_PAGE: string;
   VITE_ENABLE_DOWNLOAD_PDF_PERSO: string;
-  VITE_ENABLE_VARIABLES_PAGE_FORM: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;
