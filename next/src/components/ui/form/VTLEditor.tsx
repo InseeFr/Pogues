@@ -56,9 +56,9 @@ export default function VTLEditor({
       style={style}
     >
       {label && (
-        <Field.Label className="text-sm ml-1">
+        <Field.Label className="w-full space-y-1 text-sm font-semibold text-default">
           {label}
-          {required && ' *'}
+          {required && '*'}
         </Field.Label>
       )}
       <div
