@@ -2,10 +2,11 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
+import { variablesQueryOptions } from '@/api/variables';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import CreateVariable from '@/components/variables/create/CreateVariable';
 import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout';
-import { computeQuestionnaireScopes } from '@/utils/scopes';
+import { Variable } from '@/models/variables';
 
 /**
  * Page that allow to create a new code list.
@@ -33,12 +34,16 @@ function RouteComponent() {
   const { data: questionnaire } = useSuspenseQuery(
     questionnaireQueryOptions(questionnaireId),
   );
+  const { data: variables }: { data: Variable[] } = useSuspenseQuery(
+    variablesQueryOptions(questionnaireId),
+  );
 
   return (
     <CreateVariableLayout>
       <CreateVariable
         questionnaireId={questionnaireId}
         scopes={questionnaire.scopes}
+        variables={variables}
       />
     </CreateVariableLayout>
   );

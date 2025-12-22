@@ -10,6 +10,7 @@ import NumberField from '@/components/ui/form/NumberField';
 import RadioGroup from '@/components/ui/form/RadioGroup';
 import Select from '@/components/ui/form/Select';
 import Switch from '@/components/ui/form/Switch';
+import VTLEditor from '@/components/ui/form/VTLEditor';
 import { DatatypeType, DateFormat } from '@/models/datatype';
 import { type Variable, VariableType } from '@/models/variables';
 
@@ -27,6 +28,8 @@ type Props = {
   submitLabel: string;
   /** Available scopes with the mapping between id and name. */
   scopes: Map<string, string>;
+  /** List of variables used for auto-completion in VTL editor. */
+  variables?: Variable[];
 };
 
 /**
@@ -50,6 +53,7 @@ export default function VariableForm({
   onSubmit,
   submitLabel,
   scopes,
+  variables = [],
 }: Readonly<Props>) {
   const navigate = useNavigate();
 
@@ -108,6 +112,10 @@ export default function VariableForm({
                   {
                     label: t('variable.type.external'),
                     value: VariableType.External,
+                  },
+                  {
+                    label: t('variable.type.calculated'),
+                    value: VariableType.Calculated,
                   },
                 ]}
                 value={value}
@@ -188,6 +196,23 @@ export default function VariableForm({
           </Field>
         )}
       />
+      {selectedType === VariableType.Calculated ? (
+        <Controller
+          name="formula"
+          control={control}
+          rules={{ required: true }}
+          render={({ field, fieldState: { error } }) => (
+            <VTLEditor
+              label={t('variable.formula')}
+              className="h-20"
+              suggestionsVariables={variables}
+              error={error?.message}
+              {...field}
+              required
+            />
+          )}
+        />
+      ) : null}
       <Controller
         name="scope"
         control={control}

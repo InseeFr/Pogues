@@ -56,6 +56,9 @@ export const schema = z.discriminatedUnion('type', [
   z.object({
     ...baseVariableSchema.shape,
     type: variableTypeEnum.extract(['Calculated']),
+    formula: z
+      .string()
+      .min(1, { message: i18next.t('variable.form.mustProvideFormula') }),
   }),
   z.object({
     ...baseVariableSchema.shape,

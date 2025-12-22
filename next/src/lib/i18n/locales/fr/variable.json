@@ -11,6 +11,11 @@
     "numeric": "Nombre",
     "text": "Texte"
   },
+  "delete": {
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette variable ?",
+    "dialogTitle": "Supprimer la variable: {{name}}",
+    "success": "Variable {{name}} supprimée"
+  },
   "description": "Libellé",
   "edit": {
     "success": "La variable {{name}} a été modifiée",
@@ -19,11 +24,13 @@
   "form": {
     "mustProvideName": "Vous devez renseigner un identifiant",
     "mustProvideDescription": "Vous devez renseigner un libellé",
+    "mustProvideFormula": "Vous devez renseigner une formule",
     "name": {
       "placeholder": "ex: MA_VARIABLE"
     }
   },
   "format": "format",
+  "formula": "Formule",
   "isDeletedOnReset": "Variable réinitialisable",
   "maxLength": "Taille",
   "maximum": "Max",

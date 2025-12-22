@@ -6,7 +6,6 @@ import { variablesQueryOptions } from '@/api/variables';
 import ErrorComponent from '@/components/layout/ErrorComponent';
 import EditVariable from '@/components/variables/edit/EditVariable';
 import EditVariableLayout from '@/components/variables/edit/EditVariableLayout';
-import { computeQuestionnaireScopes } from '@/utils/scopes';
 
 /**
  * Page that allow to update an existing variable.
@@ -47,6 +46,7 @@ function RouteComponent() {
         questionnaireId={questionnaireId}
         variable={variable}
         scopes={questionnaire.scopes}
+        variables={variables}
       />
     </EditVariableLayout>
   );

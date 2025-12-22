@@ -71,12 +71,12 @@ export default function VariableLineActions({
                 to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
                 params: { questionnaireId, variableId: variable.id },
               }),
-            disabled: readonly || variable.type !== VariableType.External,
+            disabled: readonly || variable.type === VariableType.Collected,
           },
           {
             label: t('common.delete'),
             onClick: () => setOpenDeleteDialog(true),
-            disabled: readonly || variable.type !== VariableType.External,
+            disabled: readonly || variable.type === VariableType.Collected,
           },
         ]}
       />

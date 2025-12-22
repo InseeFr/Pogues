@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- The variables page allow to create, update and delete external variables.
+- The variables page allow to create, update and delete external and calculated variables.
 - External variables can be flagged as "to be deleted on reset".
 
 ### Changed

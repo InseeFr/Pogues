@@ -24,11 +24,13 @@
   "form": {
     "mustProvideName": "You must provide a name",
     "mustProvideDescription": "You must provide a description",
+    "mustProvideFormula": "You must provide a formula",
     "name": {
       "placeholder": "e.g. MY_VARIABLE"
     }
   },
   "format": "format",
+  "formula": "Formula",
   "isDeletedOnReset": "Resettable variable",
   "maxLength": "Length",
   "maximum": "Max",
