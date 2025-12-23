@@ -16,7 +16,7 @@ import { type Variable, VariableType } from '@/models/variables';
 
 import { datatypeOptions, dateFormatOptions } from './consts';
 import { type FormValues, schema } from './schema';
-import { convertToScreamingSnakeCase } from './utils/name';
+import { convertToValidName } from './utils/name';
 
 type Props = {
   questionnaireId: string;
@@ -171,7 +171,7 @@ export default function VariableForm({
             <Input
               placeholder={t('variable.form.name.placeholder')}
               value={value}
-              onValueChange={(v) => onChange(convertToScreamingSnakeCase(v))}
+              onValueChange={(v) => onChange(convertToValidName(v))}
             />
           </Field>
         )}
