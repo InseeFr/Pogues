@@ -36,9 +36,11 @@ export default function MultimodeIsMovedRulesForm({
   const navigate = useNavigate();
 
   const {
+    clearErrors,
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
+    setError,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: isMovedRules,
@@ -63,13 +65,22 @@ export default function MultimodeIsMovedRulesForm({
       <Controller
         name="questionnaireFormula"
         control={control}
-        render={({ field, fieldState: { error } }) => (
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
           <VTLEditor
+            clearErrors={clearErrors}
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
             label={t('multimode.form.questionnaireFormula')}
-            className="h-20"
-            error={error?.message}
+            name={name}
+            onChange={onChange}
+            setError={(error) => setError(name, error)}
             suggestionsVariables={variables}
-            {...field}
+            touched={isTouched}
+            value={value}
           />
         )}
       />
@@ -77,16 +88,25 @@ export default function MultimodeIsMovedRulesForm({
         <Controller
           name="leafFormula"
           control={control}
-          render={({ field, fieldState: { error } }) => (
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
             <VTLEditor
+              clearErrors={() => clearErrors(name)}
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
               label={t('multimode.form.leafFormula')}
-              className="h-20"
-              error={error?.message}
+              name={name}
+              onChange={onChange}
+              setError={(error) => setError(name, error)}
               // Warning : it should be roundaboutVariables but currently VTLEditor can't be rendered twice
               // with different suggestionsVariables else every field has the suggestionsVariables of the last field.
               // Until we find a solution, we prefer to use the questionnaire variables.
               suggestionsVariables={variables}
-              {...field}
+              touched={isTouched}
+              value={value}
             />
           )}
         />

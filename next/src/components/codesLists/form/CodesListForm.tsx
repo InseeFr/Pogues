@@ -244,30 +244,30 @@ function CodesField({
           )}
         />
       </div>
-      <Controller
-        name={`${namePrefix}.label` as `codes.${number}.label`}
-        control={control}
-        rules={{ required: true }}
-        render={({ field, fieldState: { error } }) =>
-          formulasLanguage === FormulasLanguages.VTL ? (
-            <VTLEditor
-              key={`${namePrefix}.label`}
-              data-testid={`${namePrefix}.label`}
-              className="col-start-2 h-20"
-              suggestionsVariables={variables}
-              error={error?.message}
-              {...field}
-            />
-          ) : (
-            <Input
-              data-testid={`${namePrefix}.label`}
-              className="col-start-2"
-              error={error?.message}
-              {...field}
-            />
-          )
-        }
-      />
+      <div className="col-start-2">
+        <Controller
+          name={`${namePrefix}.label` as `codes.${number}.label`}
+          control={control}
+          rules={{ required: true }}
+          render={({ field, fieldState: { error } }) =>
+            formulasLanguage === FormulasLanguages.VTL ? (
+              <VTLEditor
+                key={`${namePrefix}.label`}
+                data-testid={`${namePrefix}.label`}
+                suggestionsVariables={variables}
+                error={error}
+                {...field}
+              />
+            ) : (
+              <Input
+                data-testid={`${namePrefix}.label`}
+                error={error?.message}
+                {...field}
+              />
+            )
+          }
+        />
+      </div>
       <ButtonIcon
         className="col-start-3 h-12"
         Icon={AddIcon}

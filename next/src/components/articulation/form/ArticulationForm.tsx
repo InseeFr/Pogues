@@ -3,7 +3,6 @@ import { useNavigate } from '@tanstack/react-router';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
 import Form from '@/components/ui/form/Form';
-import Label from '@/components/ui/form/Label';
 import VTLEditor from '@/components/ui/form/VTLEditor';
 import {
   type ArticulationItems,
@@ -30,9 +29,11 @@ export default function ArticulationForm({
   const navigate = useNavigate();
 
   const {
+    clearErrors,
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
+    setError,
   } = useForm<FormValues>({
     mode: 'onChange',
     resolver: zodResolver(schema),
@@ -57,24 +58,30 @@ export default function ArticulationForm({
       isSubmitted={isSubmitted}
     >
       {articulationItems.map((item, index) => (
-        <div key={item.label} className="space-y-1">
-          <Label className="block font-semibold text-sm" required>
-            <ArticulationVariableLabel label={item.label} />
-          </Label>
-          <Controller
-            name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-              <VTLEditor
-                className="h-20"
-                error={error?.message}
-                data-testid={`items.${index}.value`}
-                suggestionsVariables={variables}
-                {...field}
-              />
-            )}
-          />
-        </div>
+        <Controller
+          key={item.label}
+          name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values
+          control={control}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <VTLEditor
+              clearErrors={() => clearErrors(name)}
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={<ArticulationVariableLabel label={item.label} />}
+              name={name}
+              onChange={onChange}
+              required
+              setError={(error) => setError(name, error)}
+              suggestionsVariables={variables}
+              touched={isTouched}
+              value={value}
+            />
+          )}
+        />
       ))}
     </Form>
   );

@@ -18,73 +18,63 @@ vi.mock('@tanstack/react-router', async () => {
 });
 
 describe('ArticulationForm', () => {
-  const mockSubmit = vi.fn();
   it('should enable validate button only when all articulation items fields are filled', async () => {
+    // Given an empty form
+    const foo = vi.fn();
     await renderWithRouter(
-      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
+      <ArticulationForm questionnaireId="q-id" onSubmit={foo} />,
     );
 
-    // no data for any articulation item
+    // Then the form is invalid and cannot be submitted
     await waitFor(() => {
       expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
     });
 
-    // fill first name field
-    fireEvent.input(screen.getByTestId('items.0.value'), {
-      target: {
-        value: 'first name formula',
-      },
+    // When we fill all the inputs
+    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+      target: { value: 'first name formula' },
     });
-
     await waitFor(() => {
       expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
     });
 
-    // fill gender field
-    fireEvent.input(screen.getByTestId('items.1.value'), {
-      target: {
-        value: 'gender formula',
-      },
+    fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
+      target: { value: 'gender formula' },
     });
-
     await waitFor(() => {
       expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
     });
 
-    // fill age field
-    fireEvent.input(screen.getByTestId('items.2.value'), {
-      target: {
-        value: 'age formula',
-      },
+    fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
+      target: { value: 'gender formula' },
     });
 
-    // all articulation item fields have been filled
+    // Then the form becomes valid and can be submitted
     await waitFor(() => {
       expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled();
     });
 
     fireEvent.submit(screen.getByRole('button', { name: /Validate/i }));
     await waitFor(() => {
-      expect(mockSubmit).toBeCalled();
+      expect(foo).toHaveBeenCalledOnce();
     });
   });
 
   it('should display error when first name field is empty', async () => {
+    // Given a form with a filled first name input
     await renderWithRouter(
-      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
+      <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
-
-    fireEvent.input(screen.getByTestId('items.0.value'), {
-      target: {
-        value: 'first name formula',
-      },
-    });
-    fireEvent.input(screen.getByTestId('items.0.value'), {
-      target: {
-        value: '',
-      },
+    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+      target: { value: 'age formula' },
     });
 
+    // When the first name input becomes empty
+    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+      target: { value: '' },
+    });
+
+    // Then an error is displayed
     expect(await screen.findAllByRole('alert')).toHaveLength(1);
     expect(
       screen.getByText('You must provide a formula for first name'),
@@ -92,21 +82,20 @@ describe('ArticulationForm', () => {
   });
 
   it('should display error when gender field is empty', async () => {
+    // Given a form with a filled gender input
     await renderWithRouter(
-      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
+      <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
-
-    fireEvent.input(screen.getByTestId('items.1.value'), {
-      target: {
-        value: 'gender formula',
-      },
-    });
-    fireEvent.input(screen.getByTestId('items.1.value'), {
-      target: {
-        value: '',
-      },
+    fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
+      target: { value: 'age formula' },
     });
 
+    // When the gender input becomes empty
+    fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
+      target: { value: '' },
+    });
+
+    // Then an error is displayed
     expect(await screen.findAllByRole('alert')).toHaveLength(1);
     expect(
       screen.getByText('You must provide a formula for gender'),
@@ -114,21 +103,20 @@ describe('ArticulationForm', () => {
   });
 
   it('should display error when age field is empty', async () => {
+    // Given a form with a filled age input
     await renderWithRouter(
-      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
+      <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
-
-    fireEvent.input(screen.getByTestId('items.2.value'), {
-      target: {
-        value: 'age formula',
-      },
-    });
-    fireEvent.input(screen.getByTestId('items.2.value'), {
-      target: {
-        value: '',
-      },
+    fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
+      target: { value: 'age formula' },
     });
 
+    // When the age input becomes empty
+    fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
+      target: { value: '' },
+    });
+
+    // Then an error is displayed
     expect(await screen.findAllByRole('alert')).toHaveLength(1);
     expect(
       screen.getByText('You must provide a formula for age'),
@@ -136,23 +124,18 @@ describe('ArticulationForm', () => {
   });
 
   it("allows to go back to articulation overview page by clicking 'cancel' button", async () => {
+    // Given a form in dirty state
     await renderWithRouter(
-      <ArticulationForm questionnaireId="q-id" onSubmit={mockSubmit} />,
+      <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     );
-
-    // edit form for being in dirty state
-    fireEvent.input(screen.getByTestId('items.0.value'), {
-      target: {
-        value: 'first name formula',
-      },
+    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+      target: { value: 'first name formula' },
     });
 
-    const cancelButton = screen.getByRole('button', { name: /cancel/i });
+    // When we click on "cancel" button
+    fireEvent.click(screen.getByRole('button', { name: /cancel/i }));
 
-    expect(cancelButton).toBeEnabled();
-    fireEvent.click(cancelButton);
-
-    // navigate to articulation page, ignoring the dirty state
+    // Then we navigate to articulation page
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/articulation',
       params: { questionnaireId: 'q-id' },

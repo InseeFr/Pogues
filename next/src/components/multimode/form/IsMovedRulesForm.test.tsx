@@ -21,34 +21,31 @@ vi.mock('@tanstack/react-router', async () => {
 
 describe('IsMovedRulesForm', () => {
   it('is disabled on mount', async () => {
+    const user = userEvent.setup();
+    const foo = vi.fn();
+
+    // Given a form
     const { getByText } = await renderWithRouter(
-      <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
+      <IsMovedRulesForm questionnaireId="my-id" onSubmit={foo} />,
     );
+
+    // Then it is disabled by default
     expect(getByText('Validate')).toBeInTheDocument();
     expect(getByText('Validate')).toBeDisabled();
-  });
 
-  it('can be submitted when form is dirty', async () => {
-    const user = userEvent.setup();
-
-    const onSubmitMock = vi.fn();
-    const { getByText } = await renderWithRouter(
-      <IsMovedRulesForm questionnaireId="my-id" onSubmit={onSubmitMock} />,
-    );
-
-    expect(getByText('Validate')).toBeDisabled();
-
+    // When an input is modified
     await user.click(getByText('Questionnaire-level rule'));
     await user.keyboard('my questionnaire');
 
+    // Then the form can be submitted
     expect(getByText('Validate')).toBeEnabled();
-
     await user.click(getByText('Validate'));
 
-    expect(onSubmitMock).toHaveBeenCalledOnce();
+    expect(foo).toHaveBeenCalledOnce();
   });
 
   it('has a roundabout-level rule input when there is roundabout variables', async () => {
+    // Given a form with roundabout variables
     const { getByRole, getByText } = await renderWithRouter(
       <IsMovedRulesForm
         questionnaireId="my-id"
@@ -64,6 +61,7 @@ describe('IsMovedRulesForm', () => {
       />,
     );
 
+    // Then the roundabout-level rule can be specified
     expect(getByText('Roundabout-level rule')).toBeInTheDocument();
     expect(
       getByRole('textbox', { name: 'Roundabout-level rule' }),
@@ -71,10 +69,12 @@ describe('IsMovedRulesForm', () => {
   });
 
   it('has no roundabout-level rule input when there is no roundabout variables', async () => {
+    // Given a form without roundabout variables
     const { getByText, queryByRole } = await renderWithRouter(
       <IsMovedRulesForm questionnaireId="my-id" onSubmit={vi.fn()} />,
     );
 
+    // Then the roundabout-level rule cannot be specified
     expect(getByText('Roundabout-level rule')).toBeInTheDocument();
     expect(
       queryByRole('textbox', { name: 'Roundabout-level rule' }),

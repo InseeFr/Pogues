@@ -58,9 +58,11 @@ export default function VariableForm({
   const navigate = useNavigate();
 
   const {
+    clearErrors,
     control,
     handleSubmit,
     formState: { isDirty, isSubmitted, isValid },
+    setError,
     watch,
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -201,14 +203,23 @@ export default function VariableForm({
           name="formula"
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { error } }) => (
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
             <VTLEditor
+              clearErrors={() => clearErrors(name)}
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
               label={t('variable.formula')}
-              className="h-20"
-              suggestionsVariables={variables}
-              error={error?.message}
-              {...field}
+              name={name}
+              onChange={onChange}
               required
+              setError={(error) => setError(name, error)}
+              suggestionsVariables={variables}
+              touched={isTouched}
+              value={value}
             />
           )}
         />
