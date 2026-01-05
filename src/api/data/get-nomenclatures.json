@@ -96,9 +96,9 @@
       "urn": "urn:ddi:fr.insee:l_communes-2024:1",
       "codes": []
     },
-    "L_COMMUNES-2025": {
-      "id": "L_COMMUNES-2025",
-      "name": "L_COMMUNES-2025",
+    "L_COMMUNES-2025-1": {
+      "id": "L_COMMUNES-2025-1",
+      "name": "L_COMMUNES-2025-1",
       "label": "Communes 2025",
       "parameters": {
         "version": 1,
@@ -121,7 +121,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_communes-2025:1",
+      "urn": "urn:ddi:fr.insee:l_communes-2025-1:1",
       "codes": []
     },
     "L_DEP-1-1-0": {

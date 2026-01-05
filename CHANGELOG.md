@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated nomenclature: "L_NEGOCE_TAB_2025" -> "L_NEGOCE_TAB_2025-1".
+- Updated nomenclatures: "L_NEGOCE_TAB_2025" -> "L_NEGOCE_TAB_2025-1", "L_COMMUNES-2025" -> "L_COMMUNES-2025-1"
 
 ## [1.12.0](https://github.com/InseeFr/Pogues/releases/tag/1.12.0) - 2025-11-25
 
