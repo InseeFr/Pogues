@@ -1,4 +1,9 @@
-import { convertToScreamingSnakeCase, screamingSnakeCaseRegex } from './name';
+import {
+  convertToScreamingSnakeCase,
+  convertToValidCharacters,
+  convertToValidName,
+  screamingSnakeCaseRegex,
+} from './name';
 
 it('SCREAMING_SNAKE_CASE regexp is valid', () => {
   const re = new RegExp(screamingSnakeCaseRegex);
@@ -15,6 +20,16 @@ it('SCREAMING_SNAKE_CASE regexp is valid', () => {
   expect(re.exec('var')).toBeNull();
   expect(re.exec('1')).toBeNull();
   expect(re.exec('1VAR')).toBeNull();
+  expect(re.exec('VARÉ')).toBeNull();
+});
+
+it('converts to valid name', () => {
+  // Valid values that should not be changed
+  expect(convertToValidName('MY_VAR_1')).toBe('MY_VAR_1');
+  // Invalid values
+  expect(convertToValidName('my-var')).toBe('MY_VAR');
+  expect(convertToValidName('œuf')).toBe('OEUF');
+  expect(convertToValidName('$weird_var!')).toBe('WEIRD_VAR');
 });
 
 it('converts to SCREAMING_SNAKE_CASE', () => {
@@ -27,4 +42,22 @@ it('converts to SCREAMING_SNAKE_CASE', () => {
   expect(convertToScreamingSnakeCase('var')).toBe('VAR');
   expect(convertToScreamingSnakeCase('my_var')).toBe('MY_VAR');
   expect(convertToScreamingSnakeCase('my-var')).toBe('MY_VAR');
+});
+
+it('converts to valid characters', () => {
+  // Valid values that should not be changed
+  expect(convertToValidCharacters('abc')).toBe('abc');
+  expect(convertToValidCharacters('ABC')).toBe('ABC');
+  expect(convertToValidCharacters('_')).toBe('_');
+  expect(convertToValidCharacters('-')).toBe('-');
+  expect(convertToValidCharacters(' ')).toBe(' ');
+  expect(convertToValidCharacters('1')).toBe('1');
+  // Invalid values
+  expect(convertToValidCharacters('é')).toBe('e');
+  expect(convertToValidCharacters('œ')).toBe('oe');
+  expect(convertToValidCharacters(';')).toBe('');
+  expect(convertToValidCharacters('$')).toBe('');
+  expect(convertToValidCharacters('*')).toBe('');
+  expect(convertToValidCharacters('%')).toBe('');
+  expect(convertToValidCharacters('!')).toBe('');
 });

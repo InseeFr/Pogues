@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.3.0-rc.calculated-variables",
+  "version": "2.3.0-rc.variables-invalid-names",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",
