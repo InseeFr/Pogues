@@ -29,7 +29,6 @@ export default function ArticulationForm({
   const navigate = useNavigate();
 
   const {
-    clearErrors,
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
@@ -67,7 +66,6 @@ export default function ArticulationForm({
             fieldState: { invalid, isTouched, isDirty, error },
           }) => (
             <VTLEditor
-              clearErrors={() => clearErrors(name)}
               dirty={isDirty}
               error={error}
               invalid={invalid}

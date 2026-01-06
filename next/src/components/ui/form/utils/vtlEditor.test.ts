@@ -2,7 +2,7 @@ import {
   VariableRole as AntlrVariableRole,
   VariableType as AntlrVariableType,
   Variables as AntlrVariables,
-} from '@making-sense/antlr-editor/model';
+} from '@making-sense/antlr-editor/dist/model';
 import { describe, expect, it } from 'vitest';
 
 import { DatatypeType } from '@/models/datatype';
@@ -15,19 +15,19 @@ describe('computeAntlrVariables', () => {
     const input = [
       {
         name: 'collectedBoolean',
-        label: 'collected boolean variable',
+        description: 'collected boolean variable',
         type: VariableType.Collected,
         datatype: { typeName: DatatypeType.Boolean },
       },
       {
         name: 'calculatedBoolean',
-        label: 'calculated boolean variable',
+        description: 'calculated boolean variable',
         type: VariableType.Calculated,
         datatype: { typeName: DatatypeType.Boolean },
       },
       {
         name: 'externalBoolean',
-        label: 'external boolean variable',
+        description: 'external boolean variable',
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Boolean },
       },
@@ -61,19 +61,19 @@ describe('computeAntlrVariables', () => {
     const input = [
       {
         name: 'collectedNumeric',
-        label: 'collected numeric variable',
+        description: 'collected numeric variable',
         type: VariableType.Collected,
         datatype: { typeName: DatatypeType.Numeric },
       },
       {
         name: 'calculatedNumeric',
-        label: 'calculated numeric variable',
+        description: 'calculated numeric variable',
         type: VariableType.Calculated,
         datatype: { typeName: DatatypeType.Numeric },
       },
       {
         name: 'externalNumeric',
-        label: 'external numeric variable',
+        description: 'external numeric variable',
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Numeric },
       },
@@ -107,19 +107,19 @@ describe('computeAntlrVariables', () => {
     const input = [
       {
         name: 'collectedText',
-        label: 'collected text variable',
+        description: 'collected text variable',
         type: VariableType.Collected,
         datatype: { typeName: DatatypeType.Text },
       },
       {
         name: 'calculatedText',
-        label: 'calculated text variable',
+        description: 'calculated text variable',
         type: VariableType.Calculated,
         datatype: { typeName: DatatypeType.Text },
       },
       {
         name: 'externalText',
-        label: 'external text variable',
+        description: 'external text variable',
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Text },
       },
@@ -153,19 +153,19 @@ describe('computeAntlrVariables', () => {
     const input = [
       {
         name: 'collectedDate',
-        label: 'collected date variable',
+        description: 'collected date variable',
         type: VariableType.Collected,
         datatype: { typeName: DatatypeType.Date },
       },
       {
         name: 'calculatedDate',
-        label: 'calculated date variable',
+        description: 'calculated date variable',
         type: VariableType.Calculated,
         datatype: { typeName: DatatypeType.Date },
       },
       {
         name: 'externalDate',
-        label: 'external date variable',
+        description: 'external date variable',
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Date },
       },
@@ -199,19 +199,19 @@ describe('computeAntlrVariables', () => {
     const input = [
       {
         name: 'collectedDuration',
-        label: 'collected duration variable',
+        description: 'collected duration variable',
         type: VariableType.Collected,
         datatype: { typeName: DatatypeType.Duration },
       },
       {
         name: 'calculatedDuration',
-        label: 'calculated duration variable',
+        description: 'calculated duration variable',
         type: VariableType.Calculated,
         datatype: { typeName: DatatypeType.Duration },
       },
       {
         name: 'externalDuration',
-        label: 'external duration variable',
+        description: 'external duration variable',
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Duration },
       },

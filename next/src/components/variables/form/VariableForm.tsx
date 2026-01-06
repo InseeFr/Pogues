@@ -58,7 +58,6 @@ export default function VariableForm({
   const navigate = useNavigate();
 
   const {
-    clearErrors,
     control,
     handleSubmit,
     formState: { isDirty, isSubmitted, isValid },
@@ -208,7 +207,6 @@ export default function VariableForm({
             fieldState: { invalid, isTouched, isDirty, error },
           }) => (
             <VTLEditor
-              clearErrors={() => clearErrors(name)}
               dirty={isDirty}
               error={error}
               invalid={invalid}

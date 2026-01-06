@@ -3,10 +3,10 @@ import {
   VariableRole as AntlrVariableRole,
   VariableType as AntlrVariableType,
   Variables as AntlrVariables,
-} from '@making-sense/antlr-editor/model';
+} from '@making-sense/antlr-editor/dist/model';
 
 import { DatatypeType } from '@/models/datatype';
-import { Variable } from '@/models/variables';
+import type { Variable } from '@/models/variables';
 
 export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
   const antlrVariablesArray = variables.map((variable) => {
@@ -30,7 +30,7 @@ export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
         type,
         role: AntlrVariableRole.IDENTIFIER,
         name: variable.name,
-        label: variable.label,
+        label: variable.description,
       },
     ] as [string, AntlrVariable];
   });

@@ -79,10 +79,12 @@ export default function Field({
       dirty={dirty}
     >
       <BaseUIField.Label className="w-full space-y-1 text-sm font-semibold text-default">
-        <p>
-          {label}
-          {required ? '*' : null}
-        </p>
+        {label ? (
+          <p>
+            {label}
+            {required ? '*' : null}
+          </p>
+        ) : null}
         {children}
       </BaseUIField.Label>
       <BaseUIField.Description

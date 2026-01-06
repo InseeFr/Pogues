@@ -36,7 +36,6 @@ export default function MultimodeIsMovedRulesForm({
   const navigate = useNavigate();
 
   const {
-    clearErrors,
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
@@ -70,7 +69,6 @@ export default function MultimodeIsMovedRulesForm({
           fieldState: { invalid, isTouched, isDirty, error },
         }) => (
           <VTLEditor
-            clearErrors={clearErrors}
             dirty={isDirty}
             error={error}
             invalid={invalid}
@@ -93,7 +91,6 @@ export default function MultimodeIsMovedRulesForm({
             fieldState: { invalid, isTouched, isDirty, error },
           }) => (
             <VTLEditor
-              clearErrors={() => clearErrors(name)}
               dirty={isDirty}
               error={error}
               invalid={invalid}

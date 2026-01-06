@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { AntlrEditor } from '@making-sense/antlr-editor';
-import { Error, Tools } from '@making-sense/antlr-editor/model';
-import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
+import { AntlrEditor, cleanupProviders } from '@making-sense/antlr-editor';
+import { Error, Tools } from '@making-sense/antlr-editor/dist/model';
+import * as tools from '@making-sense/vtl-2-1-antlr-tools-ts';
 import {
   getSuggestionsFromRange,
   monarchDefinition,
-} from '@making-sense/vtl-2-0-monaco-tools-ts';
+} from '@making-sense/vtl-2-1-monaco-tools-ts';
 import { type ErrorOption } from 'react-hook-form';
 
 import { type Variable } from '@/models/variables';
@@ -52,8 +52,7 @@ type Props = {
   touched?: FieldProps['touched'];
   /** The value of the input. */
   value?: string;
-  /** Manually clear custom error for `react-hook-form` to manage. */
-  clearErrors?: () => void;
+  /** Callback fired when the value changes. */
   onChange: (value: string) => void;
   /** Manually set custom error for `react-hook-form` to manage. */
   setError?: (error: ErrorOption) => void;
@@ -77,14 +76,11 @@ export default function VTLEditor({
   suggestionsVariables = [],
   touched,
   value,
-  clearErrors = () => {},
   onChange,
   setError = () => {},
 }: Readonly<Props>) {
-  // Errors returned by the input
-  const [vtlEditorErrors, setVTLEditorErrors] = useState<Error[]>([]);
   /** Whether there are errors on the input. */
-  const isInvalid = !!error || vtlEditorErrors.length > 0;
+  const isInvalid = !!error;
   /** Variables that can be suggested for autocompletion. */
   const antlrVariables = computeAntlrVariables(suggestionsVariables);
   /** Additional tools to improve user experience. */
@@ -95,21 +91,22 @@ export default function VTLEditor({
     initialRule: 'expr',
   };
 
-  // Send VTL error to `react-hook-form`
+  // Manual cleanup for advanced scenarios
   useEffect(() => {
+    return () => {
+      cleanupProviders();
+    };
+  }, []);
+
+  /** Send VTL errors to `react-hook-form` */
+  function handleVTLErrors(vtlEditorErrors: Error[], value?: string) {
+    if (!value) return;
     if (error) return;
-    if (!value || vtlEditorErrors.length === 0) {
-      clearErrors();
-      return;
-    }
     for (const error of vtlEditorErrors) {
       const message = `[Ln ${error.line}, Col ${error.column}] ${error.message}`;
       setError({ type: 'custom', message });
     }
-    // Remove clearErrors et setError to avoid infinite rerender
-    // We'll use `useEffectEvent` to fix this once we're in React 19
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, name, value, vtlEditorErrors]);
+  }
 
   return (
     <Field
@@ -140,7 +137,7 @@ export default function VTLEditor({
         <AntlrEditor
           script={value}
           setScript={(value: string) => onChange(value)}
-          onListErrors={(e: Error[]) => setVTLEditorErrors(e)}
+          onListErrors={(e) => handleVTLErrors(e, value)}
           variables={antlrVariables}
           tools={customTools}
           theme="vs-light"
@@ -155,6 +152,8 @@ export default function VTLEditor({
             readOnly: disabled,
             ariaRequired: required,
           }}
+          shortcuts={{}}
+          displayFooter={false}
         />
       </div>
     </Field>
