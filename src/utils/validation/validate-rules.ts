@@ -3,7 +3,6 @@ Common business rules logic to be applied to the form's values.
 */
 import cloneDeep from 'lodash.clonedeep';
 
-import { DATATYPE_NAME } from '@/constants/pogues-constants';
 import Dictionary from '@/utils/dictionary/dictionary';
 import { getComponentsTargetsByComponent } from '@/utils/model/redirections-utils';
 
@@ -130,35 +129,6 @@ export function validateDuplicates(
   return value !== '' && form.filter((i) => i.name === value).length > 0
     ? 'Duplicated'
     : undefined;
-}
-
-export function validateDuplicatesCalculated(
-  value: string,
-  {
-    form: { calculatedVariables: values },
-    state: { selectedItemIndex },
-  }: {
-    form: { calculatedVariables: { calculatedVariables: { name: string }[] } };
-    state: { selectedItemIndex: number };
-  },
-) {
-  const listItems = cloneDeep(values.calculatedVariables);
-
-  // We need to remove the element from the list
-  if (selectedItemIndex !== undefined) {
-    listItems.splice(selectedItemIndex, 1);
-  }
-
-  return validateDuplicates(value, { form: listItems });
-}
-
-export function typeCalculated({
-  form: { calculatedVariables: values },
-}: {
-  form: { calculatedVariables: { type: string } };
-}) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-  return values.type === DATATYPE_NAME.NUMERIC;
 }
 
 export function validateDuplicatesCollected(

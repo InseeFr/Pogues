@@ -63,7 +63,6 @@ const ComponentNewEdit = ({
     if (
       componentType === QUESTION &&
       (data.collectedVariables.name ||
-        data.calculatedVariables.name ||
         data.redirections.label ||
         data.controls.label ||
         data.declarations.label ||
@@ -128,7 +127,6 @@ const ComponentNewEdit = ({
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
             handleDisableValidation={handleDisableValidation}
-            scopes={scopes}
             redirectionNeeded={redirectionNeeded}
             componentsStore={componentsStore}
             activeQuestionnaire={activeQuestionnaire}

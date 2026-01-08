@@ -38,22 +38,6 @@ export const validationDictionary: Dictionary = {
     fr: 'Cible obligatoire',
     en: 'Target required',
   },
-  validation_calculatedvariable_label: {
-    fr: 'Libellé de la variable calculée obligatoire',
-    en: 'Calculated variable label required',
-  },
-  validation_calculatedvariable_name: {
-    fr: 'Nom de la variable calculée obligatoire',
-    en: 'Calculated variable name required',
-  },
-  validation_calculatedvariable_formula: {
-    fr: 'Formule de la variable calculée obligatoire',
-    en: 'Calculated variable formula required',
-  },
-  validation_calculatedvariable_existing: {
-    fr: 'Il existe une variable calculée avec le même nom',
-    en: 'It already exists a calculated variable with this name',
-  },
   validation_format: {
     fr: 'Format obligatoire',
     en: 'Format required',
