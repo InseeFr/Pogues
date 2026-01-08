@@ -35,12 +35,16 @@ describe('VariableLineActions', () => {
     );
 
     // When we open the actions menu
-    await user.click(screen.getByRole('button', { name: 'actions' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Open variable action menu' }),
+    );
     await screen.findByRole('menu');
 
     // Then we can edit the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
-    await user.click(screen.getByRole('menuitem', { name: 'Edit' }));
+    expect(
+      screen.getByRole('menuitem', { name: 'Edit...' }),
+    ).toBeInTheDocument();
+    await user.click(screen.getByRole('menuitem', { name: 'Edit...' }));
 
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
@@ -65,7 +69,9 @@ describe('VariableLineActions', () => {
     );
 
     // When we open the actions menu
-    await user.click(screen.getByRole('button', { name: 'actions' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Open variable action menu' }),
+    );
     await screen.findByRole('menu');
 
     // Then we can delete the variable
@@ -96,12 +102,16 @@ describe('VariableLineActions', () => {
     );
 
     // When we open the actions menu
-    await user.click(screen.getByRole('button', { name: 'actions' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Open variable action menu' }),
+    );
     await screen.findByRole('menu');
 
     // Then we can edit the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
-    await user.click(screen.getByRole('menuitem', { name: 'Edit' }));
+    expect(
+      screen.getByRole('menuitem', { name: 'Edit...' }),
+    ).toBeInTheDocument();
+    await user.click(screen.getByRole('menuitem', { name: 'Edit...' }));
 
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
@@ -126,7 +136,9 @@ describe('VariableLineActions', () => {
     );
 
     // When we open the actions menu
-    await user.click(screen.getByRole('button', { name: 'actions' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Open variable action menu' }),
+    );
     await screen.findByRole('menu');
 
     // Then we can delete the variable
@@ -142,7 +154,6 @@ describe('VariableLineActions', () => {
 
   it('does not allow to edit or delete a collected variable', async () => {
     // Given a collected variable
-    const user = userEvent.setup();
     await renderWithRouter(
       <VariableLineActions
         questionnaireId="q-id"
@@ -156,18 +167,12 @@ describe('VariableLineActions', () => {
       />,
     );
 
-    // When we open the actions menu
-    await user.click(screen.getByRole('button', { name: 'actions' }));
-    await screen.findByRole('menu');
-
-    // Then we cannot edit or delete the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toHaveAttribute(
-      'data-disabled',
-    );
-    expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveAttribute(
-      'data-disabled',
-    );
+    // Then there is no menu
+    expect(
+      screen.queryByRole('button', { name: 'Open variable action menu' }),
+    ).not.toBeInTheDocument();
   });
+
   it('does not allow to edit or delete a variable in readonly', async () => {
     // Given an external variable
     const user = userEvent.setup();
@@ -186,11 +191,13 @@ describe('VariableLineActions', () => {
     );
 
     // When we open the actions menu
-    await user.click(screen.getByRole('button', { name: 'actions' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Open variable action menu' }),
+    );
     await screen.findByRole('menu');
 
     // Then we cannot edit or delete the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toHaveAttribute(
+    expect(screen.getByRole('menuitem', { name: 'Edit...' })).toHaveAttribute(
       'data-disabled',
     );
     expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveAttribute(
