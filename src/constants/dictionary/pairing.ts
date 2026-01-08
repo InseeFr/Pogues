@@ -7,19 +7,19 @@ export const pairingDictionary: Dictionary = {
     en: 'Household members pairing',
   },
   pairingSourceVariable: {
-    fr: 'Variable source',
-    en: 'Source variable',
+    fr: 'Variable source du nom',
+    en: 'Name source variable',
+  },
+  pairingGenderVariable: {
+    fr: 'Variable source du sexe',
+    en: 'Gender source variable',
   },
   pairingDisplayRecap: {
     fr: 'Afficher le récapitulatif des habitants du logement',
     en: 'Display inhabitants summary',
   },
-  pairingRecapGender: {
-    fr: 'Variable sexe source',
-    en: 'Gender source variable',
-  },
-  pairingRecapAge: {
-    fr: 'Variable Âge source',
+  pairingAgeVariable: {
+    fr: "Variable source de l'âge",
     en: 'Age source variable',
   },
   selectGenderVariable: {
