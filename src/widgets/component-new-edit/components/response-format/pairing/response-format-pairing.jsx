@@ -101,13 +101,23 @@ function ResponseFormatPairing({
   return (
     <FormSection name={PAIRING} className="response-format__single">
       <Field
-        name="scope"
+        name="nameSourceVariable"
         component={Select}
         label={Dictionary.pairingSourceVariable}
         required
       >
         <GenericOption key="" value="">
           {Dictionary.selectBasedOn}
+        </GenericOption>
+        {pairingSourceVariable}
+      </Field>
+      <Field
+        name="genderSourceVariable"
+        component={Select}
+        label={Dictionary.pairingGenderVariable}
+      >
+        <GenericOption key="" value="">
+          {Dictionary.selectGenderVariable}
         </GenericOption>
         {pairingSourceVariable}
       </Field>
@@ -127,21 +137,9 @@ function ResponseFormatPairing({
             </div>
           </div>
           <Field
-            name="recapGenderVariable"
+            name="ageSourceVariable"
             component={Select}
-            label={Dictionary.pairingRecapGender}
-            disabled={!displayRecap}
-            required
-          >
-            <GenericOption key="" value="">
-              {Dictionary.selectGenderVariable}
-            </GenericOption>
-            {pairingSourceVariable}
-          </Field>
-          <Field
-            name="recapAgeVariable"
-            component={Select}
-            label={Dictionary.pairingRecapAge}
+            label={Dictionary.pairingAgeVariable}
             disabled={!displayRecap}
             required
           >
