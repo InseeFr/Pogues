@@ -1,7 +1,6 @@
 /*
 List of business rules to be applied to each questionnaire's components.
 */
-import { calculatedVariableRules } from './calculatedVariable';
 import { collectedVariableRules } from './collectedVariable';
 import { controlRules } from './control';
 import { dateRules } from './date';
@@ -17,7 +16,6 @@ import { sequenceRules } from './sequence';
 import { tableListMeasuresRules } from './tableListMeasures';
 
 export {
-  calculatedVariableRules,
   collectedVariableRules,
   controlRules,
   dateRules,

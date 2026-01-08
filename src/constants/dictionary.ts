@@ -243,10 +243,6 @@ const dictionary: Dictionary = {
     en: 'GoTo description',
     fr: 'Description de la redirection',
   },
-  calculatedVariables: {
-    en: 'Calculated variables',
-    fr: 'Variables calculées',
-  },
   collectedVariables: {
     en: 'Collected variables',
     fr: 'Variables collectées',

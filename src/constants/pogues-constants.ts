@@ -250,7 +250,6 @@ export const TABS_PATHS = {
   DECLARATIONS: 'declarations',
   CONTROLS: 'controls',
   REDIRECTIONS: 'redirections',
-  CALCULATED_VARIABLES: 'calculatedVariables',
   COLLECTED_VARIABLES: 'collectedVariables',
   LOOP: 'loop',
 };

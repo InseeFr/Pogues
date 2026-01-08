@@ -12,7 +12,6 @@ import {
 } from '../../constants/pogues-constants';
 import { Component } from '../../model';
 import {
-  calculatedVariableRules,
   collectedVariableRules,
   controlRules,
   dateRules,
@@ -138,17 +137,6 @@ export function validateDeclarationForm(values, addErrors) {
 
 export function validateRedirectionForm(values, addErrors, stores) {
   const errors = validate(values, redirectionRules, stores);
-
-  // SubmissionError can't be used in subforms validations
-  if (errors.length > 0) {
-    addErrors(errors);
-    return false;
-  }
-  return true;
-}
-
-export function validateCalculatedVariableForm(values, addErrors, state) {
-  const errors = validate(values, calculatedVariableRules, {}, state);
 
   // SubmissionError can't be used in subforms validations
   if (errors.length > 0) {

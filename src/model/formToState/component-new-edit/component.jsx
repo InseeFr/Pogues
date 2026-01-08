@@ -180,7 +180,6 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
 
   if (type === QUESTION) {
     form.responseFormat = transformers.responseFormat.stateToForm();
-    form.calculatedVariables = transformers.calculatedVariable.storeToForm();
     form.collectedVariables = transformers.collectedVariable.storeToForm();
   }
 

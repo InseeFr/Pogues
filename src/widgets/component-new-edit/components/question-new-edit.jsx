@@ -17,7 +17,6 @@ import Controls from './controls';
 import Declarations from './declarations';
 import Redirections from './redirections';
 import ResponseFormat from './response-format/response-format';
-import CalculatedVariables from './variables/calculated-variables';
 
 export const QuestionNewEdit = ({
   form,
@@ -26,7 +25,6 @@ export const QuestionNewEdit = ({
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
-  scopes,
   activeQuestionnaire,
   redirectionNeeded,
   componentsStore,
@@ -77,17 +75,6 @@ export const QuestionNewEdit = ({
         componentType={QUESTION}
         componentsStore={componentsStore}
         editingComponentId={componentId}
-      />
-    </Tab>,
-    <Tab
-      label={Dictionary.calculatedVariables}
-      path={TABS_PATHS.CALCULATED_VARIABLES}
-      key={TABS_PATHS.CALCULATED_VARIABLES}
-    >
-      <CalculatedVariables
-        errors={errorsIntegrityByTab[TABS_PATHS.CALCULATED_VARIABLES]}
-        addErrors={addSubformValidationErrors}
-        scopes={scopes}
       />
     </Tab>,
     <Tab
@@ -144,7 +131,6 @@ QuestionNewEdit.propTypes = {
   addSubformValidationErrors: PropTypes.func.isRequired,
   buttonRef: PropTypes.object.isRequired,
   handleDisableValidation: PropTypes.func.isRequired,
-  scopes: PropTypes.array.isRequired,
   activeQuestionnaire: PropTypes.object.isRequired,
   form: PropTypes.string,
   redirectionNeeded: PropTypes.bool,
