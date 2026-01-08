@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.3.0-rc.6",
+  "version": "2.3.0-rc.vtl-editor",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",
@@ -19,9 +19,9 @@
     "@base-ui-components/react": "^1.0.0-rc.0",
     "@fontsource-variable/open-sans": "^5.1.1",
     "@hookform/resolvers": "^5.1.1",
-    "@making-sense/antlr-editor": "2.0.0",
-    "@making-sense/vtl-2-0-antlr-tools-ts": "^2.0.1",
-    "@making-sense/vtl-2-0-monaco-tools-ts": "^0.1.0",
+    "@making-sense/antlr-editor": "2.5.0",
+    "@making-sense/vtl-2-1-antlr-tools-ts": "^1.0.5",
+    "@making-sense/vtl-2-1-monaco-tools-ts": "^1.0.1",
     "@tanstack/react-query": "^5.64.1",
     "@tanstack/react-router": "^1.121.34",
     "axios": "^1.11.0",

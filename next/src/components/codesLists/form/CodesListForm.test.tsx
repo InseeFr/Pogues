@@ -126,9 +126,11 @@ describe('CodesListForm', () => {
       target: { value: 'abc' },
     });
 
-    expect((await screen.findAllByRole('alert')).length).toBeGreaterThanOrEqual(
-      2,
-    );
+    await waitFor(async () => {
+      expect(
+        (await screen.findAllByRole('alert')).length,
+      ).toBeGreaterThanOrEqual(2);
+    });
     expect(
       await screen.findAllByText('Value must be unique: "abc"'),
     ).toHaveLength(2);

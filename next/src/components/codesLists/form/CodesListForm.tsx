@@ -6,6 +6,7 @@ import {
   type SubmitHandler,
   type UseFieldArrayMove,
   type UseFieldArrayRemove,
+  UseFormSetError,
   UseFormTrigger,
   useFieldArray,
   useForm,
@@ -65,6 +66,7 @@ export default function CodesListForm({
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
+    setError,
     trigger,
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -111,6 +113,7 @@ export default function CodesListForm({
           control={control}
           formulasLanguage={formulasLanguage}
           variables={variables}
+          setError={setError}
           trigger={trigger}
         />
       </div>
@@ -123,12 +126,15 @@ interface CodesFieldsProps {
   formulasLanguage?: FormulasLanguages;
   variables: Variable[];
   trigger: UseFormTrigger<FormValues>;
+  /** Manually set custom error for `react-hook-form` to manage. */
+  setError: UseFormSetError<FormValues>;
 }
 
 function CodesFields({
   control,
   formulasLanguage,
   variables,
+  setError,
   trigger,
 }: Readonly<CodesFieldsProps>) {
   const { t } = useTranslation();
@@ -152,6 +158,7 @@ function CodesFields({
           isFirst={index === 0}
           isLast={index === fields.length - 1}
           parentName={name}
+          setError={setError}
           trigger={trigger}
         />
       ))}
@@ -178,6 +185,8 @@ interface CodesFieldProps {
   parentName: string;
   subCodeIteration?: number;
   trigger: UseFormTrigger<FormValues>;
+  /** Manually set custom error for `react-hook-form` to manage. */
+  setError: UseFormSetError<FormValues>;
 }
 
 function CodesField({
@@ -192,6 +201,7 @@ function CodesField({
   parentName,
   subCodeIteration = 0,
   trigger,
+  setError,
 }: Readonly<CodesFieldProps>) {
   const { t } = useTranslation();
   const namePrefix = `${parentName}.${index}`;
@@ -244,30 +254,41 @@ function CodesField({
           )}
         />
       </div>
-      <Controller
-        name={`${namePrefix}.label` as `codes.${number}.label`}
-        control={control}
-        rules={{ required: true }}
-        render={({ field, fieldState: { error } }) =>
-          formulasLanguage === FormulasLanguages.VTL ? (
-            <VTLEditor
-              key={`${namePrefix}.label`}
-              data-testid={`${namePrefix}.label`}
-              className="col-start-2 h-20"
-              suggestionsVariables={variables}
-              error={error?.message}
-              {...field}
-            />
-          ) : (
-            <Input
-              data-testid={`${namePrefix}.label`}
-              className="col-start-2"
-              error={error?.message}
-              {...field}
-            />
-          )
-        }
-      />
+      <div className="col-start-2">
+        <Controller
+          name={`${namePrefix}.label` as `codes.${number}.label`}
+          control={control}
+          rules={{ required: true }}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) =>
+            formulasLanguage === FormulasLanguages.VTL ? (
+              <VTLEditor
+                key={`${namePrefix}.label`}
+                data-testid={`${namePrefix}.label`}
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                name={name}
+                onChange={onChange}
+                required
+                setError={(error) => setError(name, error)}
+                suggestionsVariables={variables}
+                touched={isTouched}
+                value={value}
+              />
+            ) : (
+              <Input
+                data-testid={`${namePrefix}.label`}
+                error={error?.message}
+                onValueChange={onChange}
+                required
+              />
+            )
+          }
+        />
+      </div>
       <ButtonIcon
         className="col-start-3 h-12"
         Icon={AddIcon}

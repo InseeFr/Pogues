@@ -8,6 +8,18 @@ export type Props = {
   children: React.ReactNode;
   /** Additional information about the field. */
   description?: string;
+  /**
+   * Whether the field's value has been changed from its initial value. Useful
+   * when the field state is controlled by an external library.
+   */
+  dirty?: BaseUIField.Root.Props['dirty'];
+  /**
+   * Whether the component should ignore user interaction. Takes precedence over
+   * the disabled prop on the `<Field.Control>` component.
+   */
+  disabled?: BaseUIField.Root.Props['disabled'];
+  /** Display an error from `react-hook-form`. */
+  error?: FieldError;
   /** Whether the field is forcefully marked as invalid. */
   invalid?: BaseUIField.Root.Props['invalid'];
   /**
@@ -20,20 +32,13 @@ export type Props = {
    * `name` prop on the `<Field.Control>` component.
    */
   name?: BaseUIField.Root.Props['name'];
+  /** Whether the field is mandatory. */
+  required?: boolean;
   /**
    * Whether the field has been touched. Useful when the field state is
    * controlled by an external library.
    */
   touched?: BaseUIField.Root.Props['touched'];
-  /**
-   * Whether the field's value has been changed from its initial value. Useful
-   * when the field state is controlled by an external library.
-   */
-  dirty?: BaseUIField.Root.Props['dirty'];
-  /** Display an error from `react-hook-form`. */
-  error?: FieldError;
-  /** Whether the field is mandatory. */
-  required?: boolean;
 };
 
 /**
@@ -56,6 +61,7 @@ export default function Field({
   children,
   description,
   dirty = false,
+  disabled = false,
   error,
   invalid = false,
   label,
@@ -67,15 +73,18 @@ export default function Field({
     <BaseUIField.Root
       className="flex flex-col w-full items-start gap-1"
       name={name}
+      disabled={disabled}
       invalid={invalid}
       touched={touched}
       dirty={dirty}
     >
       <BaseUIField.Label className="w-full space-y-1 text-sm font-semibold text-default">
-        <p>
-          {label}
-          {required ? '*' : null}
-        </p>
+        {label ? (
+          <p>
+            {label}
+            {required ? '*' : null}
+          </p>
+        ) : null}
         {children}
       </BaseUIField.Label>
       <BaseUIField.Description
