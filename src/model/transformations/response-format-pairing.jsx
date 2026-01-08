@@ -10,13 +10,20 @@ export function remoteToState(remote) {
         id,
       },
     ],
-    scope,
+    sourceVariableReferences,
+    scope, // deprecated
   } = remote;
+  const { name, gender, age } = sourceVariableReferences ?? {};
+
   return {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       CodeList.remoteToState(CodeListReference),
     id,
-    scope,
     visHint,
+    sourceVariableReferences: {
+      name: name || scope,
+      gender,
+      age,
+    },
   };
 }
