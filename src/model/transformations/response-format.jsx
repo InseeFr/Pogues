@@ -16,6 +16,8 @@ export function remoteToState(
   scope,
   /** Add mandatory to response format if the response format is QCM. */
   mandatory,
+  /** Add source variable references to response format if the response format is pairing. */
+  sourceVariableReferences,
 ) {
   let datatypeState = {};
 
@@ -35,7 +37,11 @@ export function remoteToState(
       codesListsStore,
     );
   } else if (type === PAIRING) {
-    datatypeState = ResponseFormatPairing.remoteToState({ responses, scope });
+    datatypeState = ResponseFormatPairing.remoteToState({
+      responses,
+      scope,
+      sourceVariableReferences,
+    });
   }
 
   return {
