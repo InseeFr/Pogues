@@ -1,7 +1,7 @@
 /**
  * Types used in the various state <-> remote transformations.
  */
-import { DATATYPE_NAME, DATATYPE_VIS_HINT } from '@/constants/pogues-constants';
+import { DATATYPE_NAME, DATATYPE_VIS_HINT, CHOICE_TYPE } from '@/constants/pogues-constants';
 
 export type StateResponse = {
   id?: string;
@@ -28,6 +28,7 @@ export type StateResponse = {
   variableReferenceId?: string;
   allowArbitraryResponse?: unknown;
   visHint?: DATATYPE_VIS_HINT;
+  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE_RESPONSES;
   collectedVariable?: string;
   conditionFilter?: string;
   conditionReadOnly?: string;
@@ -59,6 +60,7 @@ export type RemoteResponse = {
   CollectedVariableReference?: string;
   CodeListReference?: unknown;
   variableReference?: unknown;
+  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE_RESPONSES;
   mandatory?: boolean;
   conditionFilter?: string;
   conditionReadOnly?: string;

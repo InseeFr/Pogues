@@ -177,16 +177,43 @@ export function stateToRemote(
   } = state;
   let responseState;
 
+  let primaryVariableReferenceId: string | undefined;
+  let primaryCodesListId: string | undefined;
+
+  if (DEFAULT_VARIABLE_REFERENCE_PATH in primaryDimension) {
+    primaryVariableReferenceId = primaryDimension[DEFAULT_VARIABLE_REFERENCE_PATH]?.id;
+  } else if (DEFAULT_CODES_LIST_SELECTOR_PATH in primaryDimension) {
+    primaryCodesListId = primaryDimension[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
+  }
+
   const dimensionsModel = [];
   dimensionsModel.push(
     dimensionStateToRemote({
-      ...primaryDimension,
+      ...(primaryVariableReferenceId && {
+        [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: primaryVariableReferenceId },
+      }),
+      ...(primaryCodesListId && {
+        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: primaryCodesListId },
+      }),
       type: DIMENSION_TYPE.PRIMARY,
     }),
     dimensionStateToRemote({ type: DIMENSION_TYPE.MEASURE }),
   );
 
-  if (measureDimension.type === DIMENSION_FORMATS.CODES_LIST) {
+  // Handle MEASURE dimension
+  if (measureDimension.type === DIMENSION_FORMATS.VARIABLE_RESPONSES) {
+    const {
+      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReferenceId },
+      visHint,
+    } = measureDimension[DIMENSION_FORMATS.VARIABLE_RESPONSES];
+
+    responseState = {
+      variableReferenceId,
+      typeName: DATATYPE_NAME.TEXT,
+      visHint,
+      maxLength: 1,
+    };
+  } else if (measureDimension.type === DIMENSION_FORMATS.CODES_LIST) {
     const {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
       visHint,

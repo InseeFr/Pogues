@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Field, FormSection, formValueSelector } from 'redux-form';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_VIS_HINT,
   QUESTION_TYPE_ENUM,
 } from '../../../../../constants/pogues-constants';
@@ -15,12 +16,15 @@ import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-c
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CHECKBOX, RADIO, DROPDOWN, SUGGESTER } = DATATYPE_VIS_HINT;
+const { CODE_LIST, VARIABLE_RESPONSES } = CHOICE_TYPE;
+
 
 /** Form to create a QCU. */
 function ResponseFormatSingle({
   selectorPathParent,
   showMandatory,
   visHint,
+  choiceType,
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
@@ -36,6 +40,7 @@ function ResponseFormatSingle({
 
   return (
     <FormSection name={selectorPath} className="response-format__single">
+
       <Field
         name="visHint"
         component={ListRadios}
@@ -56,17 +61,40 @@ function ResponseFormatSingle({
         </GenericOption>
       </Field>
       {visHint !== SUGGESTER && (
-        <div className="ctrl-checkbox" style={styleMandatory}>
-          <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
-          <div>
-            <Field
-              name="mandatory"
-              id="rf-single-mandatory"
-              component="input"
-              type="checkbox"
-            />
+        <>
+          <Field
+            name="choiceType"
+            component={ListRadios}
+            label={'choiceType'}
+            required
+          >
+            <GenericOption key={CODE_LIST} value={CODE_LIST}>
+              {Dictionary.codeList}
+            </GenericOption>
+            <GenericOption key={VARIABLE_RESPONSES} value={VARIABLE_RESPONSES}>
+              {'VariableResponses'}
+            </GenericOption>
+          </Field>
+          <div className="ctrl-checkbox" style={styleMandatory}>
+            <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
+            <div>
+              <Field
+                name="mandatory"
+                id="rf-single-mandatory"
+                component="input"
+                type="checkbox"
+              />
+            </div>
           </div>
-        </div>
+          
+          {choiceType === CODE_LIST && (
+            <CodesLists
+              selectorPathParent={selectorPathComposed}
+              allowPrecision={allowPrecision}
+              allowFilter={allowFilter}
+            />
+          )}
+        </>
       )}
       {visHint === SUGGESTER ? (
         <>
@@ -87,13 +115,7 @@ function ResponseFormatSingle({
             </Field>
           )}
         </>
-      ) : (
-        <CodesLists
-          selectorPathParent={selectorPathComposed}
-          allowPrecision={allowPrecision && visHint !== DROPDOWN}
-          allowFilter={allowFilter}
-        />
-      )}
+      ) : (null)}
     </FormSection>
   );
 }
@@ -102,6 +124,7 @@ ResponseFormatSingle.propTypes = {
   selectorPathParent: PropTypes.string,
   showMandatory: PropTypes.bool,
   visHint: PropTypes.string,
+  choiceType: PropTypes.string,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
   disableSetArbitrary: PropTypes.bool,
@@ -111,6 +134,7 @@ ResponseFormatSingle.defaultProps = {
   selectorPathParent: undefined,
   showMandatory: true,
   visHint: undefined,
+  choiceType: CODE_LIST,
   allowPrecision: true,
   allowFilter: true,
   disableSetArbitrary: false,
@@ -121,6 +145,7 @@ const mapStateToProps = (state, { selectorPathParent }) => {
   const path = `${getCurrentSelectorPath(selectorPathParent)}${SINGLE_CHOICE}.`;
   return {
     visHint: selector(state, `${path}visHint`),
+    choiceType: selector(state, `${path}choiceType`),
     allowArbitraryResponse: selector(state, `${path}allowArbitraryResponse`),
   };
 };
