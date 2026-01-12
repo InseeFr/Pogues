@@ -22,20 +22,21 @@ export type RemoteDimension =
 export type RemoteDimensionPrimary = {
   dimensionType: 'PRIMARY';
   CodeListReference?: string;
+  variableReference?: string;
 } & (
-  | {
+    | {
       dynamic: 'DYNAMIC_FIXED';
       size: { value: unknown; type: 'VTL' | 'number' };
     }
-  | {
+    | {
       dynamic: 'DYNAMIC';
       minimum: { value: unknown; type: 'VTL' | 'number' };
       maximum: { value: unknown; type: 'VTL' | 'number' };
     }
-  | {
+    | {
       dynamic: 'NON_DYNAMIC';
     }
-);
+  );
 
 /** Compute a dimension in a Pogues model from the state */
 export function stateToRemote(state: StateDimension): RemoteDimension {

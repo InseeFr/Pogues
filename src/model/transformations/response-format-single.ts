@@ -3,6 +3,7 @@ import {
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_REFERENCE_PATH,
 } from '@/constants/pogues-constants';
 
 import { remoteToState as codeListRemoteToState } from './codes-list';
@@ -11,6 +12,7 @@ import { stateToRemote as responseStateToRemote } from './response';
 type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
+  variableReference?: unknown;
   Datatype: {
     allowArbitraryResponse?: unknown;
     visualizationHint?: DATATYPE_VIS_HINT;
@@ -23,18 +25,26 @@ export type StateResponseFormatSingle = {
   mandatory?: boolean;
   allowArbitraryResponse?: unknown;
 } & (
-  | {
+    | {
       visHint: DATATYPE_VIS_HINT.SUGGESTER;
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: { id: string };
     }
-  | {
+    | {
       visHint?:
-        | DATATYPE_VIS_HINT.CHECKBOX
-        | DATATYPE_VIS_HINT.RADIO
-        | DATATYPE_VIS_HINT.DROPDOWN;
+      | DATATYPE_VIS_HINT.CHECKBOX
+      | DATATYPE_VIS_HINT.RADIO
+      | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
     }
-);
+    | {
+      visHint?:
+      // Filter based on lunatic new components ?
+      | DATATYPE_VIS_HINT.CHECKBOX
+      | DATATYPE_VIS_HINT.RADIO
+      | DATATYPE_VIS_HINT.DROPDOWN;
+      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: string };
+    }
+  );
 
 export function remoteToState(remote: {
   responses: RemoteResponseFormatSingle;
@@ -45,31 +55,42 @@ export function remoteToState(remote: {
         Datatype: { allowArbitraryResponse, visualizationHint: visHint },
         mandatory,
         CodeListReference,
+        variableReference,
         id,
       },
     ],
   } = remote;
 
+  const baseState = {
+    id,
+    mandatory,
+    allowArbitraryResponse,
+  };
+
   // for suggester we handle a nomenclature, else a code list
   if (visHint === DATATYPE_VIS_HINT.SUGGESTER) {
     return {
+      ...baseState,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
         codeListRemoteToState(CodeListReference),
-      id,
-      mandatory,
-      allowArbitraryResponse,
       visHint,
+    };
+  }
+  if (variableReference) {
+    return {
+      ...baseState,
+      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReference as string },
+      visHint: visHint,
     };
   }
 
   return {
+    ...baseState,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       codeListRemoteToState(CodeListReference),
-    id,
-    mandatory,
-    allowArbitraryResponse,
     visHint,
   };
+
 }
 
 export function stateToRemote(
@@ -80,8 +101,13 @@ export function stateToRemote(
 
   let nomenclatureId;
   let codesListId;
-  if (visHint === DATATYPE_VIS_HINT.SUGGESTER) {
+  let variableReferenceId;
+
+
+  if (visHint === DATATYPE_VIS_HINT.SUGGESTER && DEFAULT_NOMENCLATURE_SELECTOR_PATH in state) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
+  } else if (DEFAULT_VARIABLE_REFERENCE_PATH in state) {
+    variableReferenceId = state[DEFAULT_VARIABLE_REFERENCE_PATH]?.id;
   } else {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
@@ -95,6 +121,7 @@ export function stateToRemote(
         visHint,
         codesListId,
         nomenclatureId,
+        variableReferenceId,
         typeName: DATATYPE_NAME.TEXT,
         maxLength: 1,
         collectedVariable: collectedVariables[0],

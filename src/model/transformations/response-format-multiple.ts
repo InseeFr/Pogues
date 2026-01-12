@@ -2,6 +2,7 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_VARIABLE_REFERENCE_PATH,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
@@ -27,6 +28,7 @@ type RemoteResponseFormatMultiple = {
       visualizationHint: DATATYPE_VIS_HINT;
     };
     CodeListReference?: unknown;
+    variableReference?: unknown;
   }[];
 };
 
@@ -40,21 +42,32 @@ type RemoteResponseFormatMultiple2 = {
 
 type StateResponseFormatMultiple = {
   mandatory?: boolean;
-  [DIMENSION_TYPE.PRIMARY]: {
+  [DIMENSION_TYPE.PRIMARY]:
+  | {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
+  }
+  | {
+    [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: string };
   };
   [DIMENSION_TYPE.MEASURE]:
-    | {
-        type: DIMENSION_FORMATS.BOOL;
-        [DIMENSION_FORMATS.BOOL]: unknown;
-      }
-    | {
-        type: DIMENSION_FORMATS.CODES_LIST;
-        [DIMENSION_FORMATS.CODES_LIST]: {
-          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
-          visHint: DATATYPE_VIS_HINT;
-        };
-      };
+  | {
+    type: DIMENSION_FORMATS.BOOL;
+    [DIMENSION_FORMATS.BOOL]: unknown;
+  }
+  | {
+    type: DIMENSION_FORMATS.CODES_LIST;
+    [DIMENSION_FORMATS.CODES_LIST]: {
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
+      visHint: DATATYPE_VIS_HINT;
+    };
+  }
+  | {
+    type: DIMENSION_FORMATS.VARIABLE_RESPONSES;
+    [DIMENSION_FORMATS.VARIABLE_RESPONSES]: {
+      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: string };
+      visHint: DATATYPE_VIS_HINT;
+    };
+  };
 };
 
 /** Get the dimension associated to the primary axis. */
@@ -77,23 +90,39 @@ export function remoteToState(
       {
         Datatype: { typeName: type, visualizationHint: visHint },
         CodeListReference,
+        variableReference
       },
     ],
   } = remote;
   const primaryDimension = getPrimaryDimension(dimensions)!;
 
-  const state: Omit<StateResponseFormatMultiple, DIMENSION_TYPE.MEASURE> = {
-    mandatory,
-    [DIMENSION_TYPE.PRIMARY]: {
+  let primaryState: StateResponseFormatMultiple[typeof DIMENSION_TYPE.PRIMARY];
+
+  if (primaryDimension.variableReference) {
+    primaryState = {
+      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: primaryDimension.variableReference },
+
+    };
+  } else if (primaryDimension.CodeListReference) {
+    primaryState = {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codeListRemoteToState(
         primaryDimension.CodeListReference,
       ),
-    },
+    };
+  } else {
+    primaryState = {
+      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: '' },
+    };
+  }
+
+  const baseState = {
+    mandatory,
+    [DIMENSION_TYPE.PRIMARY]: primaryState,
   };
 
   if (type === DATATYPE_NAME.BOOLEAN) {
     return {
-      ...state,
+      ...baseState,
       [DIMENSION_TYPE.MEASURE]: {
         type: DIMENSION_FORMATS.BOOL,
         [DIMENSION_FORMATS.BOOL]: {},
@@ -101,8 +130,21 @@ export function remoteToState(
     };
   }
 
+  if (variableReference) {
+    return {
+      ...baseState,
+      [DIMENSION_TYPE.MEASURE]: {
+        type: DIMENSION_FORMATS.VARIABLE_RESPONSES,
+        [DIMENSION_FORMATS.VARIABLE_RESPONSES]: {
+          [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReference as string },
+          visHint,
+        },
+      },
+    };
+  }
+
   return {
-    ...state,
+    ...baseState,
     [DIMENSION_TYPE.MEASURE]: {
       type: DIMENSION_FORMATS.CODES_LIST,
       [DIMENSION_FORMATS.CODES_LIST]: {

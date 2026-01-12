@@ -120,6 +120,7 @@ export const DECLARATION_POSITION = {
 export enum DIMENSION_FORMATS {
   LIST = 'LIST', // dynamic
   CODES_LIST = 'CODES_LIST', // static
+  VARIABLE_RESPONSES = 'VARIABLE_RESPONSES',
   BOOL = 'BOOL',
 }
 
@@ -167,6 +168,11 @@ export const TAB_NAMES = {
 export const TYPES_ITEMS = {
   QUESTIONNAIRE: 'Instrument',
   CODES_LIST: 'CodeList',
+};
+
+export const CHOICE_TYPE = {
+  CODE_LIST: 'CODE_LIST',
+  VARIABLE_RESPONSES: 'VARIABLE_RESPONSES',
 };
 
 export const SEARCH_CRITERIAS = {
@@ -263,6 +269,7 @@ export const ERROR_TYPES = {
 
 export const DEFAULT_CODES_LIST_SELECTOR_PATH = 'CodesList';
 export const DEFAULT_NOMENCLATURE_SELECTOR_PATH = 'Nomenclature';
+export const DEFAULT_VARIABLE_REFERENCE_PATH = 'Variable';
 export const DEFAULT_FORM_NAME = 'component';
 export const STATISTICAL_CONTEXT_FORM_NAME = 'statistical-context';
 export const QUESTIONNAIRE_NEW_FORM_NAME = 'questionnaire-new';

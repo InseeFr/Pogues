@@ -36,6 +36,7 @@ export function stateToRemote(
     mamonths: Mamonths,
     codesListId,
     nomenclatureId,
+    variableReferenceId,
     allowArbitraryResponse,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
@@ -45,9 +46,9 @@ export function stateToRemote(
 
   const find = response
     ? response.find(
-        (element) =>
-          element.CollectedVariableReference === CollectedVariableReference,
-      )
+      (element) =>
+        element.CollectedVariableReference === CollectedVariableReference,
+    )
     : undefined;
 
   const model: RemoteResponse = {
@@ -63,6 +64,9 @@ export function stateToRemote(
     visualizationHint === DATATYPE_VIS_HINT.SUGGESTER
       ? nomenclatureId
       : codesListId;
+
+  model.variableReference = variableReferenceId;
+
 
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;

@@ -25,6 +25,7 @@ export type StateResponse = {
   mamonths?: unknown;
   codesListId?: string;
   nomenclatureId?: string;
+  variableReferenceId?: string;
   allowArbitraryResponse?: unknown;
   visHint?: DATATYPE_VIS_HINT;
   collectedVariable?: string;
@@ -57,6 +58,7 @@ export type RemoteResponse = {
   };
   CollectedVariableReference?: string;
   CodeListReference?: unknown;
+  variableReference?: unknown;
   mandatory?: boolean;
   conditionFilter?: string;
   conditionReadOnly?: string;
