@@ -673,9 +673,9 @@
       "urn": "urn:ddi:fr.insee:l_eau_tab_2025:1",
       "codes": []
     },
-    "L_ELEC_TAB_2025": {
-      "id": "L_ELEC_TAB_2025",
-      "name": "L_ELEC_TAB_2025",
+    "L_ELEC_TAB_2025-1": {
+      "id": "L_ELEC_TAB_2025-1",
+      "name": "L_ELEC_TAB_2025-1",
       "label": "EAP2025 Electricité",
       "parameters": {
         "version": 1,
@@ -712,7 +712,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_elec_tab_2025:1",
+      "urn": "urn:ddi:fr.insee:l_elec_tab_2025-1:1",
       "codes": []
     },
     "L_GAZ_TAB_2025": {
