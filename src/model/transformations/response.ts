@@ -1,6 +1,6 @@
 import {
   DATATYPE_TYPE_FROM_NAME,
-  DATATYPE_VIS_HINT,
+  DATATYPE_VIS_HINT
 } from '@/constants/pogues-constants';
 import { uuid } from '@/utils/utils';
 
@@ -37,6 +37,7 @@ export function stateToRemote(
     codesListId,
     nomenclatureId,
     variableReferenceId,
+    choiceType,
     allowArbitraryResponse,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
@@ -66,6 +67,7 @@ export function stateToRemote(
       : codesListId;
 
   model.variableReference = variableReferenceId;
+  model.choiceType = choiceType;
 
 
   if (CollectedVariableReference !== undefined)

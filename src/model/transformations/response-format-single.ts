@@ -1,4 +1,3 @@
-import { CHOICE_TYPE } from './../../constants/pogues-constants';
 import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
@@ -14,7 +13,6 @@ type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
   variableReference?: unknown;
-  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE_RESPONSES;
   Datatype: {
     allowArbitraryResponse?: unknown;
     visualizationHint?: DATATYPE_VIS_HINT;
@@ -26,7 +24,6 @@ export type StateResponseFormatSingle = {
   id: string;
   mandatory?: boolean;
   allowArbitraryResponse?: unknown;
-  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE_RESPONSES;
 } & (
     | {
       visHint: DATATYPE_VIS_HINT.SUGGESTER;
@@ -57,7 +54,6 @@ export function remoteToState(remote: {
       {
         Datatype: { allowArbitraryResponse, visualizationHint: visHint },
         mandatory,
-        choiceType,
         CodeListReference,
         variableReference,
         id,
@@ -80,7 +76,7 @@ export function remoteToState(remote: {
       visHint,
     };
   }
-  if (choiceType === CHOICE_TYPE.VARIABLE_RESPONSES && variableReference) {
+  if (variableReference) {
     return {
       ...baseState,
       [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReference as string },
@@ -101,7 +97,7 @@ export function stateToRemote(
   state: StateResponseFormatSingle,
   collectedVariables: string[],
 ): { Response: RemoteResponseFormatSingle } {
-  const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
+  const { allowArbitraryResponse, visHint, mandatory, id } = state;
 
   let nomenclatureId;
   let codesListId;
@@ -123,7 +119,6 @@ export function stateToRemote(
         mandatory,
         allowArbitraryResponse,
         visHint,
-        choiceType,
         codesListId,
         nomenclatureId,
         variableReferenceId,
