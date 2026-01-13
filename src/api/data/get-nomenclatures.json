@@ -547,9 +547,9 @@
       "urn": "urn:ddi:fr.insee:l_langues-2-0-0:1",
       "codes": []
     },
-    "L_AUTRE_TAB_2025": {
-      "id": "L_AUTRE_TAB_2025",
-      "name": "L_AUTRE_TAB_2025",
+    "L_AUTRE_TAB_2025-1": {
+      "id": "L_AUTRE_TAB_2025-1",
+      "name": "L_AUTRE_TAB_2025-1",
       "label": "EAP2025 Autres activités",
       "parameters": {
         "version": 1,
@@ -586,7 +586,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_autre_tab_2025:1",
+      "urn": "urn:ddi:fr.insee:l_autre_tab_2025-1:1",
       "codes": []
     },
     "L_DECHET_TAB_2025": {
