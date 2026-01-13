@@ -13,6 +13,7 @@ import { SelectorView, View } from '../../../../selector-view';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import { CodesLists } from '../../../../codes-lists';
+import Select from '../../../../../forms/controls/select';
 import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
 import ResponseFormatSimpleCodeslist from './response-format-single-code-list'
 
@@ -30,9 +31,10 @@ function ResponseFormatSingle({
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
+  collectedVariableStore
 }) {
   const selectorPath = SINGLE_CHOICE;
-
+  console.log('collectedVariableStore in ResponseFormatSingle', collectedVariableStore);
   
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
@@ -40,6 +42,28 @@ function ResponseFormatSingle({
 
   console.log('selectorPath', selectorPath);
   console.log('selectorPathComposed', selectorPathComposed);
+
+
+  //TODO: filter unwanted variables
+  // See for a variable container ?
+  const variableSourceOptions = Object.values(collectedVariableStore)
+  .filter((question) => typeof question === 'object')
+  .reduce(
+    (acc, questionVariable) => [
+      ...acc,
+      Object.values(questionVariable)
+        .map((collectedVariable) => (
+          <GenericOption
+            key={collectedVariable.id}
+            value={collectedVariable.id}
+          >
+            {collectedVariable.name} - {collectedVariable.label}
+          </GenericOption>
+        ))
+        .flat(),
+    ],
+    [],
+  );
 
   return (
     <FormSection name={selectorPath} className="response-format__single">
@@ -76,8 +100,15 @@ function ResponseFormatSingle({
           )}
         </View>
         <View key={VARIABLE_RESPONSES} value={VARIABLE_RESPONSES} label={Dictionary.variable}>
-          <div>TODO</div> 
-  
+          
+          <Field
+            name="responseVariable"
+            component={Select}
+            label={Dictionary.selectVariable}
+          >
+            <GenericOption key= "" value="" >{Dictionary.selectVariable}</GenericOption>
+            {variableSourceOptions}
+          </Field>
         </View>
       </SelectorView>
 
@@ -145,6 +176,7 @@ ResponseFormatSingle.propTypes = {
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
   disableSetArbitrary: PropTypes.bool,
+  collectedVariableStore: PropTypes.object,
 };
 
 ResponseFormatSingle.defaultProps = {
@@ -155,6 +187,7 @@ ResponseFormatSingle.defaultProps = {
   allowPrecision: true,
   allowFilter: true,
   disableSetArbitrary: false,
+  collectedVariableStore: {},
 };
 
 const mapStateToProps = (state, { selectorPathParent }) => {
@@ -163,6 +196,7 @@ const mapStateToProps = (state, { selectorPathParent }) => {
   return {
     visHint: selector(state, `${path}visHint`),
     choiceType: selector(state, `${path}choiceType`),
+    collectedVariableStore: state.appState.collectedVariableByQuestion,
     allowArbitraryResponse: selector(state, `${path}allowArbitraryResponse`),
   };
 };

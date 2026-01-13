@@ -1,4 +1,5 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_TYPE_FROM_NAME,
   DATATYPE_VIS_HINT
 } from '@/constants/pogues-constants';
@@ -60,11 +61,15 @@ export function stateToRemote(
     },
   };
 
-  // For suggester we store the nomenclature as codeList reference. Else we store the codeList
-  model.CodeListReference =
-    visualizationHint === DATATYPE_VIS_HINT.SUGGESTER
+  // For suggester we store the nomenclature as source reference. Else we store the codeList
+  model.sourceReference =
+    choiceType === CHOICE_TYPE.SUGGESTER
       ? nomenclatureId
-      : codesListId;
+      : choiceType === CHOICE_TYPE.CODE_LIST
+        ? codesListId
+        : variableReferenceId;
+
+
 
   model.variableReference = variableReferenceId;
   model.choiceType = choiceType;
