@@ -2,7 +2,6 @@ import {
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DEFAULT_VARIABLE_REFERENCE_PATH,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
@@ -28,7 +27,6 @@ type RemoteResponseFormatMultiple = {
       visualizationHint: DATATYPE_VIS_HINT;
     };
     CodeListReference?: unknown;
-    variableReference?: unknown;
   }[];
 };
 
@@ -42,12 +40,8 @@ type RemoteResponseFormatMultiple2 = {
 
 type StateResponseFormatMultiple = {
   mandatory?: boolean;
-  [DIMENSION_TYPE.PRIMARY]:
-  | {
+  [DIMENSION_TYPE.PRIMARY]: {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
-  }
-  | {
-    [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: string };
   };
   [DIMENSION_TYPE.MEASURE]:
   | {
@@ -58,13 +52,6 @@ type StateResponseFormatMultiple = {
     type: DIMENSION_FORMATS.CODES_LIST;
     [DIMENSION_FORMATS.CODES_LIST]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
-      visHint: DATATYPE_VIS_HINT;
-    };
-  }
-  | {
-    type: DIMENSION_FORMATS.VARIABLE_RESPONSES;
-    [DIMENSION_FORMATS.VARIABLE_RESPONSES]: {
-      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: string };
       visHint: DATATYPE_VIS_HINT;
     };
   };
@@ -90,39 +77,23 @@ export function remoteToState(
       {
         Datatype: { typeName: type, visualizationHint: visHint },
         CodeListReference,
-        variableReference
       },
     ],
   } = remote;
   const primaryDimension = getPrimaryDimension(dimensions)!;
 
-  let primaryState: StateResponseFormatMultiple[typeof DIMENSION_TYPE.PRIMARY];
-
-  if (primaryDimension.variableReference) {
-    primaryState = {
-      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: primaryDimension.variableReference },
-
-    };
-  } else if (primaryDimension.CodeListReference) {
-    primaryState = {
+  const state: Omit<StateResponseFormatMultiple, DIMENSION_TYPE.MEASURE> = {
+    mandatory,
+    [DIMENSION_TYPE.PRIMARY]: {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codeListRemoteToState(
         primaryDimension.CodeListReference,
       ),
-    };
-  } else {
-    primaryState = {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: '' },
-    };
-  }
-
-  const baseState = {
-    mandatory,
-    [DIMENSION_TYPE.PRIMARY]: primaryState,
+    },
   };
 
   if (type === DATATYPE_NAME.BOOLEAN) {
     return {
-      ...baseState,
+      ...state,
       [DIMENSION_TYPE.MEASURE]: {
         type: DIMENSION_FORMATS.BOOL,
         [DIMENSION_FORMATS.BOOL]: {},
@@ -130,21 +101,8 @@ export function remoteToState(
     };
   }
 
-  if (variableReference) {
-    return {
-      ...baseState,
-      [DIMENSION_TYPE.MEASURE]: {
-        type: DIMENSION_FORMATS.VARIABLE_RESPONSES,
-        [DIMENSION_FORMATS.VARIABLE_RESPONSES]: {
-          [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReference as string },
-          visHint,
-        },
-      },
-    };
-  }
-
   return {
-    ...baseState,
+    ...state,
     [DIMENSION_TYPE.MEASURE]: {
       type: DIMENSION_FORMATS.CODES_LIST,
       [DIMENSION_FORMATS.CODES_LIST]: {
@@ -177,43 +135,16 @@ export function stateToRemote(
   } = state;
   let responseState;
 
-  let primaryVariableReferenceId: string | undefined;
-  let primaryCodesListId: string | undefined;
-
-  if (DEFAULT_VARIABLE_REFERENCE_PATH in primaryDimension) {
-    primaryVariableReferenceId = primaryDimension[DEFAULT_VARIABLE_REFERENCE_PATH]?.id;
-  } else if (DEFAULT_CODES_LIST_SELECTOR_PATH in primaryDimension) {
-    primaryCodesListId = primaryDimension[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
-  }
-
   const dimensionsModel = [];
   dimensionsModel.push(
     dimensionStateToRemote({
-      ...(primaryVariableReferenceId && {
-        [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: primaryVariableReferenceId },
-      }),
-      ...(primaryCodesListId && {
-        [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: primaryCodesListId },
-      }),
+      ...primaryDimension,
       type: DIMENSION_TYPE.PRIMARY,
     }),
     dimensionStateToRemote({ type: DIMENSION_TYPE.MEASURE }),
   );
 
-  // Handle MEASURE dimension
-  if (measureDimension.type === DIMENSION_FORMATS.VARIABLE_RESPONSES) {
-    const {
-      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReferenceId },
-      visHint,
-    } = measureDimension[DIMENSION_FORMATS.VARIABLE_RESPONSES];
-
-    responseState = {
-      variableReferenceId,
-      typeName: DATATYPE_NAME.TEXT,
-      visHint,
-      maxLength: 1,
-    };
-  } else if (measureDimension.type === DIMENSION_FORMATS.CODES_LIST) {
+  if (measureDimension.type === DIMENSION_FORMATS.CODES_LIST) {
     const {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
       visHint,
