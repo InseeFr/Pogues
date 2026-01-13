@@ -841,9 +841,9 @@
       "urn": "urn:ddi:fr.insee:l_negoce_tab_2025-1:1",
       "codes": []
     },
-    "L_PI_TAB_2025": {
-      "id": "L_PI_TAB_2025",
-      "name": "L_PI_TAB_2025",
+    "L_PI_TAB_2025-1": {
+      "id": "L_PI_TAB_2025-1",
+      "name": "L_PI_TAB_2025-1",
       "label": "EAP2025 Vente de produits industriels",
       "parameters": {
         "version": 1,
@@ -880,7 +880,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_pi_tab_2025:1",
+      "urn": "urn:ddi:fr.insee:l_pi_tab_2025-1:1",
       "codes": []
     },
     "L_PRODEAP_VPI_2024": {
