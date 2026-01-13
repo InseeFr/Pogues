@@ -3,7 +3,7 @@ import {
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
-  DEFAULT_VARIABLE_REFERENCE_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '@/constants/pogues-constants';
 
 import { remoteToState as codeListRemoteToState } from './codes-list';
@@ -42,7 +42,7 @@ export type StateResponseFormatSingle = {
       | DATATYPE_VIS_HINT.CHECKBOX
       | DATATYPE_VIS_HINT.RADIO
       | DATATYPE_VIS_HINT.DROPDOWN;
-      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: string };
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string };
     }
   );
 
@@ -79,7 +79,7 @@ export function remoteToState(remote: {
   if (variableReference) {
     return {
       ...baseState,
-      [DEFAULT_VARIABLE_REFERENCE_PATH]: { id: variableReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: variableReference as string },
       visHint: visHint,
     };
   }
@@ -106,8 +106,8 @@ export function stateToRemote(
 
   if (visHint === DATATYPE_VIS_HINT.SUGGESTER && DEFAULT_NOMENCLATURE_SELECTOR_PATH in state) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
-  } else if (DEFAULT_VARIABLE_REFERENCE_PATH in state) {
-    variableReferenceId = state[DEFAULT_VARIABLE_REFERENCE_PATH]?.id;
+  } else if (DEFAULT_VARIABLE_SELECTOR_PATH in state) {
+    variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
   } else {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }

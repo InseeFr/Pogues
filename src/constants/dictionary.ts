@@ -39,6 +39,10 @@ const dictionary: Dictionary = {
     en: 'Formula',
     fr: 'Formule',
   },
+  variable: {
+    en: 'Variable',
+    fr: 'Variable',
+  },
   add: {
     en: 'Add',
     fr: 'Ajouter',

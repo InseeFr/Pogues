@@ -50,8 +50,8 @@ export function formToState(form, transformers) {
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.formToStateComponent(nomenclatureForm),
     // TODO: create this
-    [DEFAULT_VARIABLE_SELECTOR_PATH]:
-      transformers.variable.formToStateComponent(variableForm),
+    // [DEFAULT_VARIABLE_SELECTOR_PATH]:
+    //   transformers.variable.formToStateComponent(variableForm),
   };
 }
 
@@ -67,8 +67,9 @@ export function stateToForm(currentState, transformers) {
       transformers.codesList.stateComponentToForm(),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.stateComponentToForm(),
-    [DEFAULT_VARIABLE_SELECTOR_PATH]:
-      transformers.variable.stateComponentToForm(),
+    // TODO: create this
+    // [DEFAULT_VARIABLE_SELECTOR_PATH]:
+    //   transformers.variable.stateComponentToForm(),
   };
 }
 

@@ -9,14 +9,16 @@ import {
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import ListRadios from '../../../../../forms/controls/list-radios';
+import { SelectorView, View } from '../../../../selector-view';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import { CodesLists } from '../../../../codes-lists';
 import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
+import ResponseFormatSimpleCodeslist from './response-format-single-code-list'
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CHECKBOX, RADIO, DROPDOWN, SUGGESTER } = DATATYPE_VIS_HINT;
-const { CODE_LIST, VARIABLE_RESPONSES } = CHOICE_TYPE;
+const { CODE_LIST, VARIABLE_RESPONSES, SUGGESTER: suggesterType } = CHOICE_TYPE;
 
 
 /** Form to create a QCU. */
@@ -31,17 +33,56 @@ function ResponseFormatSingle({
 }) {
   const selectorPath = SINGLE_CHOICE;
 
-  const styleMandatory = {
-    display: showMandatory ? 'block' : 'none',
-  };
+  
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
 
+  console.log('selectorPath', selectorPath);
+  console.log('selectorPathComposed', selectorPathComposed);
+
   return (
     <FormSection name={selectorPath} className="response-format__single">
+      <SelectorView
+        label={Dictionary.responseType}
+        selectorPath={selectorPathComposed}
+        radio
+      >
+        <View key={CODE_LIST} value={CODE_LIST} label={Dictionary.codeList}>
+          <ResponseFormatSimpleCodeslist
+            selectorPathParent={selectorPathComposed}
+            allowPrecision={allowPrecision}
+            allowFilter={allowFilter}
+            showMandatory={showMandatory}
 
-      <Field
+          />
+        </View>
+        <View key={suggesterType} value={suggesterType} label={Dictionary.suggester} >
+          <SuggesterLists selectorPathParent={selectorPathComposed} />
+          {!disableSetArbitrary && (
+            <Field
+              name="allowArbitraryResponse"
+              component={ListRadios}
+              label={Dictionary.allowArbitraryResponse}
+              required
+              // Convert string "true"/"false" to boolean true/false when storing in Redux form
+              parse={(value) => value === 'true'}
+              // Convert true/false/undefined to string "true"/"false" when displaying the form
+              format={(value) => (value === true ? 'true' : 'false')}
+            >
+              <GenericOption value="true">{Dictionary.yes}</GenericOption>
+              <GenericOption value="false">{Dictionary.no}</GenericOption>
+            </Field>
+          )}
+        </View>
+        <View key={VARIABLE_RESPONSES} value={VARIABLE_RESPONSES} label={Dictionary.variable}>
+          <div>TODO</div> 
+  
+        </View>
+      </SelectorView>
+
+      
+      {/* <Field
         name="visHint"
         component={ListRadios}
         label={Dictionary.visHint}
@@ -62,30 +103,6 @@ function ResponseFormatSingle({
       </Field>
       {visHint !== SUGGESTER && (
         <>
-          <Field
-            name="choiceType"
-            component={ListRadios}
-            label={'choiceType'}
-            required
-          >
-            <GenericOption key={CODE_LIST} value={CODE_LIST}>
-              {Dictionary.codeList}
-            </GenericOption>
-            <GenericOption key={VARIABLE_RESPONSES} value={VARIABLE_RESPONSES}>
-              {'VariableResponses'}
-            </GenericOption>
-          </Field>
-          <div className="ctrl-checkbox" style={styleMandatory}>
-            <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
-            <div>
-              <Field
-                name="mandatory"
-                id="rf-single-mandatory"
-                component="input"
-                type="checkbox"
-              />
-            </div>
-          </div>
           
           {choiceType === CODE_LIST && (
             <CodesLists
@@ -115,7 +132,7 @@ function ResponseFormatSingle({
             </Field>
           )}
         </>
-      ) : (null)}
+      ) : (null)} */}
     </FormSection>
   );
 }

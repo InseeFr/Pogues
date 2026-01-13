@@ -173,6 +173,7 @@ export const TYPES_ITEMS = {
 export enum CHOICE_TYPE {
   CODE_LIST = 'CODE_LIST',
   VARIABLE_RESPONSES = 'VARIABLE_RESPONSES',
+  SUGGESTER = 'SUGGESTER',
 };
 
 export const SEARCH_CRITERIAS = {
@@ -269,7 +270,7 @@ export const ERROR_TYPES = {
 
 export const DEFAULT_CODES_LIST_SELECTOR_PATH = 'CodesList';
 export const DEFAULT_NOMENCLATURE_SELECTOR_PATH = 'Nomenclature';
-export const DEFAULT_VARIABLE_REFERENCE_PATH = 'Variable';
+export const DEFAULT_VARIABLE_SELECTOR_PATH = 'Variable';
 export const DEFAULT_FORM_NAME = 'component';
 export const STATISTICAL_CONTEXT_FORM_NAME = 'statistical-context';
 export const QUESTIONNAIRE_NEW_FORM_NAME = 'questionnaire-new';

@@ -5,7 +5,7 @@ import { Field, FormSection } from 'redux-form';
 
 import {
   DATATYPE_VIS_HINT,
-  DIMENSION_FORMATS,
+  CHOICE_TYPE,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Select from '../../../../../forms/controls/select';
@@ -13,18 +13,23 @@ import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { CodesLists } from '../../../../codes-lists';
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
-const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
+const { CODE_LIST: selectorPath } = CHOICE_TYPE;
 
-function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent }) {
+function ResponseFormatSimpleCodeslist({ selectorPathParent, allowPrecision, allowFilter, showMandatory }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
-  
+
+    const styleMandatory = {
+    display: showMandatory ? 'block' : 'none',
+    };
+
   console.log('selectorPath', selectorPath);
   console.log('selectorPathComposed', selectorPathComposed);
   return (
     <FormSection name={selectorPath}>
-      <CodesLists selectorPathParent={selectorPathComposed} />
+      <CodesLists selectorPathParent={selectorPathComposed} allowPrecision={allowPrecision}
+              allowFilter={allowFilter}/>
       <Field
         name="visHint"
         component={Select}
@@ -40,17 +45,32 @@ function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent }) {
         <GenericOption key={DROPDOWN} value={DROPDOWN}>
           {Dictionary.dropdown}
         </GenericOption>
-      </Field>
+          </Field>
+          <div className="ctrl-checkbox" style={styleMandatory}>
+            <label htmlFor="rf-single-mandatory">{Dictionary.mandatory}</label>
+            <div>
+              <Field
+                name="mandatory"
+                id="rf-single-mandatory"
+                component="input"
+                type="checkbox"
+              />
+            </div>
+          </div>
     </FormSection>
   );
 }
 
-ResponseFormatMultipleMeasureCodeslist.propTypes = {
-  selectorPathParent: PropTypes.string,
+ResponseFormatSimpleCodeslist.propTypes = {
+    selectorPathParent: PropTypes.string,
+    allowPrecision: PropTypes.bool,
+    allowFilter: PropTypes.bool,
 };
 
-ResponseFormatMultipleMeasureCodeslist.defaultProps = {
-  selectorPathParent: undefined,
+ResponseFormatSimpleCodeslist.defaultProps = {
+    selectorPathParent: undefined,
+    allowPrecision: false,
+    allowFilter: false,
 };
 
-export default ResponseFormatMultipleMeasureCodeslist;
+export default ResponseFormatSimpleCodeslist;
