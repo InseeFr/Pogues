@@ -14,7 +14,7 @@ import { stateToRemote as responseStateToRemote } from './response';
 type RemoteResponseFormatSingle = {
   id: string;
   choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE_RESPONSES;
-  CodeListReference?: unknown; // To be deprecated
+  CodeListReference?: unknown; // To be deprecated (check if needed elswhere)
   sourceReference?: unknown;
   Datatype: {
     allowArbitraryResponse?: unknown;

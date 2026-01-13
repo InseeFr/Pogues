@@ -12,13 +12,11 @@ import ListRadios from '../../../../../forms/controls/list-radios';
 import { SelectorView, View } from '../../../../selector-view';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
-import { CodesLists } from '../../../../codes-lists';
-import Select from '../../../../../forms/controls/select';
 import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
 import ResponseFormatSimpleCodeslist from './response-format-single-code-list'
+import ResponseFormatSimpleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { CHECKBOX, RADIO, DROPDOWN, SUGGESTER } = DATATYPE_VIS_HINT;
 const { CODE_LIST, VARIABLE_RESPONSES, SUGGESTER: suggesterType } = CHOICE_TYPE;
 
 
@@ -44,26 +42,6 @@ function ResponseFormatSingle({
   console.log('selectorPathComposed', selectorPathComposed);
 
 
-  //TODO: filter unwanted variables
-  // See for a variable container ?
-  const variableSourceOptions = Object.values(collectedVariableStore)
-  .filter((question) => typeof question === 'object')
-  .reduce(
-    (acc, questionVariable) => [
-      ...acc,
-      Object.values(questionVariable)
-        .map((collectedVariable) => (
-          <GenericOption
-            key={collectedVariable.id}
-            value={collectedVariable.id}
-          >
-            {collectedVariable.name} - {collectedVariable.label}
-          </GenericOption>
-        ))
-        .flat(),
-    ],
-    [],
-  );
 
   return (
     <FormSection name={selectorPath} className="response-format__single">
@@ -100,15 +78,10 @@ function ResponseFormatSingle({
           )}
         </View>
         <View key={VARIABLE_RESPONSES} value={VARIABLE_RESPONSES} label={Dictionary.variable}>
-          
-          <Field
-            name="responseVariable"
-            component={Select}
-            label={Dictionary.selectVariable}
-          >
-            <GenericOption key= "" value="" >{Dictionary.selectVariable}</GenericOption>
-            {variableSourceOptions}
-          </Field>
+          <ResponseFormatSimpleVariable 
+            selectorPathParent={selectorPathComposed}
+            collectedVariableStore={collectedVariableStore}
+          />
         </View>
       </SelectorView>
 

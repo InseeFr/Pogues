@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { Field, FormSection } from 'redux-form';
+import { Field } from 'redux-form';
 
 import {
   DATATYPE_VIS_HINT,
@@ -26,8 +26,8 @@ function ResponseFormatSimpleCodeslist({ selectorPathParent, allowPrecision, all
 
   console.log('selectorPath', selectorPath);
   console.log('selectorPathComposed', selectorPathComposed);
-  return (
-    <FormSection name={selectorPath}>
+    return (
+      <>
       <CodesLists selectorPathParent={selectorPathComposed} allowPrecision={allowPrecision}
               allowFilter={allowFilter}/>
       <Field
@@ -55,9 +55,9 @@ function ResponseFormatSimpleCodeslist({ selectorPathParent, allowPrecision, all
                 component="input"
                 type="checkbox"
               />
+                </div>
             </div>
-          </div>
-    </FormSection>
+        </>
   );
 }
 

@@ -1,49 +1,66 @@
 import type { Dictionary } from '../dictionary';
 
-/** Translations used for everything code-related in QCU and QCM. */
-export const codesDictionary: Dictionary = {
-    codeList: {
-        fr: 'Liste de codes',
-        en: 'Codes list',
+/** Translations used for everything variable related. */
+export const variableDictionary: Dictionary = {
+    variable: {
+        en: 'Variable',
+        fr: 'Variable',
     },
-    selectCodesListType: {
-        fr: 'Choisir une liste de codes',
-        en: 'Select a codes list',
+    selectVariable: {
+        fr: 'Choisir une variable',
+        en: 'Select a variable',
     },
-    codeLevel: {
-        fr: 'Niveau',
-        en: 'Level',
+    variableLevel: {
+        fr: 'Portée variable',
+        en: 'Variable scope',
     },
-    codeValue: {
-        fr: 'Code de la modalité',
-        en: 'Modality code',
+    generateCollectedVariables: {
+        en: 'Generate collected variables',
+        fr: 'Générer les variables collectées',
     },
-    codeLabel: {
-        fr: 'Libellé de la modalité',
-        en: 'Modality label',
+    calculatedVariables: {
+        en: 'Calculated variables',
+        fr: 'Variables calculées',
     },
-    precisionId: {
-        fr: 'Identifiant',
-        en: 'Identifier',
+    externalVariables: {
+        en: 'External variables',
+        fr: 'Variables externes',
     },
-    codePrecision: {
-        fr: 'Précision',
-        en: 'Specification',
+    collectedVariables: {
+        en: 'Collected variables',
+        fr: 'Variables collectées',
     },
-    addCodePrecision: {
-        fr: `Ajouter un "Préciser"`,
-        en: `Add a "Specify"`,
+
+    duplicateVariablesComment: {
+        fr: 'Certaines variables de votre questionnaire sont présentes plusieurs fois.',
+        en: 'Some variables in your questionnaire appear more than once.',
     },
-    setCodePrecision: {
-        fr: `Modifier le "Préciser"`,
-        en: `Modify "Specify"`,
+    showErrorDuplicateVariables: {
+        fr: 'Voir les variables en doublon',
+        en: 'Show duplicate variables',
     },
-    addCodeFilter: {
-        fr: `Ajouter un filtre`,
-        en: `Add a filter`,
+    duplicateVariables: {
+        fr: 'Variables en doublon',
+        en: 'Duplicate variables',
     },
-    setCodeFilter: {
-        fr: `Modifier le filtre`,
-        en: `Modify filter`,
+    duplicateVariablesHeader: {
+        fr: 'Variables',
+        en: 'Variables',
+    },
+    duplicateVariablesSource: {
+        fr: 'Origine',
+        en: 'Origin',
+    },
+    CollectedVariableType: {
+        fr: 'Collectée',
+        en: 'Collected',
+    },
+    CalculatedVariableType: {
+        fr: 'Calculée',
+        en: 'Calculated',
+    },
+    ExternalVariableType: {
+        fr: 'Externe',
+        en: 'External',
     },
 };
