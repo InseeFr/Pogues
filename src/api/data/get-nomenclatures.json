@@ -1583,6 +1583,34 @@
       "urn": "urn:ddi:fr.insee:l_regfront_uk-1-0-0:1",
       "codes": []
     },
+    "L_SPE_NON_FORMELLES-1-0-0": {
+      "id": "L_SPE_NON_FORMELLES-1-0-0",
+      "name": "L_SPE_NON_FORMELLES-1-0-0",
+      "label": "Spécialités non formelles",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w-]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.-]+",
+            "min": 3,
+            "stemmer": false
+          }
+        }
+      },
+      "urn": "urn:ddi:fr.insee:l_spe_non_formelles-1-0-0:1",
+      "codes": []
+    },
     "L_TYPEVOIE-1-0-0": {
       "id": "L_TYPEVOIE-1-0-0",
       "name": "L_TYPEVOIE-1-0-0",
