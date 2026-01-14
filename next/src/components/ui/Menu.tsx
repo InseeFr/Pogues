@@ -69,7 +69,6 @@ export default function Menu({ children, items, label }: Readonly<Props>) {
                   </span>
                 )}
                 {item.label}
-                {item.type === MenuItemType.Form ? '...' : ''}
               </UIMenu.Item>
             ))}
           </UIMenu.Popup>

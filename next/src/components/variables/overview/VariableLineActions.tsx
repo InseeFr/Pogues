@@ -70,7 +70,6 @@ export default function VariableLineActions({
           {
             disabled: readonly,
             label: t('common.edit'),
-            type: MenuItemType.Form,
             onClick: () =>
               void navigate({
                 to: '/questionnaire/$questionnaireId/variables/variable/$variableId',

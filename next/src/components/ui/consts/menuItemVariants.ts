@@ -5,9 +5,4 @@
 export enum MenuItemType {
   /** Delete action which should be displayed in red. */
   Delete,
-  /**
-   * Redirect to a new form which ask for additional information which should
-   * end with an ellipsis.
-   */
-  Form,
 }
