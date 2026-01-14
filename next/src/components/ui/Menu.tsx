@@ -30,7 +30,10 @@ export default function Menu({ children, items, label }: Readonly<Props>) {
   return (
     <UIMenu.Root>
       {children ? (
-        <UIMenu.Trigger className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
+        <UIMenu.Trigger
+          className="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+          aria-label={label}
+        >
           {children}
         </UIMenu.Trigger>
       ) : (
