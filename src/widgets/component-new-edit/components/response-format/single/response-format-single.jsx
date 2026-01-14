@@ -4,7 +4,6 @@ import { Field, FormSection, formValueSelector } from 'redux-form';
 
 import {
   CHOICE_TYPE,
-  DATATYPE_VIS_HINT,
   QUESTION_TYPE_ENUM,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
@@ -24,15 +23,12 @@ const { CODE_LIST, VARIABLE_RESPONSES, SUGGESTER: suggesterType } = CHOICE_TYPE;
 function ResponseFormatSingle({
   selectorPathParent,
   showMandatory,
-  visHint,
-  choiceType,
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
   collectedVariableStore
 }) {
   const selectorPath = SINGLE_CHOICE;
-  console.log('collectedVariableStore in ResponseFormatSingle', collectedVariableStore);
   
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
@@ -48,6 +44,7 @@ function ResponseFormatSingle({
       <SelectorView
         label={Dictionary.responseType}
         selectorPath={selectorPathComposed}
+        //fieldName="choiceType"
         radio
       >
         <View key={CODE_LIST} value={CODE_LIST} label={Dictionary.codeList}>
@@ -84,59 +81,6 @@ function ResponseFormatSingle({
           />
         </View>
       </SelectorView>
-
-      
-      {/* <Field
-        name="visHint"
-        component={ListRadios}
-        label={Dictionary.visHint}
-        required
-      >
-        <GenericOption key={RADIO} value={RADIO}>
-          {Dictionary.radio}
-        </GenericOption>
-        <GenericOption key={DROPDOWN} value={DROPDOWN}>
-          {Dictionary.dropdown}
-        </GenericOption>
-        <GenericOption key={CHECKBOX} value={CHECKBOX}>
-          {Dictionary.checkbox}
-        </GenericOption>
-        <GenericOption key={SUGGESTER} value={SUGGESTER}>
-          {Dictionary.suggester}
-        </GenericOption>
-      </Field>
-      {visHint !== SUGGESTER && (
-        <>
-          
-          {choiceType === CODE_LIST && (
-            <CodesLists
-              selectorPathParent={selectorPathComposed}
-              allowPrecision={allowPrecision}
-              allowFilter={allowFilter}
-            />
-          )}
-        </>
-      )}
-      {visHint === SUGGESTER ? (
-        <>
-          <SuggesterLists selectorPathParent={selectorPathComposed} />
-          {!disableSetArbitrary && (
-            <Field
-              name="allowArbitraryResponse"
-              component={ListRadios}
-              label={Dictionary.allowArbitraryResponse}
-              required
-              // Convert string "true"/"false" to boolean true/false when storing in Redux form
-              parse={(value) => value === 'true'}
-              // Convert true/false/undefined to string "true"/"false" when displaying the form
-              format={(value) => (value === true ? 'true' : 'false')}
-            >
-              <GenericOption value="true">{Dictionary.yes}</GenericOption>
-              <GenericOption value="false">{Dictionary.no}</GenericOption>
-            </Field>
-          )}
-        </>
-      ) : (null)} */}
     </FormSection>
   );
 }
@@ -166,6 +110,7 @@ ResponseFormatSingle.defaultProps = {
 const mapStateToProps = (state, { selectorPathParent }) => {
   const selector = formValueSelector('component');
   const path = `${getCurrentSelectorPath(selectorPathParent)}${SINGLE_CHOICE}.`;
+  console.log('path response format single', path)
   return {
     visHint: selector(state, `${path}visHint`),
     choiceType: selector(state, `${path}choiceType`),

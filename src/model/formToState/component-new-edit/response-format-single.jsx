@@ -5,13 +5,14 @@ import {
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   CHOICE_TYPE
 } from '../../../constants/pogues-constants';
 import { Factory as CodesListFactory } from '../lists/codes-list';
 import { Factory as NomenclatureFactory } from '../lists/nomenclature';
 
 const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
-const { CODE_LIST } = CHOICE_TYPE;
+const { CODE_LIST, VARIABLE_RESPONSES } = CHOICE_TYPE;
 
 export const defaultState = {
   allowArbitraryResponse: false,
@@ -36,6 +37,7 @@ export function formToState(form, transformers) {
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
+    [DEFAULT_VARIABLE_SELECTOR_PATH]: variableForm,
   } = form;
 
   return {
@@ -50,8 +52,8 @@ export function formToState(form, transformers) {
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.formToStateComponent(nomenclatureForm),
     // TODO: create this
-    // [DEFAULT_VARIABLE_SELECTOR_PATH]:
-    //   transformers.variable.formToStateComponent(variableForm),
+    [DEFAULT_VARIABLE_SELECTOR_PATH]:
+      {},
   };
 }
 
@@ -68,8 +70,8 @@ export function stateToForm(currentState, transformers) {
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.stateComponentToForm(),
     // TODO: create this
-    // [DEFAULT_VARIABLE_SELECTOR_PATH]:
-    //   transformers.variable.stateComponentToForm(),
+    [DEFAULT_VARIABLE_SELECTOR_PATH]:
+      {}
   };
 }
 
@@ -85,6 +87,7 @@ export const Factory = (initialState = {}, codesListsStore) => {
       cloneDeep(currentState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]),
     ),
     //TODO create variable factory
+    variable: {},
   };
   return {
     formToState: (form) => {

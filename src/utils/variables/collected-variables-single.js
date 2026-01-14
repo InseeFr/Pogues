@@ -1,4 +1,5 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
 } from '../../constants/pogues-constants';
@@ -19,18 +20,23 @@ export function getCollectedVariablesSingle(
   form,
   existingVariableIds = new Set(),
 ) {
+  console.log('form', form);
   const mainVariable = getCollectedVariable(
     questionName,
     `${questionName} label`,
     undefined,
     {
       codeListReference:
-        form.visHint === DATATYPE_VIS_HINT.SUGGESTER
+        form.type === CHOICE_TYPE.SUGGESTER
           ? form.Nomenclature.id
           : form.CodesList.id,
       codeListReferenceLabel:
-        form.visHint === DATATYPE_VIS_HINT.SUGGESTER
+        form.type === CHOICE_TYPE.SUGGESTER
           ? form.Nomenclature.label
+          : form.CodesList.label,
+      variableReferenceLabel:
+        form.type === CHOICE_TYPE.VARIABLE_RESPONSES
+          ? form.Variable.variableReference
           : form.CodesList.label,
       type: TEXT,
       [TEXT]: { maxLength: 1 },
@@ -38,7 +44,7 @@ export function getCollectedVariablesSingle(
   );
 
   // Nomenclatures may allow an arbitrary response
-  if (form.visHint === DATATYPE_VIS_HINT.SUGGESTER) {
+  if (form.type === CHOICE_TYPE.SUGGESTER) {
     if (form.allowArbitraryResponse) {
       const arbitraryResponseVariable = computeSuggesterArbitraryVariable(
         questionName,
