@@ -41,10 +41,8 @@ describe('VariableLineActions', () => {
     await screen.findByRole('menu');
 
     // Then we can edit the variable
-    expect(
-      screen.getByRole('menuitem', { name: 'Edit...' }),
-    ).toBeInTheDocument();
-    await user.click(screen.getByRole('menuitem', { name: 'Edit...' }));
+    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
+    await user.click(screen.getByRole('menuitem', { name: 'Edit' }));
 
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
@@ -108,10 +106,8 @@ describe('VariableLineActions', () => {
     await screen.findByRole('menu');
 
     // Then we can edit the variable
-    expect(
-      screen.getByRole('menuitem', { name: 'Edit...' }),
-    ).toBeInTheDocument();
-    await user.click(screen.getByRole('menuitem', { name: 'Edit...' }));
+    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
+    await user.click(screen.getByRole('menuitem', { name: 'Edit' }));
 
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
@@ -197,7 +193,7 @@ describe('VariableLineActions', () => {
     await screen.findByRole('menu');
 
     // Then we cannot edit or delete the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit...' })).toHaveAttribute(
+    expect(screen.getByRole('menuitem', { name: 'Edit' })).toHaveAttribute(
       'data-disabled',
     );
     expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveAttribute(
