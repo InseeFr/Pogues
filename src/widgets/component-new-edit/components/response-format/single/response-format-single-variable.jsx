@@ -4,61 +4,23 @@ import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
 
 import {
-  CHOICE_TYPE,
-    DATATYPE_VIS_HINT,
-  DEFAULT_VARIABLE_SELECTOR_PATH
+  DATATYPE_VIS_HINT,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
+import { VariablesList } from '../../../../codes-lists/variables';
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
-const selectorPath= DEFAULT_VARIABLE_SELECTOR_PATH;
+const selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH;
 
-function ResponseFormatSimpleVariable({
-  selectorPathParent,
-  collectedVariableStore,
-}) {
-  const selectorPathComposed = selectorPathParent
-    ? `${selectorPathParent}.${selectorPath}`
-    : selectorPath;
-
-  console.log('selectorPath', selectorPath);
-  console.log('selectorPathComposed', selectorPathComposed);
-  //TODO: filter unwanted variables
-  // See for a variable container ?
-  const variableSourceOptions = Object.values(collectedVariableStore)
-    .filter((question) => typeof question === 'object')
-    .reduce(
-      (acc, questionVariable) => [
-        ...acc,
-        Object.values(questionVariable)
-          .map((collectedVariable) => (
-            <GenericOption
-              key={collectedVariable.id}
-              value={collectedVariable.id}
-            >
-              {collectedVariable.label}
-            </GenericOption>
-          ))
-          .flat(),
-      ],
-      [],
-    );
+function ResponseFormatSimpleVariable({ selectorPathParent }) {
   return (
     <>
+      <VariablesList selectorPathParent={selectorPathParent} />
       <FormSection name={selectorPath}>
-        <Field
-          name={"variableReference"}
-          component={Select}
-          label={Dictionary.selectVariable}
-        >
-          <GenericOption key="" value="">
-            {Dictionary.selectVariable}
-          </GenericOption>
-          {variableSourceOptions}
-        </Field>
         <Field
           name="visHint"
           component={Select}

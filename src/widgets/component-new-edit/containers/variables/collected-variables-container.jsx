@@ -47,6 +47,7 @@ const mapStateToProps = (state, { formName }) => {
     ),
     codesListsStore: state.appState.activeCodeListsById,
     referencedCodeList: selector(state, 'collectedVariables.codeListReference'),
+    referencedVariable: selector(state, 'collectedVariables.variableReference'),
     isVariableCollected: selector(state, 'collectedVariables.isCollected'),
   };
 };

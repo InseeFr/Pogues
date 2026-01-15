@@ -42,6 +42,7 @@ function CollectedVariables({
   errors,
   addErrors,
   referencedCodeList,
+  referencedVariable,
   isVariableCollected,
 }) {
   function generateVariables() {
@@ -65,7 +66,8 @@ function CollectedVariables({
   }
   const hiddenCollected =
     responseFormatType !== TABLE && responseFormatType !== MULTIPLE_CHOICE;
-
+  console.log('referencedCodeList', referencedCodeList);
+  console.log('referencedVariable', referencedVariable);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -170,6 +172,16 @@ function CollectedVariables({
               label={Dictionary.codeList}
             />
           )}
+          <Field name="variableReference" type="hidden" component="input" />
+          {referencedVariable && (
+            <Field
+              name="variableReferenceLabel"
+              type="text"
+              disabled
+              component={Input}
+              label={Dictionary.variable}
+            />
+          )}
         </div>
       </ListWithInputPanel>
     </FormSection>
@@ -189,6 +201,7 @@ CollectedVariables.propTypes = {
   codesListsStore: PropTypes.object,
   reponseFormatValues: PropTypes.object,
   referencedCodeList: PropTypes.string,
+  referencedVariable: PropTypes.string,
   isVariableCollected: PropTypes.string,
 };
 
@@ -196,6 +209,7 @@ CollectedVariables.defaultProps = {
   codesListsStore: {},
   reponseFormatValues: {},
   referencedCodeList: '',
+  referencedVariable: '',
   isVariableCollected: '1',
 };
 

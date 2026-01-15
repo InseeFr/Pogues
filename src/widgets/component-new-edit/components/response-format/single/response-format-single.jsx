@@ -8,16 +8,15 @@ import {
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import ListRadios from '../../../../../forms/controls/list-radios';
-import { SelectorView, View } from '../../../../selector-view';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
-import ResponseFormatSimpleCodeslist from './response-format-single-code-list'
+import { SelectorView, View } from '../../../../selector-view';
+import ResponseFormatSimpleCodeslist from './response-format-single-code-list';
 import ResponseFormatSimpleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CODE_LIST, VARIABLE_RESPONSES, SUGGESTER: suggesterType } = CHOICE_TYPE;
-
 
 /** Form to create a QCU. */
 function ResponseFormatSingle({
@@ -26,18 +25,13 @@ function ResponseFormatSingle({
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
-  collectedVariableStore
+  collectedVariableStore,
 }) {
   const selectorPath = SINGLE_CHOICE;
-  
+
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
-
-  console.log('selectorPath', selectorPath);
-  console.log('selectorPathComposed', selectorPathComposed);
-
-
 
   return (
     <FormSection name={selectorPath} className="response-format__single">
@@ -53,10 +47,13 @@ function ResponseFormatSingle({
             allowPrecision={allowPrecision}
             allowFilter={allowFilter}
             showMandatory={showMandatory}
-
           />
         </View>
-        <View key={suggesterType} value={suggesterType} label={Dictionary.suggester} >
+        <View
+          key={suggesterType}
+          value={suggesterType}
+          label={Dictionary.suggester}
+        >
           <SuggesterLists selectorPathParent={selectorPathComposed} />
           {!disableSetArbitrary && (
             <Field
@@ -74,8 +71,12 @@ function ResponseFormatSingle({
             </Field>
           )}
         </View>
-        <View key={VARIABLE_RESPONSES} value={VARIABLE_RESPONSES} label={Dictionary.variable}>
-          <ResponseFormatSimpleVariable 
+        <View
+          key={VARIABLE_RESPONSES}
+          value={VARIABLE_RESPONSES}
+          label={Dictionary.variable}
+        >
+          <ResponseFormatSimpleVariable
             selectorPathParent={selectorPathComposed}
             collectedVariableStore={collectedVariableStore}
           />
@@ -89,7 +90,7 @@ ResponseFormatSingle.propTypes = {
   selectorPathParent: PropTypes.string,
   showMandatory: PropTypes.bool,
   visHint: PropTypes.string,
-  choiceType: PropTypes.string,
+  type: PropTypes.string,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
   disableSetArbitrary: PropTypes.bool,
@@ -100,7 +101,7 @@ ResponseFormatSingle.defaultProps = {
   selectorPathParent: undefined,
   showMandatory: true,
   visHint: undefined,
-  choiceType: CODE_LIST,
+  type: CODE_LIST,
   allowPrecision: true,
   allowFilter: true,
   disableSetArbitrary: false,
@@ -110,11 +111,10 @@ ResponseFormatSingle.defaultProps = {
 const mapStateToProps = (state, { selectorPathParent }) => {
   const selector = formValueSelector('component');
   const path = `${getCurrentSelectorPath(selectorPathParent)}${SINGLE_CHOICE}.`;
-  console.log('path response format single', path)
+  console.log('path response format single', path);
   return {
     visHint: selector(state, `${path}visHint`),
-    choiceType: selector(state, `${path}choiceType`),
-    collectedVariableStore: state.appState.collectedVariableByQuestion,
+    type: selector(state, `${path}type`),
     allowArbitraryResponse: selector(state, `${path}allowArbitraryResponse`),
   };
 };

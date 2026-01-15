@@ -20,7 +20,6 @@ export function getCollectedVariablesSingle(
   form,
   existingVariableIds = new Set(),
 ) {
-  console.log('form', form);
   const mainVariable = getCollectedVariable(
     questionName,
     `${questionName} label`,
@@ -34,10 +33,14 @@ export function getCollectedVariablesSingle(
         form.type === CHOICE_TYPE.SUGGESTER
           ? form.Nomenclature.label
           : form.CodesList.label,
+      variableReference:
+        form.type === CHOICE_TYPE.VARIABLE_RESPONSES
+          ? form.Variable.id
+          : form.CodesList.id,
       variableReferenceLabel:
         form.type === CHOICE_TYPE.VARIABLE_RESPONSES
-          ? form.Variable.variableReference
-          : form.CodesList.label,
+          ? form.Variable.name
+          : form.CodesList.id,
       type: TEXT,
       [TEXT]: { maxLength: 1 },
     },
