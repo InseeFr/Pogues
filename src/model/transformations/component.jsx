@@ -729,6 +729,9 @@ function storeToRemoteNested(
     }
 
     if (responseFormat.type === PAIRING) {
+      // we have to keep the legacy scope so DDI is happy
+      remote.Scope = responseFormat[PAIRING].sourceVariableReferences.name;
+
       remote.sourceVariableReferences = {
         name: responseFormat[PAIRING].sourceVariableReferences.name,
         gender: responseFormat[PAIRING].sourceVariableReferences.gender,
