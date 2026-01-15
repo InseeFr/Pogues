@@ -539,6 +539,7 @@ describe('component tranformations', () => {
               id: 'my-q-pairwise-id',
               questionType: 'PAIRWISE',
               type: 'QuestionType',
+              Scope: 'my-var-name-id',
               sourceVariableReferences: {
                 age: 'my-var-age-id',
                 gender: 'my-var-gender-id',
