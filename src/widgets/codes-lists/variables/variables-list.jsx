@@ -21,14 +21,15 @@ export const propTypes = {
   currentId: PropTypes.string,
   variablesStore: PropTypes.object,
   change: PropTypes.func.isRequired,
-  arrayRemoveAll: PropTypes.func.isRequired,
   allowFilter: PropTypes.bool,
+  scope: PropTypes.string,
 };
 
 export const defaultProps = {
   currentId: '',
   variablesStore: {},
   allowFilter: false,
+  scope: '',
 };
 
 /**
@@ -42,7 +43,7 @@ const Variables = ({
   currentId = '',
   variablesStore = {},
   change,
-  arrayRemoveAll,
+  scope = '',
 }) => {
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
@@ -54,7 +55,7 @@ const Variables = ({
       change(formName, `${path}name`, '');
       setCurrentIdState(currentId);
     }
-  }, [currentId, arrayRemoveAll, change, currentIdState, formName, path]);
+  }, [currentId, change, currentIdState, formName, path]);
 
   const handleVariableSelect = (event, newValue) => {
     if (newValue && variablesStore[newValue]) {
@@ -90,6 +91,7 @@ const Variables = ({
         label={Dictionary.selectVariable}
         required
         onChange={handleVariableSelect}
+        disabled={scope === ''}
       >
         <GenericOption key="" value="">
           {Dictionary.selectVariable}

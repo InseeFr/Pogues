@@ -110,7 +110,6 @@ export function stateToRemote(
   collectedVariables: string[],
 ): { Response: RemoteResponseFormatSingle } {
 
-  console.log('state to remote', state)
   const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
 
   let nomenclatureId;

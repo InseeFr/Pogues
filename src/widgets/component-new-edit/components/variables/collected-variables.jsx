@@ -66,8 +66,6 @@ function CollectedVariables({
   }
   const hiddenCollected =
     responseFormatType !== TABLE && responseFormatType !== MULTIPLE_CHOICE;
-  console.log('referencedCodeList', referencedCodeList);
-  console.log('referencedVariable', referencedVariable);
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel

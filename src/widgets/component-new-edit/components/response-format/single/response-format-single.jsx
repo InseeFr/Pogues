@@ -25,7 +25,6 @@ function ResponseFormatSingle({
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
-  collectedVariableStore,
 }) {
   const selectorPath = SINGLE_CHOICE;
 
@@ -78,7 +77,6 @@ function ResponseFormatSingle({
         >
           <ResponseFormatSimpleVariable
             selectorPathParent={selectorPathComposed}
-            collectedVariableStore={collectedVariableStore}
           />
         </View>
       </SelectorView>
@@ -111,7 +109,6 @@ ResponseFormatSingle.defaultProps = {
 const mapStateToProps = (state, { selectorPathParent }) => {
   const selector = formValueSelector('component');
   const path = `${getCurrentSelectorPath(selectorPathParent)}${SINGLE_CHOICE}.`;
-  console.log('path response format single', path);
   return {
     visHint: selector(state, `${path}visHint`),
     type: selector(state, `${path}type`),

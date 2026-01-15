@@ -4,11 +4,11 @@ import { arrayRemoveAll, change, formValueSelector } from 'redux-form';
 
 import { clearSearchResult } from '../../../actions/search';
 import {
-  COMPONENT_TYPE,
   DEFAULT_FORM_NAME,
   DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
+import {findQuestionInLoop} from '../../component-new-edit/components/variables/utils-loops';
 import Variables from './variables-list';
 
 // PropTypes and defaultProps
@@ -31,42 +31,56 @@ export const defaultProps = {
 
 export const mapStateToProps = (
   state,
-  { selectorPathParent, selectorPath, formName },
+  { selectorPathParent, selectorPath, formName, scope },
 ) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
   const currentId = selector(state, `${path}id`);
 
-  const rawVariablesStore = {
-    ...Object.values(state.appState.activeComponentsById)
-      .filter((comp) => comp.type === COMPONENT_TYPE.QUESTION)
-      .map((comp) => {
-        return { id: { id: comp.id, label: comp.label, name: comp.name } };
-      })
-      .flat(),
+  if (!scope || scope === '') {
+    return {
+      path,
+      currentId,
+      variablesStore: {},
+      scope: '',
+    };
+  }
+
+  const loopChildren = findQuestionInLoop(state.appState.activeComponentsById)[scope] || [];
+
+  const loopVariablesStore = loopChildren.reduce((acc, question) => {
+    acc[question.id] = {
+      id: question.id,
+      label: question.label,
+      name: question.name,
+    };
+
+    return acc;
+  }, {});
+
+
+  const calculatedAndExternalVariables = {
     ...state.appState.activeExternalVariablesById,
     ...state.appState.activeCalculatedVariablesById,
   };
-  const variablesStore = Object.values(rawVariablesStore).reduce(
-    (acc, value) => {
-      if (value?.id && value?.name) {
-        acc[value.id] = value;
-      } else if (typeof value === 'object' && value !== null) {
-        Object.values(value).forEach((nestedVar) => {
-          if (nestedVar?.id && nestedVar?.name) {
-            acc[nestedVar.id] = nestedVar;
-          }
-        });
-      }
+
+  const calculatedAndExternalInLoop = Object.values(calculatedAndExternalVariables)
+    .filter((variable) => variable.scope === scope)
+    .reduce((acc, variable) => {
+      acc[variable.id] = variable;
       return acc;
-    },
-    {},
-  );
+    }, {});
+
+  const variablesStore = {
+    ...loopVariablesStore,
+    ...calculatedAndExternalInLoop,
+  };
 
   return {
     path,
     currentId,
     variablesStore,
+    scope
   };
 };
 

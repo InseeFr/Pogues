@@ -265,6 +265,10 @@ const dictionary: Dictionary = {
     fr: 'Portée Questionnaire',
     en: 'Scope Questionnaire',
   },
+  selectLoop: {
+    fr: 'Choisir une boucle',
+    en: 'Select a loop',
+  },
   specify: {
     en: '\"Specify\"',
     fr: '\"Préciser :\"',

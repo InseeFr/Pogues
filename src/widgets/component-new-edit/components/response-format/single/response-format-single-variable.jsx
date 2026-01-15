@@ -2,28 +2,65 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
+import { connect } from 'react-redux';
+import { formValueSelector } from 'redux-form';
 
 import {
   DATATYPE_VIS_HINT,
   DEFAULT_VARIABLE_SELECTOR_PATH,
+  DEFAULT_FORM_NAME,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { VariablesList } from '../../../../codes-lists/variables';
+import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
+import { getQuestionnaireScope } from '../../variables/utils-loops';
+import ListRadios from '@/forms/controls/list-radios';
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 const selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH;
 
-function ResponseFormatSimpleVariable({ selectorPathParent }) {
+function ResponseFormatSimpleVariable({ 
+  selectorPathParent, 
+  selectedScope,
+  componentsStore,
+  externalLoopsStore
+}) {
+  const scopesTest = getQuestionnaireScope(componentsStore, externalLoopsStore)
+
+  const scopeOptions = Object.values(scopesTest || {}).map((scope) => (
+    <GenericOption key={scope.id} value={scope.id}>
+      {scope.label || scope.name}
+    </GenericOption>
+  ));
+
   return (
     <>
-      <VariablesList selectorPathParent={selectorPathParent} />
+      <FormSection name={selectorPath}>
+        <Field
+          name="scope"
+          component={Select}
+          label={Dictionary.selectLoop}
+          required
+        >
+          <GenericOption key="" value="">
+            {Dictionary.selectLoop}
+          </GenericOption>
+          {scopeOptions}
+        </Field>
+      </FormSection>
+
+      <VariablesList 
+        selectorPathParent={selectorPathParent} 
+        scope={selectedScope} 
+      />
+
       <FormSection name={selectorPath}>
         <Field
           name="visHint"
-          component={Select}
+          component={ListRadios}
           label={Dictionary.visHint}
           required
         >
@@ -44,12 +81,33 @@ function ResponseFormatSimpleVariable({ selectorPathParent }) {
 
 ResponseFormatSimpleVariable.propTypes = {
   selectorPathParent: PropTypes.string,
-  collectedVariableStore: PropTypes.object,
+  selectedScope: PropTypes.string,
+  componentStore: PropTypes.object,
+  externalLoopsStore: PropTypes.object,
 };
 
 ResponseFormatSimpleVariable.defaultProps = {
   selectorPathParent: undefined,
-  collectedVariableStore: {},
+  selectedScope: '',
+  componentStore: {},
+  externalLoopsStore: {},
 };
 
-export default ResponseFormatSimpleVariable;
+const mapStateToProps = (state, { selectorPathParent }) => {
+  const selector = formValueSelector(DEFAULT_FORM_NAME);
+  const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
+  const externalLoopsAvailable =
+    state.metadataByType.externalQuestionnairesLoops || {};
+  const externalQuestionnnairesId =
+    state.appState.activeQuestionnaire.childQuestionnaireRef || [];
+  const externalLoopsWanted = Object.keys(externalLoopsAvailable)
+    .filter((key) => externalQuestionnnairesId.includes(key))
+    .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
+  return {
+    selectedScope: selector(state, `${path}scope`) || '',
+    externalLoopsStore: externalLoopsWanted,
+    componentsStore: state.appState.activeComponentsById || {},
+  };
+};
+
+export default connect(mapStateToProps)(ResponseFormatSimpleVariable);
