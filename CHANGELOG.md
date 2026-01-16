@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle external variables' `isDeletedOnReset` property.
 - Added nomenclatures: "L_PRODUITS_LAITIERS2026", "L_NATIONETR-1-1-0", "L_SPE_NON_FORMELLES-1-0-0".
-- Handle hyphen (`-` character) for searching in all existing nomenclatures
 
 ### Changed
 
@@ -25,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Questions no longer allow access to external and calculated variables tab (which allowed to create, update and delete from within a question), since it's now handled by next.
+
+### Fixed
+
+- Hyphens `-` are now handled when searching for a nomenclature.
 
 ## [1.12.0](https://github.com/InseeFr/Pogues/releases/tag/1.12.0) - 2025-11-25
 
