@@ -7,7 +7,7 @@ export const pairingDictionary: Dictionary = {
     en: 'Household members pairing',
   },
   pairingSourceVariable: {
-    fr: 'Variable source du nom',
+    fr: 'Variable source du prénom',
     en: 'Name source variable',
   },
   pairingGenderVariable: {
