@@ -13,6 +13,8 @@ export const defaultState = {
   mesureLevel: '',
   codeListReference: '',
   codeListReferenceLabel: '',
+  variableReference: '',
+  variableReferenceLabel: '',
   isCollected: '1',
   alternativeLabel: '',
 };
@@ -28,6 +30,8 @@ export const defaultForm = {
   collectedVariables: [],
   codeListReference: '',
   codeListReferenceLabel: '',
+  variableReference: '',
+  variableReferenceLabel: '',
   isCollected: '1',
   alternativeLabel: '',
 };
@@ -50,6 +54,8 @@ export function formToState(form) {
     arbitraryVariableOfVariableId,
     codeListReference,
     codeListReferenceLabel,
+    variableReference, 
+    variableReferenceLabel,
     isCollected,
     alternativeLabel,
   } = form;
@@ -69,6 +75,8 @@ export function formToState(form) {
     ...getTypings(form),
     codeListReference,
     codeListReferenceLabel,
+    variableReference,
+    variableReferenceLabel,
   };
 }
 
@@ -85,7 +93,9 @@ export function formToStore(form) {
   }, {});
 }
 
+// TODO: Add variable ref label
 export function storeToForm(currentStore) {
+  console.log('storeToForm', currentStore)
   const collectedVariables = Object.keys(currentStore)
     .sort(sortByYXAndZ(currentStore))
     .map((key) => {
@@ -137,11 +147,13 @@ const Factory = (currentState = [], collectedVariablesStore) => {
   return {
     formToStore: (form) => {
       if (form) currentStore = formToStore(form);
+      console.log('formToStore currentStore', currentStore);
       return currentStore;
     },
     formToComponentState: (form) => {
       if (form) currentStore = formToStore(form);
       currentState = Object.keys(currentStore);
+      console.log('formToComponentState currentState', currentState);
       return currentState;
     },
     storeToForm: () => {

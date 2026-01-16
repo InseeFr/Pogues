@@ -57,7 +57,6 @@ function ResponseFormatSimpleVariable({
         scope={selectedScope} 
       />
 
-      <FormSection name={selectorPath}>
         <Field
           name="visHint"
           component={ListRadios}
@@ -74,7 +73,6 @@ function ResponseFormatSimpleVariable({
             {Dictionary.dropdown}
           </GenericOption>
         </Field>
-      </FormSection>
     </>
   );
 }

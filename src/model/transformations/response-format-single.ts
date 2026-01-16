@@ -13,11 +13,11 @@ import { stateToRemote as responseStateToRemote } from './response';
 
 type RemoteResponseFormatSingle = {
   id: string;
-  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE_RESPONSES;
   CodeListReference?: unknown; // To be deprecated (check if needed elswhere)
   sourceReference?: unknown;
   Datatype: {
     allowArbitraryResponse?: unknown;
+    choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE;
     visualizationHint?: DATATYPE_VIS_HINT;
   };
   mandatory?: boolean;
@@ -27,7 +27,7 @@ export type StateResponseFormatSingle = {
   id: string;
   mandatory?: boolean;
   allowArbitraryResponse?: unknown;
-  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE_RESPONSES;
+  type?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE;
 } & (
     | {
       visHint: DATATYPE_VIS_HINT.SUGGESTER;
@@ -56,10 +56,9 @@ export function remoteToState(remote: {
   const {
     responses: [
       {
-        Datatype: { allowArbitraryResponse, visualizationHint: visHint },
+        Datatype: { allowArbitraryResponse, visualizationHint: visHint, choiceType },
         mandatory,
         sourceReference,
-        choiceType,
         id,
       },
     ],
@@ -69,6 +68,7 @@ export function remoteToState(remote: {
     id,
     mandatory,
     allowArbitraryResponse,
+    type: choiceType,
   };
 
   // for suggester we handle a nomenclature, else a code list
@@ -80,7 +80,7 @@ export function remoteToState(remote: {
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
     };
   }
-  if (choiceType === CHOICE_TYPE.VARIABLE_RESPONSES && visHint !== DATATYPE_VIS_HINT.SUGGESTER) {
+  if (choiceType === CHOICE_TYPE.VARIABLE && visHint !== DATATYPE_VIS_HINT.SUGGESTER) {
     return {
       ...baseState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: sourceReference as string },
@@ -110,7 +110,7 @@ export function stateToRemote(
   collectedVariables: string[],
 ): { Response: RemoteResponseFormatSingle } {
 
-  const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
+  const { allowArbitraryResponse, visHint, mandatory, id, type } = state;
 
   let nomenclatureId;
   let codesListId;
@@ -132,7 +132,7 @@ export function stateToRemote(
         mandatory,
         allowArbitraryResponse,
         visHint,
-        choiceType,
+        choiceType: type,
         codesListId,
         nomenclatureId,
         variableReferenceId,

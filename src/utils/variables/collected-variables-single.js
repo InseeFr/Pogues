@@ -34,11 +34,11 @@ export function getCollectedVariablesSingle(
           ? form.Nomenclature.label
           : form.CodesList.label,
       variableReference:
-        form.type === CHOICE_TYPE.VARIABLE_RESPONSES
+        form.type === CHOICE_TYPE.VARIABLE
           ? form.Variable.id
           : form.CodesList.id,
       variableReferenceLabel:
-        form.type === CHOICE_TYPE.VARIABLE_RESPONSES
+        form.type === CHOICE_TYPE.VARIABLE
           ? form.Variable.name
           : form.CodesList.id,
       type: TEXT,

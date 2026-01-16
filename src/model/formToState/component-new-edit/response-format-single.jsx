@@ -10,21 +10,22 @@ import {
 } from '../../../constants/pogues-constants';
 import { Factory as CodesListFactory } from '../lists/codes-list';
 import { Factory as NomenclatureFactory } from '../lists/nomenclature';
+import { Factory as VariableFactory } from '../lists/variables';
 
 const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
-const { CODE_LIST, VARIABLE_RESPONSES } = CHOICE_TYPE;
+const { CODE_LIST, VARIABLE } = CHOICE_TYPE;
 
 export const defaultState = {
   allowArbitraryResponse: false,
   mandatory: false,
-  choiceType: CODE_LIST,  
+  type: CODE_LIST,  
   visHint: RADIO,
 };
 
 export const defaultForm = {
   allowArbitraryResponse: false,
   mandatory: false,
-  choiceType: CODE_LIST,
+  type: CODE_LIST,
   visHint: RADIO,
 };
 
@@ -33,7 +34,7 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     mandatory,
-    choiceType, 
+    type, 
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
@@ -45,7 +46,7 @@ export function formToState(form, transformers) {
     allowArbitraryResponse,
     // for suggester we do not handle mandatory question
     mandatory: visHint !== SUGGESTER ? mandatory : false,
-    choiceType,
+    type,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
@@ -53,7 +54,7 @@ export function formToState(form, transformers) {
       transformers.nomenclature.formToStateComponent(nomenclatureForm),
     // TODO: create this
     [DEFAULT_VARIABLE_SELECTOR_PATH]:
-      {},
+      transformers.variable.formToStateComponent(variableForm),
   };
 }
 
@@ -86,8 +87,10 @@ export const Factory = (initialState = {}, codesListsStore) => {
       codesListsStore,
       cloneDeep(currentState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]),
     ),
-    //TODO create variable factory
-    variable: {},
+    variable: VariableFactory(
+      codesListsStore, //TODO: voir plus tard
+      cloneDeep(currentState[DEFAULT_VARIABLE_SELECTOR_PATH]),
+    ),
   };
   return {
     formToState: (form) => {

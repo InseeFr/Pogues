@@ -28,7 +28,7 @@ export type StateResponse = {
   variableReferenceId?: string;
   allowArbitraryResponse?: unknown;
   visHint?: DATATYPE_VIS_HINT;
-  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE_RESPONSES | CHOICE_TYPE.SUGGESTER;
+  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE | CHOICE_TYPE.SUGGESTER;
   collectedVariable?: string;
   conditionFilter?: string;
   conditionReadOnly?: string;
@@ -60,7 +60,7 @@ export type RemoteResponse = {
   CollectedVariableReference?: string;
   sourceReference?: unknown;
   variableReference?: unknown;
-  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE_RESPONSES | CHOICE_TYPE.SUGGESTER;
+  choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.VARIABLE | CHOICE_TYPE.SUGGESTER;
   mandatory?: boolean;
   conditionFilter?: string;
   conditionReadOnly?: string;

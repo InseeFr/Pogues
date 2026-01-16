@@ -86,6 +86,7 @@ export const updateComponent =
         });
       }
     }
+    console.log('Updating component', componentId, componentsStore[componentId]);
     return dispatch({
       type: UPDATE_COMPONENT,
       payload: {

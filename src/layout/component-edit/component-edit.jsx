@@ -72,7 +72,6 @@ function validateAndSubmit(
       transformer.getExternalVariablesStore();
     const updatedCollectedlVariablesStore =
       transformer.getCollectedVariablesStore();
-
     actions.updateComponent(
       component.id,
       updatedComponentsStore,

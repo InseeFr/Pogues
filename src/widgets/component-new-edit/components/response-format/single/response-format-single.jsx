@@ -16,7 +16,7 @@ import ResponseFormatSimpleCodeslist from './response-format-single-code-list';
 import ResponseFormatSimpleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
-const { CODE_LIST, VARIABLE_RESPONSES, SUGGESTER: suggesterType } = CHOICE_TYPE;
+const { CODE_LIST, VARIABLE, SUGGESTER: suggesterType } = CHOICE_TYPE;
 
 /** Form to create a QCU. */
 function ResponseFormatSingle({
@@ -37,7 +37,6 @@ function ResponseFormatSingle({
       <SelectorView
         label={Dictionary.responseType}
         selectorPath={selectorPathComposed}
-        //fieldName="choiceType"
         radio
       >
         <View key={CODE_LIST} value={CODE_LIST} label={Dictionary.codeList}>
@@ -71,8 +70,8 @@ function ResponseFormatSingle({
           )}
         </View>
         <View
-          key={VARIABLE_RESPONSES}
-          value={VARIABLE_RESPONSES}
+          key={VARIABLE}
+          value={VARIABLE}
           label={Dictionary.variable}
         >
           <ResponseFormatSimpleVariable
