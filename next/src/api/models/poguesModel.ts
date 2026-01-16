@@ -60,7 +60,7 @@ export type Questionnaire = Sequence & {
    *   question group is repeated. It can simply be (considering that by default
    *   we start at 1 and that the step is 1).
    */
-  Iterations?: { Iteration?: DynamicIterationType[] };
+  Iterations?: { Iteration?: Loop[] };
   /**
    * The childQuestionnaireRef currently holds the IDs of the questionnaires on
    * which the current questionnaire depends.
@@ -178,7 +178,7 @@ export interface IterationType {
   id: string;
 }
 
-interface DynamicIterationType extends IterationType {
+export interface Loop extends IterationType {
   /** @deprecated since 1.10.0, use "minimum" instead (VTL formula) */
   Minimum?: ExpressionType;
   /** @deprecated since 1.10.0, use "maximum" instead (VTL formula) */
@@ -222,7 +222,7 @@ interface DynamicIterationType extends IterationType {
   Step?: number;
   /** Could be a Roster (dynamic table) or another iteration */
   IterableReference?: string;
-  /** Specifies a condition for filter for NOT displaying the code value */
+  /** Specifies a condition for filter for NOT displaying an iteration */
   Filter?: ExpressionType;
 }
 
@@ -231,7 +231,7 @@ type Roundabout = ComponentType & {
   OccurrenceLabel: string;
   OccurrenceDescription?: string;
   Locked: boolean;
-  Loop: DynamicIterationType[];
+  Loop: Loop[];
 };
 
 /**

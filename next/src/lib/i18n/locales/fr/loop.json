@@ -1,0 +1,26 @@
+{
+  "create": {
+    "success": "La boucle a été créée",
+    "title": "Nouvelle boucle"
+  },
+  "form": {
+    "mustProvideName": "Vous devez renseigner un identifiant",
+    "mustProvideInitialMemberReference": "Vous devez renseigner un début",
+    "mustProvideFinalMemberReference": "Vous devez renseigner une fin",
+    "iterableReference": {
+      "placeholder": "toto"
+    }
+  },
+  "name": "Identifiant",
+  "isBasedOn": "Boucle basée sur une autre boucle ou tableau",
+  "initialMember": "Début",
+  "finalMember": "Fin",
+  "iterableReference": "Basé sur",
+  "filter": "Sauf",
+  "isFixedLength": "Nombre d'occurences max identique à min",
+  "size": "Nombre d’occurrences",
+  "loopSinglePage": "Afficher toutes les occurrences sur une seule page",
+  "minimum": "Nombre d'occurrences minimum",
+  "maximum": "Nombre d'occurrences maximum",
+  "addButtonLabel": "Libellé du bouton d'ajout"
+}

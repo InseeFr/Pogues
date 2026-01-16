@@ -17,6 +17,7 @@
   "pleaseLogin": "You should login to access the application.",
   "logout": "Logout",
   "new": "New",
+  "no": "No",
   "notUsedByQuestions": "Not used by any questions.",
   "question": "{{count}} question",
   "question_other": "{{count}} questions",
@@ -30,5 +31,6 @@
   },
   "usedByQuestion": "Used by question:",
   "usedByQuestion_other": "Used by questions:",
-  "validate": "Validate"
+  "validate": "Validate",
+  "yes": "Yes"
 }

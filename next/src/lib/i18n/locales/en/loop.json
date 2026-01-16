@@ -1,0 +1,26 @@
+{
+  "create": {
+    "success": "The loop been created",
+    "title": "New loop"
+  },
+  "form": {
+    "mustProvideName": "You must provide a name",
+    "mustProvideInitialMemberReference": "You must provide an initial member",
+    "mustProvideFinalMemberReference": "You must provide a final member",
+    "iterableReference": {
+      "placeholder": "toto"
+    }
+  },
+  "name": "Name",
+  "isBasedOn": "Loop based on another loop or table",
+  "initialMember": "Start",
+  "finalMember": "End",
+  "iterableReference": "Based on",
+  "filter": "Excepted",
+  "isFixedLength": "Number of maximum occurrences identical to min",
+  "size": "Occurrences number",
+  "loopSinglePage": "Display all occurrences on a single page",
+  "minimum": "Minimum number of occurrences",
+  "maximum": "Maximum number of occurrences",
+  "addButtonLabel": "Add button label"
+}
