@@ -92,9 +92,7 @@ export const setActiveVariables = (variables) => {
     activeExternalVariablesById,
     collectedVariableByQuestion,
   } = variables;
-  console.log('SetActiveVariable', variables);
   return {
-    
     type: SET_ACTIVE_VARIABLES,
     payload: {
       activeCalculatedVariablesById,

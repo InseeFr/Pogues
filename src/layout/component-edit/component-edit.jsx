@@ -61,6 +61,8 @@ function validateAndSubmit(
       validateSequence(values);
     }
 
+    console.log('validateAndSubmit - values', values);
+
     const updatedComponentsStore = transformer.formToStore(
       values,
       component.id,

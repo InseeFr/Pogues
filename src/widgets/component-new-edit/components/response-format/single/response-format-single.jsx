@@ -4,6 +4,7 @@ import { Field, FormSection, formValueSelector } from 'redux-form';
 
 import {
   CHOICE_TYPE,
+  DATATYPE_VIS_HINT,
   QUESTION_TYPE_ENUM,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
@@ -17,6 +18,7 @@ import ResponseFormatSimpleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CODE_LIST, VARIABLE, SUGGESTER: suggesterType } = CHOICE_TYPE;
+const { RADIO } = DATATYPE_VIS_HINT;
 
 /** Form to create a QCU. */
 function ResponseFormatSingle({
@@ -69,11 +71,7 @@ function ResponseFormatSingle({
             </Field>
           )}
         </View>
-        <View
-          key={VARIABLE}
-          value={VARIABLE}
-          label={Dictionary.variable}
-        >
+        <View key={VARIABLE} value={VARIABLE} label={Dictionary.variable}>
           <ResponseFormatSimpleVariable
             selectorPathParent={selectorPathComposed}
           />
@@ -97,7 +95,7 @@ ResponseFormatSingle.propTypes = {
 ResponseFormatSingle.defaultProps = {
   selectorPathParent: undefined,
   showMandatory: true,
-  visHint: undefined,
+  visHint: RADIO,
   type: CODE_LIST,
   allowPrecision: true,
   allowFilter: true,

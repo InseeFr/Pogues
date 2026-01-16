@@ -31,6 +31,7 @@ export function createListFactory(
       return currentState;
     },
     stateComponentToForm: () => {
+      console.log('stateComponentToForm list-utils', currentState);
       return stateComponentToForm(currentState);
     },
     getStore: () => {

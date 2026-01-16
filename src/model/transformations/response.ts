@@ -1,7 +1,7 @@
 import {
   CHOICE_TYPE,
   DATATYPE_TYPE_FROM_NAME,
-  DATATYPE_VIS_HINT
+  DATATYPE_VIS_HINT,
 } from '@/constants/pogues-constants';
 import { uuid } from '@/utils/utils';
 
@@ -38,7 +38,7 @@ export function stateToRemote(
     codesListId,
     nomenclatureId,
     variableReferenceId,
-    choiceType,
+    type,
     allowArbitraryResponse,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
@@ -48,9 +48,9 @@ export function stateToRemote(
 
   const find = response
     ? response.find(
-      (element) =>
-        element.CollectedVariableReference === CollectedVariableReference,
-    )
+        (element) =>
+          element.CollectedVariableReference === CollectedVariableReference,
+      )
     : undefined;
 
   const model: RemoteResponse = {
@@ -63,17 +63,14 @@ export function stateToRemote(
 
   // For suggester we store the nomenclature as source reference. Else we store the codeList
   model.sourceReference =
-    choiceType === CHOICE_TYPE.SUGGESTER
+    type === CHOICE_TYPE.SUGGESTER
       ? nomenclatureId
-      : choiceType === CHOICE_TYPE.CODE_LIST
+      : type === CHOICE_TYPE.CODE_LIST
         ? codesListId
         : variableReferenceId;
 
-
-
   model.variableReference = variableReferenceId;
-  model.choiceType = choiceType;
-
+  model.choiceType = type as CHOICE_TYPE;
 
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;
@@ -105,5 +102,6 @@ export function stateToRemote(
   if (conditionReadOnly !== undefined)
     model.conditionReadOnly = conditionReadOnly;
 
+  console.log('stateToremoteModel', model);
   return model;
 }

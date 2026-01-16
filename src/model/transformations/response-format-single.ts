@@ -5,7 +5,6 @@ import {
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DEFAULT_VARIABLE_SELECTOR_PATH,
-
 } from '@/constants/pogues-constants';
 
 import { remoteToState as codeListRemoteToState } from './codes-list';
@@ -17,7 +16,10 @@ type RemoteResponseFormatSingle = {
   sourceReference?: unknown;
   Datatype: {
     allowArbitraryResponse?: unknown;
-    choiceType?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE;
+    choiceType?:
+      | CHOICE_TYPE.CODE_LIST
+      | CHOICE_TYPE.SUGGESTER
+      | CHOICE_TYPE.VARIABLE;
     visualizationHint?: DATATYPE_VIS_HINT;
   };
   mandatory?: boolean;
@@ -29,26 +31,25 @@ export type StateResponseFormatSingle = {
   allowArbitraryResponse?: unknown;
   type?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE;
 } & (
-    | {
+  | {
       visHint: DATATYPE_VIS_HINT.SUGGESTER;
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: { id: string };
     }
-    | {
+  | {
       visHint?:
-      | DATATYPE_VIS_HINT.CHECKBOX
-      | DATATYPE_VIS_HINT.RADIO
-      | DATATYPE_VIS_HINT.DROPDOWN;
+        | DATATYPE_VIS_HINT.CHECKBOX
+        | DATATYPE_VIS_HINT.RADIO
+        | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
     }
-    | {
-      visHint?:
-      // Filter based on lunatic new components ?
+  | {
+      visHint?: // Filter based on lunatic new components ?
       | DATATYPE_VIS_HINT.CHECKBOX
-      | DATATYPE_VIS_HINT.RADIO
-      | DATATYPE_VIS_HINT.DROPDOWN;
+        | DATATYPE_VIS_HINT.RADIO
+        | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string };
     }
-  );
+);
 
 export function remoteToState(remote: {
   responses: RemoteResponseFormatSingle;
@@ -56,7 +57,11 @@ export function remoteToState(remote: {
   const {
     responses: [
       {
-        Datatype: { allowArbitraryResponse, visualizationHint: visHint, choiceType },
+        Datatype: {
+          allowArbitraryResponse,
+          visualizationHint: visHint,
+          choiceType,
+        },
         mandatory,
         sourceReference,
         id,
@@ -80,7 +85,10 @@ export function remoteToState(remote: {
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
     };
   }
-  if (choiceType === CHOICE_TYPE.VARIABLE && visHint !== DATATYPE_VIS_HINT.SUGGESTER) {
+  if (
+    choiceType === CHOICE_TYPE.VARIABLE &&
+    visHint !== DATATYPE_VIS_HINT.SUGGESTER
+  ) {
     return {
       ...baseState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: sourceReference as string },
@@ -88,7 +96,10 @@ export function remoteToState(remote: {
     };
   }
 
-  if (choiceType !== CHOICE_TYPE.CODE_LIST && visHint !== DATATYPE_VIS_HINT.SUGGESTER) {
+  if (
+    choiceType !== CHOICE_TYPE.CODE_LIST &&
+    visHint !== DATATYPE_VIS_HINT.SUGGESTER
+  ) {
     return {
       ...baseState,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]:
@@ -102,28 +113,30 @@ export function remoteToState(remote: {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codeListRemoteToState(sourceReference),
     visHint: visHint === DATATYPE_VIS_HINT.SUGGESTER ? undefined : visHint,
   };
-
 }
 
 export function stateToRemote(
   state: StateResponseFormatSingle,
   collectedVariables: string[],
 ): { Response: RemoteResponseFormatSingle } {
-
   const { allowArbitraryResponse, visHint, mandatory, id, type } = state;
 
   let nomenclatureId;
   let codesListId;
   let variableReferenceId;
 
-
-  if (visHint === DATATYPE_VIS_HINT.SUGGESTER && DEFAULT_NOMENCLATURE_SELECTOR_PATH in state) {
+  if (
+    visHint === DATATYPE_VIS_HINT.SUGGESTER &&
+    DEFAULT_NOMENCLATURE_SELECTOR_PATH in state
+  ) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
   } else if (DEFAULT_VARIABLE_SELECTOR_PATH in state) {
     variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
   } else {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
+
+  console.log('stateToRemote', type);
 
   return {
     Response: [

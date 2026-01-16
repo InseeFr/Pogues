@@ -2,23 +2,23 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   DEFAULT_VARIABLE_SELECTOR_PATH,
-  CHOICE_TYPE
 } from '../../../constants/pogues-constants';
 import { Factory as CodesListFactory } from '../lists/codes-list';
 import { Factory as NomenclatureFactory } from '../lists/nomenclature';
 import { Factory as VariableFactory } from '../lists/variables';
 
 const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
-const { CODE_LIST, VARIABLE } = CHOICE_TYPE;
+const { CODE_LIST } = CHOICE_TYPE;
 
 export const defaultState = {
   allowArbitraryResponse: false,
   mandatory: false,
-  type: CODE_LIST,  
+  type: CODE_LIST,
   visHint: RADIO,
 };
 
@@ -34,7 +34,7 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     mandatory,
-    type, 
+    type,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
@@ -60,7 +60,6 @@ export function formToState(form, transformers) {
 
 export function stateToForm(currentState, transformers) {
   const { id, allowArbitraryResponse, visHint, mandatory } = currentState;
-
   return {
     id,
     allowArbitraryResponse,
@@ -70,9 +69,8 @@ export function stateToForm(currentState, transformers) {
       transformers.codesList.stateComponentToForm(),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.stateComponentToForm(),
-    // TODO: create this
     [DEFAULT_VARIABLE_SELECTOR_PATH]:
-      {}
+      transformers.variable.stateComponentToForm(),
   };
 }
 
@@ -88,7 +86,6 @@ export const Factory = (initialState = {}, codesListsStore) => {
       cloneDeep(currentState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]),
     ),
     variable: VariableFactory(
-      codesListsStore, //TODO: voir plus tard
       cloneDeep(currentState[DEFAULT_VARIABLE_SELECTOR_PATH]),
     ),
   };
@@ -99,6 +96,10 @@ export const Factory = (initialState = {}, codesListsStore) => {
       return state;
     },
     stateToForm: () => {
+      console.log(
+        'response-format-single stateToForm - currentState OKKKKKKK',
+        currentState,
+      );
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {

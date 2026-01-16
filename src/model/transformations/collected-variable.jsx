@@ -7,8 +7,8 @@ import {
   VARIABLES_TYPES,
 } from '../../constants/pogues-constants';
 import { uuid } from '../../utils/utils';
-import { remoteToState as remoteToStateFormatSimple } from './response-format-simple';
 import { findQuestionInLoop } from '../../widgets/component-new-edit/components/variables/utils-loops';
+import { remoteToState as remoteToStateFormatSimple } from './response-format-simple';
 
 const { COLLECTED } = VARIABLES_TYPES;
 const { QUESTION } = COMPONENT_TYPE;
@@ -19,9 +19,11 @@ export function remoteToStore(
   remote = [],
   responsesByVariable,
   codesListsStore,
+  variablesStore,
   variableclarification,
   arbitraryVariables,
 ) {
+  console.log('remoteToStore', remote);
   remote.forEach((variable) => {
     if (variableclarification) {
       const find = variableclarification.find(
@@ -64,10 +66,12 @@ export function remoteToStore(
       Name: name,
       Label: label,
       CodeListReference,
+      variableReference,
       z,
       mesureLevel,
       arbitraryVariableOfVariableId,
     } = ev;
+
     const id = ev.id || uuid();
 
     const formatSingleRemote = remoteToStateFormatSimple({
@@ -82,6 +86,11 @@ export function remoteToStore(
       codeListReference: CodeListReference,
       codeListReferenceLabel: CodeListReference
         ? codesListsStore[CodeListReference].label
+        : '',
+
+      variableReference,
+      variableReferenceLabel: variableReference
+        ? res.find((variable) => variable.id === variableReference)?.label
         : '',
       [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
       ...responsesByVariable[id],
@@ -98,7 +107,6 @@ export function remoteToComponentState(remote = []) {
     .filter((r) => r.CollectedVariableReference)
     .map((r) => r.CollectedVariableReference);
 }
-
 
 function getCollectedScope(questionsLoop, id, componentsStore) {
   let isfound = {};
@@ -141,6 +149,7 @@ export function storeToRemote(store, componentsStore) {
       label: Label,
       type: typeName,
       codeListReference,
+      variableReference,
       [typeName]: {
         maxLength: MaxLength,
         minimum: Minimum,
@@ -159,6 +168,8 @@ export function storeToRemote(store, componentsStore) {
         maminutes: Maminutes,
       },
     } = store[key];
+
+    console.log('storeToRemote - processing variable', store[key]);
 
     const model = {
       id,
@@ -203,6 +214,10 @@ export function storeToRemote(store, componentsStore) {
       model.CodeListReference = codeListReference;
     }
 
+    if (variableReference !== undefined) {
+      model.VariableReference = variableReference;
+    }
+
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;
 
     if (typeName === DATATYPE_NAME.DURATION && Format !== undefined) {
@@ -244,6 +259,8 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
+
+    console.log('storeToRemoteModel', model);
     return model;
   });
 }

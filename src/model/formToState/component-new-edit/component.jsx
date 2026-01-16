@@ -113,6 +113,7 @@ export function formToState(form, transformers) {
       res.responseFormat[res.responseFormat.type].CodesList,
     );
   }
+  console.log('FormToState - final', res);
   return res;
 }
 
@@ -178,13 +179,15 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     codeFilters,
   };
 
+  console.log('stateToForm - currentState before transformers', currentState);
+
   if (type === QUESTION) {
     form.responseFormat = transformers.responseFormat.stateToForm();
     form.calculatedVariables = transformers.calculatedVariable.storeToForm();
     form.externalVariables = transformers.externalVariable.storeToForm();
     form.collectedVariables = transformers.collectedVariable.storeToForm();
   }
-
+  console.log('stateToForm - final', form);
   return form;
 }
 

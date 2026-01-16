@@ -103,9 +103,12 @@ export function formToState(form, collectedVariables, transformers) {
   if (type === SINGLE_CHOICE) {
     const { type: choiceType, visHint } = responseFormatForm;
     // In case of SUGGESTER or VARIABLE, codes doesn't exist, so we don't need to update newCodes (since they no exist)
-    if (choiceType === CHOICE_TYPE.SUGGESTER || choiceType === CHOICE_TYPE.VARIABLE) {
+    if (
+      choiceType === CHOICE_TYPE.SUGGESTER ||
+      choiceType === CHOICE_TYPE.VARIABLE
+    ) {
       state[type] = transformers.single.formToState(responseFormatForm);
-    } else if (choiceType === CHOICE_TYPE.CODE_LIST)  {
+    } else if (choiceType === CHOICE_TYPE.CODE_LIST) {
       const { CodesList } = responseFormatForm;
       const newCodes = computeCodesByCollectedVariableId(
         CodesList,
@@ -122,7 +125,7 @@ export function formToState(form, collectedVariables, transformers) {
       };
       state[type] = transformers.single.formToState(formWithNewCodes);
       state[type].CodesList = { ...CodesList, codes: newCodes };
-    } 
+    }
     return state;
   }
 
@@ -153,7 +156,7 @@ export function formToState(form, collectedVariables, transformers) {
 
 export function stateToForm(currentState, transformers) {
   const { type } = currentState;
-
+  console.log('response format state to form', currentState);
   return merge({}, cloneDeep(defaultForm), {
     type,
     [SIMPLE]: transformers.simple.stateToForm(),
@@ -185,6 +188,10 @@ const Factory = (initialState = {}, codesListsStore) => {
       return currentState;
     },
     stateToForm: () => {
+      console.log(
+        'response-format Factory stateToForm - currentState',
+        currentState,
+      );
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {

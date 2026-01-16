@@ -54,7 +54,7 @@ export function formToState(form) {
     arbitraryVariableOfVariableId,
     codeListReference,
     codeListReferenceLabel,
-    variableReference, 
+    variableReference,
     variableReferenceLabel,
     isCollected,
     alternativeLabel,
@@ -93,9 +93,7 @@ export function formToStore(form) {
   }, {});
 }
 
-// TODO: Add variable ref label
 export function storeToForm(currentStore) {
-  console.log('storeToForm', currentStore)
   const collectedVariables = Object.keys(currentStore)
     .sort(sortByYXAndZ(currentStore))
     .map((key) => {
@@ -112,6 +110,8 @@ export function storeToForm(currentStore) {
         mesureLevel,
         codeListReference,
         codeListReferenceLabel,
+        variableReference,
+        variableReferenceLabel,
       } = currentStore[key];
       return {
         id,
@@ -127,13 +127,18 @@ export function storeToForm(currentStore) {
         ...getTypings(currentStore[key]),
         codeListReference,
         codeListReferenceLabel,
+        variableReference,
+        variableReferenceLabel,
       };
     });
-
-  return {
+  const mergedForm = {
     ...defaultForm,
+    ...(collectedVariables[0] || {}),
+    //TODO: make it cleaner
     collectedVariables,
   };
+
+  return mergedForm;
 }
 
 const Factory = (currentState = [], collectedVariablesStore) => {
@@ -147,13 +152,11 @@ const Factory = (currentState = [], collectedVariablesStore) => {
   return {
     formToStore: (form) => {
       if (form) currentStore = formToStore(form);
-      console.log('formToStore currentStore', currentStore);
       return currentStore;
     },
     formToComponentState: (form) => {
       if (form) currentStore = formToStore(form);
       currentState = Object.keys(currentStore);
-      console.log('formToComponentState currentState', currentState);
       return currentState;
     },
     storeToForm: () => {

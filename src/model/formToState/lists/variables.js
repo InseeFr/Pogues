@@ -16,6 +16,7 @@ export function formToState(form) {
 }
 
 export function stateComponentToForm({ id = '', name = '', label = '' }) {
+  console.log('stateVariableToFrom', id, name, label);
   return {
     id,
     name,
@@ -23,12 +24,11 @@ export function stateComponentToForm({ id = '', name = '', label = '' }) {
   };
 }
 
-export const Factory = (variablesStore, currentState) => {
+export const Factory = (currentState) => {
   return createListFactory(
     defaultState,
     formToState,
     stateComponentToForm,
-    variablesStore,
     currentState,
   );
 };

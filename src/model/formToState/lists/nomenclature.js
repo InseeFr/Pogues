@@ -23,6 +23,14 @@ export function stateComponentToForm({
   urn = '',
   suggesterParameters = {},
 }) {
+  console.log(
+    'stateComponentToForm - SUGGESTER',
+    id,
+    name,
+    label,
+    urn,
+    suggesterParameters,
+  );
   return {
     id,
     name,
