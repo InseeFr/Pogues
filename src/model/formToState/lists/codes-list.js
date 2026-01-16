@@ -36,6 +36,7 @@ export function formToState(form) {
 }
 
 export function stateComponentToForm({ id = '', label = '', codes = {} }) {
+  console.log('stateComponentToForm - CODE_LIST', id, label);
   return merge(cloneDeep(defaultForm), {
     id,
     label,

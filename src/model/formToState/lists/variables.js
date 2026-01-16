@@ -16,7 +16,7 @@ export function formToState(form) {
 }
 
 export function stateComponentToForm({ id = '', name = '', label = '' }) {
-  console.log('stateVariableToFrom', id, name, label);
+  console.log('stateComponentToForm - VARIABLE', id, label);
   return {
     id,
     name,

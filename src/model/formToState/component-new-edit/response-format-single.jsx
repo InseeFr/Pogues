@@ -45,7 +45,7 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     // for suggester we do not handle mandatory question
-    mandatory: visHint !== SUGGESTER ? mandatory : false,
+    mandatory: type !== SUGGESTER ? mandatory : false,
     type,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
@@ -76,6 +76,7 @@ export function stateToForm(currentState, transformers) {
 
 export const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
+  console.log('codeListsStore', codesListsStore);
   const transformers = {
     codesList: CodesListFactory(
       codesListsStore,
@@ -103,7 +104,7 @@ export const Factory = (initialState = {}, codesListsStore) => {
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {
-      if (currentState.visHint === DATATYPE_VIS_HINT.SUGGESTER)
+      if (currentState.type === CHOICE_TYPE.SUGGESTER)
         return transformers.nomenclature.getStore();
       return transformers.codesList.getStore();
     },

@@ -126,13 +126,13 @@ export function stateToRemote(
   let variableReferenceId;
 
   if (
-    visHint === DATATYPE_VIS_HINT.SUGGESTER &&
+    type === CHOICE_TYPE.SUGGESTER &&
     DEFAULT_NOMENCLATURE_SELECTOR_PATH in state
   ) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
   } else if (DEFAULT_VARIABLE_SELECTOR_PATH in state) {
     variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
-  } else {
+  } else if (DEFAULT_CODES_LIST_SELECTOR_PATH in state) {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
 

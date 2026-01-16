@@ -133,8 +133,6 @@ export function storeToForm(currentStore) {
     });
   const mergedForm = {
     ...defaultForm,
-    ...(collectedVariables[0] || {}),
-    //TODO: make it cleaner
     collectedVariables,
   };
 
