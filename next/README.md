@@ -1,50 +1,30 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img alt="Pogues" src="../docs/img/pogues-logo.png" style="max-width: 100%;">
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Pogues
 
-Currently, two official plugins are available:
+Navigation: **Website** | [Back-office][1] | [Pogues model][2]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[1]: https://github.com/InseeFr/Pogues-Back-Office
+[2]: https://github.com/InseeFr/Pogues-Model
 
-## Expanding the ESLint configuration
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=inseefr_pogues-next&metric=alert_status)](https://sonarcloud.io/dashboard?id=inseefr_pogues-next)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=inseefr_pogues-next&metric=security_rating)](https://sonarcloud.io/dashboard?id=inseefr_pogues-next)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=inseefr_pogues-next&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=inseefr_pogues-next)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=inseefr_pogues-next&metric=coverage)](https://sonarcloud.io/dashboard?id=inseefr_pogues-next)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Introduction
 
-- Configure the top-level `parserOptions` property like this:
+Pogues is a tool that allow to design questionnaires with components that are structural (sequences, questions...) and dynamic (filters, controls, loops...).
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+This is the repository of the front-end part of Pogues.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+For more information on how to use the application, a [user documentation](https://inseefr.github.io/Bowie/1._Pogues/) is available (French only).
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+## Local installation
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-});
+```bash
+pnpm i
+pnpm dev
 ```
