@@ -4,31 +4,40 @@ export const defaultState = {
   id: '',
   label: '',
   name: '',
+  scope: '',
 };
 
 export function formToState(form) {
-  const { id, label, name } = form;
+  const { id, label, name, scope } = form;
+
   return {
     id,
     name,
     label,
+    scope,
   };
 }
 
-export function stateComponentToForm({ id = '', name = '', label = '' }) {
-  console.log('stateComponentToForm - VARIABLE', id, label);
+export function stateComponentToForm({
+  id = '',
+  name = '',
+  label = '',
+  scope = '',
+}) {
   return {
     id,
     name,
     label,
+    scope,
   };
 }
 
-export const Factory = (currentState) => {
+export const Factory = (codesListsStore, currentState) => {
   return createListFactory(
     defaultState,
     formToState,
     stateComponentToForm,
+    codesListsStore,
     currentState,
   );
 };

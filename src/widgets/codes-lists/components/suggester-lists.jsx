@@ -26,6 +26,8 @@ export function SuggesterLists({
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
+  console.log('currentIdState in SuggesterLists', currentIdState);
+
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 
@@ -39,7 +41,6 @@ export function SuggesterLists({
       change(formName, `${path}label`, '');
       setCurrentIdState(currentId);
     }
-
     if (
       currentIdState !== currentId &&
       currentId !== '' &&
@@ -78,8 +79,9 @@ export function SuggesterLists({
       currentId !== '' &&
       !codesListsStore[currentId] &&
       !nomenclatures[currentId].codes
-    )
+    ) {
       loadNomenclature(token, currentId, nomenclatures);
+    }
   }, [
     currentId,
     change,

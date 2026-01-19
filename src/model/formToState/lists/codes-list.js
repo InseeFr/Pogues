@@ -20,6 +20,7 @@ export const defaultForm = {
 
 export function formToState(form) {
   const { id = '', label = '', codes = [] } = form;
+  console.log('CodeList factory');
   let codesStore = {};
   if (Array.isArray(codes)) {
     for (const code of codes) {
@@ -36,7 +37,7 @@ export function formToState(form) {
 }
 
 export function stateComponentToForm({ id = '', label = '', codes = {} }) {
-  console.log('stateComponentToForm - CODE_LIST', id, label);
+  //console.log('stateComponentToForm - CODE_LIST', id, label);
   return merge(cloneDeep(defaultForm), {
     id,
     label,

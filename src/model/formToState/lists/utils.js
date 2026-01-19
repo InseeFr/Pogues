@@ -14,7 +14,6 @@ export function createListFactory(
       cloneDeep(defaultState),
       codesListsStore[currentState.id],
     );
-    console.log('merging with codesListsStore new currentState', currentState);
   } else {
     currentState = cloneDeep(defaultState);
   }
@@ -33,10 +32,11 @@ export function createListFactory(
       return currentState;
     },
     stateComponentToForm: () => {
-      console.log('stateComponentToForm list-utils', currentState);
+      //console.log('stateComponentToForm list-utils', currentState);
       return stateComponentToForm(currentState);
     },
     getStore: () => {
+      console.log('getStore list-utils', currentState);
       return {
         [currentState.id]: currentState,
       };

@@ -188,10 +188,6 @@ const Factory = (initialState = {}, codesListsStore) => {
       return currentState;
     },
     stateToForm: () => {
-      console.log(
-        'response-format Factory stateToForm - currentState',
-        currentState,
-      );
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {
@@ -208,7 +204,7 @@ const Factory = (initialState = {}, codesListsStore) => {
       } else {
         codesLists = {};
       }
-
+      console.log('getCodesListStore response-format Factory', codesLists);
       return codesLists;
     },
     getNormalizedValues: (form) => {

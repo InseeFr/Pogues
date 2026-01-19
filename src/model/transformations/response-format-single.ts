@@ -135,9 +135,6 @@ export function stateToRemote(
   } else if (DEFAULT_CODES_LIST_SELECTOR_PATH in state) {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
-
-  console.log('stateToRemote', type);
-
   return {
     Response: [
       responseStateToRemote({

@@ -59,10 +59,6 @@ export function formToState(form, transformers) {
 
 export function stateToForm(currentState, transformers) {
   const { id, allowArbitraryResponse, visHint, mandatory, type } = currentState;
-  console.log(
-    'stateToForm - response-format-single function in factory',
-    currentState,
-  );
   return {
     id,
     allowArbitraryResponse,
@@ -80,7 +76,6 @@ export function stateToForm(currentState, transformers) {
 
 export const Factory = (initialState = {}, codesListsStore) => {
   let currentState = merge(cloneDeep(defaultState), initialState);
-  console.log('codeListsStore', codesListsStore);
   const transformers = {
     codesList: CodesListFactory(
       codesListsStore,
@@ -91,6 +86,7 @@ export const Factory = (initialState = {}, codesListsStore) => {
       cloneDeep(currentState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]),
     ),
     variable: VariableFactory(
+      codesListsStore,
       cloneDeep(currentState[DEFAULT_VARIABLE_SELECTOR_PATH]),
     ),
   };
@@ -108,8 +104,11 @@ export const Factory = (initialState = {}, codesListsStore) => {
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {
+      console.log('current state in response format single', currentState);
       if (currentState.type === CHOICE_TYPE.SUGGESTER)
         return transformers.nomenclature.getStore();
+      else if (currentState.type === CHOICE_TYPE.VARIABLE)
+        return transformers.variable.getStore();
       return transformers.codesList.getStore();
     },
     getNormalizedValues: (form) => {

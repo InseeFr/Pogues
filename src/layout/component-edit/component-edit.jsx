@@ -61,13 +61,15 @@ function validateAndSubmit(
       validateSequence(values);
     }
 
-    console.log('validateAndSubmit - values', values);
-
     const updatedComponentsStore = transformer.formToStore(
       values,
       component.id,
     );
     const updatedCodesListsStore = transformer.getCodesListStore();
+    console.log(
+      'Updated codesListsStore in ComponentEdit',
+      updatedCodesListsStore,
+    );
     const updatedCalculatedVariablesStore =
       transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore =

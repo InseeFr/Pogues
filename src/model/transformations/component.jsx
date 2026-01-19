@@ -1,6 +1,6 @@
 import {
+  CHOICE_TYPE,
   COMPONENT_TYPE,
-  DATATYPE_VIS_HINT,
   QUESTIONNAIRE_TYPE,
   QUESTION_TYPE_ENUM,
   QUESTION_TYPE_NAME,
@@ -450,7 +450,10 @@ function getClarificationresponseSingleChoiseQuestion(
   });
   collectedvariablequestion.forEach((collected) => {
     // for suggester there is no codeList, so there is no clarification
-    if (responseFormat.SINGLE_CHOICE.visHint === DATATYPE_VIS_HINT.SUGGESTER)
+    if (
+      responseFormat.SINGLE_CHOICE.type === CHOICE_TYPE.SUGGESTER ||
+      responseFormat.SINGLE_CHOICE.type === CHOICE_TYPE.VARIABLE
+    )
       return;
     const code = codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].urn
       ? false

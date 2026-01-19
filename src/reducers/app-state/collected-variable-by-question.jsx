@@ -19,8 +19,6 @@ export function updateActiveCollectedVariables(
   state,
   { update: { activeCollectedVariablesById } },
 ) {
-  console.log('sdvlkhdvkbjla;activeCollectedVariablesById', activeCollectedVariablesById);
-  console.log('guydsfiohaj;pstate', state);
   return {
     ...state,
     ...activeCollectedVariablesById,

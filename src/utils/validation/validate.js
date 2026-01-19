@@ -45,6 +45,7 @@ const { DATE, DURATION } = DATATYPE_NAME;
 const { RESPONSE_FORMAT } = TABS_PATHS;
 
 export function validateQuestionForm(values, setErrors, codesListsStore) {
+  console.log('codesListsStore in validateQuestionForm', codesListsStore);
   let errors;
 
   const dateFormat = get(values, `${RESPONSE_FORMAT}.${SIMPLE}.${DATE}.format`);

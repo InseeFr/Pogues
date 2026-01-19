@@ -48,10 +48,6 @@ const mapStateToProps = (
     `${path}suggesterParameters`,
   );
 
-  console.log('currentId in SuggesterListsContainer', currentId);
-  console.log('currentLabel in SuggesterListsContainer', currentLabel);
-  console.log('currentName in SuggesterListsContainer', currentName);
-
   const currentCodesListsStore =
     currentLabel !== ''
       ? {
