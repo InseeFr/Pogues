@@ -48,6 +48,10 @@ const mapStateToProps = (
     `${path}suggesterParameters`,
   );
 
+  console.log('currentId in SuggesterListsContainer', currentId);
+  console.log('currentLabel in SuggesterListsContainer', currentLabel);
+  console.log('currentName in SuggesterListsContainer', currentName);
+
   const currentCodesListsStore =
     currentLabel !== ''
       ? {
@@ -61,7 +65,10 @@ const mapStateToProps = (
           },
         }
       : codesListsStore;
-
+  console.log(
+    'currentCodesListsStore in SuggesterListsContainer',
+    currentCodesListsStore,
+  );
   return {
     nomenclatures: state.metadataByType.nomenclatures,
     path,

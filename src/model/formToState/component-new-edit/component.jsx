@@ -205,6 +205,11 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     ...initialState,
     id: initialState.id || uuid(),
   };
+  //TODO: create global variable store
+
+  console.log('collectedVariablesStore in Factory', collectedVariablesStore);
+  console.log('externalVariablesStore in Factory', externalVariablesStore);
+  console.log('codeListsStore in Factory', codesListsStore);
   const transformers = {
     control: Control(currentState.controls),
     declaration: Declaration(currentState.declarations, activeQuestionnaire),

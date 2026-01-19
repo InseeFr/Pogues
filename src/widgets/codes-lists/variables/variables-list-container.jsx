@@ -8,7 +8,7 @@ import {
   DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
-import {findQuestionInLoop} from '../../component-new-edit/components/variables/utils-loops';
+import { findQuestionInLoop } from '../../component-new-edit/components/variables/utils-loops';
 import Variables from './variables-list';
 
 // PropTypes and defaultProps
@@ -46,7 +46,13 @@ export const mapStateToProps = (
     };
   }
 
-  const loopChildren = findQuestionInLoop(state.appState.activeComponentsById)[scope] || [];
+  const loopChildren =
+    findQuestionInLoop(state.appState.activeComponentsById)[scope] || [];
+
+  console.log(
+    'VariablesListContainer - mapStateToProps - loopChildren',
+    loopChildren,
+  );
 
   const loopVariablesStore = loopChildren.reduce((acc, question) => {
     acc[question.id] = {
@@ -58,13 +64,19 @@ export const mapStateToProps = (
     return acc;
   }, {});
 
-
   const calculatedAndExternalVariables = {
     ...state.appState.activeExternalVariablesById,
     ...state.appState.activeCalculatedVariablesById,
   };
 
-  const calculatedAndExternalInLoop = Object.values(calculatedAndExternalVariables)
+  console.log(
+    'VariablesListContainer - mapStateToProps - calculatedAndExternalVariables',
+    calculatedAndExternalVariables,
+  );
+
+  const calculatedAndExternalInLoop = Object.values(
+    calculatedAndExternalVariables,
+  )
     .filter((variable) => variable.scope === scope)
     .reduce((acc, variable) => {
       acc[variable.id] = variable;
@@ -80,7 +92,7 @@ export const mapStateToProps = (
     path,
     currentId,
     variablesStore,
-    scope
+    scope,
   };
 };
 

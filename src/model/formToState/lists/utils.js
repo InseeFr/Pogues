@@ -8,11 +8,13 @@ export function createListFactory(
   codesListsStore,
   currentState = {},
 ) {
+  //TODO : add variable store management
   if (codesListsStore && currentState.id) {
     currentState = merge(
       cloneDeep(defaultState),
       codesListsStore[currentState.id],
     );
+    console.log('merging with codesListsStore new currentState', currentState);
   } else {
     currentState = cloneDeep(defaultState);
   }

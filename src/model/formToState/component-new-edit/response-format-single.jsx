@@ -52,19 +52,23 @@ export function formToState(form, transformers) {
       transformers.codesList.formToStateComponent(codesListForm),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.formToStateComponent(nomenclatureForm),
-    // TODO: create this
     [DEFAULT_VARIABLE_SELECTOR_PATH]:
       transformers.variable.formToStateComponent(variableForm),
   };
 }
 
 export function stateToForm(currentState, transformers) {
-  const { id, allowArbitraryResponse, visHint, mandatory } = currentState;
+  const { id, allowArbitraryResponse, visHint, mandatory, type } = currentState;
+  console.log(
+    'stateToForm - response-format-single function in factory',
+    currentState,
+  );
   return {
     id,
     allowArbitraryResponse,
     mandatory,
     visHint,
+    type,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.stateComponentToForm(),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
@@ -98,7 +102,7 @@ export const Factory = (initialState = {}, codesListsStore) => {
     },
     stateToForm: () => {
       console.log(
-        'response-format-single stateToForm - currentState OKKKKKKK',
+        'response-format-single stateToForm - THIS IS OK ',
         currentState,
       );
       return stateToForm(currentState, transformers);
