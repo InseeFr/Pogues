@@ -20,7 +20,6 @@ export const defaultForm = {
 
 export function formToState(form) {
   const { id = '', label = '', codes = [] } = form;
-  console.log('CodeList factory');
   let codesStore = {};
   if (Array.isArray(codes)) {
     for (const code of codes) {

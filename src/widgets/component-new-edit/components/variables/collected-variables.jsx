@@ -53,8 +53,6 @@ function CollectedVariables({
       codesListsStore,
       collectedVariablesIds,
     );
-    console.log('newVariables', newVariables);
-
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
 
     newVariables.forEach((cv) => {

@@ -61,10 +61,6 @@ const mapStateToProps = (
           },
         }
       : codesListsStore;
-  console.log(
-    'currentCodesListsStore in SuggesterListsContainer',
-    currentCodesListsStore,
-  );
   return {
     nomenclatures: state.metadataByType.nomenclatures,
     path,

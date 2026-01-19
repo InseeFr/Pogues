@@ -38,13 +38,15 @@ export function stateToRemote(
     codesListId,
     nomenclatureId,
     variableReferenceId,
-    type,
+    choiceType,
     allowArbitraryResponse,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
     conditionFilter,
     conditionReadOnly,
   } = state;
+
+  console.log('stateToRemote choiceType', choiceType);
 
   const find = response
     ? response.find(
@@ -62,15 +64,16 @@ export function stateToRemote(
   };
 
   // For suggester we store the nomenclature as source reference. Else we store the codeList
-  model.sourceReference =
-    type === CHOICE_TYPE.SUGGESTER
+  model.CodeListReference =
+    choiceType === CHOICE_TYPE.SUGGESTER
       ? nomenclatureId
-      : type === CHOICE_TYPE.CODE_LIST
+      : choiceType === CHOICE_TYPE.CODE_LIST
         ? codesListId
-        : variableReferenceId;
+        : undefined;
 
-  model.variableReference = variableReferenceId;
-  model.choiceType = type as CHOICE_TYPE;
+  model.variableReference =
+    choiceType === CHOICE_TYPE.VARIABLE ? variableReferenceId : undefined;
+  model.choiceType = choiceType;
 
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;
@@ -101,7 +104,5 @@ export function stateToRemote(
   if (conditionFilter !== undefined) model.conditionFilter = conditionFilter;
   if (conditionReadOnly !== undefined)
     model.conditionReadOnly = conditionReadOnly;
-
-  console.log('stateToremoteModel', model);
   return model;
 }

@@ -113,7 +113,6 @@ export function formToState(form, transformers) {
       res.responseFormat[res.responseFormat.type].CodesList,
     );
   }
-  console.log('FormToState - final', res);
   return res;
 }
 
@@ -185,7 +184,6 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     form.externalVariables = transformers.externalVariable.storeToForm();
     form.collectedVariables = transformers.collectedVariable.storeToForm();
   }
-  console.log('stateToForm - final', form);
   return form;
 }
 
@@ -203,7 +201,6 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     ...initialState,
     id: initialState.id || uuid(),
   };
-  //TODO: create global variable store ?
 
   const transformers = {
     control: Control(currentState.controls),

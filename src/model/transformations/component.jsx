@@ -451,19 +451,17 @@ function getClarificationresponseSingleChoiseQuestion(
   collectedvariablequestion.forEach((collected) => {
     // for suggester there is no codeList, so there is no clarification
     if (
-      responseFormat.SINGLE_CHOICE.type === CHOICE_TYPE.SUGGESTER ||
-      responseFormat.SINGLE_CHOICE.type === CHOICE_TYPE.VARIABLE
+      responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.SUGGESTER ||
+      responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.VARIABLE
     )
       return;
-    const code = codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].urn
-      ? false
-      : Object.values(
-          codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
-        ).find(
-          (code) =>
-            code.precisionByCollectedVariableId &&
-            code.precisionByCollectedVariableId[collected.id],
-        );
+    const code = Object.values(
+      codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
+    ).find(
+      (code) =>
+        code.precisionByCollectedVariableId &&
+        code.precisionByCollectedVariableId[collected.id],
+    );
     if (code) {
       const findResponse = responsesClarification
         ? responsesClarification.find(
@@ -659,7 +657,6 @@ function storeToRemoteNested(
     flowControl,
     codeFilters,
   } = state;
-
   if (type === LOOP || type === FILTER) return {};
 
   let remote = {

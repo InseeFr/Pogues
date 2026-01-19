@@ -12,8 +12,7 @@ import { stateToRemote as responseStateToRemote } from './response';
 
 type RemoteResponseFormatSingle = {
   id: string;
-  CodeListReference?: unknown; // To be deprecated (check if needed elswhere)
-  sourceReference?: unknown;
+  CodeListReference?: unknown;
   Datatype: {
     allowArbitraryResponse?: unknown;
     choiceType?:
@@ -29,7 +28,10 @@ export type StateResponseFormatSingle = {
   id: string;
   mandatory?: boolean;
   allowArbitraryResponse?: unknown;
-  type?: CHOICE_TYPE.CODE_LIST | CHOICE_TYPE.SUGGESTER | CHOICE_TYPE.VARIABLE;
+  choiceType?:
+    | CHOICE_TYPE.CODE_LIST
+    | CHOICE_TYPE.SUGGESTER
+    | CHOICE_TYPE.VARIABLE;
 } & (
   | {
       visHint: DATATYPE_VIS_HINT.SUGGESTER;
@@ -63,7 +65,7 @@ export function remoteToState(remote: {
           choiceType,
         },
         mandatory,
-        sourceReference,
+        CodeListReference,
         id,
       },
     ],
@@ -73,7 +75,7 @@ export function remoteToState(remote: {
     id,
     mandatory,
     allowArbitraryResponse,
-    type: choiceType,
+    choiceType,
   };
 
   // for suggester we handle a nomenclature, else a code list
@@ -81,7 +83,7 @@ export function remoteToState(remote: {
     return {
       ...baseState,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
-        codeListRemoteToState(sourceReference),
+        codeListRemoteToState(CodeListReference),
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
     };
   }
@@ -91,7 +93,7 @@ export function remoteToState(remote: {
   ) {
     return {
       ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: sourceReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: CodeListReference as string },
       visHint,
     };
   }
@@ -103,14 +105,15 @@ export function remoteToState(remote: {
     return {
       ...baseState,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]:
-        codeListRemoteToState(sourceReference),
+        codeListRemoteToState(CodeListReference),
       visHint,
     };
   }
   // fallback
   return {
     ...baseState,
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]: codeListRemoteToState(sourceReference),
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      codeListRemoteToState(CodeListReference),
     visHint: visHint === DATATYPE_VIS_HINT.SUGGESTER ? undefined : visHint,
   };
 }
@@ -119,14 +122,20 @@ export function stateToRemote(
   state: StateResponseFormatSingle,
   collectedVariables: string[],
 ): { Response: RemoteResponseFormatSingle } {
-  const { allowArbitraryResponse, visHint, mandatory, id, type } = state;
+  const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
+
+  console.log(
+    'stateToRemote response-format-single',
+    state,
+    collectedVariables,
+  );
 
   let nomenclatureId;
   let codesListId;
   let variableReferenceId;
 
   if (
-    type === CHOICE_TYPE.SUGGESTER &&
+    choiceType === CHOICE_TYPE.SUGGESTER &&
     DEFAULT_NOMENCLATURE_SELECTOR_PATH in state
   ) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
@@ -142,7 +151,7 @@ export function stateToRemote(
         mandatory,
         allowArbitraryResponse,
         visHint,
-        choiceType: type,
+        choiceType,
         codesListId,
         nomenclatureId,
         variableReferenceId,

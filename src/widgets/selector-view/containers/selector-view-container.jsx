@@ -15,6 +15,7 @@ const propTypes = {
   emptyOption: PropTypes.string,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
+  fieldName: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -24,13 +25,14 @@ export const defaultProps = {
   emptyOption: undefined,
   readOnly: false,
   required: true,
+  fieldName: 'type',
 };
 
 // Container
 
-const mapStateToProps = (state, { selectorPath, formName }) => {
+const mapStateToProps = (state, { selectorPath, formName, fieldName }) => {
   const selector = formValueSelector(formName);
-  const path = `${getCurrentSelectorPath(selectorPath)}type`;
+  const path = `${getCurrentSelectorPath(selectorPath)}${fieldName}`;
   return {
     activeViewValue: selector(state, path),
   };

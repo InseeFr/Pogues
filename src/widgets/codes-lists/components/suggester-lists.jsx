@@ -26,8 +26,6 @@ export function SuggesterLists({
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
-  console.log('currentIdState in SuggesterLists', currentIdState);
-
   const oidc = useOidc();
   const token = oidc.oidcTokens.accessToken;
 

@@ -1,16 +1,16 @@
 import get from 'lodash.get';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
-  DEFAULT_VARIABLE_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
   TABS_PATHS,
-  CHOICE_TYPE
 } from '@/constants/pogues-constants';
 
 import {
@@ -54,9 +54,11 @@ export const questionRules = {
       ) => {
         const choiceType = get(
           form,
-          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.type`,
+          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.choiceType`,
         );
-        return choiceType === CHOICE_TYPE.SUGGESTER ? required(value) : undefined;
+        return choiceType === CHOICE_TYPE.SUGGESTER
+          ? required(value)
+          : undefined;
       },
     ],
 
@@ -69,9 +71,11 @@ export const questionRules = {
       ) => {
         const choiceType = get(
           form,
-          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.type`,
+          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.choiceType`,
         );
-        return choiceType === CHOICE_TYPE.CODE_LIST ? required(value) : undefined;
+        return choiceType === CHOICE_TYPE.CODE_LIST
+          ? required(value)
+          : undefined;
       },
     ],
 
@@ -83,9 +87,11 @@ export const questionRules = {
       ) => {
         const choiceType = get(
           form,
-          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.type`,
+          `${RESPONSE_FORMAT}.${SINGLE_CHOICE}.choiceType`,
         );
-        return choiceType === CHOICE_TYPE.VARIABLE ? required(value) : undefined;
+        return choiceType === CHOICE_TYPE.VARIABLE
+          ? required(value)
+          : undefined;
       },
     ],
 

@@ -37,6 +37,7 @@ function ResponseFormatSingle({
   return (
     <FormSection name={selectorPath} className="response-format__single">
       <SelectorView
+        fieldName="choiceType"
         label={Dictionary.responseType}
         selectorPath={selectorPathComposed}
         radio

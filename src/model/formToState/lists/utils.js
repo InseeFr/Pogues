@@ -32,11 +32,9 @@ export function createListFactory(
       return currentState;
     },
     stateComponentToForm: () => {
-      //console.log('stateComponentToForm list-utils', currentState);
       return stateComponentToForm(currentState);
     },
     getStore: () => {
-      console.log('getStore list-utils', currentState);
       return {
         [currentState.id]: currentState,
       };

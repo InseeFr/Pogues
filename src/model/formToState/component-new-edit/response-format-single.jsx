@@ -18,14 +18,14 @@ const { CODE_LIST } = CHOICE_TYPE;
 export const defaultState = {
   allowArbitraryResponse: false,
   mandatory: false,
-  type: CODE_LIST,
+  choiceType: CODE_LIST,
   visHint: RADIO,
 };
 
 export const defaultForm = {
   allowArbitraryResponse: false,
   mandatory: false,
-  type: CODE_LIST,
+  choiceType: CODE_LIST,
   visHint: RADIO,
 };
 
@@ -34,7 +34,7 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     mandatory,
-    type,
+    choiceType,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
@@ -45,9 +45,9 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     // for suggester we do not handle mandatory question
-    mandatory: type !== SUGGESTER ? mandatory : false,
-    type,
-    visHint,
+    mandatory: choiceType !== SUGGESTER ? mandatory : false,
+    choiceType,
+    visHint: choiceType !== SUGGESTER ? visHint : SUGGESTER,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
@@ -58,13 +58,14 @@ export function formToState(form, transformers) {
 }
 
 export function stateToForm(currentState, transformers) {
-  const { id, allowArbitraryResponse, visHint, mandatory, type } = currentState;
+  const { id, allowArbitraryResponse, visHint, mandatory, choiceType } =
+    currentState;
   return {
     id,
     allowArbitraryResponse,
     mandatory,
     visHint,
-    type,
+    choiceType,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.stateComponentToForm(),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
@@ -97,17 +98,12 @@ export const Factory = (initialState = {}, codesListsStore) => {
       return state;
     },
     stateToForm: () => {
-      console.log(
-        'response-format-single stateToForm - THIS IS OK ',
-        currentState,
-      );
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {
-      console.log('current state in response format single', currentState);
-      if (currentState.type === CHOICE_TYPE.SUGGESTER)
+      if (currentState.choiceType === CHOICE_TYPE.SUGGESTER)
         return transformers.nomenclature.getStore();
-      else if (currentState.type === CHOICE_TYPE.VARIABLE)
+      else if (currentState.choiceType === CHOICE_TYPE.VARIABLE)
         return transformers.variable.getStore();
       return transformers.codesList.getStore();
     },

@@ -41,6 +41,11 @@ export const mapStateToProps = (
   const { isSearchDisable } = state;
   let currentCodesListsStore;
 
+  console.log('codeList store', codesListsStore);
+
+  //TODO: Check pourquoi la variable du store contient un attribut code vide (state.codeListByQuestionnaire)
+  // et apparait donc dans les options possibles
+
   if (codesListsStore[currentId]) {
     currentCodesListsStore = {
       ...codesListsStore,

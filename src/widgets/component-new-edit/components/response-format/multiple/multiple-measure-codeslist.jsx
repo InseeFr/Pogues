@@ -19,9 +19,7 @@ function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
-  
-  console.log('selectorPath', selectorPath);
-  console.log('selectorPathComposed', selectorPathComposed);
+
   return (
     <FormSection name={selectorPath}>
       <CodesLists selectorPathParent={selectorPathComposed} />

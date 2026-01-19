@@ -94,10 +94,6 @@ export const mapStateToProps = (
         }
       : codesListsStore;
 
-  console.log(
-    'currentCodesListsStore in VariablesListContainer',
-    currentCodesListsStore,
-  );
   return {
     path,
     currentId,

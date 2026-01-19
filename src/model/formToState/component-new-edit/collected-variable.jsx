@@ -15,6 +15,7 @@ export const defaultState = {
   codeListReferenceLabel: '',
   variableReference: '',
   variableReferenceLabel: '',
+  choiceType: '',
   isCollected: '1',
   alternativeLabel: '',
 };
@@ -32,6 +33,7 @@ export const defaultForm = {
   codeListReferenceLabel: '',
   variableReference: '',
   variableReferenceLabel: '',
+  choiceType: '',
   isCollected: '1',
   alternativeLabel: '',
 };
@@ -56,6 +58,7 @@ export function formToState(form) {
     codeListReferenceLabel,
     variableReference,
     variableReferenceLabel,
+    choiceType,
     isCollected,
     alternativeLabel,
   } = form;
@@ -77,6 +80,7 @@ export function formToState(form) {
     codeListReferenceLabel,
     variableReference,
     variableReferenceLabel,
+    choiceType,
   };
 }
 
@@ -112,6 +116,7 @@ export function storeToForm(currentStore) {
         codeListReferenceLabel,
         variableReference,
         variableReferenceLabel,
+        choiceType,
       } = currentStore[key];
       return {
         id,
@@ -129,6 +134,7 @@ export function storeToForm(currentStore) {
         codeListReferenceLabel,
         variableReference,
         variableReferenceLabel,
+        choiceType,
       };
     });
   const mergedForm = {

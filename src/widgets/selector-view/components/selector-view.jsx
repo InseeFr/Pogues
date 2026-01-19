@@ -36,12 +36,13 @@ const propTypes = {
 export const defaultProps = {
   children: [],
   emptyOption: undefined,
+  fieldName: 'type',
 };
 
 // Component
 
 function SelectorView({
-  fieldName = "type",
+  fieldName,
   activeViewValue,
   label,
   emptyOption,
@@ -67,7 +68,6 @@ function SelectorView({
       </GenericOption>,
     );
   }
-
   return (
     <div>
       {radio ? (
@@ -81,7 +81,7 @@ function SelectorView({
           {options}
         </Field>
       ) : (
-          <Field
+        <Field
           name={fieldName}
           component={Select}
           label={label}

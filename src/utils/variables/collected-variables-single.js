@@ -26,28 +26,29 @@ export function getCollectedVariablesSingle(
     undefined,
     {
       codeListReference:
-        form.type === CHOICE_TYPE.SUGGESTER
+        form.choiceType === CHOICE_TYPE.SUGGESTER
           ? form.Nomenclature.id
           : form.CodesList.id,
       codeListReferenceLabel:
-        form.type === CHOICE_TYPE.SUGGESTER
+        form.choiceType === CHOICE_TYPE.SUGGESTER
           ? form.Nomenclature.label
           : form.CodesList.label,
       variableReference:
-        form.type === CHOICE_TYPE.VARIABLE
+        form.choiceType === CHOICE_TYPE.VARIABLE
           ? form.Variable.id
           : form.CodesList.id,
       variableReferenceLabel:
-        form.type === CHOICE_TYPE.VARIABLE
+        form.choiceType === CHOICE_TYPE.VARIABLE
           ? form.Variable.name
           : form.CodesList.id,
       type: TEXT,
+      choiceType: form.choiceType,
       [TEXT]: { maxLength: 1 },
     },
   );
 
   // Nomenclatures may allow an arbitrary response
-  if (form.type === CHOICE_TYPE.SUGGESTER) {
+  if (form.choiceType === CHOICE_TYPE.SUGGESTER) {
     if (form.allowArbitraryResponse) {
       const arbitraryResponseVariable = computeSuggesterArbitraryVariable(
         questionName,
