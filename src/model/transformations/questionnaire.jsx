@@ -258,6 +258,7 @@ export function stateToRemote(state, stores) {
   questionEnd.TargetMode = TargetMode;
   componentsRemote.push(QUESTION_END_CHILD);
   const codesListsRemote = CodesList.storeToRemote(codesListsStore);
+  console.log('stateToRemote - codesListsRemote', codesListsRemote);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
   );

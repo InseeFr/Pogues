@@ -11,12 +11,13 @@ import {
   DEFAULT_FORM_NAME,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
-import Select from '../../../../../forms/controls/select';
+import Select from '@/forms/controls/select';
+import ListRadios from '@/forms/controls/list-radios';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { VariablesList } from '../../../../codes-lists/variables';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import { getQuestionnaireScope } from '../../variables/utils-loops';
-import ListRadios from '@/forms/controls/list-radios';
+
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
@@ -62,13 +63,14 @@ function ResponseFormatSimpleVariable({
           component={ListRadios}
           label={Dictionary.visHint}
           required
-        >
+      >
+        <GenericOption key={RADIO} value={RADIO}>
+            {Dictionary.radio}
+          </GenericOption>
           <GenericOption key={CHECKBOX} value={CHECKBOX}>
             {Dictionary.checkbox}
           </GenericOption>
-          <GenericOption key={RADIO} value={RADIO}>
-            {Dictionary.radio}
-          </GenericOption>
+          
           <GenericOption key={DROPDOWN} value={DROPDOWN}>
             {Dictionary.dropdown}
           </GenericOption>

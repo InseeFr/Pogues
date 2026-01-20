@@ -27,6 +27,8 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 
 // HELPERS
 
+// TODO: handle table with variable reference ? (or at least check if we didn't break anything)
+
 function getDimensionsByType(type, dimensions) {
   let dimension;
 

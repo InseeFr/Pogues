@@ -16,6 +16,7 @@ function sortByWeight(codes) {
 }
 
 export function remoteToCodesState(codes, parent = '', depth = 1) {
+  console.log('remoteToCodeState code', codes)
   const res = codes
     .filter(
       (c) => c.Parent === parent || (parent === '' && c.Parent === undefined),
@@ -104,32 +105,27 @@ export function remoteToStore(remoteCodesLists, clarificationVariables = []) {
     remoteCodesLists,
     clarificationVariables,
   );
-  const res = {};
-  for (const codesList of remoteCodesListsWithClarification) {
-    const {
-      id,
-      Label: label,
-      Code: codes,
-      Name: name,
-      Urn: urn,
-      SuggesterParameters: suggesterParameters,
-    } = codesList;
-    res[id] = urn
-      ? {
-          id,
-          label,
-          name,
-          urn,
-          suggesterParameters,
-        }
-      : {
-          id,
-          label,
-          codes: remoteToCodesState(codes),
-          name: name || '',
-        };
-  }
-  return res;
+  console.log('remoteToStore - remoteCodesListsWithClarification', remoteCodesListsWithClarification);
+  // TODO: find out why the scope is not retrieved from the API (model?)
+  return remoteCodesListsWithClarification.reduce((acc, codesList) => {
+    const { id, Label: label, Code: codes, Name: name, Urn: urn, SuggesterParameters: suggesterParameters, Scope: scope } = codesList;
+
+    let codesListObject;
+
+    if (urn) {
+      // Nomenclature 
+      codesListObject = { id, label, name, urn, suggesterParameters };
+    } else if (codes) {
+        // Codes list
+      codesListObject = { id, label, name: name || '', codes: remoteToCodesState(codes) };
+    } else {
+      // Variable 
+      codesListObject = { id, label, name, scope };
+    }
+
+    acc[id] = codesListObject;
+    return acc;
+  }, {});
 }
 
 export function remoteToState(remote) {
@@ -156,37 +152,42 @@ function getCodesListSortedByDepthAndWeight(codes, depth = 1, parent = '') {
     );
 }
 
-export function storeToRemote(store) {
-  return Object.keys(store).reduce((acc, key) => {
-    const {
+function buildRemoteCodesList(codesList) {
+  const { id, label, name = '', codes = [], urn = '', suggesterParameters = {}, scope = '' } = codesList;
+
+  if (!urn && !scope) {
+    return {
       id,
-      label,
-      name = '',
-      codes = [],
-      urn = '',
-      suggesterParameters = {},
-    } = store[key];
-    const code =
-      urn === ''
-        ? {
-            id,
-            Label: label,
-            Code: getCodesListSortedByDepthAndWeight(codes).map((keyCode) => {
-              const { label: labelCode, value, parent } = codes[keyCode];
-              return {
-                Label: labelCode,
-                Value: value,
-                Parent: parent || '',
-              };
-            }),
-          }
-        : {
-            id,
-            Urn: urn,
-            Name: name,
-            Label: label,
-            SuggesterParameters: suggesterParameters,
-          };
-    return [...acc, code];
-  }, []);
+      Label: label,
+      Code: getCodesListSortedByDepthAndWeight(codes).map((keyCode) => {
+        const { label: labelCode, value, parent } = codes[keyCode];
+        return {
+          Label: labelCode,
+          Value: value,
+          Parent: parent || '',
+        };
+      }),
+    };
+  }
+
+  if (scope) {
+    return {
+      id,
+      Label: label,
+      Name: name,
+      Scope: scope,
+    };
+  }
+
+  return {
+    id,
+    Urn: urn,
+    Name: name,
+    Label: label,
+    SuggesterParameters: suggesterParameters,
+  };
+}
+
+export function storeToRemote(store) {
+  return Object.values(store).map(buildRemoteCodesList);
 }

@@ -19,11 +19,9 @@ export function remoteToStore(
   remote = [],
   responsesByVariable,
   codesListsStore,
-  variablesStore,
   variableclarification,
   arbitraryVariables,
 ) {
-  console.log('remoteToStore', remote);
   remote.forEach((variable) => {
     if (variableclarification) {
       const find = variableclarification.find(
@@ -169,8 +167,6 @@ export function storeToRemote(store, componentsStore) {
       },
     } = store[key];
 
-    console.log('storeToRemote - processing variable', store[key]);
-
     const model = {
       id,
       Name,
@@ -259,8 +255,6 @@ export function storeToRemote(store, componentsStore) {
         model.Datatype.Format = Format;
       }
     }
-
-    console.log('storeToRemoteModel', model);
     return model;
   });
 }

@@ -8,7 +8,6 @@ export function createListFactory(
   codesListsStore,
   currentState = {},
 ) {
-  //TODO : add variable store management
   if (codesListsStore && currentState.id) {
     currentState = merge(
       cloneDeep(defaultState),

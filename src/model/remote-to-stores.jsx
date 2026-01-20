@@ -53,6 +53,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     codesLists,
     variableclarification,
   );
+  console.log('codesListsStore from remoteToStore', codesListsStore);
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
   const collectedVariableByQuestionnaire = {

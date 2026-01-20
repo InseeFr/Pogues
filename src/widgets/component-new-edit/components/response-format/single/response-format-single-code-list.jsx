@@ -2,10 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-
+import ListRadios from '@/forms/controls/list-radios';
 import { DATATYPE_VIS_HINT } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
-import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { CodesLists } from '../../../../codes-lists';
 
@@ -30,16 +29,16 @@ function ResponseFormatSimpleCodeslist({
       />
       <Field
         name="visHint"
-        component={Select}
+        component={ListRadios}
         label={Dictionary.visHint}
         required
-      >
+      ><GenericOption key={RADIO} value={RADIO}>
+          {Dictionary.radio}
+        </GenericOption>
         <GenericOption key={CHECKBOX} value={CHECKBOX}>
           {Dictionary.checkbox}
         </GenericOption>
-        <GenericOption key={RADIO} value={RADIO}>
-          {Dictionary.radio}
-        </GenericOption>
+        
         <GenericOption key={DROPDOWN} value={DROPDOWN}>
           {Dictionary.dropdown}
         </GenericOption>

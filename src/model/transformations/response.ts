@@ -46,13 +46,11 @@ export function stateToRemote(
     conditionReadOnly,
   } = state;
 
-  console.log('stateToRemote choiceType', choiceType);
-
   const find = response
     ? response.find(
-        (element) =>
-          element.CollectedVariableReference === CollectedVariableReference,
-      )
+      (element) =>
+        element.CollectedVariableReference === CollectedVariableReference,
+    )
     : undefined;
 
   const model: RemoteResponse = {
