@@ -60,7 +60,7 @@ describe('Header', () => {
       expect.objectContaining({
         user: user,
       }),
-      expect.anything(),
+      undefined,
     );
   });
 });
