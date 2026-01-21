@@ -60,6 +60,8 @@ describe('Header', () => {
       expect.objectContaining({
         user: user,
       }),
+      // React 19 no longer accept legacy context ie. User({children}, context)
+      // so the second params is now always undefined
       undefined,
     );
   });
