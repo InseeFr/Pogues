@@ -17,9 +17,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: yarn
-      # Run tests sonar reports
-      - run: yarn test:coverage
+          cache: 'pnpm'
+        # Run tests sonar reports
+      - run: pnpm install && pnpm test:coverage
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
