@@ -16,11 +16,12 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          cache: 'pnpm'
-      - run: cd next && pnpm install && pnpm run build
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+      - run: cd next && pnpm install --frozen-lockfile && pnpm run build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues
