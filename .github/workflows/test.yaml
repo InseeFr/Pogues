@@ -26,6 +26,8 @@ jobs:
         # Run tests sonar reports
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          PNPM_ONLY_BUILT_DEPENDENCIES: gillespie59-react-rte
 
       - name: Run tests with coverage
         run: pnpm test:coverage

@@ -21,7 +21,10 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
-      - run: cd next && pnpm install --frozen-lockfile && pnpm run build
+      - run: pnpm install --frozen-lockfile
+        env:
+          PNPM_ONLY_BUILT_DEPENDENCIES: gillespie59-react-rte
+      - run: pnpm run build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues
