@@ -1,5 +1,5 @@
 export {
-  removeVtlFromMarkdown,
+  markdownVtlToHtml,
   markdownVtlToString,
 } from './utils/rich-textarea-utils';
 export {

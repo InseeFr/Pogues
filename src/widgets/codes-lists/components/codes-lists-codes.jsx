@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
-import { removeVtlFromMarkdown } from '../../../forms/controls/rich-textarea';
+import { markdownVtlToHtml } from '../../../forms/controls/rich-textarea';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import {
   fieldArrayFields,
@@ -201,7 +201,12 @@ function CodesListsCodes(props) {
           <td className="py-2">{code.depth}</td>
           <td className="py-2">{code.value}</td>
           {code.label && (
-            <td className="py-2">{removeVtlFromMarkdown(code.label)}</td>
+            <td
+              className="py-2"
+              dangerouslySetInnerHTML={{
+                __html: markdownVtlToHtml(code.label),
+              }}
+            />
           )}
           {/* Code Actions */}
           {allowPrecision ? (
