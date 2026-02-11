@@ -99,6 +99,7 @@ export function getReference(form: {
   codeListReference?: string;
   codeListReferenceLabel?: string;
 } {
+  console.log('getReference - form', form);
   switch (form.choiceType) {
     case CHOICE_TYPE.VARIABLE:
       return {

@@ -256,7 +256,6 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
       variableResponseMapping,
       variableResponseAttribute,
     );
-
     acc = {
       ...acc,
       ...getResponsesByVariable(responseFinal, coordinatesByResponse),
@@ -824,6 +823,8 @@ export function storeToRemote(
   codesListsStore,
   dynamiqueSpecified,
 ) {
+  console.log('storeToRemote - store', store);
+  console.log('storeToRemote collectedVariablesStore', collectedVariablesStore);
   return store[questionnaireId].children
     .sort(sortByWeight(store))
     .map((key) => {

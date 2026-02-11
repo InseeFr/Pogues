@@ -139,11 +139,23 @@ export function stateToRemote(
     DEFAULT_NOMENCLATURE_SELECTOR_PATH in state
   ) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
-  } else if (DEFAULT_VARIABLE_SELECTOR_PATH in state) {
+  } else if (
+    choiceType === CHOICE_TYPE.VARIABLE &&
+    DEFAULT_VARIABLE_SELECTOR_PATH in state
+  ) {
     variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
-  } else if (DEFAULT_CODES_LIST_SELECTOR_PATH in state) {
+  } else if (
+    choiceType === CHOICE_TYPE.CODE_LIST &&
+    DEFAULT_CODES_LIST_SELECTOR_PATH in state
+  ) {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
+  console.log(
+    'stateToRemote response-format-single - nomenclatureId, codesListId, variableReferenceId',
+    nomenclatureId,
+    codesListId,
+    variableReferenceId,
+  );
   return {
     Response: [
       responseStateToRemote({

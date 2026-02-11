@@ -206,6 +206,8 @@ export function storeToRemote(store, componentsStore) {
       model.Scope = dynamique;
     }
 
+    console.log('storeToRemote model', model, codeListReference);
+
     if (codeListReference !== '') {
       model.CodeListReference = codeListReference;
     }

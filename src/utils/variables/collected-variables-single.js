@@ -33,6 +33,7 @@ export function getCollectedVariablesSingle(
     },
   );
 
+  console.log('getCollectedVariablesSingle - mainVariable', mainVariable);
   // Nomenclatures may allow an arbitrary response
   if (form.choiceType === CHOICE_TYPE.SUGGESTER) {
     if (form.allowArbitraryResponse) {

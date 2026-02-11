@@ -258,7 +258,6 @@ export function stateToRemote(state, stores) {
   questionEnd.TargetMode = TargetMode;
   componentsRemote.push(QUESTION_END_CHILD);
   const codesListsRemote = CodesList.storeToRemote(codesListsStore);
-  console.log('stateToRemote - codesListsRemote', codesListsRemote);
   const calculatedVariablesRemote = CalculatedVariable.storeToRemote(
     calculatedVariablesStore,
   );
@@ -269,6 +268,7 @@ export function stateToRemote(state, stores) {
     collectedVariablesWithoutOrphans,
     componentsStore,
   );
+  console.log('collectedVariablesRemote', collectedVariablesRemote);
   const Iterations = Loop.stateToRemote(componentsStore);
   const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
   const json = {
