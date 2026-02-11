@@ -4,6 +4,7 @@ import {
   DATATYPE_VIS_HINT,
 } from '../../constants/pogues-constants';
 import { getCollectedVariable } from './collected-variables-utils';
+import { getReference } from './variables-utils';
 
 const { TEXT } = DATATYPE_NAME;
 
@@ -25,22 +26,7 @@ export function getCollectedVariablesSingle(
     `${questionName} label`,
     undefined,
     {
-      codeListReference:
-        form.choiceType === CHOICE_TYPE.SUGGESTER
-          ? form.Nomenclature.id
-          : form.CodesList.id,
-      codeListReferenceLabel:
-        form.choiceType === CHOICE_TYPE.SUGGESTER
-          ? form.Nomenclature.label
-          : form.CodesList.label,
-      variableReference:
-        form.choiceType === CHOICE_TYPE.VARIABLE
-          ? form.Variable.id
-          : form.CodesList.id,
-      variableReferenceLabel:
-        form.choiceType === CHOICE_TYPE.VARIABLE
-          ? form.Variable.name
-          : form.CodesList.id,
+      ...getReference(form),
       type: TEXT,
       choiceType: form.choiceType,
       [TEXT]: { maxLength: 1 },

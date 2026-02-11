@@ -1,4 +1,4 @@
-import { COMPONENT_TYPE } from '@/constants/pogues-constants';
+import { CHOICE_TYPE, COMPONENT_TYPE } from '@/constants/pogues-constants';
 
 const { QUESTION } = COMPONENT_TYPE;
 
@@ -86,4 +86,36 @@ export function getAllVariables(
     calculatedVariables,
     referencedQuestionnairesVariables,
   );
+}
+
+export function getReference(form: {
+  choiceType: CHOICE_TYPE;
+  Variable?: { id: string; name: string };
+  CodesList?: { id: string; label: string };
+  Nomenclature?: { id: string; label: string };
+}): {
+  variableReference?: string;
+  variableReferenceLabel?: string;
+  codeListReference?: string;
+  codeListReferenceLabel?: string;
+} {
+  switch (form.choiceType) {
+    case CHOICE_TYPE.VARIABLE:
+      return {
+        variableReference: form.Variable?.id,
+        variableReferenceLabel: form.Variable?.name,
+      };
+    case CHOICE_TYPE.CODE_LIST:
+      return {
+        codeListReference: form.CodesList?.id,
+        codeListReferenceLabel: form.CodesList?.label,
+      };
+    case CHOICE_TYPE.SUGGESTER:
+      return {
+        codeListReference: form.Nomenclature?.id,
+        codeListReferenceLabel: form.Nomenclature?.label,
+      };
+    default:
+      return {};
+  }
 }
