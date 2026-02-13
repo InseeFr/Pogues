@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.13.0",
+ "version": "1.14.0-rc.pairwise-global-variables.3",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle external variables' `isDeletedOnReset` property.
 - Added nomenclatures: "L_PRODUITS_LAITIERS2026", "L_NATIONETR-1-1-0", "L_SPE_NON_FORMELLES-1-0-0".
+- Pairwise component now allows to set a name source variable (previously known as source variable) and a gender source variable. It will allow Lunatic to compute global variables that can be used in the form. The pairwise form has been slightly changed to better reflect this.
 
 ### Changed
 

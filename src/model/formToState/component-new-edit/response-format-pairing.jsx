@@ -10,14 +10,20 @@ import {
 const { DROPDOWN } = DATATYPE_VIS_HINT;
 
 export const defaultState = {
-  scope: '',
   visHint: DROPDOWN,
+  sourceVariableReferences: {
+    name: '',
+    gender: '',
+    age: '',
+  },
   // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
 };
 
 export const defaultForm = {
-  scope: '',
   visHint: DROPDOWN,
+  nameSourceVariable: '',
+  genderSourceVariable: '',
+  ageSourceVariable: '',
   // [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultForm),
 };
 
@@ -26,6 +32,9 @@ export function formToState(form, transformers) {
     id,
     visHint,
     scope,
+    nameSourceVariable,
+    genderSourceVariable,
+    ageSourceVariable,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
   } = form;
 
@@ -35,18 +44,25 @@ export function formToState(form, transformers) {
     scope,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
+    sourceVariableReferences: {
+      name: nameSourceVariable,
+      gender: genderSourceVariable,
+      age: ageSourceVariable,
+    },
   };
 }
 
 export function stateToForm(currentState, transformers) {
-  const { id, visHint, scope } = currentState;
+  const { id, visHint, sourceVariableReferences } = currentState;
 
   return {
     id,
     visHint,
-    scope,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.stateComponentToForm(),
+    nameSourceVariable: sourceVariableReferences.name,
+    genderSourceVariable: sourceVariableReferences.gender,
+    ageSourceVariable: sourceVariableReferences.age,
   };
 }
 
