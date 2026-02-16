@@ -393,9 +393,9 @@
       "urn": "urn:ddi:fr.insee:l_nationetr-1-1-0:1",
       "codes": []
     },
-    "L_PCS_HOMMES-2-2-0": {
-      "id": "L_PCS_HOMMES-2-2-0",
-      "name": "L_PCS_HOMMES-2-2-0",
+    "L_PCS_HOMMES-2-3-0": {
+      "id": "L_PCS_HOMMES-2-3-0",
+      "name": "L_PCS_HOMMES-2-3-0",
       "label": "Professions masculin",
       "parameters": {
         "fields": [
@@ -459,7 +459,7 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-2-0:1",
+      "urn": "urn:ddi:fr.insee:l_pcs_hommes-2-3-0:1",
       "codes": []
     },
     "L_PCS_FEMMES-2-2-0": {
