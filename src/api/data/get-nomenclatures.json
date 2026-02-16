@@ -68,6 +68,74 @@
       "urn": "urn:ddi:fr.insee:l_activites-2-1-0:1",
       "codes": []
     },
+    "L_ACTIVITES2025-1-0-0": {
+      "id": "L_ACTIVITES2025-1-0-0",
+      "name": "L_ACTIVITES2025-1-0-0",
+      "label": "Activités Naf 2025",
+      "parameters": {
+        "version": 1,
+        "fields": [
+          {
+            "name": "label",
+            "rules": ["[\\w-]+"],
+            "language": "French",
+            "min": 3,
+            "stemmer": false,
+            "synonyms": {
+              "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
+              "plaquisterie": ["PLACO", "PLACOPLATRE"],
+              "pneumatiques": ["PNEUS"],
+              "prestations": ["PRESTATAIRE"],
+              "echafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
+              "briqueterie": ["BRIQUETTERIE"],
+              "joaillerie": ["JOAILLIER"],
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
+              "alimentaire": ["ALIMANTAIRE"],
+              "alimentaires": ["ALIMANTAIRES"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMENTAIRES"]
+            }
+          }
+        ],
+        "queryParser": {
+          "type": "tokenized",
+          "params": {
+            "language": "French",
+            "pattern": "[\\w.-]+",
+            "min": 3,
+            "stemmer": false
+          }
+        },
+        "stopWords": [
+          "a",
+          "au",
+          "dans",
+          "de",
+          "des",
+          "du",
+          "en",
+          "et",
+          "la",
+          "le",
+          "ou",
+          "sur",
+          "d",
+          "l",
+          "aux",
+          "dans",
+          "un",
+          "une",
+          "pour",
+          "avec",
+          "chez",
+          "par",
+          "les"
+        ]
+      },
+      "urn": "urn:ddi:fr.insee:l_activites2025-1-1-0:1",
+      "codes": []
+    },
     "L_COMMUNES-2024": {
       "id": "L_COMMUNES-2024",
       "name": "L_COMMUNES-2024",
