@@ -7,9 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added nomenclatures : `L_ACTIVITES2025-1-0-0`.
+
+### Changed
+
+- Updated nomenclatures:
+  - `L_ACTIVITES-2-1-0` -> `L_ACTIVITES-2-2-0`
+  - `L_PCS_FEMMES-2-2-0` -> `L_PCS_FEMMES-2-3-0`
+  - `L_PCS_HOMMES-2-2-0` -> `L_PCS_HOMMES-2-3-0`
+
 ### Removed
 
 - The Xpath editor is now a classic textarea, not interpreting markdown anymore.
+- Removed nomenclatures : `L_PRODEAP_VPI_2024`, `L_PRODEAP_VPNI_2024`, `L_PRODEAP_VPIZ_2024`, `L_PRODEAP_DECHETS_2024`, `L_PRODEAP_EAU_2024`, `L_PRODEAP_ELEC_2024`, `L_PRODEAP_GAZ_2024`, `L_PRODEAP_VAPEUR_2024`, `L_PRODEAP_INSTAL_REPAR_2024`, `L_PRODIAA_VPI_2024`, `L_PRODIAA_VPIZ_2024`.
 
 ## [1.14.0](https://github.com/InseeFr/Pogues/releases/tag/1.14.0) - 2026-02-13
 
