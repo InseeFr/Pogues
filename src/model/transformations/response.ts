@@ -48,9 +48,9 @@ export function stateToRemote(
 
   const find = response
     ? response.find(
-      (element) =>
-        element.CollectedVariableReference === CollectedVariableReference,
-    )
+        (element) =>
+          element.CollectedVariableReference === CollectedVariableReference,
+      )
     : undefined;
 
   const model: RemoteResponse = {
@@ -69,7 +69,7 @@ export function stateToRemote(
         ? codesListId
         : undefined;
 
-  model.variableReference =
+  model.VariableReference =
     choiceType === CHOICE_TYPE.VARIABLE ? variableReferenceId : undefined;
   model.choiceType = choiceType;
 

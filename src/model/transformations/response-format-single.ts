@@ -13,7 +13,7 @@ import { stateToRemote as responseStateToRemote } from './response';
 type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
-  variableReference?: unknown;
+  VariableReference?: unknown;
   choiceType?:
     | CHOICE_TYPE.CODE_LIST
     | CHOICE_TYPE.SUGGESTER
@@ -64,7 +64,7 @@ export function remoteToState(remote: {
         choiceType,
         mandatory,
         CodeListReference,
-        variableReference,
+        VariableReference,
         id,
       },
     ],
@@ -98,11 +98,11 @@ export function remoteToState(remote: {
   ) {
     console.log('response-format-single remote to state for variable', {
       ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: variableReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
     });
     return {
       ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: variableReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
       visHint,
     };
   }

@@ -64,7 +64,7 @@ export function remoteToStore(
       Name: name,
       Label: label,
       CodeListReference,
-      variableReference,
+      VariableReference,
       z,
       mesureLevel,
       arbitraryVariableOfVariableId,
@@ -75,7 +75,7 @@ export function remoteToStore(
     const formatSingleRemote = remoteToStateFormatSimple({
       responses: [{ Datatype: ev.Datatype || {}, mandatory: false, id: id }],
     });
-
+    // TODO: 11/02 -> CONTINUER ICI, les codes list marchent mais pas le reste, il n'y a que des undefined dans la transfo du questionnaire vers le store
     res[id] = {
       id,
       name,
@@ -86,9 +86,9 @@ export function remoteToStore(
         ? codesListsStore[CodeListReference].label
         : '',
 
-      variableReference,
-      variableReferenceLabel: variableReference
-        ? res.find((variable) => variable.id === variableReference)?.label
+      variableReference: VariableReference,
+      variableReferenceLabel: VariableReference
+        ? codesListsStore[VariableReference].label
         : '',
       [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
       ...responsesByVariable[id],
@@ -205,8 +205,6 @@ export function storeToRemote(store, componentsStore) {
     if (dynamique) {
       model.Scope = dynamique;
     }
-
-    console.log('storeToRemote model', model, codeListReference);
 
     if (codeListReference !== '') {
       model.CodeListReference = codeListReference;

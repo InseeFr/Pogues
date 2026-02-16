@@ -282,7 +282,7 @@ const getVariablesReferenceIds = (Children) => {
             question.questionType === SINGLE_CHOICE &&
             question.Response[0].choiceType === CHOICE_TYPE.VARIABLE
           ) {
-            variablesReference.push(question.Response[0].variableReference);
+            variablesReference.push(question.Response[0].VariableReference);
           }
         });
       } else if (
@@ -290,7 +290,7 @@ const getVariablesReferenceIds = (Children) => {
         component.questionType === SINGLE_CHOICE &&
         component.Response[0].choiceType === CHOICE_TYPE.VARIABLE
       ) {
-        variablesReference.push(component.Response[0].variableReference);
+        variablesReference.push(component.Response[0].VariableReference);
       }
     });
   });
@@ -303,11 +303,8 @@ const getVariablesReferenceIds = (Children) => {
 export const getVariablesReference = (Children, variablesList) => {
   const variables = [];
   const variablesIds = getVariablesReferenceIds(Children);
-  console.log('toto variableList in component', variablesList);
 
-  // TODO : regarder collectedVariableReferenceId et pas juste ID
   variablesIds.forEach((id) => {
-    console.log('variable id reference in component toto', id);
     const variable = variablesList.find((varib) => varib.id === id);
 
     variables.push(variable);

@@ -66,7 +66,7 @@ export type RemoteResponse = {
   };
   CollectedVariableReference?: string;
   CodeListReference?: unknown;
-  variableReference?: unknown;
+  VariableReference?: unknown;
   choiceType?:
     | CHOICE_TYPE.CODE_LIST
     | CHOICE_TYPE.VARIABLE

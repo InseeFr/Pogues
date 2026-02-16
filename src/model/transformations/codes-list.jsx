@@ -16,7 +16,6 @@ function sortByWeight(codes) {
 }
 
 export function remoteToCodesState(codes, parent = '', depth = 1) {
-  console.log('remoteToCodeState code', codes);
   const res = codes
     .filter(
       (c) => c.Parent === parent || (parent === '' && c.Parent === undefined),
@@ -100,48 +99,57 @@ function computeCodesListsClarifications(
  *
  * Our codes list get the precision information if a related calculated variable exists.
  */
-export function remoteToStore(remoteCodesLists, clarificationVariables = []) {
+export function remoteToStore(
+  remoteCodesLists,
+  clarificationVariables = [],
+  variablesReference = [],
+) {
   const remoteCodesListsWithClarification = computeCodesListsClarifications(
     remoteCodesLists,
     clarificationVariables,
   );
-  console.log(
-    'remoteToStore - remoteCodesListsWithClarification',
-    remoteCodesListsWithClarification,
-  );
-  // TODO: find out why the scope is not retrieved from the API (model?)
-  return remoteCodesListsWithClarification.reduce((acc, codesList) => {
-    const {
-      id,
-      Label: label,
-      Code: codes,
-      Name: name,
-      Urn: urn,
-      SuggesterParameters: suggesterParameters,
-      Scope: scope,
-    } = codesList;
-
-    let codesListObject;
-
-    if (urn) {
-      // Nomenclature
-      codesListObject = { id, label, name, urn, suggesterParameters };
-    } else if (codes) {
-      // Codes list
-      codesListObject = {
+  const remoteCodeListWithVariables = [
+    ...remoteCodesListsWithClarification,
+    ...variablesReference,
+  ];
+  // TODO: rajouter les variables utilisées dans les qcu
+  console.log('toto remote to store codes list', remoteCodeListWithVariables);
+  const finalCodeListStore = remoteCodeListWithVariables.reduce(
+    (acc, codesList) => {
+      const {
         id,
-        label,
-        name: name || '',
-        codes: remoteToCodesState(codes),
-      };
-    } else {
-      // Variable
-      codesListObject = { id, label, name, scope };
-    }
+        Label: label,
+        Code: codes,
+        Name: name,
+        Urn: urn,
+        SuggesterParameters: suggesterParameters,
+        Scope: scope,
+      } = codesList;
 
-    acc[id] = codesListObject;
-    return acc;
-  }, {});
+      let codesListObject;
+
+      if (urn) {
+        // Nomenclature
+        codesListObject = { id, label, name, urn, suggesterParameters };
+      } else if (codes) {
+        // Codes list
+        codesListObject = {
+          id,
+          label,
+          name: name || '',
+          codes: remoteToCodesState(codes),
+        };
+      } else {
+        // Variable
+        codesListObject = { id, label, name, scope };
+      }
+
+      acc[id] = codesListObject;
+      return acc;
+    },
+    {},
+  );
+  return finalCodeListStore;
 }
 
 export function remoteToState(remote) {
