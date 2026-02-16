@@ -264,6 +264,58 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
   });
   return acc;
 }
+
+/*
+ * Get the list of id of variables used in the questions with a variable as choice type.
+ */
+const getVariablesReferenceIds = (Children) => {
+  const variablesReference = [];
+  const childr = Children.filter((children) => children.Child?.length !== 0);
+
+  childr.forEach((item) => {
+    item.Child?.forEach((component) => {
+      // component is a subsequence
+      if (component.type === 'SequenceType') {
+        component.Child.forEach((question) => {
+          if (
+            // single choice question
+            question.questionType === SINGLE_CHOICE &&
+            question.Response[0].choiceType === CHOICE_TYPE.VARIABLE
+          ) {
+            variablesReference.push(question.Response[0].variableReference);
+          }
+        });
+      } else if (
+        // component is a single choice question
+        component.questionType === SINGLE_CHOICE &&
+        component.Response[0].choiceType === CHOICE_TYPE.VARIABLE
+      ) {
+        variablesReference.push(component.Response[0].variableReference);
+      }
+    });
+  });
+  return variablesReference;
+};
+
+/*
+ * Get the list of variables used as reference in the questions with a variable as choice type.
+ */
+export const getVariablesReference = (Children, variablesList) => {
+  const variables = [];
+  const variablesIds = getVariablesReferenceIds(Children);
+  console.log('toto variableList in component', variablesList);
+
+  // TODO : regarder collectedVariableReferenceId et pas juste ID
+  variablesIds.forEach((id) => {
+    console.log('variable id reference in component toto', id);
+    const variable = variablesList.find((varib) => varib.id === id);
+
+    variables.push(variable);
+  });
+  console.log('totovariables reference in component', variables);
+  return variables;
+};
+
 export function remoteToVariableResponse(remote) {
   return remoteToVariableResponseNested(remote.Child);
 }
@@ -303,6 +355,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       ? redirections.filter((redirec) => redirec.flowControlType === undefined)
       : [];
   let responseFinal = responses;
+
   if (responsesClarification !== undefined) {
     responsesClarification.forEach((clar) => {
       responseFinal = responseFinal.concat(clar.Response);
@@ -380,6 +433,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
   if (questionType === MULTIPLE_CHOICE || questionType === TABLE) {
     state.response = responses;
   }
+
   return state;
 }
 
@@ -797,6 +851,11 @@ export function remoteToStore(
   iterations,
   filters,
 ) {
+  console.log('Component remote to store', {
+    remote,
+    questionnaireId,
+    codesListsStore,
+  });
   return {
     ...remoteToStoreNested(
       remote.Child,
@@ -823,8 +882,6 @@ export function storeToRemote(
   codesListsStore,
   dynamiqueSpecified,
 ) {
-  console.log('storeToRemote - store', store);
-  console.log('storeToRemote collectedVariablesStore', collectedVariablesStore);
   return store[questionnaireId].children
     .sort(sortByWeight(store))
     .map((key) => {

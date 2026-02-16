@@ -126,7 +126,6 @@ export function formToState(form, collectedVariables, transformers) {
       state[type] = transformers.single.formToState(formWithNewCodes);
       state[type].CodesList = { ...CodesList, codes: newCodes };
     }
-    console.log('formToState - single choice state', state);
     return state;
   }
 

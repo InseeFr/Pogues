@@ -58,9 +58,10 @@ const Variables = ({
   }, [currentId, change, currentIdState, formName, path]);
 
   const handleVariableSelect = (event, newValue) => {
-    if (newValue && variablesStore[newValue]) {
-      const selectedVariable = variablesStore[newValue];
-
+    const selectedVariable = Object.values(variablesStore).find(
+      (variable) => variable.id === newValue,
+    );
+    if (newValue && variablesStore) {
       change(
         formName,
         `${path}label`,

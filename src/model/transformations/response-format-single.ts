@@ -13,12 +13,13 @@ import { stateToRemote as responseStateToRemote } from './response';
 type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
+  variableReference?: unknown;
+  choiceType?:
+    | CHOICE_TYPE.CODE_LIST
+    | CHOICE_TYPE.SUGGESTER
+    | CHOICE_TYPE.VARIABLE;
   Datatype: {
     allowArbitraryResponse?: unknown;
-    choiceType?:
-      | CHOICE_TYPE.CODE_LIST
-      | CHOICE_TYPE.SUGGESTER
-      | CHOICE_TYPE.VARIABLE;
     visualizationHint?: DATATYPE_VIS_HINT;
   };
   mandatory?: boolean;
@@ -59,17 +60,21 @@ export function remoteToState(remote: {
   const {
     responses: [
       {
-        Datatype: {
-          allowArbitraryResponse,
-          visualizationHint: visHint,
-          choiceType,
-        },
+        Datatype: { allowArbitraryResponse, visualizationHint: visHint },
+        choiceType,
         mandatory,
         CodeListReference,
+        variableReference,
         id,
       },
     ],
   } = remote;
+
+  console.log(
+    'response-format-single remote to state inside the acc',
+    remote,
+    choiceType,
+  );
 
   const baseState = {
     id,
@@ -91,9 +96,13 @@ export function remoteToState(remote: {
     choiceType === CHOICE_TYPE.VARIABLE &&
     visHint !== DATATYPE_VIS_HINT.SUGGESTER
   ) {
+    console.log('response-format-single remote to state for variable', {
+      ...baseState,
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: variableReference as string },
+    });
     return {
       ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: CodeListReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: variableReference as string },
       visHint,
     };
   }
@@ -150,12 +159,6 @@ export function stateToRemote(
   ) {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
-  console.log(
-    'stateToRemote response-format-single - nomenclatureId, codesListId, variableReferenceId',
-    nomenclatureId,
-    codesListId,
-    variableReferenceId,
-  );
   return {
     Response: [
       responseStateToRemote({

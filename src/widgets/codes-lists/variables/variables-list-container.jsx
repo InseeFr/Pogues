@@ -40,6 +40,13 @@ export const mapStateToProps = (
   const currentName = selector(state, `${path}name`);
   const currentLabel = selector(state, `${path}label`);
 
+  console.log(
+    'current id, name, label in variables list container',
+    currentId,
+    currentName,
+    currentLabel,
+  );
+
   if (!scope || scope === '') {
     return {
       path,
@@ -52,15 +59,21 @@ export const mapStateToProps = (
   const loopChildren =
     findQuestionInLoop(state.appState.activeComponentsById)[scope] || [];
 
-  const loopVariablesStore = loopChildren.reduce((acc, question) => {
-    acc[question.id] = {
-      id: question.id,
-      label: question.label,
-      name: question.name,
-    };
+  const variablesId = loopChildren.map((question) => question.id);
+  const collectedVariablesByQuestion =
+    state.appState.collectedVariableByQuestion;
 
-    return acc;
-  }, {});
+  const collectedVariables = Object.keys(collectedVariablesByQuestion)
+    .filter((key) => variablesId.includes(key))
+    .map((key) => collectedVariablesByQuestion[key]);
+
+  const loopVariablesStore = collectedVariables.flatMap((variablesNested) =>
+    Object.values(variablesNested).map((variable) => ({
+      id: variable.id,
+      label: variable.label,
+      name: variable.name,
+    })),
+  );
 
   const calculatedAndExternalVariables = {
     ...state.appState.activeExternalVariablesById,
@@ -93,7 +106,6 @@ export const mapStateToProps = (
           },
         }
       : codesListsStore;
-
   return {
     path,
     currentId,
