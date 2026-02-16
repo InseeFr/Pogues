@@ -1,8 +1,8 @@
 {
   "nomenclatures": {
-    "L_ACTIVITES-2-1-0": {
-      "id": "L_ACTIVITES-2-1-0",
-      "name": "L_ACTIVITES-2-1-0",
+    "L_ACTIVITES-2-2-0": {
+      "id": "L_ACTIVITES-2-2-0",
+      "name": "L_ACTIVITES-2-2-0",
       "label": "Activités",
       "parameters": {
         "version": 1,
@@ -65,7 +65,7 @@
           "les"
         ]
       },
-      "urn": "urn:ddi:fr.insee:l_activites-2-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_activites-2-2-0:1",
       "codes": []
     },
     "L_ACTIVITES2025-1-0-0": {
