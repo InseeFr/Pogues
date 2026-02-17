@@ -25,7 +25,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   const calculatedVariables = variables.filter((v) => v.type === CALCULATED);
   const externalVariables = variables.filter((v) => v.type === EXTERNAL);
   const collectedVariables = variables.filter((v) => v.type === COLLECTED);
-  console.log('toto help collected vaiabk, ', collectedVariables);
   // Questionnaire store
   const questionnaireById = Questionnaire.remoteToStore(remote, currentStores);
 

@@ -75,7 +75,6 @@ export function remoteToStore(
     const formatSingleRemote = remoteToStateFormatSimple({
       responses: [{ Datatype: ev.Datatype || {}, mandatory: false, id: id }],
     });
-    // TODO: 11/02 -> CONTINUER ICI, les codes list marchent mais pas le reste, il n'y a que des undefined dans la transfo du questionnaire vers le store
     res[id] = {
       id,
       name,

@@ -83,6 +83,7 @@ const Variables = ({
     ),
   );
 
+  //TODO: (later?) add filters OptionFilter
   return (
     <FormSection name={selectorPath} className={COMPONENT_CLASS}>
       {/* variables list selection */}

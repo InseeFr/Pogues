@@ -42,9 +42,15 @@ const mapStateToProps = (state, { formName }) => {
     state,
     'collectedVariables.variableReference',
   );
-  const variableReferenceLabel = referencedVariable
-    ? codesListsStore[referencedVariable]?.label || ''
-    : '';
+  let variableReferenceLabel;
+  if (referencedVariable && codesListsStore[referencedVariable]) {
+    variableReferenceLabel = codesListsStore[referencedVariable].label;
+  } else {
+    variableReferenceLabel = selector(
+      state,
+      'collectedVariables.variableReferenceLabel',
+    );
+  }
 
   return {
     componentName: selector(state, 'name'),

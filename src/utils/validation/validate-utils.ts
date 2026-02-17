@@ -32,6 +32,7 @@ export function validate(
       }
     }
   }
+  console.log('validation result toto', res);
   return res;
 }
 

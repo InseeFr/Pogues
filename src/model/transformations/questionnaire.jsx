@@ -268,7 +268,6 @@ export function stateToRemote(state, stores) {
     collectedVariablesWithoutOrphans,
     componentsStore,
   );
-  console.log('collectedVariablesRemote', collectedVariablesRemote);
   const Iterations = Loop.stateToRemote(componentsStore);
   const FlowControl = RedirectionsFilter.stateToRemote(componentsStore);
   const json = {

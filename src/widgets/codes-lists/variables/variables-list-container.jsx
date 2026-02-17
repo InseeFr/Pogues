@@ -86,19 +86,26 @@ export const mapStateToProps = (
     ...loopVariablesStore,
     ...calculatedAndExternalInLoop,
   };
-  let currentCodesListsStore;
-  if (codesListsStore[currentId]) {
-    currentCodesListsStore = {
-      ...codesListsStore,
-      [currentId]: {
-        ...codesListsStore[currentId],
-        label: currentLabel,
-        name: currentName,
-      },
-    };
-  } else {
-    currentCodesListsStore = codesListsStore;
-  }
+
+  const currentCodesListsStore =
+    currentId !== ''
+      ? {
+          ...codesListsStore,
+          [currentId]: {
+            id: currentId,
+            name: currentName,
+            label: currentLabel,
+            scope: scope,
+          },
+        }
+      : codesListsStore;
+
+  console.log(
+    'toto variables store in variable list container',
+    currentCodesListsStore,
+    variablesStore,
+    currentId,
+  );
   return {
     path,
     currentId,

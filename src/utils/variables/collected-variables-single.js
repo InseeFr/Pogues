@@ -23,12 +23,23 @@ export function getCollectedVariablesSingle(
   codesListStore,
 ) {
   console.log('form for collected variable single', form, existingVariableIds);
+  console.log('codesListStore in collected variable single', codesListStore);
+  let desiredVarLabel;
+  if (
+    codesListStore[form.Variable.id] &&
+    codesListStore[form.Variable.id].label
+  ) {
+    desiredVarLabel = codesListStore[form.Variable.id].label;
+  } else {
+    desiredVarLabel = form.Variable.label;
+  }
+  console.log('desired variable label', desiredVarLabel);
   const mainVariable =
     form.choiceType === CHOICE_TYPE.VARIABLE
       ? getCollectedVariable(questionName, `${questionName} label`, undefined, {
           variableReference: form.Variable.id,
           // We need to dynamically get the label of the variable reference, as it can be changed by the user
-          variableReferenceLabel: codesListStore[form.Variable.id].label,
+          variableReferenceLabel: desiredVarLabel,
           type: TEXT,
           choiceType: form.choiceType,
           [TEXT]: { maxLength: 1 },

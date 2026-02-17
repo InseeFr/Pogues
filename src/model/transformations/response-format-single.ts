@@ -70,12 +70,6 @@ export function remoteToState(remote: {
     ],
   } = remote;
 
-  console.log(
-    'response-format-single remote to state inside the acc',
-    remote,
-    choiceType,
-  );
-
   const baseState = {
     id,
     mandatory,

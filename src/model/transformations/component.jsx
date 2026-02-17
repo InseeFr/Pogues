@@ -309,7 +309,6 @@ export const getVariablesReference = (Children, variablesList) => {
 
     variables.push(variable);
   });
-  console.log('totovariables reference in component', variables);
   return variables;
 };
 
@@ -416,6 +415,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       scope,
       mandatory,
     );
+    console.log('remote to state table responseFormat', state.responseFormat);
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);
   }
@@ -484,6 +484,11 @@ function getClarificationresponseSingleChoiseQuestion(
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
+  console.log(
+    'toto collected variables store in clarification',
+    collectedVariablesStore,
+    codesListsStore,
+  );
   Object.values(collectedVariablesStore).forEach((collec) => {
     if (collectedVariables !== undefined) {
       collectedVariables.forEach((variables) => {
@@ -500,6 +505,11 @@ function getClarificationresponseSingleChoiseQuestion(
   });
   collectedvariablequestion.forEach((collected) => {
     // for suggester there is no codeList, so there is no clarification
+    console.log(
+      'toto collected variable question in clarification',
+      collected,
+      responseFormat,
+    );
     if (
       responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.SUGGESTER ||
       responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.VARIABLE

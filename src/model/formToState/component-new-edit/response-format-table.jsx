@@ -2,10 +2,12 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
@@ -22,9 +24,18 @@ import {
   Factory as NomenclatureFactory,
   defaultState as nomenclatureDefaultState,
 } from '../lists/nomenclature';
+import {
+  defaultState as VariableDefaultState,
+  Factory as VariableFactory,
+} from '../lists/variables';
 
 const { PRIMARY, SECONDARY, MEASURE, LIST_MEASURE } = DIMENSION_TYPE;
 const { LIST, CODES_LIST } = DIMENSION_FORMATS;
+const {
+  CODES_LIST: CHOICE_TYPE_CODES_LIST,
+  SUGGESTER: CHOICE_TYPE_SUGGESTER,
+  VARIABLE: CHOICE_TYPE_VARIABLE,
+} = CHOICE_TYPE;
 const { DYNAMIC_LENGTH, DYNAMIC_FIXED } = DIMENSION_LENGTH;
 const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -74,7 +85,9 @@ export const defaultMeasureState = {
   [SINGLE_CHOICE]: {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: cloneDeep(CodesListDefaultState),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: cloneDeep(nomenclatureDefaultState),
+    [DEFAULT_VARIABLE_SELECTOR_PATH]: cloneDeep(VariableDefaultState),
     visHint: RADIO,
+    choiceType: CHOICE_TYPE_CODES_LIST,
   },
 };
 
@@ -96,7 +109,14 @@ export const defaultMeasureForm = {
       urn: '',
       suggesterParameters: '',
     },
+    [DEFAULT_VARIABLE_SELECTOR_PATH]: {
+      id: '',
+      name: '',
+      label: '',
+      scope: '',
+    },
     visHint: RADIO,
+    choiceType: CHOICE_TYPE_CODES_LIST,
   },
 };
 
@@ -190,7 +210,7 @@ export function formToStateSecondary(form, codesListSecondary) {
   };
 }
 
-export function formToStateMeasure(form, codesListMeasure) {
+export function formToStateMeasure(form, codesListMeasure, variableMeasure) {
   const {
     label,
     conditionFilter,
@@ -219,8 +239,10 @@ export function formToStateMeasure(form, codesListMeasure) {
   } else {
     const {
       visHint,
+      choiceType,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: variableForm,
     } = measureForm;
     const codesList = codesListMeasure
       ? codesListMeasure.formToStateComponent(codesListForm)
@@ -230,10 +252,16 @@ export function formToStateMeasure(form, codesListMeasure) {
       ? codesListMeasure.formToStateComponent(nomenclatureForm)
       : NomenclatureFactory().formToState(nomenclatureForm);
 
+    const variable = variableMeasure
+      ? variableMeasure.formToStateComponent(variableForm)
+      : VariableFactory().formToState(variableForm);
+
     state[SINGLE_CHOICE] = {
       visHint,
+      choiceType,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclature,
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: variable,
     };
   }
   return state;
@@ -311,6 +339,7 @@ export function stateToFormMeasure(
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureState,
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: variableState,
     },
   } = currentState;
 
@@ -320,6 +349,7 @@ export function stateToFormMeasure(
 
   let codesListForm;
   let nomenclatureForm;
+  let variableForm;
 
   if (codesListMeasure) {
     codesListForm = codesListMeasure.stateComponentToForm();
@@ -331,6 +361,10 @@ export function stateToFormMeasure(
     nomenclatureForm = NomenclatureFactory(
       codesListsStore,
       nomenclatureState,
+    ).stateComponentToForm();
+    variableForm = VariableFactory(
+      codesListsStore,
+      variableState,
     ).stateComponentToForm();
   }
 
@@ -346,6 +380,7 @@ export function stateToFormMeasure(
       visHint,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: variableForm,
     },
   };
 }
@@ -354,6 +389,7 @@ export function stateToFormMeasureList(currentState, codesListsStore) {
   const {
     [SINGLE_CHOICE]: {
       visHint,
+      choiceType,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
     },
     measures,
@@ -367,6 +403,7 @@ export function stateToFormMeasureList(currentState, codesListsStore) {
     ...currentState,
     [SINGLE_CHOICE]: {
       visHint,
+      choiceType,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     },
     measures: measures.map((m) => stateToFormMeasure(m, codesListsStore)),
@@ -454,12 +491,18 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       if (type === SINGLE_CHOICE) {
         const listPath =
-          measureState.visHint === DATATYPE_VIS_HINT.SUGGESTER
+          measureState.choiceType === CHOICE_TYPE_SUGGESTER
             ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-            : DEFAULT_CODES_LIST_SELECTOR_PATH;
+            : measureState.choiceType === CHOICE_TYPE_VARIABLE
+              ? DEFAULT_VARIABLE_SELECTOR_PATH
+              : DEFAULT_CODES_LIST_SELECTOR_PATH;
+        // measureState.visHint === DATATYPE_VIS_HINT.SUGGESTER
+        //   ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
+        //   : DEFAULT_CODES_LIST_SELECTOR_PATH;
         state[SINGLE_CHOICE] = {
           [listPath]: codesListsStore[measureState[listPath].id],
           visHint: measureState.visHint,
+          choiceType: measureState.choiceType,
         };
       } else {
         state[SIMPLE] = measureState;
@@ -485,6 +528,12 @@ const Factory = (initialState = {}, codesListsStore) => {
     nomenclatureMeasure: NomenclatureFactory(
       codesListsStore,
       currentState[MEASURE][SINGLE_CHOICE][DEFAULT_NOMENCLATURE_SELECTOR_PATH],
+    ),
+    variableMeasure: VariableFactory(
+      codesListsStore,
+      cloneDeep(
+        currentState[MEASURE][SINGLE_CHOICE][DEFAULT_VARIABLE_SELECTOR_PATH],
+      ),
     ),
   };
 
@@ -519,12 +568,16 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       if (currentState[LIST_MEASURE]) {
         currentState[LIST_MEASURE].forEach((m) => {
+          console.log('measure toto', m);
+          //TODO: check on choiceType once it has been added
           if (m.type === SINGLE_CHOICE) {
             // for suggester we need to get the nomenclature (then store it as a codesList), else we get directly the codesList
             const listPath =
-              m[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+              m[SINGLE_CHOICE].choiceType === CHOICE_TYPE_SUGGESTER
                 ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-                : DEFAULT_CODES_LIST_SELECTOR_PATH;
+                : m[SINGLE_CHOICE].choiceType === CHOICE_TYPE_VARIABLE
+                  ? DEFAULT_VARIABLE_SELECTOR_PATH
+                  : DEFAULT_CODES_LIST_SELECTOR_PATH;
             const codesListState = m[SINGLE_CHOICE][listPath];
             codesLists = {
               ...codesLists,

@@ -112,8 +112,6 @@ export function remoteToStore(
     ...remoteCodesListsWithClarification,
     ...variablesReference,
   ];
-  // TODO: rajouter les variables utilisées dans les qcu
-  console.log('toto remote to store codes list', remoteCodeListWithVariables);
   const finalCodeListStore = remoteCodeListWithVariables.reduce(
     (acc, codesList) => {
       const {
