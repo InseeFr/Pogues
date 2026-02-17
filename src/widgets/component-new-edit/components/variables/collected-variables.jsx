@@ -27,7 +27,6 @@ const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const validateForm = (addErrors, validate) => (values, state) => {
   return validate(values, addErrors, state);
 };
-
 function CollectedVariables({
   componentName,
   collectedVariablesIds = new Set(),
@@ -43,6 +42,7 @@ function CollectedVariables({
   addErrors,
   referencedCodeList,
   referencedVariable,
+  variableReferenceLabel,
   isVariableCollected,
 }) {
   function generateVariables() {
@@ -64,6 +64,12 @@ function CollectedVariables({
   }
   const hiddenCollected =
     responseFormatType !== TABLE && responseFormatType !== MULTIPLE_CHOICE;
+
+  console.log(
+    'toto collected variables',
+    responseFormatType,
+    reponseFormatValues,
+  );
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -176,6 +182,7 @@ function CollectedVariables({
               disabled
               component={Input}
               label={Dictionary.variable}
+              format={() => variableReferenceLabel}
             />
           )}
         </div>
@@ -198,6 +205,7 @@ CollectedVariables.propTypes = {
   reponseFormatValues: PropTypes.object,
   referencedCodeList: PropTypes.string,
   referencedVariable: PropTypes.string,
+  variableReferenceLabel: PropTypes.string,
   isVariableCollected: PropTypes.string,
 };
 
@@ -206,6 +214,7 @@ CollectedVariables.defaultProps = {
   reponseFormatValues: {},
   referencedCodeList: '',
   referencedVariable: '',
+  variableReferenceLabel: '',
   isVariableCollected: '1',
 };
 

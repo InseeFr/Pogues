@@ -90,21 +90,13 @@ export function getAllVariables(
 
 export function getReference(form: {
   choiceType: CHOICE_TYPE;
-  Variable?: { id: string; name: string };
   CodesList?: { id: string; label: string };
   Nomenclature?: { id: string; label: string };
 }): {
-  variableReference?: string;
-  variableReferenceLabel?: string;
   codeListReference?: string;
   codeListReferenceLabel?: string;
 } {
   switch (form.choiceType) {
-    case CHOICE_TYPE.VARIABLE:
-      return {
-        variableReference: form.Variable?.id,
-        variableReferenceLabel: form.Variable?.name,
-      };
     case CHOICE_TYPE.CODE_LIST:
       return {
         codeListReference: form.CodesList?.id,

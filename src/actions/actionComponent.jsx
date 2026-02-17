@@ -33,6 +33,7 @@ export const updateComponent =
       activeExternalVariablesById,
       activeCalculatedVariablesById,
       collectedVariableByQuestion,
+      activeCodeListsById,
     } = state.appState;
 
     if (
@@ -86,7 +87,26 @@ export const updateComponent =
         });
       }
     }
-    console.log('Updating component', componentId, componentsStore[componentId]);
+    console.log(
+      'Updating component',
+      activeCodeListsById,
+      componentsStore[componentId],
+      collectedVariablesStore,
+    );
+    const collectedVariableReference =
+      componentsStore[componentId]?.collectedVariables || [];
+    let updatedCodeListsStore = { ...codesListsStore };
+    collectedVariableReference.map((variable) => {
+      if (activeCodeListsById[variable]) {
+        updatedCodeListsStore[variable] = {
+          ...activeCodeListsById[variable],
+          label: collectedVariablesStore[variable].label,
+          name: collectedVariablesStore[variable].name,
+        };
+      }
+      return null;
+    });
+
     return dispatch({
       type: UPDATE_COMPONENT,
       payload: {
@@ -98,7 +118,7 @@ export const updateComponent =
           activeCollectedVariablesById: {
             [componentId]: collectedVariablesStore,
           },
-          activeCodeListsById: codesListsStore,
+          activeCodeListsById: updatedCodeListsStore,
         },
       },
     });

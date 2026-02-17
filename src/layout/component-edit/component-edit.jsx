@@ -66,10 +66,6 @@ function validateAndSubmit(
       component.id,
     );
     const updatedCodesListsStore = transformer.getCodesListStore();
-    console.log(
-      'Updated codesListsStore in ComponentEdit',
-      updatedCodesListsStore,
-    );
     const updatedCalculatedVariablesStore =
       transformer.getCalculatedVariablesStore();
     const updatedExternalVariablesStore =

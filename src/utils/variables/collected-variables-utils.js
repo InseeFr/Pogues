@@ -53,9 +53,9 @@ export function getCollectedVariable(
   label,
   coordinates,
   reponseFormatValues = {},
+  id = undefined,
   alternativeLabel = '',
   arbitraryVariableOfVariableId = undefined,
-  id = undefined,
 ) {
   let collectedVariable = {
     ...reponseFormatValues,
@@ -72,6 +72,7 @@ export function getCollectedVariable(
       ...collectedVariable,
       arbitraryVariableOfVariableId: arbitraryVariableOfVariableId,
     };
+  console.log('toto collected variable generated', collectedVariable);
   return collectedVariable;
 }
 
@@ -82,6 +83,7 @@ export function generateCollectedVariables(
   codesListStore,
   existingVariableIds = new Set(),
 ) {
+  console.log('toto generate collected', form);
   switch (responseFormat) {
     case SIMPLE:
       return [
@@ -90,6 +92,7 @@ export function generateCollectedVariables(
           `${questionName} label`,
           undefined,
           form,
+          Array.from(existingVariableIds)[0],
         ),
       ];
     case SINGLE_CHOICE:
@@ -98,6 +101,7 @@ export function generateCollectedVariables(
         questionName,
         form,
         existingVariableIds,
+        codesListStore,
       );
     case MULTIPLE_CHOICE:
       return getCollectedVariablesMultiple(

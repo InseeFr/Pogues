@@ -1,35 +1,35 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { Field, FormSection } from 'redux-form';
 import { connect } from 'react-redux';
+import { Field, FormSection } from 'redux-form';
 import { formValueSelector } from 'redux-form';
+
+import ListRadios from '@/forms/controls/list-radios';
+import Select from '@/forms/controls/select';
 
 import {
   DATATYPE_VIS_HINT,
-  DEFAULT_VARIABLE_SELECTOR_PATH,
   DEFAULT_FORM_NAME,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
-import Select from '@/forms/controls/select';
-import ListRadios from '@/forms/controls/list-radios';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import { VariablesList } from '../../../../codes-lists/variables';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
+import { VariablesList } from '../../../../codes-lists/variables';
 import { getQuestionnaireScope } from '../../variables/utils-loops';
-
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 const selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH;
 
-function ResponseFormatSimpleVariable({ 
-  selectorPathParent, 
+function ResponseFormatSimpleVariable({
+  selectorPathParent,
   selectedScope,
   componentsStore,
-  externalLoopsStore
+  externalLoopsStore,
 }) {
-  const scopesTest = getQuestionnaireScope(componentsStore, externalLoopsStore)
+  const scopesTest = getQuestionnaireScope(componentsStore, externalLoopsStore);
 
   const scopeOptions = Object.values(scopesTest || {}).map((scope) => (
     <GenericOption key={scope.id} value={scope.id}>
@@ -53,28 +53,28 @@ function ResponseFormatSimpleVariable({
         </Field>
       </FormSection>
 
-      <VariablesList 
-        selectorPathParent={selectorPathParent} 
-        scope={selectedScope} 
+      <VariablesList
+        selectorPathParent={selectorPathParent}
+        scope={selectedScope}
       />
 
-        <Field
-          name="visHint"
-          component={ListRadios}
-          label={Dictionary.visHint}
-          required
+      <Field
+        name="visHint"
+        component={ListRadios}
+        label={Dictionary.visHint}
+        required
       >
         <GenericOption key={RADIO} value={RADIO}>
-            {Dictionary.radio}
-          </GenericOption>
-          <GenericOption key={CHECKBOX} value={CHECKBOX}>
-            {Dictionary.checkbox}
-          </GenericOption>
-          
-          <GenericOption key={DROPDOWN} value={DROPDOWN}>
-            {Dictionary.dropdown}
-          </GenericOption>
-        </Field>
+          {Dictionary.radio}
+        </GenericOption>
+        <GenericOption key={CHECKBOX} value={CHECKBOX}>
+          {Dictionary.checkbox}
+        </GenericOption>
+
+        <GenericOption key={DROPDOWN} value={DROPDOWN}>
+          {Dictionary.dropdown}
+        </GenericOption>
+      </Field>
     </>
   );
 }
@@ -82,14 +82,14 @@ function ResponseFormatSimpleVariable({
 ResponseFormatSimpleVariable.propTypes = {
   selectorPathParent: PropTypes.string,
   selectedScope: PropTypes.string,
-  componentStore: PropTypes.object,
+  componentsStore: PropTypes.object,
   externalLoopsStore: PropTypes.object,
 };
 
 ResponseFormatSimpleVariable.defaultProps = {
   selectorPathParent: undefined,
   selectedScope: '',
-  componentStore: {},
+  componentsStore: {},
   externalLoopsStore: {},
 };
 

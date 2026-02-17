@@ -213,6 +213,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     collectedVariable: CollectedVariable(
       currentState.collectedVariables,
       collectedVariablesStore,
+      codesListsStore,
     ),
     calculatedVariable: CalculatedVariable(calculatedVariablesStore),
     externalVariable: ExternalVariable(externalVariablesStore),

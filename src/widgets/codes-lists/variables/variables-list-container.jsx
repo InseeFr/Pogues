@@ -34,18 +34,11 @@ export const mapStateToProps = (
   { selectorPathParent, selectorPath, formName, scope },
 ) => {
   const selector = formValueSelector(formName);
-  const codesListsStore = state.appState.activeCodeListsById;
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
+  const codesListsStore = state.appState.activeCodeListsById;
   const currentId = selector(state, `${path}id`);
   const currentName = selector(state, `${path}name`);
   const currentLabel = selector(state, `${path}label`);
-
-  console.log(
-    'current id, name, label in variables list container',
-    currentId,
-    currentName,
-    currentLabel,
-  );
 
   if (!scope || scope === '') {
     return {
@@ -93,19 +86,19 @@ export const mapStateToProps = (
     ...loopVariablesStore,
     ...calculatedAndExternalInLoop,
   };
-
-  const currentCodesListsStore =
-    currentLabel !== ''
-      ? {
-          ...codesListsStore,
-          [currentId]: {
-            id: currentId,
-            name: currentName,
-            label: currentLabel,
-            scope: scope,
-          },
-        }
-      : codesListsStore;
+  let currentCodesListsStore;
+  if (codesListsStore[currentId]) {
+    currentCodesListsStore = {
+      ...codesListsStore,
+      [currentId]: {
+        ...codesListsStore[currentId],
+        label: currentLabel,
+        name: currentName,
+      },
+    };
+  } else {
+    currentCodesListsStore = codesListsStore;
+  }
   return {
     path,
     currentId,

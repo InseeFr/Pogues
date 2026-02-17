@@ -20,20 +20,26 @@ export function getCollectedVariablesSingle(
   questionName,
   form,
   existingVariableIds = new Set(),
+  codesListStore,
 ) {
-  const mainVariable = getCollectedVariable(
-    questionName,
-    `${questionName} label`,
-    undefined,
-    {
-      ...getReference(form),
-      type: TEXT,
-      choiceType: form.choiceType,
-      [TEXT]: { maxLength: 1 },
-    },
-  );
+  console.log('form for collected variable single', form, existingVariableIds);
+  const mainVariable =
+    form.choiceType === CHOICE_TYPE.VARIABLE
+      ? getCollectedVariable(questionName, `${questionName} label`, undefined, {
+          variableReference: form.Variable.id,
+          // We need to dynamically get the label of the variable reference, as it can be changed by the user
+          variableReferenceLabel: codesListStore[form.Variable.id].label,
+          type: TEXT,
+          choiceType: form.choiceType,
+          [TEXT]: { maxLength: 1 },
+        })
+      : getCollectedVariable(questionName, `${questionName} label`, undefined, {
+          ...getReference(form),
+          type: TEXT,
+          choiceType: form.choiceType,
+          [TEXT]: { maxLength: 1 },
+        });
 
-  console.log('getCollectedVariablesSingle - mainVariable', mainVariable);
   // Nomenclatures may allow an arbitrary response
   if (form.choiceType === CHOICE_TYPE.SUGGESTER) {
     if (form.allowArbitraryResponse) {
@@ -103,6 +109,12 @@ export function getCollectedVariablesSingle(
       }
     }
   });
+
+  console.log(
+    'toto generated collected variables for single choice',
+    mainVariable,
+    clarificationVariables,
+  );
 
   return [mainVariable, ...clarificationVariables];
 }
