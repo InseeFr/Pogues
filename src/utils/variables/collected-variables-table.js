@@ -1,8 +1,9 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
-  DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   DIMENSION_FORMATS,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
@@ -124,7 +125,10 @@ export function getCollectedVariablesTable(questionName, form) {
       ),
     );
   }
-
+  console.log(
+    'toto collected variables TABLE TYPE generated',
+    collectedVariables,
+  );
   return collectedVariables.sort(sortByYXAndZ());
 }
 
@@ -141,15 +145,34 @@ export function getReponsesValues(measure) {
       };
     }
     case SINGLE_CHOICE: {
+      const choiceType = measure[SINGLE_CHOICE].choiceType;
       const listPath =
-        measure[SINGLE_CHOICE].visHint === DATATYPE_VIS_HINT.SUGGESTER
+        choiceType === CHOICE_TYPE.SUGGESTER
           ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-          : DEFAULT_CODES_LIST_SELECTOR_PATH;
+          : choiceType === CHOICE_TYPE.CODE_LIST
+            ? DEFAULT_CODES_LIST_SELECTOR_PATH
+            : DEFAULT_VARIABLE_SELECTOR_PATH;
       return {
-        codeListReference: measure[SINGLE_CHOICE][listPath].id,
-        codeListReferenceLabel: measure[SINGLE_CHOICE][listPath].label,
+        codeListReference:
+          choiceType === CHOICE_TYPE.CODE_LIST ||
+          choiceType === CHOICE_TYPE.SUGGESTER
+            ? measure[SINGLE_CHOICE][listPath].id
+            : '',
+        codeListReferenceLabel:
+          choiceType === CHOICE_TYPE.CODE_LIST ||
+          choiceType === CHOICE_TYPE.SUGGESTER
+            ? measure[SINGLE_CHOICE][listPath].label
+            : '',
         type: TEXT,
         [TEXT]: { maxLength: 1 },
+        variableReference:
+          choiceType === CHOICE_TYPE.VARIABLE
+            ? measure[SINGLE_CHOICE][listPath].id
+            : '',
+        variableReferenceLabel:
+          choiceType === CHOICE_TYPE.VARIABLE
+            ? measure[SINGLE_CHOICE][listPath].label
+            : '',
       };
     }
     default:

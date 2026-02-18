@@ -496,9 +496,6 @@ const Factory = (initialState = {}, codesListsStore) => {
             : measureState.choiceType === CHOICE_TYPE_VARIABLE
               ? DEFAULT_VARIABLE_SELECTOR_PATH
               : DEFAULT_CODES_LIST_SELECTOR_PATH;
-        // measureState.visHint === DATATYPE_VIS_HINT.SUGGESTER
-        //   ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-        //   : DEFAULT_CODES_LIST_SELECTOR_PATH;
         state[SINGLE_CHOICE] = {
           [listPath]: codesListsStore[measureState[listPath].id],
           visHint: measureState.visHint,

@@ -4,6 +4,7 @@ import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
@@ -238,6 +239,8 @@ export function remoteToState(remote, codesListsStore) {
   const { dimensions, responses } = remote;
   const state = {};
 
+  console.log('remote to state table toto', remote);
+
   // Dimensions
   const dimensionSecondaryModel = getDimensionsByType(SECONDARY, dimensions);
   const dimensionPrimaryModel = getDimensionsByType(PRIMARY, dimensions);
@@ -353,19 +356,22 @@ function stateToResponseState(state, primaryType) {
       ...customsimpleState,
     };
   } else {
-    const { mandatory, visHint } = measureTypeState;
+    const { mandatory, visHint, choiceType } = measureTypeState;
     const codesListId = measureTypeState[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
     const nomenclatureId =
       measureTypeState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
+    const variableId = measureTypeState[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
 
     responseState = {
       ...responseState,
       mandatory,
       codesListId,
       nomenclatureId,
+      variableId,
       typeName: TEXT,
       maxLength: 1,
       visHint,
+      choiceType,
     };
   }
 
@@ -434,6 +440,8 @@ export function stateToRemote(
       responsesState.push(stateToResponseState(listMeasuresState[i], type));
     }
   }
+
+  console.log('toto table state to remote', dimensionsModel, responsesState);
 
   // Responses
 

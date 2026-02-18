@@ -505,11 +505,7 @@ function getClarificationresponseSingleChoiseQuestion(
   });
   collectedvariablequestion.forEach((collected) => {
     // for suggester there is no codeList, so there is no clarification
-    console.log(
-      'toto collected variable question in clarification',
-      collected,
-      responseFormat,
-    );
+
     if (
       responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.SUGGESTER ||
       responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.VARIABLE
@@ -717,6 +713,7 @@ function storeToRemoteNested(
     flowControl,
     codeFilters,
   } = state;
+  console.log('store to remote nested component toto', store, state);
   if (type === LOOP || type === FILTER) return {};
 
   let remote = {
@@ -726,7 +723,6 @@ function storeToRemoteNested(
     Label: [label.replace(/\n\n/gi, '&#xd;')],
     Declaration: Declaration.stateToRemote(declarations),
     Control: Control.stateToRemote(controls),
-    // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: [],
     TargetMode,
   };
