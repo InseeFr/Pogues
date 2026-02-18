@@ -23,6 +23,7 @@ export function stateToModel(
   response?: Response[],
 ) {
   let collectedVariablesFinal = collectedVariables;
+
   if (
     type === QUESTION_TYPE_ENUM.MULTIPLE_CHOICE ||
     type === QUESTION_TYPE_ENUM.TABLE

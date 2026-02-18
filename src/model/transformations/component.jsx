@@ -286,6 +286,16 @@ const getVariablesReferenceIds = (Children) => {
           }
         });
       } else if (
+        // component is a table question
+        component.questionType === TABLE
+      ) {
+        component.Response.forEach((response) => {
+          console.log('toto response in table', response);
+          if (response.choiceType === CHOICE_TYPE.VARIABLE) {
+            variablesReference.push(response.VariableReference);
+          }
+        });
+      } else if (
         // component is a single choice question
         component.questionType === SINGLE_CHOICE &&
         component.Response[0].choiceType === CHOICE_TYPE.VARIABLE
@@ -303,6 +313,8 @@ const getVariablesReferenceIds = (Children) => {
 export const getVariablesReference = (Children, variablesList) => {
   const variables = [];
   const variablesIds = getVariablesReferenceIds(Children);
+
+  console.log('toto variables reference ids', variablesIds, Children);
 
   variablesIds.forEach((id) => {
     const variable = variablesList.find((varib) => varib.id === id);
@@ -713,9 +725,10 @@ function storeToRemoteNested(
     flowControl,
     codeFilters,
   } = state;
-  console.log('store to remote nested component toto', store, state);
   if (type === LOOP || type === FILTER) return {};
 
+  type === QUESTION &&
+    console.log('toto store to remote nested component', type, responseFormat);
   let remote = {
     id,
     depth,
@@ -797,6 +810,8 @@ function storeToRemoteNested(
         response,
       ),
     };
+    responseFormat.type === TABLE &&
+      console.log('toto remote question', remote);
   } else if (type === ROUNDABOUT) {
     remote = {
       ...remote,
@@ -823,6 +838,7 @@ function storeToRemoteNested(
       depth,
     );
   }
+
   return remote;
 }
 

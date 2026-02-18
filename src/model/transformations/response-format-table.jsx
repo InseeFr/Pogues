@@ -360,14 +360,15 @@ function stateToResponseState(state, primaryType) {
     const codesListId = measureTypeState[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
     const nomenclatureId =
       measureTypeState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
-    const variableId = measureTypeState[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
+    const variableReferenceId =
+      measureTypeState[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
 
     responseState = {
       ...responseState,
       mandatory,
       codesListId,
       nomenclatureId,
-      variableId,
+      variableReferenceId,
       typeName: TEXT,
       maxLength: 1,
       visHint,
@@ -390,6 +391,13 @@ export function stateToRemote(
     [MEASURE]: measureState,
     [LIST_MEASURE]: listMeasuresState,
   } = state;
+
+  console.log(
+    'toto table state to remote',
+    state,
+    collectedVariables,
+    collectedVariablesStore,
+  );
 
   const { type, [type]: primaryTypeState } = primaryState;
 
@@ -441,7 +449,11 @@ export function stateToRemote(
     }
   }
 
-  console.log('toto table state to remote', dimensionsModel, responsesState);
+  console.log(
+    'toto table state to remote fjeshlsejgflsekjfgslekjfgsejh',
+    dimensionsModel,
+    responsesState,
+  );
 
   // Responses
 
@@ -469,6 +481,8 @@ export function stateToRemote(
       QUESTION_TYPE_ENUM.TABLE,
       response,
     );
+
+    console.log('toto responses model by row', responsesModelByRow);
 
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];
     mappingsModel = [...mappingsModel, ...responsesModelByRow.Mapping];
