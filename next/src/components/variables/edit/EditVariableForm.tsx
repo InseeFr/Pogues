@@ -76,7 +76,6 @@ export default function EditVariableForm({
       submitLabel={t('common.edit')}
       scopes={scopes}
       variables={variables}
-      isExternalDatatypeTypeNameEditable={true}
     />
   );
 }

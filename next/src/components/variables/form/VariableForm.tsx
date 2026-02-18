@@ -30,8 +30,6 @@ type Props = {
   scopes: Map<string, string>;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
-  /** Disable datatype selection for external variables */
-  isExternalDatatypeTypeNameEditable?: boolean;
 };
 
 /**
@@ -56,7 +54,6 @@ export default function VariableForm({
   submitLabel,
   scopes,
   variables = [],
-  isExternalDatatypeTypeNameEditable = false,
 }: Readonly<Props>) {
   const navigate = useNavigate();
 
@@ -77,7 +74,7 @@ export default function VariableForm({
 
   const isDatatypeTypeNameDisabled =
     selectedType === VariableType.External &&
-    !isExternalDatatypeTypeNameEditable;
+    variable.datatype.typeName === DatatypeType.Text;
 
   const datatypeTypeNameOptions = (() => {
     // For External variable, enable only current saved option and 'Text'

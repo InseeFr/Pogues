@@ -143,6 +143,23 @@ describe('VariableForm', () => {
     });
   });
 
+  it('should disable datatype.typeName select when editing an external variable with text datatype typename', async () => {
+    const { getByRole } = await renderWithRouter(
+      <VariableForm
+        questionnaireId="q-id"
+        onSubmit={vi.fn()}
+        submitLabel="Validate"
+        scopes={new Map<string, string>()}
+      />,
+    );
+
+    const datatypeSelect = getByRole('combobox', { name: /datatype/i });
+
+    await waitFor(() => {
+      expect(datatypeSelect).toBeDisabled();
+    });
+  });
+
   it('should allow as datatype options text/date/numeric/boolean for a calculated variable', async () => {
     const { findAllByRole, getByRole } = await renderWithRouter(
       <VariableForm
@@ -150,7 +167,6 @@ describe('VariableForm', () => {
         onSubmit={vi.fn()}
         submitLabel="Validate"
         scopes={new Map<string, string>()}
-        isExternalDatatypeTypeNameEditable
         variable={{
           type: VariableType.Calculated,
           name: 'VAR_CALC',
@@ -181,14 +197,13 @@ describe('VariableForm', () => {
     expect(options[3]).toHaveTextContent(/boolean/i);
   });
 
-  it('should allow only Text + current datatype option for an external variable when editable', async () => {
+  it('should allow only Text + current datatype option when editing an external variable if current datatype typename is not text', async () => {
     const { findAllByRole, getByRole } = await renderWithRouter(
       <VariableForm
         questionnaireId="q-id"
         onSubmit={vi.fn()}
         submitLabel="Validate"
         scopes={new Map<string, string>()}
-        isExternalDatatypeTypeNameEditable
         variable={{
           type: VariableType.External,
           name: 'VAR_EXT',
