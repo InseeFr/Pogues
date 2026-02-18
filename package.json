@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.13.1-rc-xpath-editor.0",
+  "version": "1.14.0",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",

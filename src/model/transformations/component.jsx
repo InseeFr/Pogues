@@ -298,6 +298,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     Locked: locked,
     Loop: loop,
     codeFilters: codeFilters,
+    sourceVariableReferences,
   } = remote;
   const redirectionClar =
     redirections !== undefined && Array.isArray(redirections) && questionType
@@ -366,6 +367,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       codesListsStore,
       scope,
       mandatory,
+      sourceVariableReferences,
     );
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);
@@ -727,7 +729,14 @@ function storeToRemoteNested(
     }
 
     if (responseFormat.type === PAIRING) {
-      remote.Scope = responseFormat[PAIRING].scope;
+      // we have to keep the legacy scope so DDI is happy
+      remote.Scope = responseFormat[PAIRING].sourceVariableReferences.name;
+
+      remote.sourceVariableReferences = {
+        name: responseFormat[PAIRING].sourceVariableReferences.name,
+        gender: responseFormat[PAIRING].sourceVariableReferences.gender,
+        age: responseFormat[PAIRING].sourceVariableReferences.age,
+      };
     }
 
     remote.type = QUESTION_TYPE_NAME;

@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.14.0](https://github.com/InseeFr/Pogues/releases/tag/1.14.0) - 2026-02-13
+
+### Added
+
+- Pairwise component now allows to set a name source variable (previously known as source variable) and a gender source variable. It will allow Lunatic to compute global variables that can be used in the form. The pairwise form has been slightly changed to better reflect this.
 
 ## [1.13.0](https://github.com/InseeFr/Pogues/releases/tag/1.13.0) - 2026-01-19
 
