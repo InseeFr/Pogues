@@ -90,10 +90,6 @@ export function remoteToState(remote: {
     choiceType === CHOICE_TYPE.VARIABLE &&
     visHint !== DATATYPE_VIS_HINT.SUGGESTER
   ) {
-    console.log('response-format-single remote to state for variable', {
-      ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
-    });
     return {
       ...baseState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },

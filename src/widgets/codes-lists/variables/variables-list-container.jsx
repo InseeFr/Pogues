@@ -100,12 +100,6 @@ export const mapStateToProps = (
         }
       : codesListsStore;
 
-  console.log(
-    'toto variables store in variable list container',
-    currentCodesListsStore,
-    variablesStore,
-    currentId,
-  );
   return {
     path,
     currentId,

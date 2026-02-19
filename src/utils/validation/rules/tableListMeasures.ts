@@ -38,7 +38,6 @@ export const tableListMeasuresRules = {
         { form }: { [tableListSingleChoiceType]?: string },
       ) => {
         const choiceType = get(form, tableListSingleChoiceType) as string;
-        console.log('table list single choice type toto', choiceType);
         return choiceType === 'CODE_LIST' ? required(value) : undefined;
       },
     ],

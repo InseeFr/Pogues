@@ -84,11 +84,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     [id]: codesListsStore,
   };
 
-  console.log(
-    'toto codesListsStore in questionnaire remote to stores',
-    codesListsStore,
-  );
-
   return {
     questionnaireById,
     calculatedVariableByQuestionnaire,

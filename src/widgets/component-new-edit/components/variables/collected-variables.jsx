@@ -65,11 +65,6 @@ function CollectedVariables({
   const hiddenCollected =
     responseFormatType !== TABLE && responseFormatType !== MULTIPLE_CHOICE;
 
-  console.log(
-    'toto collected variables',
-    responseFormatType,
-    reponseFormatValues,
-  );
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel

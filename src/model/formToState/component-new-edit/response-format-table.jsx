@@ -340,6 +340,7 @@ export function stateToFormMeasure(
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListState,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: variableState,
+      choiceType,
     },
   } = currentState;
 
@@ -378,6 +379,7 @@ export function stateToFormMeasure(
     [SIMPLE]: simpleState,
     [SINGLE_CHOICE]: {
       visHint,
+      choiceType,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: variableForm,
@@ -565,8 +567,6 @@ const Factory = (initialState = {}, codesListsStore) => {
 
       if (currentState[LIST_MEASURE]) {
         currentState[LIST_MEASURE].forEach((m) => {
-          console.log('measure toto', m);
-          //TODO: check on choiceType once it has been added
           if (m.type === SINGLE_CHOICE) {
             // for suggester we need to get the nomenclature (then store it as a codesList), else we get directly the codesList
             const listPath =

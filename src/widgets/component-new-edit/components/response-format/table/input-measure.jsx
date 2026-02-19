@@ -29,7 +29,6 @@ function InputMeasure({
   const handleReadOnlyChange = () => {
     setConditionReadOnly(undefined);
   };
-
   return (
     <div>
       <Field
@@ -131,6 +130,7 @@ InputMeasure.propTypes = {
   setConditionFilter: PropTypes.func,
   isReadOnly: PropTypes.bool,
   setConditionReadOnly: PropTypes.func,
+  index: PropTypes.number,
 };
 
 // Container

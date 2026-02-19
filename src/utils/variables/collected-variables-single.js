@@ -22,8 +22,6 @@ export function getCollectedVariablesSingle(
   existingVariableIds = new Set(),
   codesListStore,
 ) {
-  console.log('form for collected variable single', form, existingVariableIds);
-  console.log('codesListStore in collected variable single', codesListStore);
   let desiredVarLabel;
   if (
     codesListStore[form.Variable.id] &&
@@ -33,7 +31,6 @@ export function getCollectedVariablesSingle(
   } else {
     desiredVarLabel = form.Variable.label;
   }
-  console.log('desired variable label', desiredVarLabel);
   const mainVariable =
     form.choiceType === CHOICE_TYPE.VARIABLE
       ? getCollectedVariable(questionName, `${questionName} label`, undefined, {
@@ -120,13 +117,6 @@ export function getCollectedVariablesSingle(
       }
     }
   });
-
-  console.log(
-    'toto generated collected variables for single choice',
-    mainVariable,
-    clarificationVariables,
-  );
-
   return [mainVariable, ...clarificationVariables];
 }
 

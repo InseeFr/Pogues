@@ -72,7 +72,7 @@ export function getCollectedVariable(
       ...collectedVariable,
       arbitraryVariableOfVariableId: arbitraryVariableOfVariableId,
     };
-  console.log('toto collected variable generated', collectedVariable);
+
   return collectedVariable;
 }
 
@@ -83,7 +83,6 @@ export function generateCollectedVariables(
   codesListStore,
   existingVariableIds = new Set(),
 ) {
-  console.log('toto generate collected', form);
   switch (responseFormat) {
     case SIMPLE:
       return [

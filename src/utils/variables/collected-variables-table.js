@@ -125,10 +125,6 @@ export function getCollectedVariablesTable(questionName, form) {
       ),
     );
   }
-  console.log(
-    'toto collected variables TABLE TYPE generated',
-    collectedVariables,
-  );
   return collectedVariables.sort(sortByYXAndZ());
 }
 

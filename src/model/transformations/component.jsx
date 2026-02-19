@@ -290,7 +290,6 @@ const getVariablesReferenceIds = (Children) => {
         component.questionType === TABLE
       ) {
         component.Response.forEach((response) => {
-          console.log('toto response in table', response);
           if (response.choiceType === CHOICE_TYPE.VARIABLE) {
             variablesReference.push(response.VariableReference);
           }
@@ -313,8 +312,6 @@ const getVariablesReferenceIds = (Children) => {
 export const getVariablesReference = (Children, variablesList) => {
   const variables = [];
   const variablesIds = getVariablesReferenceIds(Children);
-
-  console.log('toto variables reference ids', variablesIds, Children);
 
   variablesIds.forEach((id) => {
     const variable = variablesList.find((varib) => varib.id === id);
@@ -372,7 +369,6 @@ function remoteToState(remote, componentGroup, codesListsStore) {
   if (arbitraryResponse !== undefined) {
     responseFinal.push(arbitraryResponse);
   }
-
   const state = {
     id,
     name,
@@ -427,7 +423,6 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       scope,
       mandatory,
     );
-    console.log('remote to state table responseFormat', state.responseFormat);
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);
   }
@@ -496,11 +491,6 @@ function getClarificationresponseSingleChoiseQuestion(
   const ClarificationQuestion = [];
   const collectedvariablequestion = [];
   const flowcontrolefinal = [];
-  console.log(
-    'toto collected variables store in clarification',
-    collectedVariablesStore,
-    codesListsStore,
-  );
   Object.values(collectedVariablesStore).forEach((collec) => {
     if (collectedVariables !== undefined) {
       collectedVariables.forEach((variables) => {
@@ -726,9 +716,6 @@ function storeToRemoteNested(
     codeFilters,
   } = state;
   if (type === LOOP || type === FILTER) return {};
-
-  type === QUESTION &&
-    console.log('toto store to remote nested component', type, responseFormat);
   let remote = {
     id,
     depth,
@@ -810,8 +797,6 @@ function storeToRemoteNested(
         response,
       ),
     };
-    responseFormat.type === TABLE &&
-      console.log('toto remote question', remote);
   } else if (type === ROUNDABOUT) {
     remote = {
       ...remote,
@@ -870,11 +855,6 @@ export function remoteToStore(
   iterations,
   filters,
 ) {
-  console.log('Component remote to store', {
-    remote,
-    questionnaireId,
-    codesListsStore,
-  });
   return {
     ...remoteToStoreNested(
       remote.Child,

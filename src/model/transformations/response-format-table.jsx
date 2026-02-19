@@ -29,6 +29,7 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 // HELPERS
 
 // TODO: handle table with variable reference ? (or at least check if we didn't break anything)
+//TODO : wtf
 
 function getDimensionsByType(type, dimensions) {
   let dimension;
@@ -121,7 +122,6 @@ function getMeasuresModel(responses, dimensions, offset) {
       response: responses[i * offset],
     });
   }
-
   return responsesModel;
 }
 
@@ -212,18 +212,30 @@ function remoteToStateMeasure(remote) {
     Label: label,
     response: {
       CodeListReference,
+      VariableReference,
       Datatype,
       conditionFilter,
       conditionReadOnly,
+      choiceType,
+      //TODO: check if you need it here (not present before)
+      CollectedVariableReference,
     },
   } = remote;
 
   const state = { label, conditionFilter, conditionReadOnly };
-
   if (CodeListReference) {
     state.type = SINGLE_CHOICE;
     state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
-      responses: [{ Datatype, CodeListReference }],
+      responses: [
+        { Datatype, CodeListReference, choiceType, CollectedVariableReference },
+      ],
+    });
+  } else if (VariableReference) {
+    state.type = SINGLE_CHOICE;
+    state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
+      responses: [
+        { Datatype, VariableReference, choiceType, CollectedVariableReference },
+      ],
     });
   } else {
     state.type = SIMPLE;
@@ -231,15 +243,12 @@ function remoteToStateMeasure(remote) {
       responses: [{ Datatype }],
     });
   }
-
   return state;
 }
 
 export function remoteToState(remote, codesListsStore) {
   const { dimensions, responses } = remote;
   const state = {};
-
-  console.log('remote to state table toto', remote);
 
   // Dimensions
   const dimensionSecondaryModel = getDimensionsByType(SECONDARY, dimensions);
@@ -392,13 +401,6 @@ export function stateToRemote(
     [LIST_MEASURE]: listMeasuresState,
   } = state;
 
-  console.log(
-    'toto table state to remote',
-    state,
-    collectedVariables,
-    collectedVariablesStore,
-  );
-
   const { type, [type]: primaryTypeState } = primaryState;
 
   const dimensionsModel = [];
@@ -448,13 +450,6 @@ export function stateToRemote(
       responsesState.push(stateToResponseState(listMeasuresState[i], type));
     }
   }
-
-  console.log(
-    'toto table state to remote fjeshlsejgflsekjfgslekjfgsejh',
-    dimensionsModel,
-    responsesState,
-  );
-
   // Responses
 
   const numDataTypes = measureState
@@ -481,8 +476,6 @@ export function stateToRemote(
       QUESTION_TYPE_ENUM.TABLE,
       response,
     );
-
-    console.log('toto responses model by row', responsesModelByRow);
 
     responsesModel = [...responsesModel, ...responsesModelByRow.Response];
     mappingsModel = [...mappingsModel, ...responsesModelByRow.Mapping];

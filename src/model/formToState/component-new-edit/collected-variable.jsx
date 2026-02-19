@@ -144,11 +144,6 @@ export function storeToForm(currentStore) {
     ...defaultForm,
     collectedVariables,
   };
-  console.log(
-    'storeToForm quand on ouvre la question toto',
-    collectedVariables,
-    currentStore,
-  );
   return mergedForm;
 }
 

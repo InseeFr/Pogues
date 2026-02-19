@@ -29,7 +29,6 @@ function ResponseFormatSingle({
   disableSetArbitrary,
 }) {
   const selectorPath = SINGLE_CHOICE;
-
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
