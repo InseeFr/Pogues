@@ -126,7 +126,7 @@ describe('VariableForm', () => {
     expect(getByText('You must provide a description')).toBeDefined();
   });
 
-  it('should disable datatype.typeName select by default when variable is external', async () => {
+  it('should disable datatype selection when variable is external (it can only be text)', async () => {
     const { getByRole } = await renderWithRouter(
       <VariableForm
         questionnaireId="q-id"
@@ -136,31 +136,37 @@ describe('VariableForm', () => {
       />,
     );
 
-    const datatypeSelect = getByRole('combobox', { name: /datatype/i });
-
-    await waitFor(() => {
-      expect(datatypeSelect).toBeDisabled();
-    });
+    const datatype = getByRole('combobox', { name: /datatype/i });
+    expect(datatype).toBeDisabled();
+    expect(datatype).toHaveTextContent(/text/i);
   });
 
-  it('should disable datatype.typeName select when editing an external variable with text datatype typename', async () => {
+  it('should disable datatype selection when editing an external variable with text datatype', async () => {
     const { getByRole } = await renderWithRouter(
       <VariableForm
         questionnaireId="q-id"
         onSubmit={vi.fn()}
         submitLabel="Validate"
         scopes={new Map<string, string>()}
+        variable={{
+          type: VariableType.External,
+          name: 'VAR_EXT',
+          description: 'test external',
+          scope: '',
+          datatype: {
+            typeName: DatatypeType.Text,
+            maxLength: 249,
+          },
+        }}
       />,
     );
 
-    const datatypeSelect = getByRole('combobox', { name: /datatype/i });
-
-    await waitFor(() => {
-      expect(datatypeSelect).toBeDisabled();
-    });
+    const datatype = getByRole('combobox', { name: /datatype/i });
+    expect(datatype).toBeDisabled();
+    expect(datatype).toHaveTextContent(/text/i);
   });
 
-  it('should allow as datatype options text/date/numeric/boolean for a calculated variable', async () => {
+  it('should allow all datatype options calculated variables', async () => {
     const { findAllByRole, getByRole } = await renderWithRouter(
       <VariableForm
         questionnaireId="q-id"
@@ -187,14 +193,13 @@ describe('VariableForm', () => {
 
     // open select
     fireEvent.click(datatypeSelect);
-    const options = await findAllByRole('option');
 
     // allowed options : text, date, numeric, boolean
-    expect(options).toHaveLength(4);
-    expect(options[0]).toHaveTextContent(/text/i);
-    expect(options[1]).toHaveTextContent(/date/i);
-    expect(options[2]).toHaveTextContent(/number/i);
-    expect(options[3]).toHaveTextContent(/boolean/i);
+    expect(await findAllByRole('option')).toHaveLength(4);
+    expect(getByRole('option', { name: /text/i })).toBeInTheDocument();
+    expect(getByRole('option', { name: /date/i })).toBeInTheDocument();
+    expect(getByRole('option', { name: /number/i })).toBeInTheDocument();
+    expect(getByRole('option', { name: /boolean/i })).toBeInTheDocument();
   });
 
   it('should allow only Text + current datatype option when editing an external variable if current datatype typename is not text', async () => {
@@ -224,11 +229,10 @@ describe('VariableForm', () => {
 
     // open select
     fireEvent.click(datatypeSelect);
-    const options = await findAllByRole('option');
 
     // allowed options : text and current variable datatype typeName
-    expect(options).toHaveLength(2);
-    expect(options[0]).toHaveTextContent(/text/i);
-    expect(options[1]).toHaveTextContent(/number/i);
+    expect(await findAllByRole('option')).toHaveLength(2);
+    expect(getByRole('option', { name: /text/i })).toBeInTheDocument();
+    expect(getByRole('option', { name: /number/i })).toBeInTheDocument();
   });
 });
