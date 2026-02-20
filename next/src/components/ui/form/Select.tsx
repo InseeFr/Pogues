@@ -52,14 +52,15 @@ export default function Select<T>({
         className={`
           flex min-w-36 w-full
           text-sm text-default font-normal
-          bg-default
+          cursor-pointer
+          bg-default hover:bg-main
           items-center justify-between gap-3
           rounded-md border border-default
           pr-3 pl-3.5 py-4
           select-none
           focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary
           active:bg-accent data-popup-open:bg-accent
-          ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-main'}
+          data-disabled:cursor-not-allowed data-disabled:opacity-50
         `}
       >
         <BaseUISelect.Value />
