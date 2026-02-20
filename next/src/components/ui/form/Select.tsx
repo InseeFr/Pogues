@@ -60,7 +60,7 @@ export default function Select<T>({
           select-none
           focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary
           active:bg-accent data-popup-open:bg-accent
-          data-disabled:cursor-not-allowed data-disabled:opacity-50
+          data-disabled:cursor-not-allowed data-disabled:opacity-50 data-disabled:hover:bg-default
         `}
       >
         <BaseUISelect.Value />
