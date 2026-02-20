@@ -123,12 +123,6 @@ export function stateToRemote(
 ): { Response: RemoteResponseFormatSingle } {
   const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
 
-  console.log(
-    'stateToRemote response-format-single',
-    state,
-    collectedVariables,
-  );
-
   let nomenclatureId;
   let codesListId;
   let variableReferenceId;

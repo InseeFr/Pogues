@@ -6,6 +6,7 @@ describe('getCollectedVariablesSingle', () => {
   test('computes a single variable for QCU without precision', () => {
     const form = {
       visHint: 'RADIO',
+      choiceType: 'CODE_LIST',
       CodesList: {
         id: 'my-cl-id',
         label: 'my-cl',
@@ -34,6 +35,7 @@ describe('getCollectedVariablesSingle', () => {
   test('computes clarification variable for QCU with precision', () => {
     const form = {
       visHint: 'RADIO',
+      choiceType: 'CODE_LIST',
       CodesList: {
         id: 'my-cl-id',
         label: 'my-cl',
@@ -58,6 +60,7 @@ describe('getCollectedVariablesSingle', () => {
         id: expect.any(String),
         name: 'MY_Q',
         label: 'MY_Q label',
+        choiceType: 'CODE_LIST',
         codeListReference: 'my-cl-id',
         codeListReferenceLabel: 'my-cl',
         type: 'TEXT',
@@ -70,6 +73,7 @@ describe('getCollectedVariablesSingle', () => {
         type: 'TEXT',
         TEXT: { maxLength: 249 },
         isCollected: '1',
+        codeListReference: undefined,
         z: 1,
       },
     ]);
@@ -78,6 +82,7 @@ describe('getCollectedVariablesSingle', () => {
   test('computes existing precision variable when there is an existing precision in codesList', () => {
     const form = {
       visHint: 'RADIO',
+      choiceType: 'CODE_LIST',
       CodesList: {
         id: 'my-cl-id',
         label: 'my-cl',
@@ -116,6 +121,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'MY_Q label',
         codeListReference: 'my-cl-id',
         codeListReferenceLabel: 'my-cl',
+        choiceType: 'CODE_LIST',
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },
@@ -126,6 +132,7 @@ describe('getCollectedVariablesSingle', () => {
         type: 'TEXT',
         TEXT: { maxLength: 249 },
         isCollected: '1',
+        codeListReference: undefined,
         z: 1,
       },
     ]);
@@ -134,6 +141,7 @@ describe('getCollectedVariablesSingle', () => {
   test.skip('does not compute a new precision variable when the precision size change', () => {
     const form = {
       visHint: 'RADIO',
+      choiceType: 'CODE_LIST',
       CodesList: {
         id: 'my-cl-id',
         label: 'my-cl',
@@ -175,6 +183,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'MY_Q label',
         codeListReference: 'my-cl-id',
         codeListReferenceLabel: 'my-cl',
+        choiceType: 'CODE_LIST',
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },
@@ -185,6 +194,7 @@ describe('getCollectedVariablesSingle', () => {
         type: 'TEXT',
         TEXT: { maxLength: 42 },
         isCollected: '1',
+        codeListReference: undefined,
         z: 1,
       },
     ]);
@@ -192,6 +202,7 @@ describe('getCollectedVariablesSingle', () => {
 
   test('does not compute a clarification variable for dropdown', () => {
     const form = {
+      choiceType: 'CODE_LIST',
       visHint: 'DROPDOWN',
       CodesList: {
         id: 'my-cl-id',
@@ -232,6 +243,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'MY_Q label',
         codeListReference: 'my-cl-id',
         codeListReferenceLabel: 'my-cl',
+        choiceType: 'CODE_LIST',
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },
@@ -243,6 +255,7 @@ describe('getCollectedVariablesSingle', () => {
       allowArbitraryResponse: true,
       Nomenclature: { id: 'my-nomenclature-id', label: 'my-nomenclature' },
       visHint: 'SUGGESTER',
+      choiceType: 'SUGGESTER',
     };
     const result = getCollectedVariablesSingle('MY_Q', form);
 
@@ -253,6 +266,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'MY_Q label',
         codeListReference: 'my-nomenclature-id',
         codeListReferenceLabel: 'my-nomenclature',
+        choiceType: 'SUGGESTER',
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },
@@ -273,6 +287,7 @@ describe('getCollectedVariablesSingle', () => {
       allowArbitraryResponse: false,
       Nomenclature: { id: 'my-nomenclature-id', label: 'my-nomenclature' },
       visHint: 'SUGGESTER',
+      choiceType: 'SUGGESTER',
     };
     const result = getCollectedVariablesSingle('MY_Q', form);
 
@@ -283,6 +298,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'MY_Q label',
         codeListReference: 'my-nomenclature-id',
         codeListReferenceLabel: 'my-nomenclature',
+        choiceType: 'SUGGESTER',
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },

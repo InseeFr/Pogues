@@ -22,15 +22,10 @@ export function getCollectedVariablesSingle(
   existingVariableIds = new Set(),
   codesListStore,
 ) {
-  let desiredVarLabel;
-  if (
-    codesListStore[form.Variable.id] &&
-    codesListStore[form.Variable.id].label
-  ) {
-    desiredVarLabel = codesListStore[form.Variable.id].label;
-  } else {
-    desiredVarLabel = form.Variable.label;
-  }
+  const desiredVarLabel =
+    form.choiceType === CHOICE_TYPE.VARIABLE
+      ? (codesListStore?.[form.Variable?.id]?.label ?? form.Variable?.label)
+      : undefined;
   const mainVariable =
     form.choiceType === CHOICE_TYPE.VARIABLE
       ? getCollectedVariable(questionName, `${questionName} label`, undefined, {
@@ -61,7 +56,10 @@ export function getCollectedVariablesSingle(
   }
 
   // Dropdown do not have clarification variable
-  if (form.visHint === DATATYPE_VIS_HINT.DROPDOWN) {
+  if (
+    form.visHint === DATATYPE_VIS_HINT.DROPDOWN ||
+    form.choiceType === CHOICE_TYPE.VARIABLE
+  ) {
     return [mainVariable];
   }
 

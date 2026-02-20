@@ -366,6 +366,7 @@ describe('getReponsesValues', () => {
       label: 'radio',
       type: 'SINGLE_CHOICE',
       SINGLE_CHOICE: {
+        choiceType: 'CODE_LIST',
         visHint: 'RADIO',
         CodesList: {
           id: 'mbqae1u1',
@@ -385,6 +386,7 @@ describe('getReponsesValues', () => {
     const output = {
       codeListReference: 'mbqae1u1',
       codeListReferenceLabel: 'oui_non',
+      choiceType: 'CODE_LIST',
       type: 'TEXT',
       TEXT: { maxLength: 1 },
     };
@@ -392,21 +394,51 @@ describe('getReponsesValues', () => {
     expect(getReponsesValues(measure)).toEqual(output);
   });
 
-  it('handles single choice suggester response', () => {
+  it('handles single choice variable response', () => {
     const measure = {
-      label: 'suggester',
+      label: 'variable',
       type: 'SINGLE_CHOICE',
       SINGLE_CHOICE: {
-        visHint: 'SUGGESTER',
+        choiceType: 'VARIABLE',
+        visHint: 'RADIO',
+        Variable: {
+          id: 'my-variable-id',
+          label: 'my-variable-label',
+          name: 'my-variable-name',
+          scope: 'my-variable-scope',
+        },
+      },
+    };
+
+    const output = {
+      codeListReference: '',
+      codeListReferenceLabel: '',
+      variableReference: 'my-variable-id',
+      variableReferenceLabel: 'my-variable-label',
+      choiceType: 'VARIABLE',
+      type: 'TEXT',
+      TEXT: { maxLength: 1 },
+    };
+
+    expect(getReponsesValues(measure)).toEqual(output);
+  });
+
+  it('handles single choice radio response', () => {
+    const measure = {
+      label: 'radio',
+      type: 'SINGLE_CHOICE',
+      SINGLE_CHOICE: {
+        choiceType: 'CODE_LIST',
+        visHint: 'RADIO',
         CodesList: {
-          id: '',
-          label: '',
+          id: 'mbqae1u1',
+          label: 'oui_non',
           codes: [],
         },
         Nomenclature: {
-          id: 'mbqae1u1',
+          id: '',
           name: '',
-          label: 'oui_non',
+          label: '',
           urn: '',
           suggesterParameters: {},
         },
@@ -416,6 +448,7 @@ describe('getReponsesValues', () => {
     const output = {
       codeListReference: 'mbqae1u1',
       codeListReferenceLabel: 'oui_non',
+      choiceType: 'CODE_LIST',
       type: 'TEXT',
       TEXT: { maxLength: 1 },
     };

@@ -298,6 +298,7 @@ describe('validCollectedVariables', () => {
                 },
               ],
             },
+            choiceType: 'CODE_LIST',
           },
         },
         collectedVariables: {
