@@ -26,6 +26,7 @@ describe('getCollectedVariablesSingle', () => {
         label: 'MY_Q label',
         codeListReference: 'my-cl-id',
         codeListReferenceLabel: 'my-cl',
+        choiceType: 'CODE_LIST',
         type: 'TEXT',
         TEXT: { maxLength: 1 },
       },

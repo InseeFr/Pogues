@@ -149,6 +149,7 @@ export function getReponsesValues(measure) {
             ? DEFAULT_CODES_LIST_SELECTOR_PATH
             : DEFAULT_VARIABLE_SELECTOR_PATH;
       return {
+        choiceType,
         codeListReference:
           choiceType === CHOICE_TYPE.CODE_LIST ||
           choiceType === CHOICE_TYPE.SUGGESTER

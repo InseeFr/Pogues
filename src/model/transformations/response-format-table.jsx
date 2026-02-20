@@ -28,9 +28,6 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 
 // HELPERS
 
-// TODO: handle table with variable reference ? (or at least check if we didn't break anything)
-//TODO : wtf
-
 function getDimensionsByType(type, dimensions) {
   let dimension;
 
@@ -217,7 +214,6 @@ function remoteToStateMeasure(remote) {
       conditionFilter,
       conditionReadOnly,
       choiceType,
-      //TODO: check if you need it here (not present before)
       CollectedVariableReference,
     },
   } = remote;

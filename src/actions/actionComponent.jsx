@@ -87,12 +87,6 @@ export const updateComponent =
         });
       }
     }
-    console.log(
-      'Updating component',
-      activeCodeListsById,
-      componentsStore[componentId],
-      collectedVariablesStore,
-    );
     const collectedVariableReference =
       componentsStore[componentId]?.collectedVariables || [];
     let updatedCodeListsStore = { ...codesListsStore };

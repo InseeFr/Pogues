@@ -225,6 +225,7 @@ describe('getCollectedVariablesTable', () => {
             label: '',
             codes: [],
           },
+          choiceType: 'CODE_LIST',
           visHint: 'CHECKBOX',
         },
         measures: [
@@ -254,6 +255,7 @@ describe('getCollectedVariablesTable', () => {
                 label: '',
                 codes: [],
               },
+              choiceType: 'CODE_LIST',
               visHint: 'CHECKBOX',
             },
           },
@@ -283,6 +285,7 @@ describe('getCollectedVariablesTable', () => {
                 label: '',
                 codes: [],
               },
+              choiceType: 'CODE_LIST',
               visHint: 'CHECKBOX',
             },
           },
@@ -314,6 +317,7 @@ describe('getCollectedVariablesTable', () => {
             label: '',
             codes: [],
           },
+          choiceType: 'CODE_LIST',
           visHint: 'CHECKBOX',
         },
       },
@@ -386,6 +390,8 @@ describe('getReponsesValues', () => {
     const output = {
       codeListReference: 'mbqae1u1',
       codeListReferenceLabel: 'oui_non',
+      variableReference: '',
+      variableReferenceLabel: '',
       choiceType: 'CODE_LIST',
       type: 'TEXT',
       TEXT: { maxLength: 1 },
@@ -401,6 +407,18 @@ describe('getReponsesValues', () => {
       SINGLE_CHOICE: {
         choiceType: 'VARIABLE',
         visHint: 'RADIO',
+        CodesList: {
+          id: '',
+          label: '',
+          codes: [],
+        },
+        Nomenclature: {
+          id: '',
+          name: '',
+          label: '',
+          urn: '',
+          suggesterParameters: {},
+        },
         Variable: {
           id: 'my-variable-id',
           label: 'my-variable-label',
@@ -448,6 +466,8 @@ describe('getReponsesValues', () => {
     const output = {
       codeListReference: 'mbqae1u1',
       codeListReferenceLabel: 'oui_non',
+      variableReference: '',
+      variableReferenceLabel: '',
       choiceType: 'CODE_LIST',
       type: 'TEXT',
       TEXT: { maxLength: 1 },
