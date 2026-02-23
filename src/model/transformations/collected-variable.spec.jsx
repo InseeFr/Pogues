@@ -35,6 +35,7 @@ describe('collected variable tranformations', () => {
           type: TEXT,
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [TEXT]: {
             maxLength: 100,
           },
@@ -92,6 +93,7 @@ describe('collected variable tranformations', () => {
           type: NUMERIC,
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [NUMERIC]: {
             minimum: '1',
             maximum: '10',
@@ -109,6 +111,7 @@ describe('collected variable tranformations', () => {
           type: NUMERIC,
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [NUMERIC]: {
             minimum: '1',
             maximum: '10',
@@ -153,6 +156,7 @@ describe('collected variable tranformations', () => {
           type: DURATION,
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [DURATION]: {
             format: 'PnYnM',
             mamonths: '1',
@@ -196,6 +200,7 @@ describe('collected variable tranformations', () => {
           type: DURATION,
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [DURATION]: {
             format: 'PTnHnM',
             mahours: '2',
@@ -262,6 +267,7 @@ describe('collected variable tranformations', () => {
           type: TEXT,
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           TEXT: {
             maxLength: 1,
           },
@@ -272,6 +278,7 @@ describe('collected variable tranformations', () => {
           label: 'SUGGESTER_ARBITRARY label',
           type: TEXT,
           codeListReferenceLabel: '',
+          variableReferenceLabel: '',
           TEXT: {
             maxLength: 249,
           },
