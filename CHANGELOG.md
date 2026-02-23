@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added nomenclatures : `L_ACTIVITES2025-1-0-0`.
+- Allow to choose a variable as source for unique choice questions & tables
 
 ### Changed
 

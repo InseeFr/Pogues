@@ -493,6 +493,7 @@ describe('component tranformations', () => {
             PAIRWISE: {
               id: 'my-q-pairwise-response-id',
               visHint: 'DROPDOWN',
+              choiceType: 'CODE_LIST',
               CodesList: {
                 id: 'my-codelist-id',
                 label: 'Liste de code',
@@ -527,6 +528,7 @@ describe('component tranformations', () => {
                 {
                   CodeListReference: 'my-codelist-id',
                   CollectedVariableReference: 'my-collected-var-id',
+                  choiceType: 'CODE_LIST',
                   Datatype: {
                     typeName: 'TEXT',
                     type: 'TextDatatypeType',
