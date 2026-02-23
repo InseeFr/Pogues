@@ -1,4 +1,5 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
@@ -26,6 +27,7 @@ type RemoteResponseFormatMultiple = {
       allowArbitraryResponse?: unknown;
       visualizationHint: DATATYPE_VIS_HINT;
     };
+    choiceType: CHOICE_TYPE.CODE_LIST;
     CodeListReference?: unknown;
   }[];
 };
@@ -44,17 +46,18 @@ type StateResponseFormatMultiple = {
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
   };
   [DIMENSION_TYPE.MEASURE]:
-  | {
-    type: DIMENSION_FORMATS.BOOL;
-    [DIMENSION_FORMATS.BOOL]: unknown;
-  }
-  | {
-    type: DIMENSION_FORMATS.CODES_LIST;
-    [DIMENSION_FORMATS.CODES_LIST]: {
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
-      visHint: DATATYPE_VIS_HINT;
-    };
-  };
+    | {
+        type: DIMENSION_FORMATS.BOOL;
+        [DIMENSION_FORMATS.BOOL]: unknown;
+      }
+    | {
+        type: DIMENSION_FORMATS.CODES_LIST;
+        [DIMENSION_FORMATS.CODES_LIST]: {
+          [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
+          visHint: DATATYPE_VIS_HINT;
+          choiceType: CHOICE_TYPE.CODE_LIST;
+        };
+      };
 };
 
 /** Get the dimension associated to the primary axis. */
@@ -76,6 +79,7 @@ export function remoteToState(
     responses: [
       {
         Datatype: { typeName: type, visualizationHint: visHint },
+        choiceType,
         CodeListReference,
       },
     ],
@@ -109,6 +113,7 @@ export function remoteToState(
         [DEFAULT_CODES_LIST_SELECTOR_PATH]:
           codeListRemoteToState(CodeListReference),
         visHint,
+        choiceType: choiceType ? choiceType : CHOICE_TYPE.CODE_LIST,
       },
     },
   };
@@ -148,12 +153,14 @@ export function stateToRemote(
     const {
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: codesListId },
       visHint,
+      choiceType = CHOICE_TYPE.CODE_LIST,
     } = measureDimension[DIMENSION_FORMATS.CODES_LIST];
 
     responseState = {
       codesListId,
       typeName: DATATYPE_NAME.TEXT,
       visHint,
+      choiceType,
       maxLength: 1,
     };
   } else {
