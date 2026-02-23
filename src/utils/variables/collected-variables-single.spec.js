@@ -305,4 +305,32 @@ describe('getCollectedVariablesSingle', () => {
       },
     ]);
   });
+
+  test('does compute variable reference variable for VARIABLE choice type', () => {
+    const form = {
+      allowArbitraryResponse: false,
+      Variable: {
+        id: 'my-variableRef-id',
+        label: 'my-variableRef',
+        name: 'my-variableRef-id',
+        scope: 'my-variableScope',
+      },
+      visHint: 'VARIABLE',
+      choiceType: 'VARIABLE',
+    };
+    const result = getCollectedVariablesSingle('MY_Q', form);
+
+    expect(result).toEqual([
+      {
+        id: expect.any(String),
+        name: 'MY_Q',
+        label: 'MY_Q label',
+        variableReference: 'my-variableRef-id',
+        variableReferenceLabel: 'my-variableRef',
+        choiceType: 'VARIABLE',
+        type: 'TEXT',
+        TEXT: { maxLength: 1 },
+      },
+    ]);
+  });
 });
