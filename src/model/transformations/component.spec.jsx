@@ -535,7 +535,7 @@ describe('component tranformations', () => {
                     visualizationHint: 'DROPDOWN',
                   },
                   choiceType: 'CODE_LIST',
-                  VariableReference: '',
+                  VariableReference: undefined,
                   id: 'my-q-pairwise-response-id',
                 },
               ],

@@ -54,7 +54,7 @@ export function getCollectedVariable(
   coordinates,
   reponseFormatValues = {},
   id = undefined,
-  alternativeLabel = '',
+  alternativeLabel = undefined,
   arbitraryVariableOfVariableId = undefined,
 ) {
   let collectedVariable = {
@@ -65,7 +65,7 @@ export function getCollectedVariable(
   };
 
   if (coordinates) collectedVariable = { ...collectedVariable, ...coordinates };
-  if (alternativeLabel)
+  if (alternativeLabel && typeof alternativeLabel === 'object')
     collectedVariable = { ...collectedVariable, ...alternativeLabel };
   if (arbitraryVariableOfVariableId)
     collectedVariable = {

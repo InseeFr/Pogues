@@ -106,8 +106,6 @@ export function getCollectedVariablesMultiple(
                   maxLength: precision.precisionsize,
                 },
               },
-              undefined,
-              undefined,
               variableId,
             ),
           );

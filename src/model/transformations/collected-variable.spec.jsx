@@ -36,12 +36,7 @@ describe('collected variable tranformations', () => {
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           [TEXT]: {
-            decimals: undefined,
             maxLength: 100,
-            maximum: undefined,
-            minimum: undefined,
-            unit: undefined,
-            format: undefined,
           },
         },
       };

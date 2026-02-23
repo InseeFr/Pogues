@@ -106,8 +106,6 @@ export function getCollectedVariablesSingle(
                 maxLength: precision.precisionsize,
               },
             },
-            undefined,
-            undefined,
             variableId,
           );
           clarificationVariables.push(clarificationVariable);
@@ -120,7 +118,7 @@ export function getCollectedVariablesSingle(
 
 function computeSuggesterArbitraryVariable(questionName, mainVariable) {
   const arbitraryResponseName = `${questionName}_ARBITRARY`;
-  return getCollectedVariable(
+  const arbitraryVariable = getCollectedVariable(
     arbitraryResponseName,
     `${arbitraryResponseName} label`,
     undefined,
@@ -131,4 +129,6 @@ function computeSuggesterArbitraryVariable(questionName, mainVariable) {
     undefined,
     mainVariable.id,
   );
+  arbitraryVariable.arbitraryVariableOfVariableId = mainVariable.id;
+  return arbitraryVariable;
 }
