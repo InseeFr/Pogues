@@ -77,43 +77,34 @@ export function remoteToState(remote: {
     choiceType,
   };
 
-  // for suggester we handle a nomenclature, else a code list
-  if (choiceType === CHOICE_TYPE.SUGGESTER) {
+  // for suggester we handle a nomenclature
+  if (
+    choiceType === CHOICE_TYPE.SUGGESTER ||
+    visHint === DATATYPE_VIS_HINT.SUGGESTER
+  ) {
     return {
       ...baseState,
+      choiceType: CHOICE_TYPE.SUGGESTER,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
         codeListRemoteToState(CodeListReference),
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
     };
   }
-  if (
-    choiceType === CHOICE_TYPE.VARIABLE &&
-    visHint !== DATATYPE_VIS_HINT.SUGGESTER
-  ) {
+  // for variable we handle a variable
+  if (choiceType === CHOICE_TYPE.VARIABLE) {
     return {
       ...baseState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
       visHint,
     };
   }
-
-  if (
-    choiceType !== CHOICE_TYPE.CODE_LIST &&
-    visHint !== DATATYPE_VIS_HINT.SUGGESTER
-  ) {
-    return {
-      ...baseState,
-      [DEFAULT_CODES_LIST_SELECTOR_PATH]:
-        codeListRemoteToState(CodeListReference),
-      visHint,
-    };
-  }
-  // fallback
+  // else it's a codeList
   return {
     ...baseState,
+    choiceType: CHOICE_TYPE.CODE_LIST,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       codeListRemoteToState(CodeListReference),
-    visHint: visHint === DATATYPE_VIS_HINT.SUGGESTER ? undefined : visHint,
+    visHint,
   };
 }
 
