@@ -9,13 +9,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Handle external variables' `isDeletedOnReset` property.
-- Added nomenclatures: "L_PRODUITS_LAITIERS2026", "L_NATIONETR-1-1-0".
-- Handle hyphen (`-` character) for searching in all existing nomenclatures
+- Added nomenclatures : `L_ACTIVITES2025-1-0-0`.
 
 ### Changed
 
-- Updated nomenclatures: "L_NEGOCE_TAB_2025" -> "L_NEGOCE_TAB_2025-1", "L_COMMUNES-2025" -> "L_COMMUNES-2025-1"
+- Updated nomenclatures:
+  - `L_ACTIVITES-2-1-0` -> `L_ACTIVITES-2-2-0`
+  - `L_PCS_FEMMES-2-2-0` -> `L_PCS_FEMMES-2-3-0`
+  - `L_PCS_HOMMES-2-2-0` -> `L_PCS_HOMMES-2-3-0`
+
+### Removed
+
+- The Xpath editor is now a classic textarea, not interpreting markdown anymore.
+- Removed nomenclatures : `L_PRODEAP_VPI_2024`, `L_PRODEAP_VPNI_2024`, `L_PRODEAP_VPIZ_2024`, `L_PRODEAP_DECHETS_2024`, `L_PRODEAP_EAU_2024`, `L_PRODEAP_ELEC_2024`, `L_PRODEAP_GAZ_2024`, `L_PRODEAP_VAPEUR_2024`, `L_PRODEAP_INSTAL_REPAR_2024`, `L_PRODIAA_VPI_2024`, `L_PRODIAA_VPIZ_2024`.
+
+## [1.14.0](https://github.com/InseeFr/Pogues/releases/tag/1.14.0) - 2026-02-13
+
+### Added
+
+- Pairwise component now allows to set a name source variable (previously known as source variable) and a gender source variable. It will allow Lunatic to compute global variables that can be used in the form. The pairwise form has been slightly changed to better reflect this.
+
+## [1.13.0](https://github.com/InseeFr/Pogues/releases/tag/1.13.0) - 2026-01-19
+
+### Added
+
+- Handle external variables' `isDeletedOnReset` property.
+- Added nomenclatures: "L_PRODUITS_LAITIERS2026", "L_NATIONETR-1-1-0", "L_SPE_NON_FORMELLES-1-0-0".
+
+### Changed
+
+- Updated nomenclatures:
+  - "L_AUTRE_TAB_2025" -> "L_AUTRE_TAB_2025-1"
+  - "L_COMMUNES-2025" -> "L_COMMUNES-2025-1"
+  - "L_ELEC_TAB_2025" -> "L_ELEC_TAB_2025-1"
+  - "L_NEGOCE_TAB_2025" -> "L_NEGOCE_TAB_2025-1"
+  - "L_PI_TAB_2025" -> "L_PI_TAB_2025-1"
+
+### Removed
+
+- Questions no longer allow access to external and calculated variables tab (which allowed to create, update and delete from within a question), since it's now handled by next.
+
+### Fixed
+
+- Hyphens `-` are now handled when searching for a nomenclature.
 
 ## [1.12.0](https://github.com/InseeFr/Pogues/releases/tag/1.12.0) - 2025-11-25
 

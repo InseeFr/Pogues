@@ -13,7 +13,7 @@ interface UserProps {
 /** Compute initials of the current user to display as an avatar. */
 export default function User({ user }: Readonly<UserProps>) {
   const { t } = useTranslation();
-  const { isUserLoggedIn, logout } = useOidc();
+  const { isUserLoggedIn, logout = () => {} } = useOidc();
   const initials =
     user?.givenName && user?.familyName
       ? `${user.givenName.charAt(0).toUpperCase()}${user.familyName.charAt(0).toUpperCase()}`
@@ -27,10 +27,11 @@ export default function User({ user }: Readonly<UserProps>) {
 
   return isUserLoggedIn ? (
     <Menu
+      label="Open user navigation menu"
       items={[
         {
           label: t('common.logout'),
-          icon: <LogoutIcon />,
+          Icon: <LogoutIcon height="17px" width="17px" />,
           onClick: onLogout,
         },
       ]}

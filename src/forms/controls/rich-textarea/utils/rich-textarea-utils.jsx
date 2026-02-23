@@ -1,55 +1,24 @@
-import { EditorState } from 'draft-js';
-import EditorValue from 'gillespie59-react-rte/lib/lib/EditorValue';
-
-import decorators from '../decorators/rich-textarea-decorators';
+import MarkdownParser from '../lib/markdown-vtl-parser';
 import stateFromMarkdownVtl from '../lib/state-from-markdown-vtl';
-import stateToMarkdownVtl from '../lib/state-to-markdown-vtl';
 
-export function removeVtlFromMarkdow(markdownVtl) {
+export function removeVtlFromMarkdown(markdownVtl) {
   return markdownVtl.replace(/##{"label":\s*"(.+?)".+#end/g, '$1');
 }
 
-export function createFromMarkdownVtl(markdownVtl, format, decorator) {
-  const contentState = stateFromMarkdownVtl(markdownVtl);
-  const editorState = EditorState.createWithContent(contentState, decorator);
-  return new EditorValue(editorState, { [format]: markdownVtl });
-}
-
-export function contentStateToString(contentState) {
-  return stateToMarkdownVtl(contentState).replace(/(^\n+)|(\n+$)/, '');
-}
-
-export function getEditorValue(markdownVtl) {
-  return markdownVtl
-    ? createFromMarkdownVtl(markdownVtl, 'markdown', decorators)
-    : EditorValue.createEmpty(decorators);
-}
-
 export function markdownVtlToHtml(markdownVtl) {
-  const markdown = removeVtlFromMarkdow(markdownVtl);
-  return createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
-    'html',
-  );
+  const markdown = removeVtlFromMarkdown(markdownVtl);
+  if (!markdown) {
+    return '';
+  }
+  return MarkdownParser.parse(markdown, { getAST: true });
 }
 
 export function markdownVtlToString(markdownVtl) {
-  const markdown = removeVtlFromMarkdow(markdownVtl);
-  const raw = createFromMarkdownVtl(markdown, 'markdown', decorators).toString(
-    'raw',
-  );
-  return JSON.parse(raw).blocks[0].text.replace(/(^\n+)|(\n+$)/, '');
-}
-
-/**
- * We do not format in the same way external URL and tooltip.
- * If the url start with http(s), we format as a basic link.
- * If not, we will use the string '.' as the URL.
- *
- * @param {*} url the URL of a markdown link
- */
-export function formatURL(url) {
-  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
-    return { url };
+  const markdown = removeVtlFromMarkdown(markdownVtl);
+  const contentState = stateFromMarkdownVtl(markdown);
+  const firstBlock = contentState.getBlockMap().first();
+  if (!firstBlock) {
+    return '';
   }
-  return { url: '.', title: url };
+  return firstBlock.getText().replace(/(^\n+)|(\n+$)/, '');
 }

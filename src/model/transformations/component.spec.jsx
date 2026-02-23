@@ -455,6 +455,117 @@ describe('component tranformations', () => {
         ),
       ).toEqual(output);
     });
+
+    test('should return the remote representation of a pairwise question', () => {
+      const store = {
+        'my-questionnaire-id': {
+          TargetMode: ['CAWI'],
+          children: ['my-sequence-id'],
+          id: 'my-questionnaire-id',
+          label: 'questionnaire',
+          name: 'QUESTIONNA',
+          type: 'QUESTIONNAIRE',
+        },
+        'my-sequence-id': {
+          TargetMode: ['CAWI'],
+          children: ['my-q-pairwise-id'],
+          controls: {},
+          declarations: {},
+          id: 'my-sequence-id',
+          label: 'sequence',
+          name: 'S1',
+          parent: 'my-questionnaire-id',
+          redirections: {},
+          type: 'SEQUENCE',
+        },
+        'my-q-pairwise-id': {
+          TargetMode: ['CAWI'],
+          collectedVariables: ['my-collected-var-id'],
+          controls: {},
+          declarations: {},
+          id: 'my-q-pairwise-id',
+          label: 'question',
+          name: 'Q1',
+          parent: 'my-sequence-id',
+          redirections: {},
+          responseFormat: {
+            type: 'PAIRWISE',
+            PAIRWISE: {
+              id: 'my-q-pairwise-response-id',
+              visHint: 'DROPDOWN',
+              CodesList: {
+                id: 'my-codelist-id',
+                label: 'Liste de code',
+                codes: {
+                  A: { value: 'A', label: 'A', depth: 1, weight: 1 },
+                  B: { value: 'B', label: 'B', depth: 1, weight: 2 },
+                  C: { value: 'C', label: 'C', depth: 1, weight: 3 },
+                  D: { value: 'D', label: 'D', depth: 1, weight: 4 },
+                },
+              },
+              sourceVariableReferences: {
+                age: 'my-var-age-id',
+                gender: 'my-var-gender-id',
+                name: 'my-var-name-id',
+              },
+            },
+          },
+          type: 'QUESTION',
+        },
+      };
+
+      const expected = [
+        {
+          Child: [
+            {
+              Control: [],
+              Declaration: [],
+              FlowControl: [],
+              Label: ['question'],
+              Name: 'Q1',
+              Response: [
+                {
+                  CodeListReference: 'my-codelist-id',
+                  CollectedVariableReference: 'my-collected-var-id',
+                  Datatype: {
+                    typeName: 'TEXT',
+                    type: 'TextDatatypeType',
+                    MaxLength: 1,
+                    visualizationHint: 'DROPDOWN',
+                  },
+                  id: 'my-q-pairwise-response-id',
+                },
+              ],
+              TargetMode: ['CAWI'],
+              depth: 2,
+              id: 'my-q-pairwise-id',
+              questionType: 'PAIRWISE',
+              type: 'QuestionType',
+              Scope: 'my-var-name-id',
+              sourceVariableReferences: {
+                age: 'my-var-age-id',
+                gender: 'my-var-gender-id',
+                name: 'my-var-name-id',
+              },
+            },
+          ],
+          Control: [],
+          Declaration: [],
+          FlowControl: [],
+          Label: ['sequence'],
+          Name: 'S1',
+          TargetMode: ['CAWI'],
+          depth: 1,
+          genericName: 'MODULE',
+          id: 'my-sequence-id',
+          type: 'SequenceType',
+        },
+      ];
+
+      expect(
+        storeToRemote(store, 'my-questionnaire-id', {}, {}, 'Redirections'),
+      ).toEqual(expected);
+    });
   });
 
   describe('getResponseCoordinate', () => {

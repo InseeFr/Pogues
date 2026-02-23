@@ -38,22 +38,6 @@ export const validationDictionary: Dictionary = {
     fr: 'Cible obligatoire',
     en: 'Target required',
   },
-  validation_calculatedvariable_label: {
-    fr: 'Libellé de la variable calculée obligatoire',
-    en: 'Calculated variable label required',
-  },
-  validation_calculatedvariable_name: {
-    fr: 'Nom de la variable calculée obligatoire',
-    en: 'Calculated variable name required',
-  },
-  validation_calculatedvariable_formula: {
-    fr: 'Formule de la variable calculée obligatoire',
-    en: 'Calculated variable formula required',
-  },
-  validation_calculatedvariable_existing: {
-    fr: 'Il existe une variable calculée avec le même nom',
-    en: 'It already exists a calculated variable with this name',
-  },
   validation_format: {
     fr: 'Format obligatoire',
     en: 'Format required',
@@ -65,18 +49,6 @@ export const validationDictionary: Dictionary = {
   validation_maximum: {
     fr: 'Maximum obligatoire',
     en: 'Maximum required',
-  },
-  validation_externalvariable_label: {
-    fr: 'Libellé de la variable externe obligatoire',
-    en: 'External variable label required',
-  },
-  validation_externalvariable_name: {
-    fr: 'Nom de la variable externe obligatoire',
-    en: 'External variable name required',
-  },
-  validation_externalvariable_existing: {
-    fr: 'Il existe une variable externe avec le même nom',
-    en: 'It already exists an external variable with this name',
   },
   validation_collectedvariable_label: {
     fr: 'Libellé de la variable collectée obligatoire',

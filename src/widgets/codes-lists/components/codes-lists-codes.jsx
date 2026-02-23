@@ -201,13 +201,12 @@ function CodesListsCodes(props) {
           <td className="py-2">{code.depth}</td>
           <td className="py-2">{code.value}</td>
           {code.label && (
-            <td className="py-2">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: markdownVtlToHtml(code.label),
-                }}
-              />
-            </td>
+            <td
+              className="py-2"
+              dangerouslySetInnerHTML={{
+                __html: markdownVtlToHtml(code.label),
+              }}
+            />
           )}
           {/* Code Actions */}
           {allowPrecision ? (

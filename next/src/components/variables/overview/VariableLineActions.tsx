@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { deleteVariable, variablesKeys } from '@/api/variables';
 import Dialog from '@/components/ui/Dialog';
 import Menu from '@/components/ui/Menu';
+import { MenuItemType } from '@/components/ui/consts/menuItemVariants';
 import { type Variable, VariableType } from '@/models/variables';
 
 interface Props {
@@ -59,33 +60,36 @@ export default function VariableLineActions({
     });
   }
 
+  if (variable.type === VariableType.Collected) return null;
+
   return (
     <>
       <Menu
-        label="actions"
+        label="Open variable action menu"
         items={[
           {
+            disabled: readonly,
             label: t('common.edit'),
             onClick: () =>
               void navigate({
                 to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
                 params: { questionnaireId, variableId: variable.id },
               }),
-            disabled: readonly || variable.type === VariableType.Collected,
           },
           {
+            disabled: readonly,
             label: t('common.delete'),
+            type: MenuItemType.Delete,
             onClick: () => setOpenDeleteDialog(true),
-            disabled: readonly || variable.type === VariableType.Collected,
           },
         ]}
       />
       <Dialog
+        body={t('variable.delete.dialogConfirm')}
         controlledOpen={openDeleteDialog}
         title={t('variable.delete.dialogTitle', { name: variable.name })}
-        body={t('variable.delete.dialogConfirm')}
-        onValidate={onDelete}
         onCancel={() => setOpenDeleteDialog(false)}
+        onValidate={onDelete}
       />
     </>
   );

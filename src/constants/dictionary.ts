@@ -241,6 +241,10 @@ const dictionary: Dictionary = {
     en: 'GoTo description',
     fr: 'Description de la redirection',
   },
+  collectedVariables: {
+    en: 'Collected variables',
+    fr: 'Variables collectées',
+  },
   maximum: {
     en: 'Maximum',
     fr: 'Maximum',
