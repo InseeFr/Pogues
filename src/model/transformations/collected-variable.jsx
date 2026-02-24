@@ -221,7 +221,7 @@ export function storeToRemote(store, componentsStore) {
       model.CodeListReference = codeListReference;
     }
 
-    if (variableReference !== undefined) {
+    if (variableReference !== undefined && variableReference !== '') {
       model.VariableReference = variableReference;
     }
 
