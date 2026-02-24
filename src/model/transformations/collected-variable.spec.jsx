@@ -33,6 +33,7 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           type: TEXT,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           variableReferenceLabel: '',
@@ -91,6 +92,7 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           type: NUMERIC,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           variableReferenceLabel: '',
@@ -109,6 +111,7 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           type: NUMERIC,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           variableReferenceLabel: '',
@@ -154,6 +157,7 @@ describe('collected variable tranformations', () => {
           label: 'QWSS label',
           name: 'QWSS',
           type: DURATION,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           variableReferenceLabel: '',
@@ -198,6 +202,7 @@ describe('collected variable tranformations', () => {
           label: 'AQS label',
           name: 'AQS',
           type: DURATION,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           variableReferenceLabel: '',
@@ -257,7 +262,7 @@ describe('collected variable tranformations', () => {
         },
       ];
       const responsesByVariable = { m6aty8by: {} };
-      const codesListStore = { id: { label: 'label' } };
+      const codesListStore = { id: { label: 'label', urn: 'urn' } };
       const variableclarification = [];
       const output = {
         m6aty8by: {
@@ -265,6 +270,7 @@ describe('collected variable tranformations', () => {
           name: 'SUGGESTER',
           label: 'SUGGESTER label',
           type: TEXT,
+          choiceType: 'SUGGESTER',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
           variableReferenceLabel: '',

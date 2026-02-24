@@ -148,13 +148,14 @@ export function getReponsesValues(measure) {
           : choiceType === CHOICE_TYPE.CODE_LIST
             ? DEFAULT_CODES_LIST_SELECTOR_PATH
             : DEFAULT_VARIABLE_SELECTOR_PATH;
+
       return {
         choiceType,
         codeListReference:
           choiceType === CHOICE_TYPE.CODE_LIST ||
           choiceType === CHOICE_TYPE.SUGGESTER
             ? measure[SINGLE_CHOICE][listPath].id
-            : '',
+            : undefined,
         codeListReferenceLabel:
           choiceType === CHOICE_TYPE.CODE_LIST ||
           choiceType === CHOICE_TYPE.SUGGESTER
@@ -165,7 +166,7 @@ export function getReponsesValues(measure) {
         variableReference:
           choiceType === CHOICE_TYPE.VARIABLE
             ? measure[SINGLE_CHOICE][listPath].id
-            : '',
+            : undefined,
         variableReferenceLabel:
           choiceType === CHOICE_TYPE.VARIABLE
             ? measure[SINGLE_CHOICE][listPath].label

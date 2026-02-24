@@ -1,4 +1,5 @@
 import {
+  CHOICE_TYPE,
   COMPONENT_TYPE,
   DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
@@ -70,6 +71,17 @@ export function remoteToStore(
       arbitraryVariableOfVariableId,
     } = ev;
 
+    let choiceType = undefined;
+
+    if (VariableReference) {
+      choiceType = CHOICE_TYPE.VARIABLE;
+    } else if (CodeListReference) {
+      const codeList = codesListsStore[CodeListReference];
+      choiceType = codeList?.urn
+        ? CHOICE_TYPE.SUGGESTER
+        : CHOICE_TYPE.CODE_LIST;
+    }
+
     const id = ev.id || uuid();
 
     const formatSingleRemote = remoteToStateFormatSimple({
@@ -80,11 +92,11 @@ export function remoteToStore(
       name,
       label,
       type: formatSingleRemote.type,
+      choiceType,
       codeListReference: CodeListReference,
       codeListReferenceLabel: CodeListReference
         ? codesListsStore[CodeListReference].label
         : '',
-
       variableReference: VariableReference,
       variableReferenceLabel: VariableReference
         ? codesListsStore[VariableReference].label
