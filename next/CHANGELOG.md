@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0](https://github.com/InseeFr/Pogues/releases/tag/2.4.0) - 2026-02-24
+
 ### Changed
 
-- An external variable can now only have a "text" datatype.
+- An external variable can now only be of a "text" datatype.
 
 ## [2.3.0](https://github.com/InseeFr/Pogues/releases/tag/2.3.0) - 2026-01-19
 
