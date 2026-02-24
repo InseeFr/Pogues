@@ -72,6 +72,21 @@ export default function VariableForm({
   const selectedType = watch('type');
   const selectedTypeName = watch('datatype.typeName');
 
+  const isDatatypeTypeNameDisabled =
+    selectedType === VariableType.External &&
+    variable.datatype.typeName === DatatypeType.Text;
+
+  const datatypeTypeNameOptions = (() => {
+    // For External variable, enable only current saved option and 'Text'
+    if (selectedType === VariableType.External) {
+      return datatypeOptions.filter(
+        ({ value }) =>
+          value === DatatypeType.Text || value === variable.datatype.typeName,
+      );
+    }
+    return datatypeOptions;
+  })();
+
   /** Ignore dirty state and return to the variables page. */
   const handleCancel = () => {
     navigate({
@@ -271,9 +286,10 @@ export default function VariableForm({
             touched={isTouched}
           >
             <Select<DatatypeType>
-              options={datatypeOptions}
+              options={datatypeTypeNameOptions}
               value={value}
               onChange={onChange}
+              disabled={isDatatypeTypeNameDisabled}
             />
           </Field>
         )}

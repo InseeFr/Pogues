@@ -14,6 +14,8 @@ type Props<T> = {
   defaultValue?: BaseUISelect.Root.Props<T>['defaultValue'];
   /** Currently selected value (if controlled). */
   value?: BaseUISelect.Root.Props<T>['value'];
+  /** Disable option selection. */
+  disabled?: boolean;
 };
 
 /**
@@ -36,6 +38,7 @@ export default function Select<T>({
   options = [],
   defaultValue,
   value,
+  disabled = false,
 }: Readonly<Props<T>>) {
   return (
     <BaseUISelect.Root
@@ -43,11 +46,13 @@ export default function Select<T>({
       defaultValue={defaultValue}
       value={value}
       onValueChange={onChange}
+      disabled={disabled}
     >
       <BaseUISelect.Trigger
-        className="
-          flex min-w-36 w-full cursor-pointer
+        className={`
+          flex min-w-36 w-full
           text-sm text-default font-normal
+          cursor-pointer
           bg-default hover:bg-main
           items-center justify-between gap-3
           rounded-md border border-default
@@ -55,7 +60,8 @@ export default function Select<T>({
           select-none
           focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary
           active:bg-accent data-popup-open:bg-accent
-        "
+          data-disabled:cursor-not-allowed data-disabled:opacity-50 data-disabled:hover:bg-default
+        `}
       >
         <BaseUISelect.Value />
         <BaseUISelect.Icon className="flex">
