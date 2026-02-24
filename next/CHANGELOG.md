@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- CodesList form does not crash anymore when editing a codesList having VTL errors.
+
 ## [2.4.0](https://github.com/InseeFr/Pogues/releases/tag/2.4.0) - 2026-02-24
 
 ### Changed
