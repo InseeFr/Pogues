@@ -316,6 +316,7 @@ function CodesField({
           parentName={`${namePrefix}.codes`}
           subCodeIteration={subCodeIteration + 1}
           trigger={trigger}
+          setError={setError}
         />
       ))}
     </>
