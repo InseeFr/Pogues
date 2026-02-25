@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import { reducer as formReducer, reduxForm } from 'redux-form';
@@ -10,10 +10,14 @@ import Dictionary from '../../../../../utils/dictionary/dictionary';
 import ResponseFormatSimpleVariable from './response-format-single-variable';
 
 vi.mock('@/forms/controls/select', () => ({
-  default: ({ children, label, name }) => (
-    <div data-testid={`select-${name}`} aria-label={label}>
+  default: ({ children, label, name, onChange }) => (
+    <select
+      data-testid={`select-${name}`}
+      aria-label={label}
+      onChange={onChange}
+    >
       {children}
-    </div>
+    </select>
   ),
 }));
 
@@ -27,7 +31,7 @@ vi.mock('@/forms/controls/list-radios', () => ({
 
 vi.mock('../../../../../forms/controls/generic-option', () => ({
   default: ({ children, value }) => (
-    <div data-testid={`option-${value}`}>{children}</div>
+    <option data-testid={`option-${value}`}>{children}</option>
   ),
 }));
 
@@ -43,8 +47,8 @@ vi.mock('../../../../codes-lists/variables', () => ({
 
 vi.mock('../../variables/utils-loops', () => ({
   getQuestionnaireScope: () => ({
-    scope1: { id: 'scope1', label: 'Scope 1' },
-    scope2: { id: 'scope2', name: 'Scope 2' },
+    scope1: { id: 'scope1', name: 'Scope 1', label: 'Scope 1' },
+    scope2: { id: 'scope2', name: 'Scope 2', label: 'Scope 2' },
   }),
 }));
 
@@ -92,5 +96,13 @@ describe('responseFormatSingleVariable', () => {
   it('should pass empty scope when no scope is selected', () => {
     const { getByTestId } = renderWithStore(<ResponseFormatSimpleVariable />);
     expect(getByTestId('variables-list').getAttribute('data-scope')).toBe('');
+  });
+
+  it('should render available scopes', async () => {
+    renderWithStore(<ResponseFormatSimpleVariable />);
+    const options = screen.getAllByRole('option');
+    expect(options).toHaveLength(6);
+    expect(options[1]).toHaveTextContent('Scope 1');
+    expect(options[2]).toHaveTextContent('Scope 2');
   });
 });
