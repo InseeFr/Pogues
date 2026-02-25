@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "private": true,
-  "version": "2.4.1-rc-codes-list-form-crash.0",
+  "version": "2.4.1",
   "type": "module",
   "scripts": {
     "generate-routes": "tsr generate",
