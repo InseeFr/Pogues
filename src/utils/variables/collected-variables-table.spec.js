@@ -390,7 +390,6 @@ describe('getReponsesValues', () => {
     const output = {
       codeListReference: 'mbqae1u1',
       codeListReferenceLabel: 'oui_non',
-      variableReference: '',
       variableReferenceLabel: '',
       choiceType: 'CODE_LIST',
       type: 'TEXT',
@@ -429,7 +428,6 @@ describe('getReponsesValues', () => {
     };
 
     const output = {
-      codeListReference: '',
       codeListReferenceLabel: '',
       variableReference: 'my-variable-id',
       variableReferenceLabel: 'my-variable-label',
@@ -466,7 +464,6 @@ describe('getReponsesValues', () => {
     const output = {
       codeListReference: 'mbqae1u1',
       codeListReferenceLabel: 'oui_non',
-      variableReference: '',
       variableReferenceLabel: '',
       choiceType: 'CODE_LIST',
       type: 'TEXT',
