@@ -22,26 +22,38 @@ export function getCollectedVariablesSingle(
   existingVariableIds = new Set(),
   codesListStore,
 ) {
-  const desiredVarLabel =
-    form.choiceType === CHOICE_TYPE.VARIABLE
-      ? (codesListStore?.[form.Variable?.id]?.label ?? form.Variable?.label)
-      : undefined;
-  const mainVariable =
-    form.choiceType === CHOICE_TYPE.VARIABLE
-      ? getCollectedVariable(questionName, `${questionName} label`, undefined, {
-          variableReference: form.Variable.id,
-          // We need to dynamically get the label of the variable reference, as it can be changed by the user
-          variableReferenceLabel: desiredVarLabel,
-          type: TEXT,
-          choiceType: form.choiceType,
-          [TEXT]: { maxLength: 1 },
-        })
-      : getCollectedVariable(questionName, `${questionName} label`, undefined, {
-          ...getReference(form),
-          type: TEXT,
-          choiceType: form.choiceType,
-          [TEXT]: { maxLength: 1 },
-        });
+  let mainVariable;
+
+  if (form.choiceType === CHOICE_TYPE.VARIABLE) {
+    const desiredVarLabel =
+      codesListStore?.[form.Variable?.id]?.label ?? form.Variable?.label;
+
+    mainVariable = getCollectedVariable(
+      questionName,
+      `${questionName} label`,
+      undefined,
+      {
+        variableReference: form.Variable.id,
+        // We need to dynamically get the label of the variable reference, as it can be changed by the user
+        variableReferenceLabel: desiredVarLabel,
+        type: TEXT,
+        choiceType: form.choiceType,
+        [TEXT]: { maxLength: 1 },
+      },
+    );
+  } else {
+    mainVariable = getCollectedVariable(
+      questionName,
+      `${questionName} label`,
+      undefined,
+      {
+        ...getReference(form),
+        type: TEXT,
+        choiceType: form.choiceType,
+        [TEXT]: { maxLength: 1 },
+      },
+    );
+  }
 
   // Nomenclatures may allow an arbitrary response
   if (form.choiceType === CHOICE_TYPE.SUGGESTER) {

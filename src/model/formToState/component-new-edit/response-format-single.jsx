@@ -45,9 +45,10 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     // for suggester we do not handle mandatory question
-    mandatory: choiceType !== SUGGESTER ? mandatory : false,
+    mandatory: choiceType === SUGGESTER ? false : mandatory,
     choiceType,
-    visHint: choiceType !== SUGGESTER ? visHint : SUGGESTER,
+    // for suggester we force visHint to "SUGGESTER" for not breaking the model
+    visHint: choiceType === SUGGESTER ? SUGGESTER : visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:

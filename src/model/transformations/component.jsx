@@ -285,17 +285,14 @@ const getVariablesReferenceIds = (Children) => {
             variablesReference.push(question.Response[0].VariableReference);
           }
         });
-      } else if (
-        // component is a table question
-        component.questionType === TABLE
-      ) {
+      } else if (component.questionType === TABLE) {
         component.Response.forEach((response) => {
           if (response.choiceType === CHOICE_TYPE.VARIABLE) {
             variablesReference.push(response.VariableReference);
           }
         });
       } else if (
-        // component is a single choice question
+        // component is a single choice question, with list based on a variable values
         component.questionType === SINGLE_CHOICE &&
         component.Response[0].choiceType === CHOICE_TYPE.VARIABLE
       ) {

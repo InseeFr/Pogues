@@ -39,6 +39,7 @@ export function SuggesterLists({
       change(formName, `${path}label`, '');
       setCurrentIdState(currentId);
     }
+
     if (
       currentIdState !== currentId &&
       currentId !== '' &&
@@ -77,9 +78,8 @@ export function SuggesterLists({
       currentId !== '' &&
       !codesListsStore[currentId] &&
       !nomenclatures[currentId].codes
-    ) {
+    )
       loadNomenclature(token, currentId, nomenclatures);
-    }
   }, [
     currentId,
     change,

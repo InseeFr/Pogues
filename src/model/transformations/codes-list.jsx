@@ -112,41 +112,41 @@ export function remoteToStore(
     ...remoteCodesListsWithClarification,
     ...variablesReference,
   ];
-  const finalCodeListStore = remoteCodeListWithVariables.reduce(
-    (acc, codesList) => {
-      const {
+
+  const finalCodeListStore = {};
+
+  for (const codesList of remoteCodeListWithVariables) {
+    const {
+      id,
+      Label: label,
+      Code: codes,
+      Name: name,
+      Urn: urn,
+      SuggesterParameters: suggesterParameters,
+      Scope: scope,
+    } = codesList;
+
+    let codesListObject;
+
+    if (urn) {
+      // Nomenclature
+      codesListObject = { id, label, name, urn, suggesterParameters };
+    } else if (codes) {
+      // Codes list
+      codesListObject = {
         id,
-        Label: label,
-        Code: codes,
-        Name: name,
-        Urn: urn,
-        SuggesterParameters: suggesterParameters,
-        Scope: scope,
-      } = codesList;
+        label,
+        name: name || '',
+        codes: remoteToCodesState(codes),
+      };
+    } else {
+      // Variable
+      codesListObject = { id, label, name, scope };
+    }
 
-      let codesListObject;
+    finalCodeListStore[id] = codesListObject;
+  }
 
-      if (urn) {
-        // Nomenclature
-        codesListObject = { id, label, name, urn, suggesterParameters };
-      } else if (codes) {
-        // Codes list
-        codesListObject = {
-          id,
-          label,
-          name: name || '',
-          codes: remoteToCodesState(codes),
-        };
-      } else {
-        // Variable
-        codesListObject = { id, label, name, scope };
-      }
-
-      acc[id] = codesListObject;
-      return acc;
-    },
-    {},
-  );
   return finalCodeListStore;
 }
 
@@ -184,32 +184,35 @@ function buildRemoteCodesList(codesList) {
     suggesterParameters = {},
     scope = '',
   } = codesList;
-  if (!urn && !scope) {
-    return {
-      id,
-      Label: label,
-      Code: getCodesListSortedByDepthAndWeight(codes).map((keyCode) => {
-        const { label: labelCode, value, parent } = codes[keyCode];
-        return {
-          Label: labelCode,
-          Value: value,
-          Parent: parent || '',
-        };
-      }),
-    };
-  }
 
+  // In variable case, we do not send it as a codeList
   if (scope) {
-    // In variable case, we do not send it as a codeList
     return;
   }
 
+  // Nomenclature
+  if (urn) {
+    return {
+      id,
+      Urn: urn,
+      Name: name,
+      Label: label,
+      SuggesterParameters: suggesterParameters,
+    };
+  }
+
+  // in codesList case, we compute its codes
   return {
     id,
-    Urn: urn,
-    Name: name,
     Label: label,
-    SuggesterParameters: suggesterParameters,
+    Code: getCodesListSortedByDepthAndWeight(codes).map((keyCode) => {
+      const { label: labelCode, value, parent } = codes[keyCode];
+      return {
+        Label: labelCode,
+        Value: value,
+        Parent: parent || '',
+      };
+    }),
   };
 }
 

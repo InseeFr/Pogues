@@ -492,12 +492,19 @@ const Factory = (initialState = {}, codesListsStore) => {
       };
 
       if (type === SINGLE_CHOICE) {
-        const listPath =
-          measureState.choiceType === CHOICE_TYPE_SUGGESTER
-            ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-            : measureState.choiceType === CHOICE_TYPE_VARIABLE
-              ? DEFAULT_VARIABLE_SELECTOR_PATH
-              : DEFAULT_CODES_LIST_SELECTOR_PATH;
+        let listPath;
+
+        switch (measureState.choiceType) {
+          case CHOICE_TYPE_SUGGESTER:
+            listPath = DEFAULT_NOMENCLATURE_SELECTOR_PATH;
+            break;
+          case CHOICE_TYPE_VARIABLE:
+            listPath = DEFAULT_VARIABLE_SELECTOR_PATH;
+            break;
+          default:
+            listPath = DEFAULT_CODES_LIST_SELECTOR_PATH;
+        }
+
         state[SINGLE_CHOICE] = {
           [listPath]: codesListsStore[measureState[listPath].id],
           visHint: measureState.visHint,

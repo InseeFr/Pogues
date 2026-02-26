@@ -61,17 +61,21 @@ export function stateToRemote(
     },
   };
 
-  // For suggester we store the nomenclature as source reference. Else we store the codeList
-  model.CodeListReference =
-    choiceType === CHOICE_TYPE.SUGGESTER
-      ? nomenclatureId
-      : choiceType === CHOICE_TYPE.CODE_LIST
-        ? codesListId
-        : undefined;
-
-  model.VariableReference =
-    choiceType === CHOICE_TYPE.VARIABLE ? variableReferenceId : undefined;
   model.choiceType = choiceType;
+
+  switch (choiceType) {
+    // for suggester we store the nomenclature as source reference
+    case CHOICE_TYPE.SUGGESTER:
+      model.CodeListReference = nomenclatureId;
+      break;
+
+    case CHOICE_TYPE.VARIABLE:
+      model.VariableReference = variableReferenceId;
+      break;
+
+    default:
+      model.CodeListReference = codesListId;
+  }
 
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;

@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added nomenclatures : `L_ACTIVITES2025-1-0-0`.
-- Allow to choose a variable as source for unique choice questions & tables
+- Unique choice questions modalities can now be computed from a variable. You can set the choice type as "variable" and select an existing variable to allow the respondent to select a modality from a previous answer he made.
 
 ### Changed
 
@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `L_ACTIVITES-2-1-0` -> `L_ACTIVITES-2-2-0`
   - `L_PCS_FEMMES-2-2-0` -> `L_PCS_FEMMES-2-3-0`
   - `L_PCS_HOMMES-2-2-0` -> `L_PCS_HOMMES-2-3-0`
+- Slightly changed the unique choice questions UX. Choice type field has been added to better reflect which kind of object we compute the modalities from.
 
 ### Removed
 

@@ -90,7 +90,8 @@ export const updateComponent =
     const collectedVariableReference =
       componentsStore[componentId]?.collectedVariables || [];
     let updatedCodeListsStore = { ...codesListsStore };
-    collectedVariableReference.map((variable) => {
+
+    for (const variable of collectedVariableReference) {
       if (activeCodeListsById[variable]) {
         updatedCodeListsStore[variable] = {
           ...activeCodeListsById[variable],
@@ -98,8 +99,7 @@ export const updateComponent =
           name: collectedVariablesStore[variable].name,
         };
       }
-      return null;
-    });
+    }
 
     return dispatch({
       type: UPDATE_COMPONENT,

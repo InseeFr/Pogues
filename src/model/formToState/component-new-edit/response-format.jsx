@@ -156,6 +156,7 @@ export function formToState(form, collectedVariables, transformers) {
 
 export function stateToForm(currentState, transformers) {
   const { type } = currentState;
+
   return merge({}, cloneDeep(defaultForm), {
     type,
     [SIMPLE]: transformers.simple.stateToForm(),
@@ -203,6 +204,7 @@ const Factory = (initialState = {}, codesListsStore) => {
       } else {
         codesLists = {};
       }
+
       return codesLists;
     },
     getNormalizedValues: (form) => {

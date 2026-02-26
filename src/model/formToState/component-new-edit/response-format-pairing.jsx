@@ -13,7 +13,7 @@ const { CODE_LIST } = CHOICE_TYPE;
 
 export const defaultState = {
   visHint: DROPDOWN,
-  // As pairwise questions has some common functions with single choice questions, we set the same default choiceType but it will be ignored in the component
+  // Since pairwise questions have some functions in common with single choice questions, we set the same default choiceType but it will be ignored in the component
   choiceType: CODE_LIST,
   sourceVariableReferences: {
     name: '',
