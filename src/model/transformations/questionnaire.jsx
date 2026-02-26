@@ -292,6 +292,5 @@ export function stateToRemote(state, stores) {
   if (dynamiqueSpecified === Filtres) {
     json.FlowControl = FlowControl;
   }
-
   return json;
 }

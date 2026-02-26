@@ -119,6 +119,7 @@ function getMeasuresModel(responses, dimensions, offset) {
       response: responses[i * offset],
     });
   }
+
   return responsesModel;
 }
 
@@ -219,6 +220,7 @@ function remoteToStateMeasure(remote) {
   } = remote;
 
   const state = { label, conditionFilter, conditionReadOnly };
+
   if (CodeListReference) {
     state.type = SINGLE_CHOICE;
     state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
@@ -239,6 +241,7 @@ function remoteToStateMeasure(remote) {
       responses: [{ Datatype }],
     });
   }
+
   return state;
 }
 
@@ -446,6 +449,7 @@ export function stateToRemote(
       responsesState.push(stateToResponseState(listMeasuresState[i], type));
     }
   }
+
   // Responses
 
   const numDataTypes = measureState

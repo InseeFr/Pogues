@@ -256,6 +256,7 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
       variableResponseMapping,
       variableResponseAttribute,
     );
+
     acc = {
       ...acc,
       ...getResponsesByVariable(responseFinal, coordinatesByResponse),
@@ -358,7 +359,6 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       ? redirections.filter((redirec) => redirec.flowControlType === undefined)
       : [];
   let responseFinal = responses;
-
   if (responsesClarification !== undefined) {
     responsesClarification.forEach((clar) => {
       responseFinal = responseFinal.concat(clar.Response);
@@ -367,6 +367,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
   if (arbitraryResponse !== undefined) {
     responseFinal.push(arbitraryResponse);
   }
+
   const state = {
     id,
     name,
@@ -436,7 +437,6 @@ function remoteToState(remote, componentGroup, codesListsStore) {
   if (questionType === MULTIPLE_CHOICE || questionType === TABLE) {
     state.response = responses;
   }
-
   return state;
 }
 
@@ -714,7 +714,9 @@ function storeToRemoteNested(
     flowControl,
     codeFilters,
   } = state;
+
   if (type === LOOP || type === FILTER) return {};
+
   let remote = {
     id,
     depth,
@@ -829,7 +831,6 @@ function storeToRemoteNested(
       depth,
     );
   }
-
   return remote;
 }
 

@@ -575,13 +575,20 @@ const Factory = (initialState = {}, codesListsStore) => {
       if (currentState[LIST_MEASURE]) {
         currentState[LIST_MEASURE].forEach((m) => {
           if (m.type === SINGLE_CHOICE) {
-            // for suggester we need to get the nomenclature (then store it as a codesList), else we get directly the codesList
-            const listPath =
-              m[SINGLE_CHOICE].choiceType === CHOICE_TYPE_SUGGESTER
-                ? DEFAULT_NOMENCLATURE_SELECTOR_PATH
-                : m[SINGLE_CHOICE].choiceType === CHOICE_TYPE_VARIABLE
-                  ? DEFAULT_VARIABLE_SELECTOR_PATH
-                  : DEFAULT_CODES_LIST_SELECTOR_PATH;
+            let listPath;
+
+            switch (m[SINGLE_CHOICE].choiceType.choiceType) {
+              // for suggester we need to get the nomenclature (then store it as a codesList)
+              case CHOICE_TYPE_SUGGESTER:
+                listPath = DEFAULT_NOMENCLATURE_SELECTOR_PATH;
+                break;
+              case m[SINGLE_CHOICE].choiceType === CHOICE_TYPE_VARIABLE:
+                listPath = DEFAULT_VARIABLE_SELECTOR_PATH;
+                break;
+              default:
+                listPath = DEFAULT_CODES_LIST_SELECTOR_PATH;
+            }
+
             const codesListState = m[SINGLE_CHOICE][listPath];
             codesLists = {
               ...codesLists,
