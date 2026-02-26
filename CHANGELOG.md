@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0](https://github.com/InseeFr/Pogues/releases/tag/1.15.0) - 2026-02-20
+
 ### Added
 
 - Added nomenclatures : `L_ACTIVITES2025-1-0-0`.
