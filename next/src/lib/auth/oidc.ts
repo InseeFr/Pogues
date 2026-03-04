@@ -11,6 +11,10 @@ const decodedIdTokenSchema = z.object({
 export const DEFAULT_STAMP = (import.meta.env.VITE_DEFAULT_USER_STAMP ||
   'FAKEPERMISSION') as string;
 
+const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
+  ',',
+);
+
 export const { OidcProvider, useOidc, getOidc } =
   import.meta.env.VITE_OIDC_ENABLED === 'false'
     ? createMockReactOidc({
@@ -30,4 +34,5 @@ export const { OidcProvider, useOidc, getOidc } =
         issuerUri: import.meta.env.VITE_OIDC_ISSUER,
         homeUrl: import.meta.env.BASE_URL,
         decodedIdTokenSchema,
+        scopes: oidcScopes,
       });

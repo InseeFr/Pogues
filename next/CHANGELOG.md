@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Authentication:
+  - retrive scopes for jwt token
+  - new env variable: `VITE_OIDC_SCOPES` (default value `"profile,roles"`)
+
+## [2.4.1](https://github.com/InseeFr/Pogues/releases/tag/2.4.1) - 2026-02-25
+
+### Fixed
+
+- CodesList form does not crash anymore when editing a codesList having VTL errors.
+
+## [2.4.0](https://github.com/InseeFr/Pogues/releases/tag/2.4.0) - 2026-02-24
+
+### Changed
+
+- An external variable can now only be of a "text" datatype.
+
 ## [2.3.0](https://github.com/InseeFr/Pogues/releases/tag/2.3.0) - 2026-01-19
 
 ### Added
