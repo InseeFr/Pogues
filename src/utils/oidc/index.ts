@@ -4,6 +4,10 @@ import { createReactOidc } from 'oidc-spa/react';
 const authority = import.meta.env.VITE_OIDC_ISSUER;
 const client_id = import.meta.env.VITE_OIDC_CLIENT_ID;
 
+const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
+  ',',
+);
+
 export const { OidcProvider, useOidc } =
   import.meta.env.VITE_OIDC_ENABLED === 'false'
     ? createMockReactOidc({
@@ -22,4 +26,5 @@ export const { OidcProvider, useOidc } =
         clientId: client_id,
         issuerUri: authority,
         homeUrl: '/',
+        scopes: oidcScopes,
       });
