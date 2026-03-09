@@ -577,12 +577,12 @@ const Factory = (initialState = {}, codesListsStore) => {
           if (m.type === SINGLE_CHOICE) {
             let listPath;
 
-            switch (m[SINGLE_CHOICE].choiceType.choiceType) {
+            switch (m[SINGLE_CHOICE].choiceType) {
               // for suggester we need to get the nomenclature (then store it as a codesList)
               case CHOICE_TYPE_SUGGESTER:
                 listPath = DEFAULT_NOMENCLATURE_SELECTOR_PATH;
                 break;
-              case m[SINGLE_CHOICE].choiceType === CHOICE_TYPE_VARIABLE:
+              case CHOICE_TYPE_VARIABLE:
                 listPath = DEFAULT_VARIABLE_SELECTOR_PATH;
                 break;
               default:
