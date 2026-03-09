@@ -18,7 +18,7 @@ import ResponseFormatSingleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CODE_LIST, VARIABLE, SUGGESTER: suggesterType } = CHOICE_TYPE;
-const { RADIO } = DATATYPE_VIS_HINT;
+const { RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 /** Form to create a QCU. */
 function ResponseFormatSingle({
@@ -27,6 +27,7 @@ function ResponseFormatSingle({
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
+  visHint,
 }) {
   const selectorPath = SINGLE_CHOICE;
   const selectorPathComposed = selectorPathParent
@@ -44,7 +45,7 @@ function ResponseFormatSingle({
         <View key={CODE_LIST} value={CODE_LIST} label={Dictionary.codeList}>
           <ResponseFormatSingleCodeslist
             selectorPathParent={selectorPathComposed}
-            allowPrecision={allowPrecision}
+            allowPrecision={allowPrecision && visHint !== DROPDOWN}
             allowFilter={allowFilter}
             showMandatory={showMandatory}
           />
