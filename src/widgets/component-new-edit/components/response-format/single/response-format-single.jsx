@@ -13,8 +13,8 @@ import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
 import { SelectorView, View } from '../../../../selector-view';
-import ResponseFormatSimpleCodeslist from './response-format-single-code-list';
-import ResponseFormatSimpleVariable from './response-format-single-variable';
+import ResponseFormatSingleCodeslist from './response-format-single-code-list';
+import ResponseFormatSingleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { CODE_LIST, VARIABLE, SUGGESTER: suggesterType } = CHOICE_TYPE;
@@ -42,7 +42,7 @@ function ResponseFormatSingle({
         radio
       >
         <View key={CODE_LIST} value={CODE_LIST} label={Dictionary.codeList}>
-          <ResponseFormatSimpleCodeslist
+          <ResponseFormatSingleCodeslist
             selectorPathParent={selectorPathComposed}
             allowPrecision={allowPrecision}
             allowFilter={allowFilter}
@@ -72,7 +72,7 @@ function ResponseFormatSingle({
           )}
         </View>
         <View key={VARIABLE} value={VARIABLE} label={Dictionary.variable}>
-          <ResponseFormatSimpleVariable
+          <ResponseFormatSingleVariable
             selectorPathParent={selectorPathComposed}
           />
         </View>

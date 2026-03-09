@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { decoreFormField } from '@/utils/test/test-utils';
 
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import ResponseFormatSimpleCodeslist from './response-format-single-code-list';
+import ResponseFormatSingleCodeslist from './response-format-single-code-list';
 
 vi.mock('@/forms/controls/select', () => ({
   default: ({ children, label, name }) => (
@@ -47,7 +47,7 @@ describe('responseFormatSingleCodeslist', () => {
 
   it('should render with code-list select and visHint select', () => {
     const { getByText, getByTestId } = render(
-      decoreFormField(<ResponseFormatSimpleCodeslist />),
+      decoreFormField(<ResponseFormatSingleCodeslist />),
     );
     expect(getByTestId('codesList-list')).toBeInTheDocument();
     expect(getByText(Dictionary.radio)).toBeInTheDocument();

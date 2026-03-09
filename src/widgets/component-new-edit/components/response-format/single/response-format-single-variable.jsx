@@ -23,7 +23,7 @@ const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 const selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH;
 
-function ResponseFormatSimpleVariable({
+function ResponseFormatSingleVariable({
   selectorPathParent,
   selectedScope,
   componentsStore,
@@ -79,14 +79,14 @@ function ResponseFormatSimpleVariable({
   );
 }
 
-ResponseFormatSimpleVariable.propTypes = {
+ResponseFormatSingleVariable.propTypes = {
   selectorPathParent: PropTypes.string,
   selectedScope: PropTypes.string,
   componentsStore: PropTypes.object,
   externalLoopsStore: PropTypes.object,
 };
 
-ResponseFormatSimpleVariable.defaultProps = {
+ResponseFormatSingleVariable.defaultProps = {
   selectorPathParent: undefined,
   selectedScope: '',
   componentsStore: {},
@@ -110,4 +110,4 @@ const mapStateToProps = (state, { selectorPathParent }) => {
   };
 };
 
-export default connect(mapStateToProps)(ResponseFormatSimpleVariable);
+export default connect(mapStateToProps)(ResponseFormatSingleVariable);

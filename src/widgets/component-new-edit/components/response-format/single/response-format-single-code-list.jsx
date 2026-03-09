@@ -2,7 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+
 import ListRadios from '@/forms/controls/list-radios';
+
 import { DATATYPE_VIS_HINT } from '../../../../../constants/pogues-constants';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
@@ -10,7 +12,7 @@ import { CodesLists } from '../../../../codes-lists';
 
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
-function ResponseFormatSimpleCodeslist({
+function ResponseFormatSingleCodeslist({
   selectorPathParent,
   allowPrecision,
   allowFilter,
@@ -32,13 +34,14 @@ function ResponseFormatSimpleCodeslist({
         component={ListRadios}
         label={Dictionary.visHint}
         required
-      ><GenericOption key={RADIO} value={RADIO}>
+      >
+        <GenericOption key={RADIO} value={RADIO}>
           {Dictionary.radio}
         </GenericOption>
         <GenericOption key={CHECKBOX} value={CHECKBOX}>
           {Dictionary.checkbox}
         </GenericOption>
-        
+
         <GenericOption key={DROPDOWN} value={DROPDOWN}>
           {Dictionary.dropdown}
         </GenericOption>
@@ -58,16 +61,16 @@ function ResponseFormatSimpleCodeslist({
   );
 }
 
-ResponseFormatSimpleCodeslist.propTypes = {
+ResponseFormatSingleCodeslist.propTypes = {
   selectorPathParent: PropTypes.string,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
 };
 
-ResponseFormatSimpleCodeslist.defaultProps = {
+ResponseFormatSingleCodeslist.defaultProps = {
   selectorPathParent: undefined,
   allowPrecision: false,
   allowFilter: false,
 };
 
-export default ResponseFormatSimpleCodeslist;
+export default ResponseFormatSingleCodeslist;

@@ -7,7 +7,7 @@ import { reducer as formReducer, reduxForm } from 'redux-form';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import ResponseFormatSimpleVariable from './response-format-single-variable';
+import ResponseFormatSingleVariable from './response-format-single-variable';
 
 vi.mock('@/forms/controls/select', () => ({
   default: ({ children, label, name, onChange }) => (
@@ -86,7 +86,7 @@ describe('responseFormatSingleVariable', () => {
   });
 
   it('should render with scope select and visHint select', () => {
-    const { getByText } = renderWithStore(<ResponseFormatSimpleVariable />);
+    const { getByText } = renderWithStore(<ResponseFormatSingleVariable />);
     expect(getByText(Dictionary.selectLoop)).toBeInTheDocument();
     expect(getByText(Dictionary.radio)).toBeInTheDocument();
     expect(getByText(Dictionary.checkbox)).toBeInTheDocument();
@@ -94,12 +94,12 @@ describe('responseFormatSingleVariable', () => {
   });
 
   it('should pass empty scope when no scope is selected', () => {
-    const { getByTestId } = renderWithStore(<ResponseFormatSimpleVariable />);
+    const { getByTestId } = renderWithStore(<ResponseFormatSingleVariable />);
     expect(getByTestId('variables-list').getAttribute('data-scope')).toBe('');
   });
 
   it('should render available scopes', async () => {
-    renderWithStore(<ResponseFormatSimpleVariable />);
+    renderWithStore(<ResponseFormatSingleVariable />);
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(6);
     expect(options[1]).toHaveTextContent('Scope 1');
