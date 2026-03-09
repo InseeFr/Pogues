@@ -40,7 +40,7 @@ const { DYNAMIC_LENGTH, DYNAMIC_FIXED } = DIMENSION_LENGTH;
 const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 const { SIMPLE, SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
-const { RADIO } = DATATYPE_VIS_HINT;
+const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
 
 export const defaultMeasureSimpleState = {
   mandatory: undefined,
@@ -257,7 +257,7 @@ export function formToStateMeasure(form, codesListMeasure, variableMeasure) {
       : VariableFactory().formToState(variableForm);
 
     state[SINGLE_CHOICE] = {
-      visHint,
+      visHint: choiceType === SUGGESTER ? SUGGESTER : visHint,
       choiceType,
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesList,
       [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclature,
