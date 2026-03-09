@@ -29,9 +29,9 @@ function ResponseFormatSingleVariable({
   componentsStore,
   externalLoopsStore,
 }) {
-  const scopesTest = getQuestionnaireScope(componentsStore, externalLoopsStore);
+  const scopes = getQuestionnaireScope(componentsStore, externalLoopsStore);
 
-  const scopeOptions = Object.values(scopesTest || {}).map((scope) => (
+  const scopeOptions = Object.values(scopes || {}).map((scope) => (
     <GenericOption key={scope.id} value={scope.id}>
       {scope.label || scope.name}
     </GenericOption>

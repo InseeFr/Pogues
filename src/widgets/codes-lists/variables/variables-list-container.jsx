@@ -4,12 +4,15 @@ import { arrayRemoveAll, change, formValueSelector } from 'redux-form';
 
 import { clearSearchResult } from '../../../actions/search';
 import {
+  COMPONENT_TYPE,
   DEFAULT_FORM_NAME,
   DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
 import { findQuestionInLoop } from '../../component-new-edit/components/variables/utils-loops';
 import Variables from './variables-list';
+
+const { QUESTION } = COMPONENT_TYPE;
 
 // PropTypes and defaultProps
 
@@ -52,12 +55,19 @@ export const mapStateToProps = (
   const loopChildren =
     findQuestionInLoop(state.appState.activeComponentsById)[scope] || [];
 
-  const variablesId = loopChildren.map((question) => question.id);
+  const loopQuestionsId = loopChildren.map((question) => question.id);
+
+  const tableId = Object.values(state.appState.activeComponentsById).find(
+    (component) => component.type === QUESTION && component.id === scope,
+  )?.id;
+
+  const questionsId = [...loopQuestionsId, tableId];
+
   const collectedVariablesByQuestion =
     state.appState.collectedVariableByQuestion;
 
   const collectedVariables = Object.keys(collectedVariablesByQuestion)
-    .filter((key) => variablesId.includes(key))
+    .filter((key) => questionsId.includes(key))
     .map((key) => collectedVariablesByQuestion[key]);
 
   const loopVariablesStore = collectedVariables.flatMap((variablesNested) =>
