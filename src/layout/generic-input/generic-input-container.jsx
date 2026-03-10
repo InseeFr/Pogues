@@ -11,6 +11,7 @@ import {
   getNewSequencePlaceholder,
   getNewSubsequencePlaceholder,
 } from './utils/generic-input-utils';
+import { isLoopsValid } from './utils/loops-validity';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, FILTER, ROUNDABOUT } =
   COMPONENT_TYPE;
@@ -49,45 +50,15 @@ function isQuestionnaireValid(questionnaireErrors = {}) {
   );
 }
 
-function isLoopsValid(
-  componentsStore,
-  activeQuestionnaire,
-  externalQuestionnairesLoops,
-) {
-  let loopsValid = true;
-  const componentsLoop = Object.values(componentsStore).filter(
-    (component) => component.type === LOOP,
-  );
-  const externalLoopsAvailable = externalQuestionnairesLoops || {};
-  const externalQuestionnnairesId =
-    activeQuestionnaire.childQuestionnaireRef || [];
-  const referencedLoops = Object.keys(externalLoopsAvailable)
-    .filter((key) => externalQuestionnnairesId.includes(key))
-    .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
-
-  if (componentsLoop.length > 0) {
-    componentsLoop.forEach((component) => {
-      if (
-        !componentsStore[component.initialMember] ||
-        !componentsStore[component.finalMember] ||
-        componentsStore[component.initialMember].weight >
-          componentsStore[component.finalMember].weight ||
-        (component.basedOn &&
-          !componentsStore[component.basedOn] &&
-          !referencedLoops.some((loop) => loop.id === component.basedOn))
-      ) {
-        loopsValid = false;
-      }
-    });
-  }
-  return loopsValid;
-}
-
 // Container
 
 const mapStateToProps = (state) => {
-  const { activeComponentsById, selectedComponentId, activeQuestionnaire } =
-    state.appState;
+  const {
+    activeComponentsById,
+    selectedComponentId,
+    activeQuestionnaire,
+    activeCodeListsById,
+  } = state.appState;
   const { externalQuestionnairesLoops } = state.metadataByType;
   const errors = state.errors || { errorsIntegrity: {} };
   const questionnaireErrors =
@@ -107,6 +78,7 @@ const mapStateToProps = (state) => {
       activeComponentsById,
       activeQuestionnaire,
       externalQuestionnairesLoops,
+      activeCodeListsById,
     ),
     activeQuestionnaire: activeQuestionnaire,
     showVisualizationErrorPopup:
