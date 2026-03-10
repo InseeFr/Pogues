@@ -3,7 +3,6 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { secure } from './auth';
 import { App } from './layout/app';
 import { PageDuplicateVariables } from './layout/page-duplicate-variables';
-import { PageHome } from './layout/page-home';
 import { PageQuestionnaire } from './layout/page-questionnaire';
 import { PageQuestionnaireComposition } from './layout/page-questionnaire-composition';
 import { PageQuestionnaireMerge } from './layout/page-questionnaire-merge';
@@ -17,7 +16,6 @@ function Router() {
   return (
     <AppSecure>
       <Switch>
-        <Route exact path="/" component={PageHome} />
         <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
         <Route
           exact
