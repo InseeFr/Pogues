@@ -274,7 +274,6 @@ function GenericInput(props) {
           disabled={!isQuestionnaireValid}
           isDirtyState={isQuestionnaireModified}
           questionnaireId={activeQuestionnaire.id}
-          token={token}
         />
       </div>
       <ReactModal

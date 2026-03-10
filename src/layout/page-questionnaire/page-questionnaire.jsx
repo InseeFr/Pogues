@@ -131,10 +131,7 @@ const PageQuestionnaire = (props) => {
           <GenericInput />
           <div className="questionnaire-content">
             <QuestionnaireNav />
-            <QuestionnaireListComponents
-              navigate={history.push}
-              token={token}
-            />
+            <QuestionnaireListComponents navigate={history.push} />
           </div>
         </div>
       )}
