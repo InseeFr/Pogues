@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, FormSection, formValueSelector } from 'redux-form';
+import { Field, FormSection, change, formValueSelector } from 'redux-form';
 
 import {
   CHOICE_TYPE,
@@ -24,15 +26,31 @@ const { RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 function ResponseFormatSingle({
   selectorPathParent,
   showMandatory,
+  visHint,
+  choiceType,
   allowPrecision,
   allowFilter,
   disableSetArbitrary,
-  visHint,
+  setFieldValue,
 }) {
   const selectorPath = SINGLE_CHOICE;
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
+
+  // when choiceType is changed from suggester to code list or variable, we need to reset the visHint to radio
+  const previousChoiceType = useRef(choiceType);
+  useEffect(() => {
+    const wasSuggester = previousChoiceType.current === suggesterType;
+    const isNowCodeListOrVariable =
+      choiceType === CODE_LIST || choiceType === VARIABLE;
+
+    if (wasSuggester && isNowCodeListOrVariable && visHint !== RADIO) {
+      setFieldValue(`${selectorPathComposed}.visHint`, RADIO);
+    }
+
+    previousChoiceType.current = choiceType;
+  }, [choiceType, visHint, selectorPathComposed, setFieldValue]);
 
   return (
     <FormSection name={selectorPath} className="response-format__single">
@@ -85,17 +103,20 @@ function ResponseFormatSingle({
 ResponseFormatSingle.propTypes = {
   selectorPathParent: PropTypes.string,
   showMandatory: PropTypes.bool,
+  choiceType: PropTypes.string,
   visHint: PropTypes.string,
   type: PropTypes.string,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
   disableSetArbitrary: PropTypes.bool,
   collectedVariableStore: PropTypes.object,
+  setFieldValue: PropTypes.func.isRequired,
 };
 
 ResponseFormatSingle.defaultProps = {
   selectorPathParent: undefined,
   showMandatory: true,
+  choiceType: CODE_LIST,
   visHint: RADIO,
   type: CODE_LIST,
   allowPrecision: true,
@@ -111,7 +132,15 @@ const mapStateToProps = (state, { selectorPathParent }) => {
     visHint: selector(state, `${path}visHint`),
     type: selector(state, `${path}type`),
     allowArbitraryResponse: selector(state, `${path}allowArbitraryResponse`),
+    choiceType: selector(state, `${path}choiceType`),
   };
 };
 
-export default connect(mapStateToProps)(ResponseFormatSingle);
+const mapDispatchToProps = (dispatch) => ({
+  setFieldValue: (field, value) => dispatch(change('component', field, value)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ResponseFormatSingle);
