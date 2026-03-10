@@ -2,7 +2,7 @@
 
 A [mocked server](https://github.com/InseeFr/Pogues/tree/main/fake-server) is provided and is based on [restify](http://restify.com/docs/home/)
 
-This server can be started with the command `yarn dev:server`. It allows you to work on the front end without having a back end running.
+This server can be started with the command `pnpm dev:server`. It allows you to work on the front end without having a back end running.
 
 The server contains data files and a server.js file.
 
