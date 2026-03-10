@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 
 import '../../scss/pogues.scss';
 import { useOidc } from '../../utils/oidc';
-import { Header } from './components/header';
-
-const isOnlyLegacyApp =
-  new URL(import.meta.url || '').origin === window.location.origin;
 
 const App = ({ children, loadUnitsIfNeeded }) => {
   const oidc = useOidc();
@@ -16,12 +12,7 @@ const App = ({ children, loadUnitsIfNeeded }) => {
     loadUnitsIfNeeded(token);
   }, [token, loadUnitsIfNeeded]);
 
-  return (
-    <div id="pogues-legacy">
-      {isOnlyLegacyApp && <Header />}
-      {children}
-    </div>
-  );
+  return <div id="pogues-legacy">{children}</div>;
 };
 
 App.propTypes = {
