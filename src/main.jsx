@@ -6,8 +6,8 @@ import './index.css';
 import Router from './router';
 import configureStore from './store/configure-store';
 
-export const Main = ({ setIsDirtyState }) => {
-  const store = configureStore({}, setIsDirtyState);
+export const Main = ({ setIsDirtyState, getAccessToken }) => {
+  const store = configureStore({ getAccessToken }, setIsDirtyState);
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -19,4 +19,5 @@ export const Main = ({ setIsDirtyState }) => {
 
 Main.propTypes = {
   setIsDirtyState: PropTypes.func,
+  getAccessToken: PropTypes.func,
 };
