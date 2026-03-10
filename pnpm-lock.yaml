@@ -64,9 +64,6 @@ importers:
       monaco-editor:
         specifier: ^0.51.0
         version: 0.51.0
-      oidc-spa:
-        specifier: ^10.1.0
-        version: 10.1.0(@types/react@18.3.28)(react@18.3.1)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -115,9 +112,6 @@ importers:
       synthetic-dom:
         specifier: 1.4.0
         version: 1.4.0
-      zod:
-        specifier: ^4.3.6
-        version: 4.3.6
     devDependencies:
       '@babel/eslint-parser':
         specifier: ^7.25.9
@@ -4500,41 +4494,6 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
-  oidc-spa@10.1.0:
-    resolution:
-      {
-        integrity: sha512-ha6ohrKtBD/fGmRm0RwdxaGAAvzYJiYMJKgT2JgfCXlOyL4lrMHDDMMK1lY2jyVr2lauUdF+UwJE7YZVe8HfFA==,
-      }
-    peerDependencies:
-      '@angular/common': '*'
-      '@angular/core': '*'
-      '@angular/router': '*'
-      '@nuxt/kit': '*'
-      '@tanstack/react-router': '*'
-      '@tanstack/react-start': '*'
-      '@types/react': '*'
-      react: '*'
-      rxjs: '*'
-    peerDependenciesMeta:
-      '@angular/common':
-        optional: true
-      '@angular/core':
-        optional: true
-      '@angular/router':
-        optional: true
-      '@nuxt/kit':
-        optional: true
-      '@tanstack/react-router':
-        optional: true
-      '@tanstack/react-start':
-        optional: true
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-      rxjs:
-        optional: true
-
   once@1.4.0:
     resolution:
       {
@@ -6287,12 +6246,6 @@ packages:
         integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==,
       }
     engines: { node: '>=10' }
-
-  zod@4.3.6:
-    resolution:
-      {
-        integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==,
-      }
 
 snapshots:
   '@adobe/css-tools@4.4.4': {}
@@ -8979,11 +8932,6 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
-  oidc-spa@10.1.0(@types/react@18.3.28)(react@18.3.1):
-    optionalDependencies:
-      '@types/react': 18.3.28
-      react: 18.3.1
-
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -10129,5 +10077,3 @@ snapshots:
       yargs-parser: 20.2.9
 
   yocto-queue@0.1.0: {}
-
-  zod@4.3.6: {}
