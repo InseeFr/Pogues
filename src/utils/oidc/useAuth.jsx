@@ -3,10 +3,9 @@ import { useMemo } from 'react';
 import { useOidc } from '.';
 
 export const useUser = () => {
-  const { tokens } = useOidc();
-  const { decodedIdToken } = tokens.decodedIdToken;
+  const { isUserLoggedIn, decodedIdToken } = useOidc();
 
-  if (!decodedIdToken.isUserLoggedIn) {
+  if (!isUserLoggedIn) {
     throw new Error('This hook should be used only on authenticated routes');
   }
 
