@@ -7,7 +7,6 @@ import { PageQuestionnaire } from './layout/page-questionnaire';
 import { PageQuestionnaireComposition } from './layout/page-questionnaire-composition';
 import { PageQuestionnaireMerge } from './layout/page-questionnaire-merge';
 import { PageQuestionnaireTcmComposition } from './layout/page-questionnaire-tcm-composition';
-import { PageSearchQuestionnaire } from './layout/page-search-questionnaire';
 
 const AppSecure = (props) => secure(App)(props);
 
@@ -41,11 +40,6 @@ function Router() {
           exact
           path="/questionnaire/:id/duplicate-variables"
           component={PageDuplicateVariables}
-        />
-        <Route
-          exact
-          path="/search/questionnaires"
-          component={PageSearchQuestionnaire}
         />
         {!pathname.startsWith('/authentication') && <Redirect to="/" />}
       </Switch>
