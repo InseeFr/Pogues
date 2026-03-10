@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { secure } from './auth';
 import { App } from './layout/app';
@@ -11,7 +11,6 @@ import { PageQuestionnaireTcmComposition } from './layout/page-questionnaire-tcm
 const AppSecure = (props) => secure(App)(props);
 
 function Router() {
-  const { pathname } = useLocation();
   return (
     <AppSecure>
       <Switch>
@@ -41,7 +40,6 @@ function Router() {
           path="/questionnaire/:id/duplicate-variables"
           component={PageDuplicateVariables}
         />
-        {!pathname.startsWith('/authentication') && <Redirect to="/" />}
       </Switch>
     </AppSecure>
   );
