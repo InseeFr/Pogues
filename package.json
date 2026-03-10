@@ -65,6 +65,7 @@
     "lodash.takewhile": "4.6.0",
     "lodash.uniq": "4.5.0",
     "monaco-editor": "^0.51.0",
+    "oidc-spa": "^10.1.0",
     "prop-types": "15.8.1",
     "react": "^18.2.0",
     "react-csv-reader": "^3.1.2",
@@ -80,7 +81,8 @@
     "redux-form": "8.3.10",
     "redux-form-validators": "^3.3.2",
     "redux-thunk": "2.4.2",
-    "synthetic-dom": "1.4.0"
+    "synthetic-dom": "1.4.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.9",
