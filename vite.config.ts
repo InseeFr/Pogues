@@ -1,5 +1,6 @@
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
+import { oidcSpa } from 'oidc-spa/vite-plugin';
 import type { UserConfig } from 'vite';
 import { viteEnvs } from 'vite-envs';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -7,6 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vite.dev/config/
 const defaultPlugin = [
   react(),
+  oidcSpa(),
   viteEnvs({
     nameOfTheGlobal: '__POGUES_LEGACY_ENVS',
     computedEnv: () => ({
@@ -29,7 +31,7 @@ export const buildViteConf = (withFederation: boolean): UserConfig => {
             name: '@pogues-legacy',
             filename: 'remote-entry.js',
             exposes: {
-              './App': './src/main.jsx',
+              './App': './src/main.tsx',
             },
             shared: ['react/', 'react-dom/'],
           }),

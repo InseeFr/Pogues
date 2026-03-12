@@ -1,6 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
 
-import { secure } from './auth';
 import { App } from './layout/app';
 import { PageDuplicateVariables } from './layout/page-duplicate-variables';
 import { PageQuestionnaire } from './layout/page-questionnaire';
@@ -8,11 +7,9 @@ import { PageQuestionnaireComposition } from './layout/page-questionnaire-compos
 import { PageQuestionnaireMerge } from './layout/page-questionnaire-merge';
 import { PageQuestionnaireTcmComposition } from './layout/page-questionnaire-tcm-composition';
 
-const AppSecure = (props) => secure(App)(props);
-
 function Router() {
   return (
-    <AppSecure>
+    <App>
       <Switch>
         <Route exact path="/questionnaire/:id" component={PageQuestionnaire} />
         <Route
@@ -41,7 +38,7 @@ function Router() {
           component={PageDuplicateVariables}
         />
       </Switch>
-    </AppSecure>
+    </App>
   );
 }
 

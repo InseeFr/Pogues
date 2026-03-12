@@ -1,8 +1,16 @@
 import ReactDOM from 'react-dom/client';
 
+import { secure } from './auth';
 import { Main } from './main';
-import { getAccessToken } from './utils/oidc';
+import { getAccessToken, useOidc } from './utils/oidc';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <Main getAccessToken={getAccessToken} />,
-);
+const App = () => {
+  const { decodedIdToken } = useOidc();
+  return (
+    <Main getAccessToken={getAccessToken} decodedIdToken={decodedIdToken} />
+  );
+};
+
+const AppSecure = (props) => secure(App)(props);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<AppSecure />);

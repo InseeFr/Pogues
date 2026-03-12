@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { useOidc } from '../../utils/oidc';
+import { AuthContext } from '@/auth/context';
+
 import { GenericInput } from '../generic-input';
 import Loader from '../loader';
 import LoaderError from '../loader-error';
@@ -71,26 +72,29 @@ const PageQuestionnaire = (props) => {
 
   const [toInitialize, setToInitialize] = useState(false);
 
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
+  const { getAccessToken } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!questionnaire || questionnaire.id !== id) {
+    const load = async () => {
+      const accessToken = await getAccessToken();
       if (versionId) {
-        loadQuestionnaireWithVersion(id, versionId, token);
+        loadQuestionnaireWithVersion(id, versionId, accessToken);
       } else {
-        loadQuestionnaire(id, token);
+        loadQuestionnaire(id, accessToken);
       }
       setToInitialize(true);
-    }
+    };
+
+    if (!questionnaire || questionnaire.id !== id) load();
   }, [id, questionnaire?.id, versionId]);
 
   useEffect(() => {
-    if (toInitialize && questionnaire) {
+    const load = async () => {
+      const accessToken = await getAccessToken();
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
-      loadStatisticalContext(idCampaign, token);
+      loadStatisticalContext(idCampaign, accessToken);
       setActiveComponents(components);
       setActiveCodeLists(codeLists);
       setActiveVariables({
@@ -99,22 +103,30 @@ const PageQuestionnaire = (props) => {
         collectedVariableByQuestion: collectedVariablesByQuestion,
       });
       setToInitialize(false);
+    };
+
+    if (toInitialize && questionnaire) {
+      load();
     }
   }, [toInitialize, questionnaire?.id]);
 
   useEffect(() => {
+    const loadExternalQuestionnairesIfNeededWithToken = async (ref) => {
+      const accessToken = await getAccessToken();
+      loadExternalQuestionnairesIfNeeded(ref, accessToken);
+    };
     if (
       appState.activeQuestionnaire.childQuestionnaireRef &&
       appState.activeQuestionnaire.childQuestionnaireRef.length !== 0
     ) {
       appState.activeQuestionnaire.childQuestionnaireRef.map((ref) =>
-        loadExternalQuestionnairesIfNeeded(ref, token),
+        loadExternalQuestionnairesIfNeededWithToken(ref),
       );
     }
   }, [
     appState.activeQuestionnaire.childQuestionnaireRef,
     loadExternalQuestionnairesIfNeeded,
-    token,
+    getAccessToken,
   ]);
 
   return (

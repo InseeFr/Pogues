@@ -14,11 +14,14 @@ const decodedIdTokenSchema = z.object({
   timbre: z.string(),
 });
 
-const { bootstrapOidc, getOidc } = oidcSpa
+export type DecodedIdTokenType =
+  | z.infer<typeof decodedIdTokenSchema>
+  | undefined;
+
+export const { bootstrapOidc, getOidc, useOidc } = oidcSpa
   .withExpectedDecodedIdTokenShape({
     decodedIdTokenSchema: decodedIdTokenSchema,
   })
-  .withAutoLogin()
   .createUtils();
 
 await bootstrapOidc(
