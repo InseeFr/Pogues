@@ -7,9 +7,9 @@ export type ImportMetaEnv = {
   VITE_API_URL: string;
   VITE_TROMBI_URL: string;
   VITE_PERSONALIZATION_URL: string;
+  VITE_OIDC_CLIENT_ID: string;
   VITE_OIDC_ENABLED: string;
   VITE_OIDC_ISSUER: string;
-  VITE_OIDC_CLIENT_ID: string;
   VITE_OIDC_SCOPES: string;
   VITE_ENABLE_ARTICULATION_PAGE: string;
   VITE_ENABLE_MULTIMODE_PAGE: string;
@@ -18,7 +18,7 @@ export type ImportMetaEnv = {
   MODE: string;
   DEV: boolean;
   PROD: boolean;
-  APP_VERSION: string;
+  APP_VERSION: any;
   // @user-defined-start
   /*
    *  You can use this section to explicitly extend the type definition of `import.meta.env`

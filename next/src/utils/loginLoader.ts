@@ -5,7 +5,10 @@ import { getOidc } from '@/lib/auth/oidc';
 export async function loginLoader() {
   const oidc = await getOidc();
   if (!oidc.isUserLoggedIn) {
-    throw redirect({ to: '/login' });
+    throw redirect({
+      to: '/login',
+      search: { redirectUri: window.location.pathname },
+    });
   }
   return null;
 }

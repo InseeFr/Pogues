@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
-import { User as UserType } from '@/hooks/useAuth';
+import { User as UserType } from '@/hooks/useUser';
 
 import User from './User';
 

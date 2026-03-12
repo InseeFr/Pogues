@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 
-import { useAuth } from '@/hooks/useAuth';
-import { OidcProvider } from '@/lib/auth/oidc';
+import { useUser } from '@/hooks/useUser';
 import i18next from '@/lib/i18n';
 
 import { routeTree } from './routeTree.gen';
@@ -28,30 +27,11 @@ declare module '@tanstack/react-router' {
 }
 
 export default function App() {
-  return (
-    <OidcProvider
-      ErrorFallback={({ initializationError }) => (
-        <h1 className="text-error">
-          {initializationError.isAuthServerLikelyDown ? (
-            <>
-              Sorry our authentication server is currently down, please try
-              again later
-            </>
-          ) : (
-            // NOTE: Check initializationError.message for debug information.
-            // It's an error on your end no need to show it to the user.
-            <>Unexpected authentication error </>
-          )}
-        </h1>
-      )}
-    >
-      <InnerApp />
-    </OidcProvider>
-  );
+  return <InnerApp />;
 }
 
 function InnerApp() {
-  const user = useAuth();
+  const user = useUser();
 
   return (
     <QueryClientProvider client={queryClient}>

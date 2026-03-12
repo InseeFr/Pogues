@@ -5,7 +5,9 @@ import { renderWithRouter } from '@/testing/render';
 
 import MultimodeOverviewRules from './MultimodeOverviewRules';
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc', () => ({
+  getAccessToken: () => Promise.resolve('fake-token'),
+}));
 
 describe('MultimodeOverviewRules', () => {
   it('displays multimode questionnaire rule and empty roundabout rule', async () => {

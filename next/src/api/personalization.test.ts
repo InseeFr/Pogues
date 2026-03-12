@@ -16,13 +16,9 @@ import {
 } from './personalization';
 
 vi.mock('@/lib/auth/oidc', () => ({
-  getOidc: () =>
-    Promise.resolve({
-      getTokens: () => ({
-        accessToken: 'fake-token',
-      }),
-    }),
+  getAccessToken: () => Promise.resolve('fake-token'),
 }));
+
 beforeAll(() => {
   vi.stubEnv('VITE_PERSONALIZATION_URL', 'https://mock-personalization-api');
   instancePersonalization.defaults.baseURL = 'https://mock-personalization-api';

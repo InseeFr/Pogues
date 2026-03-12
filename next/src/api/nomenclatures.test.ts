@@ -4,7 +4,9 @@ import { Nomenclature } from '@/models/nomenclature';
 
 import { getNomenclatures, getNomenclaturesFromVersion } from './nomenclatures';
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc', () => ({
+  getAccessToken: () => Promise.resolve('fake-token'),
+}));
 
 const nomenclature = {
   id: 'id1',

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getOidc } from '@/lib/auth/oidc';
+import { getAccessToken } from '@/lib/auth/oidc';
 
 /**
  * Axios instance used to call Pogues API.
@@ -12,7 +12,7 @@ export const instancePersonalization = axios.create({
 
 // get access token and add authorization header
 instancePersonalization.interceptors.request.use(async (config) => {
-  const oidc = await getOidc();
-  config.headers.Authorization = `Bearer ${oidc.getTokens().accessToken}`;
+  const accessToken = await getAccessToken();
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 });

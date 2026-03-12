@@ -5,7 +5,9 @@ import { renderWithRouter } from '@/testing/render';
 
 import ReadonlyWarning from './ReadonlyWarning';
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc', () => ({
+  getAccessToken: () => Promise.resolve('fake-token'),
+}));
 
 describe('ReadonlyWarning', () => {
   it('display restore button', async () => {

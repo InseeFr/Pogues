@@ -8,7 +8,9 @@ import {
   putArticulation,
 } from './articulation';
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc', () => ({
+  getAccessToken: () => Promise.resolve('fake-token'),
+}));
 
 const articulation: Articulation = {
   items: [

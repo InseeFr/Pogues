@@ -1,7 +1,7 @@
 export const { getOidc, useOidc } = {
   getOidc: () =>
     Promise.resolve({
-      getTokens: () => 'mock-token',
+      getAccessToken: () => 'mock-token',
     }),
   useOidc: () => ({
     isUserLoggedIn: true,

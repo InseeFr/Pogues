@@ -13,7 +13,9 @@ import {
   putQuestionnaire,
 } from './questionnaires';
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc', () => ({
+  getAccessToken: () => Promise.resolve('fake-token'),
+}));
 
 const poguesQuestionnaire = {
   id: 'id',

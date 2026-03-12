@@ -4,7 +4,9 @@ import { Version } from '@/models/version';
 
 import { getAllVersions, restoreVersion } from './versions';
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc', () => ({
+  getAccessToken: () => Promise.resolve('fake-token'),
+}));
 
 const version = {
   author: 'Guybrush Threepwood',
