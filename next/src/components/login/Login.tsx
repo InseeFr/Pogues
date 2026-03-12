@@ -1,24 +1,14 @@
 import { useTranslation } from 'react-i18next';
 
 import Button, { ButtonStyle } from '@/components/ui/Button';
-import { useOidc } from '@/lib/auth/oidc';
 
-export default function Login() {
+export default function Login({ login }: { login: () => void }) {
   const { t } = useTranslation();
-
-  const { login } = useOidc({ assert: 'user not logged in' });
-
-  const onLogin = () => {
-    login({
-      redirectUrl: '/questionnaires',
-      doesCurrentHrefRequiresAuth: false,
-    });
-  };
 
   return (
     <div className="text-center space-y-3">
       <p>{t('common.pleaseLogin')}</p>
-      <Button onClick={onLogin} buttonStyle={ButtonStyle.Primary}>
+      <Button onClick={login} buttonStyle={ButtonStyle.Primary}>
         {t('common.login')}
       </Button>
     </div>
