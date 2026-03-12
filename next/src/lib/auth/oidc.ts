@@ -17,6 +17,10 @@ const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
   ',',
 );
 
+export type DecodedIdTokenType =
+  | z.infer<typeof decodedIdTokenSchema>
+  | undefined;
+
 export const { bootstrapOidc, getOidc, useOidc } = oidcSpa
   .withExpectedDecodedIdTokenShape({
     decodedIdTokenSchema: decodedIdTokenSchema,
