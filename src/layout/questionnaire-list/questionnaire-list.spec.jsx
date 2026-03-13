@@ -1,20 +1,19 @@
 import { shallow } from 'enzyme';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
-import { OidcProvider } from '../../utils/oidc';
 import { noop } from '../../utils/test/test-utils';
 import QuestionnaireList from './questionnaire-list';
 
+vi.mock('@/auth/context');
+
 describe('<QuestionnaireList />', () => {
   const wrapperWithoutQuestionnaires = shallow(
-    <OidcProvider>
-      <QuestionnaireList
-        loadQuestionnaireList={noop}
-        duplicateQuestionnaire={() => {}}
-        handleNewChildQuestionnaireRef={() => {}}
-        activeQuestionnaire={{}}
-      />
-    </OidcProvider>,
+    <QuestionnaireList
+      loadQuestionnaireList={noop}
+      duplicateQuestionnaire={() => {}}
+      handleNewChildQuestionnaireRef={() => {}}
+      activeQuestionnaire={{}}
+    />,
   );
 
   test('should render without throwing an error', () => {
