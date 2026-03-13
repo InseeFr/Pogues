@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- migrate to latest oidc-spa (v10)
+- restore desired uri after login
+- add `getAccessToken` & `decodedIdToken` to params of legacy App
+
 ## [2.5.0](https://github.com/InseeFr/Pogues/releases/tag/2.5.0) - 2026-03-06
 
 ### Changed
