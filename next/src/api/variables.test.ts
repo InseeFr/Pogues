@@ -16,9 +16,7 @@ import {
   postVariable,
 } from './variables';
 
-vi.mock('@/lib/auth/oidc', () => ({
-  getAccessToken: () => Promise.resolve('fake-token'),
-}));
+vi.mock('@/lib/auth/oidc');
 
 const variableDTO: VariableDTO = {
   id: 'my-variable',

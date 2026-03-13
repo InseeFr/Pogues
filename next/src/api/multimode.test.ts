@@ -10,9 +10,7 @@ import {
   putMultimode,
 } from './multimode';
 
-vi.mock('@/lib/auth/oidc', () => ({
-  getAccessToken: () => Promise.resolve('fake-token'),
-}));
+vi.mock('@/lib/auth/oidc');
 
 const multimodeDTO: MultimodeDTO = {
   questionnaire: {

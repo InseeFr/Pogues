@@ -9,9 +9,7 @@ import {
   putCodesList,
 } from './codesLists';
 
-vi.mock('@/lib/auth/oidc', () => ({
-  getAccessToken: () => Promise.resolve('fake-token'),
-}));
+vi.mock('@/lib/auth/oidc');
 
 const codeList = {
   id: 'id1',

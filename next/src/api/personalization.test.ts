@@ -15,9 +15,7 @@ import {
   getPublicEnemyDataFromPogues,
 } from './personalization';
 
-vi.mock('@/lib/auth/oidc', () => ({
-  getAccessToken: () => Promise.resolve('fake-token'),
-}));
+vi.mock('@/lib/auth/oidc');
 
 beforeAll(() => {
   vi.stubEnv('VITE_PERSONALIZATION_URL', 'https://mock-personalization-api');
