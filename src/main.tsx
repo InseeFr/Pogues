@@ -6,9 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { AuthContext } from './auth/context';
 import './index.css';
+import { DecodedIdTokenType } from './lib/auth/oidc';
 import Router from './router';
 import configureStore from './store/configure-store';
-import { DecodedIdTokenType } from './utils/oidc';
 
 export const Main = ({
   setIsDirtyState,

@@ -36,7 +36,7 @@ bootstrapOidc(
         issuerUri: import.meta.env.VITE_OIDC_ISSUER,
         BASE_URL: import.meta.env.BASE_URL,
         // Enable for detailed initialization and token lifecycle logs.
-        debugLogs: import.meta.DEV === 'true',
+        debugLogs: import.meta.DEV,
         scopes: oidcScopes,
       }
     : {

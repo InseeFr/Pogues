@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { oidcSpa } from 'oidc-spa/react-spa';
 import z from 'zod';
 
@@ -9,9 +10,12 @@ const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
 );
 
 const decodedIdTokenSchema = z.object({
-  preferred_username: z.string(),
-  name: z.string(),
-  timbre: z.string(),
+  family_name: z.string().optional(),
+  given_name: z.string(),
+  timbre: z.string().nullish(), // timbre can be not defined (undefined or null) in case of "external" user
+  realm_access: z.object({
+    roles: z.array(z.string()),
+  }),
 });
 
 export type DecodedIdTokenType =
@@ -32,7 +36,7 @@ await bootstrapOidc(
         issuerUri: authority,
 
         // Enable for detailed initialization and token lifecycle logs.
-        debugLogs: true,
+        debugLogs: import.meta.DEV,
         warnUserSecondsBeforeAutoLogout: 60,
         scopes: oidcScopes,
       }
@@ -41,9 +45,12 @@ await bootstrapOidc(
         implementation: 'mock',
         isUserInitiallyLoggedIn: true,
         decodedIdToken_mock: {
-          preferred_username: 'mock-user',
-          name: 'Mock User',
-          timbre: 'Mock stamp',
+          given_name: import.meta.env.VITE_DEFAULT_USER_NAME ?? 'Guybrush',
+          family_name: '',
+          timbre: 'FAKEPERMISSION',
+          realm_access: {
+            roles: ['user'],
+          },
         },
       },
 );

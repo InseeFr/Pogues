@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { DecodedIdTokenType } from '@/utils/oidc';
+import { DecodedIdTokenType } from '@/lib/auth/oidc';
 
 type AuthContextType = {
   getAccessToken: () => Promise<string | undefined>;

@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client';
 
 import { secure } from './auth';
+import { getAccessToken, useOidc } from './lib/auth/oidc';
 import { Main } from './main';
-import { getAccessToken, useOidc } from './utils/oidc';
 
 const App = () => {
   const { decodedIdToken } = useOidc();

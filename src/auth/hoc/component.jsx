@@ -1,4 +1,4 @@
-import { useOidc } from '@/utils/oidc';
+import { useOidc } from '@/lib/auth/oidc';
 
 const Comp = ({ Component, ...props }) => {
   const { isUserLoggedIn, login } = useOidc();
