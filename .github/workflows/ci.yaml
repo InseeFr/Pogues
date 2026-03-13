@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
-      - run: pnpm install && pnpm run build
+      - run: pnpm i --frozen-lockfile && pnpm run build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues
@@ -43,7 +43,7 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: next/pnpm-lock.yaml
-      - run: cd next && pnpm install && pnpm run build
+      - run: cd next && pnpm pnpm i --frozen-lockfile && pnpm run build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues-next
