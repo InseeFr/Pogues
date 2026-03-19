@@ -27,7 +27,6 @@ const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const validateForm = (addErrors, validate) => (values, state) => {
   return validate(values, addErrors, state);
 };
-
 function CollectedVariables({
   componentName,
   collectedVariablesIds = new Set(),
@@ -42,6 +41,8 @@ function CollectedVariables({
   errors,
   addErrors,
   referencedCodeList,
+  referencedVariable,
+  variableReferenceLabel,
   isVariableCollected,
 }) {
   function generateVariables() {
@@ -52,7 +53,6 @@ function CollectedVariables({
       codesListsStore,
       collectedVariablesIds,
     );
-
     arrayRemoveAll(formName, 'collectedVariables.collectedVariables');
 
     newVariables.forEach((cv) => {
@@ -169,6 +169,17 @@ function CollectedVariables({
               label={Dictionary.codeList}
             />
           )}
+          <Field name="variableReference" type="hidden" component="input" />
+          {referencedVariable && (
+            <Field
+              name="variableReferenceLabel"
+              type="text"
+              disabled
+              component={Input}
+              label={Dictionary.variable}
+              format={() => variableReferenceLabel}
+            />
+          )}
         </div>
       </ListWithInputPanel>
     </FormSection>
@@ -188,6 +199,8 @@ CollectedVariables.propTypes = {
   codesListsStore: PropTypes.object,
   reponseFormatValues: PropTypes.object,
   referencedCodeList: PropTypes.string,
+  referencedVariable: PropTypes.string,
+  variableReferenceLabel: PropTypes.string,
   isVariableCollected: PropTypes.string,
 };
 
@@ -195,6 +208,8 @@ CollectedVariables.defaultProps = {
   codesListsStore: {},
   reponseFormatValues: {},
   referencedCodeList: '',
+  referencedVariable: '',
+  variableReferenceLabel: '',
   isVariableCollected: '1',
 };
 

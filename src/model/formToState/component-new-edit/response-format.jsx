@@ -2,6 +2,7 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_VIS_HINT,
   QUESTION_TYPE_ENUM,
 } from '../../../constants/pogues-constants';
@@ -100,11 +101,14 @@ export function formToState(form, collectedVariables, transformers) {
   }
 
   if (type === SINGLE_CHOICE) {
-    const { visHint } = responseFormatForm;
-    // In case of SUGGESTER, codes doesn't exist, so we don't need to update newCodes (since they no exist)
-    if (visHint === DATATYPE_VIS_HINT.SUGGESTER) {
+    const { choiceType, visHint } = responseFormatForm;
+    // In case of SUGGESTER or VARIABLE, codes doesn't exist, so we don't need to update newCodes (since they no exist)
+    if (
+      choiceType === CHOICE_TYPE.SUGGESTER ||
+      choiceType === CHOICE_TYPE.VARIABLE
+    ) {
       state[type] = transformers.single.formToState(responseFormatForm);
-    } else {
+    } else if (choiceType === CHOICE_TYPE.CODE_LIST) {
       const { CodesList } = responseFormatForm;
       const newCodes = computeCodesByCollectedVariableId(
         CodesList,

@@ -1,8 +1,10 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
 } from '../../constants/pogues-constants';
 import { getCollectedVariable } from './collected-variables-utils';
+import { getReference } from './variables-utils';
 
 const { TEXT } = DATATYPE_NAME;
 
@@ -18,27 +20,43 @@ export function getCollectedVariablesSingle(
   questionName,
   form,
   existingVariableIds = new Set(),
+  codesListStore,
 ) {
-  const mainVariable = getCollectedVariable(
-    questionName,
-    `${questionName} label`,
-    undefined,
-    {
-      codeListReference:
-        form.visHint === DATATYPE_VIS_HINT.SUGGESTER
-          ? form.Nomenclature.id
-          : form.CodesList.id,
-      codeListReferenceLabel:
-        form.visHint === DATATYPE_VIS_HINT.SUGGESTER
-          ? form.Nomenclature.label
-          : form.CodesList.label,
-      type: TEXT,
-      [TEXT]: { maxLength: 1 },
-    },
-  );
+  let mainVariable;
+
+  if (form.choiceType === CHOICE_TYPE.VARIABLE) {
+    const desiredVarLabel =
+      codesListStore?.[form.Variable?.id]?.label ?? form.Variable?.label;
+
+    mainVariable = getCollectedVariable(
+      questionName,
+      `${questionName} label`,
+      undefined,
+      {
+        variableReference: form.Variable.id,
+        // We need to dynamically get the label of the variable reference, as it can be changed by the user
+        variableReferenceLabel: desiredVarLabel,
+        type: TEXT,
+        choiceType: form.choiceType,
+        [TEXT]: { maxLength: 1 },
+      },
+    );
+  } else {
+    mainVariable = getCollectedVariable(
+      questionName,
+      `${questionName} label`,
+      undefined,
+      {
+        ...getReference(form),
+        type: TEXT,
+        choiceType: form.choiceType,
+        [TEXT]: { maxLength: 1 },
+      },
+    );
+  }
 
   // Nomenclatures may allow an arbitrary response
-  if (form.visHint === DATATYPE_VIS_HINT.SUGGESTER) {
+  if (form.choiceType === CHOICE_TYPE.SUGGESTER) {
     if (form.allowArbitraryResponse) {
       const arbitraryResponseVariable = computeSuggesterArbitraryVariable(
         questionName,
@@ -50,7 +68,10 @@ export function getCollectedVariablesSingle(
   }
 
   // Dropdown do not have clarification variable
-  if (form.visHint === DATATYPE_VIS_HINT.DROPDOWN) {
+  if (
+    form.visHint === DATATYPE_VIS_HINT.DROPDOWN ||
+    form.choiceType === CHOICE_TYPE.VARIABLE
+  ) {
     return [mainVariable];
   }
 
@@ -97,8 +118,6 @@ export function getCollectedVariablesSingle(
                 maxLength: precision.precisionsize,
               },
             },
-            undefined,
-            undefined,
             variableId,
           );
           clarificationVariables.push(clarificationVariable);
@@ -106,13 +125,12 @@ export function getCollectedVariablesSingle(
       }
     }
   });
-
   return [mainVariable, ...clarificationVariables];
 }
 
 function computeSuggesterArbitraryVariable(questionName, mainVariable) {
   const arbitraryResponseName = `${questionName}_ARBITRARY`;
-  return getCollectedVariable(
+  const arbitraryVariable = getCollectedVariable(
     arbitraryResponseName,
     `${arbitraryResponseName} label`,
     undefined,
@@ -123,4 +141,6 @@ function computeSuggesterArbitraryVariable(questionName, mainVariable) {
     undefined,
     mainVariable.id,
   );
+  arbitraryVariable.arbitraryVariableOfVariableId = mainVariable.id;
+  return arbitraryVariable;
 }

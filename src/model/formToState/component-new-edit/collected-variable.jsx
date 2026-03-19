@@ -13,6 +13,9 @@ export const defaultState = {
   mesureLevel: '',
   codeListReference: '',
   codeListReferenceLabel: '',
+  variableReference: '',
+  variableReferenceLabel: '',
+  choiceType: '',
   isCollected: '1',
   alternativeLabel: '',
 };
@@ -28,6 +31,9 @@ export const defaultForm = {
   collectedVariables: [],
   codeListReference: '',
   codeListReferenceLabel: '',
+  variableReference: '',
+  variableReferenceLabel: '',
+  choiceType: '',
   isCollected: '1',
   alternativeLabel: '',
 };
@@ -39,7 +45,7 @@ function getTypings(object) {
     [object.type]: object[object.type],
   };
 }
-export function formToState(form) {
+export function formToState(form, codesListsStore = {}) {
   const {
     name,
     label,
@@ -50,10 +56,16 @@ export function formToState(form) {
     arbitraryVariableOfVariableId,
     codeListReference,
     codeListReferenceLabel,
+    variableReference,
+    variableReferenceLabel,
+    choiceType,
     isCollected,
     alternativeLabel,
   } = form;
   const id = form.id || uuid();
+  const resolvedVariableReferenceLabel = variableReference
+    ? codesListsStore[variableReference]?.label || variableReferenceLabel
+    : variableReferenceLabel;
 
   return {
     id,
@@ -69,14 +81,17 @@ export function formToState(form) {
     ...getTypings(form),
     codeListReference,
     codeListReferenceLabel,
+    variableReference,
+    variableReferenceLabel: resolvedVariableReferenceLabel,
+    choiceType,
   };
 }
 
-export function formToStore(form) {
+export function formToStore(form, codesListsStore = {}) {
   const { collectedVariables } = form;
 
   return collectedVariables.reduce((acc, cv) => {
-    const state = formToState(cv);
+    const state = formToState(cv, codesListsStore);
 
     return {
       ...acc,
@@ -102,6 +117,9 @@ export function storeToForm(currentStore) {
         mesureLevel,
         codeListReference,
         codeListReferenceLabel,
+        variableReference,
+        variableReferenceLabel,
+        choiceType,
       } = currentStore[key];
       return {
         id,
@@ -117,16 +135,23 @@ export function storeToForm(currentStore) {
         ...getTypings(currentStore[key]),
         codeListReference,
         codeListReferenceLabel,
+        variableReference,
+        variableReferenceLabel,
+        choiceType,
       };
     });
-
-  return {
+  const mergedForm = {
     ...defaultForm,
     collectedVariables,
   };
+  return mergedForm;
 }
 
-const Factory = (currentState = [], collectedVariablesStore) => {
+const Factory = (
+  currentState = [],
+  collectedVariablesStore,
+  codesListsStore = {},
+) => {
   let currentStore = currentState.reduce((acc, key) => {
     return {
       ...acc,
@@ -136,11 +161,11 @@ const Factory = (currentState = [], collectedVariablesStore) => {
 
   return {
     formToStore: (form) => {
-      if (form) currentStore = formToStore(form);
+      if (form) currentStore = formToStore(form, codesListsStore);
       return currentStore;
     },
     formToComponentState: (form) => {
-      if (form) currentStore = formToStore(form);
+      if (form) currentStore = formToStore(form, codesListsStore);
       currentState = Object.keys(currentStore);
       return currentState;
     },

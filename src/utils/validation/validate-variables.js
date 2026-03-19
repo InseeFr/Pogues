@@ -114,7 +114,12 @@ function collectedVariableCompare(object1, object2) {
     Object.keys(object1).forEach((p) => {
       if (
         (object1[p] === '' && object2[p] !== undefined && object2[p] !== '') ||
-        (object1[p] !== '' && object2[p] === undefined)
+        (object1[p] === undefined &&
+          object2[p] !== undefined &&
+          object2[p] !== '') ||
+        (object1[p] !== '' &&
+          object1[p] !== undefined &&
+          object2[p] === undefined)
       ) {
         equal = false;
       }

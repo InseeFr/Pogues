@@ -171,11 +171,11 @@ type VariableType = {
   CodeListReference?: string;
   /** Variable representation type to characterize the variable (numeric, boolean, text, etc) */
   Datatype:
-    | BooleanDatatypeType
-    | DateDatatypeType
-    | DurationDatatypeType
-    | NumericDatatypeType
-    | TextDatatypeType;
+  | BooleanDatatypeType
+  | DateDatatypeType
+  | DurationDatatypeType
+  | NumericDatatypeType
+  | TextDatatypeType;
   Name: string;
   Label: string;
   /** Iteration reference (in which the variable has a local scope) */
@@ -448,6 +448,7 @@ export type CodeList = {
   SuggesterParameters?: SuggesterParametersType;
   id: string;
   Urn?: string;
+  Scope?: string;
 };
 
 export type CodeType = {

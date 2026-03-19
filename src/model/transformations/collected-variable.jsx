@@ -1,4 +1,5 @@
 import {
+  CHOICE_TYPE,
   COMPONENT_TYPE,
   DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
@@ -7,11 +8,11 @@ import {
   VARIABLES_TYPES,
 } from '../../constants/pogues-constants';
 import { uuid } from '../../utils/utils';
+import { findQuestionInLoop } from '../../widgets/component-new-edit/components/variables/utils-loops';
 import { remoteToState as remoteToStateFormatSimple } from './response-format-simple';
 
 const { COLLECTED } = VARIABLES_TYPES;
-const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, ROUNDABOUT, EXTERNAL_ELEMENT } =
-  COMPONENT_TYPE;
+const { QUESTION } = COMPONENT_TYPE;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
 
@@ -64,24 +65,41 @@ export function remoteToStore(
       Name: name,
       Label: label,
       CodeListReference,
+      VariableReference,
       z,
       mesureLevel,
       arbitraryVariableOfVariableId,
     } = ev;
+
+    let choiceType = undefined;
+
+    if (VariableReference) {
+      choiceType = CHOICE_TYPE.VARIABLE;
+    } else if (CodeListReference) {
+      const codeList = codesListsStore[CodeListReference];
+      choiceType = codeList?.urn
+        ? CHOICE_TYPE.SUGGESTER
+        : CHOICE_TYPE.CODE_LIST;
+    }
+
     const id = ev.id || uuid();
 
     const formatSingleRemote = remoteToStateFormatSimple({
       responses: [{ Datatype: ev.Datatype || {}, mandatory: false, id: id }],
     });
-
     res[id] = {
       id,
       name,
       label,
       type: formatSingleRemote.type,
+      choiceType,
       codeListReference: CodeListReference,
       codeListReferenceLabel: CodeListReference
         ? codesListsStore[CodeListReference].label
+        : '',
+      variableReference: VariableReference,
+      variableReferenceLabel: VariableReference
+        ? codesListsStore[VariableReference].label
         : '',
       [formatSingleRemote.type]: formatSingleRemote[formatSingleRemote.type],
       ...responsesByVariable[id],
@@ -97,87 +115,6 @@ export function remoteToComponentState(remote = []) {
   return remote
     .filter((r) => r.CollectedVariableReference)
     .map((r) => r.CollectedVariableReference);
-}
-
-function getQuestionFromSequence(componentsStore, id) {
-  const sequenceQuestions = [];
-  componentsStore[id].children.forEach((child) => {
-    if (componentsStore[child]) {
-      if (componentsStore[child].type === QUESTION) {
-        sequenceQuestions.push(componentsStore[child]);
-      } else {
-        componentsStore[child].children.forEach((chil) => {
-          sequenceQuestions.push(componentsStore[chil]);
-        });
-      }
-    }
-  });
-  return sequenceQuestions;
-}
-
-function getQuestionFromSubSequence(componentsStore, id) {
-  const SubSequenceQuestions = [];
-  if (componentsStore[id].children) {
-    componentsStore[id].children.forEach((child) => {
-      if (componentsStore[child] && componentsStore[child].type === QUESTION) {
-        SubSequenceQuestions.push(componentsStore[child]);
-      }
-    });
-  }
-
-  return SubSequenceQuestions;
-}
-
-function findQuestionInLoop(componentsStore) {
-  const LoopsQuestions = {};
-  Object.values(componentsStore)
-    .filter((element) => element.type === LOOP || element.type === ROUNDABOUT)
-    .forEach((component) => {
-      let LoopQuestions = [];
-      if (componentsStore[component.initialMember]) {
-        if (
-          componentsStore[component.initialMember].type === SEQUENCE ||
-          componentsStore[component.initialMember].type === EXTERNAL_ELEMENT
-        ) {
-          for (
-            let i = componentsStore[component.initialMember].weight;
-            i <= componentsStore[component.finalMember].weight;
-            i++
-          ) {
-            const sequence = Object.values(componentsStore).find(
-              (element) => element.type === SEQUENCE && element.weight === i,
-            );
-            if (sequence) {
-              LoopQuestions = LoopQuestions.concat(
-                getQuestionFromSequence(componentsStore, sequence.id),
-              );
-            }
-          }
-        } else {
-          for (
-            let i = componentsStore[component.initialMember].weight;
-            i <= componentsStore[component.finalMember].weight;
-            i++
-          ) {
-            const subsequence = Object.values(componentsStore).find(
-              (element) =>
-                element.type === SUBSEQUENCE &&
-                element.weight === i &&
-                element.parent ===
-                  componentsStore[component.initialMember].parent,
-            );
-            if (subsequence) {
-              LoopQuestions = LoopQuestions.concat(
-                getQuestionFromSubSequence(componentsStore, subsequence.id),
-              );
-            }
-          }
-        }
-      }
-
-      LoopsQuestions[component.id] = LoopQuestions;
-    });
-  return LoopsQuestions;
 }
 
 function getCollectedScope(questionsLoop, id, componentsStore) {
@@ -221,6 +158,7 @@ export function storeToRemote(store, componentsStore) {
       label: Label,
       type: typeName,
       codeListReference,
+      variableReference,
       [typeName]: {
         maxLength: MaxLength,
         minimum: Minimum,
@@ -281,6 +219,10 @@ export function storeToRemote(store, componentsStore) {
 
     if (codeListReference !== '') {
       model.CodeListReference = codeListReference;
+    }
+
+    if (variableReference !== undefined && variableReference !== '') {
+      model.VariableReference = variableReference;
     }
 
     if (MaxLength !== undefined) model.Datatype.MaxLength = MaxLength;

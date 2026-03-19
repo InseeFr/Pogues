@@ -7,6 +7,7 @@ import { pairingDictionary } from './dictionary/pairing';
 import { questionnaireDictionary } from './dictionary/questionnaire';
 import { tableDictionary } from './dictionary/table';
 import { validationDictionary } from './dictionary/validation';
+import { variableDictionary } from './dictionary/variable';
 import { COMPONENT_TYPE } from './pogues-constants';
 
 const { QUESTION, SEQUENCE, SUBSEQUENCE, LOOP, ROUNDABOUT, FILTER } =
@@ -23,6 +24,7 @@ const dictionary: Dictionary = {
   ...questionnaireDictionary,
   ...tableDictionary,
   ...validationDictionary,
+  ...variableDictionary,
   title: {
     en: 'Title',
     fr: 'Titre',
@@ -142,10 +144,6 @@ const dictionary: Dictionary = {
   load: {
     en: 'Load',
     fr: 'Charger',
-  },
-  generateCollectedVariables: {
-    en: 'Generate collected variables',
-    fr: 'Générer les variables collectées',
   },
   import: {
     en: 'Import',
@@ -271,6 +269,10 @@ const dictionary: Dictionary = {
     fr: 'Portée Questionnaire',
     en: 'Scope Questionnaire',
   },
+  selectLoop: {
+    fr: 'Choisir une boucle',
+    en: 'Select a loop',
+  },
   specify: {
     en: '\"Specify\"',
     fr: '\"Préciser :\"',
@@ -363,41 +365,9 @@ const dictionary: Dictionary = {
     en: 'Your questionnaire is valid',
     fr: 'Votre questionnaire ne comporte aucune erreur',
   },
-  duplicateVariablesComment: {
-    fr: 'Certaines variables de votre questionnaire sont présentes plusieurs fois.',
-    en: 'Some variables in your questionnaire appear more than once.',
-  },
-  showErrorDuplicateVariables: {
-    fr: 'Voir les variables en doublon',
-    en: 'Show duplicate variables',
-  },
-  duplicateVariables: {
-    fr: 'Variables en doublon',
-    en: 'Duplicate variables',
-  },
-  duplicateVariablesHeader: {
-    fr: 'Variables',
-    en: 'Variables',
-  },
-  duplicateVariablesSource: {
-    fr: 'Origine',
-    en: 'Origin',
-  },
   currentQuestionnaire: {
     fr: 'Questionnaire courant',
     en: 'Current questionnaire',
-  },
-  CollectedVariableType: {
-    fr: 'Collectée',
-    en: 'Collected',
-  },
-  CalculatedVariableType: {
-    fr: 'Calculée',
-    en: 'Calculated',
-  },
-  ExternalVariableType: {
-    fr: 'Externe',
-    en: 'External',
   },
   failMessage: {
     en: 'Error message',

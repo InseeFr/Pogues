@@ -33,15 +33,12 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           type: TEXT,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [TEXT]: {
-            decimals: undefined,
             maxLength: 100,
-            maximum: undefined,
-            minimum: undefined,
-            unit: undefined,
-            format: undefined,
           },
         },
       };
@@ -95,8 +92,10 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           type: NUMERIC,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [NUMERIC]: {
             minimum: '1',
             maximum: '10',
@@ -112,8 +111,10 @@ describe('collected variable tranformations', () => {
           label: 'A label',
           name: 'A',
           type: NUMERIC,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [NUMERIC]: {
             minimum: '1',
             maximum: '10',
@@ -156,8 +157,10 @@ describe('collected variable tranformations', () => {
           label: 'QWSS label',
           name: 'QWSS',
           type: DURATION,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [DURATION]: {
             format: 'PnYnM',
             mamonths: '1',
@@ -199,8 +202,10 @@ describe('collected variable tranformations', () => {
           label: 'AQS label',
           name: 'AQS',
           type: DURATION,
+          choiceType: 'CODE_LIST',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           [DURATION]: {
             format: 'PTnHnM',
             mahours: '2',
@@ -257,7 +262,7 @@ describe('collected variable tranformations', () => {
         },
       ];
       const responsesByVariable = { m6aty8by: {} };
-      const codesListStore = { id: { label: 'label' } };
+      const codesListStore = { id: { label: 'label', urn: 'urn' } };
       const variableclarification = [];
       const output = {
         m6aty8by: {
@@ -265,8 +270,10 @@ describe('collected variable tranformations', () => {
           name: 'SUGGESTER',
           label: 'SUGGESTER label',
           type: TEXT,
+          choiceType: 'SUGGESTER',
           codeListReference: 'id',
           codeListReferenceLabel: 'label',
+          variableReferenceLabel: '',
           TEXT: {
             maxLength: 1,
           },
@@ -277,6 +284,7 @@ describe('collected variable tranformations', () => {
           label: 'SUGGESTER_ARBITRARY label',
           type: TEXT,
           codeListReferenceLabel: '',
+          variableReferenceLabel: '',
           TEXT: {
             maxLength: 249,
           },

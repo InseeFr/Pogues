@@ -25,7 +25,6 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   const calculatedVariables = variables.filter((v) => v.type === CALCULATED);
   const externalVariables = variables.filter((v) => v.type === EXTERNAL);
   const collectedVariables = variables.filter((v) => v.type === COLLECTED);
-
   // Questionnaire store
   const questionnaireById = Questionnaire.remoteToStore(remote, currentStores);
 
@@ -44,6 +43,11 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
     collectedVariables,
   );
 
+  const variablesReference = Component.getVariablesReference(
+    remote.Child,
+    variables,
+  );
+
   const arbitraryVariables = Component.getArbitraryVariablesFromRemote(
     remote.Child,
     collectedVariables,
@@ -52,7 +56,9 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   const codesListsStore = CodesList.remoteToStore(
     codesLists,
     variableclarification,
+    variablesReference,
   );
+
   // Collected variables store
   const responsesByVariable = Component.remoteToVariableResponse(remote);
   const collectedVariableByQuestionnaire = {
@@ -77,6 +83,7 @@ export function questionnaireRemoteToStores(remote, currentStores = {}) {
   const codeListByQuestionnaire = {
     [id]: codesListsStore,
   };
+
   return {
     questionnaireById,
     calculatedVariableByQuestionnaire,

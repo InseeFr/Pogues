@@ -1,8 +1,10 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '@/constants/pogues-constants';
 
 import { remoteToState as codeListRemoteToState } from './codes-list';
@@ -11,6 +13,11 @@ import { stateToRemote as responseStateToRemote } from './response';
 type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
+  VariableReference?: unknown;
+  choiceType?:
+    | CHOICE_TYPE.CODE_LIST
+    | CHOICE_TYPE.SUGGESTER
+    | CHOICE_TYPE.VARIABLE;
   Datatype: {
     allowArbitraryResponse?: unknown;
     visualizationHint?: DATATYPE_VIS_HINT;
@@ -22,6 +29,10 @@ export type StateResponseFormatSingle = {
   id: string;
   mandatory?: boolean;
   allowArbitraryResponse?: unknown;
+  choiceType?:
+    | CHOICE_TYPE.CODE_LIST
+    | CHOICE_TYPE.SUGGESTER
+    | CHOICE_TYPE.VARIABLE;
 } & (
   | {
       visHint: DATATYPE_VIS_HINT.SUGGESTER;
@@ -34,6 +45,13 @@ export type StateResponseFormatSingle = {
         | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: string };
     }
+  | {
+      visHint?: // Filter based on lunatic new components ?
+      | DATATYPE_VIS_HINT.CHECKBOX
+        | DATATYPE_VIS_HINT.RADIO
+        | DATATYPE_VIS_HINT.DROPDOWN;
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string };
+    }
 );
 
 export function remoteToState(remote: {
@@ -43,31 +61,49 @@ export function remoteToState(remote: {
     responses: [
       {
         Datatype: { allowArbitraryResponse, visualizationHint: visHint },
+        choiceType,
         mandatory,
         CodeListReference,
+        VariableReference,
         id,
       },
     ],
   } = remote;
 
-  // for suggester we handle a nomenclature, else a code list
-  if (visHint === DATATYPE_VIS_HINT.SUGGESTER) {
-    return {
-      [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
-        codeListRemoteToState(CodeListReference),
-      id,
-      mandatory,
-      allowArbitraryResponse,
-      visHint,
-    };
-  }
-
-  return {
-    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
-      codeListRemoteToState(CodeListReference),
+  const baseState = {
     id,
     mandatory,
     allowArbitraryResponse,
+    choiceType,
+  };
+
+  // for suggester we handle a nomenclature
+  if (
+    choiceType === CHOICE_TYPE.SUGGESTER ||
+    visHint === DATATYPE_VIS_HINT.SUGGESTER
+  ) {
+    return {
+      ...baseState,
+      choiceType: CHOICE_TYPE.SUGGESTER,
+      [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
+        codeListRemoteToState(CodeListReference),
+      visHint: DATATYPE_VIS_HINT.SUGGESTER,
+    };
+  }
+  // for variable we handle a variable
+  if (choiceType === CHOICE_TYPE.VARIABLE) {
+    return {
+      ...baseState,
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
+      visHint,
+    };
+  }
+  // else it's a codeList
+  return {
+    ...baseState,
+    choiceType: CHOICE_TYPE.CODE_LIST,
+    [DEFAULT_CODES_LIST_SELECTOR_PATH]:
+      codeListRemoteToState(CodeListReference),
     visHint,
   };
 }
@@ -76,16 +112,28 @@ export function stateToRemote(
   state: StateResponseFormatSingle,
   collectedVariables: string[],
 ): { Response: RemoteResponseFormatSingle } {
-  const { allowArbitraryResponse, visHint, mandatory, id } = state;
+  const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
 
   let nomenclatureId;
   let codesListId;
-  if (visHint === DATATYPE_VIS_HINT.SUGGESTER) {
+  let variableReferenceId;
+
+  if (
+    choiceType === CHOICE_TYPE.SUGGESTER &&
+    DEFAULT_NOMENCLATURE_SELECTOR_PATH in state
+  ) {
     nomenclatureId = state[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
-  } else {
+  } else if (
+    choiceType === CHOICE_TYPE.VARIABLE &&
+    DEFAULT_VARIABLE_SELECTOR_PATH in state
+  ) {
+    variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
+  } else if (
+    choiceType === CHOICE_TYPE.CODE_LIST &&
+    DEFAULT_CODES_LIST_SELECTOR_PATH in state
+  ) {
     codesListId = state[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
   }
-
   return {
     Response: [
       responseStateToRemote({
@@ -93,8 +141,10 @@ export function stateToRemote(
         mandatory,
         allowArbitraryResponse,
         visHint,
+        choiceType,
         codesListId,
         nomenclatureId,
+        variableReferenceId,
         typeName: DATATYPE_NAME.TEXT,
         maxLength: 1,
         collectedVariable: collectedVariables[0],

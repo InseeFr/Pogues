@@ -3,14 +3,18 @@ import merge from 'lodash.merge';
 
 import { Factory as CodesListFactory } from '../..';
 import {
+  CHOICE_TYPE,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 
 const { DROPDOWN } = DATATYPE_VIS_HINT;
+const { CODE_LIST } = CHOICE_TYPE;
 
 export const defaultState = {
   visHint: DROPDOWN,
+  // Since pairwise questions have some functions in common with single choice questions, we set the same default choiceType but it will be ignored in the component
+  choiceType: CODE_LIST,
   sourceVariableReferences: {
     name: '',
     gender: '',
@@ -21,6 +25,7 @@ export const defaultState = {
 
 export const defaultForm = {
   visHint: DROPDOWN,
+  choiceType: CODE_LIST,
   nameSourceVariable: '',
   genderSourceVariable: '',
   ageSourceVariable: '',
@@ -42,6 +47,7 @@ export function formToState(form, transformers) {
     id,
     visHint,
     scope,
+    choiceType: CODE_LIST,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
     sourceVariableReferences: {

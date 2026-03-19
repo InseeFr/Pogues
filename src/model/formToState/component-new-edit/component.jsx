@@ -182,7 +182,6 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     form.responseFormat = transformers.responseFormat.stateToForm();
     form.collectedVariables = transformers.collectedVariable.storeToForm();
   }
-
   return form;
 }
 
@@ -200,6 +199,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     ...initialState,
     id: initialState.id || uuid(),
   };
+
   const transformers = {
     control: Control(currentState.controls),
     declaration: Declaration(currentState.declarations, activeQuestionnaire),
@@ -211,6 +211,7 @@ const Factory = (initialState = {}, stores = {}, activeQuestionnaire = {}) => {
     collectedVariable: CollectedVariable(
       currentState.collectedVariables,
       collectedVariablesStore,
+      codesListsStore,
     ),
     calculatedVariable: CalculatedVariable(calculatedVariablesStore),
     externalVariable: ExternalVariable(externalVariablesStore),

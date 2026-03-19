@@ -33,6 +33,7 @@ export const updateComponent =
       activeExternalVariablesById,
       activeCalculatedVariablesById,
       collectedVariableByQuestion,
+      activeCodeListsById,
     } = state.appState;
 
     if (
@@ -86,6 +87,20 @@ export const updateComponent =
         });
       }
     }
+    const collectedVariableReference =
+      componentsStore[componentId]?.collectedVariables || [];
+    let updatedCodeListsStore = { ...codesListsStore };
+
+    for (const variable of collectedVariableReference) {
+      if (activeCodeListsById[variable]) {
+        updatedCodeListsStore[variable] = {
+          ...activeCodeListsById[variable],
+          label: collectedVariablesStore[variable].label,
+          name: collectedVariablesStore[variable].name,
+        };
+      }
+    }
+
     return dispatch({
       type: UPDATE_COMPONENT,
       payload: {
@@ -97,7 +112,7 @@ export const updateComponent =
           activeCollectedVariablesById: {
             [componentId]: collectedVariablesStore,
           },
-          activeCodeListsById: codesListsStore,
+          activeCodeListsById: updatedCodeListsStore,
         },
       },
     });

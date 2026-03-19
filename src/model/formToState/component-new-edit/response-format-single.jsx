@@ -2,24 +2,30 @@ import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_VIS_HINT,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 import { Factory as CodesListFactory } from '../lists/codes-list';
 import { Factory as NomenclatureFactory } from '../lists/nomenclature';
+import { Factory as VariableFactory } from '../lists/variables';
 
 const { RADIO, SUGGESTER } = DATATYPE_VIS_HINT;
+const { CODE_LIST } = CHOICE_TYPE;
 
 export const defaultState = {
   allowArbitraryResponse: false,
   mandatory: false,
+  choiceType: CODE_LIST,
   visHint: RADIO,
 };
 
 export const defaultForm = {
   allowArbitraryResponse: false,
   mandatory: false,
+  choiceType: CODE_LIST,
   visHint: RADIO,
 };
 
@@ -28,36 +34,45 @@ export function formToState(form, transformers) {
     id,
     allowArbitraryResponse,
     mandatory,
+    choiceType,
     visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]: codesListForm,
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]: nomenclatureForm,
+    [DEFAULT_VARIABLE_SELECTOR_PATH]: variableForm,
   } = form;
 
   return {
     id,
     allowArbitraryResponse,
     // for suggester we do not handle mandatory question
-    mandatory: visHint !== SUGGESTER ? mandatory : false,
-    visHint,
+    mandatory: choiceType === SUGGESTER ? false : mandatory,
+    choiceType,
+    // for suggester we force visHint to "SUGGESTER" for not breaking the model
+    visHint: choiceType === SUGGESTER ? SUGGESTER : visHint,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.formToStateComponent(codesListForm),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.formToStateComponent(nomenclatureForm),
+    [DEFAULT_VARIABLE_SELECTOR_PATH]:
+      transformers.variable.formToStateComponent(variableForm),
   };
 }
 
 export function stateToForm(currentState, transformers) {
-  const { id, allowArbitraryResponse, visHint, mandatory } = currentState;
-
+  const { id, allowArbitraryResponse, visHint, mandatory, choiceType } =
+    currentState;
   return {
     id,
     allowArbitraryResponse,
     mandatory,
     visHint,
+    choiceType,
     [DEFAULT_CODES_LIST_SELECTOR_PATH]:
       transformers.codesList.stateComponentToForm(),
     [DEFAULT_NOMENCLATURE_SELECTOR_PATH]:
       transformers.nomenclature.stateComponentToForm(),
+    [DEFAULT_VARIABLE_SELECTOR_PATH]:
+      transformers.variable.stateComponentToForm(),
   };
 }
 
@@ -72,6 +87,10 @@ export const Factory = (initialState = {}, codesListsStore) => {
       codesListsStore,
       cloneDeep(currentState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]),
     ),
+    variable: VariableFactory(
+      codesListsStore,
+      cloneDeep(currentState[DEFAULT_VARIABLE_SELECTOR_PATH]),
+    ),
   };
   return {
     formToState: (form) => {
@@ -83,8 +102,10 @@ export const Factory = (initialState = {}, codesListsStore) => {
       return stateToForm(currentState, transformers);
     },
     getCodesListStore: () => {
-      if (currentState.visHint === DATATYPE_VIS_HINT.SUGGESTER)
+      if (currentState.choiceType === CHOICE_TYPE.SUGGESTER)
         return transformers.nomenclature.getStore();
+      else if (currentState.choiceType === CHOICE_TYPE.VARIABLE)
+        return transformers.variable.getStore();
       return transformers.codesList.getStore();
     },
     getNormalizedValues: (form) => {

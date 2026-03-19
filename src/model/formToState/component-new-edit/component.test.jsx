@@ -10,6 +10,7 @@ describe('Component', () => {
       responseFormat: {
         type: 'SINGLE_CHOICE',
         SINGLE_CHOICE: {
+          choiceType: 'CODE_LIST',
           CodesList: {
             id: 'CL1',
             label: 'my cl',
@@ -66,6 +67,7 @@ describe('Component', () => {
       responseFormat: {
         type: 'SINGLE_CHOICE',
         SINGLE_CHOICE: {
+          choiceType: 'CODE_LIST',
           CodesList: {
             id: 'CL1',
             label: 'my cl',

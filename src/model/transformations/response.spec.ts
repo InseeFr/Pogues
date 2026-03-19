@@ -2,6 +2,7 @@ import { format } from 'url';
 import { describe, expect, test } from 'vitest';
 
 import {
+  CHOICE_TYPE,
   DATATYPE_NAME,
   DATATYPE_TYPE_FROM_NAME,
   DATATYPE_VIS_HINT,
@@ -51,12 +52,34 @@ describe('response tranformations', () => {
     (visHint) => {
       const typeName = DATATYPE_NAME.DATE;
       const codesListId = 'codesListId';
+      const choiceType = CHOICE_TYPE.CODE_LIST;
 
-      const result = stateToRemote({ id: '1', typeName, codesListId, visHint });
+      const result = stateToRemote({
+        id: '1',
+        typeName,
+        codesListId,
+        visHint,
+        choiceType,
+      });
 
       expect(result.CodeListReference).toEqual(codesListId);
     },
   );
+
+  test('when visHint is not a suggester, with choiceType variable', () => {
+    const typeName = DATATYPE_NAME.DATE;
+    const variableReferenceId = 'variableId';
+
+    const result = stateToRemote({
+      id: '1',
+      typeName,
+      variableReferenceId,
+      visHint: DATATYPE_VIS_HINT.RADIO,
+      choiceType: CHOICE_TYPE.VARIABLE,
+    });
+
+    expect(result.VariableReference).toEqual(variableReferenceId);
+  });
 
   test('when visHint is a suggester, with a defined nomenclatureId', () => {
     const typeName = DATATYPE_NAME.DATE;
@@ -67,6 +90,7 @@ describe('response tranformations', () => {
       typeName,
       nomenclatureId,
       visHint: DATATYPE_VIS_HINT.SUGGESTER,
+      choiceType: CHOICE_TYPE.SUGGESTER,
     });
 
     expect(result.CodeListReference).toEqual(nomenclatureId);

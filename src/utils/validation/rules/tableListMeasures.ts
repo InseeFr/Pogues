@@ -4,6 +4,7 @@ import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   DIMENSION_TYPE,
   QUESTION_TYPE_ENUM,
   TABS_PATHS,
@@ -19,7 +20,7 @@ const { DATE, DURATION, NUMERIC, TEXT } = DATATYPE_NAME;
 const { LIST_MEASURE } = DIMENSION_TYPE;
 const { RESPONSE_FORMAT } = TABS_PATHS;
 
-const tableListSingleChoiceVisHint = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.visHint`;
+const tableListSingleChoiceType = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.choiceType`;
 const tableListDurationFormat = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DURATION}.format`;
 const tableListDateFormat = `${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SIMPLE}.${DATE}.format`;
 
@@ -34,10 +35,10 @@ export const tableListMeasuresRules = {
     [
       (
         value: string | number | null | undefined,
-        { form }: { [tableListSingleChoiceVisHint]?: string },
+        { form }: { [tableListSingleChoiceType]?: string },
       ) => {
-        const visHint = get(form, tableListSingleChoiceVisHint) as string;
-        return visHint !== 'SUGGESTER' ? required(value) : undefined;
+        const choiceType = get(form, tableListSingleChoiceType) as string;
+        return choiceType === 'CODE_LIST' ? required(value) : undefined;
       },
     ],
 
@@ -46,10 +47,22 @@ export const tableListMeasuresRules = {
     [
       (
         value: string | number | null | undefined,
-        { form }: { [tableListSingleChoiceVisHint]?: string },
+        { form }: { [tableListSingleChoiceType]?: string },
       ) => {
-        const visHint = get(form, tableListSingleChoiceVisHint) as string;
-        return visHint === 'SUGGESTER' ? required(value) : undefined;
+        const choiceType = get(form, tableListSingleChoiceType) as string;
+        return choiceType === 'SUGGESTER' ? required(value) : undefined;
+      },
+    ],
+
+  /* In table, for single response variable, we need to select a variable. */
+  [`${RESPONSE_FORMAT}.${TABLE}.${LIST_MEASURE}.${SINGLE_CHOICE}.${DEFAULT_VARIABLE_SELECTOR_PATH}.id`]:
+    [
+      (
+        value: string | number | null | undefined,
+        { form }: { [tableListSingleChoiceType]?: string },
+      ) => {
+        const choiceType = get(form, tableListSingleChoiceType) as string;
+        return choiceType === 'VARIABLE' ? required(value) : undefined;
       },
     ],
 

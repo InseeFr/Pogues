@@ -4,6 +4,7 @@ import {
   DATATYPE_NAME,
   DEFAULT_CODES_LIST_SELECTOR_PATH,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
   DIMENSION_CALCULATION,
   DIMENSION_FORMATS,
   DIMENSION_LENGTH,
@@ -209,9 +210,12 @@ function remoteToStateMeasure(remote) {
     Label: label,
     response: {
       CodeListReference,
+      VariableReference,
       Datatype,
       conditionFilter,
       conditionReadOnly,
+      choiceType,
+      CollectedVariableReference,
     },
   } = remote;
 
@@ -220,7 +224,16 @@ function remoteToStateMeasure(remote) {
   if (CodeListReference) {
     state.type = SINGLE_CHOICE;
     state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
-      responses: [{ Datatype, CodeListReference }],
+      responses: [
+        { Datatype, CodeListReference, choiceType, CollectedVariableReference },
+      ],
+    });
+  } else if (VariableReference) {
+    state.type = SINGLE_CHOICE;
+    state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
+      responses: [
+        { Datatype, VariableReference, choiceType, CollectedVariableReference },
+      ],
     });
   } else {
     state.type = SIMPLE;
@@ -351,19 +364,23 @@ function stateToResponseState(state, primaryType) {
       ...customsimpleState,
     };
   } else {
-    const { mandatory, visHint } = measureTypeState;
+    const { mandatory, visHint, choiceType } = measureTypeState;
     const codesListId = measureTypeState[DEFAULT_CODES_LIST_SELECTOR_PATH]?.id;
     const nomenclatureId =
       measureTypeState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
+    const variableReferenceId =
+      measureTypeState[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
 
     responseState = {
       ...responseState,
       mandatory,
       codesListId,
       nomenclatureId,
+      variableReferenceId,
       typeName: TEXT,
       maxLength: 1,
       visHint,
+      choiceType,
     };
   }
 

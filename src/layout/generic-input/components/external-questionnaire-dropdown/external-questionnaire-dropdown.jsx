@@ -103,12 +103,13 @@ function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
 ExternalQuestionnaireDropdown.propTypes = {
   questionnaireId: PropTypes.string,
   disabled: PropTypes.bool,
-  top: PropTypes.bool.isRequired,
+  top: PropTypes.bool,
 };
 
 ExternalQuestionnaireDropdown.defaultProps = {
   disabled: false,
   questionnaireId: undefined,
+  top: true,
 };
 
 export default ExternalQuestionnaireDropdown;

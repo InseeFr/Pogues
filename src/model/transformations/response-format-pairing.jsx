@@ -1,4 +1,7 @@
-import { DEFAULT_CODES_LIST_SELECTOR_PATH } from '../../constants/pogues-constants';
+import {
+  CHOICE_TYPE,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+} from '../../constants/pogues-constants';
 import * as CodeList from './codes-list';
 
 export function remoteToState(remote) {
@@ -7,6 +10,7 @@ export function remoteToState(remote) {
       {
         Datatype: { visualizationHint: visHint },
         CodeListReference,
+        choiceType,
         id,
       },
     ],
@@ -20,6 +24,7 @@ export function remoteToState(remote) {
       CodeList.remoteToState(CodeListReference),
     id,
     visHint,
+    choiceType: choiceType ? choiceType : CHOICE_TYPE.CODE_LIST,
     sourceVariableReferences: {
       name: name || scope,
       gender,

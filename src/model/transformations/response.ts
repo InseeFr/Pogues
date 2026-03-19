@@ -1,4 +1,5 @@
 import {
+  CHOICE_TYPE,
   DATATYPE_TYPE_FROM_NAME,
   DATATYPE_VIS_HINT,
 } from '@/constants/pogues-constants';
@@ -36,6 +37,8 @@ export function stateToRemote(
     mamonths: Mamonths,
     codesListId,
     nomenclatureId,
+    variableReferenceId,
+    choiceType,
     allowArbitraryResponse,
     visHint: visualizationHint,
     collectedVariable: CollectedVariableReference,
@@ -58,11 +61,21 @@ export function stateToRemote(
     },
   };
 
-  // For suggester we store the nomenclature as codeList reference. Else we store the codeList
-  model.CodeListReference =
-    visualizationHint === DATATYPE_VIS_HINT.SUGGESTER
-      ? nomenclatureId
-      : codesListId;
+  model.choiceType = choiceType;
+
+  switch (choiceType) {
+    // for suggester we store the nomenclature as source reference
+    case CHOICE_TYPE.SUGGESTER:
+      model.CodeListReference = nomenclatureId;
+      break;
+
+    case CHOICE_TYPE.VARIABLE:
+      model.VariableReference = variableReferenceId;
+      break;
+
+    default:
+      model.CodeListReference = codesListId;
+  }
 
   if (CollectedVariableReference !== undefined)
     model.CollectedVariableReference = CollectedVariableReference;
@@ -93,6 +106,5 @@ export function stateToRemote(
   if (conditionFilter !== undefined) model.conditionFilter = conditionFilter;
   if (conditionReadOnly !== undefined)
     model.conditionReadOnly = conditionReadOnly;
-
   return model;
 }

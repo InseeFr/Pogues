@@ -29,12 +29,27 @@ export const defaultProps = {
 const mapStateToProps = (state, { formName }) => {
   const selector = formValueSelector(formName);
   const responseFormatType = selector(state, 'responseFormat.type');
+  const codesListsStore = state.appState.activeCodeListsById || {};
 
   const collectedVariables =
     selector(state, `collectedVariables.collectedVariables`) || [];
   const collectedVariablesIds = new Set();
   for (const collectedVariable of collectedVariables) {
     collectedVariablesIds.add(collectedVariable.id);
+  }
+
+  const referencedVariable = selector(
+    state,
+    'collectedVariables.variableReference',
+  );
+  let variableReferenceLabel;
+  if (referencedVariable && codesListsStore[referencedVariable]) {
+    variableReferenceLabel = codesListsStore[referencedVariable].label;
+  } else {
+    variableReferenceLabel = selector(
+      state,
+      'collectedVariables.variableReferenceLabel',
+    );
   }
 
   return {
@@ -45,8 +60,10 @@ const mapStateToProps = (state, { formName }) => {
       state,
       `responseFormat.${responseFormatType}`,
     ),
-    codesListsStore: state.appState.activeCodeListsById,
+    codesListsStore,
     referencedCodeList: selector(state, 'collectedVariables.codeListReference'),
+    referencedVariable,
+    variableReferenceLabel,
     isVariableCollected: selector(state, 'collectedVariables.isCollected'),
   };
 };

@@ -47,6 +47,7 @@ describe('component tranformations', () => {
                   {
                     CollectedVariableReference: 'm6awmxim',
                     CodeListReference: 'listId',
+                    choiceType: 'SUGGESTER',
                     Datatype: {
                       typeName: 'TEXT',
                       type: 'TextDatatypeType',
@@ -236,6 +237,7 @@ describe('component tranformations', () => {
           responseFormat: {
             type: 'SINGLE_CHOICE',
             SINGLE_CHOICE: {
+              choiceType: 'SUGGESTER',
               visHint: 'SUGGESTER',
               allowArbitraryResponse: true,
               id: 'm5qyf09t',
@@ -491,6 +493,7 @@ describe('component tranformations', () => {
             PAIRWISE: {
               id: 'my-q-pairwise-response-id',
               visHint: 'DROPDOWN',
+              choiceType: 'CODE_LIST',
               CodesList: {
                 id: 'my-codelist-id',
                 label: 'Liste de code',
@@ -525,6 +528,7 @@ describe('component tranformations', () => {
                 {
                   CodeListReference: 'my-codelist-id',
                   CollectedVariableReference: 'my-collected-var-id',
+                  choiceType: 'CODE_LIST',
                   Datatype: {
                     typeName: 'TEXT',
                     type: 'TextDatatypeType',

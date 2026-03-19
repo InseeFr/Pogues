@@ -24,6 +24,7 @@ export function getValuesFromViews(views) {
 
 const propTypes = {
   activeViewValue: PropTypes.string.isRequired,
+  fieldName: PropTypes.string,
   label: PropTypes.string.isRequired,
   emptyOption: PropTypes.string,
   radio: PropTypes.bool.isRequired,
@@ -35,11 +36,13 @@ const propTypes = {
 export const defaultProps = {
   children: [],
   emptyOption: undefined,
+  fieldName: 'type',
 };
 
 // Component
 
 function SelectorView({
+  fieldName,
   activeViewValue,
   label,
   emptyOption,
@@ -65,12 +68,11 @@ function SelectorView({
       </GenericOption>,
     );
   }
-
   return (
     <div>
       {radio ? (
         <Field
-          name="type"
+          name={fieldName}
           component={ListRadios}
           label={label}
           required={required}
@@ -80,7 +82,7 @@ function SelectorView({
         </Field>
       ) : (
         <Field
-          name="type"
+          name={fieldName}
           component={Select}
           label={label}
           required={required}

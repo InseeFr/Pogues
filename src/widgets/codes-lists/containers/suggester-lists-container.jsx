@@ -61,7 +61,6 @@ const mapStateToProps = (
           },
         }
       : codesListsStore;
-
   return {
     nomenclatures: state.metadataByType.nomenclatures,
     path,

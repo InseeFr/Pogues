@@ -1,6 +1,6 @@
 import {
+  CHOICE_TYPE,
   COMPONENT_TYPE,
-  DATATYPE_VIS_HINT,
   QUESTIONNAIRE_TYPE,
   QUESTION_TYPE_ENUM,
   QUESTION_TYPE_NAME,
@@ -265,6 +265,60 @@ function remoteToVariableResponseNested(children = [], acc = {}) {
   });
   return acc;
 }
+
+/*
+ * Get the list of id of variables used in the questions with a variable as choice type.
+ */
+const getVariablesReferenceIds = (Children) => {
+  const variablesReference = [];
+  const childr = Children.filter((children) => children.Child?.length !== 0);
+
+  childr.forEach((item) => {
+    item.Child?.forEach((component) => {
+      // component is a subsequence
+      if (component.type === 'SequenceType') {
+        component.Child.forEach((question) => {
+          if (
+            // single choice question
+            question.questionType === SINGLE_CHOICE &&
+            question.Response[0].choiceType === CHOICE_TYPE.VARIABLE
+          ) {
+            variablesReference.push(question.Response[0].VariableReference);
+          }
+        });
+      } else if (component.questionType === TABLE) {
+        component.Response.forEach((response) => {
+          if (response.choiceType === CHOICE_TYPE.VARIABLE) {
+            variablesReference.push(response.VariableReference);
+          }
+        });
+      } else if (
+        // component is a single choice question, with list based on a variable values
+        component.questionType === SINGLE_CHOICE &&
+        component.Response[0].choiceType === CHOICE_TYPE.VARIABLE
+      ) {
+        variablesReference.push(component.Response[0].VariableReference);
+      }
+    });
+  });
+  return variablesReference;
+};
+
+/*
+ * Get the list of variables used as reference in the questions with a variable as choice type.
+ */
+export const getVariablesReference = (Children, variablesList) => {
+  const variables = [];
+  const variablesIds = getVariablesReferenceIds(Children);
+
+  variablesIds.forEach((id) => {
+    const variable = variablesList.find((varib) => varib.id === id);
+
+    variables.push(variable);
+  });
+  return variables;
+};
+
 export function remoteToVariableResponse(remote) {
   return remoteToVariableResponseNested(remote.Child);
 }
@@ -452,17 +506,19 @@ function getClarificationresponseSingleChoiseQuestion(
   });
   collectedvariablequestion.forEach((collected) => {
     // for suggester there is no codeList, so there is no clarification
-    if (responseFormat.SINGLE_CHOICE.visHint === DATATYPE_VIS_HINT.SUGGESTER)
+
+    if (
+      responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.SUGGESTER ||
+      responseFormat.SINGLE_CHOICE.choiceType === CHOICE_TYPE.VARIABLE
+    )
       return;
-    const code = codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].urn
-      ? false
-      : Object.values(
-          codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
-        ).find(
-          (code) =>
-            code.precisionByCollectedVariableId &&
-            code.precisionByCollectedVariableId[collected.id],
-        );
+    const code = Object.values(
+      codesListsStore[responseFormat.SINGLE_CHOICE.CodesList.id].codes,
+    ).find(
+      (code) =>
+        code.precisionByCollectedVariableId &&
+        code.precisionByCollectedVariableId[collected.id],
+    );
     if (code) {
       const findResponse = responsesClarification
         ? responsesClarification.find(
@@ -668,7 +724,6 @@ function storeToRemoteNested(
     Label: [label.replace(/\n\n/gi, '&#xd;')],
     Declaration: Declaration.stateToRemote(declarations),
     Control: Control.stateToRemote(controls),
-    // Trello #196 : ouput : GoTo --> FlowControl
     FlowControl: [],
     TargetMode,
   };
