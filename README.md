@@ -50,8 +50,8 @@ pnpm dev
 Or with the legacy client (in build only so you need to rebuild when you edit something):
 
 ```bash
-yarn build
-yarn serve -s dist -l 5145
+pnpm build
+pnpm serve -s dist -l 5145
 ```
 
 ```bash
@@ -65,6 +65,6 @@ pnpm serve -s dist -l 5000
 The legacy client can be launched in standalone if the new client is not needed:
 
 ```bash
-yarn i
-yarn start
+pnpm i
+pnpm start
 ```

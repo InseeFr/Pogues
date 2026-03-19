@@ -1,14 +1,15 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import NavigationPrompt from 'react-router-navigation-prompt';
 
+import { AuthContext } from '@/auth/context';
+
 import { domSelectorForModal } from '../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import { useReadonly } from '../../hooks/useReadonly';
 import Dictionary from '../../utils/dictionary/dictionary';
-import { useOidc } from '../../utils/oidc';
 import { VisualizeDropdown } from '../../widgets/visualize-dropdown';
 import { ComponentNew } from '../component-new';
 import Loader from '../loader';
@@ -102,8 +103,7 @@ function GenericInput(props) {
   const [showNewLoopModal, setShowNewLoopModal] = useState(false);
   const [typeNewComponent, setTypeNewComponent] = useState('');
 
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
+  const { getAccessToken } = useContext(AuthContext);
 
   const isReadonly = useReadonly();
 
@@ -123,11 +123,12 @@ function GenericInput(props) {
     setShowNewLoopModal(false);
   };
 
-  const saveQuestionnaire = () => {
+  const saveQuestionnaire = async () => {
     if (!isLoopsValid) {
       setShowNewLoopModal(true);
     } else {
-      saveActiveQuestionnaire(token).then(() => {
+      const accessToken = await getAccessToken();
+      saveActiveQuestionnaire(accessToken).then(() => {
         if (isQuestionnaireHaveError) {
           setShowNewUnsavedModal(true);
         }
@@ -274,7 +275,6 @@ function GenericInput(props) {
           disabled={!isQuestionnaireValid}
           isDirtyState={isQuestionnaireModified}
           questionnaireId={activeQuestionnaire.id}
-          token={token}
         />
       </div>
       <ReactModal

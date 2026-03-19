@@ -1,11 +1,16 @@
-import { StrictMode } from 'react';
-
 import ReactDOM from 'react-dom/client';
 
+import { secure } from './auth';
+import { getAccessToken, useOidc } from './lib/auth/oidc';
 import { Main } from './main';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Main />
-  </StrictMode>,
-);
+const App = () => {
+  const { decodedIdToken } = useOidc();
+  return (
+    <Main getAccessToken={getAccessToken} decodedIdToken={decodedIdToken} />
+  );
+};
+
+const AppSecure = (props) => secure(App)(props);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<AppSecure />);

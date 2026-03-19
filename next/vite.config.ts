@@ -1,5 +1,6 @@
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
+import { oidcSpa } from 'oidc-spa/vite-plugin';
 import { defineConfig } from 'vite';
 import { viteEnvs } from 'vite-envs';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -19,6 +20,7 @@ export default defineConfig(({ mode }) => ({
       shared: mode === 'development' ? [] : ['react/', 'react-dom/'],
       runtimePlugins: ['./mfe/plugin.ts'],
     }),
+    oidcSpa(),
     viteEnvs({
       computedEnv: () => ({
         APP_VERSION: process.env.npm_package_version,

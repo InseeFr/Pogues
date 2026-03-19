@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { CLEAR_TAB_ERRORS, SET_TAB_ERRORS } from '../../actions/app-state';
 import { TAB_NAMES } from '../../constants/pogues-constants';
 import { createActionHandlers } from '../../utils/reducer/actions-handlers';
@@ -9,15 +7,20 @@ const actionHandlers = {};
 function getNumErrorsFromObject(item) {
   let numErrors = 0;
 
-  if (_.isObject(item)) {
+  const isObject = (val) =>
+    val !== null && typeof val === 'object' && !Array.isArray(val);
+  const isArray = Array.isArray;
+  const isString = (val) => typeof val === 'string';
+
+  if (isObject(item)) {
     numErrors = Object.keys(item).reduce((accInner, key) => {
       return accInner + getNumErrorsFromObject(item[key]);
     }, 0);
-  } else if (_.isArray(item)) {
+  } else if (isArray(item)) {
     numErrors = Object.keys(item).reduce((accInner, key) => {
       return accInner + getNumErrorsFromObject(item[key]);
     }, 0);
-  } else if (_.isString(item)) {
+  } else if (isString(item)) {
     numErrors = 1;
   }
 

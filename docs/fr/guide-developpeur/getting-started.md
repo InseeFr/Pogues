@@ -4,29 +4,29 @@ Pogues est une application Web monopage construite avec [React](https://facebook
 
 ```
 # Téléchargement des dépendances
-yarn
+pnpm i
 # Compilation du code et démarrage d'un serveur de développement avec un mock de l'API (cf. infra)
-yarn dev:server
+pnpm dev:server
 ```
 
 Vous serez uniquement en mesure de créer et d'éditer un questionnaire localement. Vous ne pourez pas le sauvegarder, le visualiser ou utiliser des ressources externes (comme des listes de codes): Pogues est une application front-end pour convevoir des questionnaires et s'appuie sur des Web services externes pour réaliser ces opérations. Plus d'information à ce sujet au chapitre [appels distants](./remote-apis/README.md).
 
 ## Build
 
-Pour produire la version de production, lancez la commande `yarn build`. Vous pouvez désormais servir le contenu du dossier `dist` avec le serveur web de votre choix.
+Pour produire la version de production, lancez la commande `pnpm build`. Vous pouvez désormais servir le contenu du dossier `dist` avec le serveur web de votre choix.
 
 ## Débuter avec JavaScript et Node.js
 
 Si vous débutez avec ces technologies, vous aurez vraisemblablement besoin d'installer dans un premier temps sur votre ordinateur [node](https://nodejs.org/en/download/).
 
-Dans le projet Pogues nous utilisons `yarn` comme gestionnaire de modules. Pour l'installer il faut utiliser `npm` qui est le gestionnaire de modules installé par défaut avec `Node.js` .
+Dans le projet Pogues nous utilisons `pnpm` comme gestionnaire de modules. Pour l'installer il faut utiliser `npm` qui est le gestionnaire de modules installé par défaut avec `Node.js` .
 
 ```
-npm install --global yarn
+npm install --global pnpm
 ```
 
-La commande `yarn` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
+La commande `pnpm` téléchargera toutes les dépendances du projet, décrites dans la section `dependencies` et `devDepedencies` du fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json).
 
-`yarn dev:server` lancera la commande `dev:server` décrite dans la section `scripts` du même fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json). Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application en mode sans authentification avec les deux questionnaires présents sur le serveur mocké.
+`pnpm dev:server` lancera la commande `dev:server` décrite dans la section `scripts` du même fichier [package.json](https://github.com/InseeFr/Pogues/blob/master/package.json). Cette commande démarre un serveur de développement qui sert la page d'accueil de l'application en mode sans authentification avec les deux questionnaires présents sur le serveur mocké.
 
-`yarn build` lance la compilation du code avec des optimisations pour la mise en production. Elle produit un code compilé dans le dossier `dist`.
+`pnpm build` lance la compilation du code avec des optimisations pour la mise en production. Elle produit un code compilé dans le dossier `dist`.

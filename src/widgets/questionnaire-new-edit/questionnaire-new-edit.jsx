@@ -10,7 +10,6 @@ import ListCheckboxes from '../../forms/controls/list-checkboxes';
 import ListRadios from '../../forms/controls/list-radios';
 import { useReadonly } from '../../hooks/useReadonly';
 import Dictionary from '../../utils/dictionary/dictionary';
-import { useOidc } from '../../utils/oidc';
 import { updateNameField } from '../../utils/utils';
 import { AssociatedFields } from '../associated-fields';
 import { StatisticalContextCriteria } from '../statistical-context-criteria';
@@ -26,16 +25,12 @@ function QuestionnaireNewEdit({
   onCancel,
   stamp,
 }) {
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
-
   const isReadonly = useReadonly();
 
   return (
     <div className="widget-questionnaire-new-edit">
       <form onSubmit={handleSubmit}>
         <StatisticalContextCriteria
-          token={token}
           stamp={stamp}
           formName={form}
           multipleCampaign

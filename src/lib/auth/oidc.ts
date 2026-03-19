@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { oidcSpa } from 'oidc-spa/react-spa';
-import { z } from 'zod';
+import z from 'zod';
+
+const authority = import.meta.env.VITE_OIDC_ISSUER;
+const client_id = import.meta.env.VITE_OIDC_CLIENT_ID;
+
+const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
+  ',',
+);
 
 const decodedIdTokenSchema = z.object({
   family_name: z.string().optional(),
@@ -9,13 +17,6 @@ const decodedIdTokenSchema = z.object({
     roles: z.array(z.string()),
   }),
 });
-
-export const DEFAULT_STAMP = (import.meta.env.VITE_DEFAULT_USER_STAMP ||
-  'FAKEPERMISSION') as string;
-
-const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
-  ',',
-);
 
 export type DecodedIdTokenType =
   | z.infer<typeof decodedIdTokenSchema>
@@ -27,16 +28,16 @@ export const { bootstrapOidc, getOidc, useOidc } = oidcSpa
   })
   .createUtils();
 
-bootstrapOidc(
+await bootstrapOidc(
   import.meta.env.VITE_OIDC_ENABLED === 'true'
     ? {
         implementation: 'real',
-        // Configure your OIDC provider in `.env.local`
-        clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
-        issuerUri: import.meta.env.VITE_OIDC_ISSUER,
-        BASE_URL: import.meta.env.BASE_URL,
+        clientId: client_id,
+        issuerUri: authority,
+
         // Enable for detailed initialization and token lifecycle logs.
         debugLogs: import.meta.DEV,
+        warnUserSecondsBeforeAutoLogout: 60,
         scopes: oidcScopes,
       }
     : {
@@ -46,7 +47,7 @@ bootstrapOidc(
         decodedIdToken_mock: {
           given_name: import.meta.env.VITE_DEFAULT_USER_NAME ?? 'Guybrush',
           family_name: '',
-          timbre: DEFAULT_STAMP,
+          timbre: 'FAKEPERMISSION',
           realm_access: {
             roles: ['user'],
           },
@@ -56,6 +57,7 @@ bootstrapOidc(
 
 export const getAccessToken = async () => {
   const oidc = await getOidc();
+
   if (!oidc.isUserLoggedIn) return undefined;
 
   return await oidc.getAccessToken();

@@ -1,27 +1,22 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-import '../../scss/pogues.scss';
-import { useOidc } from '../../utils/oidc';
-import { Header } from './components/header';
+import { AuthContext } from '@/auth/context';
 
-const isOnlyLegacyApp =
-  new URL(import.meta.url || '').origin === window.location.origin;
+import '../../scss/pogues.scss';
 
 const App = ({ children, loadUnitsIfNeeded }) => {
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
+  const { getAccessToken } = useContext(AuthContext);
   useEffect(() => {
-    loadUnitsIfNeeded(token);
-  }, [token, loadUnitsIfNeeded]);
+    const load = async () => {
+      const accessToken = await getAccessToken();
+      loadUnitsIfNeeded(accessToken);
+    };
+    load();
+  }, [getAccessToken, loadUnitsIfNeeded]);
 
-  return (
-    <div id="pogues-legacy">
-      {isOnlyLegacyApp && <Header />}
-      {children}
-    </div>
-  );
+  return <div id="pogues-legacy">{children}</div>;
 };
 
 App.propTypes = {

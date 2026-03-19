@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
+
+import { AuthContext } from '@/auth/context';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
-import { useOidc } from '../../../utils/oidc';
 import { ErrorsPanel } from '../../errors-panel';
 
 const { COMPONENT_CLASS } = WIDGET_CODES_LISTS;
@@ -26,14 +27,22 @@ export function SuggesterLists({
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
+  const { getAccessToken } = useContext(AuthContext);
 
   useEffect(() => {
-    loadNomenclaturesIfNeeded(token);
-  }, [token, loadNomenclaturesIfNeeded]);
+    const load = async () => {
+      const accessToken = await getAccessToken();
+      loadNomenclaturesIfNeeded(accessToken);
+    };
+    load();
+  }, [getAccessToken, loadNomenclaturesIfNeeded]);
 
   useEffect(() => {
+    const loadNomenclatureWithToken = async (currentId, nomenclatures) => {
+      const accessToken = await getAccessToken();
+      loadNomenclature(accessToken, currentId, nomenclatures);
+    };
+
     if (currentIdState !== currentId && currentId === '') {
       change(formName, `${path}id`, '');
       change(formName, `${path}label`, '');
@@ -79,7 +88,7 @@ export function SuggesterLists({
       !codesListsStore[currentId] &&
       !nomenclatures[currentId].codes
     )
-      loadNomenclature(token, currentId, nomenclatures);
+      loadNomenclatureWithToken(currentId, nomenclatures);
   }, [
     currentId,
     change,
@@ -88,7 +97,7 @@ export function SuggesterLists({
     path,
     nomenclatures,
     loadNomenclature,
-    token,
+    getAccessToken,
     codesListsStore,
   ]);
 

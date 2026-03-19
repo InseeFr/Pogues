@@ -2,7 +2,7 @@
 
 Un [serveur mocké](https://github.com/InseeFr/Pogues/tree/main/fake-server) est fourni et repose sur [restify](http://restify.com/docs/home/)
 
-Ce serveur peut être lancé avec la commande `yarn dev:server`. Il permet de travailler sur le front sans avoir un back qui tourne par ailleurs.
+Ce serveur peut être lancé avec la commande `pnpm dev:server`. Il permet de travailler sur le front sans avoir un back qui tourne par ailleurs.
 
 Le serveur contient des fichiers de données et un fichier server.js.
 

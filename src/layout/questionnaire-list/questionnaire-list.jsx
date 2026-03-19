@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
+
+import { AuthContext } from '@/auth/context';
 
 import { getStampsList } from '../../api/questionnaires';
 import { domSelectorForModal } from '../../constants/dom-constants';
@@ -9,7 +11,6 @@ import { COMPONENT_TYPE, TCM } from '../../constants/pogues-constants';
 import { formatDate, getState } from '../../utils/component/component-utils';
 import { getWeight } from '../../utils/component/generic-input-utils';
 import Dictionary from '../../utils/dictionary/dictionary';
-import { useOidc } from '../../utils/oidc';
 import Loader from '../loader';
 import Dropdown from './components/Dropdown';
 import QuestionnaireListItem from './questionnaire-list-item';
@@ -42,9 +43,8 @@ const QuestionnaireList = (props) => {
     handleNewChildQuestionnaireRef,
   } = props;
 
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
-  const stamp = oidc.oidcTokens.decodedIdToken.timbre;
+  const { getAccessToken, decodedIdToken } = useContext(AuthContext);
+  const stamp = decodedIdToken.timbre;
 
   let actionLabel = Dictionary.duplicate;
   if (isComposition) actionLabel = Dictionary.add;
@@ -58,11 +58,12 @@ const QuestionnaireList = (props) => {
   const [loading, setLoading] = useState(true);
 
   const fusionateQuestionnaire = useCallback(
-    (checkedQuestionnaire) => {
-      mergeQuestionnaires(checkedQuestionnaire, token);
+    async (checkedQuestionnaire) => {
+      const accessToken = await getAccessToken();
+      mergeQuestionnaires(checkedQuestionnaire, accessToken);
       handleCloseNewQuestionnaire();
     },
-    [handleCloseNewQuestionnaire, mergeQuestionnaires, token],
+    [handleCloseNewQuestionnaire, mergeQuestionnaires, getAccessToken],
   );
 
   function addQuestionnaireRef(checkedQuestionnaire) {
@@ -113,11 +114,13 @@ const QuestionnaireList = (props) => {
   };
 
   useEffect(() => {
-    getStampsList(token).then((r) => {
-      r.sort((a, b) => a.label.localeCompare(b.label));
-      setOptions(r);
-    });
-  }, [token]);
+    getAccessToken().then((token) =>
+      getStampsList(token).then((r) => {
+        r.sort((a, b) => a.label.localeCompare(b.label));
+        setOptions(r);
+      }),
+    );
+  }, [getAccessToken]);
 
   useEffect(() => {
     setSelectedStamp(isTcm ? TCM.owner : stamp || 'FAKEPERMISSION');
@@ -126,9 +129,18 @@ const QuestionnaireList = (props) => {
   // TODO: Find why 2 calls
   useEffect(() => {
     if (selectedStamp)
-      loadQuestionnaireList(selectedStamp, token).then(() => setLoading(false));
+      getAccessToken().then((token) =>
+        loadQuestionnaireList(selectedStamp, token).then(() =>
+          setLoading(false),
+        ),
+      );
     else deleteQuestionnaireList();
-  }, [selectedStamp, token, loadQuestionnaireList, deleteQuestionnaireList]);
+  }, [
+    selectedStamp,
+    getAccessToken,
+    loadQuestionnaireList,
+    deleteQuestionnaireList,
+  ]);
 
   const updateFilter = (value) => {
     setFilter(value);
@@ -144,9 +156,10 @@ const QuestionnaireList = (props) => {
     setQuestionLabel(label);
   };
 
-  const handleSubmit = () => {
-    duplicateQuestionnaire(questionId, token);
-    loadQuestionnaireList(stamp, token);
+  const handleSubmit = async () => {
+    const accessToken = await getAccessToken();
+    duplicateQuestionnaire(questionId, accessToken);
+    loadQuestionnaireList(stamp, accessToken);
     setShowPopup(false);
   };
 

@@ -1,15 +1,13 @@
-import { useOidc } from '../../utils/oidc';
+import { useOidc } from '@/lib/auth/oidc';
 
 const Comp = ({ Component, ...props }) => {
-  const oidc = useOidc();
-  const { isUserLoggedIn, login } = oidc;
+  const { isUserLoggedIn, login } = useOidc();
   const ReturnedComponent = <Component {...props} />;
   if (isUserLoggedIn) {
     return ReturnedComponent;
   }
-  login({
-    doesCurrentHrefRequiresAuth: true,
-  });
+  login();
+
   return null;
 };
 

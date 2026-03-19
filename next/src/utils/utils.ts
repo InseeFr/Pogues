@@ -38,3 +38,9 @@ export function nameFromLabel(label: string): string {
     .toUpperCase()
     .slice(0, 10);
 }
+
+export const getCurrentUri = (): string | undefined => {
+  const uri = globalThis.location.href.replace(globalThis.location.origin, '');
+  if (uri === '/') return undefined;
+  return uri;
+};

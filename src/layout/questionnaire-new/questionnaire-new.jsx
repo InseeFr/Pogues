@@ -1,6 +1,9 @@
+import { useContext } from 'react';
+
 import PropTypes from 'prop-types';
 
-import { useOidc } from '../../utils/oidc';
+import { AuthContext } from '@/auth/context';
+
 import { validateQuestionnaireForm } from '../../utils/validation/validate';
 import {
   Questionnaire,
@@ -9,16 +12,24 @@ import {
 
 // Utils
 
-function validateAndSubmit(action, validate, transformer, onSuccess, token) {
+function validateAndSubmit(
+  action,
+  validate,
+  transformer,
+  onSuccess,
+  getAccessToken,
+) {
   return function (values) {
     validate(values);
 
-    return action(transformer.formToState(values), token).then((result) => {
-      const {
-        payload: { id },
-      } = result;
-      if (onSuccess) onSuccess(id);
-    });
+    return getAccessToken().then((token) =>
+      action(transformer.formToState(values), token).then((result) => {
+        const {
+          payload: { id },
+        } = result;
+        if (onSuccess) onSuccess(id);
+      }),
+    );
   };
 }
 
@@ -31,8 +42,7 @@ function QuestionnaireNew({
   createQuestionnaire,
   setErrors,
 }) {
-  const oidc = useOidc();
-  const token = oidc.oidcTokens.accessToken;
+  const { getAccessToken } = useContext(AuthContext);
 
   const validate = (setErrorsAction) => (values) =>
     validateQuestionnaireForm(values, setErrorsAction);
@@ -54,7 +64,7 @@ function QuestionnaireNew({
         validate(setErrors),
         questionnaireTransformer,
         onSuccess,
-        token,
+        getAccessToken,
       )}
     />
   );
@@ -63,7 +73,6 @@ function QuestionnaireNew({
 QuestionnaireNew.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
-  stamp: PropTypes.string.isRequired,
   createQuestionnaire: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
 };

@@ -1,6 +1,6 @@
 # Compilation
 
-Cette opération consiste à transformer et associer toutes les ressources nécessaires à l'application pour les rendre utilisables par les navigateurs Web. Ce processus peut être lancé avec la commande `yarn start` (ou `yarn dev:server` dans le cas où on a besoin du serveur mocké) pendant le développement, et la commande `yarn build` en production (pour la constitution de livrable pour les plate-formes Insee utiliser `yarn build-insee`).
+Cette opération consiste à transformer et associer toutes les ressources nécessaires à l'application pour les rendre utilisables par les navigateurs Web. Ce processus peut être lancé avec la commande `pnpm start` (ou `pnpm dev:server` dans le cas où on a besoin du serveur mocké) pendant le développement, et la commande `pnpm build` en production (pour la constitution de livrable pour les plate-formes Insee utiliser `pnpm build-insee`).
 
 [include:103-119](../../../../package.json)
 
@@ -12,7 +12,7 @@ Webpack traite également les ressources `css`, afin de rendre leur chargement p
 
 Webpack transformera le `JavaScript`, mais afin de rendre le processus de débuggage plus simple, il fournira en parallèle les `source maps` qui permettent aux navigateurs d'afficher le code d'origine dans les outils de développement.
 
-Pendant la phase de développement, `yarn start` fonctionne en tâche de fond:
+Pendant la phase de développement, `pnpm start` fonctionne en tâche de fond:
 
 - avec un serveur Web sur le port `3000` qui fournira l'ensemble des ressources de l'application;
 - recompile l'application à chaque fois qu'une ressource est modifiée;

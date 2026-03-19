@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 
 import { VisualizationKind } from '@/api/visualize';
+import { AuthContext } from '@/auth/context';
 import { domSelectorForModal } from '@/constants/dom-constants';
 import { useReadonly } from '@/hooks/useReadonly';
 import Dictionary from '@/utils/dictionary/dictionary';
@@ -45,7 +46,6 @@ interface VisualizeDropdownProps {
  * visualizations of the PDF : WEB, PDF or ODT
  */
 export default function VisualizeDropdown({
-  token = '',
   componentId = '',
   disabled = false,
   isDirtyState = false,
@@ -71,6 +71,8 @@ export default function VisualizeDropdown({
   const isReadonly = useReadonly();
 
   const wrapperRef = useRef(null);
+
+  const { getAccessToken } = useContext(AuthContext);
 
   useClickAway(wrapperRef, () => setDropdownOpen(false));
 
@@ -104,13 +106,19 @@ export default function VisualizeDropdown({
     isReadonlyAlert: boolean = false,
   ) => {
     event.preventDefault();
-    visualizeActiveQuestionnaire(
-      type,
-      componentId,
-      token,
-      isDirtyStateAlert,
-      isReadonlyAlert,
-    );
+    getAccessToken()
+      .then((accessToken) =>
+        visualizeActiveQuestionnaire(
+          type,
+          componentId,
+          accessToken || '',
+          isDirtyStateAlert,
+          isReadonlyAlert,
+        ),
+      )
+      .catch((e) => {
+        console.error(e);
+      });
     setDropdownOpen(false);
   };
 
