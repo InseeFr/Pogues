@@ -2,7 +2,7 @@ name: Main CI
 
 on:
   push:
-    branches: ['main', 'next']
+    branches: ["main", "next"]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -16,41 +16,23 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          package_json_file: 'package.json'
+          package_json_file: "package.json"
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
-          cache: 'pnpm'
-          cache-dependency-path: pnpm-lock.yaml
-      - run: pnpm i --frozen-lockfile && pnpm run build
+          node-version: "20"
+          cache: "pnpm"
+      - name: Install next dependencies
+        run: cd next && pnpm i --frozen-lockfile
+      - name: Install legacy dependencies
+        run: cd legacy && pnpm i --frozen-lockfile
+      - name: Build global app
+        run: pnpm build
       - uses: actions/upload-artifact@v4
         with:
           name: pogues
           path: dist
-
-  build-next:
-    runs-on: ubuntu-latest
-    if: github.event.head_commit.author.name != 'github-actions[bot]'
-    steps:
-      - uses: actions/checkout@v6
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-          package_json_file: 'next/package.json'
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-          cache-dependency-path: next/pnpm-lock.yaml
-      - run: cd next && pnpm i --frozen-lockfile && pnpm run build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pogues-next
-          path: next/dist
-
   check_if_version_upgraded:
-    needs: ['build', 'build-next']
+    needs: ["build"]
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'push' || 
@@ -59,32 +41,18 @@ jobs:
       version: ${{ steps.version.outputs.prop }}
       is_version_changed: ${{ steps.check.outputs.exists == 'false' }}
       is_pre_release: ${{ contains(steps.version.outputs.prop, '-rc' ) }}
-      next_version: ${{ steps.next_version.outputs.prop }}
-      next_is_version_changed: ${{ steps.next_check.outputs.exists == 'false' }}
-      next_is_pre_release: ${{ contains(steps.next_version.outputs.prop, '-rc' ) }}
     steps:
       - uses: actions/checkout@v4
       - id: version
         uses: notiz-dev/github-action-json-property@release
         with:
-          path: 'package.json'
-          prop_path: 'version'
+          path: "package.json"
+          prop_path: "version"
       ## we check if repo contains already this tag, if not version, has changed
       - uses: mukunku/tag-exists-action@v1.6.0
         id: check
         with:
           tag: ${{ steps.version.outputs.prop }}
-      - uses: actions/checkout@v4
-      - id: next_version
-        uses: notiz-dev/github-action-json-property@release
-        with:
-          path: 'next/package.json'
-          prop_path: 'version'
-      ## we check if repo contains already this tag, if not version, has changed
-      - uses: mukunku/tag-exists-action@v1.6.0
-        id: next_check
-        with:
-          tag: ${{ steps.next_version.outputs.prop }}
 
   docker_pogues:
     needs: check_if_version_upgraded
@@ -107,38 +75,11 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
-          context: '.'
+          context: "."
           push: true
           tags: |
             inseefr/pogues:latest,
             inseefr/pogues:${{ needs.check_if_version_upgraded.outputs.version }}
-
-  docker_pogues_next:
-    needs: check_if_version_upgraded
-    if: |
-      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.next_is_pre_release == 'true') && 
-      needs.check_if_version_upgraded.outputs.next_is_version_changed == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/download-artifact@v4
-        with:
-          name: pogues-next
-          path: next/dist
-      - uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          context: './next'
-          push: true
-          tags: |
-            inseefr/pogues:latest,
-            inseefr/pogues:${{ needs.check_if_version_upgraded.outputs.next_version }}
 
   release:
     runs-on: ubuntu-latest
@@ -167,35 +108,5 @@ jobs:
           draft: false
           prerelease: ${{ needs.check_if_version_upgraded.outputs.is_pre_release == 'true' }}
           files: ./pogues.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  release_next:
-    runs-on: ubuntu-latest
-    needs: check_if_version_upgraded
-    # We create release only if the version in the package.json have been upgraded and this CI is running against the main branch.
-    # We allow branches with a PR open on main to publish pre-release (x.y.z-rc.u) but not actual releases.
-    if: |
-      (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.next_is_pre_release  == 'true') && 
-      needs.check_if_version_upgraded.outputs.next_is_version_changed  == 'true'
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-      - uses: actions/download-artifact@v4
-        with:
-          name: pogues-next
-          path: next/dist
-      - name: Zip bundle
-        run: cd next/dist && zip -r ../pogues.zip ./*
-      - uses: softprops/action-gh-release@v2
-        with:
-          name: Release ${{ needs.check_if_version_upgraded.outputs.next_version }}
-          tag_name: ${{ needs.check_if_version_upgraded.outputs.next_version }}
-          target_commitish: ${{ github.head_ref || github.ref }}
-          generate_release_notes: true
-          draft: false
-          prerelease: ${{ needs.check_if_version_upgraded.outputs.next_is_pre_release == 'true' }}
-          files: ./next/pogues.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
