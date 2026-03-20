@@ -9,12 +9,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 const defaultPlugin = [
   react(),
   oidcSpa(),
-  viteEnvs({
-    nameOfTheGlobal: '__POGUES_LEGACY_ENVS',
-    computedEnv: () => ({
-      APP_VERSION: process.env.npm_package_version,
-    }),
-  }),
+  viteEnvs(),
   tsconfigPaths({
     projects: [
       './tsconfig.json', // To avoid tsconfigPaths read website tsconfig path

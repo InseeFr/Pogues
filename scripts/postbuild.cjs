@@ -2,7 +2,14 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const copyDirectory = async (source, destination) => {
+const reset = "\x1b[0m";
+const log = {
+  green: (text) => console.log("\x1b[32m" + text + reset),
+  blue: (text) => console.log("\x1b[34m" + text + reset),
+  red: (text) => console.log("\x1b[31m" + text + reset),
+};
+
+const moveDirectory = async (source, destination) => {
   const entries = await fs.promises.readdir(source, { withFileTypes: true });
   await fs.promises.mkdir(destination, { recursive: true });
 
@@ -11,12 +18,12 @@ const copyDirectory = async (source, destination) => {
     const destPath = path.join(destination, entry.name);
 
     if (entry.isDirectory()) {
-      await copyDirectory(srcPath, destPath);
+      await moveDirectory(srcPath, destPath);
     } else if (entry.isSymbolicLink()) {
       const link = await fs.promises.readlink(srcPath);
       await fs.promises.symlink(link, destPath);
     } else {
-      await fs.promises.copyFile(srcPath, destPath);
+      await fs.promises.rename(srcPath, destPath);
     }
   }
 };
@@ -39,12 +46,14 @@ const copyDirectory = async (source, destination) => {
       throw new Error(`Source directory not found: ${legacyDist}`);
     }
 
-    await copyDirectory(nextDist, outDist);
-    await copyDirectory(legacyDist, legacyOutDist);
-
-    console.log("postbuild: merged next/dist and legacy/dist into dist/");
+    await moveDirectory(nextDist, outDist);
+    await moveDirectory(legacyDist, legacyOutDist);
+    log.green(
+      `Postbuild: A single directory with legacy & next was created ! (dist folder)`,
+    );
+    log.green(`Now you can run \`pnpm preview\` to test all app !`);
   } catch (error) {
-    console.error("postbuild failed:", error);
+    log.red(`Post build failed: ${error}`);
     process.exit(1);
   }
 })();

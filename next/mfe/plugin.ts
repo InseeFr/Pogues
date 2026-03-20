@@ -26,7 +26,7 @@ const runtimePlugin: () => ModuleFederationRuntimePlugin = function () {
         return devModeConfig;
       } else {
         const originalEntryFile = new URL(remoteInfo.entry).pathname;
-        const finalEntry = `${originalEntryFile}`;
+        const finalEntry = `/legacy${originalEntryFile}`;
         return await import(/* @vite-ignore */ finalEntry);
       }
     },

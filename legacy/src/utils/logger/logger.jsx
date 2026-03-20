@@ -4,8 +4,8 @@
  'Beauty is in the eye of the beholder'
  */
 
-const level = import.meta.env.VITE_LOG_LEVEL;
-const activeNamespaces = import.meta.env.VITE_ACTIVE_NAMESPACES;
+const level = 'INFO';
+const activeNamespaces = 'Components,Actions,Stores,Utils,Models';
 
 const LEVELS = {
   DEBUG: 0,
