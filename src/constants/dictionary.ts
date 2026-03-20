@@ -321,7 +321,7 @@ const dictionary: Dictionary = {
     en: 'Select an unit of measure',
     fr: 'Sélectionnez une unité de mesure',
   },
-  description: {
+  filterDescription: {
     en: 'Filter label for paper and other orchestrators',
     fr: 'Libellé du filtre pour le papier et autres orchestrateurs',
   },
