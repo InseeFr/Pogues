@@ -14,19 +14,25 @@
             "min": 3,
             "stemmer": false,
             "synonyms": {
+              "accueil": ["ACCEUIL"],
               "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
+              "échafaudage": ["ECHAFFAUDAGE"],
+              "échafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
               "plaquisterie": ["PLACO", "PLACOPLATRE"],
               "pneumatiques": ["PNEUS"],
               "prestations": ["PRESTATAIRE"],
-              "echafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
-              "URSSAF": ["URSAF", "URSAFF"],
               "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
               "briqueterie": ["BRIQUETTERIE"],
               "joaillerie": ["JOAILLIER"],
-              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
               "alimentaire": ["ALIMANTAIRE"],
               "alimentaires": ["ALIMANTAIRES"],
-              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMENTAIRES"]
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMANTAIRES"]
             }
           }
         ],
@@ -82,19 +88,25 @@
             "min": 3,
             "stemmer": false,
             "synonyms": {
+              "accueil": ["ACCEUIL"],
               "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
+              "échafaudage": ["ECHAFFAUDAGE"],
+              "échafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
+              "URSSAF": ["URSAF", "URSAFF"],
+              "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
+              "construction": ["CONSTRUCTEUR"],
+              "distribution": ["DISTRIBUTEUR"],
+              "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
               "plaquisterie": ["PLACO", "PLACOPLATRE"],
               "pneumatiques": ["PNEUS"],
               "prestations": ["PRESTATAIRE"],
-              "echafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
-              "URSSAF": ["URSAF", "URSAFF"],
               "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
               "briqueterie": ["BRIQUETTERIE"],
               "joaillerie": ["JOAILLIER"],
-              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
               "alimentaire": ["ALIMANTAIRE"],
               "alimentaires": ["ALIMANTAIRES"],
-              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMENTAIRES"]
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMANTAIRES"]
             }
           }
         ],
@@ -407,18 +419,24 @@
             "stemmer": false,
             "synonyms": {
               "accueil": ["ACCEUIL"],
+              "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
               "échafaudage": ["ECHAFFAUDAGE"],
+              "échafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
               "URSSAF": ["URSAF", "URSAFF"],
               "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
               "construction": ["CONSTRUCTEUR"],
               "distribution": ["DISTRIBUTEUR"],
-              "fabrication": ["FABRICANT"],
               "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
-              "ascenseur": ["ASCENCEUR", "ASSENCEUR"],
-              "ascenseurs": ["ASCENCEURS", "ASSENCEURS"],
-              "alimentaires": ["ALIMANTAIRE"],
-              "agroalimentaire": ["AGROALIMANTAIRE", "AGGROALIMANTAIRE"],
-              "agroalimentaires": ["AGROALIMANTAIRE", "AGGROALIMANTAIRES"]
+              "plaquisterie": ["PLACO", "PLACOPLATRE"],
+              "pneumatiques": ["PNEUS"],
+              "prestations": ["PRESTATAIRE"],
+              "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
+              "briqueterie": ["BRIQUETTERIE"],
+              "joaillerie": ["JOAILLIER"],
+              "alimentaire": ["ALIMANTAIRE"],
+              "alimentaires": ["ALIMANTAIRES"],
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMANTAIRES"]
             }
           }
         ],
@@ -477,18 +495,24 @@
             "stemmer": false,
             "synonyms": {
               "accueil": ["ACCEUIL"],
+              "EHPAD": ["EPHAD", "HEPAD", "EPAD", "EPAHD", "EPADH"],
               "échafaudage": ["ECHAFFAUDAGE"],
+              "échafaudages": ["ECHAFFAUDAGE", "ECHAFFAUDEUR"],
               "URSSAF": ["URSAF", "URSAFF"],
               "ingénierie": ["INGENIEURIE", "INGENERIE", "INGIENERIE"],
               "construction": ["CONSTRUCTEUR"],
               "distribution": ["DISTRIBUTEUR"],
-              "fabrication": ["FABRICANT"],
               "abattoir": ["ABATOIR", "ABBATOIR", "ABATOIRE", "ABATTOIRE"],
-              "ascenseur": ["ASCENCEUR", "ASSENCEUR"],
-              "ascenseurs": ["ASCENCEURS", "ASSENCEURS"],
-              "alimentaires": ["ALIMANTAIRE"],
-              "agroalimentaire": ["AGROALIMANTAIRE", "AGGROALIMANTAIRE"],
-              "agroalimentaires": ["AGROALIMANTAIRE", "AGGROALIMANTAIRES"]
+              "plaquisterie": ["PLACO", "PLACOPLATRE"],
+              "pneumatiques": ["PNEUS"],
+              "prestations": ["PRESTATAIRE"],
+              "ascenseurs": ["ASCENCEUR", "ASSENCEUR", "ACSENCEUR"],
+              "briqueterie": ["BRIQUETTERIE"],
+              "joaillerie": ["JOAILLIER"],
+              "alimentaire": ["ALIMANTAIRE"],
+              "alimentaires": ["ALIMANTAIRES"],
+              "agroalimentaire": ["AGGROALIMANTAIRE", "AGROALIMANTAIRE"],
+              "agroalimentaires": ["AGGROALIMANTAIRES", "AGROALIMANTAIRES"]
             }
           }
         ],
