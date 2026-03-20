@@ -16,7 +16,6 @@ export default [
       'src/forms/controls/rich-textarea/lib/markdown-vtl-parser.js',
       'src/forms/controls/control-with-suggestions/components/vtl-suggestions.js',
       'e2e',
-      'jison',
       'vite.config.js',
       'docs',
     ],
