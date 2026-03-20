@@ -22,9 +22,21 @@ export default defineConfig(({ mode }) => ({
     }),
     oidcSpa(),
     viteEnvs({
-      computedEnv: () => ({
-        APP_VERSION: process.env.npm_package_version,
-      }),
+      // retrieve version of package.json (parent folder)
+      computedEnv: async () => {
+        const path = await import("node:path");
+        const fs = await import("node:fs/promises");
+
+        const packageJson = JSON.parse(
+          await fs.readFile(
+            path.resolve(__dirname, "../package.json"),
+            "utf-8",
+          ),
+        );
+        return {
+          APP_VERSION: packageJson.version,
+        };
+      },
     }),
     react(),
     tsconfigPaths({
