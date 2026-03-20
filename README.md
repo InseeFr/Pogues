@@ -48,16 +48,16 @@ pnpm dev
 ```
 
 Or with the legacy client (in build only so you need to rebuild when you edit something):
+**Required**
+
+- dependencies of _next_ & _legacy_ are installed
+
+**At root level**
 
 ```bash
+pnpm i
 pnpm build
-pnpm serve -s dist -l 5145
-```
-
-```bash
-cd next
-pnpm build
-pnpm serve -s dist -l 5000
+pnpm preview
 ```
 
 ## Legacy client
@@ -65,6 +65,7 @@ pnpm serve -s dist -l 5000
 The legacy client can be launched in standalone if the new client is not needed:
 
 ```bash
+cd legacy
 pnpm i
 pnpm start
 ```
