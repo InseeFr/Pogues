@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - migrate to pnpm
 - migrate to latest `oidc-spa` (v10)
 - use `getAccessToken` & `decodedIdToken` provided by PoguesNext and hydraded by `React.context`
+- changed filter description label
 
 ### Removed
 

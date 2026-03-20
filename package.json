@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "1.17.0-rc-ucq-variable-based.5",
+  "version": "1.17.0-rc-filter-description",
   "description": "Outil de conception et de test de questionnaires.",
   "repository": {
     "type": "git",
