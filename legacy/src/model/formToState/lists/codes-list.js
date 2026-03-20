@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import merge from 'lodash.merge';
 
-import { createListFactory } from '../lists/utils';
+import { createListFactory } from './utils';
 
 export const defaultState = {
   id: '',

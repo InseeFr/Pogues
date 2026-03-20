@@ -1,4 +1,4 @@
-import { createListFactory } from '../lists/utils';
+import { createListFactory } from './utils';
 
 export const defaultState = {
   id: '',
