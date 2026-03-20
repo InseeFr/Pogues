@@ -19,7 +19,7 @@ export const FilterNewEdit = ({
         name="description"
         type="text"
         component={Input}
-        label={Dictionary.description}
+        label={Dictionary.filterDescription}
       />
       <Field
         name="filter"

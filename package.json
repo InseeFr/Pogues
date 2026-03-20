@@ -1,7 +1,7 @@
 {
   "name": "pogues",
   "version": "3.0.0-rc.one-version.0",
-  "description": "",
+  "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "test:next": "cd next && pnpm test",
     "test:legacy": "cd legacy && pnpm test",
