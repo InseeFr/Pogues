@@ -1,0 +1,23 @@
+{
+  "name": "pogues",
+  "version": "3.0.0-rc.one-version.0",
+  "description": "",
+  "scripts": {
+    "test:next": "cd next && pnpm test",
+    "test:legacy": "cd legacy && pnpm test",
+    "build:next": "cd next && pnpm build",
+    "build:legacy": "cd legacy && pnpm build",
+    "test": "pnpm test:next && pnpm test:legacy",
+    "build": "pnpm build:next && pnpm build:legacy",
+    "lint": "pnpm lint:next && pnpm lint:legacy",
+    "lint:next": "cd next && pnpm lint",
+    "lint:legacy": "cd legacy && pnpm lint",
+    "postbuild": "node scripts/postbuild.cjs",
+    "preview": "vite preview"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.26.2",
+  "devDependencies": {
+    "vite": "^8.0.1"
+  }
+}
