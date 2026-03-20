@@ -9,14 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- review build to have only one Docker image
-
-#### Legacy
-
 - move code-source from root to `./legacy` folder
-- remove Dockerfile
-
-#### Next
-
-- remove Dockerfile
+- Change build to have only one Docker image and version
 - adapt configuration of loading _legacy_ scripts (mfe plugin)
