@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+selenium-debug.log
 
 node_modules
 dist
@@ -23,4 +24,19 @@ dist-ssr
 *.sln
 *.sw?
 .__mf__temp
+
+# Testing
 coverage
+
+
+build/
+
+deploy-auth.json
+_book
+*.iml
+screenshots/
+docs/stats.html
+reports*
+.history/*
+.history*
+package-lock.json
