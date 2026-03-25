@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0](https://github.com/InseeFr/Pogues/releases/tag/3.0.0) - 2026-03-25
+
 ### Changed
 
 - move code-source from root to `./legacy` folder
