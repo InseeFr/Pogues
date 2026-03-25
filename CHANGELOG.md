@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated nomenclatures:
+  - `L_NATIONETR-1-1-0` -> `L_NATIONETR-1-1-1`
+
 ## [3.0.0](https://github.com/InseeFr/Pogues/releases/tag/3.0.0) - 2026-03-25
 
 ### Changed
