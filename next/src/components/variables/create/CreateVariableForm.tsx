@@ -9,12 +9,13 @@ import { uid } from '@/utils/utils';
 
 import VariableForm from '../form/VariableForm';
 import type { FormValues } from '../form/schema';
+import { Scopes } from '@/models/scopes';
 
 type Props = {
   /** Questionnaire to add the variable to. */
   questionnaireId: string;
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes: Map<string, string>;
+  scopes?: Scopes;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
 };

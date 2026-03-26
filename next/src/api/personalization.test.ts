@@ -66,13 +66,14 @@ it('Get personalization data works', async () => {
   expect(res).toEqual(mockData);
 });
 
-it('Delete personalization data works', async () => {
+it('Delete personalization data throws on 404', async () => {
   nock('https://mock-personalization-api')
     .delete('/questionnaires/my-questionnaire')
-    .reply(204);
+    .reply(404);
 
-  const res = await deleteQuestionnaireData('my-questionnaire');
-  expect(res.status).toEqual(204);
+  await expect(deleteQuestionnaireData('my-questionnaire')).rejects.toMatchObject({
+    response: { status: 404 },
+  });
 });
 
 it('Get interrogation data works', async () => {

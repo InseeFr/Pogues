@@ -12,7 +12,8 @@ export type Questionnaire = {
   codesLists?: CodesList[];
   Articulation?: Articulation;
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes: Scopes;
+  scopes?: Scopes;
+  iterations?: Iteration[];
 };
 
 export enum TargetModes {
@@ -31,3 +32,8 @@ export enum FormulasLanguages {
   XPath = 'XPATH',
   VTL = 'VTL',
 }
+
+export type Iteration = {
+  id: string;
+  name: string;
+};

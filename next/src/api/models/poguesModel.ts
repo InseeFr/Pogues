@@ -226,6 +226,7 @@ interface DynamicIterationType extends IterationType {
   Filter?: ExpressionType;
 }
 
+// @ts-expect-error TS6196 - not used for now
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Roundabout = ComponentType & {
   OccurrenceLabel: string;
@@ -243,11 +244,11 @@ type VariableType = {
   CodeListReference?: string;
   /** Variable representation type to characterize the variable (numeric, boolean, text, etc) */
   Datatype:
-    | BooleanDatatypeType
-    | DateDatatypeType
-    | DurationDatatypeType
-    | NumericDatatypeType
-    | TextDatatypeType;
+  | BooleanDatatypeType
+  | DateDatatypeType
+  | DurationDatatypeType
+  | NumericDatatypeType
+  | TextDatatypeType;
   Name: string;
   Label: string;
   /** Iteration reference (in which the variable has a local scope) */

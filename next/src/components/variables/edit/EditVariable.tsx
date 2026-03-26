@@ -1,6 +1,7 @@
 import type { Variable } from '@/models/variables';
 
 import EditVariableForm from './EditVariableForm';
+import { Scopes } from '@/models/scopes';
 
 type Props = {
   /** Variable to edit. Will display "not found" if undefined. */
@@ -8,7 +9,7 @@ type Props = {
   /** Related questionnaire id. */
   questionnaireId: string;
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes: Map<string, string>;
+  scopes?: Scopes;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
 };

@@ -10,7 +10,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
     "dev": "npm run generate-routes && vite",
-    "build": "tsc && npm run generate-routes && vite build",
+    "build": "tsc -b && npm run generate-routes && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

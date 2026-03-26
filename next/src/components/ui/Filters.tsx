@@ -55,8 +55,8 @@ export default function Filters<T>({
   /* Filter the data accordingly. */
   useEffect(() => {
     let newData = [...data];
-    activeFilters.forEach(({ onFilter, value }: ActiveFilter<T>) => {
-      newData = newData.filter((v) => onFilter(v, value));
+    activeFilters.forEach(({ onFilter }: ActiveFilter<T>) => {
+      newData = newData.filter((v) => onFilter(v));
     });
     setFilteredData(newData);
     setFilteredLength(newData.length);

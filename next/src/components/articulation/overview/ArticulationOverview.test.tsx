@@ -1,6 +1,7 @@
 import { renderWithRouter } from '@/testing/render';
 
 import { ArticulationOverview } from './ArticulationOverview';
+import { ArticulationVariablesLabel } from '@/models/articulation';
 
 describe('ArticulationOverview', () => {
   it('displays articulation information', async () => {
@@ -8,9 +9,9 @@ describe('ArticulationOverview', () => {
       <ArticulationOverview
         questionnaireId="q-id"
         articulationItems={[
-          { label: 'Prénom', value: 'prenom formula' },
-          { label: 'Sexe', value: 'gender formula' },
-          { label: 'Age', value: 'age formula' },
+          { label: ArticulationVariablesLabel.FirstName, value: 'prenom formula' },
+          { label: ArticulationVariablesLabel.Gender, value: 'gender formula' },
+          { label: ArticulationVariablesLabel.Age, value: 'age formula' },
         ]}
       />,
     );

@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import { Articulation } from '@/models/articulation';
+import { Articulation, ArticulationVariablesLabel } from '@/models/articulation';
 
 import {
   getArticulation,
@@ -12,9 +12,9 @@ vi.mock('@/lib/auth/oidc');
 
 const articulation: Articulation = {
   items: [
-    { label: 'Prénom', value: 'first name formula' },
-    { label: 'Sexe', value: 'gender formula' },
-    { label: 'Age', value: 'age formula' },
+    { label: ArticulationVariablesLabel.FirstName, value: 'first name formula' },
+    { label: ArticulationVariablesLabel.Gender, value: 'gender formula' },
+    { label: ArticulationVariablesLabel.Age, value: 'age formula' },
   ],
 };
 

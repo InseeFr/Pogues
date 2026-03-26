@@ -1,6 +1,7 @@
 import { renderWithI18n, renderWithRouter } from '@/testing/render';
 
 import { ArticulationOverviewContent } from './ArticulationOverviewContent';
+import { ArticulationVariablesLabel } from '@/models/articulation';
 
 describe('ArticulationOverviewContent', () => {
   it('displays roundabout summary information', async () => {
@@ -8,9 +9,9 @@ describe('ArticulationOverviewContent', () => {
       <ArticulationOverviewContent
         questionnaireId="q-id"
         articulationItems={[
-          { label: 'Prénom', value: 'prenom formula' },
-          { label: 'Sexe', value: 'gender formula' },
-          { label: 'Age', value: 'age formula' },
+          { label: ArticulationVariablesLabel.FirstName, value: 'prenom formula' },
+          { label: ArticulationVariablesLabel.Gender, value: 'gender formula' },
+          { label: ArticulationVariablesLabel.Age, value: 'age formula' },
         ]}
       />,
     );

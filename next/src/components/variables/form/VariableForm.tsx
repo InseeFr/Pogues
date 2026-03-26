@@ -17,6 +17,7 @@ import { type Variable, VariableType } from '@/models/variables';
 import { datatypeOptions, dateFormatOptions } from './consts';
 import { type FormValues, schema } from './schema';
 import { convertToValidName } from './utils/name';
+import { Scopes } from '@/models/scopes';
 
 type Props = {
   questionnaireId: string;
@@ -27,7 +28,7 @@ type Props = {
   /** Label to display on the submit button */
   submitLabel: string;
   /** Available scopes with the mapping between id and name. */
-  scopes: Map<string, string>;
+  scopes?: Scopes;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
 };
@@ -257,7 +258,7 @@ export default function VariableForm({
             <Select<string>
               options={[
                 { label: t('common.questionnaire'), value: '' },
-                ...Array.from(scopes).map(([id, name]) => ({
+                ...Array.from(scopes ?? new Map<string, string>()).map(([id, name]) => ({
                   label: name,
                   value: id,
                 })),
