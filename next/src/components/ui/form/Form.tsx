@@ -1,10 +1,10 @@
-import React, { FormEventHandler } from 'react';
+import React, { FormEventHandler } from "react";
 
-import { useBlocker } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
+import { useBlocker } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
-import DirtyStateDialog from '@/components/layout/DirtyStateDialog';
-import Button, { ButtonStyle } from '@/components/ui/Button';
+import DirtyStateDialog from "@/components/layout/DirtyStateDialog";
+import Button, { ButtonStyle } from "@/components/ui/Button";
 
 type Props = {
   /** Form. */
@@ -35,14 +35,14 @@ export default function Form({
   isDirty,
   isSubmitted,
   isValid,
-  validateLabel = '',
+  validateLabel = "",
   onCancel,
   onSubmit,
 }: Readonly<Props>) {
   const { t } = useTranslation();
 
   const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => isDirty && !isSubmitted,
+    shouldBlockFn: () => !!isDirty && !isSubmitted,
     withResolver: true,
   });
 
@@ -52,18 +52,18 @@ export default function Form({
         {children}
         <div className="flex gap-x-2 mt-6 justify-end">
           <Button type="button" onClick={onCancel}>
-            {t('common.cancel')}
+            {t("common.cancel")}
           </Button>
           <Button
             type="submit"
             buttonStyle={ButtonStyle.Primary}
             disabled={!isDirty || !isValid}
           >
-            {validateLabel || t('common.validate')}
+            {validateLabel || t("common.validate")}
           </Button>
         </div>
       </form>
-      {status === 'blocked' ? (
+      {status === "blocked" ? (
         <DirtyStateDialog onValidate={proceed} onCancel={reset} />
       ) : null}
     </>

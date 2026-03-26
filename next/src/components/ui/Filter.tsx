@@ -1,10 +1,10 @@
-import { type Filter as FilterModel, FilterType } from '@/models/filters';
+import { type Filter as FilterModel, FilterType } from "@/models/filters";
 
-import Field from './form/Field';
-import Input from './form/Input';
-import Select from './form/Select';
-import Switch from './form/Switch';
-import ToggleGroup from './form/ToggleGroup';
+import Field from "./form/Field";
+import Input from "./form/Input";
+import Select from "./form/Select";
+import Switch from "./form/Switch";
+import ToggleGroup from "./form/ToggleGroup";
 
 interface Props<T> {
   filter: FilterModel<T>;
@@ -26,7 +26,7 @@ export default function Filter<T>({
           <Field label={filter.label}>
             <Select<string>
               options={filter.options}
-              onChange={(e) => onActiveFilter(filter, e ?? '')}
+              onChange={(e) => onActiveFilter(filter, e ?? "")}
             />
           </Field>
         </div>
@@ -51,7 +51,7 @@ export default function Filter<T>({
       return (
         <Field label={filter.label}>
           <Input
-            onValueChange={(value) => onActiveFilter(filter, value ?? '')}
+            onValueChange={(value) => onActiveFilter(filter, value)}
             placeholder={filter.placeholder}
           />
         </Field>

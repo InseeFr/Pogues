@@ -1,13 +1,14 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
-import { postVariable, variablesKeys } from '@/api/variables';
-import { Variable } from '@/models/variables';
+import { postVariable, variablesKeys } from "@/api/variables";
+import { Variable } from "@/models/variables";
 
-import VariableForm from '../form/VariableForm';
-import type { FormValues } from '../form/schema';
+import VariableForm from "../form/VariableForm";
+import type { FormValues } from "../form/schema";
+import { Scopes } from "@/models/scopes";
 
 type Props = {
   /** Initial variable value. */
@@ -15,7 +16,7 @@ type Props = {
   /** Related questionnaire id. */
   questionnaireId: string;
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes: Map<string, string>;
+  scopes?: Scopes;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
 };
@@ -56,14 +57,14 @@ export default function EditVariableForm({
       {
         onSuccess: () =>
           void navigate({
-            to: '/questionnaire/$questionnaireId/variables',
+            to: "/questionnaire/$questionnaireId/variables",
             params: { questionnaireId },
           }),
       },
     );
     toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('variable.edit.success', { name }),
+      loading: t("common.loading"),
+      success: t("variable.edit.success", { name }),
       error: (err: Error) => err.toString(),
     });
   };
@@ -73,7 +74,7 @@ export default function EditVariableForm({
       variable={variable}
       questionnaireId={questionnaireId}
       onSubmit={onSubmit}
-      submitLabel={t('common.edit')}
+      submitLabel={t("common.edit")}
       scopes={scopes}
       variables={variables}
     />

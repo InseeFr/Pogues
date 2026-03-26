@@ -29,8 +29,12 @@
     "vite": "^8.0.1"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
+    "next/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix --config ./next/eslint.config.js",
+      "prettier --write --list-different"
+    ],
+    "legacy/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix --config ./legacy/eslint.config.js",
       "prettier --write --list-different"
     ],
     "!(*.js|*.jsx|*.ts|*.tsx)": "prettier --write --ignore-unknown --list-different"

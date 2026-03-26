@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import { Filter as FilterModel } from '@/models/filters';
+import { Filter as FilterModel } from "@/models/filters";
 
-import Filter from './Filter';
+import Filter from "./Filter";
 
 type ActiveFilter<T> = FilterModel<T> & {
   value?: string | string[];
@@ -40,9 +40,9 @@ export default function Filters<T>({
   ) {
     const newMap = new Map(activeFilters);
 
-    if ((typeof value === 'string' || Array.isArray(value)) && value) {
+    if ((typeof value === "string" || Array.isArray(value)) && value) {
       newMap.set(filter.label, { ...filter, value });
-    } else if (typeof value === 'boolean' && value) {
+    } else if (typeof value === "boolean" && value) {
       /** Bolean filter */
       newMap.set(filter.label, filter);
     } else {
@@ -55,8 +55,9 @@ export default function Filters<T>({
   /* Filter the data accordingly. */
   useEffect(() => {
     let newData = [...data];
-    activeFilters.forEach(({ onFilter }: ActiveFilter<T>) => {
-      newData = newData.filter((v) => onFilter(v));
+    activeFilters.forEach(({ onFilter, value }: ActiveFilter<T>) => {
+      // @ts-expect-error value type is based on the filter type
+      newData = newData.filter((v) => onFilter(v, value));
     });
     setFilteredData(newData);
     setFilteredLength(newData.length);
@@ -74,7 +75,7 @@ export default function Filters<T>({
         ))}
       </div>
       <div className="font-medium text-base/10 text-right">
-        {t('filter.result', { count: filteredLength })}
+        {t("filter.result", { count: filteredLength })}
       </div>
     </div>
   );

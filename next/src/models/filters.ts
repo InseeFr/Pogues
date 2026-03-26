@@ -13,7 +13,7 @@ type BaseFilter = {
 type BooleanFilter<T> = {
   type: FilterType.Boolean;
   /** If the filter is activated, this filter will be triggered. */
-  onFilter: (v: T) => boolean;
+  onFilter: (v: T, filter?: boolean) => boolean;
 };
 
 type SelectFilter<T> = {
