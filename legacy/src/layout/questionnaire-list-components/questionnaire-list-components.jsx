@@ -1,9 +1,11 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useContext, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
+
+import { AuthContext } from '@/auth/context';
 
 import { domSelectorForModal } from '../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
@@ -32,7 +34,6 @@ const QuestionnaireListComponents = (props) => {
     duplicateQuestionnaire,
     isQuestionnaireModified,
     forwardedRef,
-    token,
     questionnaire,
     componentsStore,
     editingComponentId,
@@ -45,6 +46,8 @@ const QuestionnaireListComponents = (props) => {
   } = props;
 
   const isReadonly = useReadonly();
+
+  const { getAccessToken } = useContext(AuthContext);
 
   useEffect(() => {
     setSelectedComponentId('');
@@ -281,8 +284,10 @@ const QuestionnaireListComponents = (props) => {
             showConfirmModal={showDuplicateModal}
             closePopup={() => setShowRemoveQuestionnaireDialog(false)}
             confirm={() =>
-              duplicateQuestionnaire(questionnaire.id, token).then(() =>
-                setShowDuplicateModal(false),
+              getAccessToken().then((accessToken) =>
+                duplicateQuestionnaire(questionnaire.id, accessToken).then(() =>
+                  setShowDuplicateModal(false),
+                ),
               )
             }
             title={Dictionary.dupliquate}
@@ -295,8 +300,10 @@ const QuestionnaireListComponents = (props) => {
             showConfirmModal={showRemoveQuestionnaireDialog}
             closePopup={() => setShowRemoveQuestionnaireDialog(false)}
             confirm={() =>
-              removeQuestionnaire(questionnaire.id, token).then(() =>
-                navigate('/'),
+              getAccessToken().then((accessToken) =>
+                removeQuestionnaire(questionnaire.id, accessToken).then(() =>
+                  navigate('/'),
+                ),
               )
             }
             title={Dictionary.confirmBodyTitle}
