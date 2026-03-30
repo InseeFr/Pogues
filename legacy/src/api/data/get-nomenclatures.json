@@ -377,9 +377,9 @@
       "urn": "urn:ddi:fr.insee:l_nationalite-2-0-0:1",
       "codes": []
     },
-    "L_NATIONETR-1-1-0": {
-      "id": "L_NATIONETR-1-1-0",
-      "name": "L_NATIONETR-1-1-0",
+    "L_NATIONETR-1-1-1": {
+      "id": "L_NATIONETR-1-1-1",
+      "name": "L_NATIONETR-1-1-1",
       "label": "Nationalités étrangères",
       "parameters": {
         "version": 1,
@@ -402,7 +402,7 @@
           }
         }
       },
-      "urn": "urn:ddi:fr.insee:l_nationetr-1-1-0:1",
+      "urn": "urn:ddi:fr.insee:l_nationetr-1-1-1:1",
       "codes": []
     },
     "L_PCS_HOMMES-2-3-0": {
