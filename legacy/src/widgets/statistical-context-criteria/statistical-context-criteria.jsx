@@ -141,7 +141,6 @@ const StatisticalContextCriteria = (props) => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
-  token: PropTypes.string,
   series: PropTypes.array,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -156,7 +155,6 @@ StatisticalContextCriteria.propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
-  token: '',
   series: [],
   multipleCampaign: false,
   required: false,
