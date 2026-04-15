@@ -35,8 +35,7 @@ const StatisticalContextCriteria = (props) => {
   const [selectedOperationState, setSelectedOperationState] = useState();
 
   useEffect(() => {
-    const load = async () => {
-      const accessToken = await getAccessToken();
+    getAccessToken().then((accessToken) => {
       loadSeriesIfNeeded(accessToken);
       if (selectedSerie !== selectedSerieState) {
         loadOperationsIfNeeded(accessToken, selectedSerie);
@@ -47,8 +46,7 @@ const StatisticalContextCriteria = (props) => {
         loadCampaignsIfNeeded(selectedOperation, accessToken);
         setSelectedOperationState(selectedOperation);
       }
-    };
-    load();
+    });
   }, [
     getAccessToken,
     selectedSerie,
