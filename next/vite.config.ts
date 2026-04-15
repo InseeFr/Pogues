@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
         "@pogues-legacy": {
           type: "module",
           name: "@pogues-legacy",
-          entry: "/remote-entry.js",
+          entry: "/legacy-remote-entry.js",
         },
       },
       shared: mode === "development" ? [] : ["react/", "react-dom/"],
