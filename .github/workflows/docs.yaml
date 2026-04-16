@@ -1,9 +1,9 @@
 name: Pogues docs publication
 on:
   push:
-    branches: ['main', 'next']
+    branches: ["main"]
     paths:
-      - 'docs/**'
+      - "docs/**"
 jobs:
   build:
     runs-on: ubuntu-latest

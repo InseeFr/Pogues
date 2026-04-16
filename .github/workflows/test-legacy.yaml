@@ -2,7 +2,7 @@ name: Pogues Test CI for Legacy
 
 on:
   push:
-    branches: ["main", "next"]
+    branches: ["main"]
     paths: ["legacy/**"]
   pull_request:
     types: [opened, synchronize, reopened]

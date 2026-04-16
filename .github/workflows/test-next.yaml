@@ -2,11 +2,11 @@ name: Pogues Test CI for Next
 
 on:
   push:
-    branches: ['main', 'next']
-    paths: ['next/**']
+    branches: ["main"]
+    paths: ["next/**"]
   pull_request:
     types: [opened, synchronize, reopened]
-    paths: ['next/**']
+    paths: ["next/**"]
 
 jobs:
   test:
@@ -18,11 +18,11 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          package_json_file: 'next/package.json'
+          package_json_file: "next/package.json"
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: "20"
+          cache: "pnpm"
           cache-dependency-path: next/pnpm-lock.yaml
       - run: cd next && pnpm install && pnpm test:coverage
       - name: Upload coverage artifact
