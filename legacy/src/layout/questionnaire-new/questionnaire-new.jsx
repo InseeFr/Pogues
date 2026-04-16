@@ -38,11 +38,12 @@ function validateAndSubmit(
 function QuestionnaireNew({
   onCancel,
   onSuccess,
-  stamp,
   createQuestionnaire,
   setErrors,
 }) {
-  const { getAccessToken } = useContext(AuthContext);
+  const { getAccessToken, decodedIdToken } = useContext(AuthContext);
+
+  const stamp = decodedIdToken.timbre;
 
   const validate = (setErrorsAction) => (values) =>
     validateQuestionnaireForm(values, setErrorsAction);
@@ -66,6 +67,7 @@ function QuestionnaireNew({
         onSuccess,
         getAccessToken,
       )}
+      stamp={stamp}
     />
   );
 }

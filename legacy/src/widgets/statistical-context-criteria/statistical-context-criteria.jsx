@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { Field } from 'redux-form';
+
+import { AuthContext } from '@/auth/context';
 
 import { TCM } from '../../constants/pogues-constants';
 import GenericOption from '../../forms/controls/generic-option';
@@ -13,7 +15,6 @@ import { requiredSelect } from '../../utils/validation/validate-rules';
 
 const StatisticalContextCriteria = (props) => {
   const {
-    token,
     selectedSerie,
     selectedOperation,
     campaigns,
@@ -28,22 +29,26 @@ const StatisticalContextCriteria = (props) => {
     loadCampaignsIfNeeded,
   } = props;
 
+  const { getAccessToken } = useContext(AuthContext);
+
   const [selectedSerieState, setSelectedSerieState] = useState();
   const [selectedOperationState, setSelectedOperationState] = useState();
 
   useEffect(() => {
-    loadSeriesIfNeeded(token);
-    if (selectedSerie !== selectedSerieState) {
-      loadOperationsIfNeeded(token, selectedSerie);
-      setSelectedSerieState(selectedSerie);
-    }
+    getAccessToken().then((accessToken) => {
+      loadSeriesIfNeeded(accessToken);
+      if (selectedSerie !== selectedSerieState) {
+        loadOperationsIfNeeded(accessToken, selectedSerie);
+        setSelectedSerieState(selectedSerie);
+      }
 
-    if (selectedOperation !== selectedOperationState) {
-      loadCampaignsIfNeeded(selectedOperation, token);
-      setSelectedOperationState(selectedOperation);
-    }
+      if (selectedOperation !== selectedOperationState) {
+        loadCampaignsIfNeeded(selectedOperation, accessToken);
+        setSelectedOperationState(selectedOperation);
+      }
+    });
   }, [
-    token,
+    getAccessToken,
     selectedSerie,
     selectedOperation,
     selectedOperationState,
@@ -136,7 +141,6 @@ const StatisticalContextCriteria = (props) => {
 // PropTypes and defaultProps
 
 StatisticalContextCriteria.propTypes = {
-  token: PropTypes.string,
   series: PropTypes.array,
   operations: PropTypes.array,
   campaigns: PropTypes.array,
@@ -151,7 +155,6 @@ StatisticalContextCriteria.propTypes = {
   loadCampaignsIfNeeded: PropTypes.func.isRequired,
 };
 StatisticalContextCriteria.defaultProps = {
-  token: '',
   series: [],
   multipleCampaign: false,
   required: false,
