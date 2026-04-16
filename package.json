@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "3.1.0-rc-crash-missing-codeList.0",
+  "version": "3.1.0-rc-load-units.0",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "test:next": "cd next && pnpm test",
