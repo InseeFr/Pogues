@@ -211,7 +211,7 @@ function remoteToStateMeasure(remote) {
     response: {
       CodeListReference,
       VariableReference,
-      optionFilter,
+      OptionFilter,
       Datatype,
       conditionFilter,
       conditionReadOnly,
@@ -237,7 +237,7 @@ function remoteToStateMeasure(remote) {
           Datatype,
           VariableReference,
           choiceType,
-          optionFilter,
+          OptionFilter,
           CollectedVariableReference,
         },
       ],

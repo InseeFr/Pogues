@@ -72,7 +72,7 @@ export function stateToRemote(
 
     case CHOICE_TYPE.VARIABLE:
       model.VariableReference = variableReferenceId;
-      model.optionFilter = optionFilter;
+      model.OptionFilter = optionFilter;
       break;
 
     default:

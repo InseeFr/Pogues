@@ -14,7 +14,7 @@ type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
   VariableReference?: unknown;
-  optionFilter?: string;
+  OptionFilter?: string;
   choiceType?:
     | CHOICE_TYPE.CODE_LIST
     | CHOICE_TYPE.SUGGESTER
@@ -48,7 +48,7 @@ export type StateResponseFormatSingle = {
     }
   | {
       visHint?: // Filter based on lunatic new components ?
-        | DATATYPE_VIS_HINT.CHECKBOX
+      | DATATYPE_VIS_HINT.CHECKBOX
         | DATATYPE_VIS_HINT.RADIO
         | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string; optionFilter?: string };
@@ -67,7 +67,7 @@ export function remoteToState(remote: {
         CodeListReference,
         VariableReference,
         id,
-        optionFilter,
+        OptionFilter,
       },
     ],
   } = remote;
@@ -98,7 +98,7 @@ export function remoteToState(remote: {
       ...baseState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: {
         id: VariableReference as string,
-        optionFilter: optionFilter,
+        optionFilter: OptionFilter,
       },
       visHint,
     };
