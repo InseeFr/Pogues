@@ -8,6 +8,13 @@ type ImportMetaEnv = {
   VITE_OIDC_CLIENT_ID: string
   VITE_OIDC_SCOPES: string
   VITE_ENABLE_PAIRING_RECAP: string
+  VITE_ACTIVE_NAMESPACES: string
+  VITE_CUSTOMIZE_URL: string
+  VITE_TROMBI_URL: string
+  VITE_DEFAULT_USER_ID: string
+  VITE_DEFAULT_USER_NAME: string
+  VITE_DEFAULT_USER_STAMP: string
+  VITE_LOG_LEVEL: string
   BASE_URL: string
   MODE: string
   DEV: boolean

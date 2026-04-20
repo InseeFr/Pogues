@@ -304,7 +304,7 @@ describe('questionnaire', () => {
                     CodeListReference: 'jf0w3fab',
                     CollectedVariableReference: 'jf0vqq4j',
                     Datatype: {
-                      MaxLength: 1,
+                      MaxLength: 249,
                       type: 'TextDatatypeType',
                       typeName: 'TEXT',
                       visualizationHint: 'CHECKBOX',

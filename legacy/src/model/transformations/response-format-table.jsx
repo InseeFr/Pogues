@@ -378,7 +378,7 @@ function stateToResponseState(state, primaryType) {
       nomenclatureId,
       variableReferenceId,
       typeName: TEXT,
-      maxLength: 1,
+      maxLength: 249,
       visHint,
       choiceType,
     };

@@ -28,7 +28,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReferenceLabel: 'my-cl',
         choiceType: 'CODE_LIST',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
     ]);
   });
@@ -65,7 +65,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReference: 'my-cl-id',
         codeListReferenceLabel: 'my-cl',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
       {
         id: expect.any(String),
@@ -124,7 +124,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReferenceLabel: 'my-cl',
         choiceType: 'CODE_LIST',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
       {
         id: 'var2',
@@ -186,7 +186,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReferenceLabel: 'my-cl',
         choiceType: 'CODE_LIST',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
       {
         id: 'var2',
@@ -246,7 +246,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReferenceLabel: 'my-cl',
         choiceType: 'CODE_LIST',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
     ]);
   });
@@ -269,7 +269,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReferenceLabel: 'my-nomenclature',
         choiceType: 'SUGGESTER',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
       {
         id: expect.any(String),
@@ -301,7 +301,7 @@ describe('getCollectedVariablesSingle', () => {
         codeListReferenceLabel: 'my-nomenclature',
         choiceType: 'SUGGESTER',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
     ]);
   });
@@ -329,7 +329,7 @@ describe('getCollectedVariablesSingle', () => {
         variableReferenceLabel: 'my-variableRef',
         choiceType: 'VARIABLE',
         type: 'TEXT',
-        TEXT: { maxLength: 1 },
+        TEXT: { maxLength: 249 },
       },
     ]);
   });
