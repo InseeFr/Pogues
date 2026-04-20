@@ -15,6 +15,7 @@ export const defaultState = {
   codeListReferenceLabel: '',
   variableReference: '',
   variableReferenceLabel: '',
+  optionFilter: '',
   choiceType: '',
   isCollected: '1',
   alternativeLabel: '',
@@ -33,6 +34,7 @@ export const defaultForm = {
   codeListReferenceLabel: '',
   variableReference: '',
   variableReferenceLabel: '',
+  optionFilter: '',
   choiceType: '',
   isCollected: '1',
   alternativeLabel: '',
@@ -58,6 +60,7 @@ export function formToState(form, codesListsStore = {}) {
     codeListReferenceLabel,
     variableReference,
     variableReferenceLabel,
+    optionFilter,
     choiceType,
     isCollected,
     alternativeLabel,
@@ -83,6 +86,7 @@ export function formToState(form, codesListsStore = {}) {
     codeListReferenceLabel,
     variableReference,
     variableReferenceLabel: resolvedVariableReferenceLabel,
+    optionFilter,
     choiceType,
   };
 }
@@ -119,6 +123,7 @@ export function storeToForm(currentStore) {
         codeListReferenceLabel,
         variableReference,
         variableReferenceLabel,
+        optionFilter,
         choiceType,
       } = currentStore[key];
       return {
@@ -137,6 +142,7 @@ export function storeToForm(currentStore) {
         codeListReferenceLabel,
         variableReference,
         variableReferenceLabel,
+        optionFilter,
         choiceType,
       };
     });

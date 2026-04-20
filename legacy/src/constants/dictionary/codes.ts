@@ -46,4 +46,8 @@ export const codesDictionary: Dictionary = {
     fr: `Modifier le filtre`,
     en: `Modify filter`,
   },
+  modalityFilter: {
+    fr: `Filtre de modalités`,
+    en: `Modality filter`,
+  },
 };

@@ -57,6 +57,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.0](https://github.com/InseeFr/Pogues/releases/tag/3.1.0) - 2026-05-13
 
+### Added
+
+- In a unique choice question with modalities computed from a variable, you can now add a VTL expression for filtering modalities.
+
 ### Fixed
 
 - Questionnaire loading no longer crash when a question uses a code list (or nomenclature) that does not exist anymore. It could happen when an existing question used a previous version of a nomenclature.

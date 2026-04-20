@@ -30,6 +30,7 @@ export type StateResponse = {
   codesListId?: string;
   nomenclatureId?: string;
   variableReferenceId?: string;
+  optionFilter?: string;
   allowArbitraryResponse?: unknown;
   visHint?: DATATYPE_VIS_HINT;
   choiceType?:
@@ -67,6 +68,7 @@ export type RemoteResponse = {
   CollectedVariableReference?: string;
   CodeListReference?: unknown;
   VariableReference?: unknown;
+  optionFilter?: string;
   choiceType?:
     | CHOICE_TYPE.CODE_LIST
     | CHOICE_TYPE.VARIABLE

@@ -6,8 +6,18 @@ import { combineReducers, createStore } from 'redux';
 import { reducer as formReducer, reduxForm } from 'redux-form';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import Input from '@/forms/controls/input';
+
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import ResponseFormatSingleVariable from './response-format-single-variable';
+
+/*
+  Mock InputWithVariableAutoCompletion as the classic Input,
+  since there are errors when importing antlr-editor in tests
+ */
+vi.mock('@/forms/controls/control-with-suggestions', () => ({
+  InputWithVariableAutoCompletion: (props) => <Input {...props} />,
+}));
 
 vi.mock('@/forms/controls/select', () => ({
   default: ({ children, label, name, onChange }) => (
@@ -85,9 +95,23 @@ describe('responseFormatSingleVariable', () => {
     vi.clearAllMocks();
   });
 
-  it('should render with scope select and visHint select', () => {
+  it('should render with scope select', () => {
     const { getByText } = renderWithStore(<ResponseFormatSingleVariable />);
     expect(getByText(Dictionary.selectLoop)).toBeInTheDocument();
+  });
+
+  it('should render with variable select', () => {
+    const { getByTestId } = renderWithStore(<ResponseFormatSingleVariable />);
+    expect(getByTestId('variables-list')).toBeInTheDocument();
+  });
+
+  it('should render with option filter field', () => {
+    const { getByText } = renderWithStore(<ResponseFormatSingleVariable />);
+    expect(getByText(Dictionary.modalityFilter)).toBeInTheDocument();
+  });
+
+  it('should render with visHint select', () => {
+    const { getByText } = renderWithStore(<ResponseFormatSingleVariable />);
     expect(getByText(Dictionary.radio)).toBeInTheDocument();
     expect(getByText(Dictionary.checkbox)).toBeInTheDocument();
     expect(getByText(Dictionary.dropdown)).toBeInTheDocument();

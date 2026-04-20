@@ -82,6 +82,7 @@ describe('response format single', () => {
             },
             CollectedVariableReference: 'my-var-id',
             VariableReference: 'my-variable-id',
+            optionFilter: 'nice filter',
             mandatory: true,
             choiceType: CHOICE_TYPE.VARIABLE,
           },
@@ -89,7 +90,7 @@ describe('response format single', () => {
       };
       const output = remoteToState(remote);
       const expected = {
-        Variable: { id: 'my-variable-id' },
+        Variable: { id: 'my-variable-id', optionFilter: 'nice filter' },
         id: 'my-response-id',
         mandatory: true,
         choiceType: 'VARIABLE',
@@ -167,7 +168,7 @@ describe('stateToRemote', () => {
       mandatory: true,
       visHint: DATATYPE_VIS_HINT.RADIO,
       choiceType: CHOICE_TYPE.VARIABLE,
-      Variable: { id: 'my-variable-id' },
+      Variable: { id: 'my-variable-id', optionFilter: 'nice filter' },
     };
     const collectedVariables = ['my-var-id'];
     const output = stateToRemote(state, collectedVariables);
@@ -182,6 +183,7 @@ describe('stateToRemote', () => {
             typeName: 'TEXT',
             visualizationHint: 'RADIO',
           },
+          optionFilter: 'nice filter',
           choiceType: 'VARIABLE',
           id: 'my-response-id',
           mandatory: true,

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Field, FormSection } from 'redux-form';
 import { formValueSelector } from 'redux-form';
 
+import { InputWithVariableAutoCompletion } from '@/forms/controls/control-with-suggestions';
 import ListRadios from '@/forms/controls/list-radios';
 import Select from '@/forms/controls/select';
 
@@ -57,6 +58,16 @@ function ResponseFormatSingleVariable({
         selectorPathParent={selectorPathParent}
         scope={selectedScope}
       />
+
+      <FormSection name={selectorPath}>
+        <Field
+          name="optionFilter"
+          type="text"
+          component={InputWithVariableAutoCompletion}
+          label={Dictionary.modalityFilter}
+          required={false}
+        />
+      </FormSection>
 
       <Field
         name="visHint"

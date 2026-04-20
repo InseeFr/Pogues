@@ -38,6 +38,7 @@ export function stateToRemote(
     codesListId,
     nomenclatureId,
     variableReferenceId,
+    optionFilter,
     choiceType,
     allowArbitraryResponse,
     visHint: visualizationHint,
@@ -71,6 +72,7 @@ export function stateToRemote(
 
     case CHOICE_TYPE.VARIABLE:
       model.VariableReference = variableReferenceId;
+      model.optionFilter = optionFilter;
       break;
 
     default:
