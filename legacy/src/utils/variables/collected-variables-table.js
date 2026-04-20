@@ -171,6 +171,10 @@ export function getReponsesValues(measure) {
           choiceType === CHOICE_TYPE.VARIABLE
             ? measure[SINGLE_CHOICE][listPath].label
             : '',
+        optionFilter:
+          choiceType === CHOICE_TYPE.VARIABLE
+            ? measure[SINGLE_CHOICE][listPath].optionFilter
+            : '',
       };
     }
     default:

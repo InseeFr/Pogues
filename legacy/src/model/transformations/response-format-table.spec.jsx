@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
+import { CHOICE_TYPE } from '@/constants/pogues-constants';
+
 import { remoteToState, stateToRemote } from './response-format-table';
+
+const { CODE_LIST, SUGGESTER, VARIABLE } = CHOICE_TYPE;
 
 describe('remoteToState', () => {
   it('should use an offset equal to 1', () => {
@@ -230,7 +234,7 @@ describe('remoteToState', () => {
             type: 'TextDatatypeType',
             MaxLength: 1,
           },
-          choiceType: 'SUGGESTER',
+          choiceType: SUGGESTER,
           CollectedVariableReference: 'mbz5jjxv',
         },
         {
@@ -242,7 +246,20 @@ describe('remoteToState', () => {
             type: 'TextDatatypeType',
             MaxLength: 1,
           },
-          choiceType: 'CODE_LIST',
+          choiceType: CODE_LIST,
+          CollectedVariableReference: 'mbz5crwv',
+        },
+        {
+          id: 'mbh8ke14',
+          VariableReference: 'kdyg5y7',
+          optionFilter: 'nice filter',
+          Datatype: {
+            typeName: 'TEXT',
+            visualizationHint: 'RADIO',
+            type: 'TextDatatypeType',
+            MaxLength: 1,
+          },
+          choiceType: VARIABLE,
           CollectedVariableReference: 'mbz5crwv',
         },
       ],
@@ -260,7 +277,11 @@ describe('remoteToState', () => {
         },
         {
           dimensionType: 'MEASURE',
-          Label: 'measure-radio',
+          Label: 'measure-codeList-radio',
+        },
+        {
+          dimensionType: 'MEASURE',
+          Label: 'measure-variable-radio',
         },
       ],
     };
@@ -283,7 +304,7 @@ describe('remoteToState', () => {
             id: undefined,
             mandatory: undefined,
             visHint: 'SUGGESTER',
-            choiceType: 'SUGGESTER',
+            choiceType: SUGGESTER,
           },
           label: 'measure-suggester',
           type: 'SINGLE_CHOICE',
@@ -294,9 +315,20 @@ describe('remoteToState', () => {
             id: undefined,
             mandatory: undefined,
             visHint: 'RADIO',
-            choiceType: 'CODE_LIST',
+            choiceType: CODE_LIST,
           },
-          label: 'measure-radio',
+          label: 'measure-codeList-radio',
+          type: 'SINGLE_CHOICE',
+        },
+        {
+          SINGLE_CHOICE: {
+            Variable: { id: 'kdyg5y7', optionFilter: 'nice filter' },
+            id: undefined,
+            mandatory: undefined,
+            visHint: 'RADIO',
+            choiceType: VARIABLE,
+          },
+          label: 'measure-variable-radio',
           type: 'SINGLE_CHOICE',
         },
       ],
