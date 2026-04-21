@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import {
+  CHOICE_TYPE,
+  DATATYPE_VIS_HINT,
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DIMENSION_FORMATS,
+} from '@/constants/pogues-constants';
+
 import { remoteToState, stateToRemote } from './response-format-multiple';
 
 describe('response format multiple', () => {
@@ -235,6 +242,127 @@ describe('response format multiple', () => {
             id: 'my-response-id-2',
             CollectedVariableReference: 'my-var-id-2',
             Datatype: { type: 'BooleanDatatypeType', typeName: 'BOOLEAN' },
+          },
+        ],
+      });
+    });
+
+    it('Correctly compute remote data for CODES_LIST measure type', () => {
+      const state = {
+        mandatory: true,
+        PRIMARY: { CodesList: { id: 'my-cl-id' } },
+        MEASURE: {
+          type: DIMENSION_FORMATS.CODES_LIST,
+          [DIMENSION_FORMATS.CODES_LIST]: {
+            [DEFAULT_CODES_LIST_SELECTOR_PATH]: { id: 'codes-list-id' },
+            choiceType: CHOICE_TYPE.CODE_LIST,
+            visHint: DATATYPE_VIS_HINT.RADIO,
+          },
+        },
+      };
+      const collectedVariables = ['my-var-id-1', 'my-var-id-2'];
+      const collectedVariablesStore = {
+        'my-var-id-2': {
+          BOOLEAN: {},
+          DATE: undefined,
+          DURATION: undefined,
+          NUMERIC: undefined,
+          TEXT: { maxLength: 249 },
+          codeListReference: 'codes-list-id',
+          codeListReferenceLabel: 'codes-list-label',
+          id: 'my-var-id-2',
+          isCollected: '1',
+          label: '2 - lib2',
+          mesureLevel: undefined,
+          name: 'QUESTIONTA2',
+          type: 'TEXT',
+          x: 2,
+          y: Number.NaN,
+          z: undefined,
+        },
+        'my-var-id-1': {
+          BOOLEAN: {},
+          DATE: undefined,
+          DURATION: undefined,
+          NUMERIC: undefined,
+          TEXT: { maxLength: 249 },
+          codeListReference: 'codes-list-id',
+          codeListReferenceLabel: 'codes-list-label',
+          id: 'my-var-id-1',
+          isCollected: '1',
+          label: '1 - lib1',
+          mesureLevel: undefined,
+          name: 'QUESTIONTA1',
+          type: 'TEXT',
+          x: 1,
+          y: Number.NaN,
+          z: undefined,
+        },
+      };
+      const response = [
+        {
+          CollectedVariableReference: 'my-var-id-1',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+          },
+          id: 'my-response-id-1',
+        },
+        {
+          CollectedVariableReference: 'my-var-id-2',
+          Datatype: {
+            typeName: 'TEXT',
+            type: 'TextDatatypeType',
+          },
+          id: 'my-response-id-2',
+        },
+      ];
+
+      const output = stateToRemote(
+        state,
+        collectedVariables,
+        collectedVariablesStore,
+        response,
+      );
+
+      expect(output).toEqual({
+        Attribute: [],
+        Dimension: [
+          {
+            CodeListReference: 'my-cl-id',
+            dimensionType: 'PRIMARY',
+            dynamic: 'NON_DYNAMIC',
+          },
+          { dimensionType: 'MEASURE' },
+        ],
+        Mapping: [
+          { MappingSource: 'my-response-id-1', MappingTarget: '1' },
+          { MappingSource: 'my-response-id-2', MappingTarget: '2' },
+        ],
+        Response: [
+          {
+            id: 'my-response-id-1',
+            CollectedVariableReference: 'my-var-id-1',
+            Datatype: {
+              type: 'TextDatatypeType',
+              typeName: 'TEXT',
+              MaxLength: 249,
+              visualizationHint: DATATYPE_VIS_HINT.RADIO,
+            },
+            choiceType: CHOICE_TYPE.CODE_LIST,
+            CodeListReference: 'codes-list-id',
+          },
+          {
+            id: 'my-response-id-2',
+            CollectedVariableReference: 'my-var-id-2',
+            Datatype: {
+              type: 'TextDatatypeType',
+              typeName: 'TEXT',
+              MaxLength: 249,
+              visualizationHint: DATATYPE_VIS_HINT.RADIO,
+            },
+            choiceType: CHOICE_TYPE.CODE_LIST,
+            CodeListReference: 'codes-list-id',
           },
         ],
       });
