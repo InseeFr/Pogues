@@ -1,13 +1,12 @@
-import { Variable } from '@/models/variables';
+import { Variable } from "@/models/variables";
 
-import CreateVariableForm from './CreateVariableForm';
-import { Scopes } from '@/models/scopes';
+import CreateVariableForm from "./CreateVariableForm";
 
 type Props = {
   /** Questionnaire to add the variable to. */
   questionnaireId: string;
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes?: Scopes;
+  scopes: Map<string, string>;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
 };

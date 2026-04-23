@@ -1,34 +1,33 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { t } from 'i18next';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "@tanstack/react-router";
+import { t } from "i18next";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 
-import Field from '@/components/ui/form/Field';
-import Form from '@/components/ui/form/Form';
-import Input from '@/components/ui/form/Input';
-import NumberField from '@/components/ui/form/NumberField';
-import RadioGroup from '@/components/ui/form/RadioGroup';
-import Select from '@/components/ui/form/Select';
-import Switch from '@/components/ui/form/Switch';
-import VTLEditor from '@/components/ui/form/VTLEditor';
-import { DatatypeType, DateFormat } from '@/models/datatype';
-import { type Variable, VariableType } from '@/models/variables';
+import Field from "@/components/ui/form/Field";
+import Form from "@/components/ui/form/Form";
+import Input from "@/components/ui/form/Input";
+import NumberField from "@/components/ui/form/NumberField";
+import RadioGroup from "@/components/ui/form/RadioGroup";
+import Select from "@/components/ui/form/Select";
+import Switch from "@/components/ui/form/Switch";
+import VTLEditor from "@/components/ui/form/VTLEditor";
+import { DatatypeType, DateFormat } from "@/models/datatype";
+import { type Variable, VariableType } from "@/models/variables";
 
-import { datatypeOptions, dateFormatOptions } from './consts';
-import { type FormValues, schema } from './schema';
-import { convertToValidName } from './utils/name';
-import { Scopes } from '@/models/scopes';
+import { datatypeOptions, dateFormatOptions } from "./consts";
+import { type FormValues, schema } from "./schema";
+import { convertToValidName } from "./utils/name";
 
 type Props = {
   questionnaireId: string;
   /** In an update case, initial questionnaire value. */
-  variable?: Omit<Variable, 'id'>;
+  variable?: Omit<Variable, "id">;
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
   /** Label to display on the submit button */
   submitLabel: string;
   /** Available scopes with the mapping between id and name. */
-  scopes?: Scopes;
+  scopes: Map<string, string>;
   /** List of variables used for auto-completion in VTL editor. */
   variables?: Variable[];
 };
@@ -45,9 +44,9 @@ type Props = {
 export default function VariableForm({
   questionnaireId,
   variable = {
-    name: '',
-    description: '',
-    scope: '',
+    name: "",
+    description: "",
+    scope: "",
     datatype: { typeName: DatatypeType.Text, maxLength: 249 },
     type: VariableType.External,
   },
@@ -65,13 +64,13 @@ export default function VariableForm({
     setError,
     watch,
   } = useForm<FormValues>({
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: variable,
     resolver: zodResolver(schema),
   });
 
-  const selectedType = watch('type');
-  const selectedTypeName = watch('datatype.typeName');
+  const selectedType = watch("type");
+  const selectedTypeName = watch("datatype.typeName");
 
   const isDatatypeTypeNameDisabled =
     selectedType === VariableType.External &&
@@ -91,7 +90,7 @@ export default function VariableForm({
   /** Ignore dirty state and return to the variables page. */
   const handleCancel = () => {
     navigate({
-      to: '/questionnaire/$questionnaireId/variables',
+      to: "/questionnaire/$questionnaireId/variables",
       params: { questionnaireId },
       ignoreBlocker: true,
     });
@@ -119,7 +118,7 @@ export default function VariableForm({
               dirty={isDirty}
               error={error}
               invalid={invalid}
-              label={t('variable.type.label')}
+              label={t("variable.type.label")}
               name={name}
               required
               touched={isTouched}
@@ -127,11 +126,11 @@ export default function VariableForm({
               <RadioGroup
                 options={[
                   {
-                    label: t('variable.type.external'),
+                    label: t("variable.type.external"),
                     value: VariableType.External,
                   },
                   {
-                    label: t('variable.type.calculated'),
+                    label: t("variable.type.calculated"),
                     value: VariableType.Calculated,
                   },
                 ]}
@@ -155,7 +154,7 @@ export default function VariableForm({
               dirty={isDirty}
               error={error}
               invalid={invalid}
-              label={t('variable.isDeletedOnReset')}
+              label={t("variable.isDeletedOnReset")}
               name={name}
               touched={isTouched}
             >
@@ -180,13 +179,13 @@ export default function VariableForm({
             dirty={isDirty}
             error={error}
             invalid={invalid}
-            label={t('variable.name')}
+            label={t("variable.name")}
             name={name}
             required
             touched={isTouched}
           >
             <Input
-              placeholder={t('variable.form.name.placeholder')}
+              placeholder={t("variable.form.name.placeholder")}
               value={value}
               onValueChange={(v) => onChange(convertToValidName(v))}
             />
@@ -204,7 +203,7 @@ export default function VariableForm({
             dirty={isDirty}
             error={error}
             invalid={invalid}
-            label={t('variable.description')}
+            label={t("variable.description")}
             name={name}
             required
             touched={isTouched}
@@ -226,7 +225,7 @@ export default function VariableForm({
               dirty={isDirty}
               error={error}
               invalid={invalid}
-              label={t('variable.formula')}
+              label={t("variable.formula")}
               name={name}
               onChange={onChange}
               required
@@ -250,18 +249,20 @@ export default function VariableForm({
             dirty={isDirty}
             error={error}
             invalid={invalid}
-            label={t('variable.scope')}
+            label={t("variable.scope")}
             name={name}
             required
             touched={isTouched}
           >
             <Select<string>
               options={[
-                { label: t('common.questionnaire'), value: '' },
-                ...Array.from(scopes ?? new Map<string, string>()).map(([id, name]) => ({
-                  label: name,
-                  value: id,
-                })),
+                { label: t("common.questionnaire"), value: "" },
+                ...Array.from(scopes ?? new Map<string, string>()).map(
+                  ([id, name]) => ({
+                    label: name,
+                    value: id,
+                  }),
+                ),
               ]}
               value={value}
               onChange={onChange}
@@ -281,7 +282,7 @@ export default function VariableForm({
             dirty={isDirty}
             error={error}
             invalid={invalid}
-            label={t('variable.datatype.label')}
+            label={t("variable.datatype.label")}
             name={name}
             required
             touched={isTouched}
@@ -308,7 +309,7 @@ export default function VariableForm({
               dirty={isDirty}
               error={error}
               invalid={invalid}
-              label={t('variable.format')}
+              label={t("variable.format")}
               name={name}
               required
               touched={isTouched}
@@ -336,7 +337,7 @@ export default function VariableForm({
                 dirty={isDirty}
                 error={error}
                 invalid={invalid}
-                label={t('variable.minimum')}
+                label={t("variable.minimum")}
                 name={name}
                 required
                 touched={isTouched}
@@ -361,7 +362,7 @@ export default function VariableForm({
                 dirty={isDirty}
                 error={error}
                 invalid={invalid}
-                label={t('variable.maximum')}
+                label={t("variable.maximum")}
                 name={name}
                 required
                 touched={isTouched}
@@ -386,7 +387,7 @@ export default function VariableForm({
                 dirty={isDirty}
                 error={error}
                 invalid={invalid}
-                label={t('variable.precision')}
+                label={t("variable.precision")}
                 name={name}
                 touched={isTouched}
               >
@@ -413,7 +414,7 @@ export default function VariableForm({
               dirty={isDirty}
               error={error}
               invalid={invalid}
-              label={t('variable.maxLength')}
+              label={t("variable.maxLength")}
               name={name}
               required
               touched={isTouched}
