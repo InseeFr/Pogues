@@ -95,7 +95,7 @@ export function remoteToStore(
       choiceType,
       codeListReference: CodeListReference,
       codeListReferenceLabel: CodeListReference
-        ? codesListsStore[CodeListReference].label
+        ? (codesListsStore[CodeListReference]?.label ?? '')
         : '',
       variableReference: VariableReference,
       variableReferenceLabel: VariableReference

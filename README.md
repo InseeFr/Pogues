@@ -67,5 +67,5 @@ The legacy client can be launched in standalone if the new client is not needed:
 ```bash
 cd legacy
 pnpm i
-pnpm start
+pnpm dev
 ```

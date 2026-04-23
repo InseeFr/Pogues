@@ -5,6 +5,8 @@ import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import Dictionary from '../../utils/dictionary/dictionary';
 import QuestionnaireListComponents from './questionnaire-list-components';
 
+vi.mock('@/auth/context');
+
 vi.mock('../../hooks/useReadonly', () => ({
   useReadonly: vi.fn(() => false),
 }));

@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "3.0.0",
+  "version": "3.1.0-rc-load-units.0",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "test:next": "cd next && pnpm test",
@@ -16,7 +16,7 @@
     "preview": "vite preview"
   },
   "license": "MIT",
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",

@@ -302,6 +302,46 @@ describe('collected variable tranformations', () => {
         ),
       ).toEqual(output);
     });
+
+    test('should handle CodeListReference not in codesListsStore', () => {
+      const input = [
+        {
+          id: 'test-id',
+          Name: 'TEST_VAR',
+          Label: 'Test Variable',
+          type: 'CollectedVariableType',
+          CodeListReference: 'non-existent-id',
+          Datatype: {
+            typeName: TEXT,
+            MaxLength: 100,
+          },
+        },
+      ];
+      const responsesByVariable = { 'test-id': {} };
+      const codesListsStore = {}; // 'non-existent-id' is not in this store
+      const output = {
+        'test-id': {
+          id: 'test-id',
+          name: 'TEST_VAR',
+          label: 'Test Variable',
+          type: TEXT,
+          choiceType: 'CODE_LIST',
+          codeListReference: 'non-existent-id',
+          codeListReferenceLabel: '', // empty label since it cannot be retrieved from codesListsStore
+          variableReferenceLabel: '',
+          [TEXT]: {
+            maxLength: 100,
+          },
+          arbitraryVariableOfVariableId: undefined,
+          mesureLevel: undefined,
+          variableReference: undefined,
+          z: undefined,
+        },
+      };
+      expect(
+        remoteToStore(input, responsesByVariable, codesListsStore),
+      ).toEqual(output);
+    });
   });
   describe('remoteToComponentState', () => {
     test('should return the state representation of a collected variable', () => {

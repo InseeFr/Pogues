@@ -13,6 +13,8 @@ const WrappedStatisticalContextCriteria = reduxForm({
   form: 'testForm', // you can use any form name
 })(StatisticalContextCriteria);
 
+vi.mock('@/auth/context');
+
 describe('<StatisticalContextCriteria />', () => {
   let props;
 
@@ -178,8 +180,11 @@ describe('<StatisticalContextCriteria />', () => {
         </Provider>,
       );
 
-      // hook called once at begin
-      expect(props.loadSeriesIfNeeded).toHaveBeenCalledOnce();
+      // Wait for the async getAccessToken().then() to complete
+      await vi.waitFor(() => {
+        expect(props.loadSeriesIfNeeded).toHaveBeenCalledOnce();
+        expect(props.loadSeriesIfNeeded).toHaveBeenCalledWith('test-token');
+      });
     });
 
     test(
@@ -227,7 +232,7 @@ describe('<StatisticalContextCriteria />', () => {
     test(
       'Should call "loadCampaignsIfNeeded" at the beginning using the selected serie passed as prop and when the ' +
         'selected serie changes using the new value only if the prop campaigns exists',
-      () => {
+      async () => {
         const spyLoadCampaignsIfNeeded = vi.fn();
         const selectedOperationFirst = 'FAKE_ID_01';
         const selectedOperationSecond = 'FAKE_ID_02';
@@ -245,8 +250,14 @@ describe('<StatisticalContextCriteria />', () => {
             <WrappedStatisticalContextCriteria {...props} />
           </Provider>,
         );
-
-        expect(props.loadCampaignsIfNeeded).toHaveBeenCalledOnce();
+        // Wait for the async getAccessToken().then() to complete
+        await vi.waitFor(() => {
+          expect(props.loadCampaignsIfNeeded).toHaveBeenCalledOnce();
+          expect(props.loadCampaignsIfNeeded).toHaveBeenCalledWith(
+            'FAKE_ID_01',
+            'test-token',
+          );
+        });
 
         // Clear mock call history before rerender
         props.loadCampaignsIfNeeded.mockClear();
@@ -260,10 +271,15 @@ describe('<StatisticalContextCriteria />', () => {
           </Provider>,
         );
 
-        expect(props.loadCampaignsIfNeeded).toHaveBeenCalledOnce();
+        await vi.waitFor(() => {
+          expect(props.loadCampaignsIfNeeded).toHaveBeenCalledOnce();
+          expect(props.loadCampaignsIfNeeded).toHaveBeenCalledWith(
+            'FAKE_ID_02',
+            'test-token',
+          );
+        });
 
         // Campaigns exists
-
         props.campaigns = [];
 
         // Clear mock call history before rerender

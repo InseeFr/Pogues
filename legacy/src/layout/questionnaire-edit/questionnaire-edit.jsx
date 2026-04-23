@@ -1,4 +1,8 @@
+import { useContext } from 'react';
+
 import PropTypes from 'prop-types';
+
+import { AuthContext } from '@/auth/context';
 
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import { Component as ComponentFactory } from '../../model';
@@ -88,6 +92,8 @@ function QuestionnaireNew({
   activeCollectedVariablesById,
   activeCodeListsById,
 }) {
+  const { decodedIdToken } = useContext(AuthContext);
+  const stamp = decodedIdToken.timbre;
   const validate = (setErrorsAction) => (values) =>
     validateQuestionnaireForm(values, setErrorsAction);
   // Initial values
@@ -113,6 +119,7 @@ function QuestionnaireNew({
         activeCollectedVariablesById,
         activeCodeListsById,
       )}
+      stamp={stamp}
     />
   );
 }
