@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next'
 
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
 
-import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
-import Filters from '@/components/ui/Filters';
-import { DatatypeType } from '@/models/datatype';
-import { type Filter, FilterType } from '@/models/filters';
-import { type Variable, VariableType } from '@/models/variables';
+import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink'
+import Filters from '@/components/ui/Filters'
+import { DatatypeType } from '@/models/datatype'
+import { type Filter, FilterType } from '@/models/filters'
+import { type Variable, VariableType } from '@/models/variables'
 
-import VariablesScopeOverviewItem from './VariablesScopeOverviewItem';
+import VariablesScopeOverviewItem from './VariablesScopeOverviewItem'
 
 interface Props {
-  questionnaireId: string;
-  readonly?: boolean;
-  variables: Variable[];
+  questionnaireId: string
+  readonly?: boolean
+  variables: Variable[]
 }
 
 /** Display the variables of the selected questionnaire. */
@@ -22,11 +22,11 @@ export default function VariablesOverview({
   readonly = false,
   variables = [],
 }: Readonly<Props>) {
-  const { t } = useTranslation();
-  const scopes = new Set<string>();
+  const { t } = useTranslation()
+  const scopes = new Set<string>()
 
   const [filteredVariables, setFilteredVariables] =
-    useState<Variable[]>(variables);
+    useState<Variable[]>(variables)
 
   const filters: Filter<Variable>[] = [
     {
@@ -78,14 +78,14 @@ export default function VariablesOverview({
       ],
       type: FilterType.ToggleGroup,
     },
-  ];
+  ]
 
   const sortedVariables = filteredVariables.toSorted((a, b) =>
     a.name.localeCompare(b.name),
-  );
+  )
   variables.forEach((v) => {
-    if (v.scope) scopes.add(v.scope);
-  });
+    if (v.scope) scopes.add(v.scope)
+  })
 
   if (variables.length > 0) {
     return (
@@ -113,7 +113,7 @@ export default function VariablesOverview({
           ))}
         </div>
       </>
-    );
+    )
   }
 
   if (readonly) {
@@ -121,7 +121,7 @@ export default function VariablesOverview({
       <div>
         <p>{t('variables.questionnaireHasNoVariables')}</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -132,5 +132,5 @@ export default function VariablesOverview({
     >
       {t('variables.create')}
     </ButtonLink>
-  );
+  )
 }

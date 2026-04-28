@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next'
 
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
 
-import ExpandButton from '@/components/ui/ExpandButton';
-import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import ExpandButton from '@/components/ui/ExpandButton'
+import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire'
 
 interface PersonalizationContentTileProps {
-  data: PersonalizationQuestionnaire;
-  children: React.ReactNode;
+  data: PersonalizationQuestionnaire
+  children: React.ReactNode
 }
 
 /** Display the personalization windows as a wrapper */
@@ -15,8 +15,8 @@ export default function PersonalizationContentTile({
   data,
   children,
 }: Readonly<PersonalizationContentTileProps>) {
-  const { t } = useTranslation();
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const { t } = useTranslation()
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
   return (
     <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto] my-2">
@@ -38,5 +38,5 @@ export default function PersonalizationContentTile({
         />
       </div>
     </div>
-  );
+  )
 }

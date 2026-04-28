@@ -1,5 +1,5 @@
-import { oidcSpa } from "oidc-spa/react-spa";
-import { z } from "zod";
+import { oidcSpa } from 'oidc-spa/react-spa'
+import { z } from 'zod'
 
 const decodedIdTokenSchema = z.object({
   family_name: z.string().optional(),
@@ -8,29 +8,29 @@ const decodedIdTokenSchema = z.object({
   realm_access: z.object({
     roles: z.array(z.string()),
   }),
-});
+})
 
 export const DEFAULT_STAMP = (import.meta.env.VITE_DEFAULT_USER_STAMP ||
-  "FAKEPERMISSION") as string;
+  'FAKEPERMISSION') as string
 
-const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || "profile,roles").split(
-  ",",
-);
+const oidcScopes = (import.meta.env.VITE_OIDC_SCOPES || 'profile,roles').split(
+  ',',
+)
 
 export type DecodedIdTokenType =
   | z.infer<typeof decodedIdTokenSchema>
-  | undefined;
+  | undefined
 
 export const { bootstrapOidc, getOidc, useOidc } = oidcSpa
   .withExpectedDecodedIdTokenShape({
     decodedIdTokenSchema: decodedIdTokenSchema,
   })
-  .createUtils();
+  .createUtils()
 
 bootstrapOidc(
-  import.meta.env.VITE_OIDC_ENABLED === "true"
+  import.meta.env.VITE_OIDC_ENABLED === 'true'
     ? {
-        implementation: "real",
+        implementation: 'real',
         // Configure your OIDC provider in `.env.local`
         clientId: import.meta.env.VITE_OIDC_CLIENT_ID,
         issuerUri: import.meta.env.VITE_OIDC_ISSUER,
@@ -41,22 +41,22 @@ bootstrapOidc(
       }
     : {
         // Mock mode: no requests to an auth server are made.
-        implementation: "mock",
+        implementation: 'mock',
         isUserInitiallyLoggedIn: true,
         decodedIdToken_mock: {
-          given_name: import.meta.env.VITE_DEFAULT_USER_NAME ?? "Guybrush",
-          family_name: "",
+          given_name: import.meta.env.VITE_DEFAULT_USER_NAME ?? 'Guybrush',
+          family_name: '',
           timbre: DEFAULT_STAMP,
           realm_access: {
-            roles: ["user"],
+            roles: ['user'],
           },
         },
       },
-);
+)
 
 export const getAccessToken = async () => {
-  const oidc = await getOidc();
-  if (!oidc.isUserLoggedIn) return undefined;
+  const oidc = await getOidc()
+  if (!oidc.isUserLoggedIn) return undefined
 
-  return await oidc.getAccessToken();
-};
+  return await oidc.getAccessToken()
+}

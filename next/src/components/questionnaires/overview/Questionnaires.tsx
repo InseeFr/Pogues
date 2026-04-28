@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
-import { useNavigate } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
 
-import Field from '@/components/ui/form/Field';
-import Input from '@/components/ui/form/Input';
-import { Questionnaire } from '@/models/questionnaires';
-import { Stamp } from '@/models/stamps';
+import Field from '@/components/ui/form/Field'
+import Input from '@/components/ui/form/Input'
+import { Questionnaire } from '@/models/questionnaires'
+import { Stamp } from '@/models/stamps'
 
-import StampsSelector from './StampsSelector';
-import TableQuestionnaires from './TableQuestionnaires';
+import StampsSelector from './StampsSelector'
+import TableQuestionnaires from './TableQuestionnaires'
 
 interface QuestionnairesProps {
-  selectedStamp: string;
-  stamps?: Stamp[];
-  questionnaires?: Questionnaire[];
+  selectedStamp: string
+  stamps?: Stamp[]
+  questionnaires?: Questionnaire[]
 }
 
 /** Display the page with the questionnaires and various filters options. */
@@ -23,17 +23,17 @@ export default function Questionnaires({
   stamps = [],
   questionnaires = [],
 }: Readonly<QuestionnairesProps>) {
-  const { t } = useTranslation();
-  const [filter, setFilter] = useState<string>('');
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const [filter, setFilter] = useState<string>('')
+  const navigate = useNavigate()
 
   /** Change page based on stamp chosen from the selector. */
   function handleStampSelection(stamp: string | null) {
-    const search = stamp ? { stamp } : undefined;
+    const search = stamp ? { stamp } : undefined
     navigate({
       to: '/questionnaires',
       search,
-    });
+    })
   }
 
   return (
@@ -62,12 +62,12 @@ export default function Questionnaires({
             return (
               q.title.toLowerCase().includes(filter.toLowerCase()) ||
               q.id.toLowerCase().includes(filter.toLowerCase())
-            );
+            )
           })}
         />
       ) : (
         <div>{t('common.loading')}</div>
       )}
     </>
-  );
+  )
 }

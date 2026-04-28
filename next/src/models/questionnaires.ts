@@ -1,19 +1,19 @@
-import type { Articulation } from "./articulation";
-import type { CodesList } from "./codesLists";
+import type { Articulation } from './articulation'
+import type { CodesList } from './codesLists'
 
 export type Questionnaire = {
-  id: string;
-  title: string;
-  targetModes: Set<TargetModes>;
-  lastUpdatedDate?: Date;
-  flowLogic?: FlowLogics;
-  formulasLanguage?: FormulasLanguages;
-  codesLists?: CodesList[];
-  Articulation?: Articulation;
+  id: string
+  title: string
+  targetModes: Set<TargetModes>
+  lastUpdatedDate?: Date
+  flowLogic?: FlowLogics
+  formulasLanguage?: FormulasLanguages
+  codesLists?: CodesList[]
+  Articulation?: Articulation
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes: Map<string, string>;
-  iterations?: Iteration[];
-};
+  scopes: Map<string, string>
+  iterations?: Iteration[]
+}
 
 export enum TargetModes {
   CAWI,
@@ -23,16 +23,16 @@ export enum TargetModes {
 }
 
 export enum FlowLogics {
-  Filter = "FILTER",
-  Redirection = "REDIRECTION",
+  Filter = 'FILTER',
+  Redirection = 'REDIRECTION',
 }
 
 export enum FormulasLanguages {
-  XPath = "XPATH",
-  VTL = "VTL",
+  XPath = 'XPATH',
+  VTL = 'VTL',
 }
 
 export type Iteration = {
-  id: string;
-  name: string;
-};
+  id: string
+  name: string
+}

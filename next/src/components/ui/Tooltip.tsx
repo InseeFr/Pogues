@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { Tooltip as UITooltip } from '@base-ui-components/react/tooltip'
 
-import { Tooltip as UITooltip } from '@base-ui-components/react/tooltip';
+import * as React from 'react'
 
 interface TooltipProps {
-  children: React.ReactNode;
+  children: React.ReactNode
   /** Text to display in the tooltip popup. */
-  title: React.ReactNode;
+  title: React.ReactNode
 }
 
 /**
@@ -29,7 +29,7 @@ export default function Tooltip({ children, title }: Readonly<TooltipProps>) {
         </UITooltip.Portal>
       </UITooltip.Root>
     </UITooltip.Provider>
-  );
+  )
 }
 
 function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
@@ -48,5 +48,5 @@ function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
         className="dark:fill-gray-300"
       />
     </svg>
-  );
+  )
 }

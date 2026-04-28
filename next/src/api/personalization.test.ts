@@ -1,31 +1,31 @@
-import nock from 'nock';
-import { vi } from 'vitest';
+import nock from 'nock'
+import { vi } from 'vitest'
 
 import {
   PersonalizationQuestionnaire,
   SurveyContextEnum,
   SurveyContextValueEnum,
-} from '@/models/personalizationQuestionnaire';
+} from '@/models/personalizationQuestionnaire'
 
-import { instancePersonalization } from './instancePersonalization';
+import { instancePersonalization } from './instancePersonalization'
 import {
   addQuestionnaireData,
   deleteQuestionnaireData,
   getAllInterrogationData,
   getPublicEnemyDataFromPogues,
-} from './personalization';
+} from './personalization'
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc')
 
 beforeAll(() => {
-  vi.stubEnv('VITE_PERSONALIZATION_URL', 'https://mock-personalization-api');
-  instancePersonalization.defaults.baseURL = 'https://mock-personalization-api';
-});
+  vi.stubEnv('VITE_PERSONALIZATION_URL', 'https://mock-personalization-api')
+  instancePersonalization.defaults.baseURL = 'https://mock-personalization-api'
+})
 
 afterAll(() => {
-  vi.unstubAllEnvs();
-  nock.cleanAll();
-});
+  vi.unstubAllEnvs()
+  nock.cleanAll()
+})
 const mockData: PersonalizationQuestionnaire = {
   id: '1',
   poguesId: '1',
@@ -41,7 +41,7 @@ const mockData: PersonalizationQuestionnaire = {
   interrogationData: undefined,
   isOutdated: false,
   state: 'COMPLETED',
-};
+}
 
 const mockInterrogationData = {
   CAPI: [
@@ -55,41 +55,43 @@ const mockInterrogationData = {
   ],
   PAPI: [],
   CATI: [],
-};
+}
 
 it('Get personalization data works', async () => {
   nock('https://mock-personalization-api')
     .get('/questionnaires/my-questionnaire')
-    .reply(200, mockData);
+    .reply(200, mockData)
 
-  const res = await getPublicEnemyDataFromPogues('my-questionnaire');
-  expect(res).toEqual(mockData);
-});
+  const res = await getPublicEnemyDataFromPogues('my-questionnaire')
+  expect(res).toEqual(mockData)
+})
 
 it('Delete personalization data throws on 404', async () => {
   nock('https://mock-personalization-api')
     .delete('/questionnaires/my-questionnaire')
-    .reply(404);
+    .reply(404)
 
-  await expect(deleteQuestionnaireData('my-questionnaire')).rejects.toMatchObject({
+  await expect(
+    deleteQuestionnaireData('my-questionnaire'),
+  ).rejects.toMatchObject({
     response: { status: 404 },
-  });
-});
+  })
+})
 
 it('Get interrogation data works', async () => {
   nock('https://mock-personalization-api')
     .get('/questionnaires/my-questionnaire/interrogations')
-    .reply(200, mockInterrogationData);
+    .reply(200, mockInterrogationData)
 
-  const res = await getAllInterrogationData('my-questionnaire');
-  expect(res).toEqual(mockInterrogationData);
-});
+  const res = await getAllInterrogationData('my-questionnaire')
+  expect(res).toEqual(mockInterrogationData)
+})
 
 it('Add questionnaire data works', async () => {
   nock('https://mock-personalization-api')
     .post('/questionnaires')
-    .reply(201, mockData);
+    .reply(201, mockData)
 
-  const res = await addQuestionnaireData(mockData);
-  expect(res).toEqual(mockData);
-});
+  const res = await addQuestionnaireData(mockData)
+  expect(res).toEqual(mockData)
+})

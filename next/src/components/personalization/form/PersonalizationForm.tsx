@@ -1,24 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import Papa, { type ParseResult } from 'papaparse'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import Papa, { type ParseResult } from 'papaparse';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useRef, useState } from 'react'
 
 import {
   checkInterrogationsData,
   getInitialCsvSchema,
   personalizationKeys,
-} from '@/api/personalization';
-import { getFileFromParseResult } from '@/api/utils/personalization';
-import Button, { ButtonStyle } from '@/components/ui/Button';
-import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
-import DialogButton from '@/components/ui/DialogButton';
-import Field from '@/components/ui/form/Field';
-import FormInput from '@/components/ui/form/FormInput';
-import RadioGroup from '@/components/ui/form/RadioGroup';
-import DeleteIcon from '@/components/ui/icons/DeleteIcon';
+} from '@/api/personalization'
+import { getFileFromParseResult } from '@/api/utils/personalization'
+import Button, { ButtonStyle } from '@/components/ui/Button'
+import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
+import DialogButton from '@/components/ui/DialogButton'
+import Field from '@/components/ui/form/Field'
+import FormInput from '@/components/ui/form/FormInput'
+import RadioGroup from '@/components/ui/form/RadioGroup'
+import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import {
   FileType,
   PersonalizationQuestionnaire,
@@ -26,18 +26,18 @@ import {
   SurveyContextEnum,
   SurveyContextValueEnum,
   UploadMessage,
-} from '@/models/personalizationQuestionnaire';
+} from '@/models/personalizationQuestionnaire'
 
-import UploadMessageTile from '../overview/UploadMessageTile';
-import CsvViewerTable from './CsvViewerTable';
-import JsonViewer from './JsonViewer';
+import UploadMessageTile from '../overview/UploadMessageTile'
+import CsvViewerTable from './CsvViewerTable'
+import JsonViewer from './JsonViewer'
 
 interface PersonalizationFormProps {
-  questionnaireId: string;
-  questionnaire: PersonalizationQuestionnaire;
-  setQuestionnaire: (questionnaire: PersonalizationQuestionnaire) => void;
-  handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void;
-  fileData?: ParseResult<unknown> | string | null;
+  questionnaireId: string
+  questionnaire: PersonalizationQuestionnaire
+  setQuestionnaire: (questionnaire: PersonalizationQuestionnaire) => void
+  handleSubmit: (questionnaire: PersonalizationQuestionnaire) => void
+  fileData?: ParseResult<unknown> | string | null
 }
 
 /** Display the personalization windows */
@@ -48,13 +48,11 @@ export default function PersonalizationForm({
   fileData = null,
   handleSubmit = () => {},
 }: Readonly<PersonalizationFormProps>) {
-  const { t } = useTranslation();
-  const emptyFileInputRef = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
-  const [isErrorUpload, setIsErrorUpload] = useState<boolean>(false);
-  const [uploadMessage, setUploadMessage] = useState<UploadMessage | null>(
-    null,
-  );
+  const { t } = useTranslation()
+  const emptyFileInputRef = useRef<HTMLInputElement>(null)
+  const queryClient = useQueryClient()
+  const [isErrorUpload, setIsErrorUpload] = useState<boolean>(false)
+  const [uploadMessage, setUploadMessage] = useState<UploadMessage | null>(null)
 
   const surveyContext: SurveyContext[] = [
     {
@@ -65,7 +63,7 @@ export default function PersonalizationForm({
       name: SurveyContextEnum.BUSINESS,
       value: SurveyContextValueEnum.BUSINESS,
     },
-  ];
+  ]
   const fileTypes: FileType[] = [
     {
       name: t('personalization.create.csvDescription'),
@@ -75,51 +73,51 @@ export default function PersonalizationForm({
       name: t('personalization.create.jsonDescription'),
       value: 'application/json',
     },
-  ];
+  ]
   const [fileType, setFileType] = useState<FileType>(
     typeof fileData === 'string' && fileData
       ? fileTypes[1] // JSON
       : fileTypes[0], // CSV
-  );
+  )
   const [parsedFileData, setParsedFileData] = useState<
     ParseResult<unknown> | string | null
-  >(null);
+  >(null)
 
   useEffect(() => {
     if (fileData) {
-      setParsedFileData(fileData);
+      setParsedFileData(fileData)
       if (typeof fileData !== 'string' && 'data' in fileData) {
-        setFileType(fileTypes[0]); // CSV
+        setFileType(fileTypes[0]) // CSV
       } else {
-        setFileType(fileTypes[1]); // JSON
+        setFileType(fileTypes[1]) // JSON
       }
       setQuestionnaire({
         ...questionnaire,
         interrogationData: getFileFromParseResult(fileData),
-      });
+      })
     }
-  }, [fileData]);
+  }, [fileData])
 
   const checkFileData = useMutation({
     mutationFn: (file: File) => {
       return checkInterrogationsData(questionnaireId, file).then((response) => {
-        setUploadMessage(response as UploadMessage);
-        setIsErrorUpload(false);
-      });
+        setUploadMessage(response as UploadMessage)
+        setIsErrorUpload(false)
+      })
     },
     onError: (error: AxiosError) => {
-      toast.error(t('personalization.create.uploadError'));
-      setUploadMessage(error.response?.data as UploadMessage);
-      console.error('File data checked with error:', error);
-      setIsErrorUpload(true);
+      toast.error(t('personalization.create.uploadError'))
+      setUploadMessage(error.response?.data as UploadMessage)
+      console.error('File data checked with error:', error)
+      setIsErrorUpload(true)
     },
     onSuccess: () => {
-      toast.success(t('personalization.create.uploadSuccess'));
+      toast.success(t('personalization.create.uploadSuccess'))
       queryClient.invalidateQueries({
         queryKey: personalizationKeys.checkFileData(questionnaireId),
-      });
+      })
     },
-  });
+  })
 
   const onContextChange = (context: SurveyContext) => {
     setQuestionnaire({
@@ -129,79 +127,79 @@ export default function PersonalizationForm({
         name: context.name,
         value: context.value,
       },
-    });
-  };
+    })
+  }
 
   const onFileTypeChange = (fileType: FileType) => {
-    setFileType(fileType);
-    onRemoveFile();
-  };
+    setFileType(fileType)
+    onRemoveFile()
+  }
 
   const onRemoveFile = () => {
-    setParsedFileData(null);
+    setParsedFileData(null)
     setQuestionnaire({
       ...questionnaire,
       interrogationData: undefined,
-    });
-    setIsErrorUpload(false);
-    setUploadMessage(null);
-  };
+    })
+    setIsErrorUpload(false)
+    setUploadMessage(null)
+  }
 
   const onInterrogationDataChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const fileList = event.target.files;
+    const fileList = event.target.files
     if (!fileList || fileList.length === 0) {
-      return;
+      return
     }
-    onRemoveFile();
-    const file = fileList[0];
+    onRemoveFile()
+    const file = fileList[0]
 
     if (file.type !== fileType.value) {
       toast.error(
         t('personalization.create.invalidFileType', {
           expected: fileType.value,
         }),
-      );
-      event.target.value = '';
-      return;
+      )
+      event.target.value = ''
+      return
     }
     if (fileType.value === 'application/json') {
       file.text().then((text) => {
-        setParsedFileData(text);
-      });
+        setParsedFileData(text)
+      })
     } else {
       Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
         complete: (result: ParseResult<unknown>) => {
-          setParsedFileData(result);
+          setParsedFileData(result)
         },
-      });
+      })
     }
     setQuestionnaire({
       ...questionnaire,
       interrogationData: fileList[0],
-    });
-    checkFileData.mutate(file);
-  };
+    })
+    checkFileData.mutate(file)
+  }
 
   const { refetch: fetchCsvSchema } = useQuery({
     queryKey: personalizationKeys.csvSchema(questionnaireId),
     queryFn: async () => {
-      const result = await getInitialCsvSchema(questionnaireId);
-      return result ?? null;
+      const result = await getInitialCsvSchema(questionnaireId)
+      return result ?? null
     },
     enabled: false,
-  });
+  })
 
   function onDownload() {
-    const promise = fetchCsvSchema();
+    const promise = fetchCsvSchema()
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('personalization.create.downloadSuccess'),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   return (
@@ -216,9 +214,9 @@ export default function PersonalizationForm({
               }))}
               defaultValue={questionnaire.context?.name}
               onValueChange={(value: unknown) => {
-                const selected = surveyContext.find((c) => c.name === value);
+                const selected = surveyContext.find((c) => c.name === value)
                 if (selected) {
-                  onContextChange(selected);
+                  onContextChange(selected)
                 }
               }}
             />
@@ -236,9 +234,9 @@ export default function PersonalizationForm({
               }))}
               defaultValue={fileType.value}
               onValueChange={(value: unknown) => {
-                const selected = fileTypes.find((t) => t.value === value);
+                const selected = fileTypes.find((t) => t.value === value)
                 if (selected) {
-                  onFileTypeChange(selected);
+                  onFileTypeChange(selected)
                 }
               }}
             />
@@ -319,5 +317,5 @@ export default function PersonalizationForm({
         />
       </div>
     </div>
-  );
+  )
 }

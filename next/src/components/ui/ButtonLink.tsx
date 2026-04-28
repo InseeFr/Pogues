@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { LinkComponent, createLink } from '@tanstack/react-router'
 
-import { LinkComponent, createLink } from '@tanstack/react-router';
+import * as React from 'react'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export enum ButtonStyle {
@@ -10,8 +10,8 @@ export enum ButtonStyle {
 
 interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   // Add any additional props you want to pass to the anchor element
-  buttonStyle?: ButtonStyle;
-  disabled?: boolean;
+  buttonStyle?: ButtonStyle
+  disabled?: boolean
 }
 
 const AnchorButtonComponent = React.forwardRef<
@@ -31,16 +31,16 @@ const AnchorButtonComponent = React.forwardRef<
     ref,
   ) => {
     const baseClass =
-      'inline-block text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary';
+      'inline-block text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary'
 
     const primaryClass =
-      'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed';
+      'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed'
 
     const secondaryClass =
-      'bg-white text-primary hover:bg-accent active:bg-active border-primary disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-not-allowed';
+      'bg-white text-primary hover:bg-accent active:bg-active border-primary disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-not-allowed'
 
     const buttonClass =
-      buttonStyle === ButtonStyle.Primary ? primaryClass : secondaryClass;
+      buttonStyle === ButtonStyle.Primary ? primaryClass : secondaryClass
 
     return (
       <a
@@ -52,7 +52,7 @@ const AnchorButtonComponent = React.forwardRef<
         onKeyDown={
           disabled
             ? (e) => {
-                if (e.key === 'Enter' || e.key === ' ') e.preventDefault();
+                if (e.key === 'Enter' || e.key === ' ') e.preventDefault()
               }
             : onKeyDown
         }
@@ -60,14 +60,14 @@ const AnchorButtonComponent = React.forwardRef<
       >
         {children}
       </a>
-    );
+    )
   },
-);
+)
 
-const CreatedLinkComponent = createLink(AnchorButtonComponent);
+const CreatedLinkComponent = createLink(AnchorButtonComponent)
 
 const ButtonLink: LinkComponent<typeof AnchorButtonComponent> = (props) => {
-  return <CreatedLinkComponent {...props} />;
-};
+  return <CreatedLinkComponent {...props} />
+}
 
-export default ButtonLink;
+export default ButtonLink
