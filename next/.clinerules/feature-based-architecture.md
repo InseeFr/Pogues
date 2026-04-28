@@ -10,112 +10,83 @@
 ## Structure Globale
 
 ```bash
-sabiane-gestion-ui-v2/
-├── public/                  # Ressources statiques
-├── src/
-│   ├── assets/             # Ressources visuelles et médias
-│   ├── components/         # Tous les composants UI
-│   │   ├── Commons/        # Composants partagés et génériques
-│   │   │   ├── MonitoringLayout.tsx
-│   │   │   ├── QueryState/
-│   │   │   ├── Tables/
-│   │   │   └── ...         # Autres composants réutilisables
-│   │   │
-│   │   └── pages/          # Composants de pages par domaine fonctionnel
-│   │       ├── follow/     # Suivi (enquêteurs, sites, etc.)
-│   │       │   ├── interviewer/
-│   │       │   │   ├── Interviewer.tsx
-│   │       │   │   ├── AdvancementSurvey.tsx
-│   │       │   │   ├── CollectSurvey.tsx
-│   │       │   │   └── ...
-│   │       │   ├── site/
-│   │       │   │   ├── FollowCampaignTable.tsx
-│   │       │   │   └── ...
-│   │       │   └── survey/
-│   │       │       └── ...
-│   │       └── ...         # Autres domaines fonctionnels
-│   │
-│   ├── functions/          # Fonctions utilitaires et hooks personnalisés
-│   │   ├── columnDefinitions.ts
-│   │   ├── fetch.ts
-│   │   ├── formatValue.ts
-│   │   ├── getCollectRow.ts
-│   │   ├── getFollowRow.ts
-│   │   ├── hasPermission.ts
-│   │   ├── interviewerTab.ts
-│   │   ├── surveyTab.ts
-│   │   ├── titleManager.tsx
-│   │   ├── useInterviewerTitle.ts
-│   │   ├── usePagination.ts
-│   │   ├── useTableSort.ts
-│   │   └── ...             # Autres utilitaires
-│   │
-│   ├── gen/                # Code généré automatiquement
-│   │   └── pilotageApi/    # Clients API générés par Orval
-│   │
-│   ├── libs/               # Bibliothèques internes
-│   │   └── i18n/           # Internationalisation
-│   │       ├── locales/
-│   │       └── ...
-│   │
-│   ├── routes/             # Définition des routes
-│   │   ├── root.tsx
-│   │   ├── follow/         # Routes de suivi
-│   │   │   ├── interviewer/
-│   │   │   │   └── index.tsx
-│   │   │   └── ...
-│   │   ├── informations-utiles/
-│   │   ├── my-surveys/
-│   │   └── ...             # Autres routes
-│   │
-│   ├── tests/              # Configuration et utilitaires de test
-│   │   ├── setup.ts
-│   │   └── tests.tsx
-│   │
-│   ├── types/              # Types TypeScript
-│   │   ├── follow/         # Types pour le suivi
-│   │   ├── home/           # Types pour l'accueil
-│   │   └── ...             # Autres types par domaine
-│   │
-│   ├── index.css
-│   ├── main.tsx            # Point d'entrée
-│   ├── oidc.ts             # Configuration keycloak
-│   ├── router.tsx          # Configuration principale du routage
-│   ├── theme.tsx           # Thème de l'application
-│   └── vite-env.d.ts
-│
-└── ...                     # Autres fichiers de configuration
+src/
+├── api/                  # API services and models
+├── components/           # Reusable UI components
+│   ├── articulation/     # Articulation feature components
+│   ├── codesLists/       # Codes lists feature components
+│   │   └── create/       # Codes lists creation components
+│   │   └── edit/         # Codes lists edition components
+│   │   └── form/         # Codes lists form components
+│   │   └── overview/     # Codes lists overview components
+│   ├── layout/           # Layout components
+│   ├── legacy/           # Legacy integration components
+│   ├── login/            # Login components
+│   ├── multimode/        # Multimode feature components
+│   ├── nomenclatures/    # Nomenclatures feature components
+│   ├── personalization/  # Personalization feature components
+│   ├── questionnaires/   # Questionnaires feature components
+│   ├── ui/               # UI utility components
+│   ├── variables/        # Variables feature components
+│   └── versions/         # Versions feature components
+├── hooks/               # Custom React hooks
+├── lib/                 # Library utilities
+│   ├── auth/             # Authentication utilities
+│   └── i18n/             # Internationalization utilities
+├── models/              # Data models and types
+├── routes/              # Application routes
+│   ├── __root.tsx       # Root route configuration
+│   ├── _layout.tsx      # Main layout route
+│   ├── index.tsx        # Home route (redirects to questionnaires)
+│   ├── _layout/         # Layout-specific routes
+│   │   ├── login.tsx    # Login route
+│   │   ├── questionnaire.$questionnaireId/  # Questionnaire-specific routes
+│   │   └── questionnaires/  # Questionnaires routes
+│   │       ├── index.tsx # Questionnaires list
+│   │       ├── new.tsx   # New questionnaire
+│   │       └── route.tsx # Questionnaires base route
+├── testing/             # Testing utilities
+└── utils/               # Utility functions
 ```
 
 ## Bonnes Pratiques
 
 1. **Organisation des Composants** :
-   - `components/Commons/` : Composants UI génériques et réutilisables
-   - `components/pages/` : Composants spécifiques aux pages, organisés par domaine fonctionnel
+   - `components/ui/` : Composants UI génériques et réutilisables
+   - `components/` : Composants spécifiques aux pages, organisés par domaine fonctionnel
+   - `components/{{feature}/overview}`: Composants d'affichage de chaque page racine de chaque feature. Le composant racine de chaque page suit la convention `{{Feature}}Overview` (ex: `CodeListsOverview`)
+   - Les sous composants de chaque pages sont organisés de manière fine dans des fichiers dédiés selon la convention `{{Feature}}{{SubComponent}}` (ex: `CodeListsOverviewLayout`, `CodeListsOverviewContent`, `CodeListsOverviewItem`, etc)
    - Chaque composant de page est autonome et peut utiliser des sous-composants
+   - Chaque sous composant est unitaire et réutilisable, et peut être testé indépendamment
 
-2. **Fonctions Utilitaires** :
-   - `functions/` : Contient tous les hooks personnalisés et fonctions utilitaires
-   - Les hooks suivent la convention `useXxx` (ex: `useInterviewerTitle`)
-   - Les fonctions utilitaires sont organisées par domaine fonctionnel
+2. **Organisation des formulaires de création/d'édition** :
+   - Les squelettes de formulaires sont organisés dans `components/{{feature}}/form` pour une meilleure visibilité, et utilisent le composant `Form` de `components/ui/` pour la structure générale du formulaire
+   - La validation du schéma de données est gérée dans des fichiers dédiés (ex: `components/codeLists/form/schema.ts`) et utilisent Zod et useForm de React Hook Form
+   - Les formulaires de création et d'édition sont organisés dans des dossiers dédiés (ex: `components/codeLists/create/` pour le formulaire de création de questionnaire, `components/codeLists/edit/` pour le formulaire d'édition)
 
-3. **Gestion des Routes** :
+3. **Fonctions Utilitaires** :
+   - `hooks/` : Contient tous les hooks personnalisés
+   - Les hooks suivent la convention `useXxx` (ex: `useUsers`)
+   - Les autres fonctions utilitaires sont regroupées dans `utils/` ou `lib/` selon leur nature (ex: `lib/auth/` pour les fonctions d'authentification)
+
+4. **Gestion des Routes** :
    - Utilisation de TanStack Router pour un routage déclaratif
    - Les routes sont organisées par domaine fonctionnel
-   - Chaque route définit son composant et ses métadonnées
+   - Les routes suivent une logique hiérarchique (ex: `/questionnaire/:id/articulation`)
+   - Les sous routes sont définies dans des fichiers dédiés pour une meilleure organisation (ex: `questionnaire.$questionnaireId/articulation/route.tsx`)
 
-4. **Gestion d'État** :
-   - État local : `useState` et `useMemo` dans les composants
-   - État distant : TanStack Query pour les appels API
-   - État de routage : TanStack Router pour la navigation
+5. **Gestion des appels API** :
+   - Utilisation de React Query pour la gestion des appels API
+   - Les appels API utilisent l'instance Axios pré-configurée dans `lib/api/instance.ts`
+   - Les requêtes API sont définies dans des fichiers dédiés (ex: `lib/api/codeLists.ts`)
+   - Les clés de requêtes sont organisées de manière logique (ex: `codeListsQueryOptions(questionnaireId)`) dans ce même fichier, et utilisées directement dans les composants et hooks
 
-5. **Internationalisation** :
-   - Utilisation de react-i18next pour la gestion des traductions
-   - Fichiers de traduction organisés dans `libs/i18n/locales/`
-
-6. **Typage** :
-   - Types TypeScript organisés par domaine dans `types/`
+6. **Typage générique** :
+   - Types TypeScript organisés par domaine dans `models/`
    - Interfaces et types partagés accessibles globalement
+
+7. **Gestion des librairies** :
+   - Les fonctions relatives à l'utilisation de librairies externes sont regroupées dans `lib/`
 
 ## Patterns Recommandés
 
@@ -123,23 +94,33 @@ sabiane-gestion-ui-v2/
 
 ```typescript
 // Exemple de hook personnalisé
-export const useInterviewerTitle = (page: string, id: string | undefined) => {
-  const { t } = useTranslation()
-  const { data: interviewers } = useGetListInterviewers()
+export function useAltIcon() {
+  const [showAltIcon, setShowAltIcon] = useState(false)
+  const clickCountRef = useRef(0)
+  const lastClickTimeRef = useRef(0)
+  const spinnerTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const fullName = useMemo(() => {
-    const interviewer = interviewers?.find((i) => i.id === id)
-    if (!interviewer) return null
+  const handleClick = () => {
+    const now = Date.now()
+    if (now - lastClickTimeRef.current < 500) {
+      clickCountRef.current += 1
+    } else {
+      clickCountRef.current = 1
+    }
+    lastClickTimeRef.current = now
 
-    return `${interviewer.interviewerFirstName ?? ''} ${interviewer.interviewerLastName ?? ''}`.trim()
-  }, [interviewers, id])
+    if (clickCountRef.current >= 3) {
+      setShowAltIcon(true)
+      clickCountRef.current = 0
+      if (spinnerTimeoutRef.current) clearTimeout(spinnerTimeoutRef.current)
+      spinnerTimeoutRef.current = setTimeout(() => setShowAltIcon(false), 5000)
+    }
+  }
 
-  // Effet secondaire pour mettre à jour le titre de la page
-  useEffect(() => {
-    // ... logique de mise à jour du titre
-  }, [fullName, id, t])
-
-  return { fullName }
+  return {
+    handleClick,
+    showAltIcon,
+  }
 }
 ```
 
@@ -147,64 +128,179 @@ export const useInterviewerTitle = (page: string, id: string | undefined) => {
 
 ```typescript
 // Exemple de composant de page
-export const InterviewerCollectSurvey = () => {
+interface CodesListsProps {
+  codesLists?: CodesList[]
+  questionnaireId: string
+  readonly?: boolean
+}
+
+/**
+ * Display the codes lists of the selected questionnaire and allow to edit them
+ * or create a new one.
+ */
+export default function CodesListsOverview({
+  codesLists = [],
+  questionnaireId,
+  readonly = false,
+}: Readonly<CodesListsProps>) {
   const { t } = useTranslation()
-  const { id } = interviewerCollectSurveyByIdRoute.useParams()
-  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs())
 
-  const {
-    data: campaigns,
-    isLoading,
-    isError,
-  } = useGetInterviewerCampaignsCollection(id, {
-    day: selectedDate?.format('YYYY-MM-DD') ?? '',
-  })
+  const [filteredCodesLists, setFilteredCodesLists] =
+    useState<CodesList[]>(codesLists)
 
-  useInterviewerTitle(t('menu.monitor.collectPerSurvey'), id)
+  const filters: Filter<CodesList>[] = [
+    {
+      label: t('codesLists.notUsed'),
+      onFilter: (v: CodesList, filter: string[] = []) =>
+        filter.includes('notUsed')
+          ? !v.relatedQuestionNames || v.relatedQuestionNames.length === 0
+          : true,
+      options: [{ label: t('codesLists.notUsed'), value: 'notUsed' }],
+      type: FilterType.ToggleGroup,
+    },
+    {
+      label: t('codesLists.name'),
+      onFilter: (v: CodesList, input?: string) =>
+        input ? v.label.toLowerCase().includes(input.toLowerCase()) : true,
+      placeholder: t('codesLists.search'),
+      type: FilterType.Text,
+    },
+  ]
 
-  const columns = getCollectSurveyColumns(t)
-
-  const onChangeDate = (date: Dayjs | null) => {
-    setSelectedDate(date)
+  if (codesLists.length > 0) {
+    return (
+      <>
+        <Filters<CodesList>
+          filters={filters}
+          data={codesLists}
+          setFilteredData={setFilteredCodesLists}
+        />
+        <ul>
+          {filteredCodesLists.map((codesList) => (
+            <CodesListOverviewItem
+              key={codesList.id}
+              questionnaireId={questionnaireId}
+              codesList={codesList}
+              readonly={readonly}
+            />
+          ))}
+        </ul>
+      </>
+    )
   }
 
-  const rows: CollectSurveyRowType[] = useMemo(() => {
+  if (readonly) {
     return (
-      campaigns?.map((d) => ({
-        campaignLabel: formatString(d.campaignLabel),
-        ...getCollectRow(d),
-      })) ?? []
+      <div>
+        <p>{t('codesLists.notUsedByQuestionnaire')}</p>
+      </div>
     )
-  }, [campaigns])
+  }
 
   return (
-    <TableContainer title={t('collect.title')} titleType={'h2'}>
-      <CollectTable
-        rows={rows}
-        isLoading={isLoading}
-        isError={isError}
-        date={selectedDate}
-        onChangeDate={onChangeDate}
-        searchParam="campaignLabel"
-        columns={columns}
-      />
-    </TableContainer>
+    <ButtonLink
+      to="/questionnaire/$questionnaireId/codes-lists/new"
+      params={{ questionnaireId }}
+      buttonStyle={ButtonStyle.Primary}
+    >
+      {t('codesLists.create')}
+    </ButtonLink>
   )
 }
+
 ```
 
 3. **Définition de Routes** :
 
 ```typescript
 // Exemple de définition de route
-export const interviewerAdvancementRoute = createRoute({
-  getParentRoute: () => protectedRoute,
-  path: '/enqueteur',
-  component: Interviewer,
-  staticData: {
-    titleKey: 'menu.monitor.titlePageInterviewer',
-  },
-})
+/**
+ * Main code lists page where we display the various codes lists related to our
+ * questionnaire and allow to edit them and create new ones.
+ */
+export const Route = createFileRoute(
+  '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/',
+)({
+  component: RouteComponent,
+  errorComponent: ({ error }) => (
+    <CustomLayout>
+      <ErrorComponent error={error.message} />
+    </CustomLayout>
+  ),
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
+    queryClient.ensureQueryData(codesListsQueryOptions(questionnaireId)),
+});
+
+function RouteComponent() {
+  const questionnaireId = Route.useParams().questionnaireId;
+  const { data: codesLists } = useSuspenseQuery(
+    codesListsQueryOptions(questionnaireId),
+  );
+
+  return (
+    <CustomLayout>
+      <CodesListsOverview
+        questionnaireId={questionnaireId}
+        codesLists={codesLists}
+      />
+    </CustomLayout>
+  );
+}
+
+function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const { questionnaireId } = Route.useParams();
+
+  return (
+    <CodesListOverviewLayout questionnaireId={questionnaireId}>
+      {children}
+    </CodesListOverviewLayout>
+  );
+}
+```
+
+4. ** Gestion des appels API avec React Query** :
+
+```typescript
+// Exemple de gestion d'appel API avec React Query
+export type CodeListError =
+  | CodeListRelatedQuestionError
+  | { errorCode?: string }
+export type CodeListRelatedQuestionError = {
+  errorCode: ERROR_CODES.RELATED_QUESTION_NAMES
+  relatedQuestionNames: string[]
+}
+
+export const codesListsKeys = {
+  all: (questionnaireId: string) => ['codesLists', questionnaireId] as const,
+  version: (questionnaireId: string, versionId: string) =>
+    ['codesListsVersion', questionnaireId, versionId] as const,
+}
+
+/**
+ * Used to retrieve codes lists associated to a questionnaire.
+ *
+ * @see {@link getCodesLists}
+ */
+export const codesListsQueryOptions = (questionnaireId: string) =>
+  queryOptions({
+    queryKey: codesListsKeys.all(questionnaireId),
+    queryFn: () => getCodesLists(questionnaireId),
+  })
+
+/**
+ * Used to retrieve codes lists associated to an older version of a questionnaire.
+ *
+ * @see {@link getCodesListsFromVersion}
+ */
+export const codesListsFromVersionQueryOptions = (
+  questionnaireId: string,
+  versionId: string,
+) =>
+  queryOptions({
+    queryKey: codesListsKeys.version(questionnaireId, versionId),
+    queryFn: () => getCodesListsFromVersion(questionnaireId, versionId),
+    staleTime: Infinity,
+  })
 ```
 
 ## Avantages
@@ -214,19 +310,3 @@ export const interviewerAdvancementRoute = createRoute({
 - **Scalabilité** : Facile à ajouter de nouvelles fonctionnalités
 - **Réutilisabilité** : Composants et fonctions facilement réutilisables
 - **Testabilité** : Modules bien définis faciles à tester
-
-## Gestion des API
-
-Le projet utilise Orval pour générer automatiquement les clients API à partir de la spécification OpenAPI. Les clients générés sont disponibles dans `gen/pilotageApi/` et sont utilisés directement dans les composants et hooks.
-
-Exemple d'utilisation :
-
-```typescript
-import { useGetListInterviewers } from '../gen/pilotageApi/04-interviewers'
-
-const { data, isLoading, error } = useGetListInterviewers()
-```
-
-## Conclusion
-
-Cette architecture basée sur une organisation par type/concern offre une excellente maintenabilité et scalabilité pour l'application Sabiane Gestion UI V2. Elle permet une organisation claire du code tout en restant flexible et adaptable aux évolutions futures, tout en tirant parti des meilleures pratiques modernes de développement React et TypeScript.
