@@ -2,237 +2,296 @@
 
 Tu es un expert vitest, tu n'aimes pas les tests doublons, tu ne fais que les tests nécessaires en respectant les bonnes pratiques de testing, tu détestes les after if et les if inline. Il faut typer le plus possible tout en évitant les any et les unknown
 
-# Analyse des Patterns de Test
+## Structure du Projet de Test
+
+Le projet Pogues utilise une structure de test cohérente à travers ses composants. Voici les patterns identifiés basés sur l'analyse des tests existants dans `next/src/components`.
 
 ## Patterns Identifiés
 
-### 1. Structure Hiérarchique avec describe/it
+### 1. Structure de Base avec describe/it
 
-**Avantages:**
+**Caractéristiques:**
 
-- Organisation claire et logique des tests
-- Groupement des tests par fonctionnalité ou comportement
-- Meilleure lisibilité et maintenabilité
-- Permet de désactiver facilement des groupes de tests
+- Utilisation simple de `describe()` pour regrouper les tests par composant
+- Chaque test utilise `it()` avec des noms descriptifs
+- Pas de nesting excessif - structure plate et simple
 
-**Inconvénients:**
+**Exemple (basé sur MultimodeOverview.test.tsx):**
 
-- Peut devenir trop imbriqué si mal utilisé
-- Risque de duplication de code dans les blocs beforeEach
+```typescript
+import { renderWithRouter } from '@/testing/render';
+
+import MultimodeOverview from './MultimodeOverview';
+
+describe('MultimodeOverview', () => {
+  it('displays multimode rules', async () => {
+    const { getByText } = await renderWithRouter(
+      <MultimodeOverview
+        questionnaireId="q-id"
+        isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
+      />,
+    );
+
+    expect(getByText('my-q-formula')).toBeInTheDocument();
+  });
+});
+```
+
+### 2. Tests de Composants UI
+
+**Caractéristiques:**
+
+- Tests d'intégration avec rendu complet
+- Vérification du comportement utilisateur
+- Utilisation de `@testing-library/react` et `userEvent`
+
+**Exemple (basé sur Dialog.test.tsx):**
+
+```typescript
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { renderWithRouter } from '@/testing/render';
+
+import Dialog from './Dialog';
+
+describe('Dialog', () => {
+  it('can be opened and closed with a trigger button', async () => {
+    const user = userEvent.setup();
+
+    const { queryByText, getByText } = await renderWithRouter(
+      <Dialog body="body" title="title">
+        <button>Open Dialog</button>
+      </Dialog>,
+    );
+
+    const openButton = screen.getByRole('button', { name: 'Open Dialog' });
+    await user.click(openButton);
+
+    expect(getByText('title')).toBeInTheDocument();
+    expect(getByText('body')).toBeInTheDocument();
+    expect(getByText('Cancel')).toBeInTheDocument();
+
+    await user.click(screen.getByText('Cancel'));
+
+    expect(queryByText('title')).toBeNull();
+    expect(queryByText('body')).toBeNull();
+  });
+});
+```
+
+### 3. Tests de Formulaires Complexes
+
+**Caractéristiques:**
+
+- Tests complets de validation de formulaire
+- Vérification des états des boutons basés sur la validité
+- Tests des messages d'erreur et alertes
+- Utilisation de `fireEvent` pour simuler les entrées utilisateur
+
+**Exemple (basé sur CodesListForm.test.tsx):**
+
+```typescript
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+
+import { renderWithRouter } from '@/testing/render';
+
+import CodesListForm from './CodesListForm';
+
+describe('CodesListForm', () => {
+  it('should enable the button only when all fields are filled', async () => {
+    const submitFn = vi.fn();
+    await renderWithRouter(
+      <CodesListForm
+        questionnaireId="q-id"
+        onSubmit={submitFn}
+        variables={[]}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
+    });
+
+    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
+      target: {
+        value: 'my label',
+      },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled();
+    });
+
+    fireEvent.input(screen.getByTestId('codes.0.value'), {
+      target: {
+        value: 'my code value',
+      },
+    });
+    fireEvent.input(screen.getByTestId('codes.0.label'), {
+      target: {
+        value: 'my code label',
+      },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled();
+    });
+  });
+
+  it('should display "must have label" error when empty', async () => {
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
+    );
+
+    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
+      target: { value: 'my label' },
+    });
+    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
+      target: { value: '' },
+    });
+
+    expect(await screen.findAllByRole('alert')).toHaveLength(1);
+    expect(screen.getByText('You must provide a label')).toBeDefined();
+  });
+});
+```
+
+### 4. Mocking des Dépendances
+
+**Caractéristiques:**
+
+- Mocking sélectif des dépendances externes
+- Utilisation de `vi.mock()` pour les modules
+- Mocking partiel pour préserver le comportement réel
+
+**Exemple (basé sur CodesListForm.test.tsx):**
+
+```typescript
+const mockNavigate = vi.fn()
+
+// Mock useNavigate from @tanstack/react-router
+vi.mock('@tanstack/react-router', async () => {
+  const actual = await vi.importActual('@tanstack/react-router')
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
+
+vi.mock('@/components/ui/form/VTLEditor')
+```
+
+### 5. Tests de Comportement Asynchrone
+
+**Caractéristiques:**
+
+- Utilisation systématique de `async/await`
+- `waitFor` pour les assertions asynchrones
+- Gestion propre des promesses
 
 **Exemple:**
 
 ```typescript
-describe('useInterviewerTitle', () => {
-  describe('fullName memoization', () => {
-    it('should return null when no interviewer is found', () => {
-      // ...
-    })
-  })
+it('should handle async form submission', async () => {
+  const submitFn = vi.fn().mockResolvedValue({ success: true });
 
-  describe('document.title side effects', () => {
-    it('should set correct title when interviewer has full name', () => {
-      // ...
-    })
-  })
-})
+  await renderWithRouter(
+    <CodesListForm
+      questionnaireId="q-id"
+      onSubmit={submitFn}
+      variables={[]}
+    />,
+  );
+
+  // Fill form...
+  fireEvent.input(screen.getByTestId('codes.0.value'), {
+    target: { value: 'test' },
+  });
+
+  fireEvent.submit(screen.getByRole('button', { name: /Validate/i }));
+
+  await waitFor(() => {
+    expect(submitFn).toHaveBeenCalled();
+  });
+});
 ```
 
-### 2. Mocking Complet des Dépendances
+## Bonnes Pratiques Observées dans le Projet
 
-**Avantages:**
+1. **Utilisation de renderWithRouter**: Tous les tests de composants utilisent le helper personnalisé pour fournir le contexte de routage
 
-- Isolation totale des tests
-- Contrôle précis des données d'entrée
-- Tests déterministes et reproductibles
-- Pas de dépendances externes (API, services)
+2. **Noms de Tests Clairs**: Convention "should [comportement] when [condition]" systématiquement utilisée
 
-**Inconvénients:**
+3. **Tests Atomiques**: Chaque test vérifie un seul comportement spécifique
 
-- Configuration initiale plus complexe
-- Risque de s'éloigner du comportement réel
-- Maintenance nécessaire si les interfaces changent
+4. **Utilisation de screen**: Préférence pour les queries basées sur `screen` plutôt que les queries de container
 
-**Exemple:**
+5. **Gestion des Événements**: Utilisation appropriée de `fireEvent` et `userEvent` pour simuler les interactions
+
+6. **Assertions Explicites**: Messages d'erreur clairs et vérifications spécifiques
+
+## Recommandations Spécifiques au Projet
+
+1. **Conserver la Structure Simple**: La structure plate avec `describe/it` fonctionne bien pour ce projet
+
+2. **Utiliser les Helpers Existants**: Toujours utiliser `renderWithRouter` pour la cohérence
+
+3. **Privilégier les Queries par Rôle**: Utiliser `getByRole` quand possible pour des tests plus robustes
+
+4. **Tests de Validation**: Pour les formulaires, toujours tester:
+   - État initial (boutons désactivés)
+   - Validation en temps réel
+   - Messages d'erreur
+   - Soumission réussie
+
+5. **Mocking Minimal**: Ne mocker que ce qui est nécessaire, préserver le comportement réel quand possible
+
+6. **Tests Asynchrones**: Toujours utiliser `async/await` et `waitFor` pour les opérations asynchrones
+
+## Exemple Complet de Test de Composant
 
 ```typescript
-const mockUseGetListInterviewers = vi.fn()
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-vi.mock('../gen/pilotageApi/04-interviewers', () => ({
-  useGetListInterviewers: () => mockUseGetListInterviewers(),
-}))
+import { renderWithRouter } from '@/testing/render';
+
+import MyComponent from './MyComponent';
+
+// Mock des dépendances si nécessaire
+vi.mock('./some-dependency', () => ({
+  someFunction: vi.fn(),
+}));
+
+describe('MyComponent', () => {
+  it('should render correctly with required props', async () => {
+    const { getByText } = await renderWithRouter(
+      <MyComponent questionnaireId="test-id" />,
+    );
+
+    expect(getByText('Expected Content')).toBeInTheDocument();
+  });
+
+  it('should handle user interaction', async () => {
+    const user = userEvent.setup();
+
+    await renderWithRouter(<MyComponent questionnaireId="test-id" />);
+
+    const button = screen.getByRole('button', { name: /Action/i });
+    await user.click(button);
+
+    expect(screen.getByText('Result')).toBeInTheDocument();
+  });
+
+  it('should show validation errors when form is invalid', async () => {
+    await renderWithRouter(<MyComponent questionnaireId="test-id" />);
+
+    const input = screen.getByRole('textbox', { name: /Field/i });
+    fireEvent.input(input, { target: { value: '' } });
+
+    expect(await screen.findAllByRole('alert')).toHaveLength(1);
+    expect(screen.getByText('Field is required')).toBeInTheDocument();
+  });
+});
 ```
-
-### 3. Tests des Edge Cases
-
-**Avantages:**
-
-- Couverture complète des scénarios
-- Robustesse du code testé
-- Prévention des bugs en production
-- Meilleure compréhension des limites du code
-
-**Inconvénients:**
-
-- Peut augmenter significativement le nombre de tests
-- Certains edge cases peuvent être très improbables
-- Risque de sur-ingénierie
-
-**Exemple:**
-
-```typescript
-describe('edge cases', () => {
-  it('should handle empty interviewers array', () => {
-    // ...
-  })
-
-  it('should handle undefined interviewers data', () => {
-    // ...
-  })
-
-  it('should handle null interviewer names', () => {
-    // ...
-  })
-})
-```
-
-### 4. Vérification des Effets de Bord
-
-**Avantages:**
-
-- Tests réalistes du comportement complet
-- Vérification des interactions avec l'environnement
-- Détection des fuites de mémoire ou ressources
-
-**Inconvénients:**
-
-- Plus difficile à tester (nécessite des mocks)
-- Peut rendre les tests plus fragiles
-- Nettoyage nécessaire après les tests
-
-**Exemple:**
-
-### 5. Tests d'Intégration avec Composants
-
-**Avantages:**
-
-- Vérification du rendu final
-- Tests plus proches de l'expérience utilisateur
-- Détection des problèmes d'intégration
-
-**Inconvénients:**
-
-- Plus lents à exécuter
-- Plus fragiles (dépendants de la structure DOM)
-- Plus difficiles à déboguer
-
-**Exemple:**
-
-```typescript
-it('should display interviewer data successfully', async () => {
-  // Setup mocks...
-
-  renderWithRouter(<SurveyCollectInterviewer />)
-
-  const cell = await screen.findByText('Test Interviewer 1')
-  const row = cell.closest('tr')!
-  expect(row).toBeInTheDocument()
-
-  const cells = within(row).getAllByRole('cell')
-  expect(cells[0]).toHaveTextContent('Test Interviewer 1')
-  // ...
-})
-```
-
-### 6. Utilisation de beforeEach pour l'Initialisation
-
-**Avantages:**
-
-- Évite la duplication de code
-- Garantit un état propre avant chaque test
-- Centralisation de la configuration
-
-**Inconvénients:**
-
-- Peut masquer des dépendances entre tests
-- Risque d'effets de bord si mal utilisé
-- Peut rendre les tests moins indépendants
-
-**Exemple:**
-
-```typescript
-beforeEach(() => {
-  vi.clearAllMocks()
-  document.title = 'Test Title'
-
-  mockUseTranslation.mockReturnValue({
-    t: (key: string) => {
-      if (key === 'menu.monitor.titlePageInterviewer') {
-        return 'title page interviewer'
-      }
-      return key
-    },
-  })
-})
-```
-
-### 7. Noms de Tests Descriptifs
-
-**Avantages:**
-
-- Clarté immédiate du but du test
-- Documentation vivante du comportement
-- Meilleure maintenabilité
-
-**Inconvénients:**
-
-- Noms parfois trop longs
-- Risque de redondance avec le code
-
-**Exemple:**
-
-```typescript
-it('should return full name when interviewer is found', () => {
-  // ...
-})
-
-it('should handle missing first name', () => {
-  // ...
-})
-```
-
-## Bonnes Pratiques Observées
-
-1. **Nettoyage des Mocks**: Utilisation systématique de `vi.clearAllMocks()` pour éviter les interférences entre tests.
-
-2. **Tests Atomiques**: Chaque test vérifie un seul comportement spécifique.
-
-3. **Couverture des Cas d'Erreur**: Tests exhaustifs des scénarios d'erreur et edge cases.
-
-4. **Vérification des Comportements**: Tests basés sur ce que le code fait, pas sur comment il le fait.
-
-5. **Utilisation des Utilitaires de Testing**: `screen`, `within`, `renderHook`, etc. pour des tests plus robustes.
-
-## Points d'Amélioration Potentiels
-
-1. **Éviter les Tests Doublons**: Certains tests pourraient vérifier les mêmes comportements de manière légèrement différente.
-
-2. **Équilibre entre Unité et Intégration**: Certains tests d'intégration pourraient être simplifiés en tests unitaires plus ciblés.
-
-3. **Gestion des Tests Asynchrones**: Utilisation plus systématique de `async/await` pour les tests asynchrones.
-
-4. **Documentation des Tests**: Ajout de commentaires pour expliquer les cas complexes.
-
-5. **Optimisation des Mocks**: Réduire la complexité des mocks lorsque possible.
-
-## Recommandations
-
-1. **Privilégier les Tests Unitaires**: Pour la majorité des cas, avec des tests d'intégration ciblés.
-
-2. **Éviter les afterEach/afterAll**: Sauf nécessité absolue, pour garder les tests simples.
-
-3. **Noms de Tests Clairs**: Utiliser la convention "should [comportement] when [condition]".
-
-4. **Tests des Edge Cases Pertinents**: Se concentrer sur les cas réalistes et critiques.
-
-5. **Maintenir un Bon Équilibre**: Entre couverture de test et maintenabilité.
