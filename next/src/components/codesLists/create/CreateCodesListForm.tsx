@@ -17,7 +17,6 @@ interface CreateCodesListFormProps {
   variables: Variable[];
 }
 
-/** Create a new code list. */
 export default function CreateCodesListForm({
   questionnaireId,
   formulasLanguage,

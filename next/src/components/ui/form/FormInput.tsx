@@ -30,6 +30,14 @@ const FormInput = React.forwardRef<HTMLInputElement, Props>(
     }: Readonly<Props>,
     ref,
   ) => {
+    // Determine controlled vs uncontrolled mode once, based on whether a
+    // `value` prop was explicitly provided. In controlled mode, normalize
+    // `undefined` to '' so Base UI's FieldControl never switches modes
+    // (e.g. during react-hook-form resets when using the `values` option).
+    const hasValueProp = 'value' in props;
+    const { value, ...restProps } = props;
+    const controlledValue = hasValueProp ? (value ?? '') : undefined;
+
     return (
       <Field.Root
         invalid={!!error}
@@ -47,10 +55,11 @@ const FormInput = React.forwardRef<HTMLInputElement, Props>(
           <UIInput
             ref={ref}
             required={required}
-            defaultValue={defaultValue}
+            defaultValue={hasValueProp ? undefined : defaultValue}
+            value={controlledValue}
             onValueChange={onValueChange}
             className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-xs border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
-            {...props}
+            {...restProps}
           />
         </div>
         <Field.Error

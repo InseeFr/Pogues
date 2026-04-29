@@ -3,9 +3,9 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { questionnaireQueryOptions } from '@/api/questionnaires';
 import { variablesQueryOptions } from '@/api/variables';
-import CreateCodesList from '@/components/codesLists/create/CreateCodesList';
 import CreateCodesListLayout from '@/components/codesLists/create/CreateCodesListLayout';
 import ErrorComponent from '@/components/layout/ErrorComponent';
+import CreateCodesList from '@/components/codesLists/create/CreateCodesList';
 
 /**
  * Page that allow to create a new code list.

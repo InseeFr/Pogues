@@ -8,7 +8,6 @@ import {
   deleteQuestionnaireData,
   personalizationKeys,
 } from '@/api/personalization';
-import { openParsedCsv, openParsedJson } from '@/api/utils/personalization';
 import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
 import Button, { ButtonStyle } from '@/components/ui/Button';
 import ButtonLink from '@/components/ui/ButtonLink';
@@ -22,6 +21,7 @@ import CsvViewerTable from '../form/CsvViewerTable';
 import JsonViewer from '../form/JsonViewer';
 import PersonalizationCheckPanel from './PersonalizationCheckPanel';
 import PersonalisationTile from './PersonalizationTile';
+import { openParsedCsv, openParsedJson } from '@/utils/files';
 
 interface PersonalizationOverviewProps {
   questionnaireId: string;
