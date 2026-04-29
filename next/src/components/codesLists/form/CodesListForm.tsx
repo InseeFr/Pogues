@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import {
   type Control,
   Controller,
@@ -38,6 +39,8 @@ interface CodesListFormProps {
   variables?: Variable[];
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>;
+  /** Function that will be called with form data when the form values change. */
+  onValuesChange?: (values: FormValues) => void;
 }
 
 /**
@@ -58,6 +61,7 @@ export default function CodesListForm({
   formulasLanguage,
   variables = [],
   onSubmit,
+  onValuesChange,
 }: Readonly<CodesListFormProps>) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -68,6 +72,7 @@ export default function CodesListForm({
     formState: { isDirty, isValid, isSubmitted },
     setError,
     trigger,
+    watch,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -77,6 +82,12 @@ export default function CodesListForm({
     values: codesList,
     resolver: zodResolver(schema),
   });
+
+  // Watch all form values and call onValuesChange when they change
+  const formValues = watch();
+  React.useEffect(() => {
+    onValuesChange?.(formValues);
+  }, [formValues, onValuesChange]);
 
   const handleCancel = () => {
     navigate({

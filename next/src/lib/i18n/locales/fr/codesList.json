@@ -6,7 +6,9 @@
   },
   "create": {
     "success": "La liste de codes a été créée",
-    "title": "Nouvelle liste de codes"
+    "title": "Nouvelle liste de codes",
+    "manualCreation": "Créer manuellement",
+    "csvImport": "Importer depuis un CSV"
   },
   "delete": {
     "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette liste de codes ?",
@@ -39,5 +41,23 @@
     "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",
     "moveUp": "Monter d'un niveau",
     "moveDown": "Descendre d'un niveau"
+  },
+  "import": {
+    "title": "Importer une liste de codes depuis un CSV",
+    "instructions": "Format attendu :",
+    "csvExample": "Exemple : \"code1\",\"label1\"",
+    "encodingNote": "Le fichier doit être encodé en UTF-8",
+    "uploadButton": "Sélectionner un fichier CSV",
+    "fileSelected": "{{count}} codes à importer",
+    "detectedColumns": "Colonnes détectées",
+    "importButton": "Importer une liste de codes",
+    "importValidateButton": "Valider",
+    "genericValidationError": "Erreur de validation du fichier CSV",
+    "invalidCsvStructure": "Structure CSV invalide. Au moins 2 colonnes attendues.",
+    "noDataFound": "Aucune donnée trouvée dans le fichier CSV",
+    "noDataToImport": "Aucune donnée valide à importer",
+    "noValidCodes": "Aucun code valide trouvé dans le fichier CSV",
+    "conversionError": "Erreur de conversion des données CSV",
+    "uploadSuccess": "Liste de codes importée avec succès"
   }
 }
