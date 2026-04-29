@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from '@tanstack/react-router';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   type Control,
   Controller,
@@ -83,11 +83,12 @@ export default function CodesListForm({
     resolver: zodResolver(schema),
   });
 
-  // Watch all form values and call onValuesChange when they change
-  const formValues = watch();
-  React.useEffect(() => {
-    onValuesChange?.(formValues);
-  }, [formValues, onValuesChange]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      onValuesChange?.(values as FormValues);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, onValuesChange]);
 
   const handleCancel = () => {
     navigate({

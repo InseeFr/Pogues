@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import toast from 'react-hot-toast';
@@ -32,6 +32,7 @@ export default function CreateCodesListWithImport({
         label: '',
         codes: [{ label: '', value: '', codes: [] }],
     });
+    const formValuesRef = useRef<FormValues>(manualFormValues);
     const [showCsvImport, setShowCsvImport] = useState(false);
 
     const mutation = useMutation({
@@ -51,12 +52,13 @@ export default function CreateCodesListWithImport({
     });
 
     const handleFormValuesChange = useCallback((newValues: FormValues) => {
-        setManualFormValues(newValues);
+        formValuesRef.current = newValues;
     }, []);
 
     const handleImportSuccess = useCallback((importedFormValues: FormValues) => {
+        const currentValues = formValuesRef.current;
         const mergedCodes = [
-            ...manualFormValues.codes.filter(code => code.value || code.label),
+            ...currentValues.codes.filter(code => code.value || code.label),
             ...importedFormValues.codes
         ];
 
@@ -73,20 +75,17 @@ export default function CreateCodesListWithImport({
 
         const uniqueCodes = Array.from(uniqueCodesMap.values());
 
-        setManualFormValues({
-            label: manualFormValues.label || importedFormValues.label,
+        const newValues = {
+            label: currentValues.label || importedFormValues.label,
             codes: uniqueCodes.length > 0 ? uniqueCodes : [{ label: '', value: '', codes: [] }]
-        });
+        };
 
-        console.log('Merged form values after import:', {
-            label: manualFormValues.label || importedFormValues.label,
-            codes: uniqueCodes,
-        });
+        formValuesRef.current = newValues;
+        setManualFormValues(newValues);
 
-        toast.success(t('personalization.create.uploadSuccess'))
-
+        console.log('Merged form values after import:', newValues);
         setShowCsvImport(false);
-    }, [manualFormValues, t]);
+    }, [t]);
 
     const handleCancelImport = useCallback(() => {
         setShowCsvImport(false);
@@ -113,14 +112,6 @@ export default function CreateCodesListWithImport({
             loading: t('common.loading'),
             success: t('codesList.create.success'),
             error: (err: Error) => err.toString(),
-        });
-    };
-
-    const handleCancel = () => {
-        navigate({
-            to: '/questionnaire/$questionnaireId/codes-lists',
-            params: { questionnaireId },
-            ignoreBlocker: true,
         });
     };
 
@@ -156,16 +147,6 @@ export default function CreateCodesListWithImport({
                 codesList={manualFormValues}
                 onValuesChange={handleFormValuesChange}
             />
-
-            <div className="flex gap-3 justify-end mt-6">
-                <button
-                    type="button"
-                    onClick={handleCancel}
-                    className="px-4 py-2 bg-secondary text-secondary-foreground hover:bg-secondary-hover rounded-md"
-                >
-                    {t('common.cancel')}
-                </button>
-            </div>
         </div>
     );
 }
