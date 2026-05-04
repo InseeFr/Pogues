@@ -1,6 +1,5 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import React, {useEffect} from 'react';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
 import {
   type Control,
   Controller,
@@ -11,36 +10,41 @@ import {
   UseFormTrigger,
   useFieldArray,
   useForm,
-} from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+} from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
-import Form from '@/components/ui/form/Form';
-import Input from '@/components/ui/form/FormInput';
-import Label from '@/components/ui/form/Label';
-import VTLEditor from '@/components/ui/form/VTLEditor';
-import AddIcon from '@/components/ui/icons/AddIcon';
-import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
-import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
-import DeleteIcon from '@/components/ui/icons/DeleteIcon';
-import { type CodesList } from '@/models/codesLists';
-import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables';
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { type FormValues, schema } from './schema';
+import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
+import Form from '@/components/ui/form/Form'
+import Input from '@/components/ui/form/FormInput'
+import Label from '@/components/ui/form/Label'
+import VTLEditor from '@/components/ui/form/VTLEditor'
+import AddIcon from '@/components/ui/icons/AddIcon'
+import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon'
+import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon'
+import DeleteIcon from '@/components/ui/icons/DeleteIcon'
+import { type CodesList } from '@/models/codesLists'
+import { FormulasLanguages } from '@/models/questionnaires'
+import { Variable } from '@/models/variables'
+
+import ImportCodesListFromCsv from '../create/ImportCodesListFromCsv'
+import { type FormValues, schema } from './schema'
 
 interface CodesListFormProps {
   /** In an update case, initial codes list value. */
-  codesList?: Omit<CodesList, 'id'>;
+  codesList?: Omit<CodesList, 'id'>
   /** Related questionnaire id. */
-  questionnaireId: string;
-  formulasLanguage?: FormulasLanguages;
+  questionnaireId: string
+  formulasLanguage?: FormulasLanguages
   /** Variables of the questionnaire used for the VTL Editor. */
-  variables?: Variable[];
+  variables?: Variable[]
+  /** Show the CSV import panel toggle. */
+  allowCsvImport?: boolean
   /** Function that will be called with form data when the user submit the form. */
-  onSubmit: SubmitHandler<FormValues>;
+  onSubmit: SubmitHandler<FormValues>
   /** Function that will be called with form data when the form values change. */
-  onValuesChange?: (values: FormValues) => void;
+  onValuesChange?: (values: FormValues) => void
 }
 
 /**
@@ -60,11 +64,13 @@ export default function CodesListForm({
   questionnaireId,
   formulasLanguage,
   variables = [],
+  allowCsvImport = false,
   onSubmit,
   onValuesChange,
 }: Readonly<CodesListFormProps>) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [showCsvImport, setShowCsvImport] = useState(false)
 
   const {
     control,
@@ -73,6 +79,8 @@ export default function CodesListForm({
     setError,
     trigger,
     watch,
+    getValues,
+    reset,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -81,22 +89,63 @@ export default function CodesListForm({
     },
     values: codesList,
     resolver: zodResolver(schema),
-  });
+  })
 
   useEffect(() => {
     const subscription = watch((values) => {
-      onValuesChange?.(values as FormValues);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, onValuesChange]);
+      onValuesChange?.(values as FormValues)
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, onValuesChange])
+
+  const handleImportSuccess = useCallback(
+    (importedFormValues: FormValues) => {
+      const currentValues = getValues()
+      const mergedCodes = [
+        ...currentValues.codes.filter((code) => code.value || code.label),
+        ...importedFormValues.codes,
+      ]
+
+      const uniqueCodesMap = new Map<
+        string,
+        {
+          label: string
+          value: string
+          codes: { value: string; label: string; codes: [] }[]
+        }
+      >()
+      mergedCodes.forEach((code) => {
+        if (code.value) {
+          uniqueCodesMap.set(code.value, {
+            label: code.label,
+            value: code.value,
+            codes: code.codes || [],
+          })
+        }
+      })
+
+      const uniqueCodes = Array.from(uniqueCodesMap.values())
+
+      reset({
+        label: currentValues.label || importedFormValues.label,
+        codes:
+          uniqueCodes.length > 0
+            ? uniqueCodes
+            : [{ label: '', value: '', codes: [] }],
+      })
+
+      setShowCsvImport(false)
+    },
+    [getValues, reset],
+  )
 
   const handleCancel = () => {
     navigate({
       to: '/questionnaire/$questionnaireId/codes-lists',
       params: { questionnaireId },
       ignoreBlocker: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form
@@ -118,6 +167,27 @@ export default function CodesListForm({
           />
         )}
       />
+      {allowCsvImport && (
+        <div>
+          <button
+            type="button"
+            onClick={() => setShowCsvImport((v) => !v)}
+            className="text-action-primary hover:text-action-primary-hover font-medium"
+          >
+            {showCsvImport
+              ? t('common.cancel')
+              : t('codesList.import.importButton')}
+          </button>
+          {showCsvImport && (
+            <div className="border-t border-default pt-4 mt-4">
+              <ImportCodesListFromCsv
+                onImportSuccess={handleImportSuccess}
+                onCancel={() => setShowCsvImport(false)}
+              />
+            </div>
+          )}
+        </div>
+      )}
       <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
         <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
         <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>
@@ -130,16 +200,16 @@ export default function CodesListForm({
         />
       </div>
     </Form>
-  );
+  )
 }
 
 interface CodesFieldsProps {
-  control: Control<FormValues>;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
-  trigger: UseFormTrigger<FormValues>;
+  control: Control<FormValues>
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
+  trigger: UseFormTrigger<FormValues>
   /** Manually set custom error for `react-hook-form` to manage. */
-  setError: UseFormSetError<FormValues>;
+  setError: UseFormSetError<FormValues>
 }
 
 function CodesFields({
@@ -149,12 +219,12 @@ function CodesFields({
   setError,
   trigger,
 }: Readonly<CodesFieldsProps>) {
-  const { t } = useTranslation();
-  const name = 'codes';
+  const { t } = useTranslation()
+  const name = 'codes'
   const { fields, append, remove, move } = useFieldArray({
     control,
     name,
-  });
+  })
 
   return (
     <>
@@ -182,23 +252,23 @@ function CodesFields({
         {t('codesList.form.addCode')}
       </button>
     </>
-  );
+  )
 }
 
 interface CodesFieldProps {
-  control: Control<FormValues>;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
-  index: number;
-  remove: UseFieldArrayRemove;
-  move: UseFieldArrayMove;
-  isFirst?: boolean;
-  isLast?: boolean;
-  parentName: string;
-  subCodeIteration?: number;
-  trigger: UseFormTrigger<FormValues>;
+  control: Control<FormValues>
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
+  index: number
+  remove: UseFieldArrayRemove
+  move: UseFieldArrayMove
+  isFirst?: boolean
+  isLast?: boolean
+  parentName: string
+  subCodeIteration?: number
+  trigger: UseFormTrigger<FormValues>
   /** Manually set custom error for `react-hook-form` to manage. */
-  setError: UseFormSetError<FormValues>;
+  setError: UseFormSetError<FormValues>
 }
 
 function CodesField({
@@ -215,8 +285,8 @@ function CodesField({
   trigger,
   setError,
 }: Readonly<CodesFieldProps>) {
-  const { t } = useTranslation();
-  const namePrefix = `${parentName}.${index}`;
+  const { t } = useTranslation()
+  const namePrefix = `${parentName}.${index}`
   const {
     fields,
     append: appendSubCode,
@@ -225,7 +295,7 @@ function CodesField({
   } = useFieldArray({
     control,
     name: `${namePrefix}.codes` as 'codes',
-  });
+  })
 
   return (
     <>
@@ -259,8 +329,8 @@ function CodesField({
               error={error?.message}
               {...field}
               onChange={(e) => {
-                field.onChange(e);
-                trigger();
+                field.onChange(e)
+                trigger()
               }}
             />
           )}
@@ -294,6 +364,7 @@ function CodesField({
               <Input
                 data-testid={`${namePrefix}.label`}
                 error={error?.message}
+                value={value}
                 onValueChange={onChange}
                 required
               />
@@ -332,5 +403,5 @@ function CodesField({
         />
       ))}
     </>
-  );
+  )
 }

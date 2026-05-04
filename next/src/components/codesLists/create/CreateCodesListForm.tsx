@@ -1,20 +1,21 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
-import { codesListsKeys, putCodesList } from '@/api/codesLists';
-import { CodesList } from '@/models/codesLists';
-import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables';
-import { uid } from '@/utils/utils';
+import { codesListsKeys, putCodesList } from '@/api/codesLists'
+import { CodesList } from '@/models/codesLists'
+import { FormulasLanguages } from '@/models/questionnaires'
+import { Variable } from '@/models/variables'
+import { uid } from '@/utils/utils'
 
-import CodesListForm, { FormValues } from '../form/CodesListForm';
+import CodesListForm from '../form/CodesListForm'
+import { type FormValues } from '../form/schema'
 
 interface CreateCodesListFormProps {
-  questionnaireId: string;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
+  questionnaireId: string
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
 }
 
 export default function CreateCodesListForm({
@@ -22,29 +23,29 @@ export default function CreateCodesListForm({
   formulasLanguage,
   variables,
 }: Readonly<CreateCodesListFormProps>) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const mutation = useMutation({
     mutationFn: ({
       codesList,
       questionnaireId,
     }: {
-      codesList: CodesList;
-      questionnaireId: string;
+      codesList: CodesList
+      questionnaireId: string
     }) => {
-      return putCodesList(questionnaireId, codesList.id, codesList);
+      return putCodesList(questionnaireId, codesList.id, codesList)
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: codesListsKeys.all(questionnaireId),
       }),
-  });
+  })
 
   const submitForm = async ({ label, codes }: FormValues) => {
-    const id = uid();
-    const codesList = { id, label, codes };
+    const id = uid()
+    const codesList = { id, label, codes }
     const promise = mutation.mutateAsync(
       { questionnaireId, codesList },
       {
@@ -54,13 +55,13 @@ export default function CreateCodesListForm({
             params: { questionnaireId },
           }),
       },
-    );
+    )
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('codesList.create.success'),
       error: (err: Error) => err.toString(),
-    });
-  };
+    })
+  }
 
   return (
     <CodesListForm
@@ -68,6 +69,7 @@ export default function CreateCodesListForm({
       formulasLanguage={formulasLanguage}
       variables={variables}
       onSubmit={submitForm}
+      allowCsvImport
     />
-  );
+  )
 }
