@@ -1,12 +1,12 @@
-import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables';
+import { FormulasLanguages } from '@/models/questionnaires'
+import { Variable } from '@/models/variables'
 
-import CreateCodesListWithImport from './CreateCodesListWithImport';
+import CreateCodesListForm from './CreateCodesListForm'
 
 interface CreateCodesListProps {
-  questionnaireId: string;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
+  questionnaireId: string
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
 }
 
 /** Allow to create a new codes list through a form with manual and CSV import options. */
@@ -17,11 +17,11 @@ export default function CreateCodesList({
 }: Readonly<CreateCodesListProps>) {
   return (
     <div className="bg-default p-4 border border-default shadow-xl">
-      <CreateCodesListWithImport
+      <CreateCodesListForm
         questionnaireId={questionnaireId}
         formulasLanguage={formulasLanguage}
         variables={variables}
       />
     </div>
-  );
+  )
 }
