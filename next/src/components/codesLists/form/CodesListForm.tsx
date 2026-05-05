@@ -106,14 +106,7 @@ export default function CodesListForm({
         ...importedFormValues.codes,
       ]
 
-      const uniqueCodesMap = new Map<
-        string,
-        {
-          label: string
-          value: string
-          codes: { value: string; label: string; codes: [] }[]
-        }
-      >()
+      const uniqueCodesMap = new Map<string, FormValues['codes'][number]>()
       mergedCodes.forEach((code) => {
         if (code.value) {
           uniqueCodesMap.set(code.value, {
