@@ -8,6 +8,33 @@ const mockNavigate = vi.fn();
 
 vi.mock('@/components/ui/form/VTLEditor');
 
+vi.mock('../create/ImportCodesListFromCsv', () => ({
+  default: ({
+    onImportSuccess,
+    onCancel,
+  }: {
+    onImportSuccess: (v: unknown) => void;
+    onCancel: () => void;
+  }) => (
+    <div>
+      <button
+        type="button"
+        onClick={() =>
+          onImportSuccess({
+            label: '',
+            codes: [{ value: 'imported-code', label: 'Imported Label', codes: [] }],
+          })
+        }
+      >
+        Trigger import
+      </button>
+      <button type="button" onClick={onCancel}>
+        Cancel import
+      </button>
+    </div>
+  ),
+}));
+
 // Mock useNavigate from @tanstack/react-router
 vi.mock('@tanstack/react-router', async () => {
   const actual = await vi.importActual('@tanstack/react-router');
@@ -171,7 +198,6 @@ describe('CodesListForm', () => {
       />,
     );
 
-    // edit form for being in dirty state
     fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
       target: {
         value: 'my label',
@@ -183,11 +209,45 @@ describe('CodesListForm', () => {
     expect(cancelButton).toBeEnabled();
     fireEvent.click(cancelButton);
 
-    // navigate to codesList page, ignoring the dirty state
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/codes-lists',
       params: { questionnaireId: 'q-id' },
       ignoreBlocker: true,
+    });
+  });
+
+  it('should show and hide the CSV import panel', async () => {
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} allowCsvImport />,
+    );
+
+    expect(screen.queryByRole('button', { name: /Trigger import/i })).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', { name: /Import codes/i }));
+    expect(screen.getByRole('button', { name: /Trigger import/i })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /Cancel import/i }));
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: /Trigger import/i })).toBeNull();
+    });
+  });
+
+  it('should fill the form with imported codes and close the panel on import success', async () => {
+    await renderWithRouter(
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} allowCsvImport />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /Import codes/i }));
+
+    fireEvent.click(screen.getByRole('button', { name: /Trigger import/i }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole('button', { name: /Trigger import/i })).toBeNull();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('codes.0.value')).toHaveValue('imported-code');
+      expect(screen.getByTestId('codes.0.label')).toHaveValue('Imported Label');
     });
   });
 });
