@@ -46,6 +46,8 @@
     "title": "Import codes from CSV",
     "description": "Upload a CSV file to import codes into your code list.",
     "instructions": "CSV file requirements:",
+    "columnNumber": "Le fichier doit contenir exactement deux colonnes",
+    "separator": "Le séparateur doit être une virgule (,)",
     "csvExample": "Example: \"code1\",\"label1\"",
     "encodingNote": "File should be UTF-8 encoded",
     "uploadButton": "Select CSV file",
