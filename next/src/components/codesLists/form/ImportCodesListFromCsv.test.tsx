@@ -100,16 +100,14 @@ describe('ImportCodesListFromCsv', () => {
   it('calls shows an error toast and prevent validation when validation fails with a message', async () => {
     mockValidate.mockResolvedValueOnce({
       success: false,
-      error: 'Invalid CSV structure. Expected exactly 2 columns.',
+      error: 'CSV file validation error',
     })
 
     renderComponent()
     uploadFile(makeCsvFile())
 
     await waitFor(() => {
-      expect(toast.error).toHaveBeenCalledWith(
-        'Invalid CSV structure. Expected exactly 2 columns.',
-      )
+      expect(toast.error).toHaveBeenCalledWith('CSV file validation error')
     })
     expect(screen.getByRole('button', { name: 'Validate' })).toBeDisabled()
     expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument()

@@ -59,6 +59,7 @@ export default function Form({
       type="submit"
       buttonStyle={ButtonStyle.Primary}
       disabled={isSubmitDisabled}
+      data-testid="form-submit-button"
     >
       {validateLabel || t('common.validate')}
     </Button>

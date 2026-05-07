@@ -6,6 +6,7 @@ import { useRef, useState } from 'react'
 
 import CsvViewerTable from '@/components/personalization/form/CsvViewerTable'
 import Button, { ButtonStyle } from '@/components/ui/Button'
+import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import FormInput from '@/components/ui/form/FormInput'
 import {
   convertCsvToFormValues,
@@ -143,6 +144,10 @@ export default function ImportCodesListFromCsv({
 
         {isLoading && (
           <div className="text-action-primary">{t('common.loading')}...</div>
+        )}
+
+        {parseError && (
+          <UploadMessageTile message={parseError} isError={true} />
         )}
 
         {parsedData && !parseError && (

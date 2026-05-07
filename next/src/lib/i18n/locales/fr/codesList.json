@@ -53,7 +53,7 @@
     "fileSelected": "{{count}} codes à importer",
     "detectedColumns": "Colonnes détectées",
     "importButton": "Importer une liste de codes",
-    "importValidateButton": "Valider",
+    "importValidateButton": "Importer",
     "genericValidationError": "Erreur de validation du fichier CSV",
     "invalidCsvStructure": "Structure CSV invalide. Au moins 2 colonnes attendues.",
     "noDataFound": "Aucune donnée trouvée dans le fichier CSV",
