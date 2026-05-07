@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { useRef, useState } from 'react'
 
-import CsvViewerTable from '@/components/personalization/form/CsvViewerTable'
 import Button, { ButtonStyle } from '@/components/ui/Button'
+import CsvViewerTable from '@/components/ui/CsvViewerTable'
 import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import FormInput from '@/components/ui/form/FormInput'
 import {

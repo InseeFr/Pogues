@@ -19,7 +19,7 @@ vi.mock('@/utils/csvValidation', () => ({
   convertCsvToFormValues: vi.fn(),
 }))
 
-vi.mock('@/components/personalization/form/CsvViewerTable', () => ({
+vi.mock('@/components/ui/CsvViewerTable', () => ({
   default: () => <div data-testid="csv-viewer-table" />,
 }))
 

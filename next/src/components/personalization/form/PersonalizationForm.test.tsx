@@ -1,22 +1,21 @@
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { expect } from 'vitest';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { expect } from 'vitest'
 
 import {
   PersonalizationQuestionnaire,
   SurveyContextEnum,
   SurveyContextValueEnum,
-} from '@/models/personalizationQuestionnaire';
-import { renderWithRouter } from '@/testing/render';
+} from '@/models/personalizationQuestionnaire'
+import { renderWithRouter } from '@/testing/render'
 
-import PersonalizationForm from './PersonalizationForm';
+import PersonalizationForm from './PersonalizationForm'
 
 vi.mock('@/api/personalization', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@/api/personalization')>();
+  const actual = await importOriginal<typeof import('@/api/personalization')>()
 
   return {
     ...actual,
-    // Had to redefine the whole constant to avoid vitest throwing an error
     personalizationKeys: {
       base: (poguesId: string) =>
         ['personalization', 'base', poguesId] as const,
@@ -31,8 +30,8 @@ vi.mock('@/api/personalization', async (importOriginal) => {
       csvSchema: (poguesId: string) => ['csvSchema', { poguesId }] as const,
     },
     checkInterrogationsData: vi.fn(() => Promise.resolve()),
-  };
-});
+  }
+})
 
 vi.mock('papaparse', () => ({
   __esModule: true,
@@ -44,16 +43,16 @@ vi.mock('papaparse', () => ({
           data: [{ id: '1', name: 'Test' }],
           errors: [],
           meta: {},
-        });
+        })
       }
     }),
   },
-}));
+}))
 
 vi.mock('react-hot-toast', () => ({
   __esModule: true,
   default: { error: vi.fn(), success: vi.fn(), promise: vi.fn() },
-}));
+}))
 
 describe('PersonalizationForm', () => {
   const baseQuestionnaire: PersonalizationQuestionnaire = {
@@ -68,13 +67,13 @@ describe('PersonalizationForm', () => {
     interrogationData: undefined,
     state: 'STARTED',
     isOutdated: false,
-  };
+  }
 
-  const setQuestionnaire = vi.fn();
+  const setQuestionnaire = vi.fn()
 
   beforeEach(() => {
-    vi.clearAllMocks();
-  });
+    vi.clearAllMocks()
+  })
 
   it('renders context select and file upload button', async () => {
     await renderWithRouter(
@@ -85,13 +84,13 @@ describe('PersonalizationForm', () => {
         handleSubmit={vi.fn()}
         fileData={null}
       />,
-    );
-    expect(screen.getByText('Context')).toBeInTheDocument();
-    const radiogroups = screen.getAllByRole('radiogroup');
-    expect(radiogroups).toHaveLength(2);
-    expect(screen.getByText('Personalization type')).toBeInTheDocument();
-    expect(screen.getByText('Upload survey units data')).toBeInTheDocument();
-  });
+    )
+    expect(screen.getByText('Context')).toBeInTheDocument()
+    const radiogroups = screen.getAllByRole('radiogroup')
+    expect(radiogroups).toHaveLength(2)
+    expect(screen.getByText('Personalization type')).toBeInTheDocument()
+    expect(screen.getByText('Upload survey units data')).toBeInTheDocument()
+  })
 
   it('does not show error component initially', async () => {
     await renderWithRouter(
@@ -101,10 +100,10 @@ describe('PersonalizationForm', () => {
         setQuestionnaire={setQuestionnaire}
         handleSubmit={vi.fn()}
       />,
-    );
+    )
 
-    expect(screen.queryByLabelText('error-component')).not.toBeInTheDocument();
-  });
+    expect(screen.queryByLabelText('error-component')).not.toBeInTheDocument()
+  })
 
   it('disables validate button if no file is uploaded', async () => {
     await renderWithRouter(
@@ -114,10 +113,10 @@ describe('PersonalizationForm', () => {
         setQuestionnaire={setQuestionnaire}
         handleSubmit={vi.fn()}
       />,
-    );
-    const button = screen.getByText('Validate');
-    expect(button).toBeDisabled();
-  });
+    )
+    const button = screen.getByText('Validate')
+    expect(button).toBeDisabled()
+  })
 
   it('shows my csv data', async () => {
     const mockCsvData = {
@@ -134,7 +133,7 @@ describe('PersonalizationForm', () => {
         truncated: false,
         cursor: 42,
       },
-    };
+    }
 
     await renderWithRouter(
       <PersonalizationForm
@@ -144,17 +143,17 @@ describe('PersonalizationForm', () => {
         handleSubmit={vi.fn()}
         fileData={mockCsvData}
       />,
-    );
+    )
 
-    expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
-    expect(screen.getByText('Teemo')).toBeInTheDocument();
-  });
+    expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument()
+    expect(screen.getByText('Teemo')).toBeInTheDocument()
+  })
 
   it('clear data on filetype change', async () => {
     const mockJsonData = [
       { id: '1', name: 'Teemo' },
       { id: '2', name: 'Panda' },
-    ];
+    ]
 
     await renderWithRouter(
       <PersonalizationForm
@@ -164,22 +163,22 @@ describe('PersonalizationForm', () => {
         handleSubmit={vi.fn()}
         fileData={JSON.stringify(mockJsonData)}
       />,
-    );
+    )
 
-    fireEvent.click(within(screen.getByText(/JSON/i)).getByRole('radio'));
+    fireEvent.click(within(screen.getByText(/JSON/i)).getByRole('radio'))
 
-    expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument();
-  });
+    expect(screen.queryByTestId('json-viewer')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('csv-viewer-table')).not.toBeInTheDocument()
+  })
 
   it('handle file input', async () => {
     const mockJsonFile = new File(
       [JSON.stringify({ id: '1', name: 'Teemo' })],
       'filename.json',
       { type: 'application/json' },
-    );
+    )
     mockJsonFile.text = () =>
-      Promise.resolve(JSON.stringify({ id: '1', name: 'Teemo' }));
+      Promise.resolve(JSON.stringify({ id: '1', name: 'Teemo' }))
     await renderWithRouter(
       <PersonalizationForm
         questionnaireId="1"
@@ -188,25 +187,25 @@ describe('PersonalizationForm', () => {
         handleSubmit={vi.fn()}
         fileData={null}
       />,
-    );
+    )
 
-    fireEvent.click(within(screen.getByText(/JSON/i)).getByRole('radio'));
+    fireEvent.click(within(screen.getByText(/JSON/i)).getByRole('radio'))
 
-    const uploadButton = screen.getByText('Upload survey units data');
-    fireEvent.click(uploadButton);
-    const fileInput = screen.getByTestId('file-upload') as HTMLInputElement;
-    await userEvent.upload(fileInput, mockJsonFile);
+    const uploadButton = screen.getByText('Upload survey units data')
+    fireEvent.click(uploadButton)
+    const fileInput = screen.getByTestId('file-upload') as HTMLInputElement
+    await userEvent.upload(fileInput, mockJsonFile)
 
-    expect(fileInput.files).toHaveLength(1);
-    expect(fileInput.files?.[0]).toEqual(mockJsonFile);
+    expect(fileInput.files).toHaveLength(1)
+    expect(fileInput.files?.[0]).toEqual(mockJsonFile)
     await waitFor(() => {
       expect(setQuestionnaire).toHaveBeenCalledWith(
         expect.objectContaining({
           interrogationData: mockJsonFile,
         }),
-      );
-    });
-  });
+      )
+    })
+  })
 
   it('handle context change', async () => {
     await renderWithRouter(
@@ -217,9 +216,9 @@ describe('PersonalizationForm', () => {
         handleSubmit={vi.fn()}
         fileData={null}
       />,
-    );
+    )
 
-    fireEvent.click(within(screen.getByText(/Entreprise/i)).getByRole('radio'));
+    fireEvent.click(within(screen.getByText(/Entreprise/i)).getByRole('radio'))
 
     expect(setQuestionnaire).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -228,6 +227,6 @@ describe('PersonalizationForm', () => {
           value: SurveyContextValueEnum.BUSINESS,
         },
       }),
-    );
-  });
-});
+    )
+  })
+})
