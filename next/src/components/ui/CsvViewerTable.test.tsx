@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { ParseResult } from 'papaparse'
 
-import CsvViewerTable from '../personalization/form/CsvViewerTable'
+import CsvViewerTable from './CsvViewerTable'
 
 const mockParsedCsv: ParseResult<unknown> = {
   data: [
