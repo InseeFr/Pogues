@@ -47,14 +47,17 @@ export default function ImportCodesListFromCsv({
       const validationResult = await validateCodeListCsvFile(file)
 
       if (!validationResult.success) {
-        toast.error(
-          validationResult.error ||
-            t('codesList.import.genericValidationError'),
-        )
-        setParseError(
-          validationResult.error ||
-            t('codesList.import.genericValidationError'),
-        )
+        const errorKey =
+          validationResult.error &&
+          validationResult.error.startsWith('codesList.')
+            ? (validationResult.error as
+                | 'codesList.import.columnNumber'
+                | 'codesList.import.noDataFound'
+                | 'codesList.import.genericValidationError')
+            : 'codesList.import.genericValidationError'
+        const errorMessage = t(errorKey)
+        toast.error(errorMessage)
+        setParseError(errorMessage)
         return
       }
 
@@ -78,7 +81,6 @@ export default function ImportCodesListFromCsv({
     }
 
     try {
-      console.log('Parsed CSV data for import:', parsedData)
       const formValues = convertCsvToFormValues(parsedData, hasHeader)
       toast.success(t('codesList.import.uploadSuccess'))
       onImportSuccess(formValues)
@@ -101,8 +103,14 @@ export default function ImportCodesListFromCsv({
       <div className="border border-default rounded-lg p-4 bg-accent">
         <p className="font-medium mb-2">{t('codesList.import.instructions')}</p>
         <ul className="list-disc list-inside space-y-1 text-default">
-          <li>{t('codesList.import.csvExample')}</li>
+          <li>{t('codesList.import.columnNumber')}</li>
+          <li>{t('codesList.import.separator')}</li>
           <li>{t('codesList.import.encodingNote')}</li>
+          <ul>
+            <li>
+              <i>{t('codesList.import.csvExample')}</i>
+            </li>
+          </ul>
         </ul>
       </div>
 

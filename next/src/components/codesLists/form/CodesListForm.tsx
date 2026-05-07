@@ -13,7 +13,7 @@ import {
 } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import Form from '@/components/ui/form/Form'
@@ -28,7 +28,7 @@ import { type CodesList } from '@/models/codesLists'
 import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
 
-import ImportCodesListFromCsv from '../create/ImportCodesListFromCsv'
+import ImportCodesListFromCsv from './ImportCodesListFromCsv'
 import { type FormValues, schema } from './schema'
 
 interface CodesListFormProps {
