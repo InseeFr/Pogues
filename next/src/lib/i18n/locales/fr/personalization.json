@@ -20,9 +20,10 @@
   },
   "edit": {
     "resetInterrogationDescription": "Réinitialiser les données de l'unité enquêtée",
-    "resetInterrogationSuccess": "L'intorrogation a été réinitialisée avec succès",
+    "resetInterrogationSuccess": "L'interrogation a été réinitialisée avec succès",
     "saveSuccess": "Le questionnaire a bien été rechargé",
-    "title": "Modifier la personnalisation"
+    "title": "Modifier la personnalisation",
+    "brokenQuestionnaire": "Veuillez vérifier que votre questionnaire est bien fonctionnel et intègre."
   },
   "overview": {
     "currentInterrogations": "Personnalisation existante",

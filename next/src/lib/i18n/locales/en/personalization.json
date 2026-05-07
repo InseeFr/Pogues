@@ -22,7 +22,8 @@
     "resetInterrogationDescription": "Reset the survey unit",
     "resetInterrogationSuccess": "The survey unit has been reset",
     "saveSuccess": "The questionnaire has been reloaded",
-    "title": "Edit personalization"
+    "title": "Edit personalization",
+    "brokenQuestionnaire": "Please check that your questionnaire is functional and complete."
   },
   "overview": {
     "currentInterrogations": "Current survey units",

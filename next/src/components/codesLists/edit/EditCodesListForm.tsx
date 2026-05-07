@@ -8,7 +8,8 @@ import { CodesList } from '@/models/codesLists';
 import { FormulasLanguages } from '@/models/questionnaires';
 import { Variable } from '@/models/variables';
 
-import CodesListForm, { FormValues } from '../form/CodesListForm';
+import CodesListForm from '../form/CodesListForm';
+import { FormValues } from '../form/schema';
 
 interface EditCodesListFormProps {
   /** Initial codes list value. */

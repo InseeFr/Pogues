@@ -1,21 +1,21 @@
-import React from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
 
-import { articulationKeys, deleteArticulation } from '@/api/articulation';
-import ButtonLink from '@/components/ui/ButtonLink';
-import DialogButton from '@/components/ui/DialogButton';
-import InlineCode from '@/components/ui/InlineCode';
-import { ArticulationItems } from '@/models/articulation';
+import { articulationKeys, deleteArticulation } from '@/api/articulation'
+import ButtonLink from '@/components/ui/ButtonLink'
+import DialogButton from '@/components/ui/DialogButton'
+import InlineCode from '@/components/ui/InlineCode'
+import { ArticulationItems } from '@/models/articulation'
 
-import ArticulationVariableLabel from '../ArticulationVariableLabel';
+import ArticulationVariableLabel from '../ArticulationVariableLabel'
 
 interface ArticulationOverviewDetailsProps {
-  questionnaireId: string;
-  articulationItems: ArticulationItems;
-  readonly?: boolean;
+  questionnaireId: string
+  articulationItems: ArticulationItems
+  readonly?: boolean
 }
 
 /**
@@ -30,29 +30,29 @@ export function ArticulationOverviewDetails({
   articulationItems,
   readonly = false,
 }: Readonly<ArticulationOverviewDetailsProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const deleteMutation = useMutation({
     mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
-      return deleteArticulation(questionnaireId);
+      return deleteArticulation(questionnaireId)
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: articulationKeys.all(questionnaireId),
       }),
-  });
+  })
 
   function onDelete() {
     const promise = deleteMutation.mutateAsync({
       questionnaireId,
-    });
+    })
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('articulation.delete.success'),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   return (
@@ -85,5 +85,5 @@ export function ArticulationOverviewDetails({
         </div>
       )}
     </div>
-  );
+  )
 }

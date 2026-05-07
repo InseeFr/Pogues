@@ -1,17 +1,17 @@
-import type { Variable } from '@/models/variables';
+import type { Variable } from '@/models/variables'
 
-import EditVariableForm from './EditVariableForm';
+import EditVariableForm from './EditVariableForm'
 
 type Props = {
   /** Variable to edit. Will display "not found" if undefined. */
-  variable?: Variable;
+  variable?: Variable
   /** Related questionnaire id. */
-  questionnaireId: string;
+  questionnaireId: string
   /** Scopes of the questionnaire with the mapping between id and name. */
-  scopes: Map<string, string>;
+  scopes: Map<string, string>
   /** List of variables used for auto-completion in VTL editor. */
-  variables?: Variable[];
-};
+  variables?: Variable[]
+}
 
 /** Allow to edit an existing code list. */
 export default function EditVariable({
@@ -21,7 +21,7 @@ export default function EditVariable({
   variables,
 }: Readonly<Props>) {
   if (variable === undefined) {
-    return <div>Not found</div>;
+    return <div>Not found</div>
   }
 
   return (
@@ -33,5 +33,5 @@ export default function EditVariable({
         variables={variables}
       />
     </div>
-  );
+  )
 }

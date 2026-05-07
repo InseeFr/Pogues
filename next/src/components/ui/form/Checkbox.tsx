@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { Checkbox as BaseUICheckbox } from '@base-ui-components/react/checkbox'
 
-import { Checkbox as BaseUICheckbox } from '@base-ui-components/react/checkbox';
+import * as React from 'react'
 
-import Label from './Label';
+import Label from './Label'
 
 type Props = {
   /**
@@ -10,17 +10,17 @@ type Props = {
    *
    * To render an uncontrolled checkbox, use the `defaultChecked` prop instead.
    */
-  checked?: BaseUICheckbox.Root.Props['checked'];
+  checked?: BaseUICheckbox.Root.Props['checked']
   /** Whether the component should ignore user interaction. */
-  disabled?: BaseUICheckbox.Root.Props['disabled'];
+  disabled?: BaseUICheckbox.Root.Props['disabled']
   /** Meaningful text label about the value the checkbox entails. */
-  label?: string;
-  onChange?: (v: boolean) => void;
+  label?: string
+  onChange?: (v: boolean) => void
   /** Event handler called when the checkbox is ticked or unticked. */
-  onCheckedChange?: BaseUICheckbox.Root.Props['onCheckedChange'];
+  onCheckedChange?: BaseUICheckbox.Root.Props['onCheckedChange']
   /** Whether the user must tick the checkbox before submitting a form. */
-  required?: BaseUICheckbox.Root.Props['required'];
-};
+  required?: BaseUICheckbox.Root.Props['required']
+}
 
 export default function Checkbox({
   checked,
@@ -44,7 +44,7 @@ export default function Checkbox({
       </BaseUICheckbox.Root>
       <span className="text-sm font-normal">{label}</span>
     </Label>
-  );
+  )
 }
 
 function CheckIcon(props: Readonly<React.ComponentProps<'svg'>>) {
@@ -58,5 +58,5 @@ function CheckIcon(props: Readonly<React.ComponentProps<'svg'>>) {
     >
       <path d="M9.1603 1.12218C9.50684 1.34873 9.60427 1.81354 9.37792 2.16038L5.13603 8.66012C5.01614 8.8438 4.82192 8.96576 4.60451 8.99384C4.3871 9.02194 4.1683 8.95335 4.00574 8.80615L1.24664 6.30769C0.939709 6.02975 0.916013 5.55541 1.19372 5.24822C1.47142 4.94102 1.94536 4.91731 2.2523 5.19524L4.36085 7.10461L8.12299 1.33999C8.34934 0.993152 8.81376 0.895638 9.1603 1.12218Z" />
     </svg>
-  );
+  )
 }

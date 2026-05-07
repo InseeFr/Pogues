@@ -1,6 +1,7 @@
-import { renderWithRouter } from '@/testing/render';
+import { ArticulationVariablesLabel } from '@/models/articulation'
+import { renderWithRouter } from '@/testing/render'
 
-import { ArticulationOverview } from './ArticulationOverview';
+import { ArticulationOverview } from './ArticulationOverview'
 
 describe('ArticulationOverview', () => {
   it('displays articulation information', async () => {
@@ -8,14 +9,17 @@ describe('ArticulationOverview', () => {
       <ArticulationOverview
         questionnaireId="q-id"
         articulationItems={[
-          { label: 'Prénom', value: 'prenom formula' },
-          { label: 'Sexe', value: 'gender formula' },
-          { label: 'Age', value: 'age formula' },
+          {
+            label: ArticulationVariablesLabel.FirstName,
+            value: 'prenom formula',
+          },
+          { label: ArticulationVariablesLabel.Gender, value: 'gender formula' },
+          { label: ArticulationVariablesLabel.Age, value: 'age formula' },
         ]}
       />,
-    );
+    )
 
-    expect(getByText('First Name')).toBeInTheDocument();
-    expect(getByText('prenom formula')).toBeInTheDocument();
-  });
-});
+    expect(getByText('First Name')).toBeInTheDocument()
+    expect(getByText('prenom formula')).toBeInTheDocument()
+  })
+})

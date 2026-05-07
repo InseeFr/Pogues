@@ -1,15 +1,15 @@
-import * as React from 'react';
+import { Popover as UIPopover } from '@base-ui-components/react/popover'
 
-import { Popover as UIPopover } from '@base-ui-components/react/popover';
+import * as React from 'react'
 
 interface PopoverProps {
-  children: React.ReactNode;
+  children: React.ReactNode
   /** Text to display in the popover popup. */
-  description: React.ReactNode;
+  description: React.ReactNode
   /** Whether or not popover display should trigger on hover. (defaults to true) */
-  openOnHover?: boolean;
+  openOnHover?: boolean
   /** Title of the popover content. */
-  title?: string;
+  title?: string
 }
 
 /**
@@ -23,8 +23,11 @@ export default function Popover({
   openOnHover = true,
 }: Readonly<PopoverProps>) {
   return (
-    <UIPopover.Root openOnHover={openOnHover}>
-      <UIPopover.Trigger className="cursor-pointer py-1 px-3 flex sitems-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100">
+    <UIPopover.Root>
+      <UIPopover.Trigger
+        openOnHover={openOnHover}
+        className="cursor-pointer py-1 px-3 flex sitems-center justify-center rounded-md border border-gray-200 bg-gray-50 text-gray-900 select-none hover:bg-gray-100 focus-visible:outline focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100"
+      >
         {children}
       </UIPopover.Trigger>
       <UIPopover.Portal>
@@ -45,7 +48,7 @@ export default function Popover({
         </UIPopover.Positioner>
       </UIPopover.Portal>
     </UIPopover.Root>
-  );
+  )
 }
 
 function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
@@ -64,5 +67,5 @@ function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
         className="dark:fill-gray-300"
       />
     </svg>
-  );
+  )
 }

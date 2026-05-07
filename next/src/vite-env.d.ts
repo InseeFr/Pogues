@@ -14,6 +14,7 @@ export type ImportMetaEnv = {
   VITE_ENABLE_MULTIMODE_PAGE: string
   VITE_ENABLE_DOWNLOAD_PDF_PERSO: string
   VITE_ENABLE_PAIRING_RECAP: string
+  VITE_POGUES_LEGACY: string
   BASE_URL: string
   MODE: string
   DEV: boolean
@@ -25,7 +26,7 @@ export type ImportMetaEnv = {
    *  This is useful if you're using Vite plugins that define specific `import.meta.env` properties.
    *  If you're not using such plugins, this section should remain as is.
    */
-  SSR: boolean;
+  SSR: boolean
   // @user-defined-end
 }
 
