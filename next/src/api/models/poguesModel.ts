@@ -6,7 +6,7 @@
  *
  * @version 1.13.0 (last updated 2025/12/01)
  */
-import type { TypedValueType } from './poguesModelTypeUtils';
+import type { TypedValueType } from './poguesModelTypeUtils'
 
 /**
  * A data collection (or a data collection campaign) is a survey data collection
@@ -18,39 +18,39 @@ import type { TypedValueType } from './poguesModelTypeUtils';
  */
 type DataCollection = {
   /** Datacollection name (label). Exemple : "Enquête sectorielle annuelle 2018" */
-  Name: string;
+  Name: string
   /** Datacollection Id. */
-  id: string;
+  id: string
   /** URI to external datacollection reference. */
-  uri: string;
+  uri: string
   /** Agency of Datacollection. It's optional. Exemple : "fr.insee". */
-  agency?: string;
-};
+  agency?: string
+}
 
 export type Variable =
   | CollectedVariableType
   | CalculatedVariableType
-  | ExternalVariableType;
+  | ExternalVariableType
 
 export type VariablesObject = {
-  Variable?: Variable[];
-};
+  Variable?: Variable[]
+}
 
 /**
  * A questionnaire in the sense of Pogues is an entire questionnaire template
  * or an independent part of an questionnaire.
  */
 export type Questionnaire = Sequence & {
-  DataCollection: DataCollection[];
+  DataCollection: DataCollection[]
   /**
    * ComponentGroup currently contains the references of all objects in the
    * questionnaire. This object was originally created for pagination which is
    * not currently implemented in Pogues.
    */
-  ComponentGroup?: ComponentGroup[];
-  CodeLists?: { CodeList: CodeLists };
+  ComponentGroup?: ComponentGroup[]
+  CodeLists?: { CodeList: CodeLists }
   /** Variables contain all questionnaire's variables (external, collected, etc) */
-  Variables?: VariablesObject;
+  Variables?: VariablesObject
   /**
    * A loop is an iteration (according to one criterion) on a group of questions.
    *
@@ -60,56 +60,56 @@ export type Questionnaire = Sequence & {
    *   question group is repeated. It can simply be (considering that by default
    *   we start at 1 and that the step is 1).
    */
-  Iterations?: { Iteration?: DynamicIterationType[] };
+  Iterations?: { Iteration?: DynamicIterationType[] }
   /**
    * The childQuestionnaireRef currently holds the IDs of the questionnaires on
    * which the current questionnaire depends.
    */
-  childQuestionnaireRef?: string[];
+  childQuestionnaireRef?: string[]
   /** Agency of Questionnaire. It's optional. Exemple : "fr.insee". */
-  agency?: string;
+  agency?: string
   /** boolean attrubute indicating if the questionnaire is final or not */
-  final?: boolean;
+  final?: boolean
   /**
    * Survey designer should have the possibility to choose if they prefer to
    * describe the dynamic of their questionnaire (jump directly to a question,
    * a sequence or a subsequence according to a condition on some variables)
    * with a GoTo or an IfThenElse logic.
    */
-  flowLogic?: FlowLogicEnum;
+  flowLogic?: FlowLogicEnum
   /**
    * Choice of formula input language (VTL or XPATH). It applies to the entire
    * questionnaire, the mix of languages is not supported.
    */
-  formulasLanguage?: FormulasLanguageEnum;
+  formulasLanguage?: FormulasLanguageEnum
   /** lastUpdatedDate represents the date on which the questionnaire was last saved. */
-  lastUpdatedDate?: string; // Wed Oct 23 2024 15:15:37 GMT+0200 (heure d’été d’Europe centrale)
+  lastUpdatedDate?: string // Wed Oct 23 2024 15:15:37 GMT+0200 (heure d’été d’Europe centrale)
   /** Owner of questionnaire. */
-  owner?: string;
-};
+  owner?: string
+}
 
 type ComponentType = {
-  Name: string;
-  Label: string[];
+  Name: string
+  Label: string[]
   /**
    * A "Declaration" is information related to a question or a sequence that
    * gives information to the respondent or interviewer.
    */
-  Declaration?: DeclarationType[];
-  Control?: ControlType[];
+  Declaration?: DeclarationType[]
+  Control?: ControlType[]
   /**
    * The FlowControl element is used in two ways : as a GoTo only used in a
    * question and as a Filtrer only used in the questionnaire.
    */
-  FlowControl?: FlowControlType[];
-  GoTo?: GoToType[];
+  FlowControl?: FlowControlType[]
+  GoTo?: GoToType[]
   /** Survey mode of component (CAPI, CATI, CAWI, PAPI). */
-  TargetMode?: SurveyModeEnum[];
-  id: string;
-  type?: string;
-  depth?: number;
-  genericName?: GenericNameEnum;
-};
+  TargetMode?: SurveyModeEnum[]
+  id: string
+  type?: string
+  depth?: number
+  genericName?: GenericNameEnum
+}
 
 /**
  * In some cases it make sense to have full components (e.g. components imported
@@ -118,16 +118,16 @@ type ComponentType = {
  * list of member references).
  */
 type ComponentGroup = {
-  Name: string;
-  Label: string[];
-  Member?: ComponentType[];
-  MemberReference?: string[];
-  id: string;
-};
+  Name: string
+  Label: string[]
+  Member?: ComponentType[]
+  MemberReference?: string[]
+  id: string
+}
 
 export type QuestionType = ComponentType & {
-  Response: ResponseType[];
-  ResponseStructure?: ResponseStructureType;
+  Response: ResponseType[]
+  ResponseStructure?: ResponseStructureType
   /**
    * Arbitrary response is a possibility for the respondent to enter an
    * arbitrary answer if he cannot find an answer among the suggested options.
@@ -136,7 +136,7 @@ export type QuestionType = ComponentType & {
    *
    * @version 1.6.0
    */
-  ArbitraryResponse?: ResponseType;
+  ArbitraryResponse?: ResponseType
   /**
    * Clarification question is a request for additional information from a list
    * of choices defined a priori (single or multiple choice question). This
@@ -145,16 +145,16 @@ export type QuestionType = ComponentType & {
    * clarification question can be made through the FlowControl element and the
    * CLARIFICATION flowControlType
    */
-  ClarificationQuestion?: QuestionType[];
-  Scope?: string;
+  ClarificationQuestion?: QuestionType[]
+  Scope?: string
   /**
    * codeFilters is list of CodeFilter, indicate in this question,
    * codeValue filtered according to a condition.
    *
    * @version 1.6.4
    */
-  codeFilters?: CodeFilter[];
-  questionType?: QuestionTypeEnum;
+  codeFilters?: CodeFilter[]
+  questionType?: QuestionTypeEnum
   /**
    * Whether the question is mandatory. Only used by multiple choice question
    * for now: we need it at the question root as it is related to multiple
@@ -162,27 +162,27 @@ export type QuestionType = ComponentType & {
    *
    * @version 1.12.0
    */
-  mandatory?: boolean;
-};
+  mandatory?: boolean
+}
 
 /** @version 1.6.5 */
 type CodeFilter = {
-  codeValue: string;
-  conditionFilter: string;
-};
+  codeValue: string
+  conditionFilter: string
+}
 
 export interface IterationType {
-  Name: string;
-  Label?: string;
-  MemberReference?: string[];
-  id: string;
+  Name: string
+  Label?: string
+  MemberReference?: string[]
+  id: string
 }
 
 interface DynamicIterationType extends IterationType {
   /** @deprecated since 1.10.0, use "minimum" instead (VTL formula) */
-  Minimum?: ExpressionType;
+  Minimum?: ExpressionType
   /** @deprecated since 1.10.0, use "maximum" instead (VTL formula) */
-  Maximum?: ExpressionType;
+  Maximum?: ExpressionType
   /**
    * When there is no IterableReference, ables to know if a loop dimension is
    * fixed (with a size value) or not (with minimum and maximum values)
@@ -190,27 +190,27 @@ interface DynamicIterationType extends IterationType {
    * @defaultValue false
    * @since 1.10.0
    */
-  isFixedLength?: boolean;
+  isFixedLength?: boolean
   /**
    * Minimum allowed value for a loop dimension. Used only if isFixedLength is
    * false/undefined.
    *
    * @since 1.10.0
    */
-  minimum?: ExpressionType;
+  minimum?: ExpressionType
   /**
    * Maximum allowed value for a loop dimension. Used only if isFixedLength is
    * false/undefined.
    *
    * @since 1.10.0
    */
-  maximum?: ExpressionType;
+  maximum?: ExpressionType
   /**
    * Size of a loop. Used only if isFixedLength is true.
    *
    * @since 1.10.0
    */
-  size?: ExpressionType;
+  size?: ExpressionType
   /**
    * When there is a size, it allows to display a loop with one page per
    * iteration.
@@ -218,21 +218,22 @@ interface DynamicIterationType extends IterationType {
    * @defaultValue false
    * @since 1.10.0
    */
-  shouldSplitIterations?: boolean;
-  Step?: number;
+  shouldSplitIterations?: boolean
+  Step?: number
   /** Could be a Roster (dynamic table) or another iteration */
-  IterableReference?: string;
+  IterableReference?: string
   /** Specifies a condition for filter for NOT displaying the code value */
-  Filter?: ExpressionType;
+  Filter?: ExpressionType
 }
 
+// @ts-expect-error TS6196 - not used for now
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Roundabout = ComponentType & {
-  OccurrenceLabel: string;
-  OccurrenceDescription?: string;
-  Locked: boolean;
-  Loop: DynamicIterationType[];
-};
+  OccurrenceLabel: string
+  OccurrenceDescription?: string
+  Locked: boolean
+  Loop: DynamicIterationType[]
+}
 
 /**
  * VariableType base type, which is extended by types for collected
@@ -240,20 +241,20 @@ type Roundabout = ComponentType & {
  * (ExternalVariableType) variables.
  */
 type VariableType = {
-  CodeListReference?: string;
+  CodeListReference?: string
   /** Variable representation type to characterize the variable (numeric, boolean, text, etc) */
   Datatype:
     | BooleanDatatypeType
     | DateDatatypeType
     | DurationDatatypeType
     | NumericDatatypeType
-    | TextDatatypeType;
-  Name: string;
-  Label: string;
+    | TextDatatypeType
+  Name: string
+  Label: string
   /** Iteration reference (in which the variable has a local scope) */
-  Scope?: string;
-  id: string;
-};
+  Scope?: string
+  id: string
+}
 
 export enum VariableTypeType {
   CalculatedVariableType = 'CalculatedVariableType',
@@ -266,17 +267,17 @@ export enum VariableTypeType {
  * questionnaire for the survey need.
  */
 export type CollectedVariableType = VariableType & {
-  type: VariableTypeType.CollectedVariableType;
-};
+  type: VariableTypeType.CollectedVariableType
+}
 
 /**
  * A calculated variable is a variable calculated from others variables
  * including the calculated variables.
  */
 export type CalculatedVariableType = VariableType & {
-  Formula: ExpressionType;
-  type: VariableTypeType.CalculatedVariableType;
-};
+  Formula: ExpressionType
+  type: VariableTypeType.CalculatedVariableType
+}
 
 /**
  * An external variable refers to a variable not collected in the questionnaire,
@@ -289,7 +290,7 @@ export type CalculatedVariableType = VariableType & {
  * questionnaire is reset.
  */
 export type ExternalVariableType = VariableType & {
-  type: VariableTypeType.ExternalVariableType;
+  type: VariableTypeType.ExternalVariableType
   /**
    * This attribute allows distinguishing external variables whose values should
    * be reset in some scenarios from those that should remain unchanged.
@@ -299,16 +300,16 @@ export type ExternalVariableType = VariableType & {
    * @defaultValue false
    * @since 1.13.0
    */
-  isDeletedOnReset?: boolean;
-};
+  isDeletedOnReset?: boolean
+}
 
 type ResponseStructureType = {
-  Dimension: DimensionType[];
+  Dimension: DimensionType[]
   /** Used to model "No data by definition" ((a no meaning intersection)) */
-  Attribute?: AttributeType[];
+  Attribute?: AttributeType[]
   /** Mapping makes it possible to make the link between the box and the answer. */
-  Mapping?: MappingType[];
-};
+  Mapping?: MappingType[]
+}
 
 /**
  * Defines a dimension of a table (e.g., PRIMARY, SECONDARY, MEASURE).
@@ -323,41 +324,41 @@ type DimensionType = {
    * Reference to an external code list (codeList), used for NON_DYNAMIC
    * dimensions.
    */
-  CodeListReference?: string;
+  CodeListReference?: string
   /** Optional label for the dimension. */
-  Label?: string;
+  Label?: string
   /** @deprecated since 1.8.1, use "minimum" instead (VTL formula) */
-  MinLines?: number;
+  MinLines?: number
   /** @deprecated since 1.8.1, use "maximum" instead (VTL formula) */
-  MaxLines?: number;
+  MaxLines?: number
   /**
    * Minimum allowed value for a DYNAMIC dimension (type: number or VTL).
    *
    * @since 1.9.0
    */
-  minimum?: TypedValueType;
+  minimum?: TypedValueType
   /**
    * Maximum allowed value for a DYNAMIC dimension (type: number or VTL).
    *
    * @since 1.9.0
    */
-  maximum?: TypedValueType;
+  maximum?: TypedValueType
   /**
    * Used only if dynamic = DYNAMIC_FIXED. Size dynamically fixed by a formula
    * or a value (min = max).
    *
    * @since 1.9.0
    */
-  size?: TypedValueType;
+  size?: TypedValueType
   /** @deprecated since 1.9.0, use "size" instead (VTL formula) */
-  FixedLength?: ExpressionType;
-  dimensionType: DimensionTypeEnum;
+  FixedLength?: ExpressionType
+  dimensionType: DimensionTypeEnum
   /**
    * For now, we keep this as xs:token. Later, this will be replaced by an
    * enumeration based on DynamicTypeEnum.
    */
-  dynamic?: string;
-};
+  dynamic?: string
+}
 
 /** @since 1.9.0 */
 // @ts-expect-error not used by pogues model yet
@@ -370,25 +371,25 @@ enum DynamicTypeEnum {
 
 type AttributeType = {
   /** In the case of a "no data by definition", is "NoDataByDefinition" */
-  AttributeValue: string;
+  AttributeValue: string
   /**
    * n-uple giving the coordinates (1-based) of the target cell according to the
    * dimensions, format "i" (one dimension) or "i j" (two dimensions)
    */
-  AttributeTarget: string;
+  AttributeTarget: string
   /** optional Label for noDataByDefintion cells */
-  Label?: string;
-};
+  Label?: string
+}
 
 type MappingType = {
   /** Identifier of the response */
-  MappingSource: string;
+  MappingSource: string
   /**
    * n-uple giving the coordinates (1-based) of the target cell according to the
    * dimensions, format "i" (one dimension) or "i j" (two dimensions)
    */
-  MappingTarget: string;
-};
+  MappingTarget: string
+}
 
 export enum DimensionTypeEnum {
   /**
@@ -415,81 +416,81 @@ export enum DimensionTypeEnum {
 }
 
 type ResponseType = {
-  CodeListReference?: string;
-  Datatype: DatatypeType;
-  Value?: unknown[];
+  CodeListReference?: string
+  Datatype: DatatypeType
+  Value?: unknown[]
   /**
    * NOT USED
    *
    * NonResponseModality : specify the non response specific modality (the most
    * significant case is the modality "Don't know" or later "Refusal")
    */
-  NonResponseModality?: NonResponseModalityType[];
+  NonResponseModality?: NonResponseModalityType[]
   /**
    * CollectedVariableReference : collected variable reference to link the
    * variable in the wrap and the variable created in the response element.
    */
-  CollectedVariableReference: string;
+  CollectedVariableReference: string
   /**
    * conditionFilter is used in dynamic table to tell if cell that collects
    * response has to be filtered or not.
    *
    * @since 1.7.0
    */
-  conditionFilter: string;
+  conditionFilter: string
   /**
    * conditionReadOnly allows defining a condition that makes the field
    * non-editable (read-only).
    *
    * @since 1.8.0
    */
-  conditionReadOnly?: string;
+  conditionReadOnly?: string
   /** an identifier to responses in order to be able to reference them in mappings */
-  id: string;
-  simple?: boolean;
+  id: string
+  simple?: boolean
   /**
    * Whether the response is mandatory. Used by simple and single choice
    * questions. Note that for QCM we use the mandatory attribute at the question
    * root since it is not related to a single response.
    */
-  mandatory?: boolean;
-};
+  mandatory?: boolean
+}
 
 type NonResponseModalityType = {
   /** The label of the modality */
-  Label: string;
+  Label: string
   /** The Value of the code */
-  Value: unknown;
+  Value: unknown
   /**
    * An boolean with first intention or not (the dynamic behaviour in the
    * generated questionnaire
    */
-  firstIntentionDisplay: boolean;
-};
+  firstIntentionDisplay: boolean
+}
 
 export type Sequence = ComponentType & {
-  Child?: (Sequence | QuestionType)[];
-  depth?: number;
+  Child?: (Sequence | QuestionType)[]
+  depth?: number
   /**
    * \Eno\src\main\resources\xslt\inputs\pogues-xml\source-fixed.xsl
    *
    * Type of Sequence : "QUESTIONNAIRE", "MODULE" or "SUBMODULE"
    */
-  genericName?: GenericNameEnum;
-};
+  genericName?: GenericNameEnum
+}
 
 type DeclarationType = {
   /** Text of the declaration. */
-  Text: string;
+  Text: string
   /** Survey modes of declaration. */
-  DeclarationMode?: SurveyModeEnum[];
+  DeclarationMode?: SurveyModeEnum[]
   /** Identifier of the declaration. */
-  id: string;
+  id: string
   /** Type of declaration. */
-  declarationType?: DeclarationTypeEnum;
+  declarationType?: DeclarationTypeEnum
   /** Position of the statement for viewing. */
-  position?: DeclarationPositionEnum;
-};
+  position?: DeclarationPositionEnum
+}
 
 enum DeclarationTypeEnum {
   /** when the declaration concerns only the interviewer (CAPI or CATI mode). */
@@ -508,15 +509,15 @@ enum DeclarationPositionEnum {
 }
 
 type ControlType = {
-  Description: string;
+  Description: string
   /** quand il doit se déclencher */
-  Expression: ExpressionType;
-  FailMessage?: string;
-  id: string;
-  criticity?: ControlCriticityEnum;
+  Expression: ExpressionType
+  FailMessage?: string
+  id: string
+  criticity?: ControlCriticityEnum
   /** @since 1.6.1 */
-  scope: ControlScopeEnum;
-};
+  scope: ControlScopeEnum
+}
 
 /**
  * Scope can be: "occurrence" or "whole (occurrence: for control in row (dynamic
@@ -530,12 +531,12 @@ enum ControlScopeEnum {
 }
 
 type FlowControlType = {
-  Description?: string;
-  Expression: ExpressionType;
-  IfTrue: string;
-  id: string;
-  flowControlType?: FlowControlTypeEnum;
-};
+  Description?: string
+  Expression: ExpressionType
+  IfTrue: string
+  id: string
+  flowControlType?: FlowControlTypeEnum
+}
 
 /**
  * We create an optional Enum to make the difference between an ex-Goto
@@ -548,16 +549,16 @@ enum FlowControlTypeEnum {
 }
 
 type GoToType = {
-  Description?: string;
-  Expression: ExpressionType;
-  IfTrue: string;
-  id: string;
-};
+  Description?: string
+  Expression: ExpressionType
+  IfTrue: string
+  id: string
+}
 
 /** Into declarated language in "FormulasLanguage" */
-type ExpressionType = string;
+type ExpressionType = string
 
-type CodeLists = CodeList[];
+type CodeLists = CodeList[]
 
 /**
  * "A structure used to associate a list of code values to specified categories.
@@ -569,73 +570,73 @@ type CodeLists = CodeList[];
  * definition in the  DDI documentation.
  */
 export type CodeList = {
-  Name: string;
-  Label: string;
-  Code?: CodeType[];
-  SuggesterParameters?: SuggesterParametersType;
-  id: string;
-  Urn?: string;
-};
+  Name: string
+  Label: string
+  Code?: CodeType[]
+  SuggesterParameters?: SuggesterParametersType
+  id: string
+  Urn?: string
+}
 
 export type CodeType = {
   /** The value of the code. */
-  Value: string;
+  Value: string
   /** The label of the code. */
-  Label: string;
+  Label: string
   /**
    * This attribute is used in hierarchical code lists case (a code may contain
    * a code that may contain a code, etc. (as a recursive description)). It
    * refers the parent code of this code.
    */
-  Parent?: string;
-};
+  Parent?: string
+}
 
 type SuggesterParametersType = {
-  name: string;
-  fields: SuggesterField[];
-  meloto?: boolean;
-  max?: number;
-  stopWords?: string[];
-  order?: SuggesterOrder;
-  queryParser?: SuggesterQueryParser;
-  url?: string;
-  version?: number;
-  id: string;
-};
+  name: string
+  fields: SuggesterField[]
+  meloto?: boolean
+  max?: number
+  stopWords?: string[]
+  order?: SuggesterOrder
+  queryParser?: SuggesterQueryParser
+  url?: string
+  version?: number
+  id: string
+}
 
 type SuggesterField = {
-  name: string;
-  rules: string[];
-  language?: string;
-  min?: number;
-  stemmer?: boolean;
-  synonyms?: FieldSynonym[];
-};
+  name: string
+  rules: string[]
+  language?: string
+  min?: number
+  stemmer?: boolean
+  synonyms?: FieldSynonym[]
+}
 
 type FieldSynonym = {
-  source: string;
-  target: string[];
-};
+  source: string
+  target: string[]
+}
 
 type SuggesterOrder = {
-  field: string;
-  type: string;
-};
+  field: string
+  type: string
+}
 
 type SuggesterQueryParser = {
-  type: string;
-  params?: SuggesterQueryParserParams;
-};
+  type: string
+  params?: SuggesterQueryParserParams
+}
 
 type SuggesterQueryParserParams = {
-  language?: string;
-  min?: number;
-  stemmer?: boolean;
-  pattern?: string;
-};
+  language?: string
+  min?: number
+  stemmer?: boolean
+  pattern?: string
+}
 
 type DatatypeType = {
-  typeName: DatatypeTypeEnum;
+  typeName: DatatypeTypeEnum
   /**
    * visualizationHint is the type of input as part of an answer to a
    * single-choice question
@@ -643,7 +644,7 @@ type DatatypeType = {
    * That may not be the perfect choice of a name, a better choice could be
    * "GraphicalImplementation"
    */
-  visualizationHint?: VisualizationHintEnum;
+  visualizationHint?: VisualizationHintEnum
   /**
    * Allows the respondent to enter an arbitrary response if he cannot find an
    * answer among the suggested options. In this case, the related question has
@@ -653,43 +654,43 @@ type DatatypeType = {
    * @defaultValue false
    * @since 1.6.0
    */
-  allowArbitraryResponse?: boolean;
-};
+  allowArbitraryResponse?: boolean
+}
 
 type BooleanDatatypeType = DatatypeType & {
-  type: 'BooleanDatatypeType';
-};
+  type: 'BooleanDatatypeType'
+}
 
 type DateDatatypeType = DatatypeType & {
-  type: 'DateDatatypeType';
-  Minimum?: string;
-  Maximum?: string;
+  type: 'DateDatatypeType'
+  Minimum?: string
+  Maximum?: string
   /** date output format among YYYY-MM-DD, YYYY-MM and YYYY. */
-  Format?: DateFormatEnum;
-};
+  Format?: DateFormatEnum
+}
 
 type DurationDatatypeType = DatatypeType & {
-  type: 'DurationDatatypeType';
-  Minimum?: string;
-  Maximum?: string;
-  Format?: string;
-};
+  type: 'DurationDatatypeType'
+  Minimum?: string
+  Maximum?: string
+  Format?: string
+}
 
 type NumericDatatypeType = DatatypeType & {
-  type: 'NumericDatatypeType';
+  type: 'NumericDatatypeType'
   /** Minimum is a string containing a number */
-  Minimum?: string;
+  Minimum?: string
   /** Maximum is a string containing a number */
-  Maximum?: string;
+  Maximum?: string
   /** Number of decimal places. It is a string containing a number */
-  Decimals?: string;
+  Decimals?: string
   /**
    * default value is false
    *
    * Allows Unit to interpret the content of Unit (reference to a Variable or
    * Uri leading to a static unit)
    */
-  IsDynamicUnit?: boolean;
+  IsDynamicUnit?: boolean
   /**
    * When dynamic, Unit contains a reference to a Variable (containing the value)
    *
@@ -697,14 +698,14 @@ type NumericDatatypeType = DatatypeType & {
    * units available at INSEE is described in this file:
    * https://github.com/InseeFr/DDI-Access-Services/blob/main/src/main/resources/measure-units.json.
    */
-  Unit?: string;
-};
+  Unit?: string
+}
 
 type TextDatatypeType = DatatypeType & {
-  type: 'TextDatatypeType';
+  type: 'TextDatatypeType'
   /** Maximum text response size in number of characters */
-  MaxLength?: number;
-};
+  MaxLength?: number
+}
 
 export enum DatatypeTypeEnum {
   Boolean = 'BOOLEAN',

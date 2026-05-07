@@ -1,16 +1,16 @@
-import React from 'react';
+import { Field } from '@base-ui-components/react/field'
+import { Input as UIInput } from '@base-ui-components/react/input'
 
-import { Field } from '@base-ui-components/react/field';
-import { Input as UIInput } from '@base-ui-components/react/input';
+import React from 'react'
 
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  description?: string;
-  error?: string;
-  label?: string;
-  required?: boolean;
-  onValueChange?: UIInput.Props['onValueChange'];
-  showClearButton?: boolean;
+  className?: string
+  description?: string
+  error?: string
+  label?: string
+  required?: boolean
+  onValueChange?: UIInput.Props['onValueChange']
+  showClearButton?: boolean
 }
 
 /** @deprecated Use `Field` and `Input` instead. */
@@ -76,8 +76,8 @@ const FormInput = React.forwardRef<HTMLInputElement, Props>(
           </Field.Description>
         ) : null}
       </Field.Root>
-    );
+    )
   },
-);
+)
 
-export default FormInput;
+export default FormInput

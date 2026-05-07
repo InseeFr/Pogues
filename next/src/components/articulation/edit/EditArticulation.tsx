@@ -7,7 +7,8 @@ import { articulationKeys, putArticulation } from '@/api/articulation';
 import { Articulation, ArticulationItems } from '@/models/articulation';
 import { Variable } from '@/models/variables';
 
-import ArticulationForm, { FormValues } from '../form/ArticulationForm';
+import ArticulationForm from '../form/ArticulationForm';
+import { type FormValues } from '../form/schema';
 
 interface EditArticulationProps {
   questionnaireId: string;

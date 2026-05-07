@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next'
 
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
 
-import Filters from '@/components/ui/Filters';
-import { Filter, FilterType } from '@/models/filters';
-import { Nomenclature } from '@/models/nomenclature';
+import Filters from '@/components/ui/Filters'
+import { Filter, FilterType } from '@/models/filters'
+import { Nomenclature } from '@/models/nomenclature'
 
-import NomenclatureOverviewItem from './NomenclatureOverviewItem';
+import NomenclatureOverviewItem from './NomenclatureOverviewItem'
 
 interface NomenclaturesProps {
-  nomenclatures: Nomenclature[];
+  nomenclatures: Nomenclature[]
 }
 
 /**
@@ -18,10 +18,10 @@ interface NomenclaturesProps {
 export default function NomenclaturesOverview({
   nomenclatures = [],
 }: Readonly<NomenclaturesProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const [filteredNomenclatures, setFilteredNomenclatures] =
-    useState<Nomenclature[]>(nomenclatures);
+    useState<Nomenclature[]>(nomenclatures)
 
   const filters: Filter<Nomenclature>[] = [
     {
@@ -31,7 +31,7 @@ export default function NomenclaturesOverview({
       placeholder: t('nomenclatures.search'),
       type: FilterType.Text,
     },
-  ];
+  ]
 
   return nomenclatures.length > 0 ? (
     <>
@@ -55,5 +55,5 @@ export default function NomenclaturesOverview({
     <div>
       <p>{t('nomenclatures.notUsedByQuestionnaire')}</p>
     </div>
-  );
+  )
 }

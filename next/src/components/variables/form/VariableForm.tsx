@@ -1,36 +1,36 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { t } from 'i18next';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import { t } from 'i18next'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
-import Field from '@/components/ui/form/Field';
-import Form from '@/components/ui/form/Form';
-import Input from '@/components/ui/form/Input';
-import NumberField from '@/components/ui/form/NumberField';
-import RadioGroup from '@/components/ui/form/RadioGroup';
-import Select from '@/components/ui/form/Select';
-import Switch from '@/components/ui/form/Switch';
-import VTLEditor from '@/components/ui/form/VTLEditor';
-import { DatatypeType, DateFormat } from '@/models/datatype';
-import { type Variable, VariableType } from '@/models/variables';
+import Field from '@/components/ui/form/Field'
+import Form from '@/components/ui/form/Form'
+import Input from '@/components/ui/form/Input'
+import NumberField from '@/components/ui/form/NumberField'
+import RadioGroup from '@/components/ui/form/RadioGroup'
+import Select from '@/components/ui/form/Select'
+import Switch from '@/components/ui/form/Switch'
+import VTLEditor from '@/components/ui/form/VTLEditor'
+import { DatatypeType, DateFormat } from '@/models/datatype'
+import { type Variable, VariableType } from '@/models/variables'
 
-import { datatypeOptions, dateFormatOptions } from './consts';
-import { type FormValues, schema } from './schema';
-import { convertToValidName } from './utils/name';
+import { datatypeOptions, dateFormatOptions } from './consts'
+import { type FormValues, schema } from './schema'
+import { convertToValidName } from './utils/name'
 
 type Props = {
-  questionnaireId: string;
+  questionnaireId: string
   /** In an update case, initial questionnaire value. */
-  variable?: Omit<Variable, 'id'>;
+  variable?: Omit<Variable, 'id'>
   /** Function that will be called with form data when the user submit the form. */
-  onSubmit: SubmitHandler<FormValues>;
+  onSubmit: SubmitHandler<FormValues>
   /** Label to display on the submit button */
-  submitLabel: string;
+  submitLabel: string
   /** Available scopes with the mapping between id and name. */
-  scopes: Map<string, string>;
+  scopes: Map<string, string>
   /** List of variables used for auto-completion in VTL editor. */
-  variables?: Variable[];
-};
+  variables?: Variable[]
+}
 
 /**
  * Create or edit a variable.
@@ -55,7 +55,7 @@ export default function VariableForm({
   scopes,
   variables = [],
 }: Readonly<Props>) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const {
     control,
@@ -67,14 +67,14 @@ export default function VariableForm({
     mode: 'onChange',
     defaultValues: variable,
     resolver: zodResolver(schema),
-  });
+  })
 
-  const selectedType = watch('type');
-  const selectedTypeName = watch('datatype.typeName');
+  const selectedType = watch('type')
+  const selectedTypeName = watch('datatype.typeName')
 
   const isDatatypeTypeNameDisabled =
     selectedType === VariableType.External &&
-    variable.datatype.typeName === DatatypeType.Text;
+    variable.datatype.typeName === DatatypeType.Text
 
   const datatypeTypeNameOptions = (() => {
     // For External variable, enable only current saved option and 'Text'
@@ -82,10 +82,10 @@ export default function VariableForm({
       return datatypeOptions.filter(
         ({ value }) =>
           value === DatatypeType.Text || value === variable.datatype.typeName,
-      );
+      )
     }
-    return datatypeOptions;
-  })();
+    return datatypeOptions
+  })()
 
   /** Ignore dirty state and return to the variables page. */
   const handleCancel = () => {
@@ -93,8 +93,8 @@ export default function VariableForm({
       to: '/questionnaire/$questionnaireId/variables',
       params: { questionnaireId },
       ignoreBlocker: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form
@@ -257,10 +257,12 @@ export default function VariableForm({
             <Select<string>
               options={[
                 { label: t('common.questionnaire'), value: '' },
-                ...Array.from(scopes).map(([id, name]) => ({
-                  label: name,
-                  value: id,
-                })),
+                ...Array.from(scopes ?? new Map<string, string>()).map(
+                  ([id, name]) => ({
+                    label: name,
+                    value: id,
+                  }),
+                ),
               ]}
               value={value}
               onChange={onChange}
@@ -427,5 +429,5 @@ export default function VariableForm({
         />
       ) : null}
     </Form>
-  );
+  )
 }

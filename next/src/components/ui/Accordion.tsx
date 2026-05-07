@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { Accordion as UIAccordion } from '@base-ui-components/react/accordion'
 
-import { Accordion as UIAccordion } from '@base-ui-components/react/accordion';
+import * as React from 'react'
 
 interface AccordionProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function Accordion({ children }: Readonly<AccordionProps>) {
@@ -11,12 +11,12 @@ export default function Accordion({ children }: Readonly<AccordionProps>) {
     <UIAccordion.Root className="flex max-w-[calc(100vw-8rem)] flex-col justify-center text-default">
       {children}
     </UIAccordion.Root>
-  );
+  )
 }
 
 interface AccordionItemProps {
-  title?: string;
-  children?: React.ReactNode;
+  title?: string
+  children?: React.ReactNode
 }
 
 export function AccordionItem({
@@ -35,7 +35,7 @@ export function AccordionItem({
         <div className="pb-3">{children}</div>
       </UIAccordion.Panel>
     </UIAccordion.Item>
-  );
+  )
 }
 
 function PlusIcon(props: Readonly<React.ComponentProps<'svg'>>) {
@@ -43,5 +43,5 @@ function PlusIcon(props: Readonly<React.ComponentProps<'svg'>>) {
     <svg viewBox="0 0 12 12" fill="currentcolor" {...props}>
       <path d="M6.75 0H5.25V5.25H0V6.75L5.25 6.75V12H6.75V6.75L12 6.75V5.25H6.75V0Z" />
     </svg>
-  );
+  )
 }

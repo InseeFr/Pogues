@@ -9,8 +9,8 @@ import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
 import { uid } from '@/utils/utils'
 
-import CodesListForm from '../form/CodesListForm'
-import { type FormValues } from '../form/schema'
+import CodesListForm from '../form/CodesListForm';
+import { FormValues } from '../form/schema';
 
 interface CreateCodesListFormProps {
   questionnaireId: string

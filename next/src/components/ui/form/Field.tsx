@@ -1,45 +1,45 @@
-import React from 'react';
+import { Field as BaseUIField } from '@base-ui-components/react/field'
+import { FieldError } from 'react-hook-form'
 
-import { Field as BaseUIField } from '@base-ui-components/react/field';
-import { FieldError } from 'react-hook-form';
+import React from 'react'
 
 export type Props = {
   /** Input to be associated with the labelling and form control. */
-  children: React.ReactNode;
+  children: React.ReactNode
   /** Additional information about the field. */
-  description?: string;
+  description?: string
   /**
    * Whether the field's value has been changed from its initial value. Useful
    * when the field state is controlled by an external library.
    */
-  dirty?: BaseUIField.Root.Props['dirty'];
+  dirty?: BaseUIField.Root.Props['dirty']
   /**
    * Whether the component should ignore user interaction. Takes precedence over
    * the disabled prop on the `<Field.Control>` component.
    */
-  disabled?: BaseUIField.Root.Props['disabled'];
+  disabled?: BaseUIField.Root.Props['disabled']
   /** Display an error from `react-hook-form`. */
-  error?: FieldError;
+  error?: FieldError
   /** Whether the field is forcefully marked as invalid. */
-  invalid?: BaseUIField.Root.Props['invalid'];
+  invalid?: BaseUIField.Root.Props['invalid']
   /**
    * An accessible label that is automatically associated with the field
    * control.
    */
-  label: string | React.ReactNode;
+  label: string | React.ReactNode
   /**
    * Identifies the field when a form is submitted. Takes precedence over the
    * `name` prop on the `<Field.Control>` component.
    */
-  name?: BaseUIField.Root.Props['name'];
+  name?: BaseUIField.Root.Props['name']
   /** Whether the field is mandatory. */
-  required?: boolean;
+  required?: boolean
   /**
    * Whether the field has been touched. Useful when the field state is
    * controlled by an external library.
    */
-  touched?: BaseUIField.Root.Props['touched'];
-};
+  touched?: BaseUIField.Root.Props['touched']
+}
 
 /**
  * A component that provides labeling and validation for form controls.
@@ -101,5 +101,5 @@ export default function Field({
         {error?.message}
       </BaseUIField.Error>
     </BaseUIField.Root>
-  );
+  )
 }

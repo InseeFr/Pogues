@@ -1,25 +1,25 @@
-import { useEffect, useRef } from 'react';
+import Prism from 'prismjs'
+import 'prismjs/components/prism-json'
+import 'prismjs/themes/prism.css'
 
-import Prism from 'prismjs';
-import 'prismjs/components/prism-json';
-import 'prismjs/themes/prism.css';
+import { useEffect, useRef } from 'react'
 
 interface JsonViewerProps {
-  data: string;
+  data: string
 }
 
 export default function JsonViewer({ data }: Readonly<JsonViewerProps>) {
-  const codeRef = useRef<HTMLElement>(null);
-  const shouldScroll = data.split('\n').length > 4;
+  const codeRef = useRef<HTMLElement>(null)
+  const shouldScroll = data.split('\n').length > 4
   useEffect(() => {
     if (codeRef.current) {
       codeRef.current.innerHTML = Prism.highlight(
         data,
         Prism.languages.json,
         'json',
-      );
+      )
     }
-  }, [data]);
+  }, [data])
 
   return (
     <div className="overflow-x-auto w-full my-4">
@@ -34,5 +34,5 @@ export default function JsonViewer({ data }: Readonly<JsonViewerProps>) {
         </pre>
       </div>
     </div>
-  );
+  )
 }

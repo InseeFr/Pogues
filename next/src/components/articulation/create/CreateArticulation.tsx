@@ -10,7 +10,8 @@ import {
 } from '@/models/articulation';
 import { Variable } from '@/models/variables';
 
-import ArticulationForm, { FormValues } from '../form/ArticulationForm';
+import ArticulationForm from '../form/ArticulationForm';
+import { type FormValues } from '../form/schema';
 
 interface CreateArticulationProps {
   questionnaireId: string;

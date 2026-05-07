@@ -12,6 +12,9 @@
     "dev": "pnpm run generate-routes && vite",
     "build": "tsc && pnpm run generate-routes && vite build",
     "lint": "eslint .",
+    "_format": "prettier --ignore-unknown .",
+    "format": "pnpm run _format -- --write",
+    "format:check": "pnpm run _format -- --list-different",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -50,6 +53,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/papaparse": "^5.3.16",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^18.3.1",
@@ -63,6 +67,7 @@
     "jsdom": "^26.0.0",
     "nock": "^14.0.1",
     "postcss": "^8.5.1",
+    "prettier": "^3.8.1",
     "tailwindcss": "^4.1.17",
     "typescript": "~5.8.0",
     "typescript-eslint": "^8.18.2",

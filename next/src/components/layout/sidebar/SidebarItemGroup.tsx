@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { NavigationMenu } from '@base-ui-components/react/navigation-menu'
 
-import { NavigationMenu } from '@base-ui-components/react/navigation-menu';
+import { useState } from 'react'
 
-import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
+import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon'
 
-import SidebarIcon from './SidebarIcon';
+import SidebarIcon from './SidebarIcon'
 
 type Props = {
-  children: React.ReactNode;
-  Icon: React.FC<React.ComponentProps<'svg'>>;
-  iconClassName?: string;
-  isHidden?: boolean;
-  label: string;
-  onIconClick?: () => void;
-};
+  children: React.ReactNode
+  Icon: React.FC<React.ComponentProps<'svg'>>
+  iconClassName?: string
+  isHidden?: boolean
+  label: string
+  onIconClick?: () => void
+}
 
 /**
  * Display a navigation icon that can open / close a submenu on hover with
@@ -26,10 +26,10 @@ export default function SidebarItemGroup({
   isHidden,
   label,
 }: Readonly<Props>) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const toggleExpanded = () => setIsExpanded(!isExpanded);
+  const [isExpanded, setIsExpanded] = useState(false)
+  const toggleExpanded = () => setIsExpanded(!isExpanded)
 
-  if (isHidden) return null;
+  if (isHidden) return null
 
   return (
     <>
@@ -97,5 +97,5 @@ export default function SidebarItemGroup({
         </ul>
       )}
     </>
-  );
+  )
 }

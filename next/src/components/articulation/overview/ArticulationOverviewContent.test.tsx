@@ -1,6 +1,7 @@
-import { renderWithI18n, renderWithRouter } from '@/testing/render';
+import { ArticulationVariablesLabel } from '@/models/articulation'
+import { renderWithI18n, renderWithRouter } from '@/testing/render'
 
-import { ArticulationOverviewContent } from './ArticulationOverviewContent';
+import { ArticulationOverviewContent } from './ArticulationOverviewContent'
 
 describe('ArticulationOverviewContent', () => {
   it('displays roundabout summary information', async () => {
@@ -8,16 +9,19 @@ describe('ArticulationOverviewContent', () => {
       <ArticulationOverviewContent
         questionnaireId="q-id"
         articulationItems={[
-          { label: 'Prénom', value: 'prenom formula' },
-          { label: 'Sexe', value: 'gender formula' },
-          { label: 'Age', value: 'age formula' },
+          {
+            label: ArticulationVariablesLabel.FirstName,
+            value: 'prenom formula',
+          },
+          { label: ArticulationVariablesLabel.Gender, value: 'gender formula' },
+          { label: ArticulationVariablesLabel.Age, value: 'age formula' },
         ]}
       />,
-    );
+    )
 
-    expect(getByText('First Name')).toBeInTheDocument();
-    expect(getByText('prenom formula')).toBeInTheDocument();
-  });
+    expect(getByText('First Name')).toBeInTheDocument()
+    expect(getByText('prenom formula')).toBeInTheDocument()
+  })
 
   it('displays that there are no summary when empty in readonly and does not allow to set articulation', async () => {
     const { getByText, queryByRole } = renderWithI18n(
@@ -26,13 +30,13 @@ describe('ArticulationOverviewContent', () => {
         articulationItems={undefined}
         readonly
       />,
-    );
+    )
 
-    expect(queryByRole('link', { name: 'Create an articulation' })).toBeNull();
+    expect(queryByRole('link', { name: 'Create an articulation' })).toBeNull()
     expect(
       getByText('Roundabout summary has not been specified in this version.'),
-    ).toBeInTheDocument();
-  });
+    ).toBeInTheDocument()
+  })
 
   it('allows to set roundabout summary from scratch when empty ', async () => {
     const { getByRole } = await renderWithRouter(
@@ -41,13 +45,10 @@ describe('ArticulationOverviewContent', () => {
         articulationItems={undefined}
         readonly={false}
       />,
-    );
+    )
 
-    const button = getByRole('link', { name: 'Create the roundabout summary' });
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute(
-      'href',
-      '/questionnaire/q1/articulation/new',
-    );
-  });
-});
+    const button = getByRole('link', { name: 'Create the roundabout summary' })
+    expect(button).toBeInTheDocument()
+    expect(button).toHaveAttribute('href', '/questionnaire/q1/articulation/new')
+  })
+})

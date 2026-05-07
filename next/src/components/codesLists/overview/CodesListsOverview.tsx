@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next'
 
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
 
-import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink';
-import Filters from '@/components/ui/Filters';
-import { type CodesList } from '@/models/codesLists';
-import { Filter, FilterType } from '@/models/filters';
+import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink'
+import Filters from '@/components/ui/Filters'
+import { type CodesList } from '@/models/codesLists'
+import { Filter, FilterType } from '@/models/filters'
 
-import CodesListOverviewItem from './CodesListOverviewItem';
+import CodesListOverviewItem from './CodesListOverviewItem'
 
 interface CodesListsProps {
-  codesLists?: CodesList[];
-  questionnaireId: string;
-  readonly?: boolean;
+  codesLists?: CodesList[]
+  questionnaireId: string
+  readonly?: boolean
 }
 
 /**
@@ -24,10 +24,10 @@ export default function CodesListsOverview({
   questionnaireId,
   readonly = false,
 }: Readonly<CodesListsProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const [filteredCodesLists, setFilteredCodesLists] =
-    useState<CodesList[]>(codesLists);
+    useState<CodesList[]>(codesLists)
 
   const filters: Filter<CodesList>[] = [
     {
@@ -46,7 +46,7 @@ export default function CodesListsOverview({
       placeholder: t('codesLists.search'),
       type: FilterType.Text,
     },
-  ];
+  ]
 
   if (codesLists.length > 0) {
     return (
@@ -67,7 +67,7 @@ export default function CodesListsOverview({
           ))}
         </ul>
       </>
-    );
+    )
   }
 
   if (readonly) {
@@ -75,7 +75,7 @@ export default function CodesListsOverview({
       <div>
         <p>{t('codesLists.notUsedByQuestionnaire')}</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -86,5 +86,5 @@ export default function CodesListsOverview({
     >
       {t('codesLists.create')}
     </ButtonLink>
-  );
+  )
 }

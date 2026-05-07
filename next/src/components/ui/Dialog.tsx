@@ -1,35 +1,35 @@
-import { useState } from 'react';
+import { Dialog as UIDialog } from '@base-ui-components/react/dialog'
+import { useTranslation } from 'react-i18next'
 
-import { Dialog as UIDialog } from '@base-ui-components/react/dialog';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
 
-import Button, { ButtonStyle } from './Button';
+import Button, { ButtonStyle } from './Button'
 
 interface DialogButtonProps {
   /** Body message in the dialog. */
-  body: React.ReactNode;
+  body: React.ReactNode
   /**
    * Function to execute if the user click on "cancel".
    *
    * It will replace the default "cancel" button. It should only be used with a controlled dialog.
    */
-  onCancel?: () => void;
+  onCancel?: () => void
   /**
    * Function to execute if the user click on "validate".
    *
    * The validate button is only present if this function is provided.
    */
-  onValidate?: () => void;
+  onValidate?: () => void
   /** Children to render inside the dialog trigger button. */
-  children?: React.ReactElement;
+  children?: React.ReactElement
   /** Title of the dialog. */
-  title: React.ReactNode;
+  title: React.ReactNode
   /** Whether or not the button to open the dialog is disabled. */
-  disabled?: boolean;
+  disabled?: boolean
   /** Optional open state and setter for controlled dialog behavior. */
-  controlledOpen?: boolean;
+  controlledOpen?: boolean
   /** Optional setter for open state, useful for controlled components. */
-  setControlledOpen?: (open: boolean) => void;
+  setControlledOpen?: (open: boolean) => void
 }
 
 /** Display a button that opens a confirmation dialog. */
@@ -42,11 +42,11 @@ export default function Dialog({
   controlledOpen,
   setControlledOpen,
 }: Readonly<DialogButtonProps>) {
-  const { t } = useTranslation();
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const { t } = useTranslation()
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
 
-  const open = controlledOpen ?? uncontrolledOpen;
-  const setOpen = setControlledOpen ?? setUncontrolledOpen;
+  const open = controlledOpen ?? uncontrolledOpen
+  const setOpen = setControlledOpen ?? setUncontrolledOpen
 
   return (
     <UIDialog.Root open={open} onOpenChange={setOpen}>
@@ -69,8 +69,8 @@ export default function Dialog({
             {onValidate ? (
               <Button
                 onClick={() => {
-                  onValidate();
-                  setOpen(false);
+                  onValidate()
+                  setOpen(false)
                 }}
                 buttonStyle={ButtonStyle.Primary}
               >
@@ -81,5 +81,5 @@ export default function Dialog({
         </UIDialog.Popup>
       </UIDialog.Portal>
     </UIDialog.Root>
-  );
+  )
 }
