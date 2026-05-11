@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import CodesListOverviewVersionLayout from './CodesListOverviewVersionLayout';
+import CodesListOverviewVersionLayout from './CodesListOverviewVersionLayout'
 
 describe('CodesListOverviewVersionLayout', () => {
   it('is readonly and displays title and children', async () => {
@@ -11,12 +11,12 @@ describe('CodesListOverviewVersionLayout', () => {
       >
         Hello world
       </CodesListOverviewVersionLayout>,
-    );
+    )
 
-    expect(getByText('Codes lists')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
+    expect(getByText('Codes lists')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
     expect(
       getByText('This save of the survey is on readonly.'),
-    ).toBeInTheDocument();
-  });
-});
+    ).toBeInTheDocument()
+  })
+})

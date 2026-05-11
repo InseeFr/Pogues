@@ -1,11 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { multimodeQueryOptions } from '@/api/multimode';
-import MultimodeOverview from '@/components/multimode/overview/MultimodeOverview';
-import MultimodeOverviewErrorComponent from '@/components/multimode/overview/layout/MultimodeOverviewErrorComponent';
-import MultimodeOverviewLayout from '@/components/multimode/overview/layout/MultimodeOverviewLayout';
-import { type MultimodeIsMovedRules } from '@/models/multimode';
+import { multimodeQueryOptions } from '@/api/multimode'
+import MultimodeOverview from '@/components/multimode/overview/MultimodeOverview'
+import MultimodeOverviewErrorComponent from '@/components/multimode/overview/layout/MultimodeOverviewErrorComponent'
+import MultimodeOverviewLayout from '@/components/multimode/overview/layout/MultimodeOverviewLayout'
+import { type MultimodeIsMovedRules } from '@/models/multimode'
 
 /**
  * Display the current questionnaire multimode and allow to set them.
@@ -24,13 +24,13 @@ export const Route = createFileRoute(
   ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(multimodeQueryOptions(questionnaireId)),
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const { data }: { data: MultimodeIsMovedRules } = useSuspenseQuery(
     multimodeQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <MultimodeOverviewLayout>
@@ -39,5 +39,5 @@ function RouteComponent() {
         isMovedRules={data}
       />
     </MultimodeOverviewLayout>
-  );
+  )
 }

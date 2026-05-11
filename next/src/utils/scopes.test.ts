@@ -1,10 +1,10 @@
-import { computeQuestionnaireScopes } from './scopes';
+import { computeQuestionnaireScopes } from './scopes'
 
 it('Compute scopes from questionnaire as a map', () => {
   // nominal case
-  const expected = new Map();
-  expected.set('id1', '1');
-  expected.set('id2', '2');
+  const expected = new Map()
+  expected.set('id1', '1')
+  expected.set('id2', '2')
   expect(
     computeQuestionnaireScopes({
       id: 'id',
@@ -15,7 +15,7 @@ it('Compute scopes from questionnaire as a map', () => {
         { id: 'id2', name: '2' },
       ],
     }),
-  ).toEqual(expected);
+  ).toEqual(expected)
 
   // empty/default case
   expect(
@@ -24,5 +24,5 @@ it('Compute scopes from questionnaire as a map', () => {
       title: 'title',
       targetModes: new Set(),
     }),
-  ).toEqual(new Map());
-});
+  ).toEqual(new Map())
+})

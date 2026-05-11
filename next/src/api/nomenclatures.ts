@@ -1,14 +1,14 @@
-import { queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query'
 
-import { Nomenclature } from '@/models/nomenclature';
+import { Nomenclature } from '@/models/nomenclature'
 
-import { instance } from './instance';
+import { instance } from './instance'
 
 const nomenclaturesKeys = {
   all: (questionnaireId: string) => ['nomenclatures', questionnaireId] as const,
   version: (questionnaireId: string, versionId: string) =>
     ['nomenclaturesVersion', questionnaireId, versionId] as const,
-};
+}
 
 /**
  * Used to retrieve nomenclatures used by a questionnaire.
@@ -19,7 +19,7 @@ export const nomenclaturesQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: nomenclaturesKeys.all(questionnaireId),
     queryFn: () => getNomenclatures(questionnaireId),
-  });
+  })
 
 /**
  * Used to retrieve nomenclatures used by an older version of a questionnaire.
@@ -34,7 +34,7 @@ export const nomenclaturesFromVersionQueryOptions = (
     queryKey: nomenclaturesKeys.version(questionnaireId, versionId),
     queryFn: () => getNomenclaturesFromVersion(questionnaireId, versionId),
     staleTime: Infinity,
-  });
+  })
 
 /** Retrieve all nomenclature used by a questionnaire. */
 export async function getNomenclatures(
@@ -45,8 +45,8 @@ export async function getNomenclatures(
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: Nomenclature[] }) => {
-      return data;
-    });
+      return data
+    })
 }
 
 /** Retrieve all nomenclature used by a version of a aquestionnaire. */
@@ -60,6 +60,6 @@ export async function getNomenclaturesFromVersion(
       { headers: { Accept: 'application/json' } },
     )
     .then(({ data }: { data: Nomenclature[] }) => {
-      return data;
-    });
+      return data
+    })
 }

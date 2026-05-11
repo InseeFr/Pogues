@@ -8,4 +8,4 @@ export const { getAccessToken, getOidc, useOidc } = {
     isUserLoggedIn: true,
     logout: vi.fn(),
   }),
-};
+}

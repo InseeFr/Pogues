@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import EditCodesListLayout from './EditCodesListLayout';
+import EditCodesListLayout from './EditCodesListLayout'
 
 describe('EditCodesListLayout', () => {
   it('displays title and children', async () => {
@@ -8,9 +8,9 @@ describe('EditCodesListLayout', () => {
       <EditCodesListLayout codesList={{ label: 'my-cl', id: 'id', codes: [] }}>
         Hello world
       </EditCodesListLayout>,
-    );
+    )
 
-    expect(getByText('Edit the code list: my-cl')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
-  });
-});
+    expect(getByText('Edit the code list: my-cl')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
+  })
+})

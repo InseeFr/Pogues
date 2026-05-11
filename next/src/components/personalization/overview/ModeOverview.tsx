@@ -1,62 +1,62 @@
-import { useMutation } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
 import {
   getPdfRecapOfInterrogation,
   resetInterrogation,
-} from '@/api/personalization';
-import ButtonIcon from '@/components/ui/ButtonIcon';
-import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
-import PDFIcon from '@/components/ui/icons/PdfIcon';
-import ResetIcon from '@/components/ui/icons/ResetIcon';
+} from '@/api/personalization'
+import ButtonIcon from '@/components/ui/ButtonIcon'
+import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon'
+import PDFIcon from '@/components/ui/icons/PdfIcon'
+import ResetIcon from '@/components/ui/icons/ResetIcon'
 import {
   InterrogationModeData,
   InterrogationModeDataResponse,
-} from '@/models/personalizationQuestionnaire';
+} from '@/models/personalizationQuestionnaire'
 
 interface ModeOverviewProps {
-  interrogationData: InterrogationModeDataResponse;
+  interrogationData: InterrogationModeDataResponse
 }
 
 const enableDownloadRcapPdf =
-  import.meta.env.VITE_ENABLE_DOWNLOAD_PDF_PERSO === 'true';
+  import.meta.env.VITE_ENABLE_DOWNLOAD_PDF_PERSO === 'true'
 
 export default function ModeOverview({
   interrogationData,
 }: Readonly<ModeOverviewProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const resetInterrogationMutation = useMutation({
     mutationFn: async (interrogationId: string) => {
-      const result = await resetInterrogation(interrogationId);
-      return result ?? null;
+      const result = await resetInterrogation(interrogationId)
+      return result ?? null
     },
-  });
+  })
 
   const downloadPdfInterrogationMutation = useMutation({
     mutationFn: async (interrogationId: string) => {
-      const result = await getPdfRecapOfInterrogation(interrogationId);
-      return result ?? null;
+      const result = await getPdfRecapOfInterrogation(interrogationId)
+      return result ?? null
     },
-  });
+  })
 
   function onDownloadPdf(interrogationId: string) {
     const promise =
-      downloadPdfInterrogationMutation.mutateAsync(interrogationId);
+      downloadPdfInterrogationMutation.mutateAsync(interrogationId)
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('personalization.overview.downladPdfRecap.success'),
       error: t('personalization.overview.downladPdfRecap.error'),
-    });
+    })
   }
 
   function onReset(interrogationId: string) {
-    const promise = resetInterrogationMutation.mutateAsync(interrogationId);
+    const promise = resetInterrogationMutation.mutateAsync(interrogationId)
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('personalization.edit.resetInterrogationSuccess'),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   // Get all unique displayableIds
@@ -66,7 +66,7 @@ export default function ModeOverview({
         .flat()
         .map((item) => item.displayableId),
     ),
-  ).sort((a, b) => a - b);
+  ).sort((a, b) => a - b)
 
   const modeNames = (
     Object.keys(interrogationData) as Array<keyof InterrogationModeDataResponse>
@@ -74,9 +74,9 @@ export default function ModeOverview({
     (mode) =>
       Array.isArray(interrogationData[mode]) &&
       interrogationData[mode].length > 0,
-  );
+  )
 
-  const shouldScroll = allDisplayableIds.length > 4;
+  const shouldScroll = allDisplayableIds.length > 4
 
   return (
     <div className="overflow-x-auto w-full my-3">
@@ -105,7 +105,7 @@ export default function ModeOverview({
                   const interrogation = interrogationData[mode].find(
                     (item: InterrogationModeData) =>
                       item.displayableId === displayableId,
-                  );
+                  )
                   return (
                     <td key={mode}>
                       {interrogation && (
@@ -138,7 +138,7 @@ export default function ModeOverview({
                         </div>
                       )}
                     </td>
-                  );
+                  )
                 })}
               </tr>
             ))}
@@ -146,5 +146,5 @@ export default function ModeOverview({
         </table>
       </div>
     </div>
-  );
+  )
 }

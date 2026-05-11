@@ -1,16 +1,16 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import QuestionnaireLine from './QuestionnaireLine';
+import QuestionnaireLine from './QuestionnaireLine'
 
 describe('QuestionnaireLine', () => {
   it('display the main questionnaire information', async () => {
-    const origDate = Date.prototype.toLocaleDateString;
+    const origDate = Date.prototype.toLocaleDateString
     vi.spyOn(Date.prototype, 'toLocaleDateString').mockImplementationOnce(
       function () {
         // @ts-expect-error vitest locale shenanigans
-        return origDate.call(this, 'fr-FR');
+        return origDate.call(this, 'fr-FR')
       },
-    );
+    )
 
     const { getByText } = await renderWithRouter(
       <QuestionnaireLine
@@ -21,9 +21,9 @@ describe('QuestionnaireLine', () => {
           targetModes: new Set(),
         }}
       />,
-    );
+    )
 
-    expect(getByText('My questionnaire')).toBeInTheDocument();
-    expect(getByText('01/02/2023')).toBeInTheDocument();
-  });
-});
+    expect(getByText('My questionnaire')).toBeInTheDocument()
+    expect(getByText('01/02/2023')).toBeInTheDocument()
+  })
+})

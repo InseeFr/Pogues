@@ -1,7 +1,7 @@
-import UserIcon from './icons/UserIcon';
+import UserIcon from './icons/UserIcon'
 
 interface AvatarProps {
-  initials?: string;
+  initials?: string
 }
 
 /**
@@ -22,5 +22,5 @@ export default function Avatar({ initials }: Readonly<AvatarProps>) {
         </div>
       )}
     </div>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event'
 
-import { DatatypeType } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
-import { renderWithRouter } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
+import { renderWithRouter } from '@/testing/render'
 
-import VariablesOverview from './VariablesOverview';
+import VariablesOverview from './VariablesOverview'
 
 describe('VariablesOverview', () => {
   it('display variables and filter them', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup()
 
     const { getByRole, getByText, queryByText } = await renderWithRouter(
       <VariablesOverview
@@ -23,11 +23,11 @@ describe('VariablesOverview', () => {
           },
         ]}
       />,
-    );
+    )
 
-    expect(getByText('MY_VAR')).toBeInTheDocument();
+    expect(getByText('MY_VAR')).toBeInTheDocument()
 
-    await user.click(getByRole('button', { name: /External/i }));
-    expect(queryByText('MY_VAR')).toBeNull();
-  });
-});
+    await user.click(getByRole('button', { name: /External/i }))
+    expect(queryByText('MY_VAR')).toBeNull()
+  })
+})

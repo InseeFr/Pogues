@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import type { Variable } from '@/models/variables';
+import type { Variable } from '@/models/variables'
 
-import VariablesTable from './VariablesTable';
+import VariablesTable from './VariablesTable'
 
 interface Props {
-  questionnaireId: string;
-  readonly?: boolean;
-  variables: Variable[];
+  questionnaireId: string
+  readonly?: boolean
+  variables: Variable[]
 }
 
 /**
@@ -19,7 +19,7 @@ export default function VariablesScopeOverviewItemDetails({
   readonly = false,
   variables = [],
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="py-3">
@@ -35,5 +35,5 @@ export default function VariablesScopeOverviewItemDetails({
         </div>
       )}
     </div>
-  );
+  )
 }

@@ -19,5 +19,5 @@ export function MinusIcon({
     >
       <path d="M0 5H10" />
     </svg>
-  );
+  )
 }

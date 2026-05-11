@@ -1,13 +1,13 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   articulationQueryOptions,
   articulationVariablesQueryOptions,
-} from '@/api/articulation';
-import EditArticulation from '@/components/articulation/edit/EditArticulation';
-import EditArticulationLayout from '@/components/articulation/edit/EditArticulationLayout';
-import ErrorComponent from '@/components/layout/ErrorComponent';
+} from '@/api/articulation'
+import EditArticulation from '@/components/articulation/edit/EditArticulation'
+import EditArticulationLayout from '@/components/articulation/edit/EditArticulationLayout'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 
 /**
  * Page for editing the existing articulation items of a questionnaire.
@@ -27,18 +27,18 @@ export const Route = createFileRoute(
       queryClient.ensureQueryData(
         articulationVariablesQueryOptions(questionnaireId),
       ),
-    ]);
+    ])
   },
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const { data: articulation } = useSuspenseQuery(
     articulationQueryOptions(questionnaireId),
-  );
+  )
   const { data: variables } = useSuspenseQuery(
     articulationVariablesQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <EditArticulationLayout>
@@ -48,5 +48,5 @@ function RouteComponent() {
         articulationItems={articulation.items}
       />
     </EditArticulationLayout>
-  );
+  )
 }

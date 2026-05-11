@@ -1,7 +1,7 @@
-import { CodesList } from '@/models/codesLists';
+import { CodesList } from '@/models/codesLists'
 
-import { CodeList as PoguesCodesList } from '../models/poguesModel';
-import { computeCodesLists } from './codesLists';
+import { CodeList as PoguesCodesList } from '../models/poguesModel'
+import { computeCodesLists } from './codesLists'
 
 const codesLists: CodesList[] = [
   {
@@ -27,7 +27,7 @@ const codesLists: CodesList[] = [
       { label: 'code-2', value: 'value-2' },
     ],
   },
-];
+]
 
 const poguesCodesLists: PoguesCodesList[] = [
   {
@@ -49,13 +49,13 @@ const poguesCodesLists: PoguesCodesList[] = [
       { Label: 'code-2', Value: 'value-2' },
     ],
   },
-];
+]
 
 describe('computeCodesLists', () => {
   it('works', () => {
-    expect(computeCodesLists(poguesCodesLists)).toEqual(codesLists);
-  });
+    expect(computeCodesLists(poguesCodesLists)).toEqual(codesLists)
+  })
   it('works with empty list', () => {
-    expect(computeCodesLists([])).toEqual([]);
-  });
-});
+    expect(computeCodesLists([])).toEqual([])
+  })
+})

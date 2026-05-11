@@ -1,14 +1,14 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import EditMultimodeLayout from './EditMultimodeLayout';
+import EditMultimodeLayout from './EditMultimodeLayout'
 
 describe('EditMultimodeLayout', () => {
   it('displays title and children', async () => {
     const { getByText } = await renderWithRouter(
       <EditMultimodeLayout>Hello world</EditMultimodeLayout>,
-    );
+    )
 
-    expect(getByText('Specify mode-change rules')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
-  });
-});
+    expect(getByText('Specify mode-change rules')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
+  })
+})

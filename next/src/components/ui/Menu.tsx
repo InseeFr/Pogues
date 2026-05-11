@@ -1,29 +1,29 @@
-import { Menu as UIMenu } from '@base-ui-components/react/menu';
+import { Menu as UIMenu } from '@base-ui-components/react/menu'
 
-import { MenuItemType } from './consts/menuItemVariants';
-import MenuIcon from './icons/MenuIcon';
-import ArrowSvg from './icons/PopupArrow';
+import { MenuItemType } from './consts/menuItemVariants'
+import MenuIcon from './icons/MenuIcon'
+import ArrowSvg from './icons/PopupArrow'
 
 type MenuItem = {
   /** Whether this action is disabled. */
-  disabled?: boolean;
+  disabled?: boolean
   /** Optional icon to display next to the action label. */
-  Icon?: React.ReactNode;
+  Icon?: React.ReactNode
   /** Readable text about the action the user can click on. */
-  label: string;
-  type?: MenuItemType;
+  label: string
+  type?: MenuItemType
   /** Function that will happen on action click. */
-  onClick: () => void;
-};
+  onClick: () => void
+}
 
 type Props = {
   /** If provided, will override the menu default appearance. */
-  children?: React.ReactNode;
+  children?: React.ReactNode
   /** Actions that are available. */
-  items: MenuItem[];
+  items: MenuItem[]
   /** Readable text about the menu trigger. */
-  label: string;
-};
+  label: string
+}
 
 /** A list of actions in a dropdown, enhanced with keyboard navigation. */
 export default function Menu({ children, items, label }: Readonly<Props>) {
@@ -78,5 +78,5 @@ export default function Menu({ children, items, label }: Readonly<Props>) {
         </UIMenu.Positioner>
       </UIMenu.Portal>
     </UIMenu.Root>
-  );
+  )
 }

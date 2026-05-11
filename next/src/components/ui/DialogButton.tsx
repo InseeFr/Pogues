@@ -1,25 +1,25 @@
-import Button, { ButtonSize } from './Button';
-import Dialog from './Dialog';
+import Button, { ButtonSize } from './Button'
+import Dialog from './Dialog'
 
 interface DialogButtonProps {
   /** Body message in the dialog. */
-  body: React.ReactNode;
+  body: React.ReactNode
   /** Label of the button that opens the dialog.  */
-  label: string;
+  label: string
   /**
    * Function to execute if the user click on "validate".
    *
    * The validate button is only present if this function is provided.
    */
-  onValidate?: () => void;
+  onValidate?: () => void
   /** Title of the dialog. */
-  title: React.ReactNode;
+  title: React.ReactNode
   /** Size of the button (defaults to medium). */
-  buttonSize?: ButtonSize;
+  buttonSize?: ButtonSize
   /** Title to be displayed on top of the button. */
-  buttonTitle?: string;
+  buttonTitle?: string
   /** Whether or not the button to open the dialog is disabled. */
-  disabled?: boolean;
+  disabled?: boolean
 }
 
 /** Display a button that opens a confirmation dialog. */
@@ -38,5 +38,5 @@ export default function DialogButton({
         {label}
       </Button>
     </Dialog>
-  );
+  )
 }

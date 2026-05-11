@@ -1,11 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { nomenclaturesFromVersionQueryOptions } from '@/api/nomenclatures';
-import ErrorComponent from '@/components/layout/ErrorComponent';
-import NomenclaturesOverview from '@/components/nomenclatures/NomenclatureOverview';
-import NomenclatureOverviewVersionLayout from '@/components/nomenclatures/NomenclatureOverviewVersionLayout';
-import { type Nomenclature } from '@/models/nomenclature';
+import { nomenclaturesFromVersionQueryOptions } from '@/api/nomenclatures'
+import ErrorComponent from '@/components/layout/ErrorComponent'
+import NomenclaturesOverview from '@/components/nomenclatures/NomenclatureOverview'
+import NomenclatureOverviewVersionLayout from '@/components/nomenclatures/NomenclatureOverviewVersionLayout'
+import { type Nomenclature } from '@/models/nomenclature'
 
 /**
  * Nomenclatures page that provide a recap of the the various nomenclatures used
@@ -26,26 +26,26 @@ export const Route = createFileRoute(
   }) => {
     queryClient.ensureQueryData(
       nomenclaturesFromVersionQueryOptions(questionnaireId, versionId),
-    );
-    return { crumb: t('crumb.nomenclatures') };
+    )
+    return { crumb: t('crumb.nomenclatures') }
   },
-});
+})
 
 function RouteComponent() {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
   const { data }: { data: Nomenclature[] } = useSuspenseQuery(
     nomenclaturesFromVersionQueryOptions(questionnaireId, versionId),
-  );
+  )
 
   return (
     <CustomLayout>
       <NomenclaturesOverview nomenclatures={data} />
     </CustomLayout>
-  );
+  )
 }
 
 function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
 
   return (
     <NomenclatureOverviewVersionLayout
@@ -54,5 +54,5 @@ function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     >
       {children}
     </NomenclatureOverviewVersionLayout>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import type { CodesList } from '@/models/codesLists';
+import type { CodesList } from '@/models/codesLists'
 
-import CodeLine from './CodeLine';
+import CodeLine from './CodeLine'
 
 interface CodesTableProps {
-  codesList: CodesList;
+  codesList: CodesList
 }
 
 /** Display codes of a codes list as a table. */
 export default function CodesTable({ codesList }: Readonly<CodesTableProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <table className="border border-default w-full shadow-sm">
@@ -26,5 +26,5 @@ export default function CodesTable({ codesList }: Readonly<CodesTableProps>) {
         ))}
       </tbody>
     </table>
-  );
+  )
 }

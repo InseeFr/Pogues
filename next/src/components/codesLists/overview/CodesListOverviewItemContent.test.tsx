@@ -1,6 +1,6 @@
-import { renderWithI18n } from '@/testing/render';
+import { renderWithI18n } from '@/testing/render'
 
-import CodesListOverviewItemContent from './CodesListOverviewItemContent';
+import CodesListOverviewItemContent from './CodesListOverviewItemContent'
 
 describe('CodesListOverviewItemContent', () => {
   it('display label and number of related questions', () => {
@@ -13,9 +13,9 @@ describe('CodesListOverviewItemContent', () => {
           relatedQuestionNames: ['HOW_ARE_YOU'],
         }}
       />,
-    );
+    )
 
-    expect(getByText(/my code list/i)).toBeInTheDocument();
-    expect(getByText(/1 question/i)).toBeInTheDocument();
-  });
-});
+    expect(getByText(/my code list/i)).toBeInTheDocument()
+    expect(getByText(/1 question/i)).toBeInTheDocument()
+  })
+})

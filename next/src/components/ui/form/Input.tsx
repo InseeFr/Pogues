@@ -1,20 +1,20 @@
-import { Input as BaseUIInput } from '@base-ui-components/react/input';
+import { Input as BaseUIInput } from '@base-ui-components/react/input'
 
 type Props = {
-  autoFocus?: boolean;
+  autoFocus?: boolean
   /** Default value. Use `value` if controlled. */
-  defaultValue?: BaseUIInput.Props['defaultValue'];
+  defaultValue?: BaseUIInput.Props['defaultValue']
   /** Suggestion for what kind of input will be valid. */
-  placeholder?: string;
+  placeholder?: string
   /**
    * The value of the field.
    *
    * To render an uncontrolled switch, use the `defaultValue` prop instead.
    */
-  value?: BaseUIInput.Props['value'];
+  value?: BaseUIInput.Props['value']
   /** Callback fired when the value changes. Use when controlled. */
-  onValueChange?: BaseUIInput.Props['onValueChange'];
-};
+  onValueChange?: BaseUIInput.Props['onValueChange']
+}
 
 export default function Input({
   autoFocus,
@@ -32,5 +32,5 @@ export default function Input({
       value={value}
       onValueChange={onValueChange}
     />
-  );
+  )
 }

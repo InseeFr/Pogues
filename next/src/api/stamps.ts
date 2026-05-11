@@ -1,12 +1,12 @@
-import { queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query'
 
-import { Stamp } from '@/models/stamps';
+import { Stamp } from '@/models/stamps'
 
-import { instance } from './instance';
+import { instance } from './instance'
 
 const stampsKeys = {
   all: ['stamps'] as const,
-};
+}
 
 /**
  * Used to retrieve stamps.
@@ -17,7 +17,7 @@ export const stampsQueryOptions = () =>
   queryOptions({
     queryKey: stampsKeys.all,
     queryFn: () => getStamps(),
-  });
+  })
 
 /** Retrieve stamps which allow to fetch questionnaires associated to one. */
 export async function getStamps(): Promise<Stamp[]> {
@@ -25,5 +25,5 @@ export async function getStamps(): Promise<Stamp[]> {
     .get('/persistence/questionnaires/stamps', {
       headers: { Accept: 'application/json' },
     })
-    .then(({ data }) => data as Stamp[]);
+    .then(({ data }) => data as Stamp[])
 }

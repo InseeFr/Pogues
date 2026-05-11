@@ -1,12 +1,12 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react'
 
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import CodesListsOverview from './CodesListsOverview';
+import CodesListsOverview from './CodesListsOverview'
 
 vi.mock('@/i18n', () => ({
   useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
-}));
+}))
 
 describe('CodesListOverview', () => {
   const mockCodesLists = [
@@ -20,33 +20,33 @@ describe('CodesListOverview', () => {
       label: 'my second code list',
       codes: [],
     },
-  ];
+  ]
   it('display my code lists', async () => {
     const { getByText } = await renderWithRouter(
       <CodesListsOverview codesLists={mockCodesLists} questionnaireId="q-id" />,
-    );
+    )
 
-    expect(getByText('my code list')).toBeInTheDocument();
-    expect(getByText('my second code list')).toBeInTheDocument();
-  });
+    expect(getByText('my code list')).toBeInTheDocument()
+    expect(getByText('my second code list')).toBeInTheDocument()
+  })
 
   it('display a create code list button when no codes list are provided', async () => {
     const { getAllByText } = await renderWithRouter(
       <CodesListsOverview codesLists={[]} questionnaireId="q-id" />,
-    );
+    )
 
-    expect(getAllByText('Create a codes list')).toHaveLength(1);
-  });
+    expect(getAllByText('Create a codes list')).toHaveLength(1)
+  })
 
   it('filters the code lists based on the search input', async () => {
     const { getByText } = await renderWithRouter(
       <CodesListsOverview codesLists={mockCodesLists} questionnaireId="123" />,
-    );
+    )
 
-    const input = screen.getByPlaceholderText('Search for a code list');
+    const input = screen.getByPlaceholderText('Search for a code list')
 
-    fireEvent.change(input, { target: { value: 'second' } });
+    fireEvent.change(input, { target: { value: 'second' } })
 
-    expect(getByText('my second code list')).toBeInTheDocument();
-  });
-});
+    expect(getByText('my second code list')).toBeInTheDocument()
+  })
+})

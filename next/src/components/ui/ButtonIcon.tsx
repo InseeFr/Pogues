@@ -3,13 +3,12 @@ export enum ButtonIconStyle {
   Delete,
 }
 
-interface ButtonIconProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  Icon: React.FC<React.ComponentProps<'svg'>>;
-  title?: string;
-  buttonStyle?: ButtonIconStyle;
-  onClick?: () => void;
-  iconProps?: React.SVGProps<SVGSVGElement>;
+interface ButtonIconProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  Icon: React.FC<React.ComponentProps<'svg'>>
+  title?: string
+  buttonStyle?: ButtonIconStyle
+  onClick?: () => void
+  iconProps?: React.SVGProps<SVGSVGElement>
 }
 
 /** Display a clickable icon. */
@@ -37,5 +36,5 @@ export default function ButtonIcon({
     >
       <Icon />
     </button>
-  );
+  )
 }

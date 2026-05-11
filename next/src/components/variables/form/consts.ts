@@ -1,6 +1,6 @@
-import { DatatypeType, DateFormat } from '@/models/datatype';
+import { DatatypeType, DateFormat } from '@/models/datatype'
 
-import { computeDatatypeName } from '../utils/datatype';
+import { computeDatatypeName } from '../utils/datatype'
 
 /** Available datatypes to create / update a variable. */
 export const datatypeOptions = [
@@ -20,7 +20,7 @@ export const datatypeOptions = [
     label: computeDatatypeName(DatatypeType.Boolean),
     value: DatatypeType.Boolean,
   },
-];
+]
 
 /** Available date formats to create / update a variable. */
 export const dateFormatOptions = [
@@ -36,4 +36,4 @@ export const dateFormatOptions = [
     label: DateFormat.Year,
     value: DateFormat.Year,
   },
-];
+]

@@ -2,13 +2,13 @@ import {
   VariableRole as AntlrVariableRole,
   VariableType as AntlrVariableType,
   Variables as AntlrVariables,
-} from '@making-sense/antlr-editor/dist/model';
-import { describe, expect, it } from 'vitest';
+} from '@making-sense/antlr-editor/dist/model'
+import { describe, expect, it } from 'vitest'
 
-import { DatatypeType } from '@/models/datatype';
-import { Variable, VariableType } from '@/models/variables';
+import { DatatypeType } from '@/models/datatype'
+import { Variable, VariableType } from '@/models/variables'
 
-import { computeAntlrVariables } from './vtlEditor';
+import { computeAntlrVariables } from './vtlEditor'
 
 describe('computeAntlrVariables', () => {
   it('should convert boolean variables correctly', () => {
@@ -31,7 +31,7 @@ describe('computeAntlrVariables', () => {
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Boolean },
       },
-    ] as unknown as Variable[];
+    ] as unknown as Variable[]
 
     const expectedOutput: AntlrVariables = {
       collectedBoolean: {
@@ -52,10 +52,10 @@ describe('computeAntlrVariables', () => {
         name: 'externalBoolean',
         label: 'external boolean variable',
       },
-    };
+    }
 
-    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
-  });
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput)
+  })
 
   it('should convert numeric variables correctly', () => {
     const input = [
@@ -77,7 +77,7 @@ describe('computeAntlrVariables', () => {
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Numeric },
       },
-    ] as unknown as Variable[];
+    ] as unknown as Variable[]
 
     const expectedOutput: AntlrVariables = {
       collectedNumeric: {
@@ -98,10 +98,10 @@ describe('computeAntlrVariables', () => {
         name: 'externalNumeric',
         label: 'external numeric variable',
       },
-    };
+    }
 
-    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
-  });
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput)
+  })
 
   it('should convert text variables correctly', () => {
     const input = [
@@ -123,7 +123,7 @@ describe('computeAntlrVariables', () => {
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Text },
       },
-    ] as unknown as Variable[];
+    ] as unknown as Variable[]
 
     const expectedOutput: AntlrVariables = {
       collectedText: {
@@ -144,10 +144,10 @@ describe('computeAntlrVariables', () => {
         name: 'externalText',
         label: 'external text variable',
       },
-    };
+    }
 
-    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
-  });
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput)
+  })
 
   it('should convert date variables correctly', () => {
     const input = [
@@ -169,7 +169,7 @@ describe('computeAntlrVariables', () => {
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Date },
       },
-    ] as unknown as Variable[];
+    ] as unknown as Variable[]
 
     const expectedOutput: AntlrVariables = {
       collectedDate: {
@@ -190,10 +190,10 @@ describe('computeAntlrVariables', () => {
         name: 'externalDate',
         label: 'external date variable',
       },
-    };
+    }
 
-    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
-  });
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput)
+  })
 
   it('should convert duration variables correctly', () => {
     const input = [
@@ -215,7 +215,7 @@ describe('computeAntlrVariables', () => {
         type: VariableType.External,
         datatype: { typeName: DatatypeType.Duration },
       },
-    ] as unknown as Variable[];
+    ] as unknown as Variable[]
 
     const expectedOutput: AntlrVariables = {
       collectedDuration: {
@@ -236,12 +236,12 @@ describe('computeAntlrVariables', () => {
         name: 'externalDuration',
         label: 'external duration variable',
       },
-    };
+    }
 
-    expect(computeAntlrVariables(input)).toEqual(expectedOutput);
-  });
+    expect(computeAntlrVariables(input)).toEqual(expectedOutput)
+  })
 
   it('should return an empty object when given an empty array', () => {
-    expect(computeAntlrVariables([])).toEqual({});
-  });
-});
+    expect(computeAntlrVariables([])).toEqual({})
+  })
+})

@@ -1,12 +1,12 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { questionnaireQueryOptions } from '@/api/questionnaires';
-import { variablesQueryOptions } from '@/api/variables';
-import ErrorComponent from '@/components/layout/ErrorComponent';
-import CreateVariable from '@/components/variables/create/CreateVariable';
-import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout';
-import { Variable } from '@/models/variables';
+import { questionnaireQueryOptions } from '@/api/questionnaires'
+import { variablesQueryOptions } from '@/api/variables'
+import ErrorComponent from '@/components/layout/ErrorComponent'
+import CreateVariable from '@/components/variables/create/CreateVariable'
+import CreateVariableLayout from '@/components/variables/create/CreateVariableLayout'
+import { Variable } from '@/models/variables'
 
 /**
  * Page that allow to create a new code list.
@@ -24,19 +24,19 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId },
   }) => {
-    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
-    return { crumb: t('crumb.new') };
+    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId))
+    return { crumb: t('crumb.new') }
   },
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const { data: questionnaire } = useSuspenseQuery(
     questionnaireQueryOptions(questionnaireId),
-  );
+  )
   const { data: variables }: { data: Variable[] } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <CreateVariableLayout>
@@ -46,5 +46,5 @@ function RouteComponent() {
         variables={variables}
       />
     </CreateVariableLayout>
-  );
+  )
 }

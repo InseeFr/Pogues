@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import HomeIcon from './HomeIcon';
+import HomeIcon from './HomeIcon'
 
 it('HomeIcon renders correctly', () => {
-  const { asFragment } = render(<HomeIcon />);
-  expect(asFragment()).toMatchSnapshot();
-});
+  const { asFragment } = render(<HomeIcon />)
+  expect(asFragment()).toMatchSnapshot()
+})

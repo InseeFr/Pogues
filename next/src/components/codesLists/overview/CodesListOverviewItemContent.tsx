@@ -1,8 +1,8 @@
-import RelatedQuestions from '@/components/ui/RelatedQuestions';
-import type { CodesList } from '@/models/codesLists';
+import RelatedQuestions from '@/components/ui/RelatedQuestions'
+import type { CodesList } from '@/models/codesLists'
 
 interface CodesListOverviewItemContentProps {
-  codesList: CodesList;
+  codesList: CodesList
 }
 
 /** Display main information about a code list (name and related questions). */
@@ -14,5 +14,5 @@ export default function CodesListOverviewItemContent({
       <h3>{codesList.label}</h3>
       <RelatedQuestions relatedQuestionNames={codesList.relatedQuestionNames} />
     </div>
-  );
+  )
 }

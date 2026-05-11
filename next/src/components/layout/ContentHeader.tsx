@@ -1,20 +1,20 @@
-import Breadcrumb from '@/components/ui/Breadcrumb';
+import Breadcrumb from '@/components/ui/Breadcrumb'
 
-import ReadonlyWarning from './ReadonlyWarning';
+import ReadonlyWarning from './ReadonlyWarning'
 
 export type Props = {
   /** Action to display on the right. Should be a button. */
-  action?: React.ReactNode;
+  action?: React.ReactNode
   /**
    * Display a warning if the current content is readonly, which allow to
    * restore the backup save from the provided version id.
    */
-  isReadonly?: boolean;
-  questionnaireId?: string;
-  title: string;
+  isReadonly?: boolean
+  questionnaireId?: string
+  title: string
   /** Display a button to rollback to the specified version. */
-  versionId?: string;
-};
+  versionId?: string
+}
 
 /**
  * Component used to display a header with a title and breadcrumb on top of the
@@ -50,5 +50,5 @@ export default function ContentHeader({
         />
       ) : null}
     </>
-  );
+  )
 }

@@ -1,28 +1,28 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import Avatar from '@/components/ui/Avatar';
-import Menu from '@/components/ui/Menu';
-import LogoutIcon from '@/components/ui/icons/LogoutIcon';
-import { User as UserType } from '@/hooks/useUser';
-import { useOidc } from '@/lib/auth/oidc';
+import Avatar from '@/components/ui/Avatar'
+import Menu from '@/components/ui/Menu'
+import LogoutIcon from '@/components/ui/icons/LogoutIcon'
+import { User as UserType } from '@/hooks/useUser'
+import { useOidc } from '@/lib/auth/oidc'
 
 interface UserProps {
-  user?: UserType;
+  user?: UserType
 }
 
 /** Compute initials of the current user to display as an avatar. */
 export default function User({ user }: Readonly<UserProps>) {
-  const { t } = useTranslation();
-  const { isUserLoggedIn, logout = () => {} } = useOidc();
+  const { t } = useTranslation()
+  const { isUserLoggedIn, logout = () => {} } = useOidc()
   const initials =
     user?.givenName && user?.familyName
       ? `${user.givenName.charAt(0).toUpperCase()}${user.familyName.charAt(0).toUpperCase()}`
-      : '';
+      : ''
 
   function onLogout() {
     logout({
       redirectTo: 'home',
-    });
+    })
   }
 
   return isUserLoggedIn ? (
@@ -38,5 +38,5 @@ export default function User({ user }: Readonly<UserProps>) {
     >
       <Avatar initials={initials} />
     </Menu>
-  ) : null;
+  ) : null
 }

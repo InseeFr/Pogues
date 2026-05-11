@@ -1,9 +1,9 @@
-import ErrorIcon from '@/components/ui/icons/ErrorIcon';
-import { UploadMessage } from '@/models/personalizationQuestionnaire';
+import ErrorIcon from '@/components/ui/icons/ErrorIcon'
+import { UploadMessage } from '@/models/personalizationQuestionnaire'
 
 interface UploadMessageTileProps {
-  messages: UploadMessage;
-  isErrorUpload: boolean;
+  messages: UploadMessage
+  isErrorUpload: boolean
 }
 
 /** Display check upload messages as an alert box. */
@@ -13,7 +13,7 @@ export default function UploadMessageTile({
 }: Readonly<UploadMessageTileProps>) {
   const colorClass = isErrorUpload
     ? 'bg-red-100 border-red-300 text-red-800 border'
-    : 'bg-blue-100 border-blue-300 text-blue-800 border';
+    : 'bg-blue-100 border-blue-300 text-blue-800 border'
   return (
     <div
       aria-label="error-component"
@@ -33,5 +33,5 @@ export default function UploadMessageTile({
         )}
       </div>
     </div>
-  );
+  )
 }

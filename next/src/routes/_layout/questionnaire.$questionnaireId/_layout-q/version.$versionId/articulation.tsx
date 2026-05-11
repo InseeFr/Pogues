@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { articulationFromVersionQueryOptions } from '@/api/articulation';
-import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
-import ArticulationOverviewErrorComponent from '@/components/articulation/overview/layout/ArticulationOverviewErrorComponent';
-import ArticulationOverviewVersionLayout from '@/components/articulation/overview/layout/ArticulationOverviewVersionLayout';
+import { articulationFromVersionQueryOptions } from '@/api/articulation'
+import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview'
+import ArticulationOverviewErrorComponent from '@/components/articulation/overview/layout/ArticulationOverviewErrorComponent'
+import ArticulationOverviewVersionLayout from '@/components/articulation/overview/layout/ArticulationOverviewVersionLayout'
 
 /**
  * Articulation page that provide a recap of the the articulation items used by
@@ -25,16 +25,16 @@ export const Route = createFileRoute(
   }) => {
     queryClient.ensureQueryData(
       articulationFromVersionQueryOptions(questionnaireId, versionId),
-    );
-    return { crumb: t('crumb.articulation') };
+    )
+    return { crumb: t('crumb.articulation') }
   },
-});
+})
 
 function RouteComponent() {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
   const { data: articulation } = useSuspenseQuery(
     articulationFromVersionQueryOptions(questionnaireId, versionId),
-  );
+  )
 
   return (
     <CustomLayout>
@@ -44,11 +44,11 @@ function RouteComponent() {
         readonly
       />
     </CustomLayout>
-  );
+  )
 }
 
 function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
 
   return (
     <ArticulationOverviewVersionLayout
@@ -57,5 +57,5 @@ function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     >
       {children}
     </ArticulationOverviewVersionLayout>
-  );
+  )
 }

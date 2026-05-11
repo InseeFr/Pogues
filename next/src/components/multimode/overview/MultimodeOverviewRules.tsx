@@ -1,19 +1,19 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
-import { deleteMultimode, multimodeKeys } from '@/api/multimode';
-import ButtonLink from '@/components/ui/ButtonLink';
-import Card from '@/components/ui/Card';
-import DialogButton from '@/components/ui/DialogButton';
-import InlineCode from '@/components/ui/InlineCode';
-import type { MultimodeIsMovedRules } from '@/models/multimode';
+import { deleteMultimode, multimodeKeys } from '@/api/multimode'
+import ButtonLink from '@/components/ui/ButtonLink'
+import Card from '@/components/ui/Card'
+import DialogButton from '@/components/ui/DialogButton'
+import InlineCode from '@/components/ui/InlineCode'
+import type { MultimodeIsMovedRules } from '@/models/multimode'
 
 interface Props {
-  questionnaireId: string;
-  isMovedRules: MultimodeIsMovedRules;
+  questionnaireId: string
+  isMovedRules: MultimodeIsMovedRules
   /** Whether we display the multimode as readonly (i.e. back-up version). */
-  readonly?: boolean;
+  readonly?: boolean
 }
 
 /**
@@ -28,29 +28,29 @@ export default function MultimodeOverviewRules({
   isMovedRules,
   readonly = false,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const deleteMutation = useMutation({
     mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
-      return deleteMultimode(questionnaireId);
+      return deleteMultimode(questionnaireId)
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: multimodeKeys.all(questionnaireId),
       }),
-  });
+  })
 
   function onDelete() {
     const promise = deleteMutation.mutateAsync({
       questionnaireId,
-    });
+    })
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('multimode.delete.success'),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   return (
@@ -88,5 +88,5 @@ export default function MultimodeOverviewRules({
         </div>
       )}
     </Card>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import type { Variable } from '@/models/variables';
+import type { Variable } from '@/models/variables'
 
-import VariableLine from './VariableLine';
+import VariableLine from './VariableLine'
 
 interface Props {
-  questionnaireId: string;
-  readonly?: boolean;
-  variables: Variable[];
+  questionnaireId: string
+  readonly?: boolean
+  variables: Variable[]
 }
 
 /** Display variables as a table. */
@@ -16,7 +16,7 @@ export default function VariablesTable({
   readonly = false,
   variables,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <table className="border border-default w-full shadow-sm">
@@ -40,5 +40,5 @@ export default function VariablesTable({
         ))}
       </tbody>
     </table>
-  );
+  )
 }

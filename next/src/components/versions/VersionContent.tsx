@@ -1,11 +1,11 @@
-import { Version } from '@/models/version';
+import { Version } from '@/models/version'
 
-import VersionTile from './VersionTile';
+import VersionTile from './VersionTile'
 
 interface VersionProps {
-  label: string;
-  questionnaireId: string;
-  versions: Version[];
+  label: string
+  questionnaireId: string
+  versions: Version[]
 }
 
 /** Display all versions and separate tody's from olders versions */
@@ -30,5 +30,5 @@ export default function VersionContent({
         </div>
       </div>
     </div>
-  );
+  )
 }

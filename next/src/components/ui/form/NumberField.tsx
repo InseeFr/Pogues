@@ -1,7 +1,7 @@
-import { NumberField as BaseUINumberField } from '@base-ui-components/react/number-field';
+import { NumberField as BaseUINumberField } from '@base-ui-components/react/number-field'
 
-import { MinusIcon } from '../icons/MinusIcon';
-import { PlusIcon } from '../icons/PlusIcon';
+import { MinusIcon } from '../icons/MinusIcon'
+import { PlusIcon } from '../icons/PlusIcon'
 
 type Props = {
   /**
@@ -9,14 +9,14 @@ type Props = {
    *
    * To render a controlled number field, use the value prop instead.
    */
-  defaultValue?: BaseUINumberField.Root.Props['defaultValue'];
+  defaultValue?: BaseUINumberField.Root.Props['defaultValue']
   /** A ref to access the hidden input element. */
-  inputRef?: BaseUINumberField.Root.Props['inputRef'];
+  inputRef?: BaseUINumberField.Root.Props['inputRef']
   /** The raw numeric value of the field. */
-  value?: BaseUINumberField.Root.Props['value'];
+  value?: BaseUINumberField.Root.Props['value']
   /** Callback fired when the number value changes. */
-  onValueChange?: BaseUINumberField.Root.Props['onValueChange'];
-};
+  onValueChange?: BaseUINumberField.Root.Props['onValueChange']
+}
 
 /**
  * A numeric input element with increment and decrement buttons, and a scrub
@@ -46,5 +46,5 @@ export default function NumberField({
         </BaseUINumberField.Increment>
       </BaseUINumberField.Group>
     </BaseUINumberField.Root>
-  );
+  )
 }

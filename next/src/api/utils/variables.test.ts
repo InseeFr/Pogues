@@ -1,15 +1,15 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest'
 
-import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
+import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
 
 import {
   VariableDTO,
   VariableDTODatatypeFormat,
   VariableDTODatatypeTypename,
   VariableDTOType,
-} from '../models/variableDTO';
-import { computeVariable, computeVariableDTO } from './variables';
+} from '../models/variableDTO'
+import { computeVariable, computeVariableDTO } from './variables'
 
 describe('computeVariable', () => {
   describe('text variable', () => {
@@ -21,9 +21,9 @@ describe('computeVariable', () => {
         description: 'Une variable collectée de type texte',
         datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
         scope: 'mon-scope',
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -31,11 +31,11 @@ describe('computeVariable', () => {
         description: 'Une variable collectée de type texte',
         datatype: { typeName: DatatypeType.Text, maxLength: 42 },
         scope: 'mon-scope',
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
 
     it('should compute a Calculated text variable correctly', () => {
       const variableDTO: VariableDTO = {
@@ -46,9 +46,9 @@ describe('computeVariable', () => {
         datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
         scope: 'mon-scope',
         formula: '1+2',
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Calculated,
         id: 'mon-id',
@@ -57,11 +57,11 @@ describe('computeVariable', () => {
         datatype: { typeName: DatatypeType.Text, maxLength: 42 },
         scope: 'mon-scope',
         formula: '1+2',
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
 
     it('should compute an External text variable correctly', () => {
       const variableDTO: VariableDTO = {
@@ -71,9 +71,9 @@ describe('computeVariable', () => {
         description: 'Une variable collectée de type texte',
         datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
         scope: 'mon-scope',
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.External,
         id: 'mon-id',
@@ -81,12 +81,12 @@ describe('computeVariable', () => {
         description: 'Une variable collectée de type texte',
         datatype: { typeName: DatatypeType.Text, maxLength: 42 },
         scope: 'mon-scope',
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
-  });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
+  })
 
   it('should compute an External variable with isDeletedOnReset attribute correctly', () => {
     const variableDTO: VariableDTO = {
@@ -97,9 +97,9 @@ describe('computeVariable', () => {
       datatype: { typeName: VariableDTODatatypeTypename.Text, maxLength: 42 },
       isDeletedOnReset: true,
       scope: 'mon-scope',
-    };
+    }
 
-    const result = computeVariable(variableDTO);
+    const result = computeVariable(variableDTO)
     expect(result).toEqual({
       type: VariableType.External,
       id: 'mon-id',
@@ -108,11 +108,11 @@ describe('computeVariable', () => {
       datatype: { typeName: DatatypeType.Text, maxLength: 42 },
       isDeletedOnReset: true,
       scope: 'mon-scope',
-    });
+    })
 
-    const resultDTO = computeVariableDTO(result);
-    expect(resultDTO).toEqual(variableDTO);
-  });
+    const resultDTO = computeVariableDTO(result)
+    expect(resultDTO).toEqual(variableDTO)
+  })
 
   it('should compute a Collected boolean variable correctly', () => {
     const variableDTO: VariableDTO = {
@@ -121,20 +121,20 @@ describe('computeVariable', () => {
       name: 'MA_VAR',
       description: 'Une variable collectée de type booléen',
       datatype: { typeName: VariableDTODatatypeTypename.Boolean },
-    };
+    }
 
-    const result = computeVariable(variableDTO);
+    const result = computeVariable(variableDTO)
     expect(result).toEqual({
       type: VariableType.Collected,
       id: 'mon-id',
       name: 'MA_VAR',
       description: 'Une variable collectée de type booléen',
       datatype: { typeName: DatatypeType.Boolean },
-    });
+    })
 
-    const resultDTO = computeVariableDTO(result);
-    expect(resultDTO).toEqual(variableDTO);
-  });
+    const resultDTO = computeVariableDTO(result)
+    expect(resultDTO).toEqual(variableDTO)
+  })
 
   describe('date variable', () => {
     it('should compute a Collected date variable with YearMonthDay format', () => {
@@ -150,9 +150,9 @@ describe('computeVariable', () => {
           minimum: '1900-01-10',
           maximum: '2020-12-20',
         },
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -165,11 +165,11 @@ describe('computeVariable', () => {
           minimum: new Date('1900-01-10'),
           maximum: new Date('2020-12-20'),
         },
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
 
     it('should compute a Collected date variable with YearMonth format', () => {
       const variableDTO: VariableDTO = {
@@ -183,9 +183,9 @@ describe('computeVariable', () => {
           minimum: '1900-01',
           maximum: '2020-12',
         },
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -197,11 +197,11 @@ describe('computeVariable', () => {
           minimum: new Date('1900-01'),
           maximum: new Date('2020-12'),
         },
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
 
     it('should compute a Collected date variable with Year format', () => {
       const variableDTO: VariableDTO = {
@@ -215,9 +215,9 @@ describe('computeVariable', () => {
           minimum: '1900',
           maximum: '2020',
         },
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -229,12 +229,12 @@ describe('computeVariable', () => {
           minimum: new Date('1900'),
           maximum: new Date('2020'),
         },
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
-  });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
+  })
 
   describe('duration variable', () => {
     it('should compute a Collected duration variable with YearMonth format', () => {
@@ -250,9 +250,9 @@ describe('computeVariable', () => {
           minimum: 'P1Y2M',
           maximum: 'P5Y6M',
         },
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -265,11 +265,11 @@ describe('computeVariable', () => {
           minimum: { years: 1, months: 2 },
           maximum: { years: 5, months: 6 },
         },
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
 
     it('should compute a Collected duration variable with HourMinute format', () => {
       const variableDTO: VariableDTO = {
@@ -284,9 +284,9 @@ describe('computeVariable', () => {
           minimum: 'PT1H2M',
           maximum: 'PT5H6M',
         },
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -299,12 +299,12 @@ describe('computeVariable', () => {
           minimum: { hours: 1, minutes: 2 },
           maximum: { hours: 5, minutes: 6 },
         },
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
-  });
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
+  })
 
   describe('numeric variable', () => {
     it('should compute a Collected numeric variable correctly', () => {
@@ -321,9 +321,9 @@ describe('computeVariable', () => {
           isDynamicUnit: true,
           unit: '€',
         },
-      };
+      }
 
-      const result = computeVariable(variableDTO);
+      const result = computeVariable(variableDTO)
       expect(result).toEqual({
         type: VariableType.Collected,
         id: 'mon-id',
@@ -337,10 +337,10 @@ describe('computeVariable', () => {
           isDynamicUnit: true,
           unit: '€',
         },
-      });
+      })
 
-      const resultDTO = computeVariableDTO(result);
-      expect(resultDTO).toEqual(variableDTO);
-    });
-  });
-});
+      const resultDTO = computeVariableDTO(result)
+      expect(resultDTO).toEqual(variableDTO)
+    })
+  })
+})

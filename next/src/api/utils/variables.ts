@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
 import {
   DataType,
@@ -7,24 +7,24 @@ import {
   DurationFormat,
   HourMinuteDuration,
   YearMonthDuration,
-} from '@/models/datatype';
-import { Variable, VariableType } from '@/models/variables';
+} from '@/models/datatype'
+import { Variable, VariableType } from '@/models/variables'
 
 import {
   VariableDTO,
   VariableDTODatatypeFormat,
   VariableDTODatatypeTypename,
   VariableDTOType,
-} from '../models/variableDTO';
+} from '../models/variableDTO'
 
 /** Compute variables that can be used in our app from API data. */
 export function computeVariables(variablesDTO: VariableDTO[]): Variable[] {
-  return variablesDTO.map((variableDTO) => computeVariable(variableDTO));
+  return variablesDTO.map((variableDTO) => computeVariable(variableDTO))
 }
 
 /** Compute variable that can be used in our app from API data. */
 export function computeVariable(variableDTO: VariableDTO): Variable {
-  const datatype = computeDatatype(variableDTO.datatype);
+  const datatype = computeDatatype(variableDTO.datatype)
 
   const variable: Variable = {
     id: variableDTO.id,
@@ -33,35 +33,35 @@ export function computeVariable(variableDTO: VariableDTO): Variable {
     type: computeType(variableDTO.type),
     scope: variableDTO.scope,
     datatype,
-  };
+  }
 
   if (
     variable.type === VariableType.External &&
     variableDTO.type === VariableDTOType.External
   ) {
-    variable.isDeletedOnReset = variableDTO.isDeletedOnReset;
+    variable.isDeletedOnReset = variableDTO.isDeletedOnReset
   }
 
   if (
     variable.type === VariableType.Calculated &&
     variableDTO.type === VariableDTOType.Calculated
   ) {
-    variable.formula = variableDTO.formula || '';
+    variable.formula = variableDTO.formula || ''
   }
 
-  return variable;
+  return variable
 }
 
 function computeType(type: VariableDTOType): VariableType {
   switch (type) {
     case VariableDTOType.Collected:
-      return VariableType.Collected;
+      return VariableType.Collected
     case VariableDTOType.Calculated:
-      return VariableType.Calculated;
+      return VariableType.Calculated
     case VariableDTOType.External:
-      return VariableType.External;
+      return VariableType.External
     default:
-      throw new Error('Unknown variable type');
+      throw new Error('Unknown variable type')
   }
 }
 
@@ -70,13 +70,13 @@ function computeDateDatatypeFormat(
 ): DateFormat {
   switch (format) {
     case VariableDTODatatypeFormat.DateYear:
-      return DateFormat.Year;
+      return DateFormat.Year
     case VariableDTODatatypeFormat.DateYearMonth:
-      return DateFormat.YearMonth;
+      return DateFormat.YearMonth
     case VariableDTODatatypeFormat.DateYearMonthDay:
-      return DateFormat.YearMonthDay;
+      return DateFormat.YearMonthDay
     default:
-      throw new Error('Unknown date datatype format');
+      throw new Error('Unknown date datatype format')
   }
 }
 
@@ -85,11 +85,11 @@ function computeDurationDatatypeFormat(
 ): DurationFormat {
   switch (format) {
     case VariableDTODatatypeFormat.DurationYearMonth:
-      return DurationFormat.YearMonth;
+      return DurationFormat.YearMonth
     case VariableDTODatatypeFormat.DurationHourMinute:
-      return DurationFormat.HourMinute;
+      return DurationFormat.HourMinute
     default:
-      throw new Error('Unknown duration datatype format');
+      throw new Error('Unknown duration datatype format')
   }
 }
 
@@ -104,35 +104,35 @@ function computeDatatypeDuration(
 ): YearMonthDuration | HourMinuteDuration {
   switch (format) {
     case DurationFormat.YearMonth: {
-      const match = matchRegex(/P(\d+)Y(\d+)M/, value, format);
-      return { years: parseInt(match[1]), months: parseInt(match[2]) };
+      const match = matchRegex(/P(\d+)Y(\d+)M/, value, format)
+      return { years: parseInt(match[1]), months: parseInt(match[2]) }
     }
     case DurationFormat.HourMinute: {
-      const match = matchRegex(/PT(\d+)H(\d+)M/, value, format);
-      return { hours: parseInt(match[1]), minutes: parseInt(match[2]) };
+      const match = matchRegex(/PT(\d+)H(\d+)M/, value, format)
+      return { hours: parseInt(match[1]), minutes: parseInt(match[2]) }
     }
     default:
-      throw new Error(`Unknown duration format: ${format}`);
+      throw new Error(`Unknown duration format: ${format}`)
   }
 }
 
 function computeDatatype(datatype: VariableDTO['datatype']): DataType {
   switch (datatype.typeName) {
     case VariableDTODatatypeTypename.Boolean:
-      return { typeName: DatatypeType.Boolean };
+      return { typeName: DatatypeType.Boolean }
 
     case VariableDTODatatypeTypename.Date: {
-      const format = computeDateDatatypeFormat(datatype.format);
+      const format = computeDateDatatypeFormat(datatype.format)
       return {
         typeName: DatatypeType.Date,
         format,
         minimum: datatype.minimum ? new Date(datatype.minimum) : undefined,
         maximum: datatype.maximum ? new Date(datatype.maximum) : undefined,
-      };
+      }
     }
 
     case VariableDTODatatypeTypename.Duration: {
-      const format = computeDurationDatatypeFormat(datatype.format);
+      const format = computeDurationDatatypeFormat(datatype.format)
       return {
         typeName: DatatypeType.Duration,
         format,
@@ -142,7 +142,7 @@ function computeDatatype(datatype: VariableDTO['datatype']): DataType {
         maximum: datatype.maximum
           ? computeDatatypeDuration(datatype.maximum, format)
           : undefined,
-      };
+      }
     }
 
     case VariableDTODatatypeTypename.Numeric:
@@ -153,16 +153,16 @@ function computeDatatype(datatype: VariableDTO['datatype']): DataType {
         decimals: datatype.decimals,
         isDynamicUnit: datatype.isDynamicUnit,
         unit: datatype.unit,
-      };
+      }
 
     case VariableDTODatatypeTypename.Text:
       return {
         typeName: DatatypeType.Text,
         maxLength: datatype.maxLength,
-      };
+      }
 
     default:
-      throw new Error('Unsupported datatype');
+      throw new Error('Unsupported datatype')
   }
 }
 
@@ -175,11 +175,11 @@ function matchRegex(
   value: string,
   format: string,
 ): RegExpExecArray {
-  const match = pattern.exec(value);
+  const match = pattern.exec(value)
   if (!match) {
-    throw new Error(`Invalid value for ${format}: ${value}`);
+    throw new Error(`Invalid value for ${format}: ${value}`)
   }
-  return match;
+  return match
 }
 
 /**
@@ -187,7 +187,7 @@ function matchRegex(
  * maximum, and set enum value).
  */
 export function computeVariableDTO(variable: Variable): VariableDTO {
-  const datatypeDTO = computeDatatypeDTO(variable.datatype);
+  const datatypeDTO = computeDatatypeDTO(variable.datatype)
 
   const variableDTO: VariableDTO = {
     id: variable.id,
@@ -196,42 +196,42 @@ export function computeVariableDTO(variable: Variable): VariableDTO {
     type: computeVariableTypeDTO(variable.type),
     scope: variable.scope,
     datatype: datatypeDTO,
-  };
+  }
 
   if (
     variable.type === VariableType.External &&
     variableDTO.type === VariableDTOType.External
   ) {
-    variableDTO.isDeletedOnReset = variable.isDeletedOnReset;
+    variableDTO.isDeletedOnReset = variable.isDeletedOnReset
   }
 
   if (
     variable.type === VariableType.Calculated &&
     variableDTO.type === VariableDTOType.Calculated
   ) {
-    variableDTO.formula = variable.formula;
+    variableDTO.formula = variable.formula
   }
 
-  return variableDTO;
+  return variableDTO
 }
 
 function computeVariableTypeDTO(type: VariableType): VariableDTOType {
   switch (type) {
     case VariableType.Collected:
-      return VariableDTOType.Collected;
+      return VariableDTOType.Collected
     case VariableType.Calculated:
-      return VariableDTOType.Calculated;
+      return VariableDTOType.Calculated
     case VariableType.External:
-      return VariableDTOType.External;
+      return VariableDTOType.External
     default:
-      throw new Error('Unknown variable type');
+      throw new Error('Unknown variable type')
   }
 }
 
 function computeDatatypeDTO(datatype: DataType): VariableDTO['datatype'] {
   switch (datatype.typeName) {
     case DatatypeType.Boolean:
-      return { typeName: VariableDTODatatypeTypename.Boolean };
+      return { typeName: VariableDTODatatypeTypename.Boolean }
 
     case DatatypeType.Date: {
       return {
@@ -243,7 +243,7 @@ function computeDatatypeDTO(datatype: DataType): VariableDTO['datatype'] {
         maximum: datatype.maximum
           ? computeDateDatatypeDTOBounds(datatype.maximum, datatype.format)
           : undefined,
-      };
+      }
     }
 
     case DatatypeType.Duration:
@@ -256,7 +256,7 @@ function computeDatatypeDTO(datatype: DataType): VariableDTO['datatype'] {
         maximum: datatype.maximum
           ? computeDurationDatatypeDTOBounds(datatype.maximum, datatype.format)
           : '',
-      };
+      }
 
     case DatatypeType.Numeric:
       return {
@@ -266,16 +266,16 @@ function computeDatatypeDTO(datatype: DataType): VariableDTO['datatype'] {
         decimals: datatype.decimals,
         isDynamicUnit: datatype.isDynamicUnit,
         unit: datatype.unit,
-      };
+      }
 
     case DatatypeType.Text:
       return {
         typeName: VariableDTODatatypeTypename.Text,
         maxLength: datatype.maxLength,
-      };
+      }
 
     default:
-      throw new Error('Unsupported datatype');
+      throw new Error('Unsupported datatype')
   }
 }
 
@@ -284,13 +284,13 @@ function computeDateDatatypeDTOFormat(
 ): VariableDTODatatypeFormat {
   switch (format) {
     case DateFormat.Year:
-      return VariableDTODatatypeFormat.DateYear;
+      return VariableDTODatatypeFormat.DateYear
     case DateFormat.YearMonth:
-      return VariableDTODatatypeFormat.DateYearMonth;
+      return VariableDTODatatypeFormat.DateYearMonth
     case DateFormat.YearMonthDay:
-      return VariableDTODatatypeFormat.DateYearMonthDay;
+      return VariableDTODatatypeFormat.DateYearMonthDay
     default:
-      throw new Error('Unknown date datatype format');
+      throw new Error('Unknown date datatype format')
   }
 }
 
@@ -299,11 +299,11 @@ function computeDurationDatatypeDTOFormat(
 ): VariableDTODatatypeFormat {
   switch (format) {
     case DurationFormat.YearMonth:
-      return VariableDTODatatypeFormat.DurationYearMonth;
+      return VariableDTODatatypeFormat.DurationYearMonth
     case DurationFormat.HourMinute:
-      return VariableDTODatatypeFormat.DurationHourMinute;
+      return VariableDTODatatypeFormat.DurationHourMinute
     default:
-      throw new Error('Unknown duration datatype format');
+      throw new Error('Unknown duration datatype format')
   }
 }
 
@@ -313,30 +313,30 @@ function computeDurationDatatypeDTOBounds(
 ): string {
   switch (format) {
     case DurationFormat.HourMinute: {
-      const HourMinuteBounds = bounds as HourMinuteDuration;
-      return `PT${HourMinuteBounds.hours}H${HourMinuteBounds.minutes}M`;
+      const HourMinuteBounds = bounds as HourMinuteDuration
+      return `PT${HourMinuteBounds.hours}H${HourMinuteBounds.minutes}M`
     }
     case DurationFormat.YearMonth: {
-      const yearMonthBounds = bounds as YearMonthDuration;
-      return `P${yearMonthBounds.years}Y${yearMonthBounds.months}M`;
+      const yearMonthBounds = bounds as YearMonthDuration
+      return `P${yearMonthBounds.years}Y${yearMonthBounds.months}M`
     }
     default:
-      throw new Error('Unsupported duration format');
+      throw new Error('Unsupported duration format')
   }
 }
 
 function computeDateDatatypeDTOBounds(date: Date, format: DateFormat): string {
   switch (format) {
     case DateFormat.Year: {
-      return dayjs(date).format('YYYY');
+      return dayjs(date).format('YYYY')
     }
     case DateFormat.YearMonth: {
-      return dayjs(date).format('YYYY-MM');
+      return dayjs(date).format('YYYY-MM')
     }
     case DateFormat.YearMonthDay: {
-      return dayjs(date).format('YYYY-MM-DD');
+      return dayjs(date).format('YYYY-MM-DD')
     }
     default:
-      throw new Error('Unsupported date format');
+      throw new Error('Unsupported date format')
   }
 }

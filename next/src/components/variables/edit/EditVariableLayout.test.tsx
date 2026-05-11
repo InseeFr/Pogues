@@ -1,8 +1,8 @@
-import { DatatypeType } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
-import { renderWithRouter } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
+import { renderWithRouter } from '@/testing/render'
 
-import EditVariableLayout from './EditVariableLayout';
+import EditVariableLayout from './EditVariableLayout'
 
 describe('EditVariableLayout', () => {
   it('displays title and children', async () => {
@@ -17,9 +17,9 @@ describe('EditVariableLayout', () => {
       >
         Hello world
       </EditVariableLayout>,
-    );
+    )
 
-    expect(getByText('Edit variable: MY_VAR')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
-  });
-});
+    expect(getByText('Edit variable: MY_VAR')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
+  })
+})

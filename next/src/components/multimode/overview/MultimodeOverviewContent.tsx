@@ -1,15 +1,15 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import ButtonLink from '@/components/ui/ButtonLink';
-import type { MultimodeIsMovedRules } from '@/models/multimode';
+import ButtonLink from '@/components/ui/ButtonLink'
+import type { MultimodeIsMovedRules } from '@/models/multimode'
 
-import MultimodeOverviewRules from './MultimodeOverviewRules';
+import MultimodeOverviewRules from './MultimodeOverviewRules'
 
 interface Props {
-  questionnaireId: string;
-  isMovedRules?: MultimodeIsMovedRules;
+  questionnaireId: string
+  isMovedRules?: MultimodeIsMovedRules
   /** Whether we display the multimode as readonly (i.e. back-up version). */
-  readonly?: boolean;
+  readonly?: boolean
 }
 
 /**
@@ -25,15 +25,14 @@ export default function MultimodeOverviewContent({
   isMovedRules = {},
   readonly = false,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const hasRules =
-    isMovedRules.leafFormula || isMovedRules.questionnaireFormula;
+  const hasRules = isMovedRules.leafFormula || isMovedRules.questionnaireFormula
 
   if (!hasRules) {
     if (readonly) {
       // We are in readonly and there is no multimode specified.
-      return <div>{t('multimode.versionNoMultimode')}</div>;
+      return <div>{t('multimode.versionNoMultimode')}</div>
     }
 
     // There is no multimode specified: allow to setup multimode.
@@ -44,7 +43,7 @@ export default function MultimodeOverviewContent({
       >
         + {t('multimode.new')}
       </ButtonLink>
-    );
+    )
   }
 
   return (
@@ -53,5 +52,5 @@ export default function MultimodeOverviewContent({
       questionnaireId={questionnaireId}
       readonly={readonly}
     />
-  );
+  )
 }

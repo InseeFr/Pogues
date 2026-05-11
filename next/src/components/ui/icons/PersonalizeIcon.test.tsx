@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import PersonalizeIcon from './PersonalizeIcon';
+import PersonalizeIcon from './PersonalizeIcon'
 
 it('PersonalizeIcon renders correctly', () => {
-  const { asFragment } = render(<PersonalizeIcon />);
-  expect(asFragment()).toMatchSnapshot();
-});
+  const { asFragment } = render(<PersonalizeIcon />)
+  expect(asFragment()).toMatchSnapshot()
+})

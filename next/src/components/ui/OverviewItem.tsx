@@ -1,19 +1,19 @@
-import { useId, useState } from 'react';
+import { useId, useState } from 'react'
 
-import ExpandButton from '@/components/ui/ExpandButton';
+import ExpandButton from '@/components/ui/ExpandButton'
 
 interface OverviewItemProps {
   /** Content displayed in the card.  */
-  content: React.ReactNode;
+  content: React.ReactNode
   /**
    * Content displayed when the card is expanded.
    * If nothing is provided, there won't be a button to expand the card.
    */
-  details?: React.ReactNode;
+  details?: React.ReactNode
   /** Whether or not the card is expanded by default. */
-  defaultExpanded?: boolean;
+  defaultExpanded?: boolean
   /** Whether or not the expand button is hidden. */
-  disableExpandButton?: boolean;
+  disableExpandButton?: boolean
 }
 
 /** Display a title and its content in a card, to be used in overview. */
@@ -23,8 +23,8 @@ export default function OverviewItem({
   defaultExpanded = false,
   disableExpandButton = false,
 }: Readonly<OverviewItemProps>) {
-  const expandDetailsId = useId();
-  const [isExpanded, setIsExpanded] = useState<boolean>(defaultExpanded);
+  const expandDetailsId = useId()
+  const [isExpanded, setIsExpanded] = useState<boolean>(defaultExpanded)
 
   return (
     <li
@@ -56,5 +56,5 @@ export default function OverviewItem({
         </>
       ) : null}
     </li>
-  );
+  )
 }

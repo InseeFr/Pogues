@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { ParseResult } from 'papaparse';
+import { render, screen } from '@testing-library/react'
+import { ParseResult } from 'papaparse'
 
-import CsvViewerTable from './CsvViewerTable';
+import CsvViewerTable from './CsvViewerTable'
 
 const mockParsedCsv: ParseResult<unknown> = {
   data: [
@@ -17,21 +17,21 @@ const mockParsedCsv: ParseResult<unknown> = {
     cursor: 0,
   },
   errors: [],
-};
+}
 
 describe('CsvViewerTable', () => {
   it('renders table headers and rows from parsedCsv', () => {
-    render(<CsvViewerTable parsedCsv={mockParsedCsv} />);
+    render(<CsvViewerTable parsedCsv={mockParsedCsv} />)
 
-    expect(screen.getByText('Name')).toBeInTheDocument();
-    expect(screen.getByText('Age')).toBeInTheDocument();
-    expect(screen.getByText('City')).toBeInTheDocument();
+    expect(screen.getByText('Name')).toBeInTheDocument()
+    expect(screen.getByText('Age')).toBeInTheDocument()
+    expect(screen.getByText('City')).toBeInTheDocument()
 
-    expect(screen.getByText('Rathalos')).toBeInTheDocument();
-    expect(screen.getByText('30')).toBeInTheDocument();
-    expect(screen.getByText('Palico')).toBeInTheDocument();
-    expect(screen.getByText('5')).toBeInTheDocument();
-    expect(screen.getByText('Ancient Forest')).toBeInTheDocument();
-    expect(screen.getByText('Ruins Of Wyveria')).toBeInTheDocument();
-  });
-});
+    expect(screen.getByText('Rathalos')).toBeInTheDocument()
+    expect(screen.getByText('30')).toBeInTheDocument()
+    expect(screen.getByText('Palico')).toBeInTheDocument()
+    expect(screen.getByText('5')).toBeInTheDocument()
+    expect(screen.getByText('Ancient Forest')).toBeInTheDocument()
+    expect(screen.getByText('Ruins Of Wyveria')).toBeInTheDocument()
+  })
+})

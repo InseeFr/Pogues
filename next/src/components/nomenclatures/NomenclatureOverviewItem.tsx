@@ -1,10 +1,10 @@
-import OverviewItem from '@/components/ui/OverviewItem';
-import type { Nomenclature } from '@/models/nomenclature';
+import OverviewItem from '@/components/ui/OverviewItem'
+import type { Nomenclature } from '@/models/nomenclature'
 
-import RelatedQuestions from '../ui/RelatedQuestions';
+import RelatedQuestions from '../ui/RelatedQuestions'
 
 interface NomenclatureOverviewItemProps {
-  nomenclature: Nomenclature;
+  nomenclature: Nomenclature
 }
 
 /** Display nomenclature related info */
@@ -27,5 +27,5 @@ export default function NomenclatureOverviewItem({
         </div>
       }
     />
-  );
+  )
 }
