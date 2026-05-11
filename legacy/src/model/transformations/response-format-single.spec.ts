@@ -117,7 +117,7 @@ describe('stateToRemote', () => {
           CodeListReference: 'my-cl-id',
           CollectedVariableReference: 'my-var-id',
           Datatype: {
-            MaxLength: 1,
+            MaxLength: 249,
             type: 'TextDatatypeType',
             typeName: 'TEXT',
             visualizationHint: 'RADIO',
@@ -147,7 +147,7 @@ describe('stateToRemote', () => {
           CodeListReference: 'my-cl-id',
           CollectedVariableReference: 'my-var-id',
           Datatype: {
-            MaxLength: 1,
+            MaxLength: 249,
             type: 'TextDatatypeType',
             typeName: 'TEXT',
             visualizationHint: 'SUGGESTER',
@@ -177,7 +177,7 @@ describe('stateToRemote', () => {
           VariableReference: 'my-variable-id',
           CollectedVariableReference: 'my-var-id',
           Datatype: {
-            MaxLength: 1,
+            MaxLength: 249,
             type: 'TextDatatypeType',
             typeName: 'TEXT',
             visualizationHint: 'RADIO',

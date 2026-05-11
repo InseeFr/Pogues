@@ -38,7 +38,7 @@ export function getCollectedVariablesSingle(
         variableReferenceLabel: desiredVarLabel,
         type: TEXT,
         choiceType: form.choiceType,
-        [TEXT]: { maxLength: 1 },
+        [TEXT]: { maxLength: 249 },
       },
     );
   } else {
@@ -50,7 +50,7 @@ export function getCollectedVariablesSingle(
         ...getReference(form),
         type: TEXT,
         choiceType: form.choiceType,
-        [TEXT]: { maxLength: 1 },
+        [TEXT]: { maxLength: 249 },
       },
     );
   }

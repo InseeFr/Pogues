@@ -647,7 +647,7 @@ describe('stateToRemote', () => {
     const state = {
       PRIMARY: {
         type: 'CODES_LIST',
-        CODES_LIST: { CodesList: { id: 'jf0vbzj9' } },
+        CODES_LIST: { CodesList: { id: 'jf0vbzj9', label: 'my-code-list-1' } },
       },
       LIST_MEASURE: [
         {
@@ -658,8 +658,12 @@ describe('stateToRemote', () => {
         },
         {
           label: 'measure 2',
-          type: 'SIMPLE',
-          SIMPLE: { type: 'TEXT', TEXT: { maxLength: 249 } },
+          type: 'SINGLE_CHOICE',
+          SINGLE_CHOICE: {
+            CodesList: { id: 'mlz1qdq0', label: 'my-code-list-2' },
+            choiceType: 'CODE_LIST',
+            visHint: 'RADIO',
+          },
         },
       ],
     };
@@ -712,8 +716,8 @@ describe('stateToRemote', () => {
         DATE: { maximum: '', minimum: '', format: '' },
         BOOLEAN: {},
         isCollected: '0',
-        codeListReference: '',
-        codeListReferenceLabel: '',
+        codeListReference: 'mlz1qdq0',
+        codeListReferenceLabel: 'my-code-list-2',
       },
       jk8h32gm: {
         id: 'jk8h32gm',
@@ -728,8 +732,8 @@ describe('stateToRemote', () => {
         DATE: { maximum: '', minimum: '', format: '' },
         BOOLEAN: {},
         isCollected: '0',
-        codeListReference: '',
-        codeListReferenceLabel: '',
+        codeListReference: 'mlz1qdq0',
+        codeListReferenceLabel: 'my-code-list-2',
       },
     };
     const result = stateToRemote(
@@ -783,6 +787,7 @@ describe('stateToRemote', () => {
       expect(item.conditionFilter).toBeUndefined();
     });
 
+    // measure 1 : simple response
     expect(outputResponse[0].Datatype).toEqual({
       MaxLength: 249,
       type: 'TextDatatypeType',
@@ -796,6 +801,32 @@ describe('stateToRemote', () => {
     });
     expect(outputMapping[0].MappingTarget).toEqual('1 1');
     expect(outputMapping[1].MappingTarget).toEqual('2 1');
+
+    // measure 2 : single response (codeList, radio)
+    expect(outputResponse[2]).toEqual({
+      id: expect.anything(),
+      Datatype: {
+        typeName: 'TEXT',
+        type: 'TextDatatypeType',
+        visualizationHint: 'RADIO',
+        MaxLength: 249,
+      },
+      choiceType: 'CODE_LIST',
+      CodeListReference: 'mlz1qdq0',
+      CollectedVariableReference: 'jg4v561m',
+    });
+    expect(outputResponse[3]).toEqual({
+      id: expect.anything(),
+      Datatype: {
+        typeName: 'TEXT',
+        type: 'TextDatatypeType',
+        visualizationHint: 'RADIO',
+        MaxLength: 249,
+      },
+      choiceType: 'CODE_LIST',
+      CodeListReference: 'mlz1qdq0',
+      CollectedVariableReference: 'jk8h32gm',
+    });
   });
 
   it('works with non dynamic table, with secondary axes', () => {

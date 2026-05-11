@@ -162,7 +162,7 @@ export function getReponsesValues(measure) {
             ? measure[SINGLE_CHOICE][listPath].label
             : '',
         type: TEXT,
-        [TEXT]: { maxLength: 1 },
+        [TEXT]: { maxLength: 249 },
         variableReference:
           choiceType === CHOICE_TYPE.VARIABLE
             ? measure[SINGLE_CHOICE][listPath].id

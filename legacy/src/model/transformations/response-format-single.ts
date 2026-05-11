@@ -146,7 +146,7 @@ export function stateToRemote(
         nomenclatureId,
         variableReferenceId,
         typeName: DATATYPE_NAME.TEXT,
-        maxLength: 1,
+        maxLength: 249,
         collectedVariable: collectedVariables[0],
       }),
     ],

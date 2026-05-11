@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Questionnaire loading no longer crash when a question uses a code list (or nomenclature) that does not exist anymore. It could happen when an existing question used a previous version of a nomenclature.
 - nginx.conf: disable cache on remote-entry (to ensure keeping last legacy version)
+- For unique choice questions (inside or outside a table) and multiple choice questions, the variable max length is now 249 instead of 1.
 
 ### Changed
 
