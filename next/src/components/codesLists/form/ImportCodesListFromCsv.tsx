@@ -48,14 +48,12 @@ export default function ImportCodesListFromCsv({
       const validationResult = await validateCodeListCsvFile(file)
 
       if (!validationResult.success) {
-        const errorKey =
-          validationResult.error &&
-          validationResult.error.startsWith('codesList.')
-            ? (validationResult.error as
-                | 'codesList.import.columnNumber'
-                | 'codesList.import.noDataFound'
-                | 'codesList.import.genericValidationError')
-            : 'codesList.import.genericValidationError'
+        const errorKey = validationResult.error?.startsWith('codesList.')
+          ? (validationResult.error as
+              | 'codesList.import.columnNumber'
+              | 'codesList.import.noDataFound'
+              | 'codesList.import.genericValidationError')
+          : 'codesList.import.genericValidationError'
         const errorMessage = t(errorKey)
         toast.error(errorMessage)
         setParseError(errorMessage)

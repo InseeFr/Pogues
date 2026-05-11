@@ -13,19 +13,30 @@ export default function CsvViewerTable({
   const metaFields = parsedCsv.meta?.fields
   const isObjectRows = metaFields && metaFields.length > 0
 
-  const headers: string[] = isObjectRows
-    ? metaFields
-    : hasHeader
-      ? (parsedCsv.data as string[][])[0]
-      : ['Code', 'Label']
+  const getHeaders = (): string[] => {
+    if (isObjectRows) {
+      return metaFields
+    }
+    if (hasHeader) {
+      return (parsedCsv.data as string[][])[0]
+    }
+    return ['Code', 'Label']
+  }
 
-  const rows: string[][] = isObjectRows
-    ? (parsedCsv.data as Record<string, string>[]).map((row) =>
+  const getRows = (): string[][] => {
+    if (isObjectRows) {
+      return (parsedCsv.data as Record<string, string>[]).map((row) =>
         metaFields.map((field) => String(row[field] ?? '')),
       )
-    : hasHeader
-      ? (parsedCsv.data as string[][]).slice(1)
-      : (parsedCsv.data as string[][])
+    }
+    if (hasHeader) {
+      return (parsedCsv.data as string[][]).slice(1)
+    }
+    return parsedCsv.data as string[][]
+  }
+
+  const headers: string[] = getHeaders()
+  const rows: string[][] = getRows()
 
   const shouldScroll = rows.length > 6
 

@@ -48,11 +48,18 @@ export default function Form({
   })
 
   const isSubmitDisabled = !isDirty || !isValid
-  const submitTooltip = isSubmitDisabled
-    ? !isValid
-      ? t('common.form.submitInvalid')
-      : t('common.form.submitUnchanged')
-    : null
+
+  const getSubmitTooltip = (): string | null => {
+    if (!isSubmitDisabled) {
+      return null
+    }
+    if (!isValid) {
+      return t('common.form.submitInvalid')
+    }
+    return t('common.form.submitUnchanged')
+  }
+
+  const submitTooltip = getSubmitTooltip()
 
   const submitButton = (
     <Button

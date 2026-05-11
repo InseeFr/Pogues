@@ -11,7 +11,7 @@ export const CODE_LIST_CSV_OPTIONS = {
   quotes: true,
 }
 
-const KNOWN_HEADER_KEYWORDS = [
+const KNOWN_HEADER_KEYWORDS = new Set([
   'code',
   'label',
   'value',
@@ -19,7 +19,7 @@ const KNOWN_HEADER_KEYWORDS = [
   'id',
   'name',
   'description',
-]
+])
 
 /**
  * Detects whether the first row of a headerless CSV is a header row.
@@ -31,7 +31,7 @@ export function detectCsvHeader(firstRow: string[]): boolean {
     (cell) => isNaN(Number(cell)) && cell.trim() !== '',
   )
   const hasKeyword = firstRow.some((cell) =>
-    KNOWN_HEADER_KEYWORDS.includes(cell.trim().toLowerCase()),
+    KNOWN_HEADER_KEYWORDS.has(cell.trim().toLowerCase()),
   )
   return allNonNumeric && hasKeyword
 }
@@ -50,19 +50,19 @@ export async function validateCodeListCsvFile(file: File): Promise<{
     Papa.parse(file, {
       ...CODE_LIST_CSV_OPTIONS,
       complete: (result: ParseResult<unknown>) => {
+        if (!result.data?.length) {
+          resolve({
+            success: false,
+            error: 'codesList.import.noDataFound',
+          })
+          return
+        }
+
         const firstRow = (result.data as string[][])[0]
         if (!firstRow || firstRow.length !== 2) {
           resolve({
             success: false,
             error: 'codesList.import.columnNumber',
-          })
-          return
-        }
-
-        if (!result.data || result.data.length === 0) {
-          resolve({
-            success: false,
-            error: 'codesList.import.noDataFound',
           })
           return
         }
