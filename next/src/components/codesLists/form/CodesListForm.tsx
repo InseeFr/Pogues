@@ -13,6 +13,8 @@ import {
 } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
+import { useCallback, useEffect, useState } from 'react'
+
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/FormInput'
@@ -26,6 +28,7 @@ import { type CodesList } from '@/models/codesLists'
 import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
 
+import ImportCodesListFromCsv from './ImportCodesListFromCsv'
 import { type FormValues, schema } from './schema'
 
 interface CodesListFormProps {
@@ -36,8 +39,12 @@ interface CodesListFormProps {
   formulasLanguage?: FormulasLanguages
   /** Variables of the questionnaire used for the VTL Editor. */
   variables?: Variable[]
+  /** Show the CSV import panel toggle. */
+  allowCsvImport?: boolean
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>
+  /** Function that will be called with form data when the form values change. */
+  onValuesChange?: (values: FormValues) => void
 }
 
 /**
@@ -57,10 +64,13 @@ export default function CodesListForm({
   questionnaireId,
   formulasLanguage,
   variables = [],
+  allowCsvImport = false,
   onSubmit,
+  onValuesChange,
 }: Readonly<CodesListFormProps>) {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [showCsvImport, setShowCsvImport] = useState(false)
 
   const {
     control,
@@ -68,6 +78,9 @@ export default function CodesListForm({
     formState: { isDirty, isValid, isSubmitted },
     setError,
     trigger,
+    watch,
+    getValues,
+    reset,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -77,6 +90,47 @@ export default function CodesListForm({
     values: codesList,
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      onValuesChange?.(values as FormValues)
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, onValuesChange])
+
+  const handleImportSuccess = useCallback(
+    (importedFormValues: FormValues) => {
+      const currentValues = getValues()
+      const mergedCodes = [
+        ...currentValues.codes.filter((code) => code.value || code.label),
+        ...importedFormValues.codes,
+      ]
+
+      const uniqueCodesMap = new Map<string, FormValues['codes'][number]>()
+      mergedCodes.forEach((code) => {
+        if (code.value) {
+          uniqueCodesMap.set(code.value, {
+            label: code.label,
+            value: code.value,
+            codes: code.codes || [],
+          })
+        }
+      })
+
+      const uniqueCodes = Array.from(uniqueCodesMap.values())
+
+      reset({
+        label: currentValues.label || importedFormValues.label,
+        codes:
+          uniqueCodes.length > 0
+            ? uniqueCodes
+            : [{ label: '', value: '', codes: [] }],
+      })
+
+      setShowCsvImport(false)
+    },
+    [getValues, reset],
+  )
 
   const handleCancel = () => {
     navigate({
@@ -106,6 +160,27 @@ export default function CodesListForm({
           />
         )}
       />
+      {allowCsvImport && (
+        <div>
+          <button
+            type="button"
+            onClick={() => setShowCsvImport((v) => !v)}
+            className="text-action-primary hover:text-action-primary-hover font-medium"
+          >
+            {showCsvImport
+              ? t('common.cancel')
+              : t('codesList.import.importButton')}
+          </button>
+          {showCsvImport && (
+            <div className="border-t border-default pt-4 mt-4">
+              <ImportCodesListFromCsv
+                onImportSuccess={handleImportSuccess}
+                onCancel={() => setShowCsvImport(false)}
+              />
+            </div>
+          )}
+        </div>
+      )}
       <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
         <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
         <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>
@@ -282,6 +357,7 @@ function CodesField({
               <Input
                 data-testid={`${namePrefix}.label`}
                 error={error?.message}
+                value={value}
                 onValueChange={onChange}
                 required
               />

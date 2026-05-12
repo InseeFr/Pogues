@@ -5,6 +5,7 @@ import React, { FormEventHandler } from 'react'
 
 import DirtyStateDialog from '@/components/layout/DirtyStateDialog'
 import Button, { ButtonStyle } from '@/components/ui/Button'
+import Tooltip from '@/components/ui/Tooltip'
 
 type Props = {
   /** Form. */
@@ -46,6 +47,31 @@ export default function Form({
     withResolver: true,
   })
 
+  const isSubmitDisabled = !isDirty || !isValid
+
+  const getSubmitTooltip = (): string | null => {
+    if (!isSubmitDisabled) {
+      return null
+    }
+    if (!isValid) {
+      return t('common.form.submitInvalid')
+    }
+    return t('common.form.submitUnchanged')
+  }
+
+  const submitTooltip = getSubmitTooltip()
+
+  const submitButton = (
+    <Button
+      type="submit"
+      buttonStyle={ButtonStyle.Primary}
+      disabled={isSubmitDisabled}
+      data-testid="form-submit-button"
+    >
+      {validateLabel || t('common.validate')}
+    </Button>
+  )
+
   return (
     <>
       <form onSubmit={onSubmit} className="space-y-4">
@@ -54,13 +80,13 @@ export default function Form({
           <Button type="button" onClick={onCancel}>
             {t('common.cancel')}
           </Button>
-          <Button
-            type="submit"
-            buttonStyle={ButtonStyle.Primary}
-            disabled={!isDirty || !isValid}
-          >
-            {validateLabel || t('common.validate')}
-          </Button>
+          {submitTooltip ? (
+            <Tooltip title={submitTooltip}>
+              <span className="inline-block">{submitButton}</span>
+            </Tooltip>
+          ) : (
+            submitButton
+          )}
         </div>
       </form>
       {status === 'blocked' ? (
