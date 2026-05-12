@@ -94,7 +94,7 @@ describe('response tranformations', () => {
       optionFilter: optionFilter,
     });
 
-    expect(result.OptionFilter).toEqual(optionFilter);
+    expect(result.optionFilter).toEqual(optionFilter);
   });
 
   test('when visHint is a suggester, with a defined nomenclatureId', () => {

@@ -252,7 +252,7 @@ describe('remoteToState', () => {
         {
           id: 'mbh8ke14',
           VariableReference: 'kdyg5y7',
-          OptionFilter: 'nice filter',
+          optionFilter: 'nice filter',
           Datatype: {
             typeName: 'TEXT',
             visualizationHint: 'RADIO',
