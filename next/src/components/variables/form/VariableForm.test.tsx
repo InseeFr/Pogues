@@ -1,238 +1,433 @@
-import { fireEvent, screen, waitFor, within } from '@testing-library/react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import { t } from 'i18next'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
-import { DatatypeType } from '@/models/datatype'
-import { VariableType } from '@/models/variables'
-import { renderWithRouter } from '@/testing/render'
+import Field from '@/components/ui/form/Field'
+import Form from '@/components/ui/form/Form'
+import Input from '@/components/ui/form/Input'
+import NumberField from '@/components/ui/form/NumberField'
+import RadioGroup from '@/components/ui/form/RadioGroup'
+import Select from '@/components/ui/form/Select'
+import Switch from '@/components/ui/form/Switch'
+import VTLEditor from '@/components/ui/form/VTLEditor'
+import { DatatypeType, DateFormat } from '@/models/datatype'
+import { type Variable, VariableType } from '@/models/variables'
 
-import VariableForm from './VariableForm'
+import { datatypeOptions, dateFormatOptions } from './consts'
+import { type FormValues, schema } from './schema'
+import { convertToValidName } from './utils/name'
 
-vi.mock('@/components/ui/form/VTLEditor')
+type Props = {
+  questionnaireId: string
+  /** In an update case, initial questionnaire value. */
+  variable?: Omit<Variable, 'id'>
+  /** Function that will be called with form data when the user submit the form. */
+  onSubmit: SubmitHandler<FormValues>
+  /** Label to display on the submit button */
+  submitLabel: string
+  /** Available scopes with the mapping between id and name. */
+  scopes: Map<string, string>
+  /** List of variables used for auto-completion in VTL editor. */
+  variables?: Variable[]
+}
 
-describe('VariableForm', () => {
-  it('should enable the button only when all required fields are filled for an external variable', async () => {
-    const submitFn = vi.fn()
-    const { getByRole } = await renderWithRouter(
-      <VariableForm
-        questionnaireId={'q-id'}
-        onSubmit={submitFn}
-        submitLabel="Validate"
-        scopes={new Map<string, string>()}
-      />,
-    )
+/**
+ * Create or edit a variable.
+ *
+ * A variable has a name, a description, a scope (defaults to whole
+ * questionnaire), a type, a datatype and its related informations, and may have
+ * a formula if it is of type calculated.
+ *
+ * @see {@link Variable}
+ */
+export default function VariableForm({
+  questionnaireId,
+  variable = {
+    name: '',
+    description: '',
+    scope: '',
+    datatype: { typeName: DatatypeType.Text, maxLength: 249 },
+    type: VariableType.External,
+  },
+  onSubmit,
+  submitLabel,
+  scopes,
+  variables = [],
+}: Readonly<Props>) {
+  const navigate = useNavigate()
 
-    await waitFor(() => {
-      expect(getByRole('button', { name: /Validate/i })).toBeDisabled()
-    })
-
-    fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: 'MY_VAR' },
-    })
-    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
-      target: { value: 'A great variable' },
-    })
-
-    await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled()
-    })
-
-    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }))
-    await waitFor(() => {
-      expect(submitFn).toBeCalled()
-    })
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty, isSubmitted, isValid },
+    setError,
+    watch,
+  } = useForm<FormValues>({
+    mode: 'onChange',
+    defaultValues: variable,
+    resolver: zodResolver(schema),
   })
 
-  it('should enable the button only when all required fields are filled for a calculated variable', async () => {
-    const submitFn = vi.fn()
-    const { getByRole, getByText } = await renderWithRouter(
-      <VariableForm
-        questionnaireId={'q-id'}
-        onSubmit={submitFn}
-        submitLabel="Validate"
-        scopes={new Map<string, string>()}
-      />,
-    )
+  const selectedType = watch('type')
+  const selectedTypeName = watch('datatype.typeName')
 
-    await waitFor(() => {
-      expect(getByRole('button', { name: /Validate/i })).toBeDisabled()
-    })
+  const isDatatypeTypeNameDisabled =
+    selectedType === VariableType.External &&
+    variable.datatype.typeName === DatatypeType.Text
 
-    fireEvent.click(within(getByText(/Calculated/i)).getByRole('radio'))
-
-    fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: 'MY_VAR' },
-    })
-    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
-      target: { value: 'A great variable' },
-    })
-    fireEvent.input(getByRole('textbox', { name: /Formula/i }), {
-      target: { value: 'my formula' },
-    })
-
-    await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled()
-    })
-
-    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }))
-    await waitFor(() => {
-      expect(submitFn).toBeCalled()
-    })
-  })
-
-  it('should display form error when name is invalid', async () => {
-    const { findAllByRole, getByRole, getByText, queryByRole } =
-      await renderWithRouter(
-        <VariableForm
-          questionnaireId={'q-id'}
-          onSubmit={vi.fn()}
-          submitLabel="Validate"
-          scopes={new Map<string, string>()}
-        />,
+  const datatypeTypeNameOptions = (() => {
+    // For External variable, enable only current saved option and 'Text'
+    if (selectedType === VariableType.External) {
+      return datatypeOptions.filter(
+        ({ value }) =>
+          value === DatatypeType.Text || value === variable.datatype.typeName,
       )
+    }
+    return datatypeOptions
+  })()
 
-    expect(queryByRole('alert')).toBeNull()
-
-    fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: 'ma' },
+  /** Ignore dirty state and return to the variables page. */
+  const handleCancel = () => {
+    navigate({
+      to: '/questionnaire/$questionnaireId/variables',
+      params: { questionnaireId },
+      ignoreBlocker: true,
     })
-    fireEvent.input(getByRole('textbox', { name: /Name/i }), {
-      target: { value: '' },
-    })
+  }
 
-    expect(await findAllByRole('alert')).toHaveLength(1)
-    expect(getByText('You must provide a name')).toBeDefined()
-  })
-
-  it('should display form error when description is invalid', async () => {
-    const { findAllByRole, getByRole, getByText, queryByRole } =
-      await renderWithRouter(
-        <VariableForm
-          questionnaireId={'q-id'}
-          onSubmit={vi.fn()}
-          submitLabel="Validate"
-          scopes={new Map<string, string>()}
-        />,
-      )
-
-    expect(queryByRole('alert')).toBeNull()
-
-    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
-      target: { value: 'ma_' },
-    })
-    fireEvent.input(getByRole('textbox', { name: /Description/i }), {
-      target: { value: '' },
-    })
-
-    expect(await findAllByRole('alert')).toHaveLength(1)
-    expect(getByText('You must provide a description')).toBeDefined()
-  })
-
-  it('should disable datatype selection when variable is external (it can only be text)', async () => {
-    const { getByRole } = await renderWithRouter(
-      <VariableForm
-        questionnaireId="q-id"
-        onSubmit={vi.fn()}
-        submitLabel="Validate"
-        scopes={new Map<string, string>()}
-      />,
-    )
-
-    const datatype = getByRole('combobox', { name: /datatype/i })
-    expect(datatype).toBeDisabled()
-    expect(datatype).toHaveTextContent(/text/i)
-  })
-
-  it('should disable datatype selection when editing an external variable with text datatype', async () => {
-    const { getByRole } = await renderWithRouter(
-      <VariableForm
-        questionnaireId="q-id"
-        onSubmit={vi.fn()}
-        submitLabel="Validate"
-        scopes={new Map<string, string>()}
-        variable={{
-          type: VariableType.External,
-          name: 'VAR_EXT',
-          description: 'test external',
-          scope: '',
-          datatype: {
-            typeName: DatatypeType.Text,
-            maxLength: 249,
-          },
-        }}
-      />,
-    )
-
-    const datatype = getByRole('combobox', { name: /datatype/i })
-    expect(datatype).toBeDisabled()
-    expect(datatype).toHaveTextContent(/text/i)
-  })
-
-  it('should allow all datatype options calculated variables', async () => {
-    const { findAllByRole, getByRole } = await renderWithRouter(
-      <VariableForm
-        questionnaireId="q-id"
-        onSubmit={vi.fn()}
-        submitLabel="Validate"
-        scopes={new Map<string, string>()}
-        variable={{
-          type: VariableType.Calculated,
-          name: 'VAR_CALC',
-          description: 'test calculated',
-          scope: '',
-          datatype: {
-            typeName: DatatypeType.Numeric,
-            minimum: 0,
-            maximum: 10,
-            decimals: 0,
-          },
-        }}
-      />,
-    )
-
-    const datatypeSelect = getByRole('combobox', { name: /datatype/i })
-    expect(datatypeSelect).toBeEnabled()
-
-    // open select
-    fireEvent.click(datatypeSelect)
-
-    // allowed options : text, date, numeric, boolean
-    expect(await findAllByRole('option')).toHaveLength(4)
-    expect(getByRole('option', { name: /text/i })).toBeInTheDocument()
-    expect(getByRole('option', { name: /date/i })).toBeInTheDocument()
-    expect(getByRole('option', { name: /number/i })).toBeInTheDocument()
-    expect(getByRole('option', { name: /boolean/i })).toBeInTheDocument()
-  })
-
-  it('should allow only Text + current datatype option when editing an external variable if current datatype typename is not text', async () => {
-    const { findAllByRole, getByRole } = await renderWithRouter(
-      <VariableForm
-        questionnaireId="q-id"
-        onSubmit={vi.fn()}
-        submitLabel="Validate"
-        scopes={new Map<string, string>()}
-        variable={{
-          type: VariableType.External,
-          name: 'VAR_EXT',
-          description: 'test external',
-          scope: '',
-          datatype: {
-            typeName: DatatypeType.Numeric,
-            minimum: 0,
-            maximum: 10,
-            decimals: 0,
-          },
-        }}
-      />,
-    )
-
-    const datatypeSelect = getByRole('combobox', { name: /datatype/i })
-    expect(datatypeSelect).toBeEnabled()
-
-    // open select
-    fireEvent.click(datatypeSelect)
-
-    // allowed options : text and current variable datatype typeName
-    expect(await findAllByRole('option')).toHaveLength(2)
-    expect(getByRole('option', { name: /text/i })).toBeInTheDocument()
-    expect(getByRole('option', { name: /number/i })).toBeInTheDocument()
-  })
-})
+  return (
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      onCancel={handleCancel}
+      isDirty={isDirty}
+      isValid={isValid}
+      isSubmitted={isSubmitted}
+      validateLabel={submitLabel}
+    >
+      <div>
+        <Controller
+          name="type"
+          control={control}
+          rules={{ required: true }}
+          render={({
+            field: { name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('variable.type.label')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <RadioGroup
+                options={[
+                  {
+                    label: t('variable.type.external'),
+                    value: VariableType.External,
+                  },
+                  {
+                    label: t('variable.type.calculated'),
+                    value: VariableType.Calculated,
+                  },
+                ]}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+              />
+            </Field>
+          )}
+        />
+      </div>
+      {selectedType === VariableType.External ? (
+        <Controller
+          name="isDeletedOnReset"
+          control={control}
+          render={({
+            field: { ref, name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('variable.isDeletedOnReset')}
+              name={name}
+              touched={isTouched}
+            >
+              <Switch
+                checked={value}
+                inputRef={ref}
+                onBlur={onBlur}
+                onCheckedChange={onChange}
+              />
+            </Field>
+          )}
+        />
+      ) : null}
+      <Controller
+        name="name"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('variable.name')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Input
+              placeholder={t('variable.form.name.placeholder')}
+              value={value}
+              onValueChange={(v) => onChange(convertToValidName(v))}
+            />
+          </Field>
+        )}
+      />
+      <Controller
+        name="description"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('variable.description')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Input value={value} onValueChange={onChange} />
+          </Field>
+        )}
+      />
+      {selectedType === VariableType.Calculated ? (
+        <Controller
+          name="formula"
+          control={control}
+          rules={{ required: true }}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <VTLEditor
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('variable.formula')}
+              name={name}
+              onChange={onChange}
+              required
+              setError={(error) => setError(name, error)}
+              suggestionsVariables={variables}
+              touched={isTouched}
+              value={value}
+            />
+          )}
+        />
+      ) : null}
+      <Controller
+        name="scope"
+        control={control}
+        rules={{ required: true }}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('variable.scope')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Select<string>
+              options={[
+                { label: t('common.questionnaire'), value: '' },
+                ...Array.from(scopes ?? new Map<string, string>()).map(
+                  ([id, name]) => ({
+                    label: name,
+                    value: id,
+                  }),
+                ),
+              ]}
+              value={value}
+              onChange={onChange}
+            />
+          </Field>
+        )}
+      />
+      <Controller
+        name="datatype.typeName"
+        control={control}
+        rules={{ required: true }}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('variable.datatype.label')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Select<DatatypeType>
+              options={datatypeTypeNameOptions}
+              value={value}
+              onChange={onChange}
+              disabled={isDatatypeTypeNameDisabled}
+            />
+          </Field>
+        )}
+      />
+      {selectedTypeName === DatatypeType.Date ? (
+        <Controller
+          name="datatype.format"
+          control={control}
+          rules={{ required: true }}
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('variable.format')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <Select<DateFormat>
+                options={dateFormatOptions}
+                value={value as DateFormat | undefined}
+                onChange={onChange}
+              />
+            </Field>
+          )}
+        />
+      ) : null}
+      {selectedTypeName === DatatypeType.Numeric ? (
+        <>
+          <Controller
+            name="datatype.minimum"
+            control={control}
+            rules={{ required: true }}
+            render={({
+              field: { ref, name, value, onChange },
+              fieldState: { invalid, isTouched, isDirty, error },
+            }) => (
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                label={t('variable.minimum')}
+                name={name}
+                required
+                touched={isTouched}
+              >
+                <NumberField
+                  value={value as number | undefined}
+                  inputRef={ref}
+                  onValueChange={onChange}
+                />
+              </Field>
+            )}
+          />
+          <Controller
+            name="datatype.maximum"
+            control={control}
+            rules={{ required: true }}
+            render={({
+              field: { ref, name, value, onChange },
+              fieldState: { invalid, isTouched, isDirty, error },
+            }) => (
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                label={t('variable.maximum')}
+                name={name}
+                required
+                touched={isTouched}
+              >
+                <NumberField
+                  value={value as number | undefined}
+                  inputRef={ref}
+                  onValueChange={onChange}
+                />
+              </Field>
+            )}
+          />
+          <Controller
+            name="datatype.decimals"
+            control={control}
+            defaultValue={0}
+            render={({
+              field: { ref, name, value, onChange },
+              fieldState: { invalid, isTouched, isDirty, error },
+            }) => (
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                label={t('variable.precision')}
+                name={name}
+                touched={isTouched}
+              >
+                <NumberField
+                  value={value}
+                  inputRef={ref}
+                  onValueChange={onChange}
+                />
+              </Field>
+            )}
+          />
+        </>
+      ) : null}
+      {selectedTypeName === DatatypeType.Text ? (
+        <Controller
+          name="datatype.maxLength"
+          control={control}
+          defaultValue={249}
+          render={({
+            field: { ref, name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              label={t('variable.maxLength')}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <NumberField
+                value={value}
+                inputRef={ref}
+                onValueChange={onChange}
+              />
+            </Field>
+          )}
+        />
+      ) : null}
+    </Form>
+  )
+}
