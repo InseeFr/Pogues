@@ -81,6 +81,22 @@ describe('response tranformations', () => {
     expect(result.VariableReference).toEqual(variableReferenceId);
   });
 
+  test('when choiceType is a variable, with a defined optionFilter', () => {
+    const typeName = DATATYPE_NAME.TEXT;
+    const optionFilter = 'nice filter';
+
+    const result = stateToRemote({
+      id: '1',
+      typeName,
+      variableReferenceId: 'variableId',
+      visHint: DATATYPE_VIS_HINT.RADIO,
+      choiceType: CHOICE_TYPE.VARIABLE,
+      optionFilter: optionFilter,
+    });
+
+    expect(result.optionFilter).toEqual(optionFilter);
+  });
+
   test('when visHint is a suggester, with a defined nomenclatureId', () => {
     const typeName = DATATYPE_NAME.DATE;
     const nomenclatureId = 'nomenclatureId';

@@ -14,6 +14,7 @@ type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
   VariableReference?: unknown;
+  optionFilter?: string;
   choiceType?:
     | CHOICE_TYPE.CODE_LIST
     | CHOICE_TYPE.SUGGESTER
@@ -47,10 +48,10 @@ export type StateResponseFormatSingle = {
     }
   | {
       visHint?: // Filter based on lunatic new components ?
-      | DATATYPE_VIS_HINT.CHECKBOX
+        | DATATYPE_VIS_HINT.CHECKBOX
         | DATATYPE_VIS_HINT.RADIO
         | DATATYPE_VIS_HINT.DROPDOWN;
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string };
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string; optionFilter?: string };
     }
 );
 
@@ -66,6 +67,7 @@ export function remoteToState(remote: {
         CodeListReference,
         VariableReference,
         id,
+        optionFilter,
       },
     ],
   } = remote;
@@ -94,7 +96,10 @@ export function remoteToState(remote: {
   if (choiceType === CHOICE_TYPE.VARIABLE) {
     return {
       ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: {
+        id: VariableReference as string,
+        optionFilter: optionFilter,
+      },
       visHint,
     };
   }
@@ -117,6 +122,7 @@ export function stateToRemote(
   let nomenclatureId;
   let codesListId;
   let variableReferenceId;
+  let optionFilter;
 
   if (
     choiceType === CHOICE_TYPE.SUGGESTER &&
@@ -128,6 +134,7 @@ export function stateToRemote(
     DEFAULT_VARIABLE_SELECTOR_PATH in state
   ) {
     variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
+    optionFilter = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.optionFilter;
   } else if (
     choiceType === CHOICE_TYPE.CODE_LIST &&
     DEFAULT_CODES_LIST_SELECTOR_PATH in state
@@ -145,6 +152,7 @@ export function stateToRemote(
         codesListId,
         nomenclatureId,
         variableReferenceId,
+        optionFilter,
         typeName: DATATYPE_NAME.TEXT,
         maxLength: 1,
         collectedVariable: collectedVariables[0],

@@ -36,6 +36,7 @@ export function getCollectedVariablesSingle(
         variableReference: form.Variable.id,
         // We need to dynamically get the label of the variable reference, as it can be changed by the user
         variableReferenceLabel: desiredVarLabel,
+        optionFilter: form.Variable.optionFilter,
         type: TEXT,
         choiceType: form.choiceType,
         [TEXT]: { maxLength: 1 },
