@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import ArticulationOverviewVersionLayout from './ArticulationOverviewVersionLayout';
+import ArticulationOverviewVersionLayout from './ArticulationOverviewVersionLayout'
 
 describe('ArticulationOverviewVersionLayout', () => {
   it('is readonly and displays title and children', async () => {
@@ -11,12 +11,12 @@ describe('ArticulationOverviewVersionLayout', () => {
       >
         Hello world
       </ArticulationOverviewVersionLayout>,
-    );
+    )
 
-    expect(getByText('Roundabout Summary')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
+    expect(getByText('Roundabout Summary')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
     expect(
       getByText('This save of the survey is on readonly.'),
-    ).toBeInTheDocument();
-  });
-});
+    ).toBeInTheDocument()
+  })
+})

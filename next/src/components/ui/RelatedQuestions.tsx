@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import Popover from '@/components/ui/Popover';
+import Popover from '@/components/ui/Popover'
 
 interface RelatedQuestionsProps {
-  relatedQuestionNames?: string[];
+  relatedQuestionNames?: string[]
 }
 
 /**
@@ -16,7 +16,7 @@ interface RelatedQuestionsProps {
 export default function RelatedQuestions({
   relatedQuestionNames = [],
 }: Readonly<RelatedQuestionsProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   if (relatedQuestionNames.length === 0) {
     return (
@@ -27,7 +27,7 @@ export default function RelatedQuestions({
           })}
         </div>
       </Popover>
-    );
+    )
   }
 
   return (
@@ -49,5 +49,5 @@ export default function RelatedQuestions({
         {t('common.question', { count: relatedQuestionNames.length })}
       </div>
     </Popover>
-  );
+  )
 }

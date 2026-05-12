@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import MultimodeOverview from './MultimodeOverview';
+import MultimodeOverview from './MultimodeOverview'
 
 describe('MultimodeOverview', () => {
   it('displays multimode rules', async () => {
@@ -9,8 +9,8 @@ describe('MultimodeOverview', () => {
         questionnaireId="q-id"
         isMovedRules={{ questionnaireFormula: 'my-q-formula' }}
       />,
-    );
+    )
 
-    expect(getByText('my-q-formula')).toBeInTheDocument();
-  });
-});
+    expect(getByText('my-q-formula')).toBeInTheDocument()
+  })
+})

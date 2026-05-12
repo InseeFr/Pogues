@@ -1,15 +1,15 @@
-import { ValueTypeEnum } from './poguesModelTypeUtils';
+import { ValueTypeEnum } from './poguesModelTypeUtils'
 
 /** @version 1.11.0 */
 export type Multimode = {
-  questionnaire?: Rules;
-  leaf?: Rules;
-};
+  questionnaire?: Rules
+  leaf?: Rules
+}
 
 /** @version 1.11.0 */
 type Rules = {
-  rules: Rule[];
-};
+  rules: Rule[]
+}
 
 /** @version 1.11.0 */
 enum MultimodeRuleNameEnum {
@@ -19,8 +19,8 @@ enum MultimodeRuleNameEnum {
 
 /** @version 1.11.0 */
 type Rule = {
-  name: MultimodeRuleNameEnum;
+  name: MultimodeRuleNameEnum
   /** @efaultValue "number" */
-  type?: ValueTypeEnum;
-  value: string;
-};
+  type?: ValueTypeEnum
+  value: string
+}

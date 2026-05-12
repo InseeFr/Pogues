@@ -1,10 +1,10 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import type { Variable } from '@/models/variables';
+import type { Variable } from '@/models/variables'
 
 interface Props {
-  scope: string;
-  variables: Variable[];
+  scope: string
+  variables: Variable[]
 }
 
 /**
@@ -15,7 +15,7 @@ export default function VariablesScopeOverviewItemContent({
   scope,
   variables = [],
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="grid grid-cols-[1fr_auto]">
@@ -24,5 +24,5 @@ export default function VariablesScopeOverviewItemContent({
         {t('variables.variable', { count: variables.length })}
       </div>
     </div>
-  );
+  )
 }

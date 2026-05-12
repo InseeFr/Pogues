@@ -1,5 +1,5 @@
-import { Radio as BaseUIRadio } from '@base-ui-components/react/radio';
-import { RadioGroup as BaseUIRadioGroup } from '@base-ui-components/react/radio-group';
+import { Radio as BaseUIRadio } from '@base-ui-components/react/radio'
+import { RadioGroup as BaseUIRadioGroup } from '@base-ui-components/react/radio-group'
 
 type Props = {
   /**
@@ -7,25 +7,25 @@ type Props = {
    *
    * To render a controlled radio group, use the `value` prop instead.
    */
-  defaultValue?: BaseUIRadioGroup.Props['defaultValue'];
+  defaultValue?: BaseUIRadioGroup.Props['defaultValue']
   /** Whether the component should ignore user interaction. */
-  disabled?: BaseUIRadioGroup.Props['disabled'];
+  disabled?: BaseUIRadioGroup.Props['disabled']
   /**
    * List of options to select from. If specified, label is displayed instead of
    * value.
    */
-  options: { label?: string; value: unknown }[];
+  options: { label?: string; value: unknown }[]
   /**
    * The controlled value of the radio item that should be currently selected.
    *
    * To render an uncontrolled radio group, use the `defaultValue` prop instead.
    */
-  value?: BaseUIRadioGroup.Props['value'];
+  value?: BaseUIRadioGroup.Props['value']
   /** Callback fired when the value changes. */
-  onBlur?: BaseUIRadioGroup.Props['onBlur'];
+  onBlur?: BaseUIRadioGroup.Props['onBlur']
   /** Callback fired when the value changes. */
-  onValueChange?: BaseUIRadioGroup.Props['onValueChange'];
-};
+  onValueChange?: BaseUIRadioGroup.Props['onValueChange']
+}
 
 /**
  * Provides shared state to a series of radio buttons.
@@ -85,5 +85,5 @@ export default function RadioGroup({
         </label>
       ))}
     </BaseUIRadioGroup>
-  );
+  )
 }

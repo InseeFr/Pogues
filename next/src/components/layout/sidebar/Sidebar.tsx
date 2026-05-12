@@ -1,6 +1,6 @@
 type Props = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 /**
  * Display a sidebar on the left of the app.
@@ -27,5 +27,5 @@ export default function Sidebar({ children }: Readonly<Props>) {
     <nav className="sticky top-0 w-18 2xl:w-52 max-h-[calc(100vh-var(--header-height))] divide-y *:py-3">
       {children}
     </nav>
-  );
+  )
 }

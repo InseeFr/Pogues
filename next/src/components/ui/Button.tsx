@@ -1,4 +1,4 @@
-import SpinnerIcon from './icons/SpinnerIcon';
+import SpinnerIcon from './icons/SpinnerIcon'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export enum ButtonStyle {
@@ -13,11 +13,11 @@ export enum ButtonSize {
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonSize?: ButtonSize;
-  buttonStyle?: ButtonStyle;
-  children: React.ReactNode;
-  isLoading?: boolean;
-  onClick?: () => void;
+  buttonSize?: ButtonSize
+  buttonStyle?: ButtonStyle
+  children: React.ReactNode
+  isLoading?: boolean
+  onClick?: () => void
 }
 
 export default function Button({
@@ -61,5 +61,5 @@ export default function Button({
         children
       )}
     </button>
-  );
+  )
 }

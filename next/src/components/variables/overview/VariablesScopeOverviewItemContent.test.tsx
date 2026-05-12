@@ -1,8 +1,8 @@
-import { DatatypeType } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
-import { renderWithI18n } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
+import { renderWithI18n } from '@/testing/render'
 
-import VariablesScopeOverviewItemContent from './VariablesScopeOverviewItemContent';
+import VariablesScopeOverviewItemContent from './VariablesScopeOverviewItemContent'
 
 describe('VariablesScopeOverviewItemContent', () => {
   it('display scope information', async () => {
@@ -26,9 +26,9 @@ describe('VariablesScopeOverviewItemContent', () => {
           },
         ]}
       />,
-    );
+    )
 
-    expect(getByText('Scope my scope')).toBeInTheDocument();
-    expect(getByText('2 variables')).toBeInTheDocument();
-  });
-});
+    expect(getByText('Scope my scope')).toBeInTheDocument()
+    expect(getByText('2 variables')).toBeInTheDocument()
+  })
+})

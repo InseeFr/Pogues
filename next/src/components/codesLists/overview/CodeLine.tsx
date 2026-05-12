@@ -1,8 +1,8 @@
-import { Code } from '@/models/codesLists';
+import { Code } from '@/models/codesLists'
 
 interface CodeLineProps {
-  code: Code;
-  subCodeIteration?: number;
+  code: Code
+  subCodeIteration?: number
 }
 
 /**
@@ -30,5 +30,5 @@ export default function CodeLine({
         />
       ))}
     </>
-  );
+  )
 }

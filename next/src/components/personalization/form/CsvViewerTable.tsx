@@ -1,14 +1,14 @@
-import { ParseResult } from 'papaparse';
+import { ParseResult } from 'papaparse'
 
 interface CsvViewerTableProps {
-  parsedCsv: ParseResult<unknown>;
+  parsedCsv: ParseResult<unknown>
 }
 
 /** Display uploaded csv file as a table. */
 export default function CsvViewerTable({
   parsedCsv,
 }: Readonly<CsvViewerTableProps>) {
-  const shouldScroll = parsedCsv.data.length > 6;
+  const shouldScroll = parsedCsv.data.length > 6
   return (
     <div className="overflow-x-auto w-full my-4">
       <div
@@ -34,18 +34,18 @@ export default function CsvViewerTable({
                 row.id ??
                 parsedCsv.meta.fields
                   ?.map((field: string) => row[field])
-                  .join('__');
+                  .join('__')
               return (
                 <tr key={key} className="bg-default odd:bg-main *:p-4">
                   {parsedCsv.meta.fields?.map((field: string) => (
                     <td key={field}>{row[field]}</td>
                   ))}
                 </tr>
-              );
+              )
             })}
           </tbody>
         </table>
       </div>
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
 import {
   type Control,
   Controller,
@@ -10,34 +10,34 @@ import {
   UseFormTrigger,
   useFieldArray,
   useForm,
-} from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+} from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon';
-import Form from '@/components/ui/form/Form';
-import Input from '@/components/ui/form/FormInput';
-import Label from '@/components/ui/form/Label';
-import VTLEditor from '@/components/ui/form/VTLEditor';
-import AddIcon from '@/components/ui/icons/AddIcon';
-import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon';
-import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon';
-import DeleteIcon from '@/components/ui/icons/DeleteIcon';
-import { type CodesList } from '@/models/codesLists';
-import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables';
+import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
+import Form from '@/components/ui/form/Form'
+import Input from '@/components/ui/form/FormInput'
+import Label from '@/components/ui/form/Label'
+import VTLEditor from '@/components/ui/form/VTLEditor'
+import AddIcon from '@/components/ui/icons/AddIcon'
+import ArrowDownIcon from '@/components/ui/icons/ArrowDownIcon'
+import ArrowUpIcon from '@/components/ui/icons/ArrowUpIcon'
+import DeleteIcon from '@/components/ui/icons/DeleteIcon'
+import { type CodesList } from '@/models/codesLists'
+import { FormulasLanguages } from '@/models/questionnaires'
+import { Variable } from '@/models/variables'
 
-import { type FormValues, schema } from './schema';
+import { type FormValues, schema } from './schema'
 
 interface CodesListFormProps {
   /** In an update case, initial codes list value. */
-  codesList?: Omit<CodesList, 'id'>;
+  codesList?: Omit<CodesList, 'id'>
   /** Related questionnaire id. */
-  questionnaireId: string;
-  formulasLanguage?: FormulasLanguages;
+  questionnaireId: string
+  formulasLanguage?: FormulasLanguages
   /** Variables of the questionnaire used for the VTL Editor. */
-  variables?: Variable[];
+  variables?: Variable[]
   /** Function that will be called with form data when the user submit the form. */
-  onSubmit: SubmitHandler<FormValues>;
+  onSubmit: SubmitHandler<FormValues>
 }
 
 /**
@@ -59,8 +59,8 @@ export default function CodesListForm({
   variables = [],
   onSubmit,
 }: Readonly<CodesListFormProps>) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const {
     control,
@@ -76,15 +76,15 @@ export default function CodesListForm({
     },
     values: codesList,
     resolver: zodResolver(schema),
-  });
+  })
 
   const handleCancel = () => {
     navigate({
       to: '/questionnaire/$questionnaireId/codes-lists',
       params: { questionnaireId },
       ignoreBlocker: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form
@@ -118,16 +118,16 @@ export default function CodesListForm({
         />
       </div>
     </Form>
-  );
+  )
 }
 
 interface CodesFieldsProps {
-  control: Control<FormValues>;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
-  trigger: UseFormTrigger<FormValues>;
+  control: Control<FormValues>
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
+  trigger: UseFormTrigger<FormValues>
   /** Manually set custom error for `react-hook-form` to manage. */
-  setError: UseFormSetError<FormValues>;
+  setError: UseFormSetError<FormValues>
 }
 
 function CodesFields({
@@ -137,12 +137,12 @@ function CodesFields({
   setError,
   trigger,
 }: Readonly<CodesFieldsProps>) {
-  const { t } = useTranslation();
-  const name = 'codes';
+  const { t } = useTranslation()
+  const name = 'codes'
   const { fields, append, remove, move } = useFieldArray({
     control,
     name,
-  });
+  })
 
   return (
     <>
@@ -170,23 +170,23 @@ function CodesFields({
         {t('codesList.form.addCode')}
       </button>
     </>
-  );
+  )
 }
 
 interface CodesFieldProps {
-  control: Control<FormValues>;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
-  index: number;
-  remove: UseFieldArrayRemove;
-  move: UseFieldArrayMove;
-  isFirst?: boolean;
-  isLast?: boolean;
-  parentName: string;
-  subCodeIteration?: number;
-  trigger: UseFormTrigger<FormValues>;
+  control: Control<FormValues>
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
+  index: number
+  remove: UseFieldArrayRemove
+  move: UseFieldArrayMove
+  isFirst?: boolean
+  isLast?: boolean
+  parentName: string
+  subCodeIteration?: number
+  trigger: UseFormTrigger<FormValues>
   /** Manually set custom error for `react-hook-form` to manage. */
-  setError: UseFormSetError<FormValues>;
+  setError: UseFormSetError<FormValues>
 }
 
 function CodesField({
@@ -203,8 +203,8 @@ function CodesField({
   trigger,
   setError,
 }: Readonly<CodesFieldProps>) {
-  const { t } = useTranslation();
-  const namePrefix = `${parentName}.${index}`;
+  const { t } = useTranslation()
+  const namePrefix = `${parentName}.${index}`
   const {
     fields,
     append: appendSubCode,
@@ -213,7 +213,7 @@ function CodesField({
   } = useFieldArray({
     control,
     name: `${namePrefix}.codes` as 'codes',
-  });
+  })
 
   return (
     <>
@@ -247,8 +247,8 @@ function CodesField({
               error={error?.message}
               {...field}
               onChange={(e) => {
-                field.onChange(e);
-                trigger();
+                field.onChange(e)
+                trigger()
               }}
             />
           )}
@@ -320,5 +320,5 @@ function CodesField({
         />
       ))}
     </>
-  );
+  )
 }

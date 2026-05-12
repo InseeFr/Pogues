@@ -3,25 +3,25 @@ import {
   VariableRole as AntlrVariableRole,
   VariableType as AntlrVariableType,
   Variables as AntlrVariables,
-} from '@making-sense/antlr-editor/dist/model';
+} from '@making-sense/antlr-editor/dist/model'
 
-import { DatatypeType } from '@/models/datatype';
-import type { Variable } from '@/models/variables';
+import { DatatypeType } from '@/models/datatype'
+import type { Variable } from '@/models/variables'
 
 export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
   const antlrVariablesArray = variables.map((variable) => {
     // Determine the type (BOOLEAN, NUMBER, STRING) based on datatype
-    let type: AntlrVariableType;
+    let type: AntlrVariableType
     switch (variable.datatype.typeName) {
       case DatatypeType.Boolean:
-        type = AntlrVariableType.BOOLEAN;
-        break;
+        type = AntlrVariableType.BOOLEAN
+        break
       case DatatypeType.Numeric:
-        type = AntlrVariableType.NUMBER;
-        break;
+        type = AntlrVariableType.NUMBER
+        break
       default:
         // for duration, date and text variable, there is no other possible type than STRING accepted by Antlr
-        type = AntlrVariableType.STRING;
+        type = AntlrVariableType.STRING
     }
 
     return [
@@ -32,9 +32,9 @@ export function computeAntlrVariables(variables: Variable[]): AntlrVariables {
         name: variable.name,
         label: variable.description,
       },
-    ] as [string, AntlrVariable];
-  });
+    ] as [string, AntlrVariable]
+  })
 
   // Convert the array of tuples into an object
-  return Object.fromEntries(antlrVariablesArray);
+  return Object.fromEntries(antlrVariablesArray)
 }

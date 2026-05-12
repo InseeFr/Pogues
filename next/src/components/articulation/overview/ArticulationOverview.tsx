@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import { ArticulationItems } from '@/models/articulation';
+import { ArticulationItems } from '@/models/articulation'
 
-import { ArticulationOverviewContent } from './ArticulationOverviewContent';
+import { ArticulationOverviewContent } from './ArticulationOverviewContent'
 
 interface ArticulationOverviewProps {
-  questionnaireId: string;
-  articulationItems?: ArticulationItems;
-  readonly?: boolean;
+  questionnaireId: string
+  articulationItems?: ArticulationItems
+  readonly?: boolean
 }
 
 /**
@@ -21,7 +21,7 @@ export function ArticulationOverview({
   articulationItems,
   readonly = false,
 }: Readonly<ArticulationOverviewProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="space-y-6">
@@ -35,5 +35,5 @@ export function ArticulationOverview({
         readonly={readonly}
       />
     </div>
-  );
+  )
 }

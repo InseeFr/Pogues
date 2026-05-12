@@ -1,9 +1,9 @@
-import { queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query'
 
-import type { Articulation } from '@/models/articulation';
-import { Variable } from '@/models/variables';
+import type { Articulation } from '@/models/articulation'
+import { Variable } from '@/models/variables'
 
-import { instance } from './instance';
+import { instance } from './instance'
 
 export const articulationKeys = {
   all: (questionnaireId: string) => ['articulation', questionnaireId] as const,
@@ -11,7 +11,7 @@ export const articulationKeys = {
     ['articulationVersion', questionnaireId, versionId] as const,
   variables: (questionnaireId: string) =>
     ['articulationVariables', questionnaireId] as const,
-};
+}
 
 /**
  * Used to retrieve articulation associated to a questionnaire.
@@ -22,7 +22,7 @@ export const articulationQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: articulationKeys.all(questionnaireId),
     queryFn: () => getArticulation(questionnaireId),
-  });
+  })
 
 /**
  * Used to retrieve articulation associated to an older version of a questionnaire.
@@ -37,7 +37,7 @@ export const articulationFromVersionQueryOptions = (
     queryKey: articulationKeys.version(questionnaireId, versionId),
     queryFn: () => getArticulationFromVersion(questionnaireId, versionId),
     staleTime: Infinity,
-  });
+  })
 
 /**
  * Used to retrieve articulation variables associated to a questionnaire.
@@ -48,7 +48,7 @@ export const articulationVariablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: articulationKeys.variables(questionnaireId),
     queryFn: () => getArticulationVariables(questionnaireId),
-  });
+  })
 
 /** Retrieve articulation associated to the questionnaire. */
 export async function getArticulation(
@@ -59,8 +59,8 @@ export async function getArticulation(
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: Articulation }) => {
-      return data;
-    });
+      return data
+    })
 }
 
 /** Retrieve articulation associated to an older version of the questionnaire. */
@@ -74,8 +74,8 @@ export async function getArticulationFromVersion(
       { headers: { Accept: 'application/json' } },
     )
     .then(({ data }: { data: Articulation }) => {
-      return data;
-    });
+      return data
+    })
 }
 
 /** Retrieve articulation variables associated to the questionnaire. */
@@ -90,8 +90,8 @@ async function getArticulationVariables(
       },
     )
     .then(({ data }: { data: Variable[] }) => {
-      return data;
-    });
+      return data
+    })
 }
 
 /** Create or update an articulation. */
@@ -103,7 +103,7 @@ export async function putArticulation(
     `/persistence/questionnaire/${questionnaireId}/articulation`,
     articulation,
     { headers: { 'Content-Type': 'application/json' } },
-  );
+  )
 }
 
 /** Delete an articulation. */
@@ -112,5 +112,5 @@ export async function deleteArticulation(
 ): Promise<Response> {
   return instance.delete(
     `/persistence/questionnaire/${questionnaireId}/articulation`,
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { DatatypeType } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
-import { renderWithRouter } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
+import { renderWithRouter } from '@/testing/render'
 
-import VariablesTable from './VariablesTable';
+import VariablesTable from './VariablesTable'
 
 describe('VariablesTable', () => {
   it('display provided variables', async () => {
@@ -26,9 +26,9 @@ describe('VariablesTable', () => {
           },
         ]}
       />,
-    );
+    )
 
-    expect(getByText('MY_VAR')).toBeInTheDocument();
-    expect(getByText('MY_VAR2')).toBeInTheDocument();
-  });
-});
+    expect(getByText('MY_VAR')).toBeInTheDocument()
+    expect(getByText('MY_VAR2')).toBeInTheDocument()
+  })
+})

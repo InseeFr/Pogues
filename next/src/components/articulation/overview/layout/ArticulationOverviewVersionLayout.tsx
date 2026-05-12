@@ -1,12 +1,12 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import ContentWrapper from '@/components/layout/ContentWrapper';
+import ContentWrapper from '@/components/layout/ContentWrapper'
 
 type Props = {
-  children: React.ReactNode;
-  questionnaireId: string;
-  versionId: string;
-};
+  children: React.ReactNode
+  questionnaireId: string
+  versionId: string
+}
 
 /** Display "articulations", readonly banner and use default content style. */
 export default function ArticulationOverviewVersionLayout({
@@ -14,7 +14,7 @@ export default function ArticulationOverviewVersionLayout({
   questionnaireId,
   versionId,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <ContentWrapper
@@ -25,5 +25,5 @@ export default function ArticulationOverviewVersionLayout({
     >
       {children}
     </ContentWrapper>
-  );
+  )
 }

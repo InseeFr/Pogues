@@ -3,41 +3,41 @@
  * corresponding input from the provided parameters.
  */
 export type Filter<T> = BaseFilter &
-  (BooleanFilter<T> | TextFilter<T> | ToggleGroupFilter<T> | SelectFilter<T>);
+  (BooleanFilter<T> | TextFilter<T> | ToggleGroupFilter<T> | SelectFilter<T>)
 
 type BaseFilter = {
-  label: string;
-  type: FilterType;
-};
+  label: string
+  type: FilterType
+}
 
 type BooleanFilter<T> = {
-  type: FilterType.Boolean;
+  type: FilterType.Boolean
   /** If the filter is activated, this filter will be triggered. */
-  onFilter: (v: T, filter?: boolean) => boolean;
-};
+  onFilter: (v: T, filter?: boolean) => boolean
+}
 
 type SelectFilter<T> = {
-  defaultValue?: string;
-  placeholder?: string;
-  type: FilterType.Select;
-  options: { label: string; value: string }[];
+  defaultValue?: string
+  placeholder?: string
+  type: FilterType.Select
+  options: { label: string; value: string }[]
   /** If the filter is activated, this filter will be triggered with the provided option. */
-  onFilter: (v: T, filter?: string) => boolean;
-};
+  onFilter: (v: T, filter?: string) => boolean
+}
 
 type ToggleGroupFilter<T> = {
-  type: FilterType.ToggleGroup;
-  options: { label: string; value: string }[];
+  type: FilterType.ToggleGroup
+  options: { label: string; value: string }[]
   /** If the filter is activated, this filter will be triggered with the provided options. */
-  onFilter: (v: T, filter?: string[]) => boolean;
-};
+  onFilter: (v: T, filter?: string[]) => boolean
+}
 
 type TextFilter<T> = {
-  placeholder?: string;
-  type: FilterType.Text;
+  placeholder?: string
+  type: FilterType.Text
   /** If the filter is activated, this filter will be triggered with the provided input. */
-  onFilter: (v: T, filter?: string) => boolean;
-};
+  onFilter: (v: T, filter?: string) => boolean
+}
 
 export enum FilterType {
   /** Display a chip one can toggle on / off. */
@@ -56,4 +56,4 @@ export enum FilterType {
 }
 
 /** Filters to take into account, provided by the Filters component. */
-export type ActiveFilter<T> = Filter<T> & { value?: string | string[] };
+export type ActiveFilter<T> = Filter<T> & { value?: string | string[] }

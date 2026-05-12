@@ -1,14 +1,14 @@
-import { ValueTypeEnum } from './poguesModelTypeUtils';
+import { ValueTypeEnum } from './poguesModelTypeUtils'
 
 /** @version 1.11.0 */
 export type Articulation = {
-  items?: Item[];
-};
+  items?: Item[]
+}
 
 /** @version 1.11.0 */
 type Item = {
-  label: string;
+  label: string
   /** @defaultValue "number" */
-  type?: ValueTypeEnum[];
-  value: string;
-};
+  type?: ValueTypeEnum[]
+  value: string
+}

@@ -17,5 +17,5 @@ export default function LatestIcon({
     >
       <path d="M240-240v-480h80v480h-80Zm160 0 400-240-400-240v480Zm80-141v-198l165 99-165 99Zm0-99Z" />{' '}
     </svg>
-  );
+  )
 }

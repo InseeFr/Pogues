@@ -2,23 +2,23 @@
 export function getUrlFromCriteria(
   criteria: { [key: string]: string | undefined } = {},
 ): string {
-  let url = '';
+  let url = ''
 
   for (const key in criteria) {
-    const v = criteria[key];
+    const v = criteria[key]
     if (v) {
       if (url !== '') {
-        url += '&';
+        url += '&'
       }
-      url += `${key}=${encodeURIComponent(v)}`;
+      url += `${key}=${encodeURIComponent(v)}`
     }
   }
 
-  return url;
+  return url
 }
 
 export function uuid(): string {
-  return self.crypto.randomUUID();
+  return self.crypto.randomUUID()
 }
 
 /**
@@ -28,7 +28,7 @@ export function uuid(): string {
  * We cannot use a true uuid for now because of back-end limitations.
  */
 export function uid() {
-  return (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+  return (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
 }
 
 /** A label is made of 10 uppercased alphanumeric characters. */
@@ -36,11 +36,11 @@ export function nameFromLabel(label: string): string {
   return label
     .replace(/[^a-z0-9_]/gi, '')
     .toUpperCase()
-    .slice(0, 10);
+    .slice(0, 10)
 }
 
 export const getCurrentUri = (): string | undefined => {
-  const uri = globalThis.location.href.replace(globalThis.location.origin, '');
-  if (uri === '/') return undefined;
-  return uri;
-};
+  const uri = globalThis.location.href.replace(globalThis.location.origin, '')
+  if (uri === '/') return undefined
+  return uri
+}

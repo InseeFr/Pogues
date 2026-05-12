@@ -1,4 +1,4 @@
-import { DataType } from './datatype';
+import { DataType } from './datatype'
 
 export enum VariableType {
   Collected,
@@ -7,17 +7,17 @@ export enum VariableType {
 }
 
 export type Variable = {
-  id: string;
-  name: string;
-  description?: string;
-  datatype: DataType;
-  scope?: string;
-  type: VariableType;
+  id: string
+  name: string
+  description?: string
+  datatype: DataType
+  scope?: string
+  type: VariableType
 } & (
   | {
-      type: VariableType.Calculated;
-      formula?: string;
+      type: VariableType.Calculated
+      formula?: string
     }
   | { type: VariableType.External; isDeletedOnReset?: boolean }
   | { type: VariableType.Collected }
-);
+)

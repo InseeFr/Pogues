@@ -1,8 +1,8 @@
-import { DatatypeType } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
-import { renderWithRouter } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
+import { renderWithRouter } from '@/testing/render'
 
-import VariableLine from './VariableLine';
+import VariableLine from './VariableLine'
 
 describe('VariableLine', () => {
   it('display variable information', async () => {
@@ -21,11 +21,11 @@ describe('VariableLine', () => {
           />
         </tbody>
       </table>,
-    );
+    )
 
-    expect(getByText('MY_VAR')).toBeInTheDocument();
-    expect(getByText('This var likes strawberries')).toBeInTheDocument();
-    expect(getByText('Text')).toBeInTheDocument();
-    expect(getByText('Collected')).toBeInTheDocument();
-  });
-});
+    expect(getByText('MY_VAR')).toBeInTheDocument()
+    expect(getByText('This var likes strawberries')).toBeInTheDocument()
+    expect(getByText('Text')).toBeInTheDocument()
+    expect(getByText('Collected')).toBeInTheDocument()
+  })
+})

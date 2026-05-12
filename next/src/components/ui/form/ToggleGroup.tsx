@@ -1,9 +1,9 @@
-import { Toggle as BaseUIToggle } from '@base-ui-components/react/toggle';
-import { ToggleGroup as BaseUIToggleGroup } from '@base-ui-components/react/toggle-group';
+import { Toggle as BaseUIToggle } from '@base-ui-components/react/toggle'
+import { ToggleGroup as BaseUIToggleGroup } from '@base-ui-components/react/toggle-group'
 
 interface Props {
-  onChange: (v: string[]) => void;
-  options: { label: string; value: string }[];
+  onChange: (v: string[]) => void
+  options: { label: string; value: string }[]
 }
 
 /** Provides a shared state to a series of toggle buttons. */
@@ -25,5 +25,5 @@ export default function ToggleGroup({ onChange, options }: Readonly<Props>) {
         </BaseUIToggle>
       ))}
     </BaseUIToggleGroup>
-  );
+  )
 }

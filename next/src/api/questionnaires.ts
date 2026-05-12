@@ -1,20 +1,20 @@
-import { queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query'
 
-import type { Questionnaire } from '@/models/questionnaires';
+import type { Questionnaire } from '@/models/questionnaires'
 
-import { instance } from './instance';
-import type { Questionnaire as PoguesQuestionnaire } from './models/poguesModel';
+import { instance } from './instance'
+import type { Questionnaire as PoguesQuestionnaire } from './models/poguesModel'
 import {
   computeNewPoguesQuestionnaire,
   computeQuestionnaire,
-} from './utils/questionnaires';
+} from './utils/questionnaires'
 
 export const questionnairesKeys = {
   all: ['questionnaires'] as const,
   allByStamp: (stamp: string) =>
     [...questionnairesKeys.all, { stamp }] as const,
   detail: (id: string) => [...questionnairesKeys.all, 'detail', id] as const,
-};
+}
 
 /**
  * Used to retrieve questionnaires associated to a stamp.
@@ -25,7 +25,7 @@ export const questionnairesQueryOptions = (stamp: string) =>
   queryOptions({
     queryKey: questionnairesKeys.allByStamp(stamp),
     queryFn: () => getQuestionnaires(stamp),
-  });
+  })
 
 /**
  * Used to retrieve a questionnaire associated to its id.
@@ -36,7 +36,7 @@ export const questionnaireQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: questionnairesKeys.detail(questionnaireId),
     queryFn: () => getQuestionnaire(questionnaireId),
-  });
+  })
 
 /**
  * Retrieve questionnaires associated to the provided stamp (e.g. "DR59-SNDI59").
@@ -50,12 +50,12 @@ export async function getQuestionnaires(
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: PoguesQuestionnaire[] }) => {
-      const res: Questionnaire[] = [];
+      const res: Questionnaire[] = []
       for (const datum of data) {
-        res.push(computeQuestionnaire(datum));
+        res.push(computeQuestionnaire(datum))
       }
-      return res;
-    });
+      return res
+    })
 }
 
 /** Retrieve a questionnaire by id. */
@@ -65,8 +65,8 @@ export async function getQuestionnaire(id: string): Promise<Questionnaire> {
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: PoguesQuestionnaire }) => {
-      return computeQuestionnaire(data);
-    });
+      return computeQuestionnaire(data)
+    })
 }
 
 /** Create a new questionnaire. */
@@ -80,7 +80,7 @@ export async function postQuestionnaire(
     {
       headers: { 'Content-Type': 'application/json' },
     },
-  );
+  )
 }
 
 /** Update a questionnaire by id. */
@@ -90,5 +90,5 @@ export async function putQuestionnaire(
 ): Promise<Response> {
   return instance.put(`/persistence/questionnaire/${id}`, qr, {
     headers: { 'Content-Type': 'application/json' },
-  });
+  })
 }

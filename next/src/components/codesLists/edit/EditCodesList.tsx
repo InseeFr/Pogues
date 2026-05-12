@@ -1,14 +1,14 @@
-import { CodesList } from '@/models/codesLists';
-import { FormulasLanguages } from '@/models/questionnaires';
-import { Variable } from '@/models/variables';
+import { CodesList } from '@/models/codesLists'
+import { FormulasLanguages } from '@/models/questionnaires'
+import { Variable } from '@/models/variables'
 
-import EditCodesListForm from './EditCodesListForm';
+import EditCodesListForm from './EditCodesListForm'
 
 interface EditCodesListProps {
-  codesList?: CodesList;
-  questionnaireId: string;
-  formulasLanguage?: FormulasLanguages;
-  variables: Variable[];
+  codesList?: CodesList
+  questionnaireId: string
+  formulasLanguage?: FormulasLanguages
+  variables: Variable[]
 }
 
 /** Allow to edit an existing code list. */
@@ -29,5 +29,5 @@ export default function EditCodesList({
         variables={variables}
       />
     </div>
-  );
+  )
 }

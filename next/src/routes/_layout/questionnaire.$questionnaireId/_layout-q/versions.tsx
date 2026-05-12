@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { versionsQueryOptions } from '@/api/versions';
-import VersionsOverview from '@/components/versions/VersionsOverview';
-import VersionsOverviewLayout from '@/components/versions/VersionsOverviewLayout';
-import { type Version } from '@/models/version';
+import { versionsQueryOptions } from '@/api/versions'
+import VersionsOverview from '@/components/versions/VersionsOverview'
+import VersionsOverviewLayout from '@/components/versions/VersionsOverviewLayout'
+import { type Version } from '@/models/version'
 
 /**
  * Versions page where we display the previous questionnaire save and allow to
@@ -18,20 +18,20 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId },
   }) => {
-    queryClient.ensureQueryData(versionsQueryOptions(questionnaireId));
-    return { crumb: t('crumb.history') };
+    queryClient.ensureQueryData(versionsQueryOptions(questionnaireId))
+    return { crumb: t('crumb.history') }
   },
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const { data }: { data: Version[] } = useSuspenseQuery(
     versionsQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <VersionsOverviewLayout>
       <VersionsOverview questionnaireId={questionnaireId} versions={data} />
     </VersionsOverviewLayout>
-  );
+  )
 }

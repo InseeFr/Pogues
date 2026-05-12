@@ -1,18 +1,18 @@
-import dayjs from 'dayjs';
-import 'dayjs/locale/fr';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs'
+import 'dayjs/locale/fr'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
-dayjs.locale('fr');
-dayjs.extend(relativeTime);
-dayjs.extend(localizedFormat);
+dayjs.locale('fr')
+dayjs.extend(relativeTime)
+dayjs.extend(localizedFormat)
 
 /**
  * Transform a Date object or ISO 8601 string in a readable string
  * (e.g. '1 minute ago').
  */
 export function computeDateFromNow(date: Date | string) {
-  return dayjs(date).fromNow();
+  return dayjs(date).fromNow()
 }
 
 /**
@@ -20,7 +20,7 @@ export function computeDateFromNow(date: Date | string) {
  * (e.g. '08/16/2018').
  */
 export function computeDayFromDate(date: Date | string) {
-  return dayjs(date).format('L');
+  return dayjs(date).format('L')
 }
 
 /**
@@ -28,7 +28,7 @@ export function computeDayFromDate(date: Date | string) {
  * (e.g. '8:02 PM').
  */
 export function computeTimeFromDate(date: Date | string) {
-  return dayjs(date).format('LT');
+  return dayjs(date).format('LT')
 }
 
 /**
@@ -36,5 +36,5 @@ export function computeTimeFromDate(date: Date | string) {
  * (e.g. 'August 16, 2018 8:02 PM').
  */
 export function computeFullDateFromDate(date: Date | string) {
-  return dayjs(date).format('LLL');
+  return dayjs(date).format('LLL')
 }

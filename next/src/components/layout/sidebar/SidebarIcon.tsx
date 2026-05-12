@@ -1,10 +1,10 @@
 type Props = {
-  active?: boolean;
-  Icon?: React.FC<React.ComponentProps<'svg'>>;
-  iconClassName?: string;
-  label: string;
-  onIconClick?: () => void;
-};
+  active?: boolean
+  Icon?: React.FC<React.ComponentProps<'svg'>>
+  iconClassName?: string
+  label: string
+  onIconClick?: () => void
+}
 
 /** Display an icon with a label to be used in a `Sidebar`. */
 export default function SidebarIcon({
@@ -28,5 +28,5 @@ export default function SidebarIcon({
       ) : null}
       <span className="hidden 2xl:inline text-left">{label}</span>
     </div>
-  );
+  )
 }

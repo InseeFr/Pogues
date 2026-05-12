@@ -1,19 +1,19 @@
-import nock from 'nock';
+import nock from 'nock'
 
-import { FormulasLanguages, TargetModes } from '@/models/questionnaires';
+import { FormulasLanguages, TargetModes } from '@/models/questionnaires'
 
 import {
   type Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
-} from './models/poguesModel';
+} from './models/poguesModel'
 import {
   getQuestionnaire,
   getQuestionnaires,
   postQuestionnaire,
   putQuestionnaire,
-} from './questionnaires';
+} from './questionnaires'
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc')
 
 const poguesQuestionnaire = {
   id: 'id',
@@ -23,7 +23,7 @@ const poguesQuestionnaire = {
   DataCollection: [],
   lastUpdatedDate:
     'Tue Nov 19 2024 11:36:56 GMT+0000 (Coordinated Universal Time)',
-};
+}
 
 const questionnaire = {
   id: 'id',
@@ -33,38 +33,38 @@ const questionnaire = {
   codesLists: [],
   formulasLanguage: FormulasLanguages.VTL,
   scopes: new Map(),
-};
+}
 
 it('Get questionnaires works', async () => {
-  const questionnaires: PoguesQuestionnaire[] = [poguesQuestionnaire];
+  const questionnaires: PoguesQuestionnaire[] = [poguesQuestionnaire]
 
   nock('https://mock-api')
     .get('/persistence/questionnaires/search/meta?owner=my-stamp')
-    .reply(200, questionnaires);
+    .reply(200, questionnaires)
 
-  const res = await getQuestionnaires('my-stamp');
-  expect(res).toEqual([questionnaire]);
-});
+  const res = await getQuestionnaires('my-stamp')
+  expect(res).toEqual([questionnaire])
+})
 
 it('Get questionnaire works', async () => {
   nock('https://mock-api')
     .get('/persistence/questionnaire/id')
-    .reply(200, poguesQuestionnaire);
+    .reply(200, poguesQuestionnaire)
 
-  const res = await getQuestionnaire('id');
-  expect(res).toEqual(questionnaire);
-});
+  const res = await getQuestionnaire('id')
+  expect(res).toEqual(questionnaire)
+})
 
 it('Post questionnaire works', async () => {
-  nock('https://mock-api').post('/persistence/questionnaires').reply(201);
+  nock('https://mock-api').post('/persistence/questionnaires').reply(201)
 
-  const res = await postQuestionnaire(questionnaire, 'my-stamp');
-  expect(res.status).toEqual(201);
-});
+  const res = await postQuestionnaire(questionnaire, 'my-stamp')
+  expect(res.status).toEqual(201)
+})
 
 it('Put questionnaire works', async () => {
-  nock('https://mock-api').put('/persistence/questionnaire/id').reply(200);
+  nock('https://mock-api').put('/persistence/questionnaire/id').reply(200)
 
-  const res = await putQuestionnaire('id', poguesQuestionnaire);
-  expect(res.status).toEqual(200);
-});
+  const res = await putQuestionnaire('id', poguesQuestionnaire)
+  expect(res.status).toEqual(200)
+})

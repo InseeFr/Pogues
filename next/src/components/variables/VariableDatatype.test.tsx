@@ -1,7 +1,7 @@
-import { DatatypeType } from '@/models/datatype';
-import { renderWithI18n } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { renderWithI18n } from '@/testing/render'
 
-import VariableDatatype from './VariableDatatype';
+import VariableDatatype from './VariableDatatype'
 
 describe('VariableDatatype', () => {
   it.each([
@@ -15,9 +15,9 @@ describe('VariableDatatype', () => {
     async ({ datatype, label }) => {
       const { getByText } = renderWithI18n(
         <VariableDatatype datatype={datatype} />,
-      );
+      )
 
-      expect(getByText(label)).toBeInTheDocument();
+      expect(getByText(label)).toBeInTheDocument()
     },
-  );
-});
+  )
+})

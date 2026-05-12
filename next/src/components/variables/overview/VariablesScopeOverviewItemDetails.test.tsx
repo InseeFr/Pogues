@@ -1,8 +1,8 @@
-import { DatatypeType } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
-import { renderWithI18n, renderWithRouter } from '@/testing/render';
+import { DatatypeType } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
+import { renderWithI18n, renderWithRouter } from '@/testing/render'
 
-import VariablesScopeOverviewItemDetails from './VariablesScopeOverviewItemDetails';
+import VariablesScopeOverviewItemDetails from './VariablesScopeOverviewItemDetails'
 
 describe('VariablesScopeOverviewItemDetails', () => {
   it('display provided variables', async () => {
@@ -26,11 +26,11 @@ describe('VariablesScopeOverviewItemDetails', () => {
           },
         ]}
       />,
-    );
+    )
 
-    expect(getByText('MY_VAR')).toBeInTheDocument();
-    expect(getByText('MY_VAR2')).toBeInTheDocument();
-  });
+    expect(getByText('MY_VAR')).toBeInTheDocument()
+    expect(getByText('MY_VAR2')).toBeInTheDocument()
+  })
 
   it('display that there are no variable', async () => {
     const { getByText } = renderWithI18n(
@@ -38,8 +38,8 @@ describe('VariablesScopeOverviewItemDetails', () => {
         questionnaireId="q-id"
         variables={[]}
       />,
-    );
+    )
 
-    expect(getByText(/No variables/i)).toBeInTheDocument();
-  });
-});
+    expect(getByText(/No variables/i)).toBeInTheDocument()
+  })
+})

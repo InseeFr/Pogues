@@ -1,19 +1,19 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
-import { articulationKeys, putArticulation } from '@/api/articulation';
-import { Articulation, ArticulationItems } from '@/models/articulation';
-import { Variable } from '@/models/variables';
+import { articulationKeys, putArticulation } from '@/api/articulation'
+import { Articulation, ArticulationItems } from '@/models/articulation'
+import { Variable } from '@/models/variables'
 
-import ArticulationForm from '../form/ArticulationForm';
-import { type FormValues } from '../form/schema';
+import ArticulationForm from '../form/ArticulationForm'
+import { type FormValues } from '../form/schema'
 
 interface EditArticulationProps {
-  questionnaireId: string;
-  variables?: Variable[];
-  articulationItems?: ArticulationItems;
+  questionnaireId: string
+  variables?: Variable[]
+  articulationItems?: ArticulationItems
 }
 
 /** Allow to edit articulation variables */
@@ -22,25 +22,25 @@ export default function EditArticulation({
   variables,
   articulationItems,
 }: Readonly<EditArticulationProps>) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const mutation = useMutation({
     mutationFn: ({
       articulation,
       questionnaireId,
     }: {
-      articulation: Articulation;
-      questionnaireId: string;
+      articulation: Articulation
+      questionnaireId: string
     }) => {
-      return putArticulation(questionnaireId, articulation);
+      return putArticulation(questionnaireId, articulation)
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: articulationKeys.all(questionnaireId),
       }),
-  });
+  })
 
   const submitForm = async (articulation: FormValues) => {
     const promise = mutation.mutateAsync(
@@ -52,13 +52,13 @@ export default function EditArticulation({
             params: { questionnaireId },
           }),
       },
-    );
+    )
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('articulation.edit.success'),
       error: (err: Error) => err.toString(),
-    });
-  };
+    })
+  }
 
   return (
     <div className="bg-default p-4 border border-default shadow-xl">
@@ -69,5 +69,5 @@ export default function EditArticulation({
         onSubmit={submitForm}
       />
     </div>
-  );
+  )
 }

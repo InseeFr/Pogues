@@ -1,11 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { questionnaireQueryOptions } from '@/api/questionnaires';
-import { variablesQueryOptions } from '@/api/variables';
-import EditCodesList from '@/components/codesLists/edit/EditCodesList';
-import EditCodesListLayout from '@/components/codesLists/edit/EditCodesListLayout';
-import ErrorComponent from '@/components/layout/ErrorComponent';
+import { questionnaireQueryOptions } from '@/api/questionnaires'
+import { variablesQueryOptions } from '@/api/variables'
+import EditCodesList from '@/components/codesLists/edit/EditCodesList'
+import EditCodesListLayout from '@/components/codesLists/edit/EditCodesListLayout'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 
 /**
  * Page that allow to update an existing code list.
@@ -23,25 +23,25 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { codesListId, questionnaireId },
   }) => {
-    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
-    return { crumb: t('crumb.codesList', { id: codesListId }) };
+    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId))
+    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId))
+    return { crumb: t('crumb.codesList', { id: codesListId }) }
   },
-});
+})
 
 function RouteComponent() {
-  const { questionnaireId, codesListId } = Route.useParams();
+  const { questionnaireId, codesListId } = Route.useParams()
   const {
     data: { codesLists, formulasLanguage },
-  } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId));
+  } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId))
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
-  );
+  )
 
-  let codesList;
+  let codesList
   if (codesLists) {
     for (const element of codesLists) {
-      if (element.id === codesListId) codesList = element;
+      if (element.id === codesListId) codesList = element
     }
   }
 
@@ -54,5 +54,5 @@ function RouteComponent() {
         variables={variables}
       />
     </EditCodesListLayout>
-  );
+  )
 }

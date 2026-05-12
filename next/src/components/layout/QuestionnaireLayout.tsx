@@ -1,7 +1,7 @@
-import QuestionnaireNavigation from './QuestionnaireSidebar';
+import QuestionnaireNavigation from './QuestionnaireSidebar'
 
 interface QuestionnaireLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 /** Layout used for questionnaire page with a navbar with links. */
@@ -15,5 +15,5 @@ export default function QuestionnaireLayout({
       </div>
       <div>{children}</div>
     </div>
-  );
+  )
 }

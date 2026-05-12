@@ -1,19 +1,19 @@
-import { type Questionnaire } from '@/models/questionnaires';
-import { nameFromLabel } from '@/utils/utils';
+import { type Questionnaire } from '@/models/questionnaires'
+import { nameFromLabel } from '@/utils/utils'
 
 import {
   GenericNameEnum,
   type Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
-} from '../models/poguesModel';
-import { computeCodesLists } from './codesLists';
-import { computePoguesFlowLogic } from './flowLogic';
+} from '../models/poguesModel'
+import { computeCodesLists } from './codesLists'
+import { computePoguesFlowLogic } from './flowLogic'
 import {
   computeFormulasLanguage,
   computePoguesFormulasLanguage,
-} from './formulasLanguage';
-import { computeScopes } from './scopes';
-import { computePoguesTargetModes, computeTargetModes } from './targetModes';
+} from './formulasLanguage'
+import { computeScopes } from './scopes'
+import { computePoguesTargetModes, computeTargetModes } from './targetModes'
 
 /** Compute a questionnaire that can be used in our app from API data. */
 export function computeQuestionnaire(
@@ -29,7 +29,7 @@ export function computeQuestionnaire(
     codesLists: computeCodesLists(datum.CodeLists?.CodeList),
     formulasLanguage: computeFormulasLanguage(datum.formulasLanguage),
     scopes: computeScopes(datum),
-  };
+  }
 }
 
 /** Create a new questionnaire that can be sent to the API from our app data. */
@@ -37,7 +37,7 @@ export function computeNewPoguesQuestionnaire(
   datum: Omit<Questionnaire, 'scopes'>,
   stamp: string,
 ) {
-  const targetModes = computePoguesTargetModes(datum.targetModes);
+  const targetModes = computePoguesTargetModes(datum.targetModes)
   return {
     Name: nameFromLabel(datum.title),
     Label: [datum.title],
@@ -49,7 +49,7 @@ export function computeNewPoguesQuestionnaire(
     lastUpdatedDate: new Date().toISOString(),
     CodeLists: { CodeList: [] },
     ...computeLegacyPoguesParameters(targetModes),
-  };
+  }
 }
 
 /** Add legacy parameters for questionnaire. */
@@ -73,5 +73,5 @@ function computeLegacyPoguesParameters(targetModes: SurveyModeEnum[]) {
     FlowControl: [],
     ComponentGroup: [],
     Variables: { Variable: [] },
-  };
+  }
 }

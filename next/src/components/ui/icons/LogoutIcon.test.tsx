@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import LogoutIcon from './LogoutIcon';
+import LogoutIcon from './LogoutIcon'
 
 it('LogoutIcon renders correctly', () => {
-  const { asFragment } = render(<LogoutIcon />);
-  expect(asFragment()).toMatchSnapshot();
-});
+  const { asFragment } = render(<LogoutIcon />)
+  expect(asFragment()).toMatchSnapshot()
+})

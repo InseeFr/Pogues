@@ -1,33 +1,33 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import type { ParseResult } from 'papaparse';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
+import type { ParseResult } from 'papaparse'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
 import {
   deleteQuestionnaireData,
   personalizationKeys,
-} from '@/api/personalization';
-import { openParsedCsv, openParsedJson } from '@/api/utils/personalization';
-import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile';
-import Button, { ButtonStyle } from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
-import DialogButton from '@/components/ui/DialogButton';
+} from '@/api/personalization'
+import { openParsedCsv, openParsedJson } from '@/api/utils/personalization'
+import PersonalizationContentTile from '@/components/personalization/overview/PersonalisationContentTile'
+import Button, { ButtonStyle } from '@/components/ui/Button'
+import ButtonLink from '@/components/ui/ButtonLink'
+import DialogButton from '@/components/ui/DialogButton'
 import {
   InterrogationModeDataResponse,
   PersonalizationQuestionnaire,
-} from '@/models/personalizationQuestionnaire';
+} from '@/models/personalizationQuestionnaire'
 
-import CsvViewerTable from '../form/CsvViewerTable';
-import JsonViewer from '../form/JsonViewer';
-import PersonalizationCheckPanel from './PersonalizationCheckPanel';
-import PersonalisationTile from './PersonalizationTile';
+import CsvViewerTable from '../form/CsvViewerTable'
+import JsonViewer from '../form/JsonViewer'
+import PersonalizationCheckPanel from './PersonalizationCheckPanel'
+import PersonalisationTile from './PersonalizationTile'
 
 interface PersonalizationOverviewProps {
-  questionnaireId: string;
-  data: PersonalizationQuestionnaire;
-  fileData: ParseResult<unknown> | string;
-  interrogationData: InterrogationModeDataResponse | null;
+  questionnaireId: string
+  data: PersonalizationQuestionnaire
+  fileData: ParseResult<unknown> | string
+  interrogationData: InterrogationModeDataResponse | null
 }
 
 /** Display the personalization windows */
@@ -37,67 +37,67 @@ export default function PersonalizationOverview({
   fileData = '',
   interrogationData,
 }: Readonly<PersonalizationOverviewProps>) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const downloadMutation = useMutation({
     mutationFn: async () => {
-      const fileName = 'interrogations-' + questionnaireId;
+      const fileName = 'interrogations-' + questionnaireId
       if (typeof fileData !== 'string' && 'data' in fileData) {
-        openParsedCsv(fileData, `${fileName}.csv`);
+        openParsedCsv(fileData, `${fileName}.csv`)
       } else {
-        openParsedJson(fileData, `${fileName}.json`);
+        openParsedJson(fileData, `${fileName}.json`)
       }
-      return fileName;
+      return fileName
     },
     onSuccess: (fileName: string) => {
       toast.success(
         t('personalization.overview.downloadExistingDataSuccess', {
           fileName,
         }),
-      );
+      )
     },
     onError: () => {
       toast.error(
         t('personalization.overview.downloadExistingDataError', {
           error: t('personalization.overview.downloadExistingDataError'),
         }),
-      );
+      )
     },
-  });
+  })
 
   const deleteMutation = useMutation({
     mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
-      return deleteQuestionnaireData(data.poguesId);
+      return deleteQuestionnaireData(data.poguesId)
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: personalizationKeys.fromPogues(questionnaireId),
-      });
+      })
       navigate({
         to: '/questionnaire/$questionnaireId/personalization/new',
         params: { questionnaireId },
-      });
+      })
     },
-  });
+  })
 
   function onDelete() {
     const promise = deleteMutation.mutateAsync({
       data,
-    });
+    })
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('personalization.overview.deleteSuccess'),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   const hasValidInterrogationData =
     interrogationData &&
     Object.values(interrogationData).some(
       (modeData) => Array.isArray(modeData) && modeData.length > 0,
-    );
+    )
 
   return (
     <>
@@ -145,5 +145,5 @@ export default function PersonalizationOverview({
         )}
       </PersonalizationContentTile>
     </>
-  );
+  )
 }

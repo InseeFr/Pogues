@@ -1,19 +1,19 @@
-import { Link, useMatchRoute } from '@tanstack/react-router';
+import { Link, useMatchRoute } from '@tanstack/react-router'
 
-import SidebarIcon from './SidebarIcon';
+import SidebarIcon from './SidebarIcon'
 
 type Props = {
-  Icon?: React.FC<React.ComponentProps<'svg'>>;
-  iconClassName?: string;
-  innerPaths?: string[];
-  isDisabled?: boolean;
-  isHidden?: boolean;
-  label: string;
-  onIconClick?: () => void;
-  path: string;
-  questionnaireId?: string;
-  versionId?: string;
-};
+  Icon?: React.FC<React.ComponentProps<'svg'>>
+  iconClassName?: string
+  innerPaths?: string[]
+  isDisabled?: boolean
+  isHidden?: boolean
+  label: string
+  onIconClick?: () => void
+  path: string
+  questionnaireId?: string
+  versionId?: string
+}
 
 /** Display the provided navigation item as a clickable icon. */
 export default function SidebarItem({
@@ -28,9 +28,9 @@ export default function SidebarItem({
   questionnaireId,
   versionId,
 }: Readonly<Props>) {
-  const matchRoute = useMatchRoute();
+  const matchRoute = useMatchRoute()
 
-  if (isHidden) return null;
+  if (isHidden) return null
 
   return (
     <li>
@@ -52,5 +52,5 @@ export default function SidebarItem({
         />
       </Link>
     </li>
-  );
+  )
 }

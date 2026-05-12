@@ -1,4 +1,4 @@
-import { AxiosError, isAxiosError } from 'axios';
+import { AxiosError, isAxiosError } from 'axios'
 
 export enum ErrorCodes {
   /**
@@ -16,8 +16,8 @@ export enum ErrorCodes {
 }
 
 export type PoguesAPIError = {
-  errorCode: ErrorCodes;
-};
+  errorCode: ErrorCodes
+}
 
 /**
  * Whether the error is a known case from the API (e.g. questionnaire not found)
@@ -28,9 +28,9 @@ export function isPoguesAPIError(
   error: Error,
 ): error is AxiosError<PoguesAPIError> {
   if (!isAxiosError(error)) {
-    return false;
+    return false
   }
 
-  const errorCode = error.response?.data.errorCode;
-  return Object.values(ErrorCodes).includes(errorCode);
+  const errorCode = error.response?.data.errorCode
+  return Object.values(ErrorCodes).includes(errorCode)
 }

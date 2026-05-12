@@ -1,13 +1,13 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import VersionsOverview from './VersionsOverview';
+import VersionsOverview from './VersionsOverview'
 
 vi.mock('@/i18n', () => ({
   useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
-}));
+}))
 
 describe('VersionsOverview', () => {
-  const questionnaireId = '123';
+  const questionnaireId = '123'
   const mockVersions = [
     {
       id: '1',
@@ -23,7 +23,7 @@ describe('VersionsOverview', () => {
       day: '2024-10-01',
       author: 'Panda',
     },
-  ];
+  ]
 
   it('display my saves', async () => {
     const { getByText } = await renderWithRouter(
@@ -31,9 +31,9 @@ describe('VersionsOverview', () => {
         questionnaireId={questionnaireId}
         versions={mockVersions}
       />,
-    );
+    )
 
-    expect(getByText('John')).toBeInTheDocument();
-    expect(getByText('Panda')).toBeInTheDocument();
-  });
-});
+    expect(getByText('John')).toBeInTheDocument()
+    expect(getByText('Panda')).toBeInTheDocument()
+  })
+})

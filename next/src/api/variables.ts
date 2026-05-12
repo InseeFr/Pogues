@@ -1,11 +1,11 @@
-import { queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query'
 
-import { Variable } from '@/models/variables';
+import { Variable } from '@/models/variables'
 
-import { ErrorCodes } from './error';
-import { instance } from './instance';
-import { VariableDTO } from './models/variableDTO';
-import { computeVariableDTO, computeVariables } from './utils/variables';
+import { ErrorCodes } from './error'
+import { instance } from './instance'
+import { VariableDTO } from './models/variableDTO'
+import { computeVariableDTO, computeVariables } from './utils/variables'
 
 export const variablesKeys = {
   all: (questionnaireId: string) => ['variables', questionnaireId] as const,
@@ -13,7 +13,7 @@ export const variablesKeys = {
     ['variables', questionnaireId, 'roundabout'] as const,
   version: (questionnaireId: string, versionId: string) =>
     ['variablesVersion', questionnaireId, versionId] as const,
-};
+}
 
 /**
  * Used to retrieve questionnaire variables associated to its id.
@@ -22,7 +22,7 @@ export const variablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: variablesKeys.all(questionnaireId),
     queryFn: () => getVariables(questionnaireId),
-  });
+  })
 
 /**
  * Used to retrieve roundabout variables from a questionnaire id.
@@ -31,7 +31,7 @@ export const roundaboutVariablesQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: variablesKeys.roundabout(questionnaireId),
     queryFn: () => getRoundaboutVariables(questionnaireId),
-  });
+  })
 
 /**
  * Used to retrieve variables used by an older version of a questionnaire.
@@ -46,7 +46,7 @@ export const variablesFromVersionQueryOptions = (
     queryKey: variablesKeys.version(questionnaireId, versionId),
     queryFn: () => getVariablesFromVersion(questionnaireId, versionId),
     staleTime: Infinity,
-  });
+  })
 
 /** Retrieve questionnaire variables by the questionnaire id. */
 export async function getVariables(
@@ -57,8 +57,8 @@ export async function getVariables(
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: VariableDTO[] }) => {
-      return computeVariables(data);
-    });
+      return computeVariables(data)
+    })
 }
 
 /** Retrieve all variables used by a version of a questionnaire. */
@@ -74,8 +74,8 @@ export async function getVariablesFromVersion(
       },
     )
     .then(({ data }: { data: VariableDTO[] }) => {
-      return computeVariables(data);
-    });
+      return computeVariables(data)
+    })
 }
 
 /**
@@ -94,17 +94,17 @@ export async function getRoundaboutVariables(
       },
     )
     .then(({ data }: { data: VariableDTO[] }) => {
-      return computeVariables(data);
+      return computeVariables(data)
     })
     .catch((error) => {
       if (
         error.response?.data?.errorCode ===
         ErrorCodes.QuestionnaireRoundaboutNotFound
       ) {
-        return [];
+        return []
       }
-      throw error;
-    });
+      throw error
+    })
 }
 
 /** Create a new variable. */
@@ -118,7 +118,7 @@ export async function postVariable(
     {
       headers: { 'Content-Type': 'application/json' },
     },
-  );
+  )
 }
 
 /** Create a new variable. */
@@ -128,5 +128,5 @@ export async function deleteVariable(
 ): Promise<Response> {
   return instance.delete(
     `/persistence/questionnaire/${questionnaireId}/variable/${variableId}`,
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import nock from 'nock';
+import nock from 'nock'
 
-import { MultimodeIsMovedRules } from '@/models/multimode';
+import { MultimodeIsMovedRules } from '@/models/multimode'
 
-import { MultimodeDTO, MultimodeRuleName } from './models/multimodeDTO';
+import { MultimodeDTO, MultimodeRuleName } from './models/multimodeDTO'
 import {
   deleteMultimode,
   getMultimode,
   getMultimodeFromVersion,
   putMultimode,
-} from './multimode';
+} from './multimode'
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc')
 
 const multimodeDTO: MultimodeDTO = {
   questionnaire: {
@@ -33,47 +33,47 @@ const multimodeDTO: MultimodeDTO = {
       },
     ],
   },
-};
+}
 
 const multimodeIsMovedRules: MultimodeIsMovedRules = {
   questionnaireFormula: 'nvl(HABITEZ_VOUS_ICI, true)',
   leafFormula: 'nvl(PRENOM_HABITE_PLUS_LA, false)',
-};
+}
 
 it('Get multimode works', async () => {
   nock('https://mock-api')
     .get('/persistence/questionnaire/my-questionnaire/multimode')
-    .reply(200, multimodeDTO);
+    .reply(200, multimodeDTO)
 
-  const res = await getMultimode('my-questionnaire');
-  expect(res).toEqual(multimodeIsMovedRules);
-});
+  const res = await getMultimode('my-questionnaire')
+  expect(res).toEqual(multimodeIsMovedRules)
+})
 
 it('Get multimode from version works', async () => {
   nock('https://mock-api')
     .get(
       '/persistence/questionnaire/my-questionnaire/version/my-version/multimode',
     )
-    .reply(200, multimodeDTO);
+    .reply(200, multimodeDTO)
 
-  const res = await getMultimodeFromVersion('my-questionnaire', 'my-version');
-  expect(res).toEqual(multimodeIsMovedRules);
-});
+  const res = await getMultimodeFromVersion('my-questionnaire', 'my-version')
+  expect(res).toEqual(multimodeIsMovedRules)
+})
 
 it('Put multimode works', async () => {
   nock('https://mock-api')
     .put('/persistence/questionnaire/my-questionnaire/multimode')
-    .reply(204);
+    .reply(204)
 
-  const res = await putMultimode('my-questionnaire', multimodeIsMovedRules);
-  expect(res.status).toEqual(204);
-});
+  const res = await putMultimode('my-questionnaire', multimodeIsMovedRules)
+  expect(res.status).toEqual(204)
+})
 
 it('Delete multimode works', async () => {
   nock('https://mock-api')
     .delete('/persistence/questionnaire/my-questionnaire/multimode')
-    .reply(204);
+    .reply(204)
 
-  const res = await deleteMultimode('my-questionnaire');
-  expect(res.status).toEqual(204);
-});
+  const res = await deleteMultimode('my-questionnaire')
+  expect(res.status).toEqual(204)
+})

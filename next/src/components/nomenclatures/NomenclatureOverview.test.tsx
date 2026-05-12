@@ -1,12 +1,12 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react'
 
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import NomenclaturesOverview from './NomenclatureOverview';
+import NomenclaturesOverview from './NomenclatureOverview'
 
 vi.mock('@/i18n', () => ({
   useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
-}));
+}))
 
 describe('NomenclatureOverview', () => {
   const mockNomenclatures = [
@@ -28,38 +28,38 @@ describe('NomenclatureOverview', () => {
       },
       relatedQuestionNames: ['IL_EST_ORANGE'],
     },
-  ];
+  ]
   it('display my nomenclatures', async () => {
     const { getByText } = await renderWithRouter(
       <NomenclaturesOverview nomenclatures={mockNomenclatures} />,
-    );
+    )
 
-    expect(getByText('Le poisson steve')).toBeInTheDocument();
-    expect(getByText('Il est orange')).toBeInTheDocument();
-  });
+    expect(getByText('Le poisson steve')).toBeInTheDocument()
+    expect(getByText('Il est orange')).toBeInTheDocument()
+  })
 
   it('filters the nomenclature list based on the search input', async () => {
     const { getByText } = await renderWithRouter(
       <NomenclaturesOverview nomenclatures={mockNomenclatures} />,
-    );
+    )
 
-    const input = screen.getByPlaceholderText('Search for a nomenclature');
+    const input = screen.getByPlaceholderText('Search for a nomenclature')
 
-    fireEvent.change(input, { target: { value: 'orange' } });
+    fireEvent.change(input, { target: { value: 'orange' } })
 
-    expect(getByText('Il est orange')).toBeInTheDocument();
-    expect(screen.queryByText('Le poisson steve')).not.toBeInTheDocument();
-  });
+    expect(getByText('Il est orange')).toBeInTheDocument()
+    expect(screen.queryByText('Le poisson steve')).not.toBeInTheDocument()
+  })
 
   it('sorts the nomenclatures by label', async () => {
     const { container } = await renderWithRouter(
       <NomenclaturesOverview nomenclatures={mockNomenclatures} />,
-    );
+    )
 
-    const items = container.querySelectorAll('h3');
+    const items = container.querySelectorAll('h3')
 
-    expect(items.length).toBe(2);
-    expect(items[0].textContent).toBe('Il est orange'); // Alphabetically before "Le poisson steve"
-    expect(items[1].textContent).toBe('Le poisson steve');
-  });
-});
+    expect(items.length).toBe(2)
+    expect(items[0].textContent).toBe('Il est orange') // Alphabetically before "Le poisson steve"
+    expect(items[1].textContent).toBe('Le poisson steve')
+  })
+})

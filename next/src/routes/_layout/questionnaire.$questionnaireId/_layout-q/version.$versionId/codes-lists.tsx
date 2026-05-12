@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { codesListsFromVersionQueryOptions } from '@/api/codesLists';
-import CodesListOverviewVersionLayout from '@/components/codesLists/overview/CodesListOverviewVersionLayout';
-import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview';
-import ErrorComponent from '@/components/layout/ErrorComponent';
+import { codesListsFromVersionQueryOptions } from '@/api/codesLists'
+import CodesListOverviewVersionLayout from '@/components/codesLists/overview/CodesListOverviewVersionLayout'
+import CodesListsOverview from '@/components/codesLists/overview/CodesListsOverview'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 
 /**
  * Codes lists page that provide a recap of the the various codes lists used by
@@ -25,16 +25,16 @@ export const Route = createFileRoute(
   }) => {
     queryClient.ensureQueryData(
       codesListsFromVersionQueryOptions(questionnaireId, versionId),
-    );
-    return { crumb: t('crumb.codesLists') };
+    )
+    return { crumb: t('crumb.codesLists') }
   },
-});
+})
 
 function RouteComponent() {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
   const { data: codesLists } = useSuspenseQuery(
     codesListsFromVersionQueryOptions(questionnaireId, versionId),
-  );
+  )
 
   return (
     <CustomLayout>
@@ -44,11 +44,11 @@ function RouteComponent() {
         readonly
       />
     </CustomLayout>
-  );
+  )
 }
 
 function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
 
   return (
     <CodesListOverviewVersionLayout
@@ -57,5 +57,5 @@ function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     >
       {children}
     </CodesListOverviewVersionLayout>
-  );
+  )
 }
