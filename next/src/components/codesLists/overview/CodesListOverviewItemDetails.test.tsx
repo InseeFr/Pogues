@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import CodesListOverviewItemDetails from './CodesListOverviewItemDetails';
+import CodesListOverviewItemDetails from './CodesListOverviewItemDetails'
 
 describe('CodesListOverviewItemDetails', () => {
   it('cannot be deleted when there are related questions', async () => {
@@ -14,10 +14,10 @@ describe('CodesListOverviewItemDetails', () => {
         }}
         questionnaireId="q-id"
       />,
-    );
+    )
 
-    expect(getByRole('button', { name: /Delete/i })).toBeDisabled();
-  });
+    expect(getByRole('button', { name: /Delete/i })).toBeDisabled()
+  })
 
   it('can be deleted when there are no related questions', async () => {
     const { getByRole } = await renderWithRouter(
@@ -30,10 +30,10 @@ describe('CodesListOverviewItemDetails', () => {
         }}
         questionnaireId="q-id"
       />,
-    );
+    )
 
-    expect(getByRole('button', { name: /Delete/i })).toBeEnabled();
-  });
+    expect(getByRole('button', { name: /Delete/i })).toBeEnabled()
+  })
 
   it('cannot be edited on readonly', async () => {
     const { queryByRole } = await renderWithRouter(
@@ -47,10 +47,10 @@ describe('CodesListOverviewItemDetails', () => {
         questionnaireId="q-id"
         readonly
       />,
-    );
+    )
 
-    expect(queryByRole('button', { name: /Delete/i })).toBeNull();
-    expect(queryByRole('button', { name: /Duplicate/i })).toBeNull();
-    expect(queryByRole('button', { name: /Edit/i })).toBeNull();
-  });
-});
+    expect(queryByRole('button', { name: /Delete/i })).toBeNull()
+    expect(queryByRole('button', { name: /Duplicate/i })).toBeNull()
+    expect(queryByRole('button', { name: /Edit/i })).toBeNull()
+  })
+})

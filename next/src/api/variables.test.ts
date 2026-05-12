@@ -1,22 +1,22 @@
-import nock from 'nock';
+import nock from 'nock'
 
-import { DatatypeType } from '@/models/datatype';
-import { type Variable, VariableType } from '@/models/variables';
+import { DatatypeType } from '@/models/datatype'
+import { type Variable, VariableType } from '@/models/variables'
 
 import {
   type VariableDTO,
   VariableDTODatatypeTypename,
   VariableDTOType,
-} from './models/variableDTO';
+} from './models/variableDTO'
 import {
   deleteVariable,
   getRoundaboutVariables,
   getVariables,
   getVariablesFromVersion,
   postVariable,
-} from './variables';
+} from './variables'
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc')
 
 const variableDTO: VariableDTO = {
   id: 'my-variable',
@@ -28,7 +28,7 @@ const variableDTO: VariableDTO = {
   name: 'MY_VARIABLE',
   type: VariableDTOType.Collected,
   scope: 'a magnificent scope',
-};
+}
 
 const variable: Variable = {
   id: 'my-variable',
@@ -40,68 +40,68 @@ const variable: Variable = {
   name: 'MY_VARIABLE',
   scope: 'a magnificent scope',
   type: VariableType.Collected,
-};
+}
 
 it('Get variables works', async () => {
-  const variables: VariableDTO[] = [variableDTO];
+  const variables: VariableDTO[] = [variableDTO]
 
   nock('https://mock-api')
     .get('/persistence/questionnaire/my-questionnaire/variables')
-    .reply(200, variables);
+    .reply(200, variables)
 
-  const res = await getVariables('my-questionnaire');
-  expect(res).toEqual([variable]);
-});
+  const res = await getVariables('my-questionnaire')
+  expect(res).toEqual([variable])
+})
 
 describe('Get variables from roundabout', () => {
   it('works', async () => {
-    const variables: VariableDTO[] = [variableDTO];
+    const variables: VariableDTO[] = [variableDTO]
 
     nock('https://mock-api')
       .get('/persistence/questionnaire/my-questionnaire/articulation/variables')
-      .reply(200, variables);
+      .reply(200, variables)
 
-    const res = await getRoundaboutVariables('my-questionnaire');
-    expect(res).toEqual([variable]);
-  });
+    const res = await getRoundaboutVariables('my-questionnaire')
+    expect(res).toEqual([variable])
+  })
 
   it('returns an empty array when there is roundabout', async () => {
     nock('https://mock-api')
       .get('/persistence/questionnaire/my-questionnaire/articulation/variables')
-      .reply(422, { errorCode: 'questionnaire:roundaboutnotfound' });
+      .reply(422, { errorCode: 'questionnaire:roundaboutnotfound' })
 
-    const res = await getRoundaboutVariables('my-questionnaire');
-    expect(res).toEqual([]);
-  });
-});
+    const res = await getRoundaboutVariables('my-questionnaire')
+    expect(res).toEqual([])
+  })
+})
 
 it('Get variables from version works', async () => {
-  const variables: VariableDTO[] = [variableDTO];
+  const variables: VariableDTO[] = [variableDTO]
 
   nock('https://mock-api')
     .get(
       '/persistence/questionnaire/my-questionnaire/version/my-version/variables',
     )
-    .reply(200, variables);
+    .reply(200, variables)
 
-  const res = await getVariablesFromVersion('my-questionnaire', 'my-version');
-  expect(res).toEqual([variable]);
-});
+  const res = await getVariablesFromVersion('my-questionnaire', 'my-version')
+  expect(res).toEqual([variable])
+})
 
 it('Post variable works', async () => {
   nock('https://mock-api')
     .post('/persistence/questionnaire/my-questionnaire/variable')
-    .reply(201);
+    .reply(201)
 
-  const res = await postVariable('my-questionnaire', variable);
-  expect(res.status).toEqual(201);
-});
+  const res = await postVariable('my-questionnaire', variable)
+  expect(res.status).toEqual(201)
+})
 
 it('Delete variable works', async () => {
   nock('https://mock-api')
     .delete('/persistence/questionnaire/my-questionnaire/variable/my-variable')
-    .reply(204);
+    .reply(204)
 
-  const res = await deleteVariable('my-questionnaire', 'my-variable');
-  expect(res.status).toEqual(204);
-});
+  const res = await deleteVariable('my-questionnaire', 'my-variable')
+  expect(res.status).toEqual(204)
+})

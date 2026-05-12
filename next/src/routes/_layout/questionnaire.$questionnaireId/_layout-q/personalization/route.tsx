@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router'
 
 // This is used only for the crumb part, ignore it
 export const Route = createFileRoute(
@@ -7,4 +7,4 @@ export const Route = createFileRoute(
   loader: ({ context: { t } }) => ({
     crumb: t('personalization.overview.title'),
   }),
-});
+})

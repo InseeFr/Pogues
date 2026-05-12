@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import MultimodeOverviewVersionLayout from './MultimodeOverviewVersionLayout';
+import MultimodeOverviewVersionLayout from './MultimodeOverviewVersionLayout'
 
 describe('MultimodeOverviewVersionLayout', () => {
   it('is readonly and displays title and children', async () => {
@@ -11,12 +11,12 @@ describe('MultimodeOverviewVersionLayout', () => {
       >
         Hello world
       </MultimodeOverviewVersionLayout>,
-    );
+    )
 
-    expect(getByText('Mode-change rules')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
+    expect(getByText('Mode-change rules')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
     expect(
       getByText('This save of the survey is on readonly.'),
-    ).toBeInTheDocument();
-  });
-});
+    ).toBeInTheDocument()
+  })
+})

@@ -1,11 +1,11 @@
-import i18next from 'i18next';
-import { z } from 'zod';
+import i18next from 'i18next'
+import { z } from 'zod'
 
 import {
   FlowLogics,
   FormulasLanguages,
   TargetModes,
-} from '@/models/questionnaires';
+} from '@/models/questionnaires'
 
 export const schema = z.object({
   title: z
@@ -16,6 +16,6 @@ export const schema = z.object({
     .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),
   flowLogic: z.enum(FlowLogics),
   formulasLanguage: z.enum(FormulasLanguages),
-});
+})
 
-export type FormValues = z.infer<typeof schema>;
+export type FormValues = z.infer<typeof schema>

@@ -1,12 +1,12 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import { Version } from '@/models/version';
+import { Version } from '@/models/version'
 
-import VersionContent from './VersionContent';
+import VersionContent from './VersionContent'
 
 interface VersionsProps {
-  questionnaireId: string;
-  versions: Version[];
+  questionnaireId: string
+  versions: Version[]
 }
 
 /**
@@ -16,16 +16,16 @@ export default function VersionsOverview({
   questionnaireId,
   versions = [],
 }: Readonly<VersionsProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const todayString = new Date().toISOString().split('T')[0];
+  const todayString = new Date().toISOString().split('T')[0]
 
   const todaysVersions = versions.filter((item) =>
     item.day.startsWith(todayString),
-  );
+  )
   const olderVersions = versions.filter(
     (item) => !item.day.startsWith(todayString),
-  );
+  )
 
   return (
     <div>
@@ -50,5 +50,5 @@ export default function VersionsOverview({
         </div>
       )}
     </div>
-  );
+  )
 }

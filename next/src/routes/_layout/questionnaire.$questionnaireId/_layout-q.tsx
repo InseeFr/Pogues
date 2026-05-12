@@ -1,7 +1,7 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { Outlet, createFileRoute } from '@tanstack/react-router'
 
-import QuestionnaireLayout from '@/components/layout/QuestionnaireLayout';
-import { loginLoader } from '@/utils/loginLoader';
+import QuestionnaireLayout from '@/components/layout/QuestionnaireLayout'
+import { loginLoader } from '@/utils/loginLoader'
 
 /** Display a layout for questionnaire page with additional options. */
 export const Route = createFileRoute(
@@ -13,4 +13,4 @@ export const Route = createFileRoute(
       <Outlet />
     </QuestionnaireLayout>
   ),
-});
+})

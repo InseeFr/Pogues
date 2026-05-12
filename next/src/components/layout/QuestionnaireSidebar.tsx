@@ -1,34 +1,34 @@
-import { useNavigate, useParams } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
-import Button, { ButtonSize } from '@/components/ui/Button';
-import DashboardIcon from '@/components/ui/icons/DashboardIcon';
-import DictionaryIcon from '@/components/ui/icons/DictionaryIcon';
-import HistoryIcon from '@/components/ui/icons/HistoryIcon';
-import HomeIcon from '@/components/ui/icons/HomeIcon';
-import LatestIcon from '@/components/ui/icons/LatestIcon';
-import ListIcon from '@/components/ui/icons/ListIcon';
-import NomenclatureAltIcon from '@/components/ui/icons/NomenclatureAltIcon';
-import PersonalizeIcon from '@/components/ui/icons/PersonalizeIcon';
-import VariableIcon from '@/components/ui/icons/VariableIcon';
-import { useAltIcon } from '@/hooks/useAltIcon';
+import Button, { ButtonSize } from '@/components/ui/Button'
+import DashboardIcon from '@/components/ui/icons/DashboardIcon'
+import DictionaryIcon from '@/components/ui/icons/DictionaryIcon'
+import HistoryIcon from '@/components/ui/icons/HistoryIcon'
+import HomeIcon from '@/components/ui/icons/HomeIcon'
+import LatestIcon from '@/components/ui/icons/LatestIcon'
+import ListIcon from '@/components/ui/icons/ListIcon'
+import NomenclatureAltIcon from '@/components/ui/icons/NomenclatureAltIcon'
+import PersonalizeIcon from '@/components/ui/icons/PersonalizeIcon'
+import VariableIcon from '@/components/ui/icons/VariableIcon'
+import { useAltIcon } from '@/hooks/useAltIcon'
 
-import ProtocolesIcon from '../ui/icons/ProtocolesIcon';
-import Sidebar from './sidebar/Sidebar';
-import SidebarItem from './sidebar/SidebarItem';
-import SidebarItemGroup from './sidebar/SidebarItemGroup';
-import SidebarSubmenuItem from './sidebar/SidebarSubMenuItem';
+import ProtocolesIcon from '../ui/icons/ProtocolesIcon'
+import Sidebar from './sidebar/Sidebar'
+import SidebarItem from './sidebar/SidebarItem'
+import SidebarItemGroup from './sidebar/SidebarItemGroup'
+import SidebarSubmenuItem from './sidebar/SidebarSubMenuItem'
 
-const enableArticulationPage = import.meta.env.VITE_ENABLE_ARTICULATION_PAGE;
-const enableMultimodePage = import.meta.env.VITE_ENABLE_MULTIMODE_PAGE;
+const enableArticulationPage = import.meta.env.VITE_ENABLE_ARTICULATION_PAGE
+const enableMultimodePage = import.meta.env.VITE_ENABLE_MULTIMODE_PAGE
 
 /** Display the available navigation items of the questionnaire in a sidebar. */
 export default function QuestionnaireSidebar() {
-  const { t } = useTranslation();
-  const { questionnaireId, versionId } = useParams({ strict: false });
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const { questionnaireId, versionId } = useParams({ strict: false })
+  const navigate = useNavigate()
 
-  const { showAltIcon, handleClick: handleAltIconClick } = useAltIcon();
+  const { showAltIcon, handleClick: handleAltIconClick } = useAltIcon()
 
   return (
     <Sidebar>
@@ -53,7 +53,7 @@ export default function QuestionnaireSidebar() {
                 navigate({
                   to: '/questionnaire/$questionnaireId',
                   params: { questionnaireId: questionnaireId! },
-                });
+                })
               }
             }}
           >
@@ -165,5 +165,5 @@ export default function QuestionnaireSidebar() {
         />
       </ul>
     </Sidebar>
-  );
+  )
 }

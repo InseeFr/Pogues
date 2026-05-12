@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import VariablesOverviewLayout from './VariablesOverviewLayout';
+import VariablesOverviewLayout from './VariablesOverviewLayout'
 
 describe('VariablesOverviewLayout', () => {
   it('displays title and children', async () => {
@@ -8,17 +8,17 @@ describe('VariablesOverviewLayout', () => {
       <VariablesOverviewLayout questionnaireId="q-id">
         Hello world
       </VariablesOverviewLayout>,
-    );
+    )
 
-    expect(getByText('Variables')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
+    expect(getByText('Variables')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
 
-    const createButton = getByRole('link', { name: /Create a variable/i });
+    const createButton = getByRole('link', { name: /Create a variable/i })
 
-    expect(createButton).toBeEnabled();
+    expect(createButton).toBeEnabled()
     expect(createButton).toHaveAttribute(
       'href',
       '/questionnaire/q-id/variables/new',
-    );
-  });
-});
+    )
+  })
+})

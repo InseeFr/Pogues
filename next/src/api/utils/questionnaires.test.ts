@@ -3,7 +3,7 @@ import {
   FormulasLanguages,
   Questionnaire,
   TargetModes,
-} from '@/models/questionnaires';
+} from '@/models/questionnaires'
 
 import {
   FlowLogicEnum,
@@ -11,11 +11,11 @@ import {
   GenericNameEnum,
   Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
-} from '../models/poguesModel';
+} from '../models/poguesModel'
 import {
   computeNewPoguesQuestionnaire,
   computeQuestionnaire,
-} from './questionnaires';
+} from './questionnaires'
 
 it('computeQuestionnaire works', () => {
   const poguesQuestionnaire: PoguesQuestionnaire = {
@@ -55,11 +55,11 @@ it('computeQuestionnaire works', () => {
         { id: 'id-iteration-2', Name: 'mon_itération_2' },
       ],
     },
-  };
+  }
 
-  const scopes = new Map();
-  scopes.set('id-iteration-1', 'mon_itération_1');
-  scopes.set('id-iteration-2', 'mon_itération_2');
+  const scopes = new Map()
+  scopes.set('id-iteration-1', 'mon_itération_1')
+  scopes.set('id-iteration-2', 'mon_itération_2')
   const questionnaire: Questionnaire = {
     id: 'id',
     title: 'title',
@@ -68,21 +68,21 @@ it('computeQuestionnaire works', () => {
     lastUpdatedDate: new Date('2024-11-19T11:36:56Z'),
     formulasLanguage: FormulasLanguages.XPath,
     scopes,
-  };
+  }
 
-  expect(computeQuestionnaire(poguesQuestionnaire)).toEqual(questionnaire);
-});
+  expect(computeQuestionnaire(poguesQuestionnaire)).toEqual(questionnaire)
+})
 
 describe('computeNewPoguesQuestionnaire', () => {
   beforeEach(() => {
-    vi.useFakeTimers();
-    const date = new Date(2000, 1, 1, 13);
-    vi.setSystemTime(date);
-  });
+    vi.useFakeTimers()
+    const date = new Date(2000, 1, 1, 13)
+    vi.setSystemTime(date)
+  })
 
   afterEach(() => {
-    vi.useRealTimers();
-  });
+    vi.useRealTimers()
+  })
 
   const poguesQuestionnaire: PoguesQuestionnaire = {
     id: 'id',
@@ -110,7 +110,7 @@ describe('computeNewPoguesQuestionnaire', () => {
     ],
     CodeLists: { CodeList: [] },
     lastUpdatedDate: '2000-02-01T13:00:00.000Z',
-  };
+  }
 
   it('works', () => {
     expect(
@@ -128,8 +128,8 @@ describe('computeNewPoguesQuestionnaire', () => {
       ...poguesQuestionnaire,
       flowLogic: FlowLogicEnum.Redirection,
       formulasLanguage: FormulasLanguageEnum.XPath,
-    });
-  });
+    })
+  })
 
   it('sets default values', () => {
     expect(
@@ -145,6 +145,6 @@ describe('computeNewPoguesQuestionnaire', () => {
       ...poguesQuestionnaire,
       flowLogic: FlowLogicEnum.Filter,
       formulasLanguage: FormulasLanguageEnum.VTL,
-    });
-  });
-});
+    })
+  })
+})

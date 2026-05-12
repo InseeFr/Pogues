@@ -1,19 +1,19 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 
-import { questionnairesQueryOptions } from '@/api/questionnaires';
-import { stampsQueryOptions } from '@/api/stamps';
-import ContentHeader from '@/components/layout/ContentHeader';
-import ContentMain from '@/components/layout/ContentMain';
-import Questionnaires from '@/components/questionnaires/overview/Questionnaires';
-import ButtonLink from '@/components/ui/ButtonLink';
-import { loginLoader } from '@/utils/loginLoader';
+import { questionnairesQueryOptions } from '@/api/questionnaires'
+import { stampsQueryOptions } from '@/api/stamps'
+import ContentHeader from '@/components/layout/ContentHeader'
+import ContentMain from '@/components/layout/ContentMain'
+import Questionnaires from '@/components/questionnaires/overview/Questionnaires'
+import ButtonLink from '@/components/ui/ButtonLink'
+import { loginLoader } from '@/utils/loginLoader'
 
 const questionnairesSchema = z.object({
   stamp: z.string().optional(),
-});
+})
 
 export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
@@ -21,22 +21,22 @@ export const Route = createFileRoute('/_layout/questionnaires/')({
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
   beforeLoad: async () => loginLoader(),
   loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
-    const selectedStamp = stamp ?? user!.stamp ?? '';
+    const selectedStamp = stamp ?? user!.stamp ?? ''
 
-    queryClient.ensureQueryData(questionnairesQueryOptions(selectedStamp));
-    queryClient.ensureQueryData(stampsQueryOptions());
+    queryClient.ensureQueryData(questionnairesQueryOptions(selectedStamp))
+    queryClient.ensureQueryData(stampsQueryOptions())
 
-    return { selectedStamp };
+    return { selectedStamp }
   },
   validateSearch: questionnairesSchema,
-});
+})
 
 function RouteComponent() {
-  const { selectedStamp } = Route.useLoaderData();
+  const { selectedStamp } = Route.useLoaderData()
   const { data: questionnaires } = useSuspenseQuery(
     questionnairesQueryOptions(selectedStamp),
-  );
-  const { data: stamps } = useSuspenseQuery(stampsQueryOptions());
+  )
+  const { data: stamps } = useSuspenseQuery(stampsQueryOptions())
 
   return (
     <ComponentWrapper>
@@ -46,7 +46,7 @@ function RouteComponent() {
         questionnaires={questionnaires}
       />
     </ComponentWrapper>
-  );
+  )
 }
 
 function ErrorComponent({ error }: Readonly<{ error: Error }>) {
@@ -54,13 +54,13 @@ function ErrorComponent({ error }: Readonly<{ error: Error }>) {
     <ComponentWrapper>
       <div className="text-error">{error.message}</div>
     </ComponentWrapper>
-  );
+  )
 }
 
 function ComponentWrapper({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <>
       <ContentHeader
@@ -73,5 +73,5 @@ function ComponentWrapper({
       />
       <ContentMain>{children}</ContentMain>
     </>
-  );
+  )
 }

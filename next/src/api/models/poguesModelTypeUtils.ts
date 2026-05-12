@@ -1,8 +1,8 @@
 /** @version 1.9.0 */
 export type TypedValueType = {
   /** @defaultValue ValueTypeEnum.Number */
-  type?: ValueTypeEnum;
-};
+  type?: ValueTypeEnum
+}
 
 /** @version 1.9.0 */
 export enum ValueTypeEnum {

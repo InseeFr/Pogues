@@ -1,4 +1,4 @@
-import { Link, isMatch, useMatches } from '@tanstack/react-router';
+import { Link, isMatch, useMatches } from '@tanstack/react-router'
 
 /**
  * Display the current breadcrumb of the app based on crumbs provided by the
@@ -7,12 +7,12 @@ import { Link, isMatch, useMatches } from '@tanstack/react-router';
  * Each crumb is clickable to navigate quickly to another part of the app.
  */
 export default function Breadcrumb() {
-  const matches = useMatches();
-  if (matches.some((match) => match.status === 'pending')) return null;
+  const matches = useMatches()
+  if (matches.some((match) => match.status === 'pending')) return null
 
   const matchesWithCrumbs = matches.filter((match) =>
     isMatch(match, 'loaderData.crumb'),
-  );
+  )
 
   return (
     <nav>
@@ -34,5 +34,5 @@ export default function Breadcrumb() {
         ))}
       </ul>
     </nav>
-  );
+  )
 }

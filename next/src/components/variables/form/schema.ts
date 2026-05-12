@@ -1,10 +1,10 @@
-import z from 'zod';
+import z from 'zod'
 
-import i18next from '@/lib/i18n';
-import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype';
-import { VariableType } from '@/models/variables';
+import i18next from '@/lib/i18n'
+import { DatatypeType, DateFormat, DurationFormat } from '@/models/datatype'
+import { VariableType } from '@/models/variables'
 
-const datatypeEnum = z.enum(DatatypeType);
+const datatypeEnum = z.enum(DatatypeType)
 /** Properties specific to selected datatype. */
 const datatypeSchema = z.discriminatedUnion('typeName', [
   z.object({
@@ -36,7 +36,7 @@ const datatypeSchema = z.discriminatedUnion('typeName', [
     typeName: datatypeEnum.extract(['Text']),
     maxLength: z.number().min(1).default(249).optional(),
   }),
-]);
+])
 
 /** Properties common to every variables, no matter the type. */
 const baseVariableSchema = z.object({
@@ -48,9 +48,9 @@ const baseVariableSchema = z.object({
     .min(1, { message: i18next.t('variable.form.mustProvideDescription') }),
   scope: z.string().optional(),
   datatype: datatypeSchema,
-});
+})
 
-const variableTypeEnum = z.enum(VariableType);
+const variableTypeEnum = z.enum(VariableType)
 /** Properties specific to selected variable type. */
 export const schema = z.discriminatedUnion('type', [
   z.object({
@@ -69,6 +69,6 @@ export const schema = z.discriminatedUnion('type', [
     type: variableTypeEnum.extract(['External']),
     isDeletedOnReset: z.boolean().optional(),
   }),
-]);
+])
 
-export type FormValues = z.infer<typeof schema>;
+export type FormValues = z.infer<typeof schema>

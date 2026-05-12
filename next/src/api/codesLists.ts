@@ -1,8 +1,8 @@
-import { queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query'
 
-import type { CodesList } from '@/models/codesLists';
+import type { CodesList } from '@/models/codesLists'
 
-import { instance } from './instance';
+import { instance } from './instance'
 
 export enum ERROR_CODES {
   RELATED_QUESTION_NAMES = 'codelist:relatedquestions:name',
@@ -10,17 +10,17 @@ export enum ERROR_CODES {
 
 export type CodeListError =
   | CodeListRelatedQuestionError
-  | { errorCode?: string };
+  | { errorCode?: string }
 export type CodeListRelatedQuestionError = {
-  errorCode: ERROR_CODES.RELATED_QUESTION_NAMES;
-  relatedQuestionNames: string[];
-};
+  errorCode: ERROR_CODES.RELATED_QUESTION_NAMES
+  relatedQuestionNames: string[]
+}
 
 export const codesListsKeys = {
   all: (questionnaireId: string) => ['codesLists', questionnaireId] as const,
   version: (questionnaireId: string, versionId: string) =>
     ['codesListsVersion', questionnaireId, versionId] as const,
-};
+}
 
 /**
  * Used to retrieve codes lists associated to a questionnaire.
@@ -31,7 +31,7 @@ export const codesListsQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: codesListsKeys.all(questionnaireId),
     queryFn: () => getCodesLists(questionnaireId),
-  });
+  })
 
 /**
  * Used to retrieve codes lists associated to an older version of a questionnaire.
@@ -46,7 +46,7 @@ export const codesListsFromVersionQueryOptions = (
     queryKey: codesListsKeys.version(questionnaireId, versionId),
     queryFn: () => getCodesListsFromVersion(questionnaireId, versionId),
     staleTime: Infinity,
-  });
+  })
 
 /** Retrieve codes lists associated to the questionnaire. */
 export async function getCodesLists(
@@ -57,8 +57,8 @@ export async function getCodesLists(
       headers: { Accept: 'application/json' },
     })
     .then(({ data }: { data: CodesList[] }) => {
-      return data;
-    });
+      return data
+    })
 }
 
 /** Retrieve codes lists associated to an older version of the questionnaire. */
@@ -72,8 +72,8 @@ export async function getCodesListsFromVersion(
       { headers: { Accept: 'application/json' } },
     )
     .then(({ data }: { data: CodesList[] }) => {
-      return data;
-    });
+      return data
+    })
 }
 
 /** Create or update a codes list. */
@@ -86,7 +86,7 @@ export async function putCodesList(
     `/persistence/questionnaire/${questionnaireId}/codes-list/${codeListId}`,
     codeList,
     { headers: { 'Content-Type': 'application/json' } },
-  );
+  )
 }
 
 /** Delete a codes list. */
@@ -96,5 +96,5 @@ export async function deleteCodesList(
 ): Promise<Response> {
   return instance.delete(
     `/persistence/questionnaire/${questionnaireId}/codes-list/${codeListId}`,
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import Button, { ButtonStyle } from '@/components/ui/Button';
+import Button, { ButtonStyle } from '@/components/ui/Button'
 
 export default function Login({ login }: { login: () => void }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="text-center space-y-3">
@@ -12,5 +12,5 @@ export default function Login({ login }: { login: () => void }) {
         {t('common.login')}
       </Button>
     </div>
-  );
+  )
 }

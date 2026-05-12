@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
 import {
   CodeListError,
@@ -10,18 +10,18 @@ import {
   codesListsKeys,
   deleteCodesList,
   putCodesList,
-} from '@/api/codesLists';
-import ButtonLink from '@/components/ui/ButtonLink';
-import DialogButton from '@/components/ui/DialogButton';
-import type { CodesList } from '@/models/codesLists';
-import { uid } from '@/utils/utils';
+} from '@/api/codesLists'
+import ButtonLink from '@/components/ui/ButtonLink'
+import DialogButton from '@/components/ui/DialogButton'
+import type { CodesList } from '@/models/codesLists'
+import { uid } from '@/utils/utils'
 
-import CodesTable from './CodesTable';
+import CodesTable from './CodesTable'
 
 interface CodesListOverviewItemDetailsProps {
-  codesList: CodesList;
-  questionnaireId: string;
-  readonly?: boolean;
+  codesList: CodesList
+  questionnaireId: string
+  readonly?: boolean
 }
 
 /** Display code list data and allow to edit, duplicate or delete it. */
@@ -30,11 +30,11 @@ export default function CodesListOverviewItemDetails({
   questionnaireId,
   readonly = false,
 }: Readonly<CodesListOverviewItemDetailsProps>) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
 
   const hasRelatedQuestion =
-    codesList.relatedQuestionNames && codesList.relatedQuestionNames.length > 0;
+    codesList.relatedQuestionNames && codesList.relatedQuestionNames.length > 0
 
   const duplicateMutation = useMutation({
     mutationFn: ({
@@ -42,59 +42,59 @@ export default function CodesListOverviewItemDetails({
       codesListId,
       codesList,
     }: {
-      questionnaireId: string;
-      codesListId: string;
-      codesList: CodesList;
+      questionnaireId: string
+      codesListId: string
+      codesList: CodesList
     }) => {
-      return putCodesList(questionnaireId, codesListId, codesList);
+      return putCodesList(questionnaireId, codesListId, codesList)
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: codesListsKeys.all(questionnaireId),
       }),
-  });
+  })
 
   const deleteMutation = useMutation({
     mutationFn: ({
       questionnaireId,
       codesListId,
     }: {
-      questionnaireId: string;
-      codesListId: string;
+      questionnaireId: string
+      codesListId: string
     }) => {
-      return deleteCodesList(questionnaireId, codesListId);
+      return deleteCodesList(questionnaireId, codesListId)
     },
     onSuccess: (_, { questionnaireId }) =>
       queryClient.invalidateQueries({
         queryKey: codesListsKeys.all(questionnaireId),
       }),
-  });
+  })
 
   function onDuplicate() {
-    const id = uid();
+    const id = uid()
     const newCodesList = {
       ...codesList,
       id,
       label: `${codesList.label} (copie)`,
-    };
+    }
 
     const promise = duplicateMutation.mutateAsync({
       questionnaireId,
       codesListId: id,
       codesList: newCodesList,
-    });
+    })
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('codesList.duplicate.success', { label: codesList.label }),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   function onDelete() {
     const promise = deleteMutation.mutateAsync({
       questionnaireId,
       codesListId: codesList.id,
-    });
+    })
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('codesList.delete.success', { label: codesList.label }),
@@ -103,14 +103,14 @@ export default function CodesListOverviewItemDetails({
           err.response?.data.errorCode === ERROR_CODES.RELATED_QUESTION_NAMES
         ) {
           const { relatedQuestionNames } = err.response
-            .data as CodeListRelatedQuestionError;
+            .data as CodeListRelatedQuestionError
           return t('codesList.delete.error.usedByQuestions', {
             questions: relatedQuestionNames.join('\n'),
-          });
+          })
         }
-        return err.toString();
+        return err.toString()
       },
-    });
+    })
   }
 
   return (
@@ -151,5 +151,5 @@ export default function CodesListOverviewItemDetails({
         </div>
       ) : null}
     </div>
-  );
+  )
 }

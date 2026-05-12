@@ -3,9 +3,9 @@ export type ArticulationItems = [
   { label: ArticulationVariablesLabel.FirstName; value: string },
   { label: ArticulationVariablesLabel.Gender; value: string },
   { label: ArticulationVariablesLabel.Age; value: string },
-];
+]
 
-export type Articulation = { items: ArticulationItems };
+export type Articulation = { items: ArticulationItems }
 
 /** Label of the articulation variable used by the API. */
 export enum ArticulationVariablesLabel {
@@ -18,4 +18,4 @@ export const defaultArticulationItems: ArticulationItems = [
   { label: ArticulationVariablesLabel.FirstName, value: '' },
   { label: ArticulationVariablesLabel.Gender, value: '' },
   { label: ArticulationVariablesLabel.Age, value: '' },
-];
+]

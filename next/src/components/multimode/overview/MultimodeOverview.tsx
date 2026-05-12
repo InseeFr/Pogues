@@ -1,14 +1,14 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import type { MultimodeIsMovedRules } from '@/models/multimode';
+import type { MultimodeIsMovedRules } from '@/models/multimode'
 
-import MultimodeOverviewContent from './MultimodeOverviewContent';
+import MultimodeOverviewContent from './MultimodeOverviewContent'
 
 interface Props {
-  questionnaireId: string;
-  isMovedRules?: MultimodeIsMovedRules;
+  questionnaireId: string
+  isMovedRules?: MultimodeIsMovedRules
   /** Whether we display the multimode as readonly (i.e. back-up version). */
-  readonly?: boolean;
+  readonly?: boolean
 }
 
 /**
@@ -22,7 +22,7 @@ export default function MultimodeOverview({
   isMovedRules = {},
   readonly = false,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="space-y-6">
@@ -36,5 +36,5 @@ export default function MultimodeOverview({
         readonly={readonly}
       />
     </div>
-  );
+  )
 }

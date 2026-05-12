@@ -21,7 +21,7 @@ describe('VariableForm', () => {
     )
 
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+      expect(getByRole('button', { name: /Validate/i })).toBeDisabled()
     })
 
     fireEvent.input(getByRole('textbox', { name: /Name/i }), {
@@ -32,10 +32,10 @@ describe('VariableForm', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled()
     })
 
-    fireEvent.submit(screen.getByTestId('form-submit-button'))
+    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }))
     await waitFor(() => {
       expect(submitFn).toBeCalled()
     })
@@ -53,7 +53,7 @@ describe('VariableForm', () => {
     )
 
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+      expect(getByRole('button', { name: /Validate/i })).toBeDisabled()
     })
 
     fireEvent.click(within(getByText(/Calculated/i)).getByRole('radio'))
@@ -69,10 +69,10 @@ describe('VariableForm', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled()
     })
 
-    fireEvent.submit(screen.getByTestId('form-submit-button'))
+    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }))
     await waitFor(() => {
       expect(submitFn).toBeCalled()
     })

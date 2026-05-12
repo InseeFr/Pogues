@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { multimodeFromVersionQueryOptions } from '@/api/multimode';
-import MultimodeOverview from '@/components/multimode/overview/MultimodeOverview';
-import MultimodeOverviewErrorComponent from '@/components/multimode/overview/layout/MultimodeOverviewErrorComponent';
-import MultimodeOverviewVersionLayout from '@/components/multimode/overview/layout/MultimodeOverviewVersionLayout';
+import { multimodeFromVersionQueryOptions } from '@/api/multimode'
+import MultimodeOverview from '@/components/multimode/overview/MultimodeOverview'
+import MultimodeOverviewErrorComponent from '@/components/multimode/overview/layout/MultimodeOverviewErrorComponent'
+import MultimodeOverviewVersionLayout from '@/components/multimode/overview/layout/MultimodeOverviewVersionLayout'
 
 /**
  * Multimode page that provide a recap of the the multimode rules used by our
@@ -25,16 +25,16 @@ export const Route = createFileRoute(
   }) => {
     queryClient.ensureQueryData(
       multimodeFromVersionQueryOptions(questionnaireId, versionId),
-    );
-    return { crumb: t('crumb.multimode') };
+    )
+    return { crumb: t('crumb.multimode') }
   },
-});
+})
 
 function RouteComponent() {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
   const { data } = useSuspenseQuery(
     multimodeFromVersionQueryOptions(questionnaireId, versionId),
-  );
+  )
 
   return (
     <CustomLayout>
@@ -44,11 +44,11 @@ function RouteComponent() {
         readonly
       />
     </CustomLayout>
-  );
+  )
 }
 
 function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { questionnaireId, versionId } = Route.useParams();
+  const { questionnaireId, versionId } = Route.useParams()
 
   return (
     <MultimodeOverviewVersionLayout
@@ -57,5 +57,5 @@ function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     >
       {children}
     </MultimodeOverviewVersionLayout>
-  );
+  )
 }

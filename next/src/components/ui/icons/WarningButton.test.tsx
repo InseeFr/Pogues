@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import WarningIcon from './WarningIcon';
+import WarningIcon from './WarningIcon'
 
 it('WarningIcon renders correctly', () => {
-  const { asFragment } = render(<WarningIcon />);
-  expect(asFragment()).toMatchSnapshot();
-});
+  const { asFragment } = render(<WarningIcon />)
+  expect(asFragment()).toMatchSnapshot()
+})

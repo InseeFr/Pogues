@@ -19,5 +19,5 @@ export default function PopupArrow(
         className="dark:fill-gray-300"
       />
     </svg>
-  );
+  )
 }

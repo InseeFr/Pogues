@@ -1,18 +1,18 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import type { Questionnaire } from '@/models/questionnaires';
+import type { Questionnaire } from '@/models/questionnaires'
 
-import QuestionnaireLine from './QuestionnaireLine';
+import QuestionnaireLine from './QuestionnaireLine'
 
 interface TableQuestionnaireProps {
-  questionnaires: Questionnaire[];
+  questionnaires: Questionnaire[]
 }
 
 /** Display questionnaires in a table format. */
 export default function TableQuestionnaires({
   questionnaires,
 }: Readonly<TableQuestionnaireProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <table className="table-auto border border-default w-full shadow-xl">
       <thead className="bg-accent">
@@ -27,7 +27,7 @@ export default function TableQuestionnaires({
           .toSorted((a, b) => {
             return b.lastUpdatedDate && a.lastUpdatedDate
               ? b.lastUpdatedDate.getTime() - a.lastUpdatedDate.getTime()
-              : 0;
+              : 0
           })
           .map((questionnaire) => (
             <QuestionnaireLine
@@ -37,5 +37,5 @@ export default function TableQuestionnaires({
           ))}
       </tbody>
     </table>
-  );
+  )
 }

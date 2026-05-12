@@ -1,14 +1,14 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import EditArticulationLayout from './EditArticulationLayout';
+import EditArticulationLayout from './EditArticulationLayout'
 
 describe('EditArticulationLayout', () => {
   it('displays title and children', async () => {
     const { getByText } = await renderWithRouter(
       <EditArticulationLayout>Hello world</EditArticulationLayout>,
-    );
+    )
 
-    expect(getByText('Edit the roundabout summary')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
-  });
-});
+    expect(getByText('Edit the roundabout summary')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
+  })
+})

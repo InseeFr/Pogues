@@ -1,51 +1,51 @@
-import { TargetModes } from '@/models/questionnaires';
+import { TargetModes } from '@/models/questionnaires'
 
-import { SurveyModeEnum } from '../models/poguesModel';
+import { SurveyModeEnum } from '../models/poguesModel'
 
 export function computeTargetModes(
   targetModes: SurveyModeEnum[] = [],
 ): Set<TargetModes> {
-  const res = new Set<TargetModes>();
-  if (!targetModes) return res;
+  const res = new Set<TargetModes>()
+  if (!targetModes) return res
 
   for (const targetMode of targetModes) {
     switch (targetMode) {
       case SurveyModeEnum.CAWI:
-        res.add(TargetModes.CAWI);
-        break;
+        res.add(TargetModes.CAWI)
+        break
       case SurveyModeEnum.CAPI:
-        res.add(TargetModes.CAPI);
-        break;
+        res.add(TargetModes.CAPI)
+        break
       case SurveyModeEnum.CATI:
-        res.add(TargetModes.CATI);
-        break;
+        res.add(TargetModes.CATI)
+        break
       case SurveyModeEnum.PAPI:
-        res.add(TargetModes.PAPI);
-        break;
+        res.add(TargetModes.PAPI)
+        break
     }
   }
-  return res;
+  return res
 }
 
 export function computePoguesTargetModes(
   targetModes: Set<TargetModes> = new Set(),
 ): SurveyModeEnum[] {
-  const res: SurveyModeEnum[] = [];
+  const res: SurveyModeEnum[] = []
   for (const targetMode of targetModes) {
     switch (targetMode) {
       case TargetModes.CAWI:
-        res.push(SurveyModeEnum.CAWI);
-        break;
+        res.push(SurveyModeEnum.CAWI)
+        break
       case TargetModes.CAPI:
-        res.push(SurveyModeEnum.CAPI);
-        break;
+        res.push(SurveyModeEnum.CAPI)
+        break
       case TargetModes.CATI:
-        res.push(SurveyModeEnum.CATI);
-        break;
+        res.push(SurveyModeEnum.CATI)
+        break
       case TargetModes.PAPI:
-        res.push(SurveyModeEnum.PAPI);
-        break;
+        res.push(SurveyModeEnum.PAPI)
+        break
     }
   }
-  return res;
+  return res
 }

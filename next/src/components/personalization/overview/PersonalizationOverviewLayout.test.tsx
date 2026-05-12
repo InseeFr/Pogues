@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import PersonalizationOverviewLayout from './PersonalizationOverviewLayout';
+import PersonalizationOverviewLayout from './PersonalizationOverviewLayout'
 
 describe('PersonalizationOverviewLayout', () => {
   it('displays title and children', async () => {
@@ -8,9 +8,9 @@ describe('PersonalizationOverviewLayout', () => {
       <PersonalizationOverviewLayout>
         Hello world
       </PersonalizationOverviewLayout>,
-    );
+    )
 
-    expect(getByText('Personalization')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
-  });
-});
+    expect(getByText('Personalization')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
+  })
+})

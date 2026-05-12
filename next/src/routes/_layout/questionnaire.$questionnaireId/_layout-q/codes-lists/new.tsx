@@ -1,11 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { questionnaireQueryOptions } from '@/api/questionnaires';
-import { variablesQueryOptions } from '@/api/variables';
-import CreateCodesListLayout from '@/components/codesLists/create/CreateCodesListLayout';
-import ErrorComponent from '@/components/layout/ErrorComponent';
-import CreateCodesList from '@/components/codesLists/create/CreateCodesList';
+import { questionnaireQueryOptions } from '@/api/questionnaires'
+import { variablesQueryOptions } from '@/api/variables'
+import CreateCodesList from '@/components/codesLists/create/CreateCodesList'
+import CreateCodesListLayout from '@/components/codesLists/create/CreateCodesListLayout'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 
 /**
  * Page that allow to create a new code list.
@@ -23,20 +23,20 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId },
   }) => {
-    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
-    return { crumb: t('crumb.new') };
+    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId))
+    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId))
+    return { crumb: t('crumb.new') }
   },
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const {
     data: { formulasLanguage },
-  } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId));
+  } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId))
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <CreateCodesListLayout>
@@ -46,5 +46,5 @@ function RouteComponent() {
         variables={variables}
       />
     </CreateCodesListLayout>
-  );
+  )
 }

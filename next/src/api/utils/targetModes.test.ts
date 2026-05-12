@@ -1,7 +1,7 @@
-import { TargetModes } from '@/models/questionnaires';
+import { TargetModes } from '@/models/questionnaires'
 
-import { SurveyModeEnum } from '../models/poguesModel';
-import { computePoguesTargetModes, computeTargetModes } from './targetModes';
+import { SurveyModeEnum } from '../models/poguesModel'
+import { computePoguesTargetModes, computeTargetModes } from './targetModes'
 
 describe('computeTargetModes', () => {
   it.each([
@@ -10,19 +10,19 @@ describe('computeTargetModes', () => {
     [SurveyModeEnum.CAWI, TargetModes.CAWI],
     [SurveyModeEnum.PAPI, TargetModes.PAPI],
   ])('%s -> %s', (input, expected) => {
-    expect(computeTargetModes([input])).toEqual(new Set([expected]));
-  });
+    expect(computeTargetModes([input])).toEqual(new Set([expected]))
+  })
 
   it('works with default', () => {
-    expect(computeTargetModes()).toEqual(new Set());
-  });
+    expect(computeTargetModes()).toEqual(new Set())
+  })
 
   it('works with multiple target modes', () => {
     expect(
       computeTargetModes([SurveyModeEnum.CAPI, SurveyModeEnum.PAPI]),
-    ).toEqual(new Set([TargetModes.CAPI, TargetModes.PAPI]));
-  });
-});
+    ).toEqual(new Set([TargetModes.CAPI, TargetModes.PAPI]))
+  })
+})
 
 describe('computePoguesTargetModes', () => {
   it.each([
@@ -31,16 +31,16 @@ describe('computePoguesTargetModes', () => {
     [TargetModes.CAWI, SurveyModeEnum.CAWI],
     [TargetModes.PAPI, SurveyModeEnum.PAPI],
   ])('%s -> %s', (input, expected) => {
-    expect(computePoguesTargetModes(new Set([input]))).toEqual([expected]);
-  });
+    expect(computePoguesTargetModes(new Set([input]))).toEqual([expected])
+  })
 
   it('works with default', () => {
-    expect(computePoguesTargetModes()).toEqual([]);
-  });
+    expect(computePoguesTargetModes()).toEqual([])
+  })
 
   it('works with multiple target modes', () => {
     expect(
       computePoguesTargetModes(new Set([TargetModes.CAPI, TargetModes.PAPI])),
-    ).toEqual([SurveyModeEnum.CAPI, SurveyModeEnum.PAPI]);
-  });
-});
+    ).toEqual([SurveyModeEnum.CAPI, SurveyModeEnum.PAPI])
+  })
+})

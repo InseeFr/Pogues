@@ -1,16 +1,16 @@
-import nock from 'nock';
+import nock from 'nock'
 
-import { getStamps } from './stamps';
+import { getStamps } from './stamps'
 
-vi.mock('@/lib/auth/oidc');
+vi.mock('@/lib/auth/oidc')
 
 it('Get stamps works', async () => {
-  const stamps = [{ label: 'my-stamp', value: 'stamp-1' }];
+  const stamps = [{ label: 'my-stamp', value: 'stamp-1' }]
 
   nock('https://mock-api')
     .get('/persistence/questionnaires/stamps')
-    .reply(200, stamps);
+    .reply(200, stamps)
 
-  const res = await getStamps();
-  expect(res).toEqual(stamps);
-});
+  const res = await getStamps()
+  expect(res).toEqual(stamps)
+})

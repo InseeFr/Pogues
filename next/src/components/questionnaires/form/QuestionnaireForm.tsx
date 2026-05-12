@@ -1,32 +1,32 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import Checkbox from '@/components/ui/form/Checkbox';
-import Field from '@/components/ui/form/Field';
-import Form from '@/components/ui/form/Form';
-import Input from '@/components/ui/form/Input';
-import Label from '@/components/ui/form/Label';
-import RadioGroup from '@/components/ui/form/RadioGroup';
+import Checkbox from '@/components/ui/form/Checkbox'
+import Field from '@/components/ui/form/Field'
+import Form from '@/components/ui/form/Form'
+import Input from '@/components/ui/form/Input'
+import Label from '@/components/ui/form/Label'
+import RadioGroup from '@/components/ui/form/RadioGroup'
 import {
   FlowLogics,
   FormulasLanguages,
   type Questionnaire,
   TargetModes,
-} from '@/models/questionnaires';
+} from '@/models/questionnaires'
 
-import { type FormValues, schema } from './schema';
-import { changeSetValue } from './utils/set';
+import { type FormValues, schema } from './schema'
+import { changeSetValue } from './utils/set'
 
 type Props = {
   /** In an update case, initial questionnaire value. */
-  questionnaire?: Omit<Omit<Questionnaire, 'id'>, 'scopes'>;
+  questionnaire?: Omit<Omit<Questionnaire, 'id'>, 'scopes'>
   /** Function that will be called with form data when the user submit the form. */
-  onSubmit: SubmitHandler<FormValues>;
+  onSubmit: SubmitHandler<FormValues>
   /** Label to display on the submit button */
-  submitLabel: string;
-};
+  submitLabel: string
+}
 
 /**
  * Create or edit a codes list.
@@ -47,8 +47,8 @@ export default function QuestionnaireForm({
   onSubmit,
   submitLabel,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const {
     control,
@@ -58,14 +58,14 @@ export default function QuestionnaireForm({
     mode: 'onChange',
     defaultValues: questionnaire,
     resolver: zodResolver(schema),
-  });
+  })
 
   const handleCancel = () => {
     navigate({
       to: '/questionnaires',
       ignoreBlocker: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form
@@ -214,5 +214,5 @@ export default function QuestionnaireForm({
         />
       </div>
     </Form>
-  );
+  )
 }

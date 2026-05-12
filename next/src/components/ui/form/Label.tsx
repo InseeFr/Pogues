@@ -1,6 +1,6 @@
 type LabelProps = React.ComponentProps<'label'> & {
-  required?: boolean;
-};
+  required?: boolean
+}
 
 export default function Label({
   children,
@@ -16,5 +16,5 @@ export default function Label({
       {children}
       {required ? '*' : ''}
     </label>
-  );
+  )
 }

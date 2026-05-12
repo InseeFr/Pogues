@@ -1,4 +1,4 @@
-import { Switch as BaseUISwitch } from '@base-ui-components/react/switch';
+import { Switch as BaseUISwitch } from '@base-ui-components/react/switch'
 
 export type Props = {
   /**
@@ -6,13 +6,13 @@ export type Props = {
    *
    * To render an uncontrolled switch, use the `defaultChecked` prop instead.
    */
-  checked?: BaseUISwitch.Root.Props['checked'];
+  checked?: BaseUISwitch.Root.Props['checked']
   /** A ref to access the hidden <input> element. */
-  inputRef?: BaseUISwitch.Root.Props['inputRef'];
+  inputRef?: BaseUISwitch.Root.Props['inputRef']
   /** Event handler called when the switch is activated or deactivated. */
-  onCheckedChange?: BaseUISwitch.Root.Props['onCheckedChange'];
-  onBlur?: BaseUISwitch.Root.Props['onBlur'];
-};
+  onCheckedChange?: BaseUISwitch.Root.Props['onCheckedChange']
+  onBlur?: BaseUISwitch.Root.Props['onBlur']
+}
 
 /** A control that indicates whether a setting is on or off. */
 export default function Switch({ ...props }: Readonly<Props>) {
@@ -44,5 +44,5 @@ export default function Switch({ ...props }: Readonly<Props>) {
         "
       />
     </BaseUISwitch.Root>
-  );
+  )
 }

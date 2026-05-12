@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { articulationQueryOptions } from '@/api/articulation';
-import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview';
-import ArticulationOverviewErrorComponent from '@/components/articulation/overview/layout/ArticulationOverviewErrorComponent';
-import ArticulationOverviewLayout from '@/components/articulation/overview/layout/ArticulationOverviewLayout';
+import { articulationQueryOptions } from '@/api/articulation'
+import { ArticulationOverview } from '@/components/articulation/overview/ArticulationOverview'
+import ArticulationOverviewErrorComponent from '@/components/articulation/overview/layout/ArticulationOverviewErrorComponent'
+import ArticulationOverviewLayout from '@/components/articulation/overview/layout/ArticulationOverviewLayout'
 
 /**
  * Main articulation page where we display the articulation items of our
@@ -24,13 +24,13 @@ export const Route = createFileRoute(
   ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
     queryClient.ensureQueryData(articulationQueryOptions(questionnaireId)),
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const { data: articulation } = useSuspenseQuery(
     articulationQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <ArticulationOverviewLayout>
@@ -39,5 +39,5 @@ function RouteComponent() {
         articulationItems={articulation.items}
       />
     </ArticulationOverviewLayout>
-  );
+  )
 }

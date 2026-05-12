@@ -1,22 +1,22 @@
-import { Select as BaseUISelect } from '@base-ui-components/react/select';
+import { Select as BaseUISelect } from '@base-ui-components/react/select'
 
-import ArrowDownIcon from '../icons/ArrowDownIcon';
+import ArrowDownIcon from '../icons/ArrowDownIcon'
 
 type Props<T> = {
   /** Override the default onChange (if controlled). */
-  onChange?: BaseUISelect.Root.Props<T>['onValueChange'];
+  onChange?: BaseUISelect.Root.Props<T>['onValueChange']
   /**
    * List of options to select from. If specified, label is displayed instead of
    * value.
    */
-  options: { label: React.ReactNode; value: T }[];
+  options: { label: React.ReactNode; value: T }[]
   /** Default value. Use `value` if controlled. */
-  defaultValue?: BaseUISelect.Root.Props<T>['defaultValue'];
+  defaultValue?: BaseUISelect.Root.Props<T>['defaultValue']
   /** Currently selected value (if controlled). */
-  value?: BaseUISelect.Root.Props<T>['value'];
+  value?: BaseUISelect.Root.Props<T>['value']
   /** Disable option selection. */
-  disabled?: boolean;
-};
+  disabled?: boolean
+}
 
 /**
  * A common form component for choosing a predefined value in a dropdown menu.
@@ -94,5 +94,5 @@ export default function Select<T>({
         </BaseUISelect.Positioner>
       </BaseUISelect.Portal>
     </BaseUISelect.Root>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { Link } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router'
 
-import ChevronRightIcon from '@/components/ui/icons/ChevronRightIcon';
-import type { Questionnaire } from '@/models/questionnaires';
+import ChevronRightIcon from '@/components/ui/icons/ChevronRightIcon'
+import type { Questionnaire } from '@/models/questionnaires'
 
 interface QuestionnaireProps {
-  questionnaire: Questionnaire;
+  questionnaire: Questionnaire
 }
 
 /**
@@ -31,5 +31,5 @@ export default function QuestionnaireLine({
         <ChevronRightIcon />
       </td>
     </Link>
-  );
+  )
 }

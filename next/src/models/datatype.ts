@@ -11,15 +11,15 @@ export type DataType =
   | DateDatatype<DateFormat>
   | DurationDatatype<DurationFormat>
   | NumericDatatype
-  | TextDatatype;
+  | TextDatatype
 
 /*
 Boolean variable
 */
 
 type BooleanDatatype = {
-  typeName: DatatypeType.Boolean;
-};
+  typeName: DatatypeType.Boolean
+}
 
 /*
 Date variable
@@ -32,11 +32,11 @@ export enum DateFormat {
 }
 
 type DateDatatype<F extends DateFormat> = {
-  typeName: DatatypeType.Date;
-  format: F;
-  minimum?: Date;
-  maximum?: Date;
-};
+  typeName: DatatypeType.Date
+  format: F
+  minimum?: Date
+  maximum?: Date
+}
 
 /*
 Duration variable
@@ -48,46 +48,46 @@ export enum DurationFormat {
 }
 
 export interface YearMonthDuration {
-  years: number;
-  months: number;
+  years: number
+  months: number
 }
 
 export interface HourMinuteDuration {
-  hours: number;
-  minutes: number;
+  hours: number
+  minutes: number
 }
 
 type Duration<F extends DurationFormat> = F extends DurationFormat.YearMonth
   ? YearMonthDuration
   : F extends DurationFormat.HourMinute
     ? HourMinuteDuration
-    : never;
+    : never
 
 type DurationDatatype<F extends DurationFormat> = {
-  typeName: DatatypeType.Duration;
-  format: F;
-  minimum?: Duration<F>;
-  maximum?: Duration<F>;
-};
+  typeName: DatatypeType.Duration
+  format: F
+  minimum?: Duration<F>
+  maximum?: Duration<F>
+}
 
 /*
 Numeric variable
 */
 
 type NumericDatatype = {
-  typeName: DatatypeType.Numeric;
-  minimum?: number;
-  maximum?: number;
-  decimals?: number;
-  isDynamicUnit?: boolean;
-  unit?: string;
-};
+  typeName: DatatypeType.Numeric
+  minimum?: number
+  maximum?: number
+  decimals?: number
+  isDynamicUnit?: boolean
+  unit?: string
+}
 
 /*
 Text variable
 */
 
 type TextDatatype = {
-  typeName: DatatypeType.Text;
-  maxLength?: number;
-};
+  typeName: DatatypeType.Text
+  maxLength?: number
+}

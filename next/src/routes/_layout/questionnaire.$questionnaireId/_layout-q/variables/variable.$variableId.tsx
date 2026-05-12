@@ -1,11 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { questionnaireQueryOptions } from '@/api/questionnaires';
-import { variablesQueryOptions } from '@/api/variables';
-import ErrorComponent from '@/components/layout/ErrorComponent';
-import EditVariable from '@/components/variables/edit/EditVariable';
-import EditVariableLayout from '@/components/variables/edit/EditVariableLayout';
+import { questionnaireQueryOptions } from '@/api/questionnaires'
+import { variablesQueryOptions } from '@/api/variables'
+import ErrorComponent from '@/components/layout/ErrorComponent'
+import EditVariable from '@/components/variables/edit/EditVariable'
+import EditVariableLayout from '@/components/variables/edit/EditVariableLayout'
 
 /**
  * Page that allow to update an existing variable.
@@ -23,22 +23,22 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId, variableId },
   }) => {
-    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId));
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId));
-    return { crumb: t('crumb.variable', { id: variableId }) };
+    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId))
+    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId))
+    return { crumb: t('crumb.variable', { id: variableId }) }
   },
-});
+})
 
 function RouteComponent() {
-  const { questionnaireId, variableId } = Route.useParams();
+  const { questionnaireId, variableId } = Route.useParams()
   const { data: questionnaire } = useSuspenseQuery(
     questionnaireQueryOptions(questionnaireId),
-  );
+  )
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
-  );
+  )
 
-  const variable = variables.find((v) => v.id === variableId);
+  const variable = variables.find((v) => v.id === variableId)
 
   return (
     <EditVariableLayout variable={variable}>
@@ -49,5 +49,5 @@ function RouteComponent() {
         variables={variables}
       />
     </EditVariableLayout>
-  );
+  )
 }

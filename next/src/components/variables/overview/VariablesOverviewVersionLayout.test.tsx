@@ -1,6 +1,6 @@
-import { renderWithRouter } from '@/testing/render';
+import { renderWithRouter } from '@/testing/render'
 
-import VariablesOverviewVersionLayout from './VariablesOverviewVersionLayout';
+import VariablesOverviewVersionLayout from './VariablesOverviewVersionLayout'
 
 describe('VariablesOverviewVersionLayout', () => {
   it('is readonly and displays title and children', async () => {
@@ -11,12 +11,12 @@ describe('VariablesOverviewVersionLayout', () => {
       >
         Hello world
       </VariablesOverviewVersionLayout>,
-    );
+    )
 
-    expect(getByText('Variables')).toBeInTheDocument();
-    expect(getByText('Hello world')).toBeInTheDocument();
+    expect(getByText('Variables')).toBeInTheDocument()
+    expect(getByText('Hello world')).toBeInTheDocument()
     expect(
       getByText('This save of the survey is on readonly.'),
-    ).toBeInTheDocument();
-  });
-});
+    ).toBeInTheDocument()
+  })
+})

@@ -1,20 +1,20 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
-import { restoreVersion } from '@/api/versions';
-import { ButtonSize } from '@/components/ui/Button';
-import DialogButton from '@/components/ui/DialogButton';
+import { restoreVersion } from '@/api/versions'
+import { ButtonSize } from '@/components/ui/Button'
+import DialogButton from '@/components/ui/DialogButton'
 
 interface ReadonlyWarningProps {
   /**
    * Id of the questionnaire that will be used to send the user to the main
    * questionnaire page, on the latest save.
    */
-  questionnaireId?: string;
+  questionnaireId?: string
   /** Version to rollback to. */
-  versionId?: string;
+  versionId?: string
 }
 
 /**
@@ -27,16 +27,16 @@ export default function ReadonlyWarning({
   questionnaireId,
   versionId,
 }: Readonly<ReadonlyWarningProps>) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const restoreMutation = useMutation({
     mutationFn: ({ versionId }: { versionId: string }) => {
-      return restoreVersion(versionId);
+      return restoreVersion(versionId)
     },
     onSuccess: () => queryClient.invalidateQueries(),
-  });
+  })
 
   function onRestore() {
     const promise = restoreMutation.mutateAsync(
@@ -51,17 +51,17 @@ export default function ReadonlyWarning({
             navigate({
               to: '/questionnaire/$questionnaireId',
               params: { questionnaireId },
-            });
+            })
         },
       },
-    );
+    )
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('history.restore.success', {
         label: versionId,
       }),
       error: (err: Error) => err.toString(),
-    });
+    })
   }
 
   return (
@@ -77,5 +77,5 @@ export default function ReadonlyWarning({
         />
       ) : null}
     </div>
-  );
+  )
 }

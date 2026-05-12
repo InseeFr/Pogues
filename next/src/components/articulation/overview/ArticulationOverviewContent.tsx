@@ -1,19 +1,19 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import { ButtonStyle } from '@/components/ui/Button';
-import ButtonLink from '@/components/ui/ButtonLink';
-import Card from '@/components/ui/Card';
+import { ButtonStyle } from '@/components/ui/Button'
+import ButtonLink from '@/components/ui/ButtonLink'
+import Card from '@/components/ui/Card'
 import {
   ArticulationItems,
   defaultArticulationItems,
-} from '@/models/articulation';
+} from '@/models/articulation'
 
-import { ArticulationOverviewDetails } from './ArticulationOverviewDetails';
+import { ArticulationOverviewDetails } from './ArticulationOverviewDetails'
 
 interface ArticulationOverviewProps {
-  questionnaireId: string;
-  articulationItems?: ArticulationItems;
-  readonly?: boolean;
+  questionnaireId: string
+  articulationItems?: ArticulationItems
+  readonly?: boolean
 }
 
 /**
@@ -29,14 +29,14 @@ export function ArticulationOverviewContent({
   articulationItems,
   readonly = false,
 }: Readonly<ArticulationOverviewProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const hasArticulationItems = articulationItems !== undefined;
+  const hasArticulationItems = articulationItems !== undefined
 
   if (!hasArticulationItems) {
     if (readonly) {
       // We are in readonly and there is no articulation specified.
-      return <div>{t('articulation.overview.versionNoArticulation')}</div>;
+      return <div>{t('articulation.overview.versionNoArticulation')}</div>
     }
 
     // There is no articulation specified: allow to setup articulation.
@@ -48,7 +48,7 @@ export function ArticulationOverviewContent({
       >
         {t('articulation.create.label')}
       </ButtonLink>
-    );
+    )
   }
 
   return (
@@ -60,5 +60,5 @@ export function ArticulationOverviewContent({
         readonly={readonly}
       />
     </Card>
-  );
+  )
 }

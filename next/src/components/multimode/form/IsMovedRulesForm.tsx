@@ -1,22 +1,22 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import Form from '@/components/ui/form/Form';
-import Label from '@/components/ui/form/Label';
-import VTLEditor from '@/components/ui/form/VTLEditor';
-import type { MultimodeIsMovedRules } from '@/models/multimode';
-import { Variable } from '@/models/variables';
+import Form from '@/components/ui/form/Form'
+import Label from '@/components/ui/form/Label'
+import VTLEditor from '@/components/ui/form/VTLEditor'
+import type { MultimodeIsMovedRules } from '@/models/multimode'
+import { Variable } from '@/models/variables'
 
-import { type FormValues, schema } from './schema';
+import { type FormValues, schema } from './schema'
 
 interface Props {
-  questionnaireId: string;
-  isMovedRules?: MultimodeIsMovedRules;
-  roundaboutVariables?: Variable[];
-  variables?: Variable[];
-  onSubmit: SubmitHandler<FormValues>;
+  questionnaireId: string
+  isMovedRules?: MultimodeIsMovedRules
+  roundaboutVariables?: Variable[]
+  variables?: Variable[]
+  onSubmit: SubmitHandler<FormValues>
 }
 
 /**
@@ -32,8 +32,8 @@ export default function MultimodeIsMovedRulesForm({
   variables = [],
   onSubmit,
 }: Readonly<Props>) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const {
     control,
@@ -43,15 +43,15 @@ export default function MultimodeIsMovedRulesForm({
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: isMovedRules,
-  });
+  })
 
   const handleCancel = () => {
     navigate({
       to: '/questionnaire/$questionnaireId/multimode',
       params: { questionnaireId },
       ignoreBlocker: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form
@@ -116,5 +116,5 @@ export default function MultimodeIsMovedRulesForm({
         </div>
       )}
     </Form>
-  );
+  )
 }

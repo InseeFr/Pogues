@@ -1,7 +1,7 @@
-import { VariableType as Type } from '@/models/variables';
-import { renderWithI18n } from '@/testing/render';
+import { VariableType as Type } from '@/models/variables'
+import { renderWithI18n } from '@/testing/render'
 
-import VariableType from './VariableType';
+import VariableType from './VariableType'
 
 describe('VariableType', () => {
   it.each([
@@ -11,9 +11,9 @@ describe('VariableType', () => {
   ])(
     'display correct variable type label ($type -> $label)',
     async ({ type, label }) => {
-      const { getByText } = renderWithI18n(<VariableType type={type} />);
+      const { getByText } = renderWithI18n(<VariableType type={type} />)
 
-      expect(getByText(label)).toBeInTheDocument();
+      expect(getByText(label)).toBeInTheDocument()
     },
-  );
-});
+  )
+})

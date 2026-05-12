@@ -1,16 +1,16 @@
 import {
   VariableType as ModelVariableType,
   type Variable,
-} from '@/models/variables';
+} from '@/models/variables'
 
-import VariableDatatype from '../VariableDatatype';
-import VariableType from '../VariableType';
-import VariableLineActions from './VariableLineActions';
+import VariableDatatype from '../VariableDatatype'
+import VariableType from '../VariableType'
+import VariableLineActions from './VariableLineActions'
 
 interface Props {
-  questionnaireId: string;
-  variable: Variable;
-  readonly?: boolean;
+  questionnaireId: string
+  variable: Variable
+  readonly?: boolean
 }
 
 /**
@@ -47,5 +47,5 @@ export default function VariableLine({
         />
       </td>
     </tr>
-  );
+  )
 }

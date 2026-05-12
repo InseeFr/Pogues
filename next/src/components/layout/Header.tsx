@@ -1,13 +1,13 @@
-import { Link } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
+import { Link } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
-import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
-import { User as UserType } from '@/hooks/useUser';
+import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon'
+import { User as UserType } from '@/hooks/useUser'
 
-import User from './User';
+import User from './User'
 
 interface HeaderProps {
-  user?: UserType;
+  user?: UserType
 }
 
 /**
@@ -17,9 +17,9 @@ interface HeaderProps {
  * same use globally (e.g. create new questionnaire, see documentation...).
  */
 export default function Header({ user }: Readonly<HeaderProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const appVersion = import.meta.env.APP_VERSION;
+  const appVersion = import.meta.env.APP_VERSION
 
   return (
     <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative fill-negative items-center">
@@ -45,5 +45,5 @@ export default function Header({ user }: Readonly<HeaderProps>) {
         <User user={user} />
       </div>
     </div>
-  );
+  )
 }

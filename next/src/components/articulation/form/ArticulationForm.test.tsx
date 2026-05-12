@@ -27,7 +27,7 @@ describe('ArticulationForm', () => {
 
     // Then the form is invalid and cannot be submitted
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled()
     })
 
     // When we fill all the inputs
@@ -35,14 +35,14 @@ describe('ArticulationForm', () => {
       target: { value: 'first name formula' },
     })
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled()
     })
 
     fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
       target: { value: 'gender formula' },
     })
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled()
     })
 
     fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
@@ -51,10 +51,10 @@ describe('ArticulationForm', () => {
 
     // Then the form becomes valid and can be submitted
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled()
     })
 
-    fireEvent.submit(screen.getByTestId('form-submit-button'))
+    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }))
     await waitFor(() => {
       expect(foo).toHaveBeenCalledOnce()
     })

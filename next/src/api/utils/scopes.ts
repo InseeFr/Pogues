@@ -1,4 +1,4 @@
-import type { Scopes } from '@/models/scopes';
+import type { Scopes } from '@/models/scopes'
 
 import {
   DimensionTypeEnum,
@@ -6,41 +6,41 @@ import {
   QuestionTypeEnum,
   type Questionnaire,
   type Sequence,
-} from '../models/poguesModel';
+} from '../models/poguesModel'
 
 /** Compute scopes that can be used in our app from API data. */
 export function computeScopes(questionnaire: Questionnaire): Scopes {
-  const res = computeScopesForComponents(questionnaire.Child);
+  const res = computeScopesForComponents(questionnaire.Child)
 
-  const iterations = questionnaire.Iterations?.Iteration;
-  if (iterations === undefined) return res;
+  const iterations = questionnaire.Iterations?.Iteration
+  if (iterations === undefined) return res
 
   for (const iteration of iterations) {
     if (!iteration.IterableReference) {
       // Directly push iteration as a scope
-      res.set(iteration.id, iteration.Name);
-      continue;
+      res.set(iteration.id, iteration.Name)
+      continue
     }
 
     // The iteration is based on another element, we need to get its name.
 
     // The scope mapping has already be done.
-    if (res.get(iteration.IterableReference)) continue;
+    if (res.get(iteration.IterableReference)) continue
 
     // We search if it is linked to a question which is not table or pairwise.
     const question = getQuestionById(
       iteration.IterableReference,
       questionnaire.Child,
-    );
+    )
     if (question) {
-      res.set(iteration.IterableReference, question.Name);
+      res.set(iteration.IterableReference, question.Name)
     }
 
     // If it is linked to another iteration, it will be computed either way
     // since every "main" iterations are computed as a scope, so we don't need
     // to do anything.
   }
-  return res;
+  return res
 }
 
 /**
@@ -52,21 +52,21 @@ export function computeScopes(questionnaire: Questionnaire): Scopes {
 function computeScopesForComponents(
   components?: (Sequence | QuestionType)[],
 ): Map<string, string> {
-  let res = new Map();
-  if (!components) return res;
+  let res = new Map()
+  if (!components) return res
 
   for (const component of components) {
     if (
       isQuestion(component) &&
       (isPairwiseQuestion(component) || isDynamicTable(component))
     ) {
-      res.set(component.id, component.Name);
+      res.set(component.id, component.Name)
     } else if (isSequence(component)) {
-      res = new Map([...res, ...computeScopesForComponents(component.Child)]);
+      res = new Map([...res, ...computeScopesForComponents(component.Child)])
     }
   }
 
-  return res;
+  return res
 }
 
 /**
@@ -77,34 +77,34 @@ function getQuestionById(
   id: string,
   components?: (Sequence | QuestionType)[],
 ): Sequence | undefined {
-  if (!components) return undefined;
+  if (!components) return undefined
 
   for (const component of components) {
     if (component.id === id) {
-      return component;
+      return component
     }
   }
 
   for (const component of components) {
     if (isSequence(component)) {
-      const res = getQuestionById(id, component.Child);
-      if (res) return res;
+      const res = getQuestionById(id, component.Child)
+      if (res) return res
     }
   }
 
-  return undefined;
+  return undefined
 }
 
 function isSequence(o: Sequence | QuestionType): o is Sequence {
-  return o && Object.hasOwn(o, 'Child');
+  return o && Object.hasOwn(o, 'Child')
 }
 
 function isQuestion(o: Sequence | QuestionType): o is QuestionType {
-  return o && Object.hasOwn(o, 'questionType');
+  return o && Object.hasOwn(o, 'questionType')
 }
 
 function isPairwiseQuestion(o: QuestionType): boolean {
-  return o.questionType === QuestionTypeEnum.Pairwise;
+  return o.questionType === QuestionTypeEnum.Pairwise
 }
 
 function isDynamicTable(o: QuestionType): boolean {
@@ -113,5 +113,5 @@ function isDynamicTable(o: QuestionType): boolean {
     o.ResponseStructure?.Dimension.find(
       (v) => v.dimensionType === DimensionTypeEnum.Primary,
     )?.dynamic !== 'NON_DYNAMIC'
-  );
+  )
 }

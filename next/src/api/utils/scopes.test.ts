@@ -2,8 +2,8 @@ import {
   DimensionTypeEnum,
   type Questionnaire as PoguesQuestionnaire,
   QuestionTypeEnum,
-} from '../models/poguesModel';
-import { computeScopes } from './scopes';
+} from '../models/poguesModel'
+import { computeScopes } from './scopes'
 
 describe('computeScopes', () => {
   it('works for iterations', () => {
@@ -42,15 +42,15 @@ describe('computeScopes', () => {
           { id: 'id-iteration-3', Name: 'mon_itération_3' },
         ],
       },
-    };
+    }
 
-    const expected = new Map();
-    expected.set('id-iteration-1', 'mon_itération_1');
-    expected.set('id-q-2', 'ma_question_2');
-    expected.set('id-iteration-3', 'mon_itération_3');
+    const expected = new Map()
+    expected.set('id-iteration-1', 'mon_itération_1')
+    expected.set('id-q-2', 'ma_question_2')
+    expected.set('id-iteration-3', 'mon_itération_3')
 
-    expect(computeScopes(poguesQuestionnaire)).toEqual(expected);
-  });
+    expect(computeScopes(poguesQuestionnaire)).toEqual(expected)
+  })
 
   it('works for dynamic tables', () => {
     const poguesQuestionnaire: PoguesQuestionnaire = {
@@ -97,13 +97,13 @@ describe('computeScopes', () => {
           ],
         },
       ],
-    };
+    }
 
-    const expected = new Map();
-    expected.set('id-tab-1', 'mon_tableau_dynamique');
+    const expected = new Map()
+    expected.set('id-tab-1', 'mon_tableau_dynamique')
 
-    expect(computeScopes(poguesQuestionnaire)).toEqual(expected);
-  });
+    expect(computeScopes(poguesQuestionnaire)).toEqual(expected)
+  })
 
   it('works for pairwise', () => {
     const poguesQuestionnaire: PoguesQuestionnaire = {
@@ -127,11 +127,11 @@ describe('computeScopes', () => {
           ],
         },
       ],
-    };
+    }
 
-    const expected = new Map();
-    expected.set('id-pairwise-1', 'mon_lien_2_a_2');
+    const expected = new Map()
+    expected.set('id-pairwise-1', 'mon_lien_2_a_2')
 
-    expect(computeScopes(poguesQuestionnaire)).toEqual(expected);
-  });
-});
+    expect(computeScopes(poguesQuestionnaire)).toEqual(expected)
+  })
+})

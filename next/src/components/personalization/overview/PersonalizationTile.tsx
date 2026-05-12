@@ -1,10 +1,10 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire';
+import { PersonalizationQuestionnaire } from '@/models/personalizationQuestionnaire'
 
 interface PersonalisationTileProps {
-  data: PersonalizationQuestionnaire;
-  children: React.ReactNode;
+  data: PersonalizationQuestionnaire
+  children: React.ReactNode
 }
 
 /** Display the personalization windows as a wrapper */
@@ -12,7 +12,7 @@ export default function PersonalisationTile({
   data,
   children,
 }: Readonly<PersonalisationTileProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="relative bg-default p-4 border border-default shadow-md grid grid-rows-[auto_1fr_auto]">
@@ -27,5 +27,5 @@ export default function PersonalisationTile({
         {children}
       </div>
     </div>
-  );
+  )
 }

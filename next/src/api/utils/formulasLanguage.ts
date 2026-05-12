@@ -1,16 +1,16 @@
-import { FormulasLanguages } from '@/models/questionnaires';
+import { FormulasLanguages } from '@/models/questionnaires'
 
-import { FormulasLanguageEnum } from '../models/poguesModel';
+import { FormulasLanguageEnum } from '../models/poguesModel'
 
 export function computeFormulasLanguage(
   formulasLanguage?: FormulasLanguageEnum,
 ): FormulasLanguages {
   switch (formulasLanguage) {
     case FormulasLanguageEnum.XPath:
-      return FormulasLanguages.XPath;
+      return FormulasLanguages.XPath
     case FormulasLanguageEnum.VTL:
     default:
-      return FormulasLanguages.VTL;
+      return FormulasLanguages.VTL
   }
 }
 
@@ -19,9 +19,9 @@ export function computePoguesFormulasLanguage(
 ): FormulasLanguageEnum {
   switch (formulasLanguage) {
     case FormulasLanguages.XPath:
-      return FormulasLanguageEnum.XPath;
+      return FormulasLanguageEnum.XPath
     case FormulasLanguages.VTL:
     default:
-      return FormulasLanguageEnum.VTL;
+      return FormulasLanguageEnum.VTL
   }
 }

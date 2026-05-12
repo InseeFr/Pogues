@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
+import { render } from '@testing-library/react'
 
-import DeleteIcon from './DeleteIcon';
+import DeleteIcon from './DeleteIcon'
 
 it('DeleteIcon renders correctly', () => {
-  const { asFragment } = render(<DeleteIcon />);
-  expect(asFragment()).toMatchSnapshot();
-});
+  const { asFragment } = render(<DeleteIcon />)
+  expect(asFragment()).toMatchSnapshot()
+})

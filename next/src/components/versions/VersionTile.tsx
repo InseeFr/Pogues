@@ -1,20 +1,20 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-import ButtonLink from '@/components/ui/ButtonLink';
-import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon';
-import type { Version } from '@/models/version';
+import ButtonLink from '@/components/ui/ButtonLink'
+import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon'
+import type { Version } from '@/models/version'
 import {
   computeDateFromNow,
   computeDayFromDate,
   computeFullDateFromDate,
   computeTimeFromDate,
-} from '@/utils/date';
+} from '@/utils/date'
 
-const trombiUrl = import.meta.env.VITE_TROMBI_URL;
+const trombiUrl = import.meta.env.VITE_TROMBI_URL
 
 interface VersionsTileProps {
-  questionnaireId: string;
-  versions: Version[];
+  questionnaireId: string
+  versions: Version[]
 }
 
 /** Display versions as a table. */
@@ -22,7 +22,7 @@ export default function VersionTile({
   questionnaireId,
   versions,
 }: Readonly<VersionsTileProps>) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <table className="border border-default w-full shadow-sm">
@@ -74,5 +74,5 @@ export default function VersionTile({
         ))}
       </tbody>
     </table>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { articulationVariablesQueryOptions } from '@/api/articulation';
-import CreateArticulation from '@/components/articulation/create/CreateArticulation';
-import CreateArticulationLayout from '@/components/articulation/create/CreateArticulationLayout';
-import ErrorComponent from '@/components/layout/ErrorComponent';
+import { articulationVariablesQueryOptions } from '@/api/articulation'
+import CreateArticulation from '@/components/articulation/create/CreateArticulation'
+import CreateArticulationLayout from '@/components/articulation/create/CreateArticulationLayout'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 
 /**
  * Page for creating an articulation for a questionnaire.
@@ -22,13 +22,13 @@ export const Route = createFileRoute(
     queryClient.ensureQueryData(
       articulationVariablesQueryOptions(questionnaireId),
     ),
-});
+})
 
 function RouteComponent() {
-  const questionnaireId = Route.useParams().questionnaireId;
+  const questionnaireId = Route.useParams().questionnaireId
   const { data: variables } = useSuspenseQuery(
     articulationVariablesQueryOptions(questionnaireId),
-  );
+  )
 
   return (
     <CreateArticulationLayout>
@@ -37,5 +37,5 @@ function RouteComponent() {
         variables={variables}
       />
     </CreateArticulationLayout>
-  );
+  )
 }

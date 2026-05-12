@@ -1,6 +1,6 @@
 type Props = {
-  value: string;
-};
+  value: string
+}
 
 export default function InlineCode({ value }: Readonly<Props>) {
   return (
@@ -9,5 +9,5 @@ export default function InlineCode({ value }: Readonly<Props>) {
         {value}
       </code>
     </div>
-  );
+  )
 }

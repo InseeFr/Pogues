@@ -1,23 +1,23 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
-import Form from '@/components/ui/form/Form';
-import VTLEditor from '@/components/ui/form/VTLEditor';
+import Form from '@/components/ui/form/Form'
+import VTLEditor from '@/components/ui/form/VTLEditor'
 import {
   type ArticulationItems,
   defaultArticulationItems,
-} from '@/models/articulation';
-import type { Variable } from '@/models/variables';
+} from '@/models/articulation'
+import type { Variable } from '@/models/variables'
 
-import ArticulationVariableLabel from '../ArticulationVariableLabel';
-import { type FormValues, schema } from './schema';
+import ArticulationVariableLabel from '../ArticulationVariableLabel'
+import { type FormValues, schema } from './schema'
 
 interface ArticulationFormProps {
-  questionnaireId: string;
-  articulationItems?: ArticulationItems;
-  variables?: Variable[];
-  onSubmit: SubmitHandler<FormValues>;
+  questionnaireId: string
+  articulationItems?: ArticulationItems
+  variables?: Variable[]
+  onSubmit: SubmitHandler<FormValues>
 }
 
 export default function ArticulationForm({
@@ -26,7 +26,7 @@ export default function ArticulationForm({
   variables = [],
   onSubmit,
 }: Readonly<ArticulationFormProps>) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const {
     control,
@@ -38,15 +38,15 @@ export default function ArticulationForm({
     resolver: zodResolver(schema),
     defaultValues: { items: defaultArticulationItems },
     values: { items: articulationItems },
-  });
+  })
 
   const handleCancel = () => {
     navigate({
       to: '/questionnaire/$questionnaireId/articulation',
       params: { questionnaireId },
       ignoreBlocker: true,
-    });
-  };
+    })
+  }
 
   return (
     <Form
@@ -82,5 +82,5 @@ export default function ArticulationForm({
         />
       ))}
     </Form>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import { fireEvent, waitFor } from '@testing-library/react';
-import toast from 'react-hot-toast';
+import { fireEvent, waitFor } from '@testing-library/react'
+import toast from 'react-hot-toast'
 
-import { getPdfRecapOfInterrogation } from '@/api/personalization';
-import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire';
-import { renderWithRouter } from '@/testing/render';
+import { getPdfRecapOfInterrogation } from '@/api/personalization'
+import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire'
+import { renderWithRouter } from '@/testing/render'
 
-import ModeOverview from './ModeOverview';
+import ModeOverview from './ModeOverview'
 
 const interrogationData: InterrogationModeDataResponse = {
   CAWI: [
@@ -34,82 +34,82 @@ const interrogationData: InterrogationModeDataResponse = {
   ],
   PAPI: [],
   CAPI: [],
-} as InterrogationModeDataResponse;
+} as InterrogationModeDataResponse
 
 vi.mock('@/api/personalization', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@/api/personalization')>();
+  const actual = await importOriginal<typeof import('@/api/personalization')>()
 
   return {
     ...actual,
     getPdfRecapOfInterrogation: vi.fn(() => Promise.resolve()),
-  };
-});
+  }
+})
 
 vi.mock('react-hot-toast', () => ({
   __esModule: true,
   default: { error: vi.fn(), promise: vi.fn(), success: vi.fn() },
-}));
+}))
 
 describe('ModeOverview', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-  });
+    vi.clearAllMocks()
+  })
 
   it('renders table headers for web modes only', async () => {
     const { getByText, container } = await renderWithRouter(
       <ModeOverview interrogationData={interrogationData} />,
-    );
+    )
 
-    expect(getByText('ID')).toBeInTheDocument();
-    expect(getByText('CAWI')).toBeInTheDocument();
-    const headerRow = container.querySelector('thead tr');
-    expect(headerRow?.querySelectorAll('th')).toHaveLength(3);
-  });
+    expect(getByText('ID')).toBeInTheDocument()
+    expect(getByText('CAWI')).toBeInTheDocument()
+    const headerRow = container.querySelector('thead tr')
+    expect(headerRow?.querySelectorAll('th')).toHaveLength(3)
+  })
 
   it('renders a row for each unique displayableId', async () => {
     const { getByText } = await renderWithRouter(
       <ModeOverview interrogationData={interrogationData} />,
-    );
-    expect(getByText('1')).toBeInTheDocument();
-    expect(getByText('2')).toBeInTheDocument();
-  });
+    )
+    expect(getByText('1')).toBeInTheDocument()
+    expect(getByText('2')).toBeInTheDocument()
+  })
 
   it('renders links for available URLs', async () => {
     const { getAllByRole } = await renderWithRouter(
       <ModeOverview interrogationData={interrogationData} />,
-    );
+    )
 
-    const links = getAllByRole('link');
-    expect(links).toHaveLength(4);
-    expect(links[0]).toHaveAttribute('href', 'https://visu.com/milk');
-    expect(links[1]).toHaveAttribute('href', 'https://visu.com/tea');
-  });
+    const links = getAllByRole('link')
+    expect(links).toHaveLength(4)
+    expect(links[0]).toHaveAttribute('href', 'https://visu.com/milk')
+    expect(links[1]).toHaveAttribute('href', 'https://visu.com/tea')
+  })
 
   it('renders button for Download pdf', async () => {
     const { getAllByTitle } = await renderWithRouter(
       <ModeOverview interrogationData={interrogationData} />,
-    );
+    )
 
-    const buttons = getAllByTitle('Download PDF data summary');
-    expect(buttons).toHaveLength(2);
-    const downloadPdfBtn = buttons[1];
-    expect(downloadPdfBtn).toHaveAttribute('type', 'button');
-  });
+    const buttons = getAllByTitle('Download PDF data summary')
+    expect(buttons).toHaveLength(2)
+    const downloadPdfBtn = buttons[1]
+    expect(downloadPdfBtn).toHaveAttribute('type', 'button')
+  })
 
   it('should download PDF when clicking on button', async () => {
     const { getAllByRole } = await renderWithRouter(
       <ModeOverview interrogationData={interrogationData} />,
-    );
+    )
 
-    const buttons = getAllByRole('button');
-    const downloadPdfBtn = buttons[1];
+    const buttons = getAllByRole('button')
+    const downloadPdfBtn = buttons[1]
 
-    fireEvent.click(downloadPdfBtn);
+    fireEvent.click(downloadPdfBtn)
 
     await waitFor(() => {
-      expect(getPdfRecapOfInterrogation).toHaveBeenCalled();
-    });
+      expect(getPdfRecapOfInterrogation).toHaveBeenCalled()
+    })
 
-    expect(toast.promise).toHaveBeenCalled();
-  });
-});
+    expect(toast.promise).toHaveBeenCalled()
+  })
+})

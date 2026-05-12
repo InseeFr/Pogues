@@ -1,14 +1,14 @@
-import { Link, useMatchRoute } from '@tanstack/react-router';
+import { Link, useMatchRoute } from '@tanstack/react-router'
 
 type Props = {
-  innerPaths?: string[];
-  isDisabled?: boolean;
-  isHidden?: boolean;
-  label: string;
-  path: string;
-  questionnaireId?: string;
-  versionId?: string;
-};
+  innerPaths?: string[]
+  isDisabled?: boolean
+  isHidden?: boolean
+  label: string
+  path: string
+  questionnaireId?: string
+  versionId?: string
+}
 
 /** Display the provided navigation item as a clickable label. */
 export default function SidebarSubmenuItem({
@@ -20,9 +20,9 @@ export default function SidebarSubmenuItem({
   questionnaireId,
   versionId,
 }: Readonly<Props>) {
-  const matchRoute = useMatchRoute();
+  const matchRoute = useMatchRoute()
 
-  if (isHidden) return null;
+  if (isHidden) return null
 
   return (
     <li>
@@ -44,5 +44,5 @@ export default function SidebarSubmenuItem({
         </div>
       </Link>
     </li>
-  );
+  )
 }
