@@ -13,12 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           package_json_file: "package.json"
       - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "pnpm"
       - name: Install next dependencies
         run: cd next && pnpm i --frozen-lockfile
@@ -26,7 +26,7 @@ jobs:
         run: cd legacy && pnpm i --frozen-lockfile
       - name: Build global app
         run: pnpm build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pogues
           path: dist
@@ -41,7 +41,7 @@ jobs:
       is_version_changed: ${{ steps.check.outputs.exists == 'false' }}
       is_pre_release: ${{ contains(steps.version.outputs.prop, '-rc' ) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - id: version
         uses: notiz-dev/github-action-json-property@release
         with:
@@ -60,18 +60,18 @@ jobs:
       needs.check_if_version_upgraded.outputs.is_version_changed == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
+      - uses: actions/checkout@v6
+      - uses: docker/setup-qemu-action@v4
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: pogues
           path: dist
-      - uses: docker/build-push-action@v6
+      - uses: docker/build-push-action@v7
         with:
           platforms: linux/amd64,linux/arm64
           context: "."
@@ -89,16 +89,16 @@ jobs:
       (github.event_name == 'push' || needs.check_if_version_upgraded.outputs.is_pre_release == 'true') && 
       needs.check_if_version_upgraded.outputs.is_version_changed == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.ref }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: pogues
           path: dist
       - name: Zip bundle
         run: cd dist && zip -r ../pogues.zip ./*
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           name: Release ${{ needs.check_if_version_upgraded.outputs.version }}
           tag_name: ${{ needs.check_if_version_upgraded.outputs.version }}
