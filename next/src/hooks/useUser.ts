@@ -14,7 +14,6 @@ export function useUser(): User | undefined {
     givenName: decodedIdToken?.given_name,
     familyName: decodedIdToken?.family_name,
     stamp: decodedIdToken?.timbre ?? DEFAULT_STAMP,
-    roles: decodedIdToken?.realm_access.roles,
   }
 
   return user
