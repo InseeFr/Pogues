@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Import codes list from a CSV file when creating or editing a codes list.
 
+## [3.1.2](https://github.com/InseeFr/Pogues/releases/tag/3.1.2) - 2026-05-18
+
+### Fixed
+
+- fix regression cause in oidc (retrieve `roles`)
+
+## [3.1.1](https://github.com/InseeFr/Pogues/releases/tag/3.1.1) - 2026-05-18
+
+### Fixed
+
+- oidc: remove `roles` from `idToken` shape validation, we can retrive roles from `accessToken` instead.
+
+## [3.1.0](https://github.com/InseeFr/Pogues/releases/tag/3.1.0) - 2026-05-13
+
 ### Fixed
 
 - Questionnaire loading no longer crash when a question uses a code list (or nomenclature) that does not exist anymore. It could happen when an existing question used a previous version of a nomenclature.
