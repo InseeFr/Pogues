@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.1](https://github.com/InseeFr/Pogues/releases/tag/3.1.0) - 2026-05-18
+
+### Fixed
+
+- oidc: remove `roles` from `idToken` shape validation, we can retrive roles from `accessToken` instead.
+
 ## [3.1.0](https://github.com/InseeFr/Pogues/releases/tag/3.1.0) - 2026-05-13
 
 ### Fixed
