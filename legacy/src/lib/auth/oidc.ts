@@ -13,9 +13,6 @@ const decodedIdTokenSchema = z.object({
   family_name: z.string().optional(),
   given_name: z.string(),
   timbre: z.string().nullish(), // timbre can be not defined (undefined or null) in case of "external" user
-  realm_access: z.object({
-    roles: z.array(z.string()),
-  }),
 });
 
 export type DecodedIdTokenType =
@@ -48,9 +45,6 @@ await bootstrapOidc(
           given_name: import.meta.env.VITE_DEFAULT_USER_NAME ?? 'Guybrush',
           family_name: '',
           timbre: 'FAKEPERMISSION',
-          realm_access: {
-            roles: ['user'],
-          },
         },
       },
 );

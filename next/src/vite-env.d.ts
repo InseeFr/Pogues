@@ -14,7 +14,6 @@ export type ImportMetaEnv = {
   VITE_ENABLE_MULTIMODE_PAGE: string
   VITE_ENABLE_DOWNLOAD_PDF_PERSO: string
   VITE_ENABLE_PAIRING_RECAP: string
-  VITE_POGUES_LEGACY: string
   BASE_URL: string
   MODE: string
   DEV: boolean
