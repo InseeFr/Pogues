@@ -18,7 +18,7 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => (
     <EditPersonalizationLayout>
-      <ErrorComponent error={error.message} />
+      <ErrorComponent error={error} />
     </EditPersonalizationLayout>
   ),
   loader: async ({

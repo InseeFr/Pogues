@@ -52,7 +52,7 @@ function RouteComponent() {
 function ErrorComponent({ error }: Readonly<{ error: Error }>) {
   return (
     <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
+      <ErrorComponent error={error} />
     </ComponentWrapper>
   )
 }

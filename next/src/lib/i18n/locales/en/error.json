@@ -1,3 +1,35 @@
 {
-  "boundary": "An error occurred, if the problem persists, please contact support."
+  "boundary": "An error occurred, if the problem persists, please contact support.",
+  "backToHome": "Back to home",
+  "code": "Error {{code}}",
+  "resourceNotFound": {
+    "title": "Page not found",
+    "subtitle": "The page you are looking for does not exist or has been moved.",
+    "paragraph": "Check the address or go back to the home page."
+  },
+  "unauthorized": {
+    "title": "Unauthorized",
+    "subtitle": "You need to be logged in to access this page.",
+    "paragraph": "Please log in and try again."
+  },
+  "forbidden": {
+    "title": "Access denied",
+    "subtitle": "You do not have permission to access this page.",
+    "paragraph": "If you think this is a mistake, please contact support."
+  },
+  "badRequest": {
+    "title": "Bad request",
+    "subtitle": "The request sent was invalid.",
+    "paragraph": "Check your input and try again."
+  },
+  "serverError": {
+    "title": "Server error",
+    "subtitle": "Something went wrong on our end.",
+    "paragraph": "If the problem persists, please contact support."
+  },
+  "unhandledError": {
+    "title": "Unexpected error",
+    "subtitle": "Something went wrong.",
+    "paragraph": "If the problem persists, please contact support."
+  }
 }

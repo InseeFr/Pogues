@@ -22,5 +22,5 @@ export default function MultimodeOverviewErrorComponent({
   const { t } = useTranslation()
   const errorMessage = computeErrorMessage(error, t)
 
-  return <ErrorComponent error={errorMessage} />
+  return <ErrorComponent error={error} customMessage={errorMessage} />
 }

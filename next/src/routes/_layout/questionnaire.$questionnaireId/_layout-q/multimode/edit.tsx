@@ -19,7 +19,7 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => (
     <EditMultimodeLayout>
-      <ErrorComponent error={error.message} />
+      <ErrorComponent error={error} />
     </EditMultimodeLayout>
   ),
   loader: async ({
