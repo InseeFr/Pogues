@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { versionsQueryOptions } from '@/api/versions'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 import VersionsOverview from '@/components/versions/VersionsOverview'
 import VersionsOverviewLayout from '@/components/versions/VersionsOverviewLayout'
 import { type Version } from '@/models/version'
@@ -14,6 +15,11 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/versions',
 )({
   component: RouteComponent,
+  errorComponent: ({ error }) => (
+    <VersionsOverviewLayout>
+      <ErrorComponent error={error} />
+    </VersionsOverviewLayout>
+  ),
   loader: async ({
     context: { queryClient, t },
     params: { questionnaireId },
