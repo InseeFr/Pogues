@@ -15,7 +15,7 @@
   "forbidden": {
     "title": "Access denied",
     "subtitle": "You do not have permission to access this page.",
-    "paragraph": "If you think this is a mistake, please contact support."
+    "paragraph": "If you think this is a mistake, please contact support at the following address:"
   },
   "badRequest": {
     "title": "Bad request",

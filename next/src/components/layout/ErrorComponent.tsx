@@ -19,6 +19,7 @@ type ErrorInfo = {
   title: string
   subtitle: string
   paragraph: string
+  showContactEmail?: boolean
 }
 
 const isLegacyPoguesApiError = (error: unknown): error is LegacyPoguesError => {
@@ -60,6 +61,7 @@ function getErrorInfo(error: Error, t: TFunction): ErrorInfo {
           subtitle: t('error.forbidden.subtitle'),
           paragraph: t('error.forbidden.paragraph'),
           code: status,
+          showContactEmail: true,
         }
       case 400:
         return {
@@ -97,7 +99,11 @@ export default function ErrorComponent({
   customMessage,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const { code, title, subtitle, paragraph } = getErrorInfo(error, t)
+  const { code, title, subtitle, paragraph, showContactEmail } = getErrorInfo(
+    error,
+    t,
+  )
+  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL as string | undefined
   return (
     <div className="flex items-center justify-center p-4 bg-main">
       <div className="flex flex-col lg:flex-row items-center gap-12 max-w-4xl w-full">
@@ -111,7 +117,17 @@ export default function ErrorComponent({
                 {t('error.code', { code })}
               </span>
               <p className="mt-6 text-lg font-semibold">{subtitle}</p>
-              <p className="mt-6">{paragraph}</p>
+              <p className="mt-6">
+                {paragraph}
+                {showContactEmail && contactEmail && (
+                  <>
+                    {' '}
+                    <a href={`mailto:${contactEmail}`} className="underline">
+                      {contactEmail}
+                    </a>
+                  </>
+                )}
+              </p>
             </>
           )}
 
