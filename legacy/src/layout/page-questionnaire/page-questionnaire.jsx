@@ -6,7 +6,6 @@ import { AuthContext } from '@/auth/context';
 
 import { GenericInput } from '../generic-input';
 import Loader from '../loader';
-import LoaderError from '../loader-error';
 import { QuestionnaireListComponents } from '../questionnaire-list-components';
 import { QuestionnaireNav } from '../questionnaire-nav';
 
@@ -129,12 +128,16 @@ const PageQuestionnaire = (props) => {
     getAccessToken,
   ]);
 
+  if (loadingError) {
+    // throw error, it will be handled by next app
+    throw loadingError;
+  }
+
   return (
     <div id="page-questionnaire">
       {loadingError ? (
         <div>
           <QuestionnaireNav />
-          <LoaderError message={loadingError} />
         </div>
       ) : loading ? (
         <Loader />
