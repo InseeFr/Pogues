@@ -18,7 +18,7 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => (
     <EditArticulationLayout>
-      <ErrorComponent error={error.message} />
+      <ErrorComponent error={error} />
     </EditArticulationLayout>
   ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {

@@ -19,7 +19,7 @@ export const Route = createFileRoute(
   component: RouteComponent,
   errorComponent: ({ error }) => (
     <CreatePersonalizationLayout>
-      <ErrorComponent error={error.message} />
+      <ErrorComponent error={error} />
     </CreatePersonalizationLayout>
   ),
   loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
