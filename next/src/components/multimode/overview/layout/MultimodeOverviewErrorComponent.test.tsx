@@ -2,16 +2,16 @@ import {
   makeAPIErrorWithErrorCode,
   makeAPIErrorWithNoErrorCode,
 } from '@/testing/api'
-import { renderWithI18n } from '@/testing/render'
+import { renderWithRouter } from '@/testing/render'
 
 import MultimodeOverviewErrorComponent from './MultimodeOverviewErrorComponent'
 
 describe('MultimodeOverviewErrorComponent', () => {
-  it('displays custom error when questionnaire language formula is not VTL', () => {
+  it('displays custom error when questionnaire language formula is not VTL', async () => {
     const error = makeAPIErrorWithErrorCode(
       'questionnaire:formulalanguage:notvtl',
     )
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <MultimodeOverviewErrorComponent error={error} />,
     )
 
@@ -22,9 +22,9 @@ describe('MultimodeOverviewErrorComponent', () => {
     ).toBeInTheDocument()
   })
 
-  it('displays generic error when no code is returned by the API', () => {
+  it('displays generic error when no code is returned by the API', async () => {
     const error = makeAPIErrorWithNoErrorCode()
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <MultimodeOverviewErrorComponent error={error} />,
     )
 
