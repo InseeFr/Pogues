@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next'
 import ButtonLink from '@/components/ui/ButtonLink'
 
 type Props = {
-  error: Error
+  error: Error | LegacyPoguesError
   customMessage?: string
+}
+
+export type LegacyPoguesError = Error & {
+  statusCode: number
+  message: string
 }
 
 type ErrorInfo = {
@@ -16,9 +21,24 @@ type ErrorInfo = {
   paragraph: string
 }
 
+const isLegacyPoguesApiError = (error: unknown): error is LegacyPoguesError => {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'statusCode' in error &&
+    'message' in error
+  )
+}
+
+const retrieveStatusError = (error: Error) => {
+  if (isAxiosError(error)) return error.response?.status
+  if (isLegacyPoguesApiError(error)) return error.statusCode
+  return 0
+}
+
 function getErrorInfo(error: Error, t: TFunction): ErrorInfo {
-  if (isAxiosError(error)) {
-    const status = error.response?.status
+  if (isAxiosError(error) || isLegacyPoguesApiError(error)) {
+    const status = retrieveStatusError(error)
     switch (status) {
       case 404:
         return {
