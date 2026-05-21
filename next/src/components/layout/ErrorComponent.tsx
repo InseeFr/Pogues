@@ -73,7 +73,10 @@ function getErrorInfo(error: Error, t: TFunction): ErrorInfo {
   }
 }
 
-export default function Error({ error, customMessage }: Readonly<Props>) {
+export default function ErrorComponent({
+  error,
+  customMessage,
+}: Readonly<Props>) {
   const { t } = useTranslation()
   const { code, title, subtitle, paragraph } = getErrorInfo(error, t)
   return (
