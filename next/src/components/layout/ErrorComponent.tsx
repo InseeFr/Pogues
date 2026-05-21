@@ -19,7 +19,6 @@ type ErrorInfo = {
 function getErrorInfo(error: Error, t: TFunction): ErrorInfo {
   if (isAxiosError(error)) {
     const status = error.response?.status
-    console.log('Error status: ', status)
     switch (status) {
       case 404:
         return {
