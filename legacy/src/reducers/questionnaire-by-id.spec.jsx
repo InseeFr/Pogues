@@ -8,7 +8,6 @@ import {
   LOAD_QUESTIONNAIRE_SUCCESS,
 } from '../actions/questionnaire';
 import { HttpResponseError } from '../api/errors/httpError';
-import Dictionary from '../utils/dictionary/dictionary';
 import reducer from './questionnaire-by-id';
 
 describe('questionnaire-by-id reducer', () => {
@@ -57,7 +56,7 @@ describe('questionnaire-by-id reducer', () => {
       ),
     ).toEqual({
       loader: false,
-      loadingError: `${Dictionary.pageSearchNoResultsForId} 1.`,
+      loadingError: new HttpResponseError(404, 'Not Found'),
     });
   });
 
@@ -75,7 +74,7 @@ describe('questionnaire-by-id reducer', () => {
       ),
     ).toEqual({
       loader: false,
-      loadingError: `${Dictionary.errorMessageQuest}.`,
+      loadingError: new HttpResponseError(500, 'Unknown error'),
     });
   });
 
