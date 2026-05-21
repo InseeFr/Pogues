@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0](https://github.com/InseeFr/Pogues/releases/tag/3.2.0) - 2026-05-21
+
 #### Added
 
 - Added error component to display user-friendy error messages
