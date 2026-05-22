@@ -15,6 +15,10 @@ function mockAxiosError(status: number) {
 }
 
 describe('ErrorComponent', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs()
+  })
+
   it('displays 404 error info', async () => {
     const { getByRole, getByText } = await renderWithRouter(
       <ErrorComponent error={mockAxiosError(404)} />,
@@ -242,5 +246,35 @@ describe('ErrorComponent', () => {
 
     expect(getByRole('heading', { name: 'Server error' })).toBeInTheDocument()
     expect(getByText('Error 500')).toBeInTheDocument()
+  })
+
+  it('displays a mailto link when error requires contact', async () => {
+    vi.stubEnv('VITE_CONTACT_EMAIL', 'support@example.com')
+    const { getByRole } = await renderWithRouter(
+      <ErrorComponent error={mockAxiosError(403)} />,
+    )
+
+    const emailLink = getByRole('link', { name: 'support@example.com' })
+    expect(emailLink).toBeInTheDocument()
+    expect(emailLink).toHaveAttribute('href', 'mailto:support@example.com')
+  })
+
+  it('does not display a mailto link when error requires contact but the env var is not set', async () => {
+    const { queryByRole } = await renderWithRouter(
+      <ErrorComponent error={mockAxiosError(403)} />,
+    )
+
+    expect(queryByRole('link', { name: /support@/ })).not.toBeInTheDocument()
+  })
+
+  it('does not display a mailto link for errors that do not require contact', async () => {
+    vi.stubEnv('VITE_CONTACT_EMAIL', 'support@example.com')
+    const { queryByRole } = await renderWithRouter(
+      <ErrorComponent error={mockAxiosError(404)} />,
+    )
+
+    expect(
+      queryByRole('link', { name: 'support@example.com' }),
+    ).not.toBeInTheDocument()
   })
 })

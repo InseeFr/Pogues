@@ -15,7 +15,7 @@
   "forbidden": {
     "title": "Accès refusé",
     "subtitle": "Vous n'avez pas les droits pour accéder à cette page.",
-    "paragraph": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'assistance."
+    "paragraph": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'assistance à l'adresse suivante :"
   },
   "badRequest": {
     "title": "Requête invalide",
