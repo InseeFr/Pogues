@@ -4,6 +4,8 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { useUser } from '@/hooks/useUser'
 import i18next from '@/lib/i18n'
 
+import ErrorComponent from './components/layout/ErrorComponent'
+import Layout from './components/layout/Layout'
 import { routeTree } from './routeTree.gen'
 
 const queryClient = new QueryClient()
@@ -17,6 +19,13 @@ const router = createRouter({
   // This will ensure that the loader is always called when the route is preloaded or visited
   defaultPreloadStaleTime: 0,
   context: { queryClient, t: i18next.t, user: undefined },
+  defaultNotFoundComponent: () => (
+    <Layout>
+      <ErrorComponent
+        error={{ statusCode: 404, message: 'Not found', name: '' }}
+      />
+    </Layout>
+  ),
 })
 
 // Register the router instance for type safety
