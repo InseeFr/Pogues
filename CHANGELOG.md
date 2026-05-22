@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.2](https://github.com/InseeFr/Pogues/releases/tag/3.2.2) - 2026-05-22
+
+#### Added
+
+- Default not found page
+
 ## [3.2.1](https://github.com/InseeFr/Pogues/releases/tag/3.2.1) - 2026-05-22
 
 #### Added
