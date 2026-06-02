@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import i18next from '../../../../lib/i18n'
-import { validateCodeListCsvFile } from './csvValidation'
+import {
+  convertCsvToFormValues,
+  validateCodeListCsvFile,
+} from './csvValidation'
 
 vi.mock('../../../../lib/i18n', () => ({
   default: {
@@ -54,5 +57,32 @@ describe('csvValidation', () => {
     expect(result.data).toBeDefined()
     expect(result.hasHeader).toBe(false)
     expect(result.error).toBeUndefined()
+  })
+
+  it('should convert parsed CSV data to FormValues format', () => {
+    const parsedData = {
+      data: [
+        ['code1', 'label1'],
+        ['code2', 'label2'],
+      ],
+      errors: [],
+      meta: {
+        delimiter: ',',
+        linebreak: '\n',
+        aborted: false,
+        truncated: false,
+        cursor: 0,
+      },
+    }
+
+    const result = convertCsvToFormValues(parsedData, false)
+
+    expect(result).toEqual({
+      label: '',
+      codes: [
+        { value: 'code1', label: 'label1' },
+        { value: 'code2', label: 'label2' },
+      ],
+    })
   })
 })
