@@ -45,7 +45,7 @@ export function getCollectedVariablesMultiple(
       codeListReference: form[MEASURE][CODES_LIST].CodesList.id,
       codeListReferenceLabel: form[MEASURE][CODES_LIST].CodesList.label,
       type: TEXT,
-      [TEXT]: { maxLength: 1 },
+      [TEXT]: { maxLength: 249 },
     };
   } else {
     reponseFormatValues = {

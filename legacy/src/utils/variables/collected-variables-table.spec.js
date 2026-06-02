@@ -393,7 +393,7 @@ describe('getReponsesValues', () => {
       variableReferenceLabel: '',
       choiceType: 'CODE_LIST',
       type: 'TEXT',
-      TEXT: { maxLength: 1 },
+      TEXT: { maxLength: 249 },
     };
 
     expect(getReponsesValues(measure)).toEqual(output);
@@ -433,7 +433,7 @@ describe('getReponsesValues', () => {
       variableReferenceLabel: 'my-variable-label',
       choiceType: 'VARIABLE',
       type: 'TEXT',
-      TEXT: { maxLength: 1 },
+      TEXT: { maxLength: 249 },
     };
 
     expect(getReponsesValues(measure)).toEqual(output);
@@ -467,7 +467,7 @@ describe('getReponsesValues', () => {
       variableReferenceLabel: '',
       choiceType: 'CODE_LIST',
       type: 'TEXT',
-      TEXT: { maxLength: 1 },
+      TEXT: { maxLength: 249 },
     };
 
     expect(getReponsesValues(measure)).toEqual(output);
