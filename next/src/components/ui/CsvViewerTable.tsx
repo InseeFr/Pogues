@@ -3,12 +3,14 @@ import { ParseResult } from 'papaparse'
 interface CsvViewerTableProps {
   parsedCsv: ParseResult<unknown>
   hasHeader?: boolean
+  defaultHeader?: string[]
 }
 
 /** Display uploaded csv file as a table. */
 export default function CsvViewerTable({
   parsedCsv,
   hasHeader = false,
+  defaultHeader = [],
 }: Readonly<CsvViewerTableProps>) {
   const metaFields = parsedCsv.meta?.fields
   const isObjectRows = metaFields && metaFields.length > 0
@@ -20,7 +22,7 @@ export default function CsvViewerTable({
     if (hasHeader) {
       return (parsedCsv.data as string[][])[0]
     }
-    return ['Code', 'Label']
+    return defaultHeader
   }
 
   const getRows = (): string[][] => {

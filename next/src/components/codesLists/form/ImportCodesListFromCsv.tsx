@@ -11,7 +11,7 @@ import {
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
 import UploadMessageTile from '@/components/ui/UploadMessageTile'
-import FormInput from '@/components/ui/form/FormInput'
+import Input from '@/components/ui/form/Input'
 
 import { type FormValues } from '../form/schema'
 
@@ -31,6 +31,7 @@ export default function ImportCodesListFromCsv({
     null,
   )
   const [hasHeader, setHasHeader] = useState(false)
+  const [linesCount, setLinesCount] = useState(0)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileUpload = async (
@@ -58,6 +59,11 @@ export default function ImportCodesListFromCsv({
       if (validationResult.data) {
         setParsedData(validationResult.data)
         setHasHeader(validationResult.hasHeader ?? false)
+        setLinesCount(
+          validationResult.hasHeader
+            ? validationResult.data.data.length - 1
+            : validationResult.data.data.length,
+        )
       }
     } catch (error) {
       setIsLoading(false)
@@ -110,7 +116,7 @@ export default function ImportCodesListFromCsv({
 
       <div className="space-y-4">
         <div className="space-y-2">
-          <FormInput
+          <Input
             type="file"
             ref={fileInputRef}
             style={{ display: 'none' }}
@@ -129,7 +135,7 @@ export default function ImportCodesListFromCsv({
           {parsedData?.data && (
             <span className="text-sm text-gray-600 ml-2">
               {t('codesList.import.fileSelected', {
-                count: parsedData.data.length,
+                count: linesCount,
               })}
             </span>
           )}
@@ -148,6 +154,7 @@ export default function ImportCodesListFromCsv({
             data-testid="csv-viewer-table"
             parsedCsv={parsedData}
             hasHeader={hasHeader}
+            defaultHeader={['Code', 'Label']}
           />
         )}
 

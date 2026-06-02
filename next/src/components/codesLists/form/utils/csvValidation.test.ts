@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import i18next from '../../../../lib/i18n'
 import { validateCodeListCsvFile } from './csvValidation'
 
-vi.mock('../lib/i18n', () => ({
+vi.mock('../../../../lib/i18n', () => ({
   default: {
     t: vi.fn((key) => {
       const translations: Record<string, string> = {

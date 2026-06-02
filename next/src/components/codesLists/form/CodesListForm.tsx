@@ -77,7 +77,7 @@ export default function CodesListForm({
     trigger,
     watch,
     getValues,
-    reset,
+    setValue,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -116,17 +116,17 @@ export default function CodesListForm({
 
       const uniqueCodes = Array.from(uniqueCodesMap.values())
 
-      reset({
-        label: currentValues.label || importedFormValues.label,
-        codes:
-          uniqueCodes.length > 0
-            ? uniqueCodes
-            : [{ label: '', value: '', codes: [] }],
-      })
+      setValue('label', currentValues.label || importedFormValues.label)
+      setValue(
+        'codes',
+        uniqueCodes.length > 0
+          ? uniqueCodes
+          : [{ label: '', value: '', codes: [] }],
+      )
 
       setShowCsvImport(false)
     },
-    [getValues, reset],
+    [getValues, setValue],
   )
 
   const handleCancel = () => {

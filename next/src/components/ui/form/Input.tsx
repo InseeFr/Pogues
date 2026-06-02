@@ -1,5 +1,7 @@
 import { Input as BaseUIInput } from '@base-ui-components/react/input'
 
+import React from 'react'
+
 type Props = {
   autoFocus?: boolean
   /** Default value. Use `value` if controlled. */
@@ -14,23 +16,22 @@ type Props = {
   value?: BaseUIInput.Props['value']
   /** Callback fired when the value changes. Use when controlled. */
   onValueChange?: BaseUIInput.Props['onValueChange']
-}
+} & React.InputHTMLAttributes<HTMLInputElement>
 
-export default function Input({
-  autoFocus,
-  defaultValue,
-  placeholder,
-  value,
-  onValueChange,
-}: Readonly<Props>) {
+export default React.forwardRef<HTMLInputElement, Props>(function Input(
+  { autoFocus, defaultValue, placeholder, value, onValueChange, ...props },
+  ref,
+) {
   return (
     <BaseUIInput
+      ref={ref}
       autoFocus={autoFocus}
       className="w-full text-sm font-sans font-normal p-4 rounded-lg shadow-xs border border-default hover:enabled:border-primary focus:enabled:border-primary bg-default text-default placeholder:text-placeholder disabled:text-disabled disabled:bg-disabled focus-visible:outline focus-visible:outline-1 focus-visible:outline-primary"
       defaultValue={defaultValue}
       placeholder={placeholder}
       value={value}
       onValueChange={onValueChange}
+      {...props}
     />
   )
-}
+})
