@@ -14,7 +14,7 @@ vi.mock('react-hot-toast', () => ({
   default: { error: vi.fn(), success: vi.fn() },
 }))
 
-vi.mock('@/utils/csvValidation', () => ({
+vi.mock('@/components/codesLists/form/utils/csvValidation', () => ({
   validateCodeListCsvFile: vi.fn(),
   convertCsvToFormValues: vi.fn(),
 }))
