@@ -1,11 +1,144 @@
+import { isAxiosError } from 'axios'
+import { type TFunction } from 'i18next'
+import { useTranslation } from 'react-i18next'
+
+import ButtonLink from '@/components/ui/ButtonLink'
+
 type Props = {
-  error: string
+  error: Error | LegacyPoguesError
+  customMessage?: string
 }
 
-/**
- * Component that can be used in router to display an error instead of main
- * content. Wrap in page layout if needed.
- */
-export default function ErrorComponent({ error = '' }: Readonly<Props>) {
-  return <div className="text-error">{error}</div>
+export type LegacyPoguesError = Error & {
+  statusCode: number
+  message: string
+}
+
+type ErrorInfo = {
+  code?: number
+  title: string
+  subtitle: string
+  paragraph: string
+  showContactEmail?: boolean
+}
+
+const isLegacyPoguesApiError = (error: unknown): error is LegacyPoguesError => {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'statusCode' in error &&
+    'message' in error
+  )
+}
+
+const retrieveStatusError = (error: Error) => {
+  if (isAxiosError(error)) return error.response?.status
+  if (isLegacyPoguesApiError(error)) return error.statusCode
+  return 0
+}
+
+function getErrorInfo(error: Error, t: TFunction): ErrorInfo {
+  if (isAxiosError(error) || isLegacyPoguesApiError(error)) {
+    const status = retrieveStatusError(error)
+    switch (status) {
+      case 404:
+        return {
+          title: t('error.resourceNotFound.title'),
+          subtitle: t('error.resourceNotFound.subtitle'),
+          paragraph: t('error.resourceNotFound.paragraph'),
+          code: status,
+        }
+      case 401:
+        return {
+          title: t('error.unauthorized.title'),
+          subtitle: t('error.unauthorized.subtitle'),
+          paragraph: t('error.unauthorized.paragraph'),
+          code: status,
+        }
+      case 403:
+        return {
+          title: t('error.forbidden.title'),
+          subtitle: t('error.forbidden.subtitle'),
+          paragraph: t('error.forbidden.paragraph'),
+          code: status,
+          showContactEmail: true,
+        }
+      case 400:
+        return {
+          title: t('error.badRequest.title'),
+          subtitle: t('error.badRequest.subtitle'),
+          paragraph: t('error.badRequest.paragraph'),
+          code: status,
+        }
+      case 500:
+        return {
+          title: t('error.serverError.title'),
+          subtitle: t('error.serverError.subtitle'),
+          paragraph: t('error.serverError.paragraph'),
+          code: status,
+        }
+      default:
+        return {
+          title: t('error.unhandledError.title'),
+          subtitle: t('error.unhandledError.subtitle'),
+          paragraph: t('error.unhandledError.paragraph'),
+          code: status,
+        }
+    }
+  }
+  return {
+    title: t('error.serverError.title'),
+    subtitle: t('error.serverError.subtitle'),
+    paragraph: t('error.serverError.paragraph'),
+    code: 500,
+  }
+}
+
+export default function ErrorComponent({
+  error,
+  customMessage,
+}: Readonly<Props>) {
+  const { t } = useTranslation()
+  const { code, title, subtitle, paragraph, showContactEmail } = getErrorInfo(
+    error,
+    t,
+  )
+  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL as string | undefined
+  return (
+    <div className="flex items-center justify-center p-4 bg-main">
+      <div className="flex flex-col lg:flex-row items-center gap-12 max-w-4xl w-full">
+        <div className="flex-1 space-y-4">
+          <h1 className="text-3xl font-bold">{title}</h1>
+          {customMessage ? (
+            <p className="mt-6">{customMessage}</p>
+          ) : (
+            <>
+              <span className="text-secondary text-sm">
+                {t('error.code', { code })}
+              </span>
+              <p className="mt-6 text-lg font-semibold">{subtitle}</p>
+              <p className="mt-6">
+                {paragraph}
+                {showContactEmail && contactEmail && (
+                  <>
+                    {' '}
+                    <a href={`mailto:${contactEmail}`} className="underline">
+                      {contactEmail}
+                    </a>
+                  </>
+                )}
+              </p>
+            </>
+          )}
+
+          <div className="mt-8">
+            <ButtonLink to="/">{t('error.backToHome')}</ButtonLink>
+          </div>
+        </div>
+        <div className="lg:block w-72 shrink-0">
+          <img src="/LostPenguin.svg" alt="" aria-hidden="true" />
+        </div>
+      </div>
+    </div>
+  )
 }

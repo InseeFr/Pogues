@@ -2,16 +2,16 @@ import {
   makeAPIErrorWithErrorCode,
   makeAPIErrorWithNoErrorCode,
 } from '@/testing/api'
-import { renderWithI18n } from '@/testing/render'
+import { renderWithRouter } from '@/testing/render'
 
 import ArticulationOverviewErrorComponent from './ArticulationOverviewErrorComponent'
 
 describe('ArticulationOverviewErrorComponent', () => {
-  it('displays custom error when questionnaire language formula is not VTL', () => {
+  it('displays custom error when questionnaire language formula is not VTL', async () => {
     const error = makeAPIErrorWithErrorCode(
       'questionnaire:formulalanguage:notvtl',
     )
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <ArticulationOverviewErrorComponent error={error} />,
     )
 
@@ -22,9 +22,9 @@ describe('ArticulationOverviewErrorComponent', () => {
     ).toBeInTheDocument()
   })
 
-  it('displays custom error when questionnaire has no roundabouts', () => {
+  it('displays custom error when questionnaire has no roundabouts', async () => {
     const error = makeAPIErrorWithErrorCode('questionnaire:roundaboutnotfound')
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <ArticulationOverviewErrorComponent error={error} />,
     )
 
@@ -35,9 +35,9 @@ describe('ArticulationOverviewErrorComponent', () => {
     ).toBeInTheDocument()
   })
 
-  it('displays generic error when no code is returned by the API', () => {
+  it('displays generic error when no code is returned by the API', async () => {
     const error = makeAPIErrorWithNoErrorCode()
-    const { getByText } = renderWithI18n(
+    const { getByText } = await renderWithRouter(
       <ArticulationOverviewErrorComponent error={error} />,
     )
 

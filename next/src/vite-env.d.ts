@@ -6,6 +6,7 @@ export type ImportMetaEnv = {
   VITE_API_URL: string
   VITE_TROMBI_URL: string
   VITE_PERSONALIZATION_URL: string
+  VITE_CONTACT_EMAIL: string
   VITE_OIDC_ENABLED: string
   VITE_OIDC_ISSUER: string
   VITE_OIDC_CLIENT_ID: string

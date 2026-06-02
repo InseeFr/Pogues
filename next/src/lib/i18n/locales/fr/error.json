@@ -1,3 +1,35 @@
 {
-  "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance."
+  "boundary": "Un problème est survenu, si le problème persiste, veuillez contacter l'assistance.",
+  "backToHome": "Retour à l'accueil",
+  "code": "Erreur {{code}}",
+  "resourceNotFound": {
+    "title": "Page introuvable",
+    "subtitle": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "paragraph": "Vérifiez l'adresse saisie ou revenez à l'accueil."
+  },
+  "unauthorized": {
+    "title": "Non authentifié",
+    "subtitle": "Vous devez vous connecter pour accéder à cette page.",
+    "paragraph": "Veuillez vous connecter et réessayer."
+  },
+  "forbidden": {
+    "title": "Accès refusé",
+    "subtitle": "Vous n'avez pas les droits pour accéder à cette page.",
+    "paragraph": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'assistance à l'adresse suivante :"
+  },
+  "badRequest": {
+    "title": "Requête invalide",
+    "subtitle": "La requête envoyée est incorrecte.",
+    "paragraph": "Vérifiez les données saisies et réessayez."
+  },
+  "serverError": {
+    "title": "Erreur serveur",
+    "subtitle": "Un problème est survenu côté serveur.",
+    "paragraph": "Si le problème persiste, veuillez contacter l'assistance."
+  },
+  "unhandledError": {
+    "title": "Erreur inattendue",
+    "subtitle": "Un problème est survenu.",
+    "paragraph": "Si le problème persiste, veuillez contacter l'assistance."
+  }
 }

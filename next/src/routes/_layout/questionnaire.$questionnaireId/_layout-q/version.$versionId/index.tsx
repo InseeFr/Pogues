@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { ErrorComponent, createFileRoute } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
 import ContentHeader from '@/components/layout/ContentHeader'
@@ -12,6 +12,12 @@ export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/',
 )({
   component: RouteComponent,
+  errorComponent: ({ error }) => (
+    <div className="p-4">
+      <ContentHeader title="Questionnaire" />
+      <ErrorComponent error={error} />
+    </div>
+  ),
 })
 
 function RouteComponent() {

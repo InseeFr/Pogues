@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Import codes list from a CSV file when creating or editing a codes list.
 
+## [3.2.2](https://github.com/InseeFr/Pogues/releases/tag/3.2.2) - 2026-05-22
+
+#### Added
+
+- Default not found page
+
+## [3.2.1](https://github.com/InseeFr/Pogues/releases/tag/3.2.1) - 2026-05-22
+
+#### Added
+
+- Added contact email for 403 error
+
+## [3.2.0](https://github.com/InseeFr/Pogues/releases/tag/3.2.0) - 2026-05-21
+
+#### Added
+
+- Added error component to display user-friendy error messages
+
 ## [3.1.2](https://github.com/InseeFr/Pogues/releases/tag/3.1.2) - 2026-05-18
 
 ### Fixed

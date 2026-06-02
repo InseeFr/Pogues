@@ -7,6 +7,7 @@ import { questionnairesQueryOptions } from '@/api/questionnaires'
 import { stampsQueryOptions } from '@/api/stamps'
 import ContentHeader from '@/components/layout/ContentHeader'
 import ContentMain from '@/components/layout/ContentMain'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 import Questionnaires from '@/components/questionnaires/overview/Questionnaires'
 import ButtonLink from '@/components/ui/ButtonLink'
 import { loginLoader } from '@/utils/loginLoader'
@@ -17,7 +18,7 @@ const questionnairesSchema = z.object({
 
 export const Route = createFileRoute('/_layout/questionnaires/')({
   component: RouteComponent,
-  errorComponent: ErrorComponent,
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
   loaderDeps: ({ search: { stamp } }) => ({ stamp }),
   beforeLoad: async () => loginLoader(),
   loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
@@ -45,14 +46,6 @@ function RouteComponent() {
         stamps={stamps}
         questionnaires={questionnaires}
       />
-    </ComponentWrapper>
-  )
-}
-
-function ErrorComponent({ error }: Readonly<{ error: Error }>) {
-  return (
-    <ComponentWrapper>
-      <div className="text-error">{error.message}</div>
     </ComponentWrapper>
   )
 }

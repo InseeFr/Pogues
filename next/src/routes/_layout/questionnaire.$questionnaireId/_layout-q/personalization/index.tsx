@@ -9,6 +9,7 @@ import {
   personalizationFromPoguesQueryOptions,
   personalizationKeys,
 } from '@/api/personalization'
+import ErrorComponent from '@/components/layout/ErrorComponent'
 import PersonalizationOverview from '@/components/personalization/overview/PersonalizationOverview'
 import PersonalizationOverviewLayout from '@/components/personalization/overview/PersonalizationOverviewLayout'
 import { InterrogationModeDataResponse } from '@/models/personalizationQuestionnaire'
@@ -95,9 +96,5 @@ function CustomErrorComponent({ error }: Readonly<{ error: Error }>) {
     }
   }, [error, navigate, questionnaireId])
 
-  if (error?.message?.includes('404')) {
-    return null
-  }
-
-  return <div className="text-error">{error.message}</div>
+  return <ErrorComponent error={error} />
 }

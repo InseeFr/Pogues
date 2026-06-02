@@ -1,17 +1,21 @@
 // @ts-expect-error import jsx component
 import { Main } from '@pogues-legacy/App'
 import { useBlocker } from '@tanstack/react-router'
-import { TFunction } from 'i18next'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useTranslation } from 'react-i18next'
 
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 
 import DirtyStateDialog from '@/components/layout/DirtyStateDialog'
+import ErrorComponent, {
+  LegacyPoguesError,
+} from '@/components/layout/ErrorComponent'
 import { DecodedIdTokenType, getAccessToken, useOidc } from '@/lib/auth/oidc'
 
+function PageError({ error }: Readonly<{ error: LegacyPoguesError }>) {
+  return <ErrorComponent error={error} />
+}
+
 export const LegacyComponent = () => {
-  const { t } = useTranslation()
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false)
 
   const { decodedIdToken } = useOidc()
@@ -23,8 +27,8 @@ export const LegacyComponent = () => {
   })
 
   const myComponent = useMemo(
-    () => legacyApp(setIsDirtyState, decodedIdToken, t),
-    [setIsDirtyState, decodedIdToken, t],
+    () => legacyApp(setIsDirtyState, decodedIdToken),
+    [setIsDirtyState, decodedIdToken],
   )
 
   return (
@@ -49,10 +53,9 @@ export const LegacyComponent = () => {
 function legacyApp(
   setIsDirtyState: Dispatch<SetStateAction<boolean>>,
   decodedIdToken: DecodedIdTokenType,
-  t: TFunction<'translation', undefined>,
 ) {
   return (
-    <ErrorBoundary fallback={<div>{t('error.boundary')}</div>}>
+    <ErrorBoundary FallbackComponent={PageError}>
       <Main
         setIsDirtyState={setIsDirtyState}
         getAccessToken={getAccessToken}
