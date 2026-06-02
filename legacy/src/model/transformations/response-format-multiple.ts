@@ -161,7 +161,7 @@ export function stateToRemote(
       typeName: DATATYPE_NAME.TEXT,
       visHint,
       choiceType,
-      maxLength: 1,
+      maxLength: 249,
     };
   } else {
     responseState = {

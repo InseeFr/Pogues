@@ -47,7 +47,7 @@ export type StateResponseFormatSingle = {
     }
   | {
       visHint?: // Filter based on lunatic new components ?
-      | DATATYPE_VIS_HINT.CHECKBOX
+        | DATATYPE_VIS_HINT.CHECKBOX
         | DATATYPE_VIS_HINT.RADIO
         | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string };
@@ -146,7 +146,7 @@ export function stateToRemote(
         nomenclatureId,
         variableReferenceId,
         typeName: DATATYPE_NAME.TEXT,
-        maxLength: 1,
+        maxLength: 249,
         collectedVariable: collectedVariables[0],
       }),
     ],

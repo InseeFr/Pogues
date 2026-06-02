@@ -532,7 +532,7 @@ describe('component tranformations', () => {
                   Datatype: {
                     typeName: 'TEXT',
                     type: 'TextDatatypeType',
-                    MaxLength: 1,
+                    MaxLength: 249,
                     visualizationHint: 'DROPDOWN',
                   },
                   id: 'my-q-pairwise-response-id',

@@ -248,4 +248,87 @@ describe('getCollectedVariablesMultiple', () => {
       },
     ]);
   });
+
+  test('computes variables when typeMeasure is CODES_LIST', () => {
+    const questionName = 'questionName';
+    const form = {
+      PRIMARY: {
+        CodesList: {
+          id: 'id',
+          label: 'label',
+          codes: [
+            {
+              value: 'value1',
+              label: 'label1',
+              weight: 1,
+            },
+            {
+              value: 'value2',
+              label: 'label2',
+              weight: 2,
+            },
+          ],
+        },
+      },
+      MEASURE: {
+        type: 'CODES_LIST',
+        CODES_LIST: {
+          CodesList: {
+            id: 'codesListId',
+            label: 'codesListLabel',
+          },
+        },
+      },
+    };
+    const codesListStore = {
+      id: {
+        id: 'id',
+        label: 'label',
+        codes: [
+          {
+            value: 'value1',
+            label: 'label1',
+            weight: 1,
+          },
+          {
+            value: 'value2',
+            label: 'label2',
+            weight: 2,
+          },
+        ],
+      },
+    };
+    const result = getCollectedVariablesMultiple(
+      questionName,
+      form,
+      codesListStore,
+    );
+
+    expect(result).toEqual([
+      {
+        type: 'TEXT',
+        TEXT: { maxLength: 249 },
+        id: result[0].id,
+        name: 'questionName1',
+        label: 'value1 - label1',
+        x: 1,
+        isCollected: '1',
+        alternativeLabel: '',
+        codeListReference: 'codesListId',
+        codeListReferenceLabel: 'codesListLabel',
+      },
+      {
+        type: 'TEXT',
+        TEXT: { maxLength: 249 },
+        id: result[1].id,
+        name: 'questionName2',
+        label: 'value2 - label2',
+        x: 2,
+        isCollected: '1',
+        alternativeLabel: '',
+        codeListReference: 'codesListId',
+        codeListReferenceLabel: 'codesListLabel',
+      },
+    ]);
+  });
 });
