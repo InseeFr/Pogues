@@ -115,8 +115,6 @@ export default function CodesListForm({
       })
 
       const uniqueCodes = Array.from(uniqueCodesMap.values())
-
-      setValue('label', currentValues.label || importedFormValues.label)
       setValue(
         'codes',
         uniqueCodes.length > 0
