@@ -1,11 +1,11 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import toast from 'react-hot-toast'
 
-import { renderWithI18n } from '@/testing/render'
 import {
   convertCsvToFormValues,
   validateCodeListCsvFile,
-} from '@/utils/csvValidation'
+} from '@/components/codesLists/form/utils/csvValidation'
+import { renderWithI18n } from '@/testing/render'
 
 import ImportCodesListFromCsv from './ImportCodesListFromCsv'
 

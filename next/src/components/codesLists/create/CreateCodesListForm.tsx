@@ -69,7 +69,6 @@ export default function CreateCodesListForm({
       formulasLanguage={formulasLanguage}
       variables={variables}
       onSubmit={submitForm}
-      allowCsvImport
     />
   )
 }

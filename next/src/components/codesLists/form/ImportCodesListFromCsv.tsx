@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import { useRef, useState } from 'react'
 
+import {
+  convertCsvToFormValues,
+  validateCodeListCsvFile,
+} from '@/components/codesLists/form/utils/csvValidation'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
 import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import FormInput from '@/components/ui/form/FormInput'
-import {
-  convertCsvToFormValues,
-  validateCodeListCsvFile,
-} from '@/utils/csvValidation'
 
 import { type FormValues } from '../form/schema'
 
@@ -48,13 +48,8 @@ export default function ImportCodesListFromCsv({
       const validationResult = await validateCodeListCsvFile(file)
 
       if (!validationResult.success) {
-        const errorKey = validationResult.error?.startsWith('codesList.')
-          ? (validationResult.error as
-              | 'codesList.import.columnNumber'
-              | 'codesList.import.noDataFound'
-              | 'codesList.import.genericValidationError')
-          : 'codesList.import.genericValidationError'
-        const errorMessage = t(errorKey)
+        const errorMessage =
+          validationResult.error || t('codesList.import.genericValidationError')
         toast.error(errorMessage)
         setParseError(errorMessage)
         return

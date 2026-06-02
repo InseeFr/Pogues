@@ -2,6 +2,8 @@ import Papa, { type ParseResult } from 'papaparse'
 
 import { type FormValues } from '@/components/codesLists/form/schema'
 
+import i18next from '../../../../lib/i18n'
+
 /**
  * CSV parsing options for code list imports
  */
@@ -53,7 +55,7 @@ export async function validateCodeListCsvFile(file: File): Promise<{
         if (!result.data?.length) {
           resolve({
             success: false,
-            error: 'codesList.import.noDataFound',
+            error: i18next.t('codesList.import.noDataFound'),
           })
           return
         }
@@ -62,7 +64,7 @@ export async function validateCodeListCsvFile(file: File): Promise<{
         if (!firstRow || firstRow.length !== 2) {
           resolve({
             success: false,
-            error: 'codesList.import.columnNumber',
+            error: i18next.t('codesList.import.columnNumber'),
           })
           return
         }

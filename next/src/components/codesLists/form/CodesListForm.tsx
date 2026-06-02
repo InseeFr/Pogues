@@ -39,8 +39,6 @@ interface CodesListFormProps {
   formulasLanguage?: FormulasLanguages
   /** Variables of the questionnaire used for the VTL Editor. */
   variables?: Variable[]
-  /** Show the CSV import panel toggle. */
-  allowCsvImport?: boolean
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>
   /** Function that will be called with form data when the form values change. */
@@ -64,7 +62,6 @@ export default function CodesListForm({
   questionnaireId,
   formulasLanguage,
   variables = [],
-  allowCsvImport = false,
   onSubmit,
   onValuesChange,
 }: Readonly<CodesListFormProps>) {
@@ -160,27 +157,25 @@ export default function CodesListForm({
           />
         )}
       />
-      {allowCsvImport && (
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowCsvImport((v) => !v)}
-            className="text-action-primary hover:text-action-primary-hover font-medium"
-          >
-            {showCsvImport
-              ? t('common.cancel')
-              : t('codesList.import.importButton')}
-          </button>
-          {showCsvImport && (
-            <div className="border-t border-default pt-4 mt-4">
-              <ImportCodesListFromCsv
-                onImportSuccess={handleImportSuccess}
-                onCancel={() => setShowCsvImport(false)}
-              />
-            </div>
-          )}
-        </div>
-      )}
+      <div>
+        <button
+          type="button"
+          onClick={() => setShowCsvImport((v) => !v)}
+          className="text-action-primary hover:text-action-primary-hover font-medium"
+        >
+          {showCsvImport
+            ? t('common.cancel')
+            : t('codesList.import.importButton')}
+        </button>
+        {showCsvImport && (
+          <div className="border-t border-default pt-4 mt-4">
+            <ImportCodesListFromCsv
+              onImportSuccess={handleImportSuccess}
+              onCancel={() => setShowCsvImport(false)}
+            />
+          </div>
+        )}
+      </div>
       <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
         <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
         <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>

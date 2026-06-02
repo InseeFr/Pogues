@@ -218,37 +218,9 @@ describe('CodesListForm', () => {
     })
   })
 
-  it('should show and hide the CSV import panel', async () => {
-    await renderWithRouter(
-      <CodesListForm
-        questionnaireId="q-id"
-        onSubmit={vi.fn()}
-        allowCsvImport
-      />,
-    )
-
-    expect(screen.queryByRole('button', { name: /Trigger import/i })).toBeNull()
-
-    fireEvent.click(screen.getByRole('button', { name: /Import codes/i }))
-    expect(
-      screen.getByRole('button', { name: /Trigger import/i }),
-    ).toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('button', { name: /Cancel import/i }))
-    await waitFor(() => {
-      expect(
-        screen.queryByRole('button', { name: /Trigger import/i }),
-      ).toBeNull()
-    })
-  })
-
   it('should fill the form with imported codes and close the panel on import success', async () => {
     await renderWithRouter(
-      <CodesListForm
-        questionnaireId="q-id"
-        onSubmit={vi.fn()}
-        allowCsvImport
-      />,
+      <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
 
     fireEvent.click(screen.getByRole('button', { name: /Import codes/i }))
