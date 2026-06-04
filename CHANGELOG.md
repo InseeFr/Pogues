@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.3](https://github.com/InseeFr/Pogues/releases/tag/3.2.3) - 2026-06-04
+
+### Fixed
+
+- Fix: generate max length 249 (instead of 1) for Unique choice question (even in table) & Multiple Choice Question
+
 ## [3.2.2](https://github.com/InseeFr/Pogues/releases/tag/3.2.2) - 2026-05-22
 
 #### Added
