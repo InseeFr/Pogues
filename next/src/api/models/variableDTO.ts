@@ -62,3 +62,8 @@ export enum VariableDTODatatypeFormat {
   DurationYearMonth = 'PnYnM',
   DurationHourMinute = 'PTnHnM',
 }
+
+export type VariableScope = {
+  id: string
+  label: string
+}

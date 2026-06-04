@@ -3,6 +3,7 @@ import { queryOptions } from '@tanstack/react-query'
 import type { Scopes } from '@/models/scopes'
 
 import { instance } from './instance'
+import { VariableScope } from './models/variableDTO'
 
 export const scopesKeys = {
   all: ['scopes'] as const,
@@ -27,8 +28,7 @@ export async function getScopes(questionnaireId: string): Promise<Scopes> {
     .get(`/persistence/questionnaire/${questionnaireId}/variables-scopes`, {
       headers: { Accept: 'application/json' },
     })
-    .then(({ data }: { data: Scopes | Record<string, string> }) => {
-      // Convert plain object to Map if needed
-      return data instanceof Map ? data : new Map(Object.entries(data))
+    .then(({ data }: { data: VariableScope[] }) => {
+      return new Map(data.map((scope) => [scope.id, scope.label]))
     })
 }
