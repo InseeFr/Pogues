@@ -2,11 +2,11 @@ import { expect } from 'vitest'
 
 import { renderWithI18n } from '@/testing/render'
 
-import DefaultPendingComponent from './Waiting'
+import WaitingComponent from './WaitingComponent'
 
-describe('Pending Component', () => {
+describe('Waiting Component', () => {
   it('display waiting message ', async () => {
-    const { getByText } = renderWithI18n(<DefaultPendingComponent />)
+    const { getByText } = renderWithI18n(<WaitingComponent />)
 
     expect(getByText('Loading...')).toBeInTheDocument()
   })
