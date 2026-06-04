@@ -6,6 +6,7 @@ import i18next from '@/lib/i18n'
 
 import ErrorComponent from './components/layout/ErrorComponent'
 import Layout from './components/layout/Layout'
+import DefaultPendingComponent from './components/ui/Waiting'
 import { routeTree } from './routeTree.gen'
 
 const queryClient = new QueryClient()
@@ -26,6 +27,7 @@ const router = createRouter({
       />
     </Layout>
   ),
+  defaultPendingComponent: DefaultPendingComponent,
 })
 
 // Register the router instance for type safety
