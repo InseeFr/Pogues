@@ -382,7 +382,6 @@ describe('getReponsesValues', () => {
           name: '',
           label: '',
           urn: '',
-          suggesterParameters: {},
         },
       },
     };
@@ -416,7 +415,6 @@ describe('getReponsesValues', () => {
           name: '',
           label: '',
           urn: '',
-          suggesterParameters: {},
         },
         Variable: {
           id: 'my-variable-id',
@@ -456,7 +454,6 @@ describe('getReponsesValues', () => {
           name: '',
           label: '',
           urn: '',
-          suggesterParameters: {},
         },
       },
     };

@@ -128,7 +128,7 @@ export function remoteToStore(
 
     let codesListObject;
 
-    if (urn) {
+    if (suggesterParameters) {
       // Nomenclature
       codesListObject = { id, label, name, urn, suggesterParameters };
     } else if (codes) {
@@ -181,7 +181,7 @@ function buildRemoteCodesList(codesList) {
     name = '',
     codes = [],
     urn = '',
-    suggesterParameters = {},
+    suggesterParameters,
     scope = '',
   } = codesList;
 
@@ -191,7 +191,7 @@ function buildRemoteCodesList(codesList) {
   }
 
   // Nomenclature
-  if (urn) {
+  if (suggesterParameters) {
     return {
       id,
       Urn: urn,
