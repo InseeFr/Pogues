@@ -312,9 +312,13 @@ export const loadNomenclatures = (token) => async (dispatch) => {
   });
 
   try {
-    const nomenclatures = (await getNomenclatures(token)).sort((a, b) => {
-      return `${a.label}`.localeCompare(b.label);
-    });
+    const nomenclatures = (await getNomenclatures(token))
+      // we need to add empty list of codes since the codeList store seems to need it.
+      // do not remove this line
+      .map((nomenclature) => ({ ...nomenclature, codes: [] }))
+      .sort((a, b) => {
+        return `${a.label}`.localeCompare(b.label);
+      });
 
     return dispatch(loadMetadataSuccess('nomenclatures', nomenclatures));
   } catch (err) {
