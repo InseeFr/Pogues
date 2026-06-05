@@ -312,18 +312,12 @@ export const loadNomenclatures = (token) => async (dispatch) => {
   });
 
   try {
-    const nomenclatures = await getNomenclatures(token);
-    const nomenclaturesMetadata = Object.values(nomenclatures.nomenclatures)
-      .map((nomenclature) => ({
-        id: nomenclature.id,
-        label: nomenclature.label,
-      }))
-      .sort((a, b) => {
-        return `${a.label}`.localeCompare(b.label);
-      });
-    return dispatch(
-      loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
-    );
+    const nomenclatures = (await getNomenclatures(token)).sort((a, b) => {
+      return `${a.label}`.localeCompare(b.label);
+    });
+
+    console.log('nomenclatures', nomenclatures);
+    return dispatch(loadMetadataSuccess('nomenclatures', nomenclatures));
   } catch (err) {
     return dispatch(loadMetadataFailure(err));
   }
@@ -351,10 +345,11 @@ export const loadNomenclature =
           name: nomenclature.name,
           label: nomenclature.label,
           urn: nomenclature.urn,
-          suggesterParameters: nomenclature.parameters,
-          codes: nomenclature.codes,
+          suggesterParameters: nomenclature.suggesterParameters,
         },
       });
+
+      console.log('nomenclaturesMetadata', nomenclaturesMetadata);
       return dispatch(
         loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
       );
