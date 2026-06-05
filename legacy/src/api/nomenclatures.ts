@@ -1,6 +1,6 @@
 import { computeAuthorizationHeader, getBaseURI } from './utils';
 
-type Nomenclature = {
+export type Nomenclature = {
   id: string;
   /**
    * @deprecated (name always equals to id)
@@ -15,8 +15,6 @@ type Nomenclature = {
   suggesterParameters: unknown; // suggester configuration (abstract in pogues)
 };
 
-const nomenclaturesCache: Map<string, Nomenclature> = new Map();
-
 export async function getNomenclatures(token: string): Promise<Nomenclature[]> {
   const url = `${getBaseURI()}/nomenclatures`;
   const headers = new Headers();
@@ -25,18 +23,5 @@ export async function getNomenclatures(token: string): Promise<Nomenclature[]> {
   const nomenclatures = await fetch(url, { headers }).then(
     (res) => res.json() as Promise<Nomenclature[]>,
   );
-  nomenclatures.forEach((nomenclature) =>
-    nomenclaturesCache.set(nomenclature.id, nomenclature),
-  );
   return nomenclatures;
-}
-
-export async function getNomenclature(
-  id: string,
-  token: string,
-): Promise<Nomenclature | undefined> {
-  if (!nomenclaturesCache.has(id)) {
-    await getNomenclatures(token);
-  }
-  return nomenclaturesCache.get(id);
 }

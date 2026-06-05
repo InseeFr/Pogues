@@ -4,7 +4,7 @@ import {
   getSeries,
   getUnitsList,
 } from '../api/metadata';
-import { getNomenclature, getNomenclatures } from '../api/nomenclatures';
+import { getNomenclatures } from '../api/nomenclatures';
 import { getQuestionnaire, getVariablesById } from '../api/questionnaires';
 import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 
@@ -316,7 +316,6 @@ export const loadNomenclatures = (token) => async (dispatch) => {
       return `${a.label}`.localeCompare(b.label);
     });
 
-    console.log('nomenclatures', nomenclatures);
     return dispatch(loadMetadataSuccess('nomenclatures', nomenclatures));
   } catch (err) {
     return dispatch(loadMetadataFailure(err));
@@ -328,32 +327,3 @@ export const loadNomenclaturesIfNeeded = (token) => (dispatch, getState) => {
   const { nomenclatures } = state.metadataByType;
   if (!nomenclatures) dispatch(loadNomenclatures(token));
 };
-
-export const loadNomenclature =
-  (token, id, nomenclatures) => async (dispatch) => {
-    dispatch({
-      type: LOAD_NOMENCLATURES,
-      payload: null,
-    });
-
-    try {
-      const nomenclature = await getNomenclature(id, token);
-      const nomenclaturesMetadata = Object.values({
-        ...nomenclatures,
-        [id]: {
-          id,
-          name: nomenclature.name,
-          label: nomenclature.label,
-          urn: nomenclature.urn,
-          suggesterParameters: nomenclature.suggesterParameters,
-        },
-      });
-
-      console.log('nomenclaturesMetadata', nomenclaturesMetadata);
-      return dispatch(
-        loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
-      );
-    } catch (err) {
-      return dispatch(loadMetadataFailure(err));
-    }
-  };
