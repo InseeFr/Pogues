@@ -166,15 +166,15 @@ export default function CodesListForm({
         )}
       />
       <div>
-        <Button
-          type="button"
-          onClick={() => setShowCsvImport((v) => !v)}
-          buttonStyle={ButtonStyle.Primary}
-        >
-          {showCsvImport
-            ? t('common.cancel')
-            : t('codesList.import.importButton')}
-        </Button>
+        {!showCsvImport && (
+          <Button
+            type="button"
+            onClick={() => setShowCsvImport((v) => !v)}
+            buttonStyle={ButtonStyle.Primary}
+          >
+            {t('codesList.import.importButton')}
+          </Button>
+        )}
         {showCsvImport && (
           <div className="border-t border-default pt-4 mt-4">
             <ImportCodesListFromCsv
