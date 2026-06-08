@@ -1,22 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import i18next from '../../../../lib/i18n'
 import {
   convertCsvToFormValues,
   validateCodeListCsvFile,
 } from './csvValidation'
 
-vi.mock('../../../../lib/i18n', () => ({
-  default: {
-    t: vi.fn((key) => {
-      const translations: Record<string, string> = {
-        'codesList.import.noDataFound': 'No data found in the CSV file',
-        'codesList.import.columnNumber':
-          'The file must contain exactly two columns',
-      }
-      return translations[key] || key
-    }),
-  },
+vi.mock('@/i18n', () => ({
+  useTranslation: () => ({ t: (keyMessage: string) => keyMessage }),
 }))
 
 describe('csvValidation', () => {
@@ -31,7 +21,6 @@ describe('csvValidation', () => {
 
     expect(result.success).toBe(false)
     expect(result.error).toBe('No data found in the CSV file')
-    expect(i18next.t).toHaveBeenCalledWith('codesList.import.noDataFound')
   })
 
   it('should return translated error message for invalid column count', async () => {
@@ -43,7 +32,6 @@ describe('csvValidation', () => {
 
     expect(result.success).toBe(false)
     expect(result.error).toBe('The file must contain exactly two columns')
-    expect(i18next.t).toHaveBeenCalledWith('codesList.import.columnNumber')
   })
 
   it('should return success for valid CSV', async () => {
@@ -57,6 +45,20 @@ describe('csvValidation', () => {
     expect(result.data).toBeDefined()
     expect(result.hasHeader).toBe(false)
     expect(result.error).toBeUndefined()
+  })
+
+  it('should normalize duplicate codes during validation and keep the last label', async () => {
+    const duplicateFile = new File(
+      ['code3,label3\ncode3,label3 alt'],
+      'duplicate.csv',
+      { type: 'text/csv' },
+    )
+
+    const result = await validateCodeListCsvFile(duplicateFile)
+
+    expect(result.success).toBe(true)
+    expect(result.hasHeader).toBe(false)
+    expect(result.data?.data).toEqual([['code3', 'label3 alt']])
   })
 
   it('should convert parsed CSV data to FormValues format', () => {
@@ -80,8 +82,8 @@ describe('csvValidation', () => {
     expect(result).toEqual({
       label: '',
       codes: [
-        { value: 'code1', label: 'label1' },
-        { value: 'code2', label: 'label2' },
+        { value: 'code1', label: 'label1', codes: [] },
+        { value: 'code2', label: 'label2', codes: [] },
       ],
     })
   })

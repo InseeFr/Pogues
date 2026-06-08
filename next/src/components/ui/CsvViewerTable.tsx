@@ -12,6 +12,7 @@ export default function CsvViewerTable({
   hasHeader = false,
   defaultHeader = [],
 }: Readonly<CsvViewerTableProps>) {
+  // Used to check if the parsed csv is in a right object format (with manually added header ("Code", and "Label"))
   const metaFields = parsedCsv.meta?.fields
   const isObjectRows = metaFields && metaFields.length > 0
 
@@ -54,21 +55,25 @@ export default function CsvViewerTable({
         <table className="border border-default w-full min-w-max shadow-sm">
           <thead className="bg-accent sticky top-0">
             <tr className="*:font-semibold *:p-4 text-left">
-              {headers.map((header, i) => (
-                <th key={i} className="text-default">
+              {headers.map((header) => (
+                <th key={header} className="text-default">
                   {header}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody className="text-default">
-            {rows.map((row, rowIndex) => (
-              <tr key={rowIndex} className="bg-default odd:bg-main *:p-4">
-                {row.map((cell, colIndex) => (
-                  <td key={colIndex}>{cell}</td>
-                ))}
-              </tr>
-            ))}
+            {rows.map((row) => {
+              const rowKey = row.map(String).join('|')
+
+              return (
+                <tr key={rowKey} className="bg-default odd:bg-main *:p-4">
+                  {row.map((cell, colIndex) => (
+                    <td key={`${rowKey}-${colIndex}`}>{cell}</td>
+                  ))}
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

@@ -1,4 +1,5 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { renderWithRouter } from '@/testing/render'
 
@@ -58,35 +59,47 @@ describe('CodesListForm', () => {
     )
 
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
-    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
-      target: {
-        value: 'my label',
-      },
-    })
-
-    await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeDisabled()
-    })
-
-    fireEvent.input(screen.getByTestId('codes.0.value'), {
-      target: {
-        value: 'my code value',
-      },
-    })
-    fireEvent.input(screen.getByTestId('codes.0.label'), {
-      target: {
-        value: 'my code label',
-      },
-    })
+    await userEvent.clear(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+    )
+    await userEvent.type(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+      'my label',
+    )
 
     await waitFor(() => {
-      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
-    fireEvent.submit(screen.getByTestId('form-submit-button'))
+    await userEvent.clear(screen.getAllByRole('textbox')[1]) // codes.0.value
+    await userEvent.type(screen.getAllByRole('textbox')[1], 'my code value')
+    await userEvent.clear(screen.getAllByRole('textbox')[2]) // codes.0.label
+    await userEvent.type(screen.getAllByRole('textbox')[2], 'my code label')
+
+    await waitFor(() => {
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).not.toHaveAttribute('aria-disabled', 'true')
+    })
+
+    const submitButton = screen
+      .getAllByRole('button')
+      .find((button) => button.getAttribute('type') === 'submit')
+    expect(submitButton).toBeTruthy()
+    await userEvent.click(submitButton!)
     await waitFor(() => {
       expect(submitFn).toBeCalled()
     })
@@ -97,12 +110,16 @@ describe('CodesListForm', () => {
       <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
 
-    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
-      target: { value: 'my label' },
-    })
-    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
-      target: { value: '' },
-    })
+    await userEvent.clear(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+    )
+    await userEvent.type(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+      'my label',
+    )
+    await userEvent.clear(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+    )
 
     expect(await screen.findAllByRole('alert')).toHaveLength(1)
     expect(screen.getByText('You must provide a label')).toBeDefined()
@@ -113,12 +130,9 @@ describe('CodesListForm', () => {
       <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
 
-    fireEvent.input(screen.getByTestId('codes.0.value'), {
-      target: { value: 'my code value' },
-    })
-    fireEvent.input(screen.getByTestId('codes.0.value'), {
-      target: { value: '' },
-    })
+    await userEvent.clear(screen.getAllByRole('textbox')[1]) // codes.0.value
+    await userEvent.type(screen.getAllByRole('textbox')[1], 'my code value')
+    await userEvent.clear(screen.getAllByRole('textbox')[1])
 
     expect((await screen.findAllByRole('alert')).length).toBeGreaterThanOrEqual(
       1,
@@ -131,12 +145,9 @@ describe('CodesListForm', () => {
       <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
 
-    fireEvent.input(screen.getByTestId('codes.0.label'), {
-      target: { value: 'my code value' },
-    })
-    fireEvent.input(screen.getByTestId('codes.0.label'), {
-      target: { value: '' },
-    })
+    await userEvent.clear(screen.getAllByRole('textbox')[2]) // codes.0.label
+    await userEvent.type(screen.getAllByRole('textbox')[2], 'my code value')
+    await userEvent.clear(screen.getAllByRole('textbox')[2])
 
     expect(await screen.findAllByRole('alert')).toHaveLength(1)
     expect(screen.getByText('Your code must have a label')).toBeDefined()
@@ -147,13 +158,11 @@ describe('CodesListForm', () => {
       <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /Add a code/i }))
-    fireEvent.input(screen.getByTestId('codes.0.value'), {
-      target: { value: 'abc' },
-    })
-    fireEvent.input(screen.getByTestId('codes.1.value'), {
-      target: { value: 'abc' },
-    })
+    await userEvent.click(screen.getByRole('button', { name: /Add a code/i }))
+    await userEvent.clear(screen.getAllByRole('textbox')[1]) // codes.0.value
+    await userEvent.type(screen.getAllByRole('textbox')[1], 'abc')
+    await userEvent.clear(screen.getAllByRole('textbox')[3]) // codes.1.value
+    await userEvent.type(screen.getAllByRole('textbox')[3], 'abc')
 
     await waitFor(async () => {
       expect(
@@ -175,19 +184,17 @@ describe('CodesListForm', () => {
     )
 
     // Adding a code
-    fireEvent.click(screen.getByRole('button', { name: /Add a code/i }))
-    fireEvent.input(screen.getByTestId('codes.1.value'), {
-      target: { value: 'code1' },
-    })
-    fireEvent.input(screen.getByTestId('codes.1.label'), {
-      target: { value: 'label1' },
-    })
+    await userEvent.click(screen.getByRole('button', { name: /Add a code/i }))
+    await userEvent.clear(screen.getAllByRole('textbox')[3]) // codes.1.value
+    await userEvent.type(screen.getAllByRole('textbox')[3], 'code1')
+    await userEvent.clear(screen.getAllByRole('textbox')[4]) // codes.1.label
+    await userEvent.type(screen.getAllByRole('textbox')[4], 'label1')
 
     // Remove the code
-    fireEvent.click(screen.getAllByTitle('Delete')[1])
+    await userEvent.click(screen.getAllByTitle('Delete')[1])
 
     await waitFor(() => {
-      expect(screen.queryByTestId('codes.1.value')).toBeNull()
+      expect(screen.queryAllByRole('textbox').length).toBe(3) // Should be back to 3 textboxes (label, codes.0.value, codes.0.label)
     })
   })
 
@@ -200,16 +207,18 @@ describe('CodesListForm', () => {
       />,
     )
 
-    fireEvent.input(screen.getByRole('textbox', { name: /Code list name/i }), {
-      target: {
-        value: 'my label',
-      },
-    })
+    await userEvent.clear(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+    )
+    await userEvent.type(
+      screen.getByRole('textbox', { name: /Code list name/i }),
+      'my label',
+    )
 
     const cancelButton = screen.getByRole('button', { name: /cancel/i })
 
     expect(cancelButton).toBeEnabled()
-    fireEvent.click(cancelButton)
+    await userEvent.click(cancelButton)
 
     expect(mockNavigate).toHaveBeenCalledWith({
       to: '/questionnaire/$questionnaireId/codes-lists',
@@ -223,9 +232,11 @@ describe('CodesListForm', () => {
       <CodesListForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /Import codes/i }))
+    await userEvent.click(screen.getByRole('button', { name: /Import codes/i }))
 
-    fireEvent.click(screen.getByRole('button', { name: /Trigger import/i }))
+    await userEvent.click(
+      screen.getByRole('button', { name: /Trigger import/i }),
+    )
 
     await waitFor(() => {
       expect(
@@ -234,8 +245,8 @@ describe('CodesListForm', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByTestId('codes.0.value')).toHaveValue('imported-code')
-      expect(screen.getByTestId('codes.0.label')).toHaveValue('Imported Label')
+      expect(screen.getAllByRole('textbox')[1]).toHaveValue('imported-code') // codes.0.value
+      expect(screen.getAllByRole('textbox')[2]).toHaveValue('Imported Label') // codes.0.label
     })
   })
 })

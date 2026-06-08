@@ -47,10 +47,10 @@ export default function Form({
     withResolver: true,
   })
 
-  const isSubmitDisabled = !isDirty || !isValid
+  const isSubmitEnabled = isValid && isDirty
 
   const getSubmitTooltip = (): string | null => {
-    if (!isSubmitDisabled) {
+    if (isSubmitEnabled) {
       return null
     }
     if (!isValid) {
@@ -65,7 +65,7 @@ export default function Form({
     <Button
       type="submit"
       buttonStyle={ButtonStyle.Primary}
-      disabled={isSubmitDisabled}
+      disabled={!isSubmitEnabled}
       data-testid="form-submit-button"
     >
       {validateLabel || t('common.validate')}

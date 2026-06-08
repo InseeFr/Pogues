@@ -1,6 +1,8 @@
 import ErrorIcon from '@/components/ui/icons/ErrorIcon'
 import { UploadMessage } from '@/models/personalizationQuestionnaire'
 
+import WarningIcon from './icons/WarningIcon'
+
 interface DetailItem {
   message: string
   dataIndex?: number
@@ -36,9 +38,16 @@ export default function UploadMessageTile({
       aria-label="error-component"
       className={`${colorClass} rounded px-4 py-3 flex items-start`}
     >
-      <ErrorIcon
-        className={`w-6 h-6 mr-3 mt-0.5 flex-shrink-0 ${displayIsError ? 'text-red-800' : 'text-blue-800'}`}
-      />
+      {displayIsError ? (
+        <ErrorIcon
+          className={`w-6 h-6 mr-3 mt-0.5 flex-shrink-0 text-red-800'`}
+        />
+      ) : (
+        <WarningIcon
+          className={`w-6 h-6 mr-3 mt-0.5 flex-shrink-0 text-blue-800 `}
+        />
+      )}
+
       <div>
         <h4 className="text-lg font-semibold">{displayMessage}</h4>
         {displayDetails && displayDetails.length > 0 && (

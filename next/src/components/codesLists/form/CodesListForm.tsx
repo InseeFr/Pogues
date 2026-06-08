@@ -15,9 +15,11 @@ import { useTranslation } from 'react-i18next'
 
 import { useCallback, useEffect, useState } from 'react'
 
+import Button, { ButtonStyle } from '@/components/ui/Button'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
+import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
-import Input from '@/components/ui/form/FormInput'
+import Input from '@/components/ui/form/Input'
 import Label from '@/components/ui/form/Label'
 import VTLEditor from '@/components/ui/form/VTLEditor'
 import AddIcon from '@/components/ui/icons/AddIcon'
@@ -146,25 +148,33 @@ export default function CodesListForm({
       <Controller
         name="label"
         control={control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
             label={t('codesList.common.label')}
-            error={error?.message}
-            {...field}
+            name={name}
             required
-          />
+            touched={isTouched}
+          >
+            <Input value={value} onValueChange={onChange} />
+          </Field>
         )}
       />
       <div>
-        <button
+        <Button
           type="button"
           onClick={() => setShowCsvImport((v) => !v)}
-          className="text-action-primary hover:text-action-primary-hover font-medium"
+          buttonStyle={ButtonStyle.Primary}
         >
           {showCsvImport
             ? t('common.cancel')
             : t('codesList.import.importButton')}
-        </button>
+        </Button>
         {showCsvImport && (
           <div className="border-t border-default pt-4 mt-4">
             <ImportCodesListFromCsv
@@ -309,16 +319,26 @@ function CodesField({
           name={`${namePrefix}.value` as `codes.${number}.value`}
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { error } }) => (
-            <Input
-              data-testid={`${namePrefix}.value`}
-              error={error?.message}
-              {...field}
-              onChange={(e) => {
-                field.onChange(e)
-                trigger()
-              }}
-            />
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <Input
+                value={value}
+                onValueChange={(e) => {
+                  onChange(e)
+                  trigger()
+                }}
+              />
+            </Field>
           )}
         />
       </div>
@@ -347,13 +367,21 @@ function CodesField({
                 value={value}
               />
             ) : (
-              <Input
-                data-testid={`${namePrefix}.label`}
-                error={error?.message}
-                value={value}
-                onValueChange={onChange}
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                name={name}
                 required
-              />
+                touched={isTouched}
+              >
+                <Input
+                  data-testid={`${namePrefix}.label`}
+                  value={value}
+                  onValueChange={onChange}
+                  required
+                />
+              </Field>
             )
           }
         />

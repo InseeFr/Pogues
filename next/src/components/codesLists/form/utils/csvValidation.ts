@@ -1,8 +1,7 @@
 import Papa, { type ParseResult } from 'papaparse'
 
 import { type FormValues } from '@/components/codesLists/form/schema'
-
-import i18next from '../../../../lib/i18n'
+import i18next from '@/lib/i18n'
 
 /**
  * CSV parsing options for code list imports
@@ -37,6 +36,24 @@ export function detectCsvHeader(firstRow: string[]): boolean {
   )
   return allNonNumeric && hasKeyword
 }
+
+function normalizeCsvRows(rows: string[][], hasHeader: boolean): string[][] {
+  const dataRows = hasHeader ? rows.slice(1) : rows
+  const uniqueRows = new Map<string, string[]>()
+
+  dataRows.forEach((row) => {
+    const value = row[0]?.toString().trim() || ''
+    const label = row[1]?.toString().trim() || ''
+
+    if (value && label) {
+      uniqueRows.set(value, [value, label])
+    }
+  })
+
+  return hasHeader
+    ? [rows[0], ...uniqueRows.values()]
+    : [...uniqueRows.values()]
+}
 /**
  * Validates a CSV file for code list import
  * @param file - The CSV file to validate
@@ -59,8 +76,8 @@ export async function validateCodeListCsvFile(file: File): Promise<{
           })
           return
         }
-
-        const firstRow = (result.data as string[][])[0]
+        const rows = result.data as string[][]
+        const firstRow = rows[0]
         if (!firstRow || firstRow.length !== 2) {
           resolve({
             success: false,
@@ -70,9 +87,14 @@ export async function validateCodeListCsvFile(file: File): Promise<{
         }
 
         const hasHeader = detectCsvHeader(firstRow)
+        const normalizedRows = normalizeCsvRows(rows, hasHeader)
+
         resolve({
           success: true,
-          data: result,
+          data: {
+            ...result,
+            data: normalizedRows,
+          },
           hasHeader,
         })
       },
@@ -103,20 +125,27 @@ export function convertCsvToFormValues(
     ? (parsedData.data as string[][]).slice(1)
     : (parsedData.data as string[][])
 
-  const codes = rows.map((row) => ({
-    value: row[0]?.toString().trim() || '',
-    label: row[1]?.toString().trim() || '',
-  }))
+  const validCodes = rows
+    .map((row) => {
+      const value = row[0]?.toString().trim() || ''
+      const label = row[1]?.toString().trim() || ''
 
-  const validCodes = codes.filter((code) => code.value && code.label)
+      if (!value || !label) {
+        return null
+      }
+
+      const code: FormValues['codes'][number] = {
+        value,
+        label,
+        codes: [],
+      }
+      return code
+    })
+    .filter((code): code is FormValues['codes'][number] => code !== null)
 
   if (validCodes.length === 0) {
     throw new Error('No valid codes lists found in the CSV file')
   }
-  console.log('Converted form values:', {
-    label: '',
-    codes: validCodes,
-  })
   return {
     label: '',
     codes: validCodes,
