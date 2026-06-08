@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Import codes list from a CSV file when creating or editing a codes list.
 
+## [3.2.4](https://github.com/InseeFr/Pogues/releases/tag/3.2.4) - 2026-06-05
+
+#### Added
+
+- Get list of variables scopes by calling the backend
+- Display scope label in variables Page
+- Default pending component (to replace by Skeleton)
+
+## [3.2.3](https://github.com/InseeFr/Pogues/releases/tag/3.2.3) - 2026-06-04
+
+### Fixed
+
+- Fix: generate max length 249 (instead of 1) for Unique choice question (even in table) & Multiple Choice Question
+
 ## [3.2.2](https://github.com/InseeFr/Pogues/releases/tag/3.2.2) - 2026-05-22
 
 #### Added

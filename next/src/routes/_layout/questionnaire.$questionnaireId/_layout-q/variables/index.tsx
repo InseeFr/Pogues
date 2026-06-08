@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
+import { scopesQueryOptions } from '@/api/scopes'
 import { variablesQueryOptions } from '@/api/variables'
 import ErrorComponent from '@/components/layout/ErrorComponent'
 import VariablesOverview from '@/components/variables/overview/VariablesOverview'
@@ -16,8 +17,10 @@ export const Route = createFileRoute(
       <ErrorComponent error={error} />
     </CustomLayout>
   ),
-  loader: async ({ context: { queryClient }, params: { questionnaireId } }) =>
-    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId)),
+  loader: async ({ context: { queryClient }, params: { questionnaireId } }) => {
+    queryClient.ensureQueryData(variablesQueryOptions(questionnaireId))
+    queryClient.ensureQueryData(scopesQueryOptions(questionnaireId))
+  },
 })
 
 function RouteComponent() {
@@ -25,10 +28,15 @@ function RouteComponent() {
   const { data }: { data: Variable[] } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
   )
+  const { data: scopes } = useSuspenseQuery(scopesQueryOptions(questionnaireId))
 
   return (
     <CustomLayout>
-      <VariablesOverview questionnaireId={questionnaireId} variables={data} />
+      <VariablesOverview
+        questionnaireId={questionnaireId}
+        variables={data}
+        scopeLabels={scopes}
+      />
     </CustomLayout>
   )
 }

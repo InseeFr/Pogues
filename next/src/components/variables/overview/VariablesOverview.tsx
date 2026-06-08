@@ -6,6 +6,7 @@ import ButtonLink, { ButtonStyle } from '@/components/ui/ButtonLink'
 import Filters from '@/components/ui/Filters'
 import { DatatypeType } from '@/models/datatype'
 import { type Filter, FilterType } from '@/models/filters'
+import { Scopes } from '@/models/scopes'
 import { type Variable, VariableType } from '@/models/variables'
 
 import VariablesScopeOverviewItem from './VariablesScopeOverviewItem'
@@ -14,6 +15,7 @@ interface Props {
   questionnaireId: string
   readonly?: boolean
   variables: Variable[]
+  scopeLabels: Scopes
 }
 
 /** Display the variables of the selected questionnaire. */
@@ -21,6 +23,7 @@ export default function VariablesOverview({
   questionnaireId,
   readonly = false,
   variables = [],
+  scopeLabels = {} as Scopes,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const scopes = new Set<string>()
@@ -107,7 +110,7 @@ export default function VariablesOverview({
               key={scope}
               questionnaireId={questionnaireId}
               readonly={readonly}
-              scope={scope}
+              scope={scopeLabels.get(scope) ?? scope}
               variables={sortedVariables.filter((n) => n.scope === scope)}
             />
           ))}
