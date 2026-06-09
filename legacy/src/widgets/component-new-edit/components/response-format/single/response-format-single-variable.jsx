@@ -29,6 +29,7 @@ function ResponseFormatSingleVariable({
   selectedScope,
   componentsStore,
   externalLoopsStore,
+  allowFilter = false,
 }) {
   const scopes = getQuestionnaireScope(componentsStore, externalLoopsStore);
 
@@ -59,15 +60,17 @@ function ResponseFormatSingleVariable({
         scope={selectedScope}
       />
 
-      <FormSection name={selectorPath}>
-        <Field
-          name="optionFilter"
-          type="text"
-          component={InputWithVariableAutoCompletion}
-          label={Dictionary.modalityFilter}
-          required={false}
-        />
-      </FormSection>
+      {allowFilter && (
+        <FormSection name={selectorPath}>
+          <Field
+            name="optionFilter"
+            type="text"
+            component={InputWithVariableAutoCompletion}
+            label={Dictionary.modalityFilter}
+            required={false}
+          />
+        </FormSection>
+      )}
 
       <Field
         name="visHint"
@@ -94,6 +97,7 @@ ResponseFormatSingleVariable.propTypes = {
   selectedScope: PropTypes.string,
   componentsStore: PropTypes.object,
   externalLoopsStore: PropTypes.object,
+  allowFilter: PropTypes.bool,
 };
 
 ResponseFormatSingleVariable.defaultProps = {
@@ -101,6 +105,7 @@ ResponseFormatSingleVariable.defaultProps = {
   selectedScope: '',
   componentsStore: {},
   externalLoopsStore: {},
+  allowFilter: false,
 };
 
 const mapStateToProps = (state, { selectorPathParent }) => {

@@ -252,7 +252,6 @@ describe('remoteToState', () => {
         {
           id: 'mbh8ke14',
           VariableReference: 'kdyg5y7',
-          OptionFilter: 'nice filter',
           Datatype: {
             typeName: 'TEXT',
             visualizationHint: 'RADIO',
@@ -322,7 +321,7 @@ describe('remoteToState', () => {
         },
         {
           SINGLE_CHOICE: {
-            Variable: { id: 'kdyg5y7', optionFilter: 'nice filter' },
+            Variable: { id: 'kdyg5y7' },
             id: undefined,
             mandatory: undefined,
             visHint: 'RADIO',

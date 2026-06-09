@@ -211,7 +211,6 @@ function remoteToStateMeasure(remote) {
     response: {
       CodeListReference,
       VariableReference,
-      OptionFilter,
       Datatype,
       conditionFilter,
       conditionReadOnly,
@@ -237,7 +236,6 @@ function remoteToStateMeasure(remote) {
           Datatype,
           VariableReference,
           choiceType,
-          OptionFilter,
           CollectedVariableReference,
         },
       ],
@@ -377,8 +375,6 @@ function stateToResponseState(state, primaryType) {
       measureTypeState[DEFAULT_NOMENCLATURE_SELECTOR_PATH]?.id;
     const variableReferenceId =
       measureTypeState[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
-    const optionFilter =
-      measureTypeState[DEFAULT_VARIABLE_SELECTOR_PATH]?.optionFilter;
 
     responseState = {
       ...responseState,
@@ -386,7 +382,6 @@ function stateToResponseState(state, primaryType) {
       codesListId,
       nomenclatureId,
       variableReferenceId,
-      optionFilter,
       typeName: TEXT,
       maxLength: 249,
       visHint,

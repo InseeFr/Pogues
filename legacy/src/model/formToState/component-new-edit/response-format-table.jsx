@@ -114,7 +114,6 @@ export const defaultMeasureForm = {
       name: '',
       label: '',
       scope: '',
-      optionFilter: '',
     },
     visHint: RADIO,
     choiceType: CHOICE_TYPE_CODES_LIST,
@@ -507,10 +506,7 @@ const Factory = (initialState = {}, codesListsStore) => {
         }
 
         state[SINGLE_CHOICE] = {
-          [listPath]: {
-            ...codesListsStore[measureState[listPath].id],
-            optionFilter: measureState[listPath].optionFilter,
-          },
+          [listPath]: codesListsStore[measureState[listPath].id],
           visHint: measureState.visHint,
           choiceType: measureState.choiceType,
         };

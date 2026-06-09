@@ -105,8 +105,15 @@ describe('responseFormatSingleVariable', () => {
     expect(getByTestId('variables-list')).toBeInTheDocument();
   });
 
-  it('should render with option filter field', () => {
-    const { getByText } = renderWithStore(<ResponseFormatSingleVariable />);
+  it('should hide option filter field by default', () => {
+    const { queryByText } = renderWithStore(<ResponseFormatSingleVariable />);
+    expect(queryByText(Dictionary.modalityFilter)).not.toBeInTheDocument();
+  });
+
+  it('should render with option filter field when allowing filter', () => {
+    const { getByText } = renderWithStore(
+      <ResponseFormatSingleVariable allowFilter={true} />,
+    );
     expect(getByText(Dictionary.modalityFilter)).toBeInTheDocument();
   });
 
