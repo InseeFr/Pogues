@@ -8,6 +8,7 @@ import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { storeToArray } from '../../../utils/utils';
+import { requiredSelect } from '../../../utils/validation/validate-rules';
 import { ErrorsPanel } from '../../errors-panel';
 import CodesListsCodesContainer from '../containers/codes-lists-codes-container';
 
@@ -30,6 +31,7 @@ export const propTypes = {
   arrayRemoveAll: PropTypes.func.isRequired,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
+  requiredCodeList: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -38,6 +40,7 @@ export const defaultProps = {
   currentCodesListsStore: {},
   allowPrecision: false,
   allowFilter: false,
+  requiredCodeList: false,
 };
 
 /**
@@ -58,6 +61,7 @@ const CodesLists = ({
   arrayRemoveAll,
   allowPrecision = false,
   allowFilter = false,
+  requiredCodeList = false,
 }) => {
   const refDiv = useRef(null);
   const [currentIdState, setCurrentIdState] = useState(currentId);
@@ -107,6 +111,7 @@ const CodesLists = ({
           component={Select}
           label={Dictionary.selectCodesListType}
           required
+          validate={requiredCodeList ? [requiredSelect] : undefined}
         >
           <GenericOption key="" value="">
             {Dictionary.selectCodesListType}
