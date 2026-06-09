@@ -7,9 +7,10 @@ import {
   PersonalizationQuestionnaire,
   UploadMessage,
 } from '@/models/personalizationQuestionnaire'
+import { openDocument } from '@/utils/files'
 
 import { instancePersonalization } from './instancePersonalization'
-import { getFileName, openDocument } from './utils/personalization'
+import { getFileName } from './utils/personalization'
 
 export const personalizationKeys = {
   base: (poguesId: string) => ['personalization', 'base', poguesId] as const,
