@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Fixed
+
+- Name variable is now mandatory for pairing question type
+
 ## [3.2.4](https://github.com/InseeFr/Pogues/releases/tag/3.2.4) - 2026-06-05
 
 #### Added
