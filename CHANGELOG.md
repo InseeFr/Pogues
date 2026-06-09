@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Import codes list from a CSV file when creating or editing a codes list.
+
 ## [3.2.4](https://github.com/InseeFr/Pogues/releases/tag/3.2.4) - 2026-06-05
 
 #### Added

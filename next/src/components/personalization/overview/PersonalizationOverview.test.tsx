@@ -4,13 +4,13 @@ import toast from 'react-hot-toast'
 import { expect, vi } from 'vitest'
 
 import { deleteQuestionnaireData } from '@/api/personalization'
-import { openParsedCsv } from '@/api/utils/personalization'
 import {
   PersonalizationQuestionnaire,
   SurveyContextEnum,
   SurveyContextValueEnum,
 } from '@/models/personalizationQuestionnaire'
 import { renderWithRouter } from '@/testing/render'
+import { openParsedCsv } from '@/utils/files'
 
 import PersonalizationsOverview from './PersonalizationOverview'
 
@@ -37,9 +37,10 @@ vi.mock('@/api/personalization', async (importOriginal) => {
   }
 })
 
-vi.mock('@/api/utils/personalization', () => ({
+vi.mock('@/utils/files', () => ({
   openDocument: vi.fn(),
   openParsedCsv: vi.fn(),
+  openParsedJson: vi.fn(),
 }))
 
 vi.mock('react-hot-toast', () => ({

@@ -14,10 +14,10 @@ describe('Form component', () => {
       <Form onCancel={vi.fn()} onSubmit={foo} isDirty isValid />,
     )
 
-    expect(screen.getByRole('button', { name: /validate/i })).toBeEnabled()
+    expect(screen.getByTestId('form-submit-button')).toBeEnabled()
 
     // When we click on the validate button
-    await user.click(screen.getByRole('button', { name: /validate/i }))
+    await user.click(screen.getByTestId('form-submit-button'))
 
     // Then it triggers the onSubmit action
     expect(foo).toHaveBeenCalledOnce()
@@ -31,10 +31,10 @@ describe('Form component', () => {
       <Form onCancel={vi.fn()} onSubmit={foo} isDirty={false} isValid />,
     )
 
-    expect(screen.getByRole('button', { name: /validate/i })).toBeDisabled()
+    expect(screen.getByTestId('form-submit-button')).toBeDisabled()
 
     // When we click on the validate button
-    await user.click(screen.getByRole('button', { name: /validate/i }))
+    await user.click(screen.getByTestId('form-submit-button'))
 
     // Then nothing happens
     expect(foo).not.toHaveBeenCalled()
@@ -48,10 +48,10 @@ describe('Form component', () => {
       <Form onCancel={vi.fn()} onSubmit={foo} isDirty isValid={false} />,
     )
 
-    expect(screen.getByRole('button', { name: /validate/i })).toBeDisabled()
+    expect(screen.getByTestId('form-submit-button')).toBeDisabled()
 
     // When we click on the validate button
-    await user.click(screen.getByRole('button', { name: /validate/i }))
+    await user.click(screen.getByTestId('form-submit-button'))
 
     // Then nothing happens
     expect(foo).not.toHaveBeenCalled()
