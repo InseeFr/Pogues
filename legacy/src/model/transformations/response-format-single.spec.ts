@@ -82,11 +82,11 @@ describe('response format single', () => {
             },
             CollectedVariableReference: 'my-var-id',
             VariableReference: 'my-variable-id',
-            OptionFilter: 'nice filter',
             mandatory: true,
             choiceType: CHOICE_TYPE.VARIABLE,
           },
         ],
+        optionFilter: 'nice filter',
       };
       const output = remoteToState(remote);
       const expected = {
@@ -183,12 +183,12 @@ describe('stateToRemote', () => {
             typeName: 'TEXT',
             visualizationHint: 'RADIO',
           },
-          OptionFilter: 'nice filter',
           choiceType: 'VARIABLE',
           id: 'my-response-id',
           mandatory: true,
         },
       ],
+      optionFilter: 'nice filter',
     };
     expect(output).toEqual(expected);
   });

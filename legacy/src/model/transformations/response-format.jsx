@@ -18,13 +18,18 @@ export function remoteToState(
   mandatory,
   /** Add source variable references to response format if the response format is pairing. */
   sourceVariableReferences,
+  /** filter for modalities based on a variable. Only for unique choice questions */
+  optionFilter = '',
 ) {
   let datatypeState = {};
 
   if (type === SIMPLE) {
     datatypeState = ResponseFormatSimple.remoteToState({ responses });
   } else if (type === SINGLE_CHOICE) {
-    datatypeState = ResponseFormatSingle.remoteToState({ responses });
+    datatypeState = ResponseFormatSingle.remoteToState({
+      responses,
+      optionFilter,
+    });
   } else if (type === MULTIPLE_CHOICE) {
     datatypeState = ResponseFormatMultiple.remoteToState({
       responses,
@@ -72,6 +77,7 @@ export function stateToRemote(
       collectedVariables,
     );
     remote.Response = dataTypeRemote.Response;
+    remote.OptionFilter = dataTypeRemote.optionFilter;
   } else if (type === MULTIPLE_CHOICE) {
     dataTypeRemote = ResponseFormatMultiple.stateToRemote(
       responseFormatState,

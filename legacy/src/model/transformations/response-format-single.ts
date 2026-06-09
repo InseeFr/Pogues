@@ -14,7 +14,6 @@ type RemoteResponseFormatSingle = {
   id: string;
   CodeListReference?: unknown;
   VariableReference?: unknown;
-  OptionFilter?: string;
   choiceType?:
     | CHOICE_TYPE.CODE_LIST
     | CHOICE_TYPE.SUGGESTER
@@ -48,7 +47,7 @@ export type StateResponseFormatSingle = {
     }
   | {
       visHint?: // Filter based on lunatic new components ?
-      | DATATYPE_VIS_HINT.CHECKBOX
+        | DATATYPE_VIS_HINT.CHECKBOX
         | DATATYPE_VIS_HINT.RADIO
         | DATATYPE_VIS_HINT.DROPDOWN;
       [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string; optionFilter?: string };
@@ -57,6 +56,7 @@ export type StateResponseFormatSingle = {
 
 export function remoteToState(remote: {
   responses: RemoteResponseFormatSingle;
+  optionFilter?: string;
 }): StateResponseFormatSingle {
   const {
     responses: [
@@ -67,9 +67,9 @@ export function remoteToState(remote: {
         CodeListReference,
         VariableReference,
         id,
-        OptionFilter,
       },
     ],
+    optionFilter,
   } = remote;
 
   const baseState = {
@@ -98,7 +98,7 @@ export function remoteToState(remote: {
       ...baseState,
       [DEFAULT_VARIABLE_SELECTOR_PATH]: {
         id: VariableReference as string,
-        optionFilter: OptionFilter,
+        optionFilter,
       },
       visHint,
     };
@@ -116,7 +116,7 @@ export function remoteToState(remote: {
 export function stateToRemote(
   state: StateResponseFormatSingle,
   collectedVariables: string[],
-): { Response: RemoteResponseFormatSingle } {
+): { Response: RemoteResponseFormatSingle; optionFilter?: string } {
   const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
 
   let nomenclatureId;
@@ -152,11 +152,11 @@ export function stateToRemote(
         codesListId,
         nomenclatureId,
         variableReferenceId,
-        optionFilter,
         typeName: DATATYPE_NAME.TEXT,
         maxLength: 249,
         collectedVariable: collectedVariables[0],
       }),
     ],
+    optionFilter,
   };
 }
