@@ -34,9 +34,9 @@ const FormInput = React.forwardRef<HTMLInputElement, Props>(
     // `value` prop was explicitly provided. In controlled mode, normalize
     // `undefined` to '' so Base UI's FieldControl never switches modes
     // (e.g. during react-hook-form resets when using the `values` option).
-    const hasValueProp = 'value' in props
-    const { value, ...restProps } = props
-    const controlledValue = hasValueProp ? (value ?? '') : undefined
+    const hasValueProp = 'value' in props;
+    const { value, ...restProps } = props;
+    const controlledValue = hasValueProp ? (value ?? '') : undefined;
 
     return (
       <Field.Root
