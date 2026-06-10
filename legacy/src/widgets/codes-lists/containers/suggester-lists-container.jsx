@@ -2,10 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { arrayRemoveAll, change, formValueSelector } from 'redux-form';
 
-import {
-  loadNomenclature,
-  loadNomenclaturesIfNeeded,
-} from '../../../actions/metadata';
+import { loadNomenclaturesIfNeeded } from '../../../actions/metadata';
 import {
   DEFAULT_FORM_NAME,
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
@@ -27,7 +24,6 @@ const defaultProps = {
 
 const mapDispatchToProps = {
   loadNomenclaturesIfNeeded,
-  loadNomenclature,
   change: change,
   arrayRemoveAll: arrayRemoveAll,
 };

@@ -107,7 +107,6 @@ export const defaultMeasureForm = {
       label: '',
       name: '',
       urn: '',
-      suggesterParameters: '',
     },
     [DEFAULT_VARIABLE_SELECTOR_PATH]: {
       id: '',

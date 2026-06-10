@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Get list of variables scopes by calling the backend
+
 ## [3.2.5](https://github.com/InseeFr/Pogues/releases/tag/3.2.4) - 2026-06-09
 
 ### Added
@@ -15,9 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- Get list of variables scopes by calling the backend
 - Display scope label in variables Page
 - Default pending component (to replace by Skeleton)
+
+### Changed
+
+- Retrieve nomenclatures list from api instead of using a mock in front.
 
 ## [3.2.3](https://github.com/InseeFr/Pogues/releases/tag/3.2.3) - 2026-06-04
 
