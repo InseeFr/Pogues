@@ -30,5 +30,9 @@
   },
   "usedByQuestion": "Utilisé dans la question :",
   "usedByQuestion_other": "Utilisé dans les questions :",
-  "validate": "Valider"
+  "validate": "Valider",
+  "form": {
+    "submitInvalid": "Veuillez corriger les erreurs du formulaire avant de valider",
+    "submitUnchanged": "Aucune modification à enregistrer"
+  }
 }

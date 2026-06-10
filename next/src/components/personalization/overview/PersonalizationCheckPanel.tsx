@@ -10,6 +10,7 @@ import {
 } from '@/api/personalization'
 import { createInterrogationFile } from '@/api/utils/personalization'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
+import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import ResetIcon from '@/components/ui/icons/ResetIcon'
 import WarningIcon from '@/components/ui/icons/WarningIcon'
 import {
@@ -18,7 +19,6 @@ import {
 } from '@/models/personalizationQuestionnaire'
 
 import ModeOverview from './ModeOverview'
-import UploadMessageTile from './UploadMessageTile'
 
 interface PersonalizationCheckPanelProps {
   questionnaireId: string

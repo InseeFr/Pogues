@@ -16,7 +16,6 @@ vi.mock('@/api/personalization', async (importOriginal) => {
 
   return {
     ...actual,
-    // Had to redefine the whole constant to avoid vitest throwing an error
     personalizationKeys: {
       base: (poguesId: string) =>
         ['personalization', 'base', poguesId] as const,

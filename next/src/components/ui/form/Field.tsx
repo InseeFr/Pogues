@@ -26,7 +26,7 @@ export type Props = {
    * An accessible label that is automatically associated with the field
    * control.
    */
-  label: string | React.ReactNode
+  label?: string | React.ReactNode
   /**
    * Identifies the field when a form is submitted. Takes precedence over the
    * `name` prop on the `<Field.Control>` component.

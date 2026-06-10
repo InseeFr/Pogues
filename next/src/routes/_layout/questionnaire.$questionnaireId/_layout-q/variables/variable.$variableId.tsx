@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
-import { questionnaireQueryOptions } from '@/api/questionnaires'
+import { scopesQueryOptions } from '@/api/scopes'
 import { variablesQueryOptions } from '@/api/variables'
 import ErrorComponent from '@/components/layout/ErrorComponent'
 import EditVariable from '@/components/variables/edit/EditVariable'
@@ -23,7 +23,7 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId, variableId },
   }) => {
-    queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId))
+    queryClient.ensureQueryData(scopesQueryOptions(questionnaireId))
     queryClient.ensureQueryData(variablesQueryOptions(questionnaireId))
     return { crumb: t('crumb.variable', { id: variableId }) }
   },
@@ -31,9 +31,8 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const { questionnaireId, variableId } = Route.useParams()
-  const { data: questionnaire } = useSuspenseQuery(
-    questionnaireQueryOptions(questionnaireId),
-  )
+
+  const { data: scopes } = useSuspenseQuery(scopesQueryOptions(questionnaireId))
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
   )
@@ -45,7 +44,7 @@ function RouteComponent() {
       <EditVariable
         questionnaireId={questionnaireId}
         variable={variable}
-        scopes={questionnaire.scopes}
+        scopes={scopes}
         variables={variables}
       />
     </EditVariableLayout>

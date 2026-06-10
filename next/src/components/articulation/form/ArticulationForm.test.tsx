@@ -27,7 +27,11 @@ describe('ArticulationForm', () => {
 
     // Then the form is invalid and cannot be submitted
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled()
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
     // When we fill all the inputs
@@ -35,14 +39,22 @@ describe('ArticulationForm', () => {
       target: { value: 'first name formula' },
     })
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled()
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
     fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
       target: { value: 'gender formula' },
     })
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Validate/i })).toBeDisabled()
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
     fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
@@ -51,10 +63,18 @@ describe('ArticulationForm', () => {
 
     // Then the form becomes valid and can be submitted
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Validate/i })).toBeEnabled()
+      const submitButton = screen
+        .getAllByRole('button')
+        .find((button) => button.getAttribute('type') === 'submit')
+      expect(submitButton).toBeTruthy()
+      expect(submitButton).not.toHaveAttribute('aria-disabled', 'true')
     })
 
-    fireEvent.submit(screen.getByRole('button', { name: /Validate/i }))
+    const submitButton = screen
+      .getAllByRole('button')
+      .find((button) => button.getAttribute('type') === 'submit')
+    expect(submitButton).toBeTruthy()
+    fireEvent.submit(submitButton!)
     await waitFor(() => {
       expect(foo).toHaveBeenCalledOnce()
     })

@@ -13,9 +13,13 @@ import {
 } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
+import { useCallback, useEffect, useState } from 'react'
+
+import Button, { ButtonStyle } from '@/components/ui/Button'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
+import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
-import Input from '@/components/ui/form/FormInput'
+import Input from '@/components/ui/form/Input'
 import Label from '@/components/ui/form/Label'
 import VTLEditor from '@/components/ui/form/VTLEditor'
 import AddIcon from '@/components/ui/icons/AddIcon'
@@ -26,6 +30,7 @@ import { type CodesList } from '@/models/codesLists'
 import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
 
+import ImportCodesListFromCsv from './ImportCodesListFromCsv'
 import { type FormValues, schema } from './schema'
 
 interface CodesListFormProps {
@@ -38,6 +43,8 @@ interface CodesListFormProps {
   variables?: Variable[]
   /** Function that will be called with form data when the user submit the form. */
   onSubmit: SubmitHandler<FormValues>
+  /** Function that will be called with form data when the form values change. */
+  onValuesChange?: (values: FormValues) => void
 }
 
 /**
@@ -58,9 +65,11 @@ export default function CodesListForm({
   formulasLanguage,
   variables = [],
   onSubmit,
+  onValuesChange,
 }: Readonly<CodesListFormProps>) {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [showCsvImport, setShowCsvImport] = useState(false)
 
   const {
     control,
@@ -68,6 +77,9 @@ export default function CodesListForm({
     formState: { isDirty, isValid, isSubmitted },
     setError,
     trigger,
+    watch,
+    getValues,
+    setValue,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -77,6 +89,45 @@ export default function CodesListForm({
     values: codesList,
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      onValuesChange?.(values as FormValues)
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, onValuesChange])
+
+  const handleImportSuccess = useCallback(
+    (importedFormValues: FormValues) => {
+      const currentValues = getValues()
+      const mergedCodes = [
+        ...currentValues.codes.filter((code) => code.value || code.label),
+        ...importedFormValues.codes,
+      ]
+
+      const uniqueCodesMap = new Map<string, FormValues['codes'][number]>()
+      mergedCodes.forEach((code) => {
+        if (code.value) {
+          uniqueCodesMap.set(code.value, {
+            label: code.label,
+            value: code.value,
+            codes: code.codes || [],
+          })
+        }
+      })
+
+      const uniqueCodes = Array.from(uniqueCodesMap.values())
+      setValue(
+        'codes',
+        uniqueCodes.length > 0
+          ? uniqueCodes
+          : [{ label: '', value: '', codes: [] }],
+      )
+
+      setShowCsvImport(false)
+    },
+    [getValues, setValue],
+  )
 
   const handleCancel = () => {
     navigate({
@@ -97,15 +148,42 @@ export default function CodesListForm({
       <Controller
         name="label"
         control={control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
             label={t('codesList.common.label')}
-            error={error?.message}
-            {...field}
+            name={name}
             required
-          />
+            touched={isTouched}
+          >
+            <Input value={value} onValueChange={onChange} />
+          </Field>
         )}
       />
+      <div>
+        {!showCsvImport && (
+          <Button
+            type="button"
+            onClick={() => setShowCsvImport((v) => !v)}
+            buttonStyle={ButtonStyle.Primary}
+          >
+            {t('codesList.import.importButton')}
+          </Button>
+        )}
+        {showCsvImport && (
+          <div className="border-t border-default pt-4 mt-4">
+            <ImportCodesListFromCsv
+              onImportSuccess={handleImportSuccess}
+              onCancel={() => setShowCsvImport(false)}
+            />
+          </div>
+        )}
+      </div>
       <div className="grid grid-cols-[1fr_2fr_auto_auto] auto-cols-min items-start gap-x-2 gap-y-2">
         <Label className="col-start-1">{t('codesList.common.codeValue')}</Label>
         <Label className="col-start-2">{t('codesList.common.codeLabel')}</Label>
@@ -241,16 +319,26 @@ function CodesField({
           name={`${namePrefix}.value` as `codes.${number}.value`}
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { error } }) => (
-            <Input
-              data-testid={`${namePrefix}.value`}
-              error={error?.message}
-              {...field}
-              onChange={(e) => {
-                field.onChange(e)
-                trigger()
-              }}
-            />
+          render={({
+            field: { name, value, onChange },
+            fieldState: { invalid, isTouched, isDirty, error },
+          }) => (
+            <Field
+              dirty={isDirty}
+              error={error}
+              invalid={invalid}
+              name={name}
+              required
+              touched={isTouched}
+            >
+              <Input
+                value={value}
+                onValueChange={(e) => {
+                  onChange(e)
+                  trigger()
+                }}
+              />
+            </Field>
           )}
         />
       </div>
@@ -279,12 +367,21 @@ function CodesField({
                 value={value}
               />
             ) : (
-              <Input
-                data-testid={`${namePrefix}.label`}
-                error={error?.message}
-                onValueChange={onChange}
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                name={name}
                 required
-              />
+                touched={isTouched}
+              >
+                <Input
+                  data-testid={`${namePrefix}.label`}
+                  value={value}
+                  onValueChange={onChange}
+                  required
+                />
+              </Field>
             )
           }
         />
