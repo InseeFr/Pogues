@@ -19,7 +19,6 @@ export function SuggesterLists({
   formName,
   path,
   loadNomenclaturesIfNeeded,
-  loadNomenclature,
   nomenclatures,
   selectorPath,
   currentId,
@@ -38,11 +37,6 @@ export function SuggesterLists({
   }, [getAccessToken, loadNomenclaturesIfNeeded]);
 
   useEffect(() => {
-    const loadNomenclatureWithToken = async (currentId, nomenclatures) => {
-      const accessToken = await getAccessToken();
-      loadNomenclature(accessToken, currentId, nomenclatures);
-    };
-
     if (currentIdState !== currentId && currentId === '') {
       change(formName, `${path}id`, '');
       change(formName, `${path}label`, '');
@@ -81,14 +75,6 @@ export function SuggesterLists({
       change(formName, `${path}urn`, nomenclatures[currentId].urn);
       setCurrentIdState(currentId);
     }
-
-    if (
-      currentIdState !== currentId &&
-      currentId !== '' &&
-      !codesListsStore[currentId] &&
-      !nomenclatures[currentId].codes
-    )
-      loadNomenclatureWithToken(currentId, nomenclatures);
   }, [
     currentId,
     change,
@@ -96,7 +82,6 @@ export function SuggesterLists({
     formName,
     path,
     nomenclatures,
-    loadNomenclature,
     getAccessToken,
     codesListsStore,
   ]);
@@ -130,7 +115,6 @@ SuggesterLists.propTypes = {
   path: PropTypes.string.isRequired,
   codesListsStore: PropTypes.object,
   loadNomenclaturesIfNeeded: PropTypes.func.isRequired,
-  loadNomenclature: PropTypes.func.isRequired,
   nomenclatures: PropTypes.object,
   selectorPath: PropTypes.string.isRequired,
   currentId: PropTypes.string,

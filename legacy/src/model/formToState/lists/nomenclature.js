@@ -6,7 +6,7 @@ export const defaultState = {
 };
 
 export function formToState(form) {
-  const { id, label, name = '', urn = '', suggesterParameters = {} } = form;
+  const { id, label, name = '', urn = '', suggesterParameters } = form;
   return {
     id,
     name,
@@ -21,7 +21,7 @@ export function stateComponentToForm({
   name = '',
   label = '',
   urn = '',
-  suggesterParameters = {},
+  suggesterParameters,
 }) {
   return {
     id,
