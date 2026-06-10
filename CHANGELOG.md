@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Retrieve nomenclatures list from api instead of using a mock in front.
+
 ## [3.2.3](https://github.com/InseeFr/Pogues/releases/tag/3.2.3) - 2026-06-04
 
 ### Fixed
