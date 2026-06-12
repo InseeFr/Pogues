@@ -10,7 +10,6 @@ import {
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Select from '../../../../../forms/controls/select';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
-import { requiredSelect } from '../../../../../utils/validation/validate-rules';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
 import { CodesLists } from '../../../../codes-lists';
 
@@ -106,7 +105,6 @@ function ResponseFormatPairing({
         component={Select}
         label={Dictionary.pairingSourceVariable}
         required
-        validate={[requiredSelect]}
       >
         <GenericOption key="" value="">
           {Dictionary.selectBasedOn}
