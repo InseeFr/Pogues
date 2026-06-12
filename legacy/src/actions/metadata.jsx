@@ -4,7 +4,7 @@ import {
   getSeries,
   getUnitsList,
 } from '../api/metadata';
-import { getNomenclature, getNomenclatures } from '../api/nomenclatures';
+import { getNomenclatures } from '../api/nomenclatures';
 import { getQuestionnaire, getVariablesById } from '../api/questionnaires';
 import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 
@@ -312,18 +312,15 @@ export const loadNomenclatures = (token) => async (dispatch) => {
   });
 
   try {
-    const nomenclatures = await getNomenclatures(token);
-    const nomenclaturesMetadata = Object.values(nomenclatures.nomenclatures)
-      .map((nomenclature) => ({
-        id: nomenclature.id,
-        label: nomenclature.label,
-      }))
+    const nomenclatures = (await getNomenclatures(token))
+      // we need to add empty list of codes since the codeList store seems to need it.
+      // do not remove this line
+      .map((nomenclature) => ({ ...nomenclature, codes: [] }))
       .sort((a, b) => {
         return `${a.label}`.localeCompare(b.label);
       });
-    return dispatch(
-      loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
-    );
+
+    return dispatch(loadMetadataSuccess('nomenclatures', nomenclatures));
   } catch (err) {
     return dispatch(loadMetadataFailure(err));
   }
@@ -334,31 +331,3 @@ export const loadNomenclaturesIfNeeded = (token) => (dispatch, getState) => {
   const { nomenclatures } = state.metadataByType;
   if (!nomenclatures) dispatch(loadNomenclatures(token));
 };
-
-export const loadNomenclature =
-  (token, id, nomenclatures) => async (dispatch) => {
-    dispatch({
-      type: LOAD_NOMENCLATURES,
-      payload: null,
-    });
-
-    try {
-      const nomenclature = await getNomenclature(id, token);
-      const nomenclaturesMetadata = Object.values({
-        ...nomenclatures,
-        [id]: {
-          id,
-          name: nomenclature.name,
-          label: nomenclature.label,
-          urn: nomenclature.urn,
-          suggesterParameters: nomenclature.parameters,
-          codes: nomenclature.codes,
-        },
-      });
-      return dispatch(
-        loadMetadataSuccess('nomenclatures', nomenclaturesMetadata),
-      );
-    } catch (err) {
-      return dispatch(loadMetadataFailure(err));
-    }
-  };
