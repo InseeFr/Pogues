@@ -154,7 +154,6 @@ function ResponseFormatPairing({
         selectorPathParent={selectorPathComposed}
         allowPrecision={allowPrecision}
         allowFilter={allowFilter}
-        requiredCodeList={true}
       />
     </FormSection>
   );

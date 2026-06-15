@@ -30,7 +30,6 @@ export const propTypes = {
   arrayRemoveAll: PropTypes.func.isRequired,
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
-  requiredCodeList: PropTypes.bool,
 };
 
 export const defaultProps = {
@@ -39,7 +38,6 @@ export const defaultProps = {
   currentCodesListsStore: {},
   allowPrecision: false,
   allowFilter: false,
-  requiredCodeList: false,
 };
 
 /**
