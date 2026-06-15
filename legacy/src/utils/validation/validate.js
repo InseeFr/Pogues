@@ -20,6 +20,7 @@ import {
   durationRulesPnYnM,
   filterRules,
   loopRules,
+  pairingRules,
   questionRules,
   questionnaireRules,
   redirectionRules,
@@ -38,7 +39,7 @@ export function validateQuestionnaireForm(values, setErrors) {
   }
 }
 
-const { SIMPLE } = QUESTION_TYPE_ENUM;
+const { PAIRING, SIMPLE } = QUESTION_TYPE_ENUM;
 const { DATE, DURATION } = DATATYPE_NAME;
 const { RESPONSE_FORMAT } = TABS_PATHS;
 
@@ -51,6 +52,9 @@ export function validateQuestionForm(values, setErrors, codesListsStore) {
     values,
     `${RESPONSE_FORMAT}.${SIMPLE}.${DURATION}.format`,
   );
+
+  const responseFormatType = get(values, `${RESPONSE_FORMAT}.type`);
+
   if (dateFormat) {
     errors = validate(
       values,
@@ -67,6 +71,12 @@ export function validateQuestionForm(values, setErrors, codesListsStore) {
     errors = validate(
       values,
       { ...questionRules, ...durationRulesPnYnM },
+      { codesListsStore },
+    );
+  } else if (responseFormatType === PAIRING) {
+    errors = validate(
+      values,
+      { ...questionRules, ...pairingRules },
       { codesListsStore },
     );
   } else {
