@@ -50,12 +50,13 @@ export type StateResponseFormatSingle = {
         | DATATYPE_VIS_HINT.CHECKBOX
         | DATATYPE_VIS_HINT.RADIO
         | DATATYPE_VIS_HINT.DROPDOWN;
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string };
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: string; optionFilter?: string };
     }
 );
 
 export function remoteToState(remote: {
   responses: RemoteResponseFormatSingle;
+  optionFilter?: string;
 }): StateResponseFormatSingle {
   const {
     responses: [
@@ -68,6 +69,7 @@ export function remoteToState(remote: {
         id,
       },
     ],
+    optionFilter,
   } = remote;
 
   const baseState = {
@@ -94,7 +96,10 @@ export function remoteToState(remote: {
   if (choiceType === CHOICE_TYPE.VARIABLE) {
     return {
       ...baseState,
-      [DEFAULT_VARIABLE_SELECTOR_PATH]: { id: VariableReference as string },
+      [DEFAULT_VARIABLE_SELECTOR_PATH]: {
+        id: VariableReference as string,
+        optionFilter,
+      },
       visHint,
     };
   }
@@ -111,12 +116,13 @@ export function remoteToState(remote: {
 export function stateToRemote(
   state: StateResponseFormatSingle,
   collectedVariables: string[],
-): { Response: RemoteResponseFormatSingle } {
+): { Response: RemoteResponseFormatSingle; optionFilter?: string } {
   const { allowArbitraryResponse, visHint, mandatory, id, choiceType } = state;
 
   let nomenclatureId;
   let codesListId;
   let variableReferenceId;
+  let optionFilter;
 
   if (
     choiceType === CHOICE_TYPE.SUGGESTER &&
@@ -128,6 +134,7 @@ export function stateToRemote(
     DEFAULT_VARIABLE_SELECTOR_PATH in state
   ) {
     variableReferenceId = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.id;
+    optionFilter = state[DEFAULT_VARIABLE_SELECTOR_PATH]?.optionFilter;
   } else if (
     choiceType === CHOICE_TYPE.CODE_LIST &&
     DEFAULT_CODES_LIST_SELECTOR_PATH in state
@@ -150,5 +157,6 @@ export function stateToRemote(
         collectedVariable: collectedVariables[0],
       }),
     ],
+    optionFilter,
   };
 }

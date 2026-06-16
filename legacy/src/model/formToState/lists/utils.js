@@ -9,10 +9,10 @@ export function createListFactory(
   currentState = {},
 ) {
   if (codesListsStore && currentState.id) {
-    currentState = merge(
-      cloneDeep(defaultState),
-      codesListsStore[currentState.id],
-    );
+    currentState = merge(cloneDeep(defaultState), {
+      ...codesListsStore[currentState.id],
+      optionFilter: currentState.optionFilter,
+    });
   } else {
     currentState = cloneDeep(defaultState);
   }

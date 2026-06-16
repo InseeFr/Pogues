@@ -232,7 +232,12 @@ function remoteToStateMeasure(remote) {
     state.type = SINGLE_CHOICE;
     state[SINGLE_CHOICE] = ResponseFormatSingle.remoteToState({
       responses: [
-        { Datatype, VariableReference, choiceType, CollectedVariableReference },
+        {
+          Datatype,
+          VariableReference,
+          choiceType,
+          CollectedVariableReference,
+        },
       ],
     });
   } else {

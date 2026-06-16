@@ -352,6 +352,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     Locked: locked,
     Loop: loop,
     codeFilters: codeFilters,
+    OptionFilter: optionFilter,
     sourceVariableReferences,
   } = remote;
   const redirectionClar =
@@ -387,6 +388,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
     dynamiqueSpecified:
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
     codeFilters,
+    optionFilter,
   };
   if (genericName) {
     state.label = label;
@@ -422,6 +424,7 @@ function remoteToState(remote, componentGroup, codesListsStore) {
       scope,
       mandatory,
       sourceVariableReferences,
+      optionFilter,
     );
     state.collectedVariables =
       CollectedVariable.remoteToComponentState(responseFinal);

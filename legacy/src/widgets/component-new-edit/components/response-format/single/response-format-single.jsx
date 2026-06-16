@@ -93,6 +93,7 @@ function ResponseFormatSingle({
         <View key={VARIABLE} value={VARIABLE} label={Dictionary.variable}>
           <ResponseFormatSingleVariable
             selectorPathParent={selectorPathComposed}
+            allowFilter={allowFilter}
           />
         </View>
       </SelectorView>

@@ -5,16 +5,18 @@ export const defaultState = {
   label: '',
   name: '',
   scope: '',
+  optionFilter: '',
 };
 
 export function formToState(form) {
-  const { id, label, name, scope } = form;
+  const { id, label, name, scope, optionFilter } = form;
 
   return {
     id,
     name,
     label,
     scope,
+    optionFilter,
   };
 }
 
@@ -23,12 +25,14 @@ export function stateComponentToForm({
   name = '',
   label = '',
   scope = '',
+  optionFilter = '',
 }) {
   return {
     id,
     name,
     label,
     scope,
+    optionFilter,
   };
 }
 

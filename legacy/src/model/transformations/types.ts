@@ -30,6 +30,7 @@ export type StateResponse = {
   codesListId?: string;
   nomenclatureId?: string;
   variableReferenceId?: string;
+  optionFilter?: string;
   allowArbitraryResponse?: unknown;
   visHint?: DATATYPE_VIS_HINT;
   choiceType?:

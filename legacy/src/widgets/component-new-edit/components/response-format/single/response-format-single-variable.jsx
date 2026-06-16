@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Field, FormSection } from 'redux-form';
 import { formValueSelector } from 'redux-form';
 
+import { InputWithVariableAutoCompletion } from '@/forms/controls/control-with-suggestions';
 import ListRadios from '@/forms/controls/list-radios';
 import Select from '@/forms/controls/select';
 
@@ -28,6 +29,7 @@ function ResponseFormatSingleVariable({
   selectedScope,
   componentsStore,
   externalLoopsStore,
+  allowFilter = false,
 }) {
   const scopes = getQuestionnaireScope(componentsStore, externalLoopsStore);
 
@@ -58,6 +60,18 @@ function ResponseFormatSingleVariable({
         scope={selectedScope}
       />
 
+      {allowFilter && (
+        <FormSection name={selectorPath}>
+          <Field
+            name="optionFilter"
+            type="text"
+            component={InputWithVariableAutoCompletion}
+            label={Dictionary.modalityFilter}
+            required={false}
+          />
+        </FormSection>
+      )}
+
       <Field
         name="visHint"
         component={ListRadios}
@@ -83,6 +97,7 @@ ResponseFormatSingleVariable.propTypes = {
   selectedScope: PropTypes.string,
   componentsStore: PropTypes.object,
   externalLoopsStore: PropTypes.object,
+  allowFilter: PropTypes.bool,
 };
 
 ResponseFormatSingleVariable.defaultProps = {
@@ -90,6 +105,7 @@ ResponseFormatSingleVariable.defaultProps = {
   selectedScope: '',
   componentsStore: {},
   externalLoopsStore: {},
+  allowFilter: false,
 };
 
 const mapStateToProps = (state, { selectorPathParent }) => {

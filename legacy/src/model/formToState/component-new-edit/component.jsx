@@ -58,6 +58,7 @@ export function formToState(form, transformers) {
     occurrenceDescription,
     locked,
     codeFilters = [],
+    optionFilter,
   } = form;
 
   let newName;
@@ -107,6 +108,7 @@ export function formToState(form, transformers) {
     occurrenceDescription: occurrenceDescription,
     locked: locked,
     codeFilters,
+    optionFilter,
   };
   if (res.responseFormat.type) {
     transformers.codesList.formToComponentState(
@@ -140,6 +142,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     locked,
     selectedComponent,
     codeFilters = [],
+    optionFilter,
   } = currentState;
 
   let target = '';
@@ -176,6 +179,7 @@ export function stateToForm(currentState, transformers, activeQuestionnaire) {
     occurrenceDescription: occurrenceDescription || '',
     locked: locked,
     codeFilters,
+    optionFilter,
   };
 
   if (type === QUESTION) {
