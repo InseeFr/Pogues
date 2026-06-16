@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-#### Fixed
+## [3.4.0](https://github.com/InseeFr/Pogues/releases/tag/3.4.0) - 2026-06-16
+
+### Added
+
+- In a unique choice question with modalities computed from a variable, you can now add a VTL expression for filtering modalities.
+
+### Fixed
 
 - Name variable & code list selection is now mandatory for pairing question type
 
@@ -75,10 +81,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - oidc: remove `roles` from `idToken` shape validation, we can retrive roles from `accessToken` instead.
 
 ## [3.1.0](https://github.com/InseeFr/Pogues/releases/tag/3.1.0) - 2026-05-13
-
-### Added
-
-- In a unique choice question with modalities computed from a variable, you can now add a VTL expression for filtering modalities.
 
 ### Fixed
 
