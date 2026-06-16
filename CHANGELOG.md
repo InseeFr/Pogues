@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Fixed
+
+- Name variable & code list selection is now mandatory for pairing question type
+
+## [3.3.0](https://github.com/InseeFr/Pogues/releases/tag/3.3.0) - 2026-06-11
+
+### Added
+
 - Get list of variables scopes by calling the backend
+
+### Fixed
+
+- Variables page for questionnaire version when there are scopes
 
 ## [3.2.5](https://github.com/InseeFr/Pogues/releases/tag/3.2.4) - 2026-06-09
 

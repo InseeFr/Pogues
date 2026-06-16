@@ -8,6 +8,7 @@ import { declarationRules } from './declaration';
 import { durationRulesPTnHnM, durationRulesPnYnM } from './duration';
 import { filterRules } from './filter';
 import { loopRules } from './loop';
+import { pairingRules } from './pairing';
 import { questionRules } from './question';
 import { questionnaireRules } from './questionnaire';
 import { redirectionRules } from './redirection';
@@ -24,6 +25,7 @@ export {
   durationRulesPnYnM,
   filterRules,
   loopRules,
+  pairingRules,
   questionRules,
   questionnaireRules,
   redirectionRules,

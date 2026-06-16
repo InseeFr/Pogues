@@ -15,7 +15,7 @@ interface Props {
   questionnaireId: string
   readonly?: boolean
   variables: Variable[]
-  scopeLabels: Scopes
+  scopeLabels?: Scopes
 }
 
 /** Display the variables of the selected questionnaire. */
@@ -23,7 +23,7 @@ export default function VariablesOverview({
   questionnaireId,
   readonly = false,
   variables = [],
-  scopeLabels = {} as Scopes,
+  scopeLabels = new Map() as Scopes,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const scopes = new Set<string>()
