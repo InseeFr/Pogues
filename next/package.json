@@ -2,6 +2,7 @@
   "name": "pogues",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.8.0",
   "scripts": {
     "generate-routes": "tsr generate",
     "watch-routes": "tsr watch",

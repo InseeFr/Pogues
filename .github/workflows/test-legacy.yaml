@@ -16,12 +16,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
           package_json_file: "legacy/package.json"
       - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "pnpm"
           cache-dependency-path: legacy/pnpm-lock.yaml
       - run: cd legacy && pnpm i --frozen-lockfile && pnpm test:coverage
