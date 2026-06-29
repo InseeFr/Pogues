@@ -43,6 +43,7 @@
     "prepare": "husky"
   },
   "license": "MIT",
+  "packageManager": "pnpm@11.8.0",
   "dependencies": {
     "@making-sense/antlr-editor": "^2.0.0",
     "@making-sense/vtl-2-0-antlr-tools-ts": "^2.0.1",
