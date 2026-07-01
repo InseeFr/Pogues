@@ -28,7 +28,7 @@ export default function OverviewItem({
 
   return (
     <li
-      className={`relative p-4 bg-default border first:border-t last:border-b shadow-sm grid grid-rows-[auto_1fr_auto] transition-all ${isExpanded ? 'not-first:mt-6 not-last:mb-6' : 'not-first:mt-[-1px]'}`}
+      className={`relative p-4 bg-default border first:border-t last:border-b shadow-sm grid grid-rows-[auto_1fr_auto] transition-all ${isExpanded ? 'not-first:mt-6 not-last:mb-6' : 'not-first:mt-2'}`}
     >
       <div className="grid grid-cols-[1fr_auto]">{content}</div>
       {details ? (
