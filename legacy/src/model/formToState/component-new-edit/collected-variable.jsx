@@ -11,14 +11,14 @@ export const defaultState = {
   y: '',
   z: '',
   mesureLevel: undefined,
-  codeListReference: '',
-  codeListReferenceLabel: '',
+  codeListReference: undefined,
+  codeListReferenceLabel: undefined,
   variableReference: undefined,
   variableReferenceLabel: undefined,
   optionFilter: '',
   choiceType: '',
   isCollected: '1',
-  alternativeLabel: '',
+  alternativeLabel: undefined,
 };
 
 export const defaultForm = {
@@ -30,14 +30,14 @@ export const defaultForm = {
   mesureLevel: undefined,
   type: TEXT,
   collectedVariables: [],
-  codeListReference: '',
-  codeListReferenceLabel: '',
+  codeListReference: undefined,
+  codeListReferenceLabel: undefined,
   variableReference: undefined,
   variableReferenceLabel: undefined,
   optionFilter: '',
   choiceType: '',
   isCollected: '1',
-  alternativeLabel: '',
+  alternativeLabel: undefined,
 };
 
 function getTypings(object) {
