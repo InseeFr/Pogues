@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.1](https://github.com/InseeFr/Pogues/releases/tag/3.4.1) - 2026-07-03
+
 ## Fixed
 
 - Name of variable (based on codeList or nomenclature) can be customized now when it's in a fixed or dynamic table
