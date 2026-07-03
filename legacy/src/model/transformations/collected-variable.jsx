@@ -16,6 +16,9 @@ const { QUESTION } = COMPONENT_TYPE;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
 
+const isNomenclatureCodeList = (codeList) =>
+  codeList?.urn || codeList?.suggesterParameters;
+
 export function remoteToStore(
   remote = [],
   responsesByVariable,
@@ -77,7 +80,7 @@ export function remoteToStore(
       choiceType = CHOICE_TYPE.VARIABLE;
     } else if (CodeListReference) {
       const codeList = codesListsStore[CodeListReference];
-      choiceType = codeList?.urn
+      choiceType = isNomenclatureCodeList(codeList)
         ? CHOICE_TYPE.SUGGESTER
         : CHOICE_TYPE.CODE_LIST;
     }

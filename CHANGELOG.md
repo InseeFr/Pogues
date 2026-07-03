@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Nomenclature page now displays the nomenclature theme, reference year and version.
 
+## [3.4.1](https://github.com/InseeFr/Pogues/releases/tag/3.4.1) - 2026-07-03
+
+## Fixed
+
+- Name of variable (based on codeList or nomenclature) can be customized now when it's in a fixed or dynamic table
+
 ## [3.4.0](https://github.com/InseeFr/Pogues/releases/tag/3.4.0) - 2026-06-16
 
 ### Added
