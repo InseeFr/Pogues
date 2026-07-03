@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "3.4.0",
+  "version": "3.4.1-rc.edit-var-suggester-table.1",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "test:next": "cd next && pnpm test",
