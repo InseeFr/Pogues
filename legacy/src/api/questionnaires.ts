@@ -53,6 +53,21 @@ export async function postQuestionnaire(qr: unknown, token: string) {
   });
 }
 
+const handlePutResponse = async (response: Response): Promise<Response> => {
+  if (response.ok) {
+    return response;
+  }
+
+  // cas validation error
+  if (response.status === 400) {
+    const { details } = (await response.json()) as {
+      message: string;
+      details?: string;
+    };
+    throw new Error(`${details}`);
+  } else return response;
+};
+
 /**
  * Update questionnaire by id
  */
@@ -65,11 +80,8 @@ export async function putQuestionnaire(id: string, qr: unknown, token: string) {
   return fetch(url, {
     method: 'PUT',
     headers,
-    body: JSON.stringify(qr),
-  }).then((res) => {
-    if (res.ok) return res;
-    throw new Error(`Network request failed :${res.statusText}`);
-  });
+    body: JSON.stringify({ id: 'vatfaire' }),
+  }).then(handlePutResponse);
 }
 
 /**

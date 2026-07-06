@@ -38,7 +38,9 @@ export const propTypes = {
   isLoopsValid: PropTypes.bool.isRequired,
   selectedComponent: PropTypes.object,
   removeVisualizationError: PropTypes.func,
+  removeValidationAtSaveError: PropTypes.func,
   showVisualizationErrorPopup: PropTypes.string,
+  showValidationAtSaveErrorPopup: PropTypes.string,
 };
 
 export const defaultProps = {
@@ -48,7 +50,9 @@ export const defaultProps = {
   isQuestionnaireModified: false,
   selectedComponent: undefined,
   removeVisualizationError: undefined,
+  removeValidationAtSaveError: undefined,
   showVisualizationErrorPopup: '',
+  showValidationAtSaveErrorPopup: '',
 };
 
 // Components
@@ -94,8 +98,10 @@ function GenericInput(props) {
     placeholders,
     selectedComponent,
     removeVisualizationError,
+    removeValidationAtSaveError,
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
+    showValidationAtSaveErrorPopup,
   } = props;
 
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
@@ -330,6 +336,18 @@ function GenericInput(props) {
         <p>{Dictionary.visualizationError}</p>
         <p className="api-error-message">{showVisualizationErrorPopup}</p>
         <button onClick={removeVisualizationError} className="modal-button">
+          {Dictionary.close}
+        </button>
+      </ReactModal>
+      <ReactModal
+        parentSelector={domSelectorForModal}
+        isOpen={showValidationAtSaveErrorPopup !== ''}
+        ariaHideApp={false}
+        className="custom-modal"
+      >
+        <p>{Dictionary.validationAtSave}</p>
+        <p className="api-error-message">{showValidationAtSaveErrorPopup}</p>
+        <button onClick={removeValidationAtSaveError} className="modal-button">
           {Dictionary.close}
         </button>
       </ReactModal>

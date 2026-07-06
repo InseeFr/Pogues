@@ -461,6 +461,10 @@ const dictionary: Dictionary = {
     en: 'An error occurred while visualizing the questionnaire:',
     fr: 'Une erreur a été rencontrée lors de la visualisation du questionnaire :',
   },
+  validationAtSave: {
+    en: 'An error occurred while validation of questionnaire',
+    fr: 'Une erreur a été rencontrée lors de la validation du questionnaire',
+  },
   close: {
     fr: 'Fermer',
     en: 'Close',

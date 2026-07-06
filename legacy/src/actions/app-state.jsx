@@ -4,7 +4,7 @@ import { getVisualization } from '../api/visualize';
 import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
-import { addVisualizationError } from './errors';
+import { addValidationAtSaveError, addVisualizationError } from './errors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -258,9 +258,7 @@ export const saveActiveQuestionnaire = (token) => {
         );
       })
       .catch((err) => {
-        return dispatch(
-          saveActiveQuestionnaireFailure(questionnaireModel.id, err),
-        );
+        dispatch(addValidationAtSaveError(err));
       });
   };
 };
