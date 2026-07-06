@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "3.5.0",
+  "version": "3.5.1-rc.attributes-nomenclature.0",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "test:next": "cd next && pnpm test",
