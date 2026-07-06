@@ -154,7 +154,6 @@ describe('codes list tranformations', () => {
             },
             D: { value: 'D', label: 'Other', parent: '', depth: 1, weight: 4 },
           },
-          name: '',
         },
       };
       expect(remoteToStore(input)).toEqual(output);
@@ -267,7 +266,6 @@ describe('codes list tranformations', () => {
               weight: 4,
             },
           },
-          name: '',
         },
         jbdye1wa: {
           id: 'jbdye1wa',
@@ -323,7 +321,6 @@ describe('codes list tranformations', () => {
               weight: 6,
             },
           },
-          name: '',
         },
       };
       expect(remoteToStore(input, clarification)).toEqual(output);
@@ -424,7 +421,6 @@ describe('codes list tranformations', () => {
               weight: 4,
             },
           },
-          name: '',
         },
       };
       expect(remoteToStore(input, clarification)).toEqual(output);
