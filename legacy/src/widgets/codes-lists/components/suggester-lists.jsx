@@ -37,42 +37,29 @@ export function SuggesterLists({
   }, [getAccessToken, loadNomenclaturesIfNeeded]);
 
   useEffect(() => {
+    // cas of empty -> new question for ex
     if (currentIdState !== currentId && currentId === '') {
       change(formName, `${path}id`, '');
       change(formName, `${path}label`, '');
       setCurrentIdState(currentId);
     }
 
-    if (
-      currentIdState !== currentId &&
-      currentId !== '' &&
-      codesListsStore[currentId]?.suggesterParameters
-    ) {
-      change(formName, `${path}label`, codesListsStore[currentId].label);
-      change(
-        formName,
-        `${path}suggesterParameters`,
-        codesListsStore[currentId].suggesterParameters,
-      );
-      change(formName, `${path}name`, codesListsStore[currentId].name);
-      change(formName, `${path}urn`, codesListsStore[currentId].urn);
-      setCurrentIdState(currentId);
-    }
-
-    if (
-      currentIdState !== currentId &&
-      currentId !== '' &&
-      !codesListsStore[currentId]?.suggesterParameters &&
-      nomenclatures[currentId].codes
-    ) {
+    // Update id (selected by user) -> update value
+    if (currentIdState !== currentId && currentId !== '') {
       change(formName, `${path}label`, nomenclatures[currentId].label);
       change(
         formName,
         `${path}suggesterParameters`,
         nomenclatures[currentId].suggesterParameters,
       );
-      change(formName, `${path}name`, nomenclatures[currentId].name);
       change(formName, `${path}urn`, nomenclatures[currentId].urn);
+      change(formName, `${path}version`, nomenclatures[currentId].version);
+      change(formName, `${path}theme`, nomenclatures[currentId].theme);
+      change(
+        formName,
+        `${path}referenceYear`,
+        nomenclatures[currentId].referenceYear,
+      );
       setCurrentIdState(currentId);
     }
   }, [
