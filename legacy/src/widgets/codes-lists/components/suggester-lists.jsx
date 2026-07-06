@@ -13,6 +13,33 @@ import { ErrorsPanel } from '../../errors-panel';
 
 const { COMPONENT_CLASS } = WIDGET_CODES_LISTS;
 
+export const NOMENCLATURE_FIELDS = [
+  'id',
+  'label',
+  'suggesterParameters',
+  'urn',
+  'version',
+  'theme',
+  'referenceYear',
+];
+
+const clearFormFields = (change, formName, path) => {
+  NOMENCLATURE_FIELDS.forEach((field) => {
+    // keep id and label empty string for default value
+    if (['id', 'label'].includes(field)) {
+      change(formName, `${path}${field}`, '');
+    } else {
+      change(formName, `${path}${field}`, undefined);
+    }
+  });
+};
+
+const updateFormFields = (change, formName, path, nomenclature) => {
+  NOMENCLATURE_FIELDS.forEach((field) => {
+    change(formName, `${path}${field}`, nomenclature[field]);
+  });
+};
+
 export function SuggesterLists({
   change,
   selectorPathParent,
@@ -22,7 +49,6 @@ export function SuggesterLists({
   nomenclatures,
   selectorPath,
   currentId,
-  codesListsStore,
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
@@ -37,41 +63,18 @@ export function SuggesterLists({
   }, [getAccessToken, loadNomenclaturesIfNeeded]);
 
   useEffect(() => {
-    // cas of empty -> new question for ex
-    if (currentIdState !== currentId && currentId === '') {
-      change(formName, `${path}id`, '');
-      change(formName, `${path}label`, '');
+    // Selected value change
+    if (currentIdState !== currentId) {
+      // empty the selected value -> clear form
+      if (currentId === '') {
+        clearFormFields(change, formName, path);
+        // else: user choose a new value
+      } else if (nomenclatures[currentId]) {
+        updateFormFields(change, formName, path, nomenclatures[currentId]);
+      }
       setCurrentIdState(currentId);
     }
-
-    // Update id (selected by user) -> update value
-    if (currentIdState !== currentId && currentId !== '') {
-      change(formName, `${path}label`, nomenclatures[currentId].label);
-      change(
-        formName,
-        `${path}suggesterParameters`,
-        nomenclatures[currentId].suggesterParameters,
-      );
-      change(formName, `${path}urn`, nomenclatures[currentId].urn);
-      change(formName, `${path}version`, nomenclatures[currentId].version);
-      change(formName, `${path}theme`, nomenclatures[currentId].theme);
-      change(
-        formName,
-        `${path}referenceYear`,
-        nomenclatures[currentId].referenceYear,
-      );
-      setCurrentIdState(currentId);
-    }
-  }, [
-    currentId,
-    change,
-    currentIdState,
-    formName,
-    path,
-    nomenclatures,
-    getAccessToken,
-    codesListsStore,
-  ]);
+  }, [currentId, change, currentIdState, formName, path, nomenclatures]);
 
   return (
     <FormSection name={selectorPath} className={COMPONENT_CLASS}>
@@ -100,7 +103,6 @@ SuggesterLists.propTypes = {
   selectorPathParent: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  codesListsStore: PropTypes.object,
   loadNomenclaturesIfNeeded: PropTypes.func.isRequired,
   nomenclatures: PropTypes.object,
   selectorPath: PropTypes.string.isRequired,
@@ -109,6 +111,5 @@ SuggesterLists.propTypes = {
 
 SuggesterLists.defaultProps = {
   currentId: '',
-  codesListsStore: {},
   nomenclatures: {},
 };

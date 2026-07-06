@@ -8,7 +8,10 @@ import {
   DEFAULT_NOMENCLATURE_SELECTOR_PATH,
 } from '../../../constants/pogues-constants';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
-import { SuggesterLists } from '../components/suggester-lists';
+import {
+  NOMENCLATURE_FIELDS,
+  SuggesterLists,
+} from '../components/suggester-lists';
 
 const propTypes = {
   selectorPathParent: PropTypes.string,
@@ -28,6 +31,14 @@ const mapDispatchToProps = {
   arrayRemoveAll: arrayRemoveAll,
 };
 
+const getSuggesterFormValues = (state, selector, basePath) => {
+  const result = {};
+  for (const field of NOMENCLATURE_FIELDS) {
+    result[field] = selector(state, `${basePath}${field}`);
+  }
+  return result;
+};
+
 const mapStateToProps = (
   state,
   { selectorPathParent, selectorPath, formName },
@@ -35,15 +46,11 @@ const mapStateToProps = (
   const codesListsStore = state.appState.activeCodeListsById;
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;
-  const currentId = selector(state, `${path}id`);
-  const currentLabel = selector(state, `${path}label`);
-  const currentUrn = selector(state, `${path}urn`);
-  const currentTheme = selector(state, `${path}theme`);
-  const currentVersion = selector(state, `${path}version`);
-  const currentReferenceYear = selector(state, `${path}referenceYear`);
-  const currentSuggesterParameters = selector(
+
+  const { id: currentId, label: currentLabel } = getSuggesterFormValues(
     state,
-    `${path}suggesterParameters`,
+    selector,
+    path,
   );
 
   const currentCodesListsStore =
@@ -52,12 +59,7 @@ const mapStateToProps = (
           ...codesListsStore,
           [currentId]: {
             ...codesListsStore[currentId],
-            label: currentLabel,
-            urn: currentUrn,
-            theme: currentTheme,
-            referenceYear: currentReferenceYear,
-            version: currentVersion,
-            suggesterParameters: currentSuggesterParameters,
+            ...getSuggesterFormValues(state, selector, path),
           },
         }
       : codesListsStore;
