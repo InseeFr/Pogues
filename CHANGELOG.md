@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.4.2](https://github.com/InseeFr/Pogues/releases/tag/3.4.2) - 2026-07-06
+## [3.5.0](https://github.com/InseeFr/Pogues/releases/tag/3.5.0) - 2026-07-06
 
-- Nomenclature page now displays the nomenclature theme, reference year and version.
+### Added
+
+- Nomenclature page now displays the nomenclature theme, reference year and version.![alt text](image.png)
 
 ## [3.4.1](https://github.com/InseeFr/Pogues/releases/tag/3.4.1) - 2026-07-03
 
