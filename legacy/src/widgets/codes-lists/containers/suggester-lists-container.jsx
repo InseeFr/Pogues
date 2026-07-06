@@ -31,7 +31,7 @@ const mapDispatchToProps = {
   arrayRemoveAll: arrayRemoveAll,
 };
 
-const getSuggesterFormValues = (state, selector, basePath) => {
+export const getSuggesterFormValues = (state, selector, basePath) => {
   const result = {};
   for (const field of NOMENCLATURE_FIELDS) {
     result[field] = selector(state, `${basePath}${field}`);

@@ -23,7 +23,7 @@ export const NOMENCLATURE_FIELDS = [
   'referenceYear',
 ];
 
-const clearFormFields = (change, formName, path) => {
+export const clearFormFields = (change, formName, path) => {
   NOMENCLATURE_FIELDS.forEach((field) => {
     // keep id and label empty string for default value
     if (['id', 'label'].includes(field)) {
@@ -34,7 +34,7 @@ const clearFormFields = (change, formName, path) => {
   });
 };
 
-const updateFormFields = (change, formName, path, nomenclature) => {
+export const updateFormFields = (change, formName, path, nomenclature) => {
   NOMENCLATURE_FIELDS.forEach((field) => {
     change(formName, `${path}${field}`, nomenclature[field]);
   });
