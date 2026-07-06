@@ -9,7 +9,7 @@ describe('getSuggesterFormValues', () => {
 
     const mockSelector = vi.fn((state, path) => `value-for-${path}`);
 
-    // Base path pour le test
+    // Base path for test
     const basePath = 'nomenclature.';
 
     const result = getSuggesterFormValues(mockState, mockSelector, basePath);
