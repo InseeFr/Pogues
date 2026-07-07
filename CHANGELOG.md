@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.1](https://github.com/InseeFr/Pogues/releases/tag/3.5.1) - 2026-07-07
+
 ## Fixed
 
 - When saving questionnaire to API, now send new attributes of nomenclature (theme, referenceYear)
+- Don't call api to get campaign if it's not defined
 
 ## [3.5.0](https://github.com/InseeFr/Pogues/releases/tag/3.5.0) - 2026-07-06
 
