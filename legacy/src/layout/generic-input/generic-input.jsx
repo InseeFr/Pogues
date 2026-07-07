@@ -40,7 +40,7 @@ export const propTypes = {
   removeVisualizationError: PropTypes.func,
   removeValidationAtSaveError: PropTypes.func,
   showVisualizationErrorPopup: PropTypes.string,
-  showValidationAtSaveErrorPopup: PropTypes.string,
+  showValidationAtSaveErrorPopup: PropTypes.arrayOf(PropTypes.string),
 };
 
 export const defaultProps = {
@@ -52,7 +52,7 @@ export const defaultProps = {
   removeVisualizationError: undefined,
   removeValidationAtSaveError: undefined,
   showVisualizationErrorPopup: '',
-  showValidationAtSaveErrorPopup: '',
+  showValidationAtSaveErrorPopup: undefined,
 };
 
 // Components
@@ -341,14 +341,25 @@ function GenericInput(props) {
       </ReactModal>
       <ReactModal
         parentSelector={domSelectorForModal}
-        isOpen={showValidationAtSaveErrorPopup !== ''}
+        isOpen={showValidationAtSaveErrorPopup !== undefined}
         ariaHideApp={false}
-        className="custom-modal"
+        className="custom-modal validation-error"
       >
-        <p>{Dictionary.validationAtSave}</p>
-        <p className="api-error-message">{showValidationAtSaveErrorPopup}</p>
+        <p className="validation-error-title">{Dictionary.validationAtSave}</p>
+        <div className="details-error">
+          {showValidationAtSaveErrorPopup && (
+            <ul>
+              {showValidationAtSaveErrorPopup.map((msg) => (
+                <li className="api-error-message" key={msg}>
+                  {msg}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <button onClick={removeValidationAtSaveError} className="modal-button">
-          {Dictionary.close}
+          {Dictionary.fixQuestionnaire}
         </button>
       </ReactModal>
       <ReactModal

@@ -258,7 +258,11 @@ export const saveActiveQuestionnaire = (token) => {
         );
       })
       .catch((err) => {
-        dispatch(addValidationAtSaveError(err));
+        if (err?.statusCode === 400) {
+          dispatch(addValidationAtSaveError(err));
+          return;
+        }
+        dispatch(saveActiveQuestionnaireFailure(questionnaireModel.id, err));
       });
   };
 };

@@ -805,6 +805,10 @@ const dictionary: Dictionary = {
     fr: 'Ouvrir',
     en: 'Open',
   },
+  fixQuestionnaire: {
+    fr: 'Corriger le questionnaire',
+    en: 'Fix questionnaire',
+  },
 };
 
 // Dynamic translations

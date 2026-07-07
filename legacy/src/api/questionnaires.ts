@@ -60,12 +60,13 @@ const handlePutResponse = async (response: Response): Promise<Response> => {
 
   // cas validation error
   if (response.status === 400) {
-    const { details } = (await response.json()) as {
+    const { message, details } = (await response.json()) as {
       message: string;
-      details?: string;
+      details?: string[];
     };
-    throw new Error(`${details}`);
-  } else return response;
+    throw new HttpResponseError(response.status, message, details);
+  }
+  throw new HttpResponseError(response.status, response.statusText);
 };
 
 /**
@@ -80,7 +81,7 @@ export async function putQuestionnaire(id: string, qr: unknown, token: string) {
   return fetch(url, {
     method: 'PUT',
     headers,
-    body: JSON.stringify({ id: 'vatfaire' }),
+    body: JSON.stringify(qr),
   }).then(handlePutResponse);
 }
 

@@ -59,3 +59,32 @@
   padding: 1px;
   margin-left: 5px;
 }
+
+.custom-modal.validation-error {
+  p.validation-error-title {
+    font-size: 1.1em;
+  }
+
+  min-width: 500px;
+
+  .details-error {
+    text-align: left;
+  }
+
+  ul {
+    list-style-type: disc; /* Puces classiques (ronds noirs) */
+    margin: 1em 0; /* Marge verticale par défaut */
+    padding-left: 40px; /* Indentation classique */
+    line-height: 1.5;
+  }
+  li {
+    margin: 0; /* Supprime les marges personnalisées */
+    padding: 0; /* Supprime les paddings personnalisés */
+    display: list-item;
+    font-style: normal;
+  }
+
+  .modal-button {
+    padding: 0.5em 1em;
+  }
+}

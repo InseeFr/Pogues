@@ -9,14 +9,14 @@ const actionHandlers = {};
 export function addValidationAtSaveError(state, { error }) {
   return {
     ...state,
-    showValidationAtSaveErrorPopup: error?.message,
+    showValidationAtSaveErrorPopup: error?.details,
   };
 }
 
 export function removeValidationAtSaveError(state) {
   return {
     ...state,
-    showValidationAtSaveErrorPopup: '',
+    showValidationAtSaveErrorPopup: undefined,
   };
 }
 
