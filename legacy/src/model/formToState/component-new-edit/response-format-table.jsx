@@ -106,7 +106,7 @@ export const defaultMeasureForm = {
       id: '',
       label: '',
       name: '',
-      urn: '',
+      urn: undefined,
     },
     [DEFAULT_VARIABLE_SELECTOR_PATH]: {
       id: '',
