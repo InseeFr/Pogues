@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Display custom modal when questionnaire validation failed from API (400 http error)
+
 ## [3.5.1](https://github.com/InseeFr/Pogues/releases/tag/3.5.1) - 2026-07-07
 
 ## Fixed
