@@ -93,7 +93,7 @@ const PageQuestionnaire = (props) => {
       const idCampaign =
         questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
-      loadStatisticalContext(idCampaign, accessToken);
+      if (idCampaign) loadStatisticalContext(idCampaign, accessToken);
       setActiveComponents(components);
       setActiveCodeLists(codeLists);
       setActiveVariables({

@@ -4,11 +4,11 @@
   "search": "Rechercher une nomenclature",
   "title": "Nomenclatures",
   "table": {
-    "id": "Nomenclature ID",
-    "label": "Label",
-    "version": "Version",
-    "referenceYear": "Millesime",
-    "theme": "Theme",
+    "id": "Identifiant",
+    "label": "Libellé",
+    "version": "Version ",
+    "referenceYear": "Millésime ",
+    "theme": "Thème ",
     "noValue": "Non renseigné"
   }
 }
