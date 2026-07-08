@@ -14,6 +14,7 @@ import { VisualizeDropdown } from '../../widgets/visualize-dropdown';
 import { ComponentNew } from '../component-new';
 import Loader from '../loader';
 import { ExternalQuestionnaireDropdown } from './components/external-questionnaire-dropdown';
+import ValidationModal from './components/validation-modal';
 
 const {
   QUESTION,
@@ -339,29 +340,11 @@ function GenericInput(props) {
           {Dictionary.close}
         </button>
       </ReactModal>
-      <ReactModal
-        parentSelector={domSelectorForModal}
+      <ValidationModal
         isOpen={showValidationAtSaveErrorPopup !== undefined}
-        ariaHideApp={false}
-        className="custom-modal validation-error"
-      >
-        <p className="validation-error-title">{Dictionary.validationAtSave}</p>
-        <div className="details-error">
-          {showValidationAtSaveErrorPopup && (
-            <ul>
-              {showValidationAtSaveErrorPopup.map((msg) => (
-                <li className="api-error-message" key={msg}>
-                  {msg}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <button onClick={removeValidationAtSaveError} className="modal-button">
-          {Dictionary.fixQuestionnaire}
-        </button>
-      </ReactModal>
+        errors={showValidationAtSaveErrorPopup}
+        onClose={removeValidationAtSaveError}
+      />
       <ReactModal
         parentSelector={domSelectorForModal}
         isOpen={showNewLoopModal}
