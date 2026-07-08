@@ -59,3 +59,33 @@
   padding: 1px;
   margin-left: 5px;
 }
+
+.custom-modal.validation-error {
+  p.validation-error-title {
+    font-size: 1.1em;
+  }
+
+  min-width: 500px;
+
+  .details-error {
+    text-align: left;
+  }
+
+  /* classic style for list and its items */
+  ul {
+    list-style-type: disc;
+    margin: 1em 0;
+    padding-left: 40px;
+    line-height: 1.5;
+  }
+  li {
+    margin: 0;
+    padding: 0;
+    display: list-item;
+    font-style: normal;
+  }
+
+  .modal-button {
+    padding: 0.5em 1em;
+  }
+}
