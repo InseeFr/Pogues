@@ -12,6 +12,7 @@ import personalization from './personalization.json'
 import protocoles from './protocoles.json'
 import questionnaire from './questionnaire.json'
 import questionnaires from './questionnaires.json'
+import release from './release.json'
 import variable from './variable.json'
 import variables from './variables.json'
 
@@ -30,6 +31,7 @@ export const translation = {
   protocoles,
   questionnaire,
   questionnaires,
+  release,
   variable,
   variables,
 }

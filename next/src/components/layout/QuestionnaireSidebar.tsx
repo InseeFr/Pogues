@@ -14,6 +14,7 @@ import VariableIcon from '@/components/ui/icons/VariableIcon'
 import { useAltIcon } from '@/hooks/useAltIcon'
 
 import ProtocolesIcon from '../ui/icons/ProtocolesIcon'
+import ReleaseIcon from '../ui/icons/ReleaseIcon'
 import Sidebar from './sidebar/Sidebar'
 import SidebarItem from './sidebar/SidebarItem'
 import SidebarItemGroup from './sidebar/SidebarItemGroup'
@@ -154,6 +155,12 @@ export default function QuestionnaireSidebar() {
           label={t('history.title')}
           Icon={HistoryIcon}
           path="/questionnaire/$questionnaireId/versions"
+          questionnaireId={questionnaireId}
+        />
+        <SidebarItem
+          label={t('release.title')}
+          Icon={ReleaseIcon}
+          path="/questionnaire/$questionnaireId/releases"
           questionnaireId={questionnaireId}
         />
         <SidebarItem

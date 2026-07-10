@@ -1,0 +1,177 @@
+import { useTranslation } from 'react-i18next'
+
+import { useState } from 'react'
+
+import ExpandButton from '@/components/ui/ExpandButton'
+import Tooltip from '@/components/ui/Tooltip'
+import DeleteIcon from '@/components/ui/icons/DeleteIcon'
+import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon'
+import { computeDayFromDate, computeFullDateFromDate } from '@/utils/date'
+
+import type { ReleaseRequest } from '../../../models/releases'
+import { ReleaseOptionalParametersDisplay } from './ReleaseOptionalParametersDisplay'
+
+function getStatusLabel(
+  status: ReleaseRequest['status'],
+  t: (key: string) => string,
+): string {
+  switch (status) {
+    case 'COMPLETED':
+      return t('release.status.completed')
+    case 'FAILED':
+      return t('release.status.failed')
+    default:
+      return t('release.status.inProgress')
+  }
+}
+
+function getStatusIcon(status: ReleaseRequest['status']): string {
+  switch (status) {
+    case 'COMPLETED':
+      return '\u2705'
+    case 'FAILED':
+      return '\u274C'
+    default:
+      return '\u2699\uFE0F'
+  }
+}
+
+function isFailedOrCompleted(status: ReleaseRequest['status']): boolean {
+  return status === 'FAILED' || status === 'COMPLETED'
+}
+
+export function ReleaseRequestTile({
+  request,
+  onDelete,
+}: Readonly<{
+  request: ReleaseRequest
+  onDelete: (trackerId: number) => void
+}>) {
+  const { t } = useTranslation()
+  const [isExpanded, setIsExpanded] = useState(false)
+  const contentId = `request-content-${request.trackerId}`
+  const trombiUrl = import.meta.env.VITE_TROMBI_URL
+  const requestDate = new Date(request.requestDate)
+
+  const statusBadge = (
+    <div
+      className={`inline-flex items-center gap-1 px-3 py-1 rounded text-sm font-medium ${
+        request.status === 'FAILED'
+          ? 'bg-red-50 text-red-600'
+          : request.status === 'COMPLETED'
+            ? 'bg-green-50 text-green-600'
+            : 'bg-gray-100 text-gray-500'
+      }`}
+    >
+      {getStatusLabel(request.status, t)}
+      {getStatusIcon(request.status)}
+    </div>
+  )
+
+  return (
+    <div className="bg-default odd:bg-main p-4 border-b border-default last:border-b-0">
+      <button
+        type="button"
+        className="flex items-center justify-between w-full cursor-pointer bg-transparent border-none p-0 text-left"
+        onClick={() => setIsExpanded((v) => !v)}
+        aria-expanded={isExpanded}
+        aria-controls={contentId}
+      >
+        <div className="font-semibold">{request.releaseDescription}</div>
+        <div className="flex flex-row items-end gap-2">
+          {request.status === 'FAILED' && request.statusDescription ? (
+            <Tooltip title={request.statusDescription}>{statusBadge}</Tooltip>
+          ) : (
+            statusBadge
+          )}
+
+          <ExpandButton
+            isExpanded={isExpanded}
+            setIsExpanded={setIsExpanded}
+            ariaControls={contentId}
+          />
+        </div>
+      </button>
+      {isExpanded && (
+        <div id={contentId} className="grid grid-cols-[1fr_auto] gap-4 mt-4">
+          <div className="space-y-2">
+            <div className="grid grid-cols-4 gap-x-6 gap-y-1 text-sm">
+              <div>
+                <b className="text-gray-500 font-normal">
+                  {t('release.collectMode')} :{' '}
+                </b>
+                {request.mode}
+              </div>
+              <div />
+              <div />
+
+              <div className="row-span-3 space-y-1 mb-2">
+                <ReleaseOptionalParametersDisplay
+                  overrideGenerationParameters={
+                    request.overrideGenerationParameters
+                  }
+                  innerClassName="border-l-2 border-gray-300 pl-3 mr-2 space-y-1"
+                />
+              </div>
+
+              <div>
+                <b className="text-gray-500 font-normal">
+                  {t('release.contexte')} :{' '}
+                </b>
+                {request.context}
+              </div>
+              <div />
+              <div />
+
+              <div>
+                <b className="text-gray-500 font-normal">
+                  {t('release.author')} :{' '}
+                </b>
+                <a
+                  href={`${trombiUrl}/${request.author}`}
+                  target="_blank"
+                  className="text-action-primary fill-action-primary inline-flex items-center gap-1 hover:underline"
+                >
+                  {request.author}
+                  <OpenInNewIcon height="14" width="14" />
+                </a>
+              </div>
+              <div>
+                <b className="text-gray-500 font-normal">
+                  {t('release.demandDate')} :{' '}
+                </b>
+                <time
+                  dateTime={requestDate.toISOString()}
+                  title={computeFullDateFromDate(requestDate)}
+                >
+                  {computeDayFromDate(requestDate)}
+                </time>
+              </div>
+              <div />
+            </div>
+            {request.status === 'FAILED' && request.statusDescription && (
+              <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded p-2 mt-2">
+                {request.statusDescription}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col items-end gap-2">
+            {isFailedOrCompleted(request.status) && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onDelete(request.trackerId)
+                }}
+                className="text-gray-400 hover:text-red-600 transition cursor-pointer"
+                title={t('release.deleteRequest')}
+              >
+                <DeleteIcon height="20" width="20" />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

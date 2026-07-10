@@ -1,0 +1,82 @@
+{
+  "author": "Author",
+  "id": "ID",
+  "noReleases": "No release available",
+  "oldReleases": "{{count}} older releases",
+  "questionnaireIsReadonly": "This release of the survey is on readonly.",
+  "title": "Releases",
+  "create": "Create a release",
+  "create.title": "New publication",
+  "create.success": "Publication created successfully",
+  "view": "View",
+  "noPublication": "The questionnaire has not yet been published",
+  "publicationRequests": "My publication requests",
+  "myPublications": "My publications",
+  "collectMode": "Collection mode",
+  "contexte": "Context",
+  "optionalParameters": "Optional parameters",
+  "demandDate": "Demand Date",
+  "status": {
+    "inProgress": "In progress ",
+    "failed": "Failed "
+  },
+  "deleteRequest": "Delete this request",
+  "copy": {
+    "tooltip": "Copy to clipboard",
+    "copiedTooltip": "Copied!",
+    "copiedLabel": "Copied"
+  },
+  "instrumentCollecte": "Collection instrument",
+  "version": "Version",
+  "publicationDate": "Publication date",
+  "sauvegardePogues": "Pogues save",
+  "form": {
+    "introduction": "You are about to publish in the survey questionnaire register a version of your questionnaire based on the latest save. Make sure you have completed your review beforehand.",
+    "seriesInfo": "Series information",
+    "publish": "Publish",
+    "series": {
+      "id": "Series, RMéS identifier",
+      "label": "Short label of the series",
+      "missingId": "The series is missing, please choose one in the detail of the questionnaire.",
+      "missingIdTooltip": "If the series you look for is not in the list, please contact the quality team.",
+      "missingLabel": "The short label is missing, please choose one in the detail of the questionnaire.",
+      "missingLabelTooltip": "If the short label you look for is not in the list, please contact the quality team."
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Enter a description",
+      "example": "For example ESA 2026 PROD, integrated review Oct 2025 for SRCV_REINTERRO 2026, publication for integration on 01/01/2030, VPP PROD web",
+      "required": "Description is required",
+      "maxLength": "Description cannot exceed 249 characters"
+    },
+    "collectMode": {
+      "label": "Collection mode",
+      "required": "Collection mode is required",
+      "noMatch": "No collection mode compatible with those declared in the questionnaire",
+      "options": {
+        "CAWI": "CAWI",
+        "CAPI": "CAPI",
+        "PAPI": "PAPI",
+        "CATI": "CATI"
+      }
+    },
+    "contexte": {
+      "label": "Context",
+      "required": "Context is required",
+      "menages": "Household",
+      "entreprise": "Business"
+    },
+    "optionalParameters": "Optional parameters",
+    "pageTempsReponse": {
+      "label": "Response time page",
+      "warning": "Risk of anomaly if ending on a loop and legal obligation"
+    },
+    "numerotationQuestions": {
+      "label": "Question numbering",
+      "none": "No numbering",
+      "sequence": "By sequence",
+      "questionnaire": "Entire questionnaire",
+      "tooltip": "No numbering: no automatic numbering. By sequence: numbering reset at each sequence. Entire questionnaire: continuous numbering throughout the questionnaire."
+    }
+  }
+}
