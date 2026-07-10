@@ -9,6 +9,7 @@
   "create": "Publier un instrument de collecte",
   "create.title": "Nouvelle publication",
   "create.success": "Publication créée avec succès",
+  "create.notFound": "Questionnaire introuvable",
   "noPublication": "Le questionnaire n'a pas encore été publié",
   "publicationRequests": "Mes demandes de publication",
   "myPublications": "Mes publications",

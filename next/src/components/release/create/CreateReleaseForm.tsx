@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+import { isAxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
+import { instance } from '@/api/instance'
 import { questionnairesKeys } from '@/api/questionnaires'
-import { TargetModes } from '@/models/questionnaires'
+import type { TargetModes } from '@/models/questionnaires'
 
 import ReleaseForm from '../form/ReleaseForm'
 import { type FormValues } from '../form/schema'
@@ -28,19 +30,21 @@ export default function CreateReleaseForm({
 
   const mutation = useMutation({
     mutationFn: async (formValues: FormValues) => {
-      // TODO: Replace with actual API call when release endpoint is available
-      const response = await fetch('/api/releases', {
-        method: 'POST',
-        body: JSON.stringify({
-          questionnaireId,
-          ...formValues,
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      if (!response.ok) {
-        throw new Error('Failed to create release')
+      try {
+        const response = await instance.post(
+          `/api/questionnaire/${questionnaireId}/releases`,
+          {
+            poguesId: questionnaireId,
+            ...formValues,
+          },
+        )
+        return response.data
+      } catch (error) {
+        if (isAxiosError(error) && error.response?.status === 404) {
+          throw new Error(t('release.create.notFound'))
+        }
+        throw error
       }
-      return response.json()
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

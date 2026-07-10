@@ -10,7 +10,7 @@ describe('ReleaseOverview', () => {
   it('renders both sections with correct headers', () => {
     const { getByText } = renderWithI18n(<ReleaseOverview />)
 
-    expect(getByText('My publication requests')).toBeInTheDocument()
+    expect(getByText('My release requests')).toBeInTheDocument()
     expect(getByText('My publications')).toBeInTheDocument()
   })
 

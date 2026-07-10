@@ -1,3 +1,4 @@
+import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
@@ -13,7 +14,7 @@ import { ReleaseOptionalParametersDisplay } from './ReleaseOptionalParametersDis
 
 function getStatusLabel(
   status: ReleaseRequest['status'],
-  t: (key: string) => string,
+  t: TFunction,
 ): string {
   switch (status) {
     case 'COMPLETED':

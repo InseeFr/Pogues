@@ -1,24 +1,24 @@
 import { t } from 'i18next'
 
 export const CONTEXTE_OPTIONS = [
-  { label: t('release.form.contexte.menages'), value: 'menages' as const },
+  { label: t('release.form.contexte.menages'), value: 'HOUSEHOLD' as const },
   {
     label: t('release.form.contexte.entreprise'),
-    value: 'entreprise' as const,
+    value: 'BUSINESS' as const,
   },
 ]
 
 export const NUMEROTATION_OPTIONS = [
   {
     label: t('release.form.numerotationQuestions.none'),
-    value: 'none' as const,
+    value: 'NONE' as const,
   },
   {
     label: t('release.form.numerotationQuestions.sequence'),
-    value: 'sequence' as const,
+    value: 'SEQUENCE' as const,
   },
   {
     label: t('release.form.numerotationQuestions.questionnaire'),
-    value: 'questionnaire' as const,
+    value: 'ALL' as const,
   },
 ]

@@ -11,7 +11,7 @@ import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
-import { TargetModes } from '@/models/questionnaires'
+import type { TargetModes } from '@/models/questionnaires'
 
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts'
 import { type FormValues, schema } from './schema'
@@ -43,16 +43,18 @@ export default function ReleaseForm({
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
-      description: '',
-      collectMode: TargetModes.CAWI,
-      contexte: 'menages',
-      pageTempsReponse: false,
-      numerotationQuestions: 'sequence',
+      releaseDescription: '',
+      mode: 'CAWI',
+      context: 'HOUSEHOLD',
+      overrideGenerationParameters: {
+        responseTimeQuestion: false,
+        questionNumberingMode: 'SEQUENCE',
+      },
     },
     resolver: zodResolver(schema),
   })
 
-  const contexteValue = watch('contexte')
+  const contextValue = watch('context')
 
   const isSeriesMissing = !seriesId || !seriesLabel
   const isFormValid = isValid && !isSeriesMissing
@@ -130,7 +132,7 @@ export default function ReleaseForm({
 
       <div className="space-y-6">
         <Controller
-          name="description"
+          name="releaseDescription"
           control={control}
           render={({
             field: { name, value, onChange },
@@ -157,7 +159,7 @@ export default function ReleaseForm({
         />
 
         <Controller
-          name="collectMode"
+          name="mode"
           control={control}
           rules={{ required: true }}
           render={({
@@ -177,15 +179,15 @@ export default function ReleaseForm({
                 options={[
                   {
                     label: t('release.form.collectMode.options.CAWI'),
-                    value: TargetModes.CAWI,
+                    value: 'CAWI',
                   },
                   {
                     label: t('release.form.collectMode.options.CAPI'),
-                    value: TargetModes.CAPI,
+                    value: 'CAPI',
                   },
                   {
                     label: t('release.form.collectMode.options.CATI'),
-                    value: TargetModes.CATI,
+                    value: 'CATI',
                   },
                 ]}
                 value={value}
@@ -197,7 +199,7 @@ export default function ReleaseForm({
         />
 
         <Controller
-          name="contexte"
+          name="context"
           control={control}
           rules={{ required: true }}
           render={({
@@ -223,7 +225,7 @@ export default function ReleaseForm({
           )}
         />
 
-        {contexteValue === 'entreprise' ? (
+        {contextValue === 'BUSINESS' ? (
           <div className="border-l-2 border-gray-300 pl-4 space-y-4">
             <h3 className="text-sm font-semibold">
               {t('release.form.optionalParameters')}
@@ -231,7 +233,7 @@ export default function ReleaseForm({
 
             <div className="flex flex-col gap-1">
               <Controller
-                name="pageTempsReponse"
+                name="overrideGenerationParameters.responseTimeQuestion"
                 control={control}
                 render={({ field: { value, onChange } }) => (
                   <>
@@ -253,7 +255,7 @@ export default function ReleaseForm({
             <div className="flex items-start gap-2">
               <div className="flex-1">
                 <Controller
-                  name="numerotationQuestions"
+                  name="overrideGenerationParameters.questionNumberingMode"
                   control={control}
                   render={({
                     field: { name, value, onChange },

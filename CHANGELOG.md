@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Page to overview released and pending releases of a questionnaire
+- Form to create a release of a questionnaire
+
 ## [3.5.0](https://github.com/InseeFr/Pogues/releases/tag/3.5.0) - 2026-07-06
 
 ### Added
