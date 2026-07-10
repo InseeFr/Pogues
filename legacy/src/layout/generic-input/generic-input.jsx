@@ -14,6 +14,7 @@ import { VisualizeDropdown } from '../../widgets/visualize-dropdown';
 import { ComponentNew } from '../component-new';
 import Loader from '../loader';
 import { ExternalQuestionnaireDropdown } from './components/external-questionnaire-dropdown';
+import ValidationModal from './components/validation-modal';
 
 const {
   QUESTION,
@@ -38,7 +39,9 @@ export const propTypes = {
   isLoopsValid: PropTypes.bool.isRequired,
   selectedComponent: PropTypes.object,
   removeVisualizationError: PropTypes.func,
+  removeValidationAtSaveError: PropTypes.func,
   showVisualizationErrorPopup: PropTypes.string,
+  showValidationAtSaveErrorPopup: PropTypes.arrayOf(PropTypes.string),
 };
 
 export const defaultProps = {
@@ -48,7 +51,9 @@ export const defaultProps = {
   isQuestionnaireModified: false,
   selectedComponent: undefined,
   removeVisualizationError: undefined,
+  removeValidationAtSaveError: undefined,
   showVisualizationErrorPopup: '',
+  showValidationAtSaveErrorPopup: undefined,
 };
 
 // Components
@@ -94,8 +99,10 @@ function GenericInput(props) {
     placeholders,
     selectedComponent,
     removeVisualizationError,
+    removeValidationAtSaveError,
     saveActiveQuestionnaire,
     showVisualizationErrorPopup,
+    showValidationAtSaveErrorPopup,
   } = props;
 
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
@@ -333,6 +340,11 @@ function GenericInput(props) {
           {Dictionary.close}
         </button>
       </ReactModal>
+      <ValidationModal
+        isOpen={showValidationAtSaveErrorPopup !== undefined}
+        errors={showValidationAtSaveErrorPopup}
+        onClose={removeValidationAtSaveError}
+      />
       <ReactModal
         parentSelector={domSelectorForModal}
         isOpen={showNewLoopModal}

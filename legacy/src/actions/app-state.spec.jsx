@@ -1,6 +1,8 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
+import { putQuestionnaire } from '../api/questionnaires';
 import {
+  SAVE_ACTIVE_QUESTIONNAIRE,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SET_ACTIVE_CODE_LISTS,
@@ -9,6 +11,7 @@ import {
   SET_SELECTED_COMPONENT,
   UPDATE_ACTIVE_QUESTIONNAIRE,
   removeControlsAndRedirections,
+  saveActiveQuestionnaire,
   saveActiveQuestionnaireFailure,
   saveActiveQuestionnaireSuccess,
   setActiveCodeLists,
@@ -17,6 +20,7 @@ import {
   setSelectedComponentId,
   updateActiveQuestionnaire,
 } from './app-state';
+import { addValidationAtSaveError } from './errors';
 
 describe('removeControlsAndRedirections', () => {
   test('should reset redirections and controls properties of all components', () => {
@@ -236,6 +240,82 @@ describe('saveActiveQuestionnaireFailure', () => {
       payload: {
         id: 'id',
         err: 'err',
+        isQuestionnaireHaveError: true,
+      },
+    });
+  });
+});
+
+describe('saveActiveQuestionnaire', () => {
+  // Mock putQuestionnaire
+  vi.mock('../api/questionnaires', () => ({
+    putQuestionnaire: vi.fn(),
+  }));
+
+  // Mock addValidationAtSaveError
+  vi.mock('./errors', () => ({
+    addValidationAtSaveError: vi.fn(),
+  }));
+
+  const getState = () => ({});
+  const getQuestionnaireModel = () => ({
+    id: 'test-id',
+  });
+
+  test('should dispatch SAVE_ACTIVE_QUESTIONNAIRE on start', () => {
+    const dispatch = vi.fn();
+
+    vi.mocked(putQuestionnaire).mockResolvedValue({});
+
+    saveActiveQuestionnaire('test-token', getQuestionnaireModel)(
+      dispatch,
+      getState,
+    );
+
+    expect(dispatch).toHaveBeenCalledWith({
+      type: SAVE_ACTIVE_QUESTIONNAIRE,
+      payload: null,
+    });
+  });
+
+  test('should dispatch addValidationAtSaveError on 400 error', async () => {
+    const dispatch = vi.fn();
+
+    // Mock putQuestionnaire to reject with 400 error
+    vi.mocked(putQuestionnaire).mockRejectedValue({ statusCode: 400 });
+
+    await saveActiveQuestionnaire('test-token', getQuestionnaireModel)(
+      dispatch,
+      getState,
+    );
+
+    expect(dispatch).toHaveBeenCalledWith({
+      type: SAVE_ACTIVE_QUESTIONNAIRE,
+      payload: null,
+    });
+    expect(addValidationAtSaveError).toHaveBeenCalled();
+  });
+
+  test('should dispatch saveActiveQuestionnaireFailure on non-400 error', async () => {
+    const dispatch = vi.fn();
+
+    // Mock putQuestionnaire to reject with 500 error
+    vi.mocked(putQuestionnaire).mockRejectedValue({ statusCode: 500 });
+
+    await saveActiveQuestionnaire('test-token', getQuestionnaireModel)(
+      dispatch,
+      getState,
+    );
+
+    expect(dispatch).toHaveBeenCalledWith({
+      type: SAVE_ACTIVE_QUESTIONNAIRE,
+      payload: null,
+    });
+    expect(dispatch).toHaveBeenCalledWith({
+      type: SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
+      payload: {
+        id: 'test-id',
+        err: { statusCode: 500 },
         isQuestionnaireHaveError: true,
       },
     });

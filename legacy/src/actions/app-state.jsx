@@ -4,7 +4,7 @@ import { getVisualization } from '../api/visualize';
 import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
-import { addVisualizationError } from './errors';
+import { addValidationAtSaveError, addVisualizationError } from './errors';
 
 export const SET_ACTIVE_QUESTIONNAIRE = 'SET_ACTIVE_QUESTIONNAIRE';
 export const SET_ACTIVE_COMPONENTS = 'SET_ACTIVE_COMPONENTS';
@@ -212,7 +212,7 @@ export const saveActiveQuestionnaireFailure = (id, err) => ({
   },
 });
 
-function getQuestionnaireModel(state, customComponentsStore) {
+function getQuestionnaireModelFromState(state, customComponentsStore) {
   const stores = {
     componentsStore:
       customComponentsStore || state.appState.activeComponentsById,
@@ -239,7 +239,10 @@ function getQuestionnaireModel(state, customComponentsStore) {
  *
  * @return {function} Thunk which may dispatch SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS or SAVE_ACTIVE_QUESTIONNAIRE_FAILURE
  */
-export const saveActiveQuestionnaire = (token) => {
+export const saveActiveQuestionnaire = (
+  token,
+  getQuestionnaireModel = getQuestionnaireModelFromState,
+) => {
   return (dispatch, getState) => {
     dispatch({
       type: SAVE_ACTIVE_QUESTIONNAIRE,
@@ -247,6 +250,7 @@ export const saveActiveQuestionnaire = (token) => {
     });
 
     const state = getState();
+
     const questionnaireModel = getQuestionnaireModel(state);
     return putQuestionnaire(questionnaireModel.id, questionnaireModel, token)
       .then(() => {
@@ -258,9 +262,11 @@ export const saveActiveQuestionnaire = (token) => {
         );
       })
       .catch((err) => {
-        return dispatch(
-          saveActiveQuestionnaireFailure(questionnaireModel.id, err),
-        );
+        if (err?.statusCode === 400) {
+          dispatch(addValidationAtSaveError(err));
+          return;
+        }
+        dispatch(saveActiveQuestionnaireFailure(questionnaireModel.id, err));
       });
   };
 };
@@ -362,7 +368,10 @@ export const visualizeActiveQuestionnaire = (
           ),
         )
       : state.appState.activeComponentsById;
-    const questionnaireModel = getQuestionnaireModel(state, componentsById);
+    const questionnaireModel = getQuestionnaireModelFromState(
+      state,
+      componentsById,
+    );
     const refs =
       state.appState.activeQuestionnaire.childQuestionnaireRef !== undefined
         ? state.appState.activeQuestionnaire.childQuestionnaireRef

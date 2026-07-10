@@ -1,3 +1,8 @@
+import {
+  isNomenclatureCodeList,
+  isNomenclatureRemoteCodeList,
+} from '@/utils/codes-lists/codes-lists-utils';
+
 import { QUESTION_TYPE_ENUM } from '../../constants/pogues-constants';
 
 const { MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -124,19 +129,29 @@ export function remoteToStore(
       Urn: urn,
       SuggesterParameters: suggesterParameters,
       Scope: scope,
+      theme,
+      referenceYear,
+      version,
     } = codesList;
 
     let codesListObject;
 
-    if (suggesterParameters) {
+    if (isNomenclatureRemoteCodeList(codesList)) {
       // Nomenclature
-      codesListObject = { id, label, name, urn, suggesterParameters };
+      codesListObject = {
+        id,
+        label,
+        urn,
+        suggesterParameters,
+        theme,
+        referenceYear,
+        version,
+      };
     } else if (codes) {
       // Codes list
       codesListObject = {
         id,
         label,
-        name: name || '',
         codes: remoteToCodesState(codes),
       };
     } else {
@@ -178,11 +193,13 @@ function buildRemoteCodesList(codesList) {
   const {
     id,
     label,
-    name = '',
     codes = [],
-    urn = '',
+    urn,
     suggesterParameters,
     scope = '',
+    theme,
+    referenceYear,
+    version,
   } = codesList;
 
   // In variable case, we do not send it as a codeList
@@ -191,13 +208,15 @@ function buildRemoteCodesList(codesList) {
   }
 
   // Nomenclature
-  if (suggesterParameters) {
+  if (isNomenclatureCodeList(codesList)) {
     return {
       id,
       Urn: urn,
-      Name: name,
       Label: label,
       SuggesterParameters: suggesterParameters,
+      theme,
+      referenceYear,
+      version,
     };
   }
 

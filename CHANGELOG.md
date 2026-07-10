@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Page to overview released and pending releases of a questionnaire
 - Form to create a release of a questionnaire
+- Display custom modal when questionnaire validation failed from API (400 http error)
+
+## [3.5.1](https://github.com/InseeFr/Pogues/releases/tag/3.5.1) - 2026-07-07
+
+## Fixed
+
+- When saving questionnaire to API, now send new attributes of nomenclature (theme, referenceYear)
+- Don't call api to get campaign if it's not defined
 
 ## [3.5.0](https://github.com/InseeFr/Pogues/releases/tag/3.5.0) - 2026-07-06
 

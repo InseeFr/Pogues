@@ -6,30 +6,11 @@ export const defaultState = {
 };
 
 export function formToState(form) {
-  const { id, label, name = '', urn = '', suggesterParameters } = form;
-  return {
-    id,
-    name,
-    label,
-    urn,
-    suggesterParameters,
-  };
+  return form;
 }
 
-export function stateComponentToForm({
-  id = '',
-  name = '',
-  label = '',
-  urn = '',
-  suggesterParameters,
-}) {
-  return {
-    id,
-    name,
-    label,
-    urn,
-    suggesterParameters,
-  };
+export function stateComponentToForm(nomenclature) {
+  return nomenclature;
 }
 
 export const Factory = (codesListsStore, currentState) => {

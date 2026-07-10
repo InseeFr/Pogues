@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
 import { saveActiveQuestionnaire } from '../../actions/app-state';
-import { removeVisualizationError } from '../../actions/errors';
+import {
+  removeValidationAtSaveError,
+  removeVisualizationError,
+} from '../../actions/errors';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import GenericInput from './generic-input';
 import {
@@ -83,6 +86,8 @@ const mapStateToProps = (state) => {
     activeQuestionnaire: activeQuestionnaire,
     showVisualizationErrorPopup:
       state.errors.errorsVisualization.showErrorVisualizationPopup,
+    showValidationAtSaveErrorPopup:
+      state.errors.errorsValidationAtSave.showValidationAtSaveErrorPopup,
     isLoadingVisualization: state.appState.isLoadingVisualization,
     selectedComponent: selectedComponent,
   };
@@ -91,6 +96,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   saveActiveQuestionnaire,
   removeVisualizationError,
+  removeValidationAtSaveError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GenericInput);

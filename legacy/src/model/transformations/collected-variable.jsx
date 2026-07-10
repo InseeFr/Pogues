@@ -1,3 +1,5 @@
+import { isNomenclatureCodeList } from '@/utils/codes-lists/codes-lists-utils';
+
 import {
   CHOICE_TYPE,
   COMPONENT_TYPE,
@@ -15,9 +17,6 @@ const { COLLECTED } = VARIABLES_TYPES;
 const { QUESTION } = COMPONENT_TYPE;
 const { TABLE, MULTIPLE_CHOICE } = QUESTION_TYPE_ENUM;
 const { LIST } = DIMENSION_FORMATS;
-
-const isNomenclatureCodeList = (codeList) =>
-  codeList?.urn || codeList?.suggesterParameters;
 
 export function remoteToStore(
   remote = [],

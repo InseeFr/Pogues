@@ -11,6 +11,9 @@ export const REMOVE_INTEGRITY_ERROR = 'REMOVE_INTEGRITY_ERROR';
 export const SET_ERRORS_BY_COMPONENT = 'SET_ERRORS_BY_COMPONENT';
 export const ADD_VISUALIZATION_ERROR = 'ADD_VISUALIZATION_ERROR';
 export const REMOVE_VISUALIZATION_ERROR = 'REMOVE_VISUALIZATION_ERROR';
+export const ADD_VALIDATION_AT_SAVE_ERROR = 'ADD_VALIDATION_AT_SAVE_ERROR';
+export const REMOVE_VALIDATION_AT_SAVE_ERROR =
+  'REMOVE_VALIDATION_AT_SAVE_ERROR';
 
 export const addValidationErrors = (errors) => {
   return {
@@ -89,5 +92,19 @@ export const addVisualizationError = (error) => {
 export const removeVisualizationError = () => {
   return {
     type: REMOVE_VISUALIZATION_ERROR,
+  };
+};
+
+export const addValidationAtSaveError = (error) => {
+  return {
+    type: ADD_VALIDATION_AT_SAVE_ERROR,
+    payload: { error },
+  };
+};
+
+export const removeValidationAtSaveError = (error) => {
+  return {
+    type: REMOVE_VALIDATION_AT_SAVE_ERROR,
+    payload: { error },
   };
 };
