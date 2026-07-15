@@ -18,6 +18,7 @@
   "optionalParameters": "Optional parameters",
   "demandDate": "Demand Date",
   "status": {
+    "completed": "Validated",
     "inProgress": "In progress ",
     "failed": "Failed "
   },
@@ -27,10 +28,10 @@
     "copiedTooltip": "Copied!",
     "copiedLabel": "Copied"
   },
-  "instrumentCollecte": "Collection instrument",
+  "collectInstrument": "Collection instrument",
   "version": "Version",
   "publicationDate": "Publication date",
-  "sauvegardePogues": "Pogues save",
+  "poguesSave": "Pogues save",
   "form": {
     "introduction": "You are about to publish in the survey questionnaire register a version of your questionnaire based on the latest save. Make sure you have completed your review beforehand.",
     "seriesInfo": "Series information",
@@ -72,7 +73,7 @@
       "label": "Response time page",
       "warning": "Risk of anomaly if ending on a loop and legal obligation"
     },
-    "numerotationQuestions": {
+    "questionNumbering": {
       "label": "Question numbering",
       "none": "No numbering",
       "sequence": "By sequence",

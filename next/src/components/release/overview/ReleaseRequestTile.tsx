@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 
+import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import ExpandButton from '@/components/ui/ExpandButton'
 import Tooltip from '@/components/ui/Tooltip'
 import DeleteIcon from '@/components/ui/icons/DeleteIcon'
@@ -23,17 +24,6 @@ function getStatusLabel(
       return t('release.status.failed')
     default:
       return t('release.status.inProgress')
-  }
-}
-
-function getStatusIcon(status: ReleaseRequest['status']): string {
-  switch (status) {
-    case 'COMPLETED':
-      return '\u2705'
-    case 'FAILED':
-      return '\u274C'
-    default:
-      return '\u2699\uFE0F'
   }
 }
 
@@ -65,7 +55,6 @@ export function ReleaseRequestTile({
       }`}
     >
       {getStatusLabel(request.status, t)}
-      {getStatusIcon(request.status)}
     </div>
   )
 
@@ -158,17 +147,13 @@ export function ReleaseRequestTile({
           </div>
           <div className="flex flex-col items-end gap-2">
             {isFailedOrCompleted(request.status) && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onDelete(request.trackerId)
-                }}
-                className="text-gray-400 hover:text-red-600 transition cursor-pointer"
+              <ButtonIcon
+                className="col-start-4 h-12"
+                Icon={DeleteIcon}
                 title={t('release.deleteRequest')}
-              >
-                <DeleteIcon height="20" width="20" />
-              </button>
+                onClick={() => onDelete(request.trackerId)}
+                buttonStyle={ButtonIconStyle.Delete}
+              />
             )}
           </div>
         </div>

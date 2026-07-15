@@ -1,9 +1,21 @@
 import { useTranslation } from 'react-i18next'
 
-import type { ReleaseRequest } from '../../../models/releases'
+import type {
+  QuestionNumberingMode,
+  ReleaseRequest,
+} from '../../../models/releases'
 
 type OverrideGenerationParameters =
   ReleaseRequest['overrideGenerationParameters']
+
+const QUESTION_NUMBERING_LABEL_KEY: Record<
+  QuestionNumberingMode,
+  'none' | 'sequence' | 'questionnaire'
+> = {
+  NONE: 'none',
+  SEQUENCE: 'sequence',
+  ALL: 'questionnaire',
+}
 
 export function ReleaseOptionalParametersDisplay({
   overrideGenerationParameters,
@@ -32,10 +44,12 @@ export function ReleaseOptionalParametersDisplay({
         </div>
         <div>
           <b className="text-gray-500 font-normal">
-            {t('release.form.numerotationQuestions.label')} :{' '}
+            {t('release.form.questionNumbering.label')} :{' '}
           </b>
           <i className="font-mono">
-            {overrideGenerationParameters.questionNumberingMode}
+            {t(
+              `release.form.questionNumbering.${QUESTION_NUMBERING_LABEL_KEY[overrideGenerationParameters.questionNumberingMode]}`,
+            )}
           </i>
         </div>
       </div>

@@ -34,7 +34,7 @@ export function RegistryReleaseTile({
         <div className="grid grid-cols-[1.6fr_0.7fr_1fr_1fr] gap-x-6 gap-y-1 text-sm">
           <div>
             <b className="text-gray-500 font-normal">
-              {t('release.instrumentCollecte')} :{' '}
+              {t('release.collectInstrument')} :{' '}
             </b>
             {release.collectionInstrumentId}{' '}
             <CopyButton text={release.collectionInstrumentId} />
@@ -77,7 +77,7 @@ export function RegistryReleaseTile({
 
           <div>
             <b className="text-gray-500 font-normal">
-              {t('release.sauvegardePogues')} :{' '}
+              {t('release.poguesSave')} :{' '}
             </b>
             <a
               href={release.visualizeUrl}

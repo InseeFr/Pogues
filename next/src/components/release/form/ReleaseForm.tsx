@@ -267,12 +267,10 @@ export default function ReleaseForm({
                       invalid={invalid}
                       label={
                         <div className="flex items-bottom gap-1">
-                          {t('release.form.numerotationQuestions.label')}
+                          {t('release.form.questionNumbering.label')}
 
                           <Tooltip
-                            title={t(
-                              'release.form.numerotationQuestions.tooltip',
-                            )}
+                            title={t('release.form.questionNumbering.tooltip')}
                           >
                             <InfoIcon
                               height="12"
@@ -280,7 +278,7 @@ export default function ReleaseForm({
                               className="cursor-help"
                               role="img"
                               aria-label={t(
-                                'release.form.numerotationQuestions.tooltip',
+                                'release.form.questionNumbering.tooltip',
                               )}
                             />
                           </Tooltip>

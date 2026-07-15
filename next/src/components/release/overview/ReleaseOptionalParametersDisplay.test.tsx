@@ -57,7 +57,7 @@ describe('ReleaseOptionalParametersDisplay', () => {
       />,
     )
 
-    expect(getByText('SEQUENCE')).toBeInTheDocument()
+    expect(getByText('By sequence')).toBeInTheDocument()
   })
 
   it('applies custom innerClassName', () => {

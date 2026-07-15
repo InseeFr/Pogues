@@ -52,7 +52,7 @@ describe('RegistryReleaseTile', () => {
     expect(
       getByText((content) => content.startsWith('Optional parameters')),
     ).toBeInTheDocument()
-    expect(getByText('SEQUENCE')).toBeInTheDocument()
+    expect(getByText('By sequence')).toBeInTheDocument()
   })
 
   it('does not show optional parameters when context is not BUSINESS', () => {

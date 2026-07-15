@@ -104,7 +104,7 @@ describe('ReleaseRequestTile', () => {
     expect(
       getByText((content) => content.startsWith('Optional parameters')),
     ).toBeInTheDocument()
-    expect(getByText('NONE')).toBeInTheDocument()
+    expect(getByText('No numbering')).toBeInTheDocument()
   })
 
   it('collapses content on click', async () => {

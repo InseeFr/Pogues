@@ -18,6 +18,7 @@
   "optionalParameters": "Paramètres optionnels",
   "demandDate": "Date de demande",
   "status": {
+    "completed": "Validé",
     "inProgress": "En cours ",
     "failed": "Échec "
   },
@@ -27,10 +28,10 @@
     "copiedTooltip": "Copié !",
     "copiedLabel": "Copié"
   },
-  "instrumentCollecte": "Instrument de collecte",
+  "collectInstrument": "Instrument de collecte",
   "version": "Version",
   "publicationDate": "Date de publication",
-  "sauvegardePogues": "Sauvegarde Pogues",
+  "poguesSave": "Sauvegarde Pogues",
   "form": {
     "introduction": "Vous allez publier dans le registre de questionnaires de la filière d'enquêtes une version de votre questionnaire basée sur la dernière sauvegarde. Assurez-vous au préalable d'avoir terminé votre recette.",
     "seriesInfo": "Informations sur la série",
@@ -72,7 +73,7 @@
       "label": "Page sur les temps de réponse",
       "warning": "Risque d'anomalie si termine sur boucle et obligation légale"
     },
-    "numerotationQuestions": {
+    "questionNumbering": {
       "label": "Numérotation des questions",
       "none": "Pas de numérotation",
       "sequence": "Par séquence",
