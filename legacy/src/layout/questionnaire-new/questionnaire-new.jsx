@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { AuthContext } from '@/auth/context';
+import { getStampFromEmail } from '@/utils/utils';
 
 import { validateQuestionnaireForm } from '../../utils/validation/validate';
 import {
@@ -43,7 +44,8 @@ function QuestionnaireNew({
 }) {
   const { getAccessToken, decodedIdToken } = useContext(AuthContext);
 
-  const stamp = decodedIdToken.timbre;
+  const stamp =
+    decodedIdToken.timbre ?? getStampFromEmail(decodedIdToken.email);
 
   const validate = (setErrorsAction) => (values) =>
     validateQuestionnaireForm(values, setErrorsAction);

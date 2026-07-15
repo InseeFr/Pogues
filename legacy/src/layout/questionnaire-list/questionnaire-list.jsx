@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { AuthContext } from '@/auth/context';
+import { getStampFromEmail } from '@/utils/utils';
 
 import { getStampsList } from '../../api/questionnaires';
 import { domSelectorForModal } from '../../constants/dom-constants';
@@ -44,7 +45,8 @@ const QuestionnaireList = (props) => {
   } = props;
 
   const { getAccessToken, decodedIdToken } = useContext(AuthContext);
-  const stamp = decodedIdToken.timbre;
+  const stamp =
+    decodedIdToken.timbre ?? getStampFromEmail(decodedIdToken.email);
 
   let actionLabel = Dictionary.duplicate;
   if (isComposition) actionLabel = Dictionary.add;

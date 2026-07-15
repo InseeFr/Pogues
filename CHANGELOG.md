@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Derive user stamp from email when OIDC token has no 'timbre' (for external users)
+
 ## [3.6.0](https://github.com/InseeFr/Pogues/releases/tag/3.6.0) - 2026-07-15
 
 ### Added
