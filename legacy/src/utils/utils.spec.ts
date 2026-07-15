@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
 import {
+  getStampFromEmail,
   getSupWeight,
   nameFromLabel,
   nestedStoreToFlat,
@@ -38,6 +39,23 @@ describe('Utils', () => {
       'Value0: $Value1$ $Value2$ $Value3$ Value4 $Value5$= $Value6$* $Value_7$& $Value8$+ $Value9$!',
     );
   });
+
+  test.each([
+    ['test@test.com', 'TEST'],
+    ['test@test', 'TEST'],
+    ['test@coucou-test.fr', 'COUCOU-TEST'],
+    ['test@test_fr.super-test.com', 'TEST_FR'],
+    ['test@test.super-test.com', 'TEST'],
+  ])('getStampFromEmail (%s) -> %s', (email, expected) => {
+    expect(getStampFromEmail(email)).toBe(expected);
+  });
+
+  test.each([[null], [undefined], [''], ['no-at-sign']])(
+    'getStampFromEmail (%s) -> undefined',
+    (email) => {
+      expect(getStampFromEmail(email)).toBeUndefined();
+    },
+  );
 
   test.each([
     [[], 2],
