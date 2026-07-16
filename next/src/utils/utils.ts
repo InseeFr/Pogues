@@ -44,3 +44,26 @@ export const getCurrentUri = (): string | undefined => {
   if (uri === '/') return undefined
   return uri
 }
+
+/** Derive the user stamp from his email address if no stamp is found in his OIDC token */
+export const getStampFromEmail = (
+  email: string | null | undefined,
+): string | undefined => {
+  if (!email) {
+    return undefined
+  }
+
+  const atIndex = email.indexOf('@')
+  if (atIndex === -1) {
+    return undefined
+  }
+
+  const localPart = email.slice(atIndex + 1)
+  const dotIndex = localPart.indexOf('.')
+
+  if (dotIndex === -1) {
+    return localPart.toUpperCase()
+  }
+
+  return localPart.slice(0, dotIndex).toUpperCase()
+}

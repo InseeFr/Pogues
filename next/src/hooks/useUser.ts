@@ -1,4 +1,5 @@
 import { DEFAULT_STAMP, useOidc } from '@/lib/auth/oidc'
+import { getStampFromEmail } from '@/utils/utils'
 
 export type User = {
   givenName?: string
@@ -10,10 +11,15 @@ export type User = {
 export function useUser(): User | undefined {
   const { decodedIdToken } = useOidc()
 
+  const stamp =
+    decodedIdToken?.timbre ??
+    getStampFromEmail(decodedIdToken?.email) ??
+    DEFAULT_STAMP
+
   const user = {
     givenName: decodedIdToken?.given_name,
     familyName: decodedIdToken?.family_name,
-    stamp: decodedIdToken?.timbre ?? DEFAULT_STAMP,
+    stamp,
   }
 
   return user

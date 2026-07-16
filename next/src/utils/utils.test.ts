@@ -1,6 +1,11 @@
 import { describe, expect, test } from 'vitest'
 
-import { getCurrentUri, getUrlFromCriteria, nameFromLabel } from './utils'
+import {
+  getCurrentUri,
+  getStampFromEmail,
+  getUrlFromCriteria,
+  nameFromLabel,
+} from './utils'
 
 describe('Utils', () => {
   test.each([
@@ -70,4 +75,23 @@ describe('getCurrentUri', () => {
 
     expect(getCurrentUri()).toBe(undefined)
   })
+})
+
+describe('getStampFromEmail', () => {
+  test.each([
+    ['test@test.com', 'TEST'],
+    ['test@test', 'TEST'],
+    ['test@coucou-test.fr', 'COUCOU-TEST'],
+    ['test@test_fr.super-test.com', 'TEST_FR'],
+    ['test@test.super-test.com', 'TEST'],
+  ])('(%s) -> %s', (email, expected) => {
+    expect(getStampFromEmail(email)).toBe(expected)
+  })
+
+  test.each([[null], [undefined], [''], ['no-at-sign']])(
+    '(%s) -> undefined',
+    (email) => {
+      expect(getStampFromEmail(email)).toBeUndefined()
+    },
+  )
 })

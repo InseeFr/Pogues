@@ -75,6 +75,29 @@ export function verifyVariable(label: string): string {
   return label;
 }
 
+/** Derive the user stamp from his email address if no stamp is found in his OIDC token */
+export function getStampFromEmail(
+  email: string | null | undefined,
+): string | undefined {
+  if (!email) {
+    return undefined;
+  }
+
+  const atIndex = email.indexOf('@');
+  if (atIndex === -1) {
+    return undefined;
+  }
+
+  const localPart = email.slice(atIndex + 1);
+  const dotIndex = localPart.indexOf('.');
+
+  if (dotIndex === -1) {
+    return localPart.toUpperCase();
+  }
+
+  return localPart.slice(0, dotIndex).toUpperCase();
+}
+
 /** Compute a weight superior to the other sequences. */
 export function getSupWeight(
   components: {
