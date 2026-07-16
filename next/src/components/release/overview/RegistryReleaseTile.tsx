@@ -31,7 +31,7 @@ export function RegistryReleaseTile({
           </a>
         </div>
 
-        <div className="grid grid-cols-[1.6fr_0.7fr_1fr_1fr] gap-x-6 gap-y-1 text-sm">
+        <div className="grid grid-cols-[1.6fr_0.7fr_0.8fr_1.2fr] gap-x-6 gap-y-1 text-sm">
           <div>
             <b className="text-gray-500 font-normal">
               {t('release.collectInstrument')} :{' '}

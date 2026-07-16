@@ -10,12 +10,12 @@ export const CONTEXTE_OPTIONS = [
 
 export const NUMEROTATION_OPTIONS = [
   {
-    label: t('release.form.questionNumbering.none'),
-    value: 'NONE' as const,
-  },
-  {
     label: t('release.form.questionNumbering.sequence'),
     value: 'SEQUENCE' as const,
+  },
+  {
+    label: t('release.form.questionNumbering.none'),
+    value: 'NONE' as const,
   },
   {
     label: t('release.form.questionNumbering.questionnaire'),
