@@ -24,7 +24,7 @@ describe('remote to stores', () => {
           TargetMode: [''],
           dynamiqueSpecified: 'Redirections',
           formulaSpecified: 'VTL',
-          DataCollection: {},
+          dataCollection: {},
           final: false,
           id: 'jf0s8i94',
           label: 'questionnaire',

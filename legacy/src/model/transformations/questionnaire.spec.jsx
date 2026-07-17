@@ -17,13 +17,6 @@ describe('questionnaire', () => {
       Label: ['questionnaire'],
       Name: 'QUESTIONNA',
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-      DataCollection: [
-        {
-          id: 'campaign01',
-          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
-          Name: 'Campaign 01',
-        },
-      ],
       genericName: 'QUESTIONNAIRE',
 
       agency: 'fr.insee',
@@ -150,13 +143,6 @@ describe('questionnaire', () => {
       id: 'jf0s8i94',
       Label: ['questionnaire'],
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-      DataCollection: [
-        {
-          id: 'campaign01',
-          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
-          Name: 'Campaign 01',
-        },
-      ],
       TargetMode: [''],
       Name: 'QUESTIONNA',
       flowLogic: 'REDIRECTION',
@@ -340,13 +326,6 @@ describe('questionnaire', () => {
             MemberReference: ['jf0s3au7', 'jf0vtaeb', 'idendquest'],
             Name: 'PAGE_1',
             id: output.ComponentGroup[0].id,
-          },
-        ],
-        DataCollection: [
-          {
-            Name: 'Campaign 01',
-            id: 'campaign01',
-            uri: 'http://ddi:fr.insee:DataCollection.campaign01',
           },
         ],
         Label: ['questionnaire'],
@@ -622,13 +601,6 @@ describe('questionnaire', () => {
             id: output.ComponentGroup[0].id,
           },
         ],
-        DataCollection: [
-          {
-            Name: 'Campaign 02',
-            id: 'campaign02',
-            uri: 'http://ddi:fr.insee:DataCollection.campaign02',
-          },
-        ],
         FlowControl: [
           {
             Description: '',
@@ -726,13 +698,6 @@ describe('questionnaire', () => {
       Label: ['questionnaire'],
       Name: 'QUESTIONNA',
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-      DataCollection: [
-        {
-          id: 'campaign01',
-          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
-          Name: 'Campaign 01',
-        },
-      ],
       genericName: 'QUESTIONNAIRE',
 
       agency: 'fr.insee',
@@ -763,13 +728,6 @@ describe('questionnaire', () => {
       id: 'jf0s8i94',
       Label: ['questionnaire'],
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-      DataCollection: [
-        {
-          id: 'campaign01',
-          uri: 'http://ddi:fr.insee:DataCollection.campaign01',
-          Name: 'Campaign 01',
-        },
-      ],
       TargetMode: [''],
       Name: 'QUESTIONNA',
       flowLogic: 'REDIRECTION',
