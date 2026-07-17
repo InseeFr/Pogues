@@ -1,0 +1,26 @@
+{
+  "title": "Détail du questionnaire",
+  "sidebarTitle": "Détails",
+  "serie": "Série",
+  "operation": "Opération",
+  "altLabel": "AltLabel",
+  "campaigns": "Campagnes",
+  "questionnaireTitle": "Titre du questionnaire",
+  "id": "Identifiant",
+  "collectMode": "Mode de collecte",
+  "formulaLanguage": "Formules spécifiées en",
+  "flowLogic": "Dynamique spécifiée en",
+  "agency": "DDI Agency: ",
+  "agencyTooltip": "Voir: ",
+  "agencyDetailLink": "https://registry.ddialliance.org/Agency",
+
+  "form": {
+    "title": "Edit questionnaire details",
+    "mustProvideSerie": "Vous devez fournir une série",
+    "mustProvideName": "Vous devez fournir un nom",
+    "updateSuccess": "Les détails du questionnaire ont été mis à jour",
+    "updateError": "Erreur lors de la mise à jour des détails",
+    "confirmTitle": "Confirmer la modification",
+    "confirmBody": "Êtes-vous sûr de vouloir enregistrer les modifications ?"
+  }
+}

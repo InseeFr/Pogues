@@ -8,6 +8,7 @@ describe('QuestionnaireSidebar', () => {
 
     expect(getByText(/Home/i)).toBeInTheDocument()
     expect(getByText(/Questionnaire/i)).toBeInTheDocument()
+    expect(getByText(/Details/i)).toBeInTheDocument()
     expect(getByText(/Codes lists/i)).toBeInTheDocument()
     expect(getByText(/Nomenclatures/i)).toBeInTheDocument()
     expect(getByText(/History/i)).toBeInTheDocument()
