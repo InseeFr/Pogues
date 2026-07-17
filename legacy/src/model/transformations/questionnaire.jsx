@@ -84,7 +84,7 @@ const generateChildQuestionnaireRef = (componentsStore) => {
   );
 };
 
-export function remoteToState(remote, currentStores = {}) {
+export function remoteToState(remote) {
   const {
     owner,
     final,
@@ -104,11 +104,6 @@ export function remoteToState(remote, currentStores = {}) {
     multimode,
   } = remote;
 
-  const appState = currentStores.appState || {};
-  const activeQuestionnaire = appState.activeQuestionnaire || {};
-  const questionnaireCurrentState =
-    activeQuestionnaire.id === id ? activeQuestionnaire : {};
-
   return {
     owner,
     final: final === undefined,
@@ -117,9 +112,7 @@ export function remoteToState(remote, currentStores = {}) {
     label,
     agency,
     lastUpdatedDate,
-    serie: questionnaireCurrentState.serie || '',
-    operation: questionnaireCurrentState.operation || '',
-    campaigns: dataCollection.map((dc) => dc.id),
+    dataCollection,
     TargetMode: TargetMode || declarationMode || [],
     dynamiqueSpecified:
       flowLogic && flowLogic === FILTER ? Filtres : Redirections,
@@ -139,7 +132,7 @@ export function remoteToState1(remote) {
     id,
     Label: [label],
     lastUpdatedDate,
-    DataCollection,
+    DataCollection: dataCollection,
     TargetMode,
     Name: name,
     flowLogic,
@@ -153,7 +146,7 @@ export function remoteToState1(remote) {
     id,
     label,
     lastUpdatedDate,
-    campaigns: DataCollection.map((dc) => dc.id),
+    dataCollection,
     TargetMode: TargetMode || [],
     name,
     dynamiqueSpecified:
@@ -183,7 +176,6 @@ export function stateToRemote(state, stores) {
     calculatedVariablesStore,
     externalVariablesStore,
     collectedVariableByQuestionStore,
-    campaignsStore,
   } = stores;
   const collectedVariablesStore = Object.keys(
     collectedVariableByQuestionStore,
@@ -211,7 +203,7 @@ export function stateToRemote(state, stores) {
     label,
     name,
     agency,
-    campaigns,
+    dataCollection,
     final,
     TargetMode,
     dynamiqueSpecified,
@@ -221,12 +213,6 @@ export function stateToRemote(state, stores) {
     multimode,
   } = state;
 
-  const dataCollections = campaigns.map((c) => ({
-    id: c,
-    uri: `http://ddi:fr.insee:DataCollection.${c}`,
-    Name: campaignsStore ? campaignsStore[c]?.label : undefined,
-  }));
-
   const remote = {
     owner,
     final,
@@ -234,7 +220,7 @@ export function stateToRemote(state, stores) {
     Label: [label],
     Name: name,
     lastUpdatedDate: new Date().toString(),
-    DataCollection: dataCollections,
+    DataCollection: dataCollection,
     genericName: QUESTIONNAIRE,
     ComponentGroup: generateComponentGroups(componentsStore, ComponentGroup),
     agency: agency || 'fr.insee',

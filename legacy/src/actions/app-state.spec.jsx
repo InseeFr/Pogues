@@ -199,9 +199,6 @@ describe('updateActiveQuestionnaire', () => {
         id: 'id',
         name: 'name',
         label: 'label',
-        serie: 'serie',
-        operation: 'operation',
-        campaigns: ['campaign'],
         final: 'final',
       }),
     ).toEqual({
@@ -209,9 +206,6 @@ describe('updateActiveQuestionnaire', () => {
       payload: {
         name: 'name',
         label: 'label',
-        serie: 'serie',
-        operation: 'operation',
-        campaigns: ['campaign'],
       },
     });
   });

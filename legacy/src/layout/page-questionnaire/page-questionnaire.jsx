@@ -16,8 +16,6 @@ export const propTypes = {
   versionId: PropTypes.string,
   loadQuestionnaire: PropTypes.func.isRequired,
   loadQuestionnaireWithVersion: PropTypes.func.isRequired,
-  loadStatisticalContext: PropTypes.func.isRequired,
-  loadCampaignsIfNeeded: PropTypes.func.isRequired,
   setActiveQuestionnaire: PropTypes.func.isRequired,
   setActiveComponents: PropTypes.func.isRequired,
   setActiveCodeLists: PropTypes.func.isRequired,
@@ -60,7 +58,6 @@ const PageQuestionnaire = (props) => {
     loadQuestionnaire,
     loadQuestionnaireWithVersion,
     setActiveQuestionnaire,
-    loadStatisticalContext,
     setActiveComponents,
     setActiveCodeLists,
     setActiveVariables,
@@ -89,11 +86,7 @@ const PageQuestionnaire = (props) => {
 
   useEffect(() => {
     const load = async () => {
-      const accessToken = await getAccessToken();
-      const idCampaign =
-        questionnaire.campaigns[questionnaire.campaigns.length - 1];
       setActiveQuestionnaire(questionnaire);
-      if (idCampaign) loadStatisticalContext(idCampaign, accessToken);
       setActiveComponents(components);
       setActiveCodeLists(codeLists);
       setActiveVariables({

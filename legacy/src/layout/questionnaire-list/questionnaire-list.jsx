@@ -170,7 +170,7 @@ const QuestionnaireList = (props) => {
       return (
         activeQuestionnaire.id !== q.id &&
         !activeQuestionnaire.childQuestionnaireRef?.includes(q.id) &&
-        (!isTcm || q.campaigns.some((campaign) => campaign === TCM.id)) &&
+        !isTcm &&
         (filter === '' ||
           (q.label &&
             q.label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) ||

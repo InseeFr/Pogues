@@ -5,9 +5,7 @@ export const defaultState = {
   id: '',
   label: '',
   name: '',
-  serie: '',
-  operation: '',
-  campaigns: [],
+  dataCollection: {},
   lastUpdatedDate: '',
   final: '',
   agency: '',
@@ -22,9 +20,7 @@ export function formToState(form) {
   const {
     label,
     name,
-    serie,
-    operation,
-    campaigns,
+    dataCollection,
     TargetMode,
     dynamiqueSpecified,
     formulaSpecified,
@@ -33,9 +29,7 @@ export function formToState(form) {
   return {
     label,
     name,
-    serie,
-    operation,
-    campaigns: campaigns.split(','),
+    dataCollection,
     TargetMode: TargetMode.split(','),
     dynamiqueSpecified,
     formulaSpecified,
@@ -46,21 +40,16 @@ export function stateToForm(currentState) {
   const {
     label,
     name,
-    serie,
-    operation,
-    campaigns,
+    dataCollection,
     TargetMode,
     dynamiqueSpecified,
     formulaSpecified,
   } = currentState;
 
-  // If serie and operation doesn't exist, we use campaigns to obtain them calling a service
   return {
     label,
     name,
-    serie,
-    operation,
-    campaigns: campaigns.join(),
+    dataCollection,
     TargetMode: TargetMode.join(),
     dynamiqueSpecified,
     formulaSpecified,

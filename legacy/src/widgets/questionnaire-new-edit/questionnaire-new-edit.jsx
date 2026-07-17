@@ -12,31 +12,17 @@ import { useReadonly } from '../../hooks/useReadonly';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { updateNameField } from '../../utils/utils';
 import { AssociatedFields } from '../associated-fields';
-import { StatisticalContextCriteria } from '../statistical-context-criteria';
 
 const { Filtres, Redirections } = QUESTIONNAIRE_TYPE;
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 
 // Component
-function QuestionnaireNewEdit({
-  handleSubmit,
-  submitting,
-  form,
-  onCancel,
-  stamp,
-}) {
+function QuestionnaireNewEdit({ handleSubmit, submitting, form, onCancel }) {
   const isReadonly = useReadonly();
 
   return (
     <div className="widget-questionnaire-new-edit">
       <form onSubmit={handleSubmit}>
-        <StatisticalContextCriteria
-          stamp={stamp}
-          formName={form}
-          multipleCampaign
-          focusOnInit
-        />
-
         <AssociatedFields
           formName={form}
           fieldOrigin={{ name: 'label', label: Dictionary.title }}

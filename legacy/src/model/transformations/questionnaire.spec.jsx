@@ -83,15 +83,12 @@ describe('questionnaire', () => {
     const expected = {
       TargetMode: [''],
       agency: 'fr.insee',
-      campaigns: ['campaign01'],
       final: false,
       id: 'jf0s8i94',
       label: 'questionnaire',
       lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
       name: 'QUESTIONNA',
-      operation: '',
       owner: 'FAKEPERMISSION',
-      serie: '',
       dynamiqueSpecified: 'Redirections',
       formulaSpecified: 'XPATH',
       articulation: {
@@ -167,7 +164,6 @@ describe('questionnaire', () => {
     const output = remoteToState1(remote);
     const expected = {
       TargetMode: [''],
-      campaigns: ['campaign01'],
       dynamiqueSpecified: 'Redirections',
       formulaSpecified: 'XPATH',
       final: false,
@@ -188,9 +184,6 @@ describe('questionnaire', () => {
         label: 'questionnaire',
         agency: 'fr.insee',
         lastUpdatedDate: 'Wed Mar 21 2018 10:37:56 GMT+0100 (CET)',
-        serie: 'serie01',
-        operation: 'operation01',
-        campaigns: ['campaign01'],
         TargetMode: [''],
         ComponentGroup: [],
       };
@@ -270,20 +263,6 @@ describe('questionnaire', () => {
               codeListReference: 'jf0w3fab',
               codeListReferenceLabel: 'code list 1',
             },
-          },
-        },
-        campaignsStore: {
-          campaign01: {
-            id: 'campaign01',
-            value: 'campaign01',
-            label: 'Campaign 01',
-            operation: 'operation01',
-          },
-          campaign02: {
-            id: 'campaign02',
-            value: 'campaign02',
-            label: 'Campaign 02',
-            operation: 'operation01',
           },
         },
       };
@@ -406,7 +385,6 @@ describe('questionnaire', () => {
         ComponentGroup: [],
         TargetMode: [''],
         agency: 'fr.insee',
-        campaigns: ['campaign02'],
         dynamiqueSpecified: 'Filtres',
         final: false,
         id: 'kgs4uwzd',
@@ -414,9 +392,7 @@ describe('questionnaire', () => {
         lastUpdatedDate:
           'Tue Oct 27 2020 16:36:25 GMT+0100 (heure normale d’Europe centrale)',
         name: 'QUESTIONNA',
-        operation: 'operation01',
         owner: 'FAKEPERMISSION',
-        serie: 'serie01',
         articulation: {
           items: [
             {
@@ -577,20 +553,6 @@ describe('questionnaire', () => {
               type: 'TEXT',
               TEXT: { maxLength: 249 },
             },
-          },
-        },
-        campaignsStore: {
-          campaign01: {
-            id: 'campaign01',
-            value: 'campaign01',
-            label: 'Campaign 01',
-            operation: 'operation01',
-          },
-          campaign02: {
-            id: 'campaign02',
-            value: 'campaign02',
-            label: 'Campaign 02',
-            operation: 'operation01',
           },
         },
       };
@@ -782,15 +744,12 @@ describe('questionnaire', () => {
       jf0s8i94: {
         TargetMode: [''],
         agency: 'fr.insee',
-        campaigns: ['campaign01'],
         final: false,
         id: 'jf0s8i94',
         label: 'questionnaire',
         lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
         name: 'QUESTIONNA',
-        operation: '',
         owner: 'FAKEPERMISSION',
-        serie: '',
         dynamiqueSpecified: 'Redirections',
         formulaSpecified: 'XPATH',
       },
@@ -821,7 +780,6 @@ describe('questionnaire', () => {
     const expected = {
       jf0s8i94: {
         TargetMode: [''],
-        campaigns: ['campaign01'],
         dynamiqueSpecified: 'Redirections',
         formulaSpecified: 'VTL',
         final: false,
