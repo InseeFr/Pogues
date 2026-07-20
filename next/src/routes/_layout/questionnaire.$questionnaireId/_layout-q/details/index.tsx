@@ -18,9 +18,9 @@ export const Route = createFileRoute(
     </CustomLayout>
   ),
   loader: async ({ params: { questionnaireId }, context: { queryClient } }) => {
-    const series = await queryClient.ensureQueryData(seriesQueryOptions())
-    //const agencies = await queryClient.ensureQueryData(agencyQueryOptions())
-    const questionnaireDetails = await queryClient.ensureQueryData(
+    const series = await queryClient.fetchQuery(seriesQueryOptions())
+    //const agencies = await queryClient.fetchQuery(agencyQueryOptions())
+    const questionnaireDetails = await queryClient.fetchQuery(
       questionnaireDetailsQueryOptions(questionnaireId),
     )
     return {

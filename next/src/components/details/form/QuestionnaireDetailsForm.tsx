@@ -1,18 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
-import {
-  Controller,
-  type SubmitHandler,
-  useForm,
-  useWatch,
-} from 'react-hook-form'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { useEffect, useState } from 'react'
 
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
-import { changeSetValue } from '@/components/questionnaires/form/utils/set'
 import Tooltip from '@/components/ui/Tooltip'
 import Checkbox from '@/components/ui/form/Checkbox'
 import Field from '@/components/ui/form/Field'
@@ -43,7 +37,7 @@ export default function QuestionnaireDetailsForm({
   defaultValues = {
     name: '',
     title: '',
-    targetModes: new Set(),
+    targetModes: [],
     flowLogic: FlowLogics.Filter,
     formulasLanguage: FormulasLanguages.VTL,
     agency: 'fr.insee',
@@ -62,6 +56,7 @@ export default function QuestionnaireDetailsForm({
     handleSubmit,
     formState: { isDirty, isSubmitted, isValid },
     setValue,
+    watch,
     reset,
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -69,8 +64,8 @@ export default function QuestionnaireDetailsForm({
     resolver: zodResolver(schema),
   })
 
-  const selectedSerie = useWatch({ control, name: 'serie' })
-  const selectedOperation = useWatch({ control, name: 'operation' })
+  const selectedSerie = watch('serie')
+  const selectedOperation = watch('operation')
 
   const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
 
@@ -107,7 +102,7 @@ export default function QuestionnaireDetailsForm({
     setValue('operation', '')
   }
 
-  const formContent = (
+  const formFields = (
     <>
       <Controller
         name="name"
@@ -226,7 +221,11 @@ export default function QuestionnaireDetailsForm({
                   title={
                     <div className="flex flex-row">
                       <div>{t('details.agencyTooltip')}</div>
-                      <a href={t('details.agencyDetailLink')}>
+                      <a
+                        href={t('details.agencyDetailLink')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <i className="text-blue-5">
                           {t('details.agencyDetailLink')}
                         </i>
@@ -267,65 +266,57 @@ export default function QuestionnaireDetailsForm({
             <div className="flex gap-x-4">
               <Checkbox
                 label={'CAPI'}
-                checked={field.value?.has(TargetModes.CAPI)}
+                checked={field.value?.includes(TargetModes.CAPI)}
                 disabled={readOnly}
                 onChange={(v) =>
-                  setValue(
-                    'targetModes',
-                    changeSetValue(
-                      field.value ?? new Set(),
-                      TargetModes.CAPI,
-                      v,
-                    ),
-                    { shouldDirty: true },
+                  field.onChange(
+                    v
+                      ? [...(field.value ?? []), TargetModes.CAPI]
+                      : (field.value ?? []).filter(
+                          (mode) => mode !== TargetModes.CAPI,
+                        ),
                   )
                 }
               />
               <Checkbox
                 label={'CAWI'}
-                checked={field.value?.has(TargetModes.CAWI)}
+                checked={field.value?.includes(TargetModes.CAWI)}
                 disabled={readOnly}
                 onChange={(v) =>
-                  setValue(
-                    'targetModes',
-                    changeSetValue(
-                      field.value ?? new Set(),
-                      TargetModes.CAWI,
-                      v,
-                    ),
-                    { shouldDirty: true },
+                  field.onChange(
+                    v
+                      ? [...(field.value ?? []), TargetModes.CAWI]
+                      : (field.value ?? []).filter(
+                          (mode) => mode !== TargetModes.CAWI,
+                        ),
                   )
                 }
               />
               <Checkbox
                 label={'CATI'}
-                checked={field.value?.has(TargetModes.CATI)}
+                checked={field.value?.includes(TargetModes.CATI)}
                 disabled={readOnly}
                 onChange={(v) =>
-                  setValue(
-                    'targetModes',
-                    changeSetValue(
-                      field.value ?? new Set(),
-                      TargetModes.CATI,
-                      v,
-                    ),
-                    { shouldDirty: true },
+                  field.onChange(
+                    v
+                      ? [...(field.value ?? []), TargetModes.CATI]
+                      : (field.value ?? []).filter(
+                          (mode) => mode !== TargetModes.CATI,
+                        ),
                   )
                 }
               />
               <Checkbox
                 label={'PAPI'}
-                checked={field.value?.has(TargetModes.PAPI)}
+                checked={field.value?.includes(TargetModes.PAPI)}
                 disabled={readOnly}
                 onChange={(v) =>
-                  setValue(
-                    'targetModes',
-                    changeSetValue(
-                      field.value ?? new Set(),
-                      TargetModes.PAPI,
-                      v,
-                    ),
-                    { shouldDirty: true },
+                  field.onChange(
+                    v
+                      ? [...(field.value ?? []), TargetModes.PAPI]
+                      : (field.value ?? []).filter(
+                          (mode) => mode !== TargetModes.PAPI,
+                        ),
                   )
                 }
               />
@@ -406,7 +397,7 @@ export default function QuestionnaireDetailsForm({
   )
 
   if (readOnly) {
-    return <div className="space-y-4">{formContent}</div>
+    return <div className="space-y-4">{formFields}</div>
   }
 
   return (
@@ -418,7 +409,7 @@ export default function QuestionnaireDetailsForm({
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
     >
-      {formContent}
+      {formFields}
     </Form>
   )
 }

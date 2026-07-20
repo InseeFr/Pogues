@@ -20,8 +20,8 @@ export const Route = createFileRoute(
     params: { questionnaireId, versionId },
     context: { queryClient },
   }) => {
-    const series = await queryClient.ensureQueryData(seriesQueryOptions())
-    const questionnaireDetails = await queryClient.ensureQueryData(
+    const series = await queryClient.fetchQuery(seriesQueryOptions())
+    const questionnaireDetails = await queryClient.fetchQuery(
       questionnaireDetailsFromVersionQueryOptions(questionnaireId, versionId),
     )
     return {

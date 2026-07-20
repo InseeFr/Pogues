@@ -13,7 +13,7 @@ export const schema = z.object({
     .string()
     .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
   targetModes: z
-    .set(z.enum(TargetModes))
+    .array(z.enum(TargetModes))
     .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),
   agency: z
     .string()

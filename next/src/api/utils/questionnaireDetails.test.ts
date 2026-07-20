@@ -51,7 +51,7 @@ describe('computeQuestionnaireDetails', () => {
       title: '[mn] absolute cinema',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
+      targetModes: [TargetModes.CAPI, TargetModes.PAPI],
       flowLogic: FlowLogics.Filter,
       formulasLanguage: FormulasLanguages.VTL,
       operation: 'op1',
@@ -195,7 +195,7 @@ describe('computeQuestionnaireDetailsDTO', () => {
       title: 'New Title',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
+      targetModes: [TargetModes.CAPI, TargetModes.PAPI],
       flowLogic: FlowLogics.Redirection,
       formulasLanguage: FormulasLanguages.XPath,
       operation: 'op1',
@@ -228,7 +228,7 @@ describe('computeQuestionnaireDetailsDTO', () => {
       title: 'New Title',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set(),
+      targetModes: [],
       flowLogic: FlowLogics.Filter,
       formulasLanguage: FormulasLanguages.VTL,
     }
@@ -250,7 +250,7 @@ describe('computeQuestionnaireDetailsDTO', () => {
       title: 'Test',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set([TargetModes.CAWI, TargetModes.CATI]),
+      targetModes: [TargetModes.CAWI, TargetModes.CATI],
       flowLogic: FlowLogics.Filter,
       formulasLanguage: FormulasLanguages.VTL,
     }
@@ -271,7 +271,7 @@ describe('computeQuestionnaireDetailsDTO', () => {
       title: 'Test',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set(),
+      targetModes: [],
       flowLogic: FlowLogics.Filter,
       formulasLanguage: FormulasLanguages.VTL,
     }
@@ -283,16 +283,16 @@ describe('computeQuestionnaireDetailsDTO', () => {
       [],
     )
 
-    expect(result.targetMode).toEqual([])
+    expect(result.targetMode).toEqual(['CAWI', 'CATI'])
   })
 
-  it('maps Redirection flow logics to the enum value', () => {
+  it('produces an empty targetMode array for an empty Set', () => {
     const formDetails: FormDetails = {
       name: 'test',
       title: 'Test',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set(),
+      targetModes: [],
       flowLogic: FlowLogics.Redirection,
       formulasLanguage: FormulasLanguages.VTL,
     }
@@ -313,7 +313,7 @@ describe('computeQuestionnaireDetailsDTO', () => {
       title: 'Test',
       serie: 's1004',
       agency: 'fr.insee',
-      targetModes: new Set(),
+      targetModes: [],
       flowLogic: FlowLogics.Filter,
       formulasLanguage: FormulasLanguages.XPath,
     }

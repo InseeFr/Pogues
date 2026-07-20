@@ -1,5 +1,5 @@
 export type SerieItem = {
   id: string
-  urn: string
+  uri: string
   label: string
 }

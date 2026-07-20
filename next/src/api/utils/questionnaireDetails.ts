@@ -5,7 +5,11 @@ import {
 } from '@/models/questionnaires'
 
 import { SurveyModeEnum } from '../models/poguesModel'
-import type { QuestionnaireDetailsDTO } from '../models/questionnaireDetailsDTO'
+import type {
+  OperationDTO,
+  QuestionnaireDetailsDTO,
+  SerieDTO,
+} from '../models/questionnaireDetailsDTO'
 import { computeFlowLogic, computePoguesFlowLogic } from './flowLogic'
 import {
   computeFormulasLanguage,
@@ -18,7 +22,7 @@ export type FormDetails = {
   title: string
   serie: string
   agency: string
-  targetModes: Set<TargetModes>
+  targetModes: TargetModes[]
   flowLogic: FlowLogics
   formulasLanguage: FormulasLanguages
   operation?: string
@@ -36,7 +40,9 @@ export function computeQuestionnaireDetails(
     title: dto.label,
     serie: computeSerieId(dto),
     agency: dto.agency,
-    targetModes: computeTargetModes(dto.targetMode as SurveyModeEnum[]),
+    targetModes: Array.from(
+      computeTargetModes(dto.targetMode as SurveyModeEnum[]),
+    ),
     flowLogic: computeFlowLogic(dto.flowLogic) ?? FlowLogics.Filter,
     formulasLanguage:
       computeFormulasLanguage(dto.formulasLanguage) ?? FormulasLanguages.VTL,
@@ -47,8 +53,8 @@ export function computeQuestionnaireDetails(
 export function computeQuestionnaireDetailsDTO(
   formDetails: FormDetails,
   existingDto: QuestionnaireDetailsDTO,
-  serieDetails: { id: string; uri: string; label: string; altLabel: string },
-  operations: { id: string; uri: string; label: string }[],
+  serieDetails: SerieDTO,
+  operations: OperationDTO[],
 ): QuestionnaireDetailsDTO {
   return {
     ...existingDto,
@@ -58,7 +64,7 @@ export function computeQuestionnaireDetailsDTO(
     formulasLanguage: computePoguesFormulasLanguage(
       formDetails.formulasLanguage,
     ),
-    targetMode: Array.from(formDetails.targetModes).map(
+    targetMode: formDetails.targetModes.map(
       (mode) => TargetModes[mode as number] as string,
     ),
     agency: formDetails.agency,

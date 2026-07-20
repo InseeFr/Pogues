@@ -35,8 +35,8 @@ vi.mock('@/api/series', async (importOriginal) => {
 })
 
 const series: SerieItem[] = [
-  { id: 's1', label: 'Serie 1', urn: 'Urn 1' },
-  { id: 's2', label: 'Serie 2', urn: 'Urn 2' },
+  { id: 's1', label: 'Serie 1', uri: 'uri 1' },
+  { id: 's2', label: 'Serie 2', uri: 'uri 2' },
 ]
 
 const mockSerieDetail: SerieDetailDTO = {
@@ -54,7 +54,7 @@ const validDefaultValues: Partial<FormValues> = {
   title: '[mn] absolute cinema',
   serie: 's1',
   agency: 'fr.insee',
-  targetModes: new Set([TargetModes.CAPI]),
+  targetModes: [TargetModes.CAPI],
   flowLogic: FlowLogics.Filter,
   formulasLanguage: FormulasLanguages.VTL,
 }
