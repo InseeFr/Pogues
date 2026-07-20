@@ -9,19 +9,14 @@ import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
 import Tooltip from '@/components/ui/Tooltip'
 import Autocomplete from '@/components/ui/form/Autocomplete'
-import Checkbox from '@/components/ui/form/Checkbox'
 import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
-import Label from '@/components/ui/form/Label'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
+import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
-import {
-  FlowLogics,
-  FormulasLanguages,
-  TargetModes,
-} from '@/models/questionnaires'
+import { FlowLogics, FormulasLanguages } from '@/models/questionnaires'
 import { SerieItem } from '@/models/series'
 
 import { type FormValues, schema } from './schema'
@@ -262,70 +257,13 @@ export default function QuestionnaireDetailsForm({
         control={control}
         rules={{ required: true }}
         render={({ field, fieldState: { error } }) => (
-          <>
-            <Label required>{t('questionnaire.common.targetMode')}</Label>
-            <div className="flex gap-x-4">
-              <Checkbox
-                label={'CAPI'}
-                checked={field.value?.includes(TargetModes.CAPI)}
-                disabled={readOnly}
-                onChange={(v) =>
-                  field.onChange(
-                    v
-                      ? [...(field.value ?? []), TargetModes.CAPI]
-                      : (field.value ?? []).filter(
-                          (mode) => mode !== TargetModes.CAPI,
-                        ),
-                  )
-                }
-              />
-              <Checkbox
-                label={'CAWI'}
-                checked={field.value?.includes(TargetModes.CAWI)}
-                disabled={readOnly}
-                onChange={(v) =>
-                  field.onChange(
-                    v
-                      ? [...(field.value ?? []), TargetModes.CAWI]
-                      : (field.value ?? []).filter(
-                          (mode) => mode !== TargetModes.CAWI,
-                        ),
-                  )
-                }
-              />
-              <Checkbox
-                label={'CATI'}
-                checked={field.value?.includes(TargetModes.CATI)}
-                disabled={readOnly}
-                onChange={(v) =>
-                  field.onChange(
-                    v
-                      ? [...(field.value ?? []), TargetModes.CATI]
-                      : (field.value ?? []).filter(
-                          (mode) => mode !== TargetModes.CATI,
-                        ),
-                  )
-                }
-              />
-              <Checkbox
-                label={'PAPI'}
-                checked={field.value?.includes(TargetModes.PAPI)}
-                disabled={readOnly}
-                onChange={(v) =>
-                  field.onChange(
-                    v
-                      ? [...(field.value ?? []), TargetModes.PAPI]
-                      : (field.value ?? []).filter(
-                          (mode) => mode !== TargetModes.PAPI,
-                        ),
-                  )
-                }
-              />
-            </div>
-            {error ? (
-              <div className="text-sm text-error ml-1">{error.message}</div>
-            ) : null}
-          </>
+          <SelectTargetMode
+            value={field.value}
+            onChange={field.onChange}
+            multiple
+            disabled={readOnly}
+            error={error?.message}
+          />
         )}
       />
       <div>
