@@ -25,15 +25,12 @@ describe.skip('<PageQuestionnaire />', () => {
     setActiveComponents: spySetActiveComponents,
     setActiveCodeLists: spySetActiveCodeLists,
     setActiveVariables: spySetActiveVariables,
-    loadStatisticalContext: noop,
-    loadCampaignsIfNeeded: noop,
     loadExternalQuestionnairesIfNeeded: noop,
     history: { push: noop },
     store: {},
     appState: {
       activeQuestionnaire: {
         id: 'FAKE_QUESTIONNAIRE_ID',
-        campaigns: ['FAKE_CAMPAIGN_ID'],
       },
     },
   };

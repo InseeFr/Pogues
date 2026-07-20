@@ -2,16 +2,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import {
-  loadStatisticalContext,
   setActiveCodeLists,
   setActiveComponents,
   setActiveQuestionnaire,
   setActiveVariables,
 } from '../../actions/app-state';
-import {
-  loadCampaignsIfNeeded,
-  loadExternalQuestionnairesIfNeeded,
-} from '../../actions/metadata';
 import {
   loadQuestionnaire,
   loadQuestionnaireWithVersion,
@@ -60,9 +55,6 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = {
-  loadCampaignsIfNeeded,
-  loadExternalQuestionnairesIfNeeded,
-  loadStatisticalContext,
   setActiveQuestionnaire,
   setActiveComponents,
   setActiveCodeLists,

@@ -1,7 +1,6 @@
 import {
   DELETE_APPSTATE,
   END_LOADING_VISUALIZATION,
-  LOAD_STATISTICAL_CONTEXT_SUCCESS,
   SAVE_ACTIVE_QUESTIONNAIRE_FAILURE,
   SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS,
   SET_ACTIVE_QUESTIONNAIRE,
@@ -87,17 +86,6 @@ export function setEditingComponentId(state, id) {
   return {
     ...state,
     editingComponentId: id,
-  };
-}
-
-export function loadStatisticalContext(state, { serie, operation }) {
-  return {
-    ...state,
-    activeQuestionnaire: {
-      ...state.activeQuestionnaire,
-      serie,
-      operation,
-    },
   };
 }
 
@@ -200,7 +188,6 @@ actionHandlers[SET_ACTIVE_QUESTIONNAIRE] = setActiveQuestionnaire;
 actionHandlers[UPDATE_ACTIVE_QUESTIONNAIRE] = updateActiveQuestionnaire;
 actionHandlers[SET_SELECTED_COMPONENT] = setSelectedComponentId;
 actionHandlers[SET_EDITING_COMPONENT] = setEditingComponentId;
-actionHandlers[LOAD_STATISTICAL_CONTEXT_SUCCESS] = loadStatisticalContext;
 actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_SUCCESS] = setQuestionNotModified;
 actionHandlers[SAVE_ACTIVE_QUESTIONNAIRE_FAILURE] = setQuestionNotSaved;
 actionHandlers[CREATE_COMPONENT] = setQuestionModified;

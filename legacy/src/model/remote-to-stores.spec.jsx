@@ -10,7 +10,7 @@ describe('remote to stores', () => {
         id: 'jf0s8i94',
         Label: ['questionnaire'],
         lastUpdatedDate: 'Wed Mar 21 2018 10:23:37 GMT+0100 (CET)',
-        DataCollection: [],
+        DataCollection: {},
         TargetMode: [''],
         Name: 'QUESTIONNA',
         flowLogic: 'REDIRECTION',
@@ -22,9 +22,9 @@ describe('remote to stores', () => {
       {
         jf0s8i94: {
           TargetMode: [''],
-          campaigns: [],
           dynamiqueSpecified: 'Redirections',
           formulaSpecified: 'VTL',
+          dataCollection: {},
           final: false,
           id: 'jf0s8i94',
           label: 'questionnaire',

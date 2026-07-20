@@ -653,30 +653,6 @@ const dictionary: Dictionary = {
     fr: 'Êtes-vous sûr ?',
     en: 'Are you sure?',
   },
-  serie: {
-    fr: 'Série',
-    en: 'Series',
-  },
-  operation: {
-    fr: 'Opération statistique',
-    en: 'Statistical operation',
-  },
-  campaigns: {
-    fr: 'Campagnes',
-    en: 'Campaigns',
-  },
-  campaign: {
-    fr: 'Campagne',
-    en: 'Campaign',
-  },
-  selectSerie: {
-    fr: 'Sélectionner une série',
-    en: 'Select a series',
-  },
-  selectOperation: {
-    fr: 'Sélectionner une opération',
-    en: 'Select an operation',
-  },
   selectCampaign: {
     fr: 'Sélectionner une campagne',
     en: 'Select a campaign',
@@ -684,10 +660,6 @@ const dictionary: Dictionary = {
   selectType: {
     fr: 'Sélectionner un type',
     en: 'Select a type',
-  },
-  noValuesCampaigns: {
-    fr: 'Sélectionner une opération pour afficher la liste des campagnes',
-    en: 'Select an operation to show a list of campaigns',
   },
   searchInputQuestionnaireLabel: {
     en: 'Questionnaire title',
