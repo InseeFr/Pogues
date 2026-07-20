@@ -129,7 +129,6 @@ describe('QuestionnaireListComponents', () => {
       render(<QuestionnaireListComponents {...defaultProps} />);
 
       expect(screen.getByText('Test Questionnaire')).toBeInTheDocument();
-      expect(screen.getByText(Dictionary.showDetail)).toBeInTheDocument();
       expect(screen.getByText(Dictionary.duplicate)).toBeInTheDocument();
       expect(screen.getByText(Dictionary.remove)).toBeInTheDocument();
     });
@@ -159,25 +158,6 @@ describe('QuestionnaireListComponents', () => {
       const duplicateButton = screen.getByText(Dictionary.duplicate);
       expect(duplicateButton).not.toBeDisabled();
     });
-  });
-
-  it('should open questionnaire detail modal when show detail button is clicked', () => {
-    render(<QuestionnaireListComponents {...defaultProps} />);
-
-    fireEvent.click(screen.getByText(Dictionary.showDetail));
-
-    expect(screen.getByTestId('modal')).toBeInTheDocument();
-    expect(screen.getByTestId('questionnaire-edit')).toBeInTheDocument();
-  });
-
-  it('should close questionnaire modal when cancel is clicked', () => {
-    render(<QuestionnaireListComponents {...defaultProps} />);
-
-    fireEvent.click(screen.getByText(Dictionary.showDetail));
-    expect(screen.getByTestId('modal')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText(Dictionary.cancel));
-    expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
   });
 
   it('should call duplicateQuestionnaire when duplicate is confirmed', async () => {

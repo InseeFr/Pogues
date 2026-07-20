@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page to overview released and pending releases of a questionnaire
 - Form to create a release of a questionnaire
 
+### Removed
+
+- remove depreacted `dataCollection` reference in legacy client
+
 ## [3.6.1](https://github.com/InseeFr/Pogues/releases/tag/3.6.1) - 2026-07-15
 
 ### Added
