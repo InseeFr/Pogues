@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- change end-point to get units in legacy client (according to the API)
+
 ### Removed
 
 - remove depreacted `dataCollection` reference in legacy client
