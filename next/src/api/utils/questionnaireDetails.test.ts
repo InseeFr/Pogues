@@ -265,7 +265,7 @@ describe('computeQuestionnaireDetailsDTO', () => {
     expect(result.targetMode).toEqual(['CAWI', 'CATI'])
   })
 
-  it('produces an empty targetMode array for an empty Set', () => {
+  it('produces an empty targetMode array for an empty array', () => {
     const formDetails: FormDetails = {
       name: 'test',
       title: 'Test',
@@ -283,10 +283,10 @@ describe('computeQuestionnaireDetailsDTO', () => {
       [],
     )
 
-    expect(result.targetMode).toEqual(['CAWI', 'CATI'])
+    expect(result.targetMode).toEqual([])
   })
 
-  it('produces an empty targetMode array for an empty Set', () => {
+  it('produces an empty targetMode array for an empty array', () => {
     const formDetails: FormDetails = {
       name: 'test',
       title: 'Test',

@@ -59,7 +59,7 @@ vi.mock('./form/QuestionnaireDetailsForm', () => ({
             title: '[mn] absolute cinema',
             serie: 's1',
             agency: 'fr.insee',
-            targetModes: new Set([TargetModes.CAPI]),
+            targetModes: [TargetModes.CAPI],
             flowLogic: FlowLogics.Filter,
             formulasLanguage: FormulasLanguages.VTL,
             operation: 'op1',

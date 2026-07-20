@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
 import Tooltip from '@/components/ui/Tooltip'
+import Autocomplete from '@/components/ui/form/Autocomplete'
 import Checkbox from '@/components/ui/form/Checkbox'
 import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
@@ -167,7 +168,7 @@ export default function QuestionnaireDetailsForm({
             touched={isTouched}
             disabled={readOnly}
           >
-            <Select
+            <Autocomplete
               options={seriesOptions}
               value={value || undefined}
               disabled={readOnly}
