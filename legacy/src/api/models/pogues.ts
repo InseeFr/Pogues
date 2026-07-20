@@ -13,9 +13,18 @@
  */
 type DataCollection = {
   /** Datacollection name (label). Exemple : "Enquête sectorielle annuelle 2018" */
-  Name: string;
+  serie?: {
+    id: string;
+    uri: string;
+    label: string;
+    altLabel: string;
+  };
   /** Datacollection Id. */
-  id: string;
+  operation?: {
+    id: string;
+    uri: string;
+    label: string;
+  }[];
   /** URI to external datacollection reference. */
   uri: string;
   /** Agency of Datacollection. It's optional. Exemple : "fr.insee". */
@@ -36,7 +45,7 @@ export type VariablesObject = {
  * or an independent part of an questionnaire.
  */
 export type Questionnaire = Sequence & {
-  DataCollection: DataCollection[];
+  DataCollection: DataCollection;
   /**
    * ComponentGroup currently contains the references of all objects in the
    * questionnaire. This object was originally created for pagination which is
@@ -171,11 +180,11 @@ type VariableType = {
   CodeListReference?: string;
   /** Variable representation type to characterize the variable (numeric, boolean, text, etc) */
   Datatype:
-  | BooleanDatatypeType
-  | DateDatatypeType
-  | DurationDatatypeType
-  | NumericDatatypeType
-  | TextDatatypeType;
+    | BooleanDatatypeType
+    | DateDatatypeType
+    | DurationDatatypeType
+    | NumericDatatypeType
+    | TextDatatypeType;
   Name: string;
   Label: string;
   /** Iteration reference (in which the variable has a local scope) */

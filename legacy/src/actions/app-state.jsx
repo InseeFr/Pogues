@@ -1,7 +1,5 @@
 import { putQuestionnaire } from '../api/questionnaires';
-import { getContextFromCampaign } from '../api/search';
 import { getVisualization } from '../api/visualize';
-import { TCM } from '../constants/pogues-constants';
 import { questionnaireRemoteToStores } from '../model/remote-to-stores';
 import * as Questionnaire from '../model/transformations/questionnaire';
 import { addValidationAtSaveError, addVisualizationError } from './errors';
@@ -22,11 +20,6 @@ export const REMOVE_INVALID_ITEM = 'REMOVE_INVALID_ITEM';
 export const SET_TAB_ERRORS = 'SET_TAB_ERRORS';
 export const CLEAR_TAB_ERRORS = 'CLEAR_TAB_ERRORS';
 export const SET_ACTIVE_VARIABLES = 'SET_ACTIVE_VARIABLES';
-export const LOAD_STATISTICAL_CONTEXT = 'LOAD_STATISTICAL_CONTEXT';
-export const LOAD_STATISTICAL_CONTEXT_SUCCESS =
-  'LOAD_STATISTICAL_CONTEXT_SUCCESS';
-export const LOAD_STATISTICAL_CONTEXT_FAILURE =
-  'LOAD_STATISTICAL_CONTEXT_FAILURE';
 export const ADD_LIST_INVALID_ITEMS = 'ADD_LIST_INVALID_ITEMS';
 export const DELETE_APPSTATE = 'DELETE_APPSTATE';
 
@@ -142,9 +135,7 @@ export const updateActiveQuestionnaire = (updatedState) => {
   const {
     name,
     label,
-    serie,
-    operation,
-    campaigns,
+    dataCollection,
     TargetMode,
     dynamiqueSpecified,
     formulaSpecified,
@@ -154,9 +145,7 @@ export const updateActiveQuestionnaire = (updatedState) => {
     payload: {
       name,
       label,
-      serie,
-      operation,
-      campaigns,
+      dataCollection,
       TargetMode,
       dynamiqueSpecified,
       formulaSpecified,
@@ -222,7 +211,6 @@ function getQuestionnaireModelFromState(state, customComponentsStore) {
     externalVariablesStore: state.appState.activeExternalVariablesById,
     collectedVariableByQuestionStore:
       state.appState.collectedVariableByQuestion,
-    campaignsStore: state.metadataByType.campaigns,
   };
   const questionnaireState = {
     ...state.appState.activeQuestionnaire,
@@ -421,34 +409,6 @@ export const setTabErrors = (errorsValidation, errorsIntegrity = {}) => ({
 export const clearTabErrors = () => ({
   type: CLEAR_TAB_ERRORS,
 });
-
-export const loadStatisticalContextSuccess = ({ serie, operation }) => ({
-  type: LOAD_STATISTICAL_CONTEXT_SUCCESS,
-  payload: { serie, operation },
-});
-
-export const loadStatisticalContextFailure = (err) => ({
-  type: LOAD_STATISTICAL_CONTEXT_FAILURE,
-  payload: err,
-});
-
-export const loadStatisticalContext = (idCampaign, token) => (dispatch) => {
-  dispatch({
-    type: LOAD_STATISTICAL_CONTEXT,
-    payload: null,
-  });
-
-  if (idCampaign === TCM.id) {
-    return dispatch(
-      loadStatisticalContextSuccess({ serie: TCM.id, operation: TCM.id }),
-    );
-  }
-  return getContextFromCampaign(idCampaign, token)
-    .then(({ serieId: serie, operationId: operation }) => {
-      return dispatch(loadStatisticalContextSuccess({ serie, operation }));
-    })
-    .catch((err) => dispatch(loadStatisticalContextFailure(err)));
-};
 
 export const deleteAppState = () => (dispatch) => {
   dispatch({

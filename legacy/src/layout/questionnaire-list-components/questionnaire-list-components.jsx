@@ -14,7 +14,6 @@ import { getSortedChildren } from '../../utils/component/component-utils';
 import Dictionary from '../../utils/dictionary/dictionary';
 import { ComponentEdit } from '../component-edit';
 import Loader from '../loader';
-import { QuestionnaireEdit } from '../questionnaire-edit';
 import { ConfirmDialog } from './components/confirm-dialog';
 import { ErrorsIntegrity as ErrorsIntegrityPanel } from './components/errors-integrity';
 import QuestionnaireComponent from './questionnaire-component';
@@ -54,7 +53,6 @@ const QuestionnaireListComponents = (props) => {
   }, [setSelectedComponentId]);
 
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
-  const [showQuestionnaireModal, setShowQuestionnaireModal] = useState(false);
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
     useState(false);
@@ -145,12 +143,6 @@ const QuestionnaireListComponents = (props) => {
             <div>
               <button
                 className="btn-yellow"
-                onClick={() => setShowQuestionnaireModal(true)}
-              >
-                {Dictionary.showDetail}
-              </button>
-              <button
-                className="btn-yellow"
                 disabled={isQuestionnaireModified}
                 onClick={() => setShowDuplicateModal(true)}
               >
@@ -218,36 +210,6 @@ const QuestionnaireListComponents = (props) => {
               handleOpenComponentDetail: handleOpenComponentDetail,
             })}
           </div>
-
-          {/* Questionnaire edit */}
-
-          <ReactModal
-            parentSelector={domSelectorForModal}
-            ariaHideApp={false}
-            shouldCloseOnOverlayClick={false}
-            isOpen={showQuestionnaireModal}
-            onRequestClose={() => setShowQuestionnaireModal(false)}
-            contentLabel={Dictionary.questionnaireDetail}
-          >
-            <div className="popup">
-              <div className="popup-header">
-                <h3>{Dictionary.questionnaireDetail}</h3>
-
-                <button
-                  type="button"
-                  onClick={() => setShowQuestionnaireModal(false)}
-                >
-                  <span>X</span>
-                </button>
-              </div>
-              <div className="popup-body">
-                <QuestionnaireEdit
-                  onCancel={() => setShowQuestionnaireModal(false)}
-                  onSuccess={() => setShowQuestionnaireModal(false)}
-                />
-              </div>
-            </div>
-          </ReactModal>
 
           {/* Component edit */}
 

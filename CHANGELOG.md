@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Page to edit questionnaire details
 
+### Removed
+
+- remove depreacted `dataCollection` reference in legacy client
+
 ## [3.6.1](https://github.com/InseeFr/Pogues/releases/tag/3.6.1) - 2026-07-15
 
 ### Added

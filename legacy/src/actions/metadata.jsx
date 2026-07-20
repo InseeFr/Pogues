@@ -1,9 +1,4 @@
-import {
-  getCampaigns,
-  getOperations,
-  getSeries,
-  getUnitsList,
-} from '../api/metadata';
+import { getUnitsList } from '../api/metadata';
 import { getNomenclatures } from '../api/nomenclatures';
 import { getQuestionnaire, getVariablesById } from '../api/questionnaires';
 import { DIMENSION_LENGTH } from '../constants/pogues-constants';
@@ -11,10 +6,7 @@ import { DIMENSION_LENGTH } from '../constants/pogues-constants';
 const { NON_DYNAMIC } = DIMENSION_LENGTH;
 export const LOAD_METADATA_SUCCESS = 'LOAD_METADATA_SUCCESS';
 export const LOAD_METADATA_FAILURE = 'LOAD_METADATA_FAILURE';
-const LOAD_SERIES = 'LOAD_SERIES';
 const LOAD_UNITS = 'LOAD_UNITS';
-const LOAD_OPERATIONS = 'LOAD_OPERATIONS';
-const LOAD_CAMPAIGNS = 'LOAD_CAMPAIGNS';
 const LOAD_EXTERNAL_ELEMENTS_VARIABLES = 'LOAD_EXTERNAL_ELEMENTS_VARIABLES';
 const LOAD_EXTERNAL_ELEMENTS_LOOPS = 'LOAD_EXTERNAL_ELEMENTS_LOOPS';
 const LOAD_NOMENCLATURES = 'LOAD_NOMENCLATURES';
@@ -74,103 +66,6 @@ export const loadUnitsIfNeeded = (token) => (dispatch, getState) => {
   const { units } = state.metadataByType;
   if (!units) dispatch(loadUnits(token));
 };
-
-// Metadata series
-
-export const loadSeries = (token) => (dispatch) => {
-  dispatch({
-    type: LOAD_SERIES,
-    payload: null,
-  });
-
-  return getSeries(token)
-    .then((series) => {
-      const seriesMetadata = series.map((s) => ({
-        id: s.id,
-        value: s.id,
-        label: s.label,
-      }));
-      return dispatch(loadMetadataSuccess('series', seriesMetadata));
-    })
-    .catch((err) => dispatch(loadMetadataFailure(err)));
-};
-
-export const loadSeriesIfNeeded = (token) => (dispatch, getState) => {
-  const state = getState();
-  const { series } = state.metadataByType;
-  if (!series) dispatch(loadSeries(token));
-};
-
-// Metadata operations
-
-export const loadOperations = (idSerie, token) => (dispatch) => {
-  dispatch({
-    type: LOAD_OPERATIONS,
-    payload: null,
-  });
-
-  return getOperations(idSerie, token)
-    .then((operations) => {
-      const operationsMetadata = operations.map((o) => ({
-        id: o.id,
-        value: o.id,
-        label: o.label,
-        serie: o.parent,
-      }));
-      return dispatch(loadMetadataSuccess('operations', operationsMetadata));
-    })
-    .catch((err) => dispatch(loadMetadataFailure(err)));
-};
-
-export const loadOperationsIfNeeded =
-  (token, idSerie = '') =>
-  (dispatch, getState) => {
-    const state = getState();
-    const operations = state.metadataByType.operations || {};
-    const operationsBySerie = Object.keys(operations).reduce((acc, key) => {
-      const operation = operations[key];
-      return operation.serie === idSerie ? { ...acc, [key]: operation } : acc;
-    }, {});
-
-    if (idSerie !== '' && Object.keys(operationsBySerie).length === 0)
-      dispatch(loadOperations(idSerie, token));
-  };
-
-// Metadata campaigns
-
-export const loadCampaigns = (idOperation, token) => (dispatch) => {
-  dispatch({
-    type: LOAD_CAMPAIGNS,
-    payload: null,
-  });
-
-  return getCampaigns(idOperation, token)
-    .then((campaigns) => {
-      const campaignsMetadata = campaigns.map((c) => ({
-        id: c.id,
-        value: c.id,
-        label: c.label,
-        operation: c.parent,
-      }));
-      return dispatch(loadMetadataSuccess('campaigns', campaignsMetadata));
-    })
-    .catch((err) => dispatch(loadMetadataFailure(err)));
-};
-
-export const loadCampaignsIfNeeded =
-  (idOperation, token) => (dispatch, getState) => {
-    const state = getState();
-    const campaigns = state.metadataByType.campaigns || {};
-    const campaignsByOperation = Object.keys(campaigns).reduce((acc, key) => {
-      const campaign = campaigns[key];
-      return campaign.operation === idOperation
-        ? { ...acc, [key]: campaign }
-        : acc;
-    }, {});
-
-    if (idOperation !== '' && Object.keys(campaignsByOperation).length === 0)
-      dispatch(loadCampaigns(idOperation, token));
-  };
 
 // Metadata : variables from external elements
 

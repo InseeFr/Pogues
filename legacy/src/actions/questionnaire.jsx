@@ -167,8 +167,7 @@ export const createQuestionnaireFailure = (err) => ({
  * @return  {function}       Thunk which may dispatch CREATE_QUESTIONNAIRE_SUCCESS or CREATE_QUESTIONNAIRE_FAILURE
  */
 export const createQuestionnaire =
-  (questionnaireNewState, token) => (dispatch, getState) => {
-    const state = getState();
+  (questionnaireNewState, token) => (dispatch) => {
     const stores = {
       componentsStore: Component({
         ...questionnaireNewState,
@@ -178,7 +177,7 @@ export const createQuestionnaire =
       calculatedVariablesStore: {},
       externalVariablesStore: {},
       collectedVariableByQuestionStore: {},
-      campaignsStore: state.metadataByType.campaigns,
+      dataCollection: {},
     };
     const questionnaireModel = Questionnaire.stateToRemote(
       questionnaireNewState,
