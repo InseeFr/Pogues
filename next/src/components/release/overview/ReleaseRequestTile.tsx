@@ -8,6 +8,7 @@ import ExpandButton from '@/components/ui/ExpandButton'
 import Tooltip from '@/components/ui/Tooltip'
 import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import OpenInNewIcon from '@/components/ui/icons/OpenInNewIcon'
+import { TargetModes } from '@/models/questionnaires'
 import { computeDayFromDate, computeFullDateFromDate } from '@/utils/date'
 
 import type { ReleaseRequest } from '../../../models/releases'
@@ -90,7 +91,7 @@ export function ReleaseRequestTile({
                 <b className="text-gray-500 font-normal">
                   {t('release.collectMode')} :{' '}
                 </b>
-                {request.mode}
+                {TargetModes[request.mode]}
               </div>
               <div />
               <div />

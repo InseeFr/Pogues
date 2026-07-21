@@ -1,6 +1,12 @@
+import { MOCK_PUBLICATIONS, MOCK_REQUESTS } from '@/api/releases'
 import { renderWithI18n } from '@/testing/render'
 
 import ReleaseOverview from './ReleaseOverview'
+
+const defaultProps = {
+  pendingRequests: MOCK_REQUESTS,
+  releases: MOCK_PUBLICATIONS,
+}
 
 describe('ReleaseOverview', () => {
   beforeEach(() => {
@@ -8,14 +14,16 @@ describe('ReleaseOverview', () => {
   })
 
   it('renders both sections with correct headers', () => {
-    const { getByText } = renderWithI18n(<ReleaseOverview />)
+    const { getByText } = renderWithI18n(<ReleaseOverview {...defaultProps} />)
 
     expect(getByText('My release requests')).toBeInTheDocument()
     expect(getByText('My publications')).toBeInTheDocument()
   })
 
   it('renders all request tiles', () => {
-    const { getByText, getAllByText } = renderWithI18n(<ReleaseOverview />)
+    const { getByText, getAllByText } = renderWithI18n(
+      <ReleaseOverview {...defaultProps} />,
+    )
 
     expect(
       getAllByText('Recette intégrée oct 2025 pour SRCV_REINTERRO 2026').length,
@@ -26,7 +34,7 @@ describe('ReleaseOverview', () => {
   })
 
   it('renders all publication tiles', () => {
-    const { getByText } = renderWithI18n(<ReleaseOverview />)
+    const { getByText } = renderWithI18n(<ReleaseOverview {...defaultProps} />)
 
     expect(getByText('ESA 2026 PROD')).toBeInTheDocument()
     expect(getByText('ESA 2026 TEST TERRAIN')).toBeInTheDocument()
@@ -34,7 +42,9 @@ describe('ReleaseOverview', () => {
   })
 
   it('renders requests sorted by date descending', () => {
-    const { getAllByText } = renderWithI18n(<ReleaseOverview />)
+    const { getAllByText } = renderWithI18n(
+      <ReleaseOverview {...defaultProps} />,
+    )
 
     const descriptions = getAllByText(
       (content) =>

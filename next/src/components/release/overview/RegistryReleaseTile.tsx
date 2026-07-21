@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
+import { TargetModes } from '@/models/questionnaires'
 import { computeDayFromDate, computeFullDateFromDate } from '@/utils/date'
 
 import type { RegistryRelease } from '../../../models/releases'
@@ -65,7 +66,7 @@ export function RegistryReleaseTile({
             <b className="text-gray-500 font-normal">
               {t('release.collectMode')} :{' '}
             </b>
-            {release.mode}
+            {TargetModes[release.mode]}
           </div>
           <div>
             <b className="text-gray-500 font-normal">

@@ -1,3 +1,5 @@
+import type { TargetMode } from '@/models/questionnaires'
+
 /** Model of the registry release returned by the Pogues API's releases endpoint. */
 export type RegistryReleaseDTO = {
   collectionInstrumentId: string
@@ -6,7 +8,7 @@ export type RegistryReleaseDTO = {
   releaseDate: number
   poguesVersionId: string
   releaseDescription: string
-  mode: TargetModesDTO
+  mode: TargetMode
   context: ReleaseContextDTO
   overrideGenerationParameters: OverrideGenerationParametersDTO | null
   visualizeUrl: string
@@ -23,7 +25,7 @@ export type ReleaseRequestDTO = {
   poguesVersionId: string
   poguesId: string
   releaseDescription: string
-  mode: TargetModesDTO
+  mode: TargetMode
   context: ReleaseContextDTO
   overrideGenerationParameters: OverrideGenerationParametersDTO
 }
@@ -31,7 +33,7 @@ export type ReleaseRequestDTO = {
 export type CreateReleaseDTO = {
   poguesId: string
   releaseDescription: string
-  mode: TargetModesDTO
+  mode: TargetMode
   context: ReleaseContextDTO
   overrideGenerationParameters: OverrideGenerationParametersDTO
 }
@@ -40,8 +42,6 @@ export type OverrideGenerationParametersDTO = {
   questionNumberingMode: QuestionNumberingModeDTO
   responseTimeQuestion: boolean
 }
-
-export type TargetModesDTO = 'CAWI' | 'CAPI' | 'PAPI' | 'CATI'
 
 export type ReleaseContextDTO = 'HOUSEHOLD' | 'BUSINESS'
 

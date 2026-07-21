@@ -1,17 +1,109 @@
 import { queryOptions } from '@tanstack/react-query'
 
+import { TargetModes } from '@/models/questionnaires'
 import type { RegistryRelease, ReleaseRequest } from '@/models/releases'
 
 import { instance } from './instance'
-import type {
-  CreateReleaseDTO,
-  RegistryReleaseDTO,
-  ReleaseRequestDTO,
-} from './models/releaseDTO'
-import {
-  computeRegistryReleases,
-  computeReleaseRequests,
-} from './utils/releases'
+import type { CreateReleaseDTO } from './models/releaseDTO'
+
+export const MOCK_REQUESTS: ReleaseRequest[] = [
+  {
+    trackerId: 1,
+    author: 'xbeltv',
+    requestDate: new Date('2026-07-06T10:30:00').getTime(),
+    currentStep: 'BUILD_PARAMETERS',
+    status: 'RUNNING',
+    statusDescription: '',
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
+    poguesId: 'SRCV_REINTERRO',
+    releaseDescription: 'Recette intégrée oct 2025 pour SRCV_REINTERRO 2026',
+    mode: TargetModes.CAPI,
+    context: 'HOUSEHOLD',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'SEQUENCE',
+      responseTimeQuestion: true,
+    },
+  },
+  {
+    trackerId: 2,
+    author: 'nazdsn',
+    requestDate: new Date('2026-07-05T14:15:00').getTime(),
+    currentStep: 'GENERATE_DDI',
+    status: 'FAILED',
+    statusDescription: 'Erreur lors de la génération Eno',
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440001',
+    poguesId: 'SRCV_REINTERRO',
+    releaseDescription: 'Autre demande de publication pour SRCV_REINTERRO 2026',
+    mode: TargetModes.CAWI,
+    context: 'BUSINESS',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'NONE',
+      responseTimeQuestion: false,
+    },
+  },
+  {
+    trackerId: 3,
+    author: 'bcbab8',
+    requestDate: new Date('2026-07-04T09:00:00').getTime(),
+    currentStep: 'PUBLISH_DDI',
+    status: 'FAILED',
+    statusDescription: 'Erreur 409 - Conflit de version',
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440002',
+    poguesId: 'SRCV_REINTERRO',
+    releaseDescription: 'Recette intégrée oct 2025 pour SRCV_REINTERRO 2026',
+    mode: TargetModes.CAWI,
+    context: 'HOUSEHOLD',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'ALL',
+      responseTimeQuestion: true,
+    },
+  },
+]
+
+export const MOCK_PUBLICATIONS: RegistryRelease[] = [
+  {
+    collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
+    version: 3,
+    author: 'xbeltv',
+    releaseDate: new Date('2026-07-04T08:00:00').getTime(),
+    poguesVersionId: '93d1e85c-327d-4153-a5fa-e04f54ca0e3e',
+    releaseDescription: 'ESA 2026 PROD',
+    mode: TargetModes.CAWI,
+    context: 'HOUSEHOLD',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'NONE',
+      responseTimeQuestion: false,
+    },
+    visualizeUrl: 'https://visu.example.com/esa-2026-prod',
+  },
+  {
+    collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440002',
+    version: 2,
+    author: 'nazdsn',
+    releaseDate: new Date('2026-06-28T10:00:00').getTime(),
+    poguesVersionId: '5ddf61df-00c8-4018-a763-fa7bc91b0162',
+    releaseDescription: 'ESA 2026 TEST TERRAIN',
+    mode: TargetModes.CAPI,
+    context: 'BUSINESS',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'NONE',
+      responseTimeQuestion: false,
+    },
+    visualizeUrl: 'https://visu.example.com/esa-2026-test',
+  },
+  {
+    collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440003',
+    version: 1,
+    author: 'bcbab8',
+    releaseDate: new Date('2026-06-15T11:30:00').getTime(),
+    poguesVersionId: 'b77e7cad-475d-4d83-b036-fa7a98a84a8a',
+    releaseDescription: "Publication la plus ancienne d'ESA",
+    mode: TargetModes.CAWI,
+    context: 'HOUSEHOLD',
+    overrideGenerationParameters: null,
+    visualizeUrl: 'https://visu.example.com/esa-2026-old',
+  },
+]
 
 export const releasesKeys = {
   released: (questionnaireId: string) => ['released', questionnaireId] as const,
@@ -40,26 +132,32 @@ export const pendingReleasesQueryOptions = (questionnaireId: string) =>
 export async function getReleases(
   questionnaireId: string,
 ): Promise<RegistryRelease[]> {
-  return instance
-    .get(`/persistence/questionnaire/${questionnaireId}/releases`, {
-      headers: { Accept: 'application/json' },
-    })
-    .then(({ data }: { data: RegistryReleaseDTO[] }) => {
-      return computeRegistryReleases(data)
-    })
+  console.log('questionnaireId', questionnaireId)
+
+  // return instance
+  //   .get(`/persistence/questionnaire/${questionnaireId}/releases`, {
+  //     headers: { Accept: 'application/json' },
+  //   })
+  //   .then(({ data }: { data: RegistryReleaseDTO[] }) => {
+  //     return computeRegistryReleases(data)
+  //   })
+  return Promise.resolve(MOCK_PUBLICATIONS)
 }
 
 /** Retrieve questionnaire pending releases by the questionnaire id. */
 export async function getPendingReleases(
   questionnaireId: string,
 ): Promise<ReleaseRequest[]> {
-  return instance
-    .get(`/persistence/questionnaire/${questionnaireId}/release-requests`, {
-      headers: { Accept: 'application/json' },
-    })
-    .then(({ data }: { data: ReleaseRequestDTO[] }) => {
-      return computeReleaseRequests(data)
-    })
+  console.log('questionnaireId', questionnaireId)
+
+  // return instance
+  //   .get(`/persistence/questionnaire/${questionnaireId}/release-requests`, {
+  //     headers: { Accept: 'application/json' },
+  //   })
+  //   .then(({ data }: { data: ReleaseRequestDTO[] }) => {
+  //     return computeReleaseRequests(data)
+  //   })
+  return Promise.resolve(MOCK_REQUESTS)
 }
 
 /** Create a new release. */

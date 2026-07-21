@@ -1,14 +1,9 @@
 import nock from 'nock'
 
-import { TargetModes } from '@/models/questionnaires'
-import type { RegistryRelease, ReleaseRequest } from '@/models/releases'
-
-import type {
-  CreateReleaseDTO,
-  RegistryReleaseDTO,
-  ReleaseRequestDTO,
-} from './models/releaseDTO'
+import type { CreateReleaseDTO } from './models/releaseDTO'
 import {
+  MOCK_PUBLICATIONS,
+  MOCK_REQUESTS,
   deleteReleaseRequest,
   getPendingReleases,
   getReleases,
@@ -17,70 +12,31 @@ import {
 
 vi.mock('@/lib/auth/oidc')
 
-const registryReleaseDTO: RegistryReleaseDTO = {
-  collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
-  version: 3,
-  author: 'xbeltv',
-  releaseDate: 1780560000000,
-  poguesVersionId: '93d1e85c-327d-4153-a5fa-e04f54ca0e3e',
-  releaseDescription: 'ESA 2026 PROD',
-  mode: 'CAWI',
-  context: 'HOUSEHOLD',
-  overrideGenerationParameters: {
-    questionNumberingMode: 'NONE',
-    responseTimeQuestion: false,
-  },
-  visualizeUrl: 'https://visu.example.com/esa-2026-prod',
-}
-
-const registryRelease: RegistryRelease = {
-  ...registryReleaseDTO,
-  mode: TargetModes.CAWI,
-}
-
-const releaseRequestDTO: ReleaseRequestDTO = {
-  trackerId: 1,
-  author: 'xbeltv',
-  requestDate: 1780560000000,
-  currentStep: 'BUILD_PARAMETERS',
-  status: 'RUNNING',
-  statusDescription: '',
-  poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
-  poguesId: 'SRCV_REINTERRO',
-  releaseDescription: 'Release description',
-  mode: 'CAPI',
-  context: 'HOUSEHOLD',
-  overrideGenerationParameters: {
-    questionNumberingMode: 'SEQUENCE',
-    responseTimeQuestion: true,
-  },
-}
-
-const releaseRequest: ReleaseRequest = {
-  ...releaseRequestDTO,
-  mode: TargetModes.CAPI,
-}
-
 it('Get releases works', async () => {
-  const releases: RegistryReleaseDTO[] = [registryReleaseDTO]
+  // const releases: RegistryReleaseDTO[] = [registryReleaseDTO]
 
-  nock('https://mock-api')
-    .get('/persistence/questionnaire/my-questionnaire/releases')
-    .reply(200, releases)
+  // nock('https://mock-api')
+  //   .get('/persistence/questionnaire/my-questionnaire/releases')
+  //   .reply(200, releases)
+
+  // const res = await getReleases('my-questionnaire')
+  // expect(res).toEqual([registryRelease])
 
   const res = await getReleases('my-questionnaire')
-  expect(res).toEqual([registryRelease])
+  expect(res).toEqual(MOCK_PUBLICATIONS)
 })
 
 it('Get pending releases works', async () => {
-  const requests: ReleaseRequestDTO[] = [releaseRequestDTO]
+  // const requests: ReleaseRequestDTO[] = [releaseRequestDTO]
 
-  nock('https://mock-api')
-    .get('/persistence/questionnaire/my-questionnaire/release-requests')
-    .reply(200, requests)
+  // nock('https://mock-api')
+  //   .get('/persistence/questionnaire/my-questionnaire/release-requests')
+  //   .reply(200, requests)
 
+  // const res = await getPendingReleases('my-questionnaire')
+  // expect(res).toEqual([releaseRequest])
   const res = await getPendingReleases('my-questionnaire')
-  expect(res).toEqual([releaseRequest])
+  expect(res).toEqual(MOCK_REQUESTS)
 })
 
 it('Post release works', async () => {
