@@ -2,6 +2,7 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
+import { getSerieById } from '@/api/series'
 import {
   FlowLogics,
   FormulasLanguages,
@@ -13,24 +14,11 @@ import { renderWithRouter } from '@/testing/render'
 import QuestionnaireDetailsForm from './QuestionnaireDetailsForm'
 import type { FormValues } from './schema'
 
-const { mockNavigate, mockGetSerieById } = vi.hoisted(() => ({
-  mockNavigate: vi.fn(),
-  mockGetSerieById: vi.fn(),
-}))
-
-vi.mock('@tanstack/react-router', async () => {
-  const actual = await vi.importActual('@tanstack/react-router')
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  }
-})
-
 vi.mock('@/api/series', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/api/series')>()
   return {
     ...actual,
-    getSerieById: mockGetSerieById,
+    getSerieById: vi.fn(),
   }
 })
 
@@ -62,7 +50,7 @@ const validDefaultValues: Partial<FormValues> = {
 describe('QuestionnaireDetailsForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockGetSerieById.mockResolvedValue(mockSerieDetail)
+    getSerieById.mockResolvedValue(mockSerieDetail)
   })
 
   it('renders all form fields with correct labels', async () => {
@@ -154,7 +142,7 @@ describe('QuestionnaireDetailsForm', () => {
     )
   })
 
-  it('navigates to /questionnaires on cancel', async () => {
+  it('resets form to initial values on cancel', async () => {
     const user = userEvent.setup()
     await renderWithRouter(
       <QuestionnaireDetailsForm
@@ -164,12 +152,17 @@ describe('QuestionnaireDetailsForm', () => {
       />,
     )
 
+    const titleInput = screen.getByRole('textbox', {
+      name: /questionnaire title/i,
+    })
+    await user.clear(titleInput)
+    await user.type(titleInput, 'Modified title')
+
+    expect(titleInput).toHaveValue('Modified title')
+
     await user.click(screen.getByRole('button', { name: /cancel/i }))
 
-    expect(mockNavigate).toHaveBeenCalledWith({
-      to: '/questionnaires',
-      ignoreBlocker: true,
-    })
+    expect(titleInput).toHaveValue('')
   })
 
   it('renders in readOnly mode without form buttons', async () => {
@@ -189,7 +182,7 @@ describe('QuestionnaireDetailsForm', () => {
   })
 
   it('fetches serie details when serie defaults are provided', async () => {
-    mockGetSerieById.mockResolvedValue(mockSerieDetail)
+    getSerieById.mockResolvedValue(mockSerieDetail)
 
     await renderWithRouter(
       <QuestionnaireDetailsForm
@@ -201,7 +194,7 @@ describe('QuestionnaireDetailsForm', () => {
     )
 
     await waitFor(() => {
-      expect(mockGetSerieById).toHaveBeenCalledWith('s1')
+      expect(getSerieById).toHaveBeenCalledWith('s1')
     })
   })
 
@@ -215,7 +208,7 @@ describe('QuestionnaireDetailsForm', () => {
     )
 
     await waitFor(() => {
-      expect(mockGetSerieById).not.toHaveBeenCalled()
+      expect(getSerieById).not.toHaveBeenCalled()
     })
   })
 

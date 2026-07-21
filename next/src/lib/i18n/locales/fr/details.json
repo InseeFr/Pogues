@@ -10,6 +10,7 @@
   "collectMode": "Mode de collecte",
   "formulaLanguage": "Formules spécifiées en",
   "flowLogic": "Dynamique spécifiée en",
+  "altLabelUndefined": "Non défini",
   "agency": "DDI Agency: ",
   "agencyTooltip": "Voir: ",
   "agencyDetailLink": "https://registry.ddialliance.org/Agency",

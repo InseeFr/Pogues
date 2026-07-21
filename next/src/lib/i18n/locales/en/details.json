@@ -10,6 +10,7 @@
   "collectMode": "Collect Mode",
   "formulaLanguage": "Formula Language",
   "flowLogic": "Flow logic",
+  "altLabelUndefined": "Not defined",
   "agency": "DDI Agency: ",
   "agencyTooltip": "See: ",
   "agencyDetailLink": "https://registry.ddialliance.org/Agency",

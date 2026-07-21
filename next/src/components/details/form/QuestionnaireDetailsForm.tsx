@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -45,8 +44,6 @@ export default function QuestionnaireDetailsForm({
   readOnly = false,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-
   const {
     control,
     handleSubmit,
@@ -87,10 +84,7 @@ export default function QuestionnaireDetailsForm({
   }
 
   const handleCancel = () => {
-    navigate({
-      to: '/questionnaires',
-      ignoreBlocker: true,
-    })
+    reset()
   }
 
   const handleSerieChange = (value: string) => {
@@ -186,13 +180,15 @@ export default function QuestionnaireDetailsForm({
                         }))}
                         value={selectedOperation || undefined}
                         disabled={readOnly}
-                        onChange={(v) => setValue('operation', v ?? '')}
+                        onChange={(v) =>
+                          setValue('operation', v ?? '', { shouldDirty: true })
+                        }
                       />
                     </div>
                   </>
                 ) : null}
 
-                <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.altLabel}`}</div>
+                <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.altLabel ?? t('details.altLabelUndefined')}`}</div>
               </div>
             ) : null}
           </Field>
