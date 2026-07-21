@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page to overview released and pending releases of a questionnaire
 - Form to create a release of a questionnaire
 
+### Changed
+
+- change end-point to get units in legacy client (according to the API)
+
 ### Removed
 
 - remove depreacted `dataCollection` reference in legacy client
