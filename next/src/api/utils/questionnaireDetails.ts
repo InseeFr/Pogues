@@ -29,7 +29,7 @@ export type FormDetails = {
 }
 
 function computeSerieId(dto: QuestionnaireDetailsDTO): string {
-  return dto.dataCollection?.serie.id ?? ''
+  return dto.dataCollection?.serie?.id ?? ''
 }
 
 export function computeQuestionnaireDetails(
