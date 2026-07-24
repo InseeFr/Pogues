@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Page to edit questionnaire details
+- Login is now required on **new** questionnaire page
+
 ### Changed
 
 - change end-point to get units in legacy client (according to the API)
