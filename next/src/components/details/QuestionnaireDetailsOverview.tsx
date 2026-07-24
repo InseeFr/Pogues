@@ -43,13 +43,11 @@ export default function DetailsOverview({
     mutationFn: (params: {
       data: FormValues
       serieDetails: { id: string; uri: string; label: string; altLabel: string }
-      operations: { id: string; uri: string; label: string }[]
     }) => {
       const dto = computeQuestionnaireDetailsDTO(
         params.data,
         questionnaireDetails,
         params.serieDetails,
-        params.operations,
       )
       return putQuestionnaireDetail(questionnaireId, dto)
     },
@@ -74,11 +72,7 @@ export default function DetailsOverview({
 
     try {
       const serieDetails = await getSerieById(pendingFormData.serie)
-      const selectedOperation = serieDetails.operations.find(
-        (op) => op.id === pendingFormData.operation,
-      )
-      const operations = selectedOperation ? [selectedOperation] : []
-      mutation.mutate({ data: pendingFormData, serieDetails, operations })
+      mutation.mutate({ data: pendingFormData, serieDetails })
     } catch {
       toast.error(t('details.form.updateError'))
     }

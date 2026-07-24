@@ -34,13 +34,6 @@ describe('computeQuestionnaireDetails', () => {
           label: 'Enquête Esquie',
           altLabel: 'EL',
         },
-        operations: [
-          {
-            id: 'op1',
-            uri: 'http://id.insee.fr/operations/operation/op1',
-            label: 'Operation 1',
-          },
-        ],
       },
     }
 
@@ -54,7 +47,6 @@ describe('computeQuestionnaireDetails', () => {
       targetModes: [TargetModes.CAPI, TargetModes.PAPI],
       flowLogic: FlowLogics.Filter,
       formulasLanguage: FormulasLanguages.VTL,
-      operation: 'op1',
     })
   })
 
@@ -73,32 +65,6 @@ describe('computeQuestionnaireDetails', () => {
     const result = computeQuestionnaireDetails(dto)
 
     expect(result.serie).toBe('')
-  })
-
-  it('handles missing operations in dataCollection', () => {
-    const dto: QuestionnaireDetailsDTO = {
-      id: 'q123',
-      name: 'test',
-      label: 'Test',
-      flowLogic: FlowLogicEnum.Filter,
-      formulasLanguage: FormulasLanguageEnum.VTL,
-      targetMode: [],
-      agency: 'fr.insee',
-      owner: 'owner',
-      dataCollection: {
-        serie: {
-          id: 's1',
-          uri: 'uri',
-          label: 'Serie',
-          altLabel: '',
-        },
-        operations: [],
-      },
-    }
-
-    const result = computeQuestionnaireDetails(dto)
-
-    expect(result.operation).toBeUndefined()
   })
 
   it('maps REDIRECTION flow logic', () => {
@@ -198,14 +164,12 @@ describe('computeQuestionnaireDetailsDTO', () => {
       targetModes: [TargetModes.CAPI, TargetModes.PAPI],
       flowLogic: FlowLogics.Redirection,
       formulasLanguage: FormulasLanguages.XPath,
-      operation: 'op1',
     }
 
     const result = computeQuestionnaireDetailsDTO(
       formDetails,
       existingDto,
       serieDetails,
-      [{ id: 'op1', uri: 'uri', label: 'Op 1' }],
     )
 
     expect(result.id).toBe('q123')
@@ -217,9 +181,6 @@ describe('computeQuestionnaireDetailsDTO', () => {
     expect(result.agency).toBe('fr.insee')
     expect(result.targetMode).toEqual(['CAPI', 'PAPI'])
     expect(result.dataCollection?.serie).toEqual(serieDetails)
-    expect(result.dataCollection?.operations).toEqual([
-      { id: 'op1', uri: 'uri', label: 'Op 1' },
-    ])
   })
 
   it('preserves the original DTO fields that are not overwritten', () => {
@@ -237,7 +198,6 @@ describe('computeQuestionnaireDetailsDTO', () => {
       formDetails,
       existingDto,
       serieDetails,
-      [],
     )
 
     expect(result.id).toBe('q123')
@@ -259,7 +219,6 @@ describe('computeQuestionnaireDetailsDTO', () => {
       formDetails,
       existingDto,
       serieDetails,
-      [],
     )
 
     expect(result.targetMode).toEqual(['CAWI', 'CATI'])
@@ -280,13 +239,12 @@ describe('computeQuestionnaireDetailsDTO', () => {
       formDetails,
       existingDto,
       serieDetails,
-      [],
     )
 
     expect(result.targetMode).toEqual([])
   })
 
-  it('produces an empty targetMode array for an empty array', () => {
+  it('maps VTL formulas language to the enum value', () => {
     const formDetails: FormDetails = {
       name: 'test',
       title: 'Test',
@@ -301,7 +259,6 @@ describe('computeQuestionnaireDetailsDTO', () => {
       formDetails,
       existingDto,
       serieDetails,
-      [],
     )
 
     expect(result.flowLogic).toBe(FlowLogicEnum.Redirection)
@@ -322,7 +279,6 @@ describe('computeQuestionnaireDetailsDTO', () => {
       formDetails,
       existingDto,
       serieDetails,
-      [],
     )
 
     expect(result.formulasLanguage).toBe(FormulasLanguageEnum.XPath)

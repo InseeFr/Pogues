@@ -30,13 +30,6 @@ const questionnaireDetail: QuestionnaireDetailsDTO = {
       label: 'Enquête Esquie',
       altLabel: 'EL',
     },
-    operations: [
-      {
-        id: 'op1',
-        uri: 'http://id.insee.fr/operations/operation/op1',
-        label: 'Operation 1',
-      },
-    ],
   },
 }
 

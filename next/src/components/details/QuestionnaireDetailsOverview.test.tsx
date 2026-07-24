@@ -62,7 +62,6 @@ vi.mock('./form/QuestionnaireDetailsForm', () => ({
             targetModes: [TargetModes.CAPI],
             flowLogic: FlowLogics.Filter,
             formulasLanguage: FormulasLanguages.VTL,
-            operation: 'op1',
           })
         }
       >
@@ -72,7 +71,7 @@ vi.mock('./form/QuestionnaireDetailsForm', () => ({
   ),
 }))
 
-const series: SerieItem[] = [{ id: 's1', label: 'Serie 1', urn: 'urn1' }]
+const series: SerieItem[] = [{ id: 's1', label: 'Serie 1', uri: 'urn1' }]
 
 const questionnaireDetails: QuestionnaireDetailsDTO = {
   id: 'q123',
@@ -85,7 +84,6 @@ const questionnaireDetails: QuestionnaireDetailsDTO = {
   owner: 'ESQUIE',
   dataCollection: {
     serie: { id: 's1', uri: 'uri', label: 'Serie 1', altLabel: 'S1' },
-    operations: [{ id: 'op1', uri: 'uri', label: 'Operation 1' }],
   },
 }
 
@@ -93,10 +91,6 @@ const mockSerieDetail: SerieDetailDTO = {
   id: 's1',
   uri: 'http://example.com/s1',
   label: 'Serie 1',
-  altLabel: 'S1',
-  operations: [
-    { id: 'op1', uri: 'http://example.com/op1', label: 'Operation 1' },
-  ],
 }
 
 describe('QuestionnaireDetailsOverview', () => {

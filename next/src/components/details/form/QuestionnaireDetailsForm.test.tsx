@@ -32,9 +32,6 @@ const mockSerieDetail: SerieDetailDTO = {
   uri: 'http://example.com/s1',
   label: 'Serie 1',
   altLabel: 'S1',
-  operations: [
-    { id: 'op1', uri: 'http://example.com/op1', label: 'Operation 1' },
-  ],
 }
 
 const validDefaultValues: Partial<FormValues> = {

@@ -7,8 +7,7 @@ export type QuestionnaireDetailsDTO = {
   flowLogic: FlowLogicEnum
   formulasLanguage: FormulasLanguageEnum
   dataCollection?: {
-    serie: SerieDTO
-    operations: OperationDTO[]
+    serie: SerieDetailDTO
   }
   targetMode: string[]
   agency: string
@@ -19,7 +18,6 @@ export type SerieDTO = {
   id: string
   uri: string
   label: string
-  altLabel: string
 }
 
 export type OperationDTO = {
@@ -28,10 +26,6 @@ export type OperationDTO = {
   label: string
 }
 
-export type SerieDetailDTO = {
-  id: string
-  uri: string
-  label: string
+export type SerieDetailDTO = SerieDTO & {
   altLabel: string
-  operations: { id: string; uri: string; label: string }[]
 }

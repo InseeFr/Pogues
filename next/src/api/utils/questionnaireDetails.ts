@@ -6,9 +6,8 @@ import {
 
 import { SurveyModeEnum } from '../models/poguesModel'
 import type {
-  OperationDTO,
   QuestionnaireDetailsDTO,
-  SerieDTO,
+  SerieDetailDTO,
 } from '../models/questionnaireDetailsDTO'
 import { computeFlowLogic, computePoguesFlowLogic } from './flowLogic'
 import {
@@ -25,7 +24,6 @@ export type FormDetails = {
   targetModes: TargetModes[]
   flowLogic: FlowLogics
   formulasLanguage: FormulasLanguages
-  operation?: string
 }
 
 function computeSerieId(dto: QuestionnaireDetailsDTO): string {
@@ -46,15 +44,13 @@ export function computeQuestionnaireDetails(
     flowLogic: computeFlowLogic(dto.flowLogic) ?? FlowLogics.Filter,
     formulasLanguage:
       computeFormulasLanguage(dto.formulasLanguage) ?? FormulasLanguages.VTL,
-    operation: dto.dataCollection?.operations[0]?.id,
   }
 }
 
 export function computeQuestionnaireDetailsDTO(
   formDetails: FormDetails,
   existingDto: QuestionnaireDetailsDTO,
-  serieDetails: SerieDTO,
-  operations: OperationDTO[],
+  serieDetails: SerieDetailDTO,
 ): QuestionnaireDetailsDTO {
   return {
     ...existingDto,
@@ -75,7 +71,6 @@ export function computeQuestionnaireDetailsDTO(
         label: serieDetails.label,
         altLabel: serieDetails.altLabel,
       },
-      operations,
     },
   }
 }

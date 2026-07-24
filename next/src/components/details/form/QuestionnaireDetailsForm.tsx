@@ -12,7 +12,6 @@ import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
-import Select from '@/components/ui/form/Select'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
 import { FlowLogics, FormulasLanguages } from '@/models/questionnaires'
@@ -58,7 +57,6 @@ export default function QuestionnaireDetailsForm({
   })
 
   const selectedSerie = watch('serie')
-  const selectedOperation = watch('operation')
 
   const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
 
@@ -161,33 +159,13 @@ export default function QuestionnaireDetailsForm({
               options={seriesOptions}
               value={value || undefined}
               disabled={readOnly}
-              onChange={(v) => {
-                const serieValue = v ?? ''
+              onChange={(serieValue = '') => {
                 onChange(serieValue)
                 handleSerieChange(serieValue)
               }}
             />
             {serieDetails ? (
               <div className="ml-4 mt-3 text-sm border-l-2 border-gray-300 pl-3">
-                {serieDetails.operations.length > 0 ? (
-                  <>
-                    <div>{t('details.operation')}</div>
-                    <div className="mt-1">
-                      <Select
-                        options={serieDetails.operations.map((op) => ({
-                          label: op.label,
-                          value: op.id,
-                        }))}
-                        value={selectedOperation || undefined}
-                        disabled={readOnly}
-                        onChange={(v) =>
-                          setValue('operation', v ?? '', { shouldDirty: true })
-                        }
-                      />
-                    </div>
-                  </>
-                ) : null}
-
                 <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.altLabel ?? t('details.altLabelUndefined')}`}</div>
               </div>
             ) : null}
