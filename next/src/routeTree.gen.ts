@@ -17,6 +17,8 @@ import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRouteI
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsNewRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/codes-lists/new'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/codes-lists/route'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQCompositionRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/composition'
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/details/index'
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/details/route'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQDuplicateVariablesRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/duplicate-variables'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQIndexRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/index'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQMergeRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/merge'
@@ -39,6 +41,7 @@ import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVariablesRouteRouteIm
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVariablesVariableVariableIdRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/variables/variable.$variableId'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/articulation'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/codes-lists'
+import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/details'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdIndexRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/index'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/multimode'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/version.$versionId/nomenclatures'
@@ -165,6 +168,12 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRoute =
     path: '/multimode',
     getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
   } as any)
+const LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteImport.update({
+    id: '/details',
+    path: '/details',
+    getParentRoute: () => LayoutQuestionnaireQuestionnaireIdLayoutQRoute,
+  } as any)
 const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteImport.update({
     id: '/codes-lists',
@@ -215,6 +224,13 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeIndexRoute =
     path: '/',
     getParentRoute: () =>
       LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRoute,
+  } as any)
+const LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRoute,
   } as any)
 const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRouteImport.update({
@@ -342,6 +358,15 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute =
         LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
     } as any,
   )
+const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute =
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRouteImport.update(
+    {
+      id: '/details',
+      path: '/details',
+      getParentRoute: () =>
+        LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute,
+    } as any,
+  )
 const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute =
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRouteImport.update(
     {
@@ -379,6 +404,7 @@ export interface FileRoutesByFullPath {
   '/questionnaires/': typeof LayoutQuestionnairesIndexRoute
   '/questionnaire/$questionnaireId/articulation': typeof LayoutQuestionnaireQuestionnaireIdLayoutQArticulationRouteRouteWithChildren
   '/questionnaire/$questionnaireId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren
+  '/questionnaire/$questionnaireId/details': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteWithChildren
   '/questionnaire/$questionnaireId/multimode': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRouteWithChildren
   '/questionnaire/$questionnaireId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren
   '/questionnaire/$questionnaireId/personalization': typeof LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationRouteRouteWithChildren
@@ -402,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/questionnaire/$questionnaireId/variables/new': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesNewRoute
   '/questionnaire/$questionnaireId/articulation/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQArticulationIndexRoute
   '/questionnaire/$questionnaireId/codes-lists/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute
+  '/questionnaire/$questionnaireId/details/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute
   '/questionnaire/$questionnaireId/multimode/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeIndexRoute
   '/questionnaire/$questionnaireId/nomenclatures/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute
   '/questionnaire/$questionnaireId/personalization/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationIndexRoute
@@ -410,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/questionnaire/$questionnaireId/variables/variable/$variableId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesVariableVariableIdRoute
   '/questionnaire/$questionnaireId/version/$versionId/articulation': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRoute
   '/questionnaire/$questionnaireId/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute
+  '/questionnaire/$questionnaireId/version/$versionId/details': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute
   '/questionnaire/$questionnaireId/version/$versionId/multimode': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute
   '/questionnaire/$questionnaireId/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute
   '/questionnaire/$questionnaireId/version/$versionId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute
@@ -437,6 +465,7 @@ export interface FileRoutesByTo {
   '/questionnaire/$questionnaireId/variables/new': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesNewRoute
   '/questionnaire/$questionnaireId/articulation': typeof LayoutQuestionnaireQuestionnaireIdLayoutQArticulationIndexRoute
   '/questionnaire/$questionnaireId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute
+  '/questionnaire/$questionnaireId/details': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute
   '/questionnaire/$questionnaireId/multimode': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeIndexRoute
   '/questionnaire/$questionnaireId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute
   '/questionnaire/$questionnaireId/personalization': typeof LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationIndexRoute
@@ -445,6 +474,7 @@ export interface FileRoutesByTo {
   '/questionnaire/$questionnaireId/variables/variable/$variableId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesVariableVariableIdRoute
   '/questionnaire/$questionnaireId/version/$versionId/articulation': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRoute
   '/questionnaire/$questionnaireId/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute
+  '/questionnaire/$questionnaireId/version/$versionId/details': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute
   '/questionnaire/$questionnaireId/version/$versionId/multimode': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute
   '/questionnaire/$questionnaireId/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute
   '/questionnaire/$questionnaireId/version/$versionId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute
@@ -462,6 +492,7 @@ export interface FileRoutesById {
   '/_layout/questionnaire/$questionnaireId/_layout-q': typeof LayoutQuestionnaireQuestionnaireIdLayoutQRouteWithChildren
   '/_layout/questionnaire/$questionnaireId/_layout-q/articulation': typeof LayoutQuestionnaireQuestionnaireIdLayoutQArticulationRouteRouteWithChildren
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren
+  '/_layout/questionnaire/$questionnaireId/_layout-q/details': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteWithChildren
   '/_layout/questionnaire/$questionnaireId/_layout-q/multimode': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRouteWithChildren
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren
   '/_layout/questionnaire/$questionnaireId/_layout-q/personalization': typeof LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationRouteRouteWithChildren
@@ -485,6 +516,7 @@ export interface FileRoutesById {
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/new': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesNewRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/articulation/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQArticulationIndexRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsIndexRoute
+  '/_layout/questionnaire/$questionnaireId/_layout-q/details/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/multimode/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeIndexRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesIndexRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/personalization/': typeof LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationIndexRoute
@@ -493,6 +525,7 @@ export interface FileRoutesById {
   '/_layout/questionnaire/$questionnaireId/_layout-q/variables/variable/$variableId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVariablesVariableVariableIdRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/articulation': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute
+  '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/details': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/multimode': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables': typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute
@@ -509,6 +542,7 @@ export interface FileRouteTypes {
     | '/questionnaires/'
     | '/questionnaire/$questionnaireId/articulation'
     | '/questionnaire/$questionnaireId/codes-lists'
+    | '/questionnaire/$questionnaireId/details'
     | '/questionnaire/$questionnaireId/multimode'
     | '/questionnaire/$questionnaireId/nomenclatures'
     | '/questionnaire/$questionnaireId/personalization'
@@ -532,6 +566,7 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/variables/new'
     | '/questionnaire/$questionnaireId/articulation/'
     | '/questionnaire/$questionnaireId/codes-lists/'
+    | '/questionnaire/$questionnaireId/details/'
     | '/questionnaire/$questionnaireId/multimode/'
     | '/questionnaire/$questionnaireId/nomenclatures/'
     | '/questionnaire/$questionnaireId/personalization/'
@@ -540,6 +575,7 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/variables/variable/$variableId'
     | '/questionnaire/$questionnaireId/version/$versionId/articulation'
     | '/questionnaire/$questionnaireId/version/$versionId/codes-lists'
+    | '/questionnaire/$questionnaireId/version/$versionId/details'
     | '/questionnaire/$questionnaireId/version/$versionId/multimode'
     | '/questionnaire/$questionnaireId/version/$versionId/nomenclatures'
     | '/questionnaire/$questionnaireId/version/$versionId/variables'
@@ -567,6 +603,7 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/variables/new'
     | '/questionnaire/$questionnaireId/articulation'
     | '/questionnaire/$questionnaireId/codes-lists'
+    | '/questionnaire/$questionnaireId/details'
     | '/questionnaire/$questionnaireId/multimode'
     | '/questionnaire/$questionnaireId/nomenclatures'
     | '/questionnaire/$questionnaireId/personalization'
@@ -575,6 +612,7 @@ export interface FileRouteTypes {
     | '/questionnaire/$questionnaireId/variables/variable/$variableId'
     | '/questionnaire/$questionnaireId/version/$versionId/articulation'
     | '/questionnaire/$questionnaireId/version/$versionId/codes-lists'
+    | '/questionnaire/$questionnaireId/version/$versionId/details'
     | '/questionnaire/$questionnaireId/version/$versionId/multimode'
     | '/questionnaire/$questionnaireId/version/$versionId/nomenclatures'
     | '/questionnaire/$questionnaireId/version/$versionId/variables'
@@ -591,6 +629,7 @@ export interface FileRouteTypes {
     | '/_layout/questionnaire/$questionnaireId/_layout-q'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/articulation'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/details'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/multimode'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/personalization'
@@ -614,6 +653,7 @@ export interface FileRouteTypes {
     | '/_layout/questionnaire/$questionnaireId/_layout-q/variables/new'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/articulation/'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/details/'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/multimode/'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/nomenclatures/'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/personalization/'
@@ -622,6 +662,7 @@ export interface FileRouteTypes {
     | '/_layout/questionnaire/$questionnaireId/_layout-q/variables/variable/$variableId'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/articulation'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists'
+    | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/details'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/multimode'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/nomenclatures'
     | '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/variables'
@@ -768,6 +809,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRouteImport
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQRoute
     }
+    '/_layout/questionnaire/$questionnaireId/_layout-q/details': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/details'
+      path: '/details'
+      fullPath: '/questionnaire/$questionnaireId/details'
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteImport
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQRoute
+    }
     '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists'
       path: '/codes-lists'
@@ -816,6 +864,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/questionnaire/$questionnaireId/multimode/'
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeIndexRouteImport
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRoute
+    }
+    '/_layout/questionnaire/$questionnaireId/_layout-q/details/': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/details/'
+      path: '/'
+      fullPath: '/questionnaire/$questionnaireId/details/'
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRouteImport
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRoute
     }
     '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/codes-lists/'
@@ -929,6 +984,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRouteImport
       parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute
     }
+    '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/details': {
+      id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/details'
+      path: '/details'
+      fullPath: '/questionnaire/$questionnaireId/version/$versionId/details'
+      preLoaderRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRouteImport
+      parentRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRoute
+    }
     '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists': {
       id: '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/codes-lists'
       path: '/codes-lists'
@@ -1006,6 +1068,21 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteChildren: Lay
 const LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren =
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute._addFileChildren(
     LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteChildren,
+  )
+
+interface LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteChildren {
+  LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute
+}
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteChildren: LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteChildren =
+  {
+    LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQDetailsIndexRoute,
+  }
+
+const LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteWithChildren =
+  LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRoute._addFileChildren(
+    LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteChildren,
   )
 
 interface LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRouteChildren {
@@ -1104,6 +1181,7 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVariablesRouteRouteWithChildren =
 interface LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildren {
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRoute
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute
+  LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute
   LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute
@@ -1116,6 +1194,8 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteChildre
       LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdArticulationRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdCodesListsRoute,
+    LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdDetailsRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdMultimodeRoute,
     LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdNomenclaturesRoute:
@@ -1134,6 +1214,7 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdRouteRouteWithChi
 interface LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren {
   LayoutQuestionnaireQuestionnaireIdLayoutQArticulationRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQArticulationRouteRouteWithChildren
   LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren
+  LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteWithChildren
   LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRouteWithChildren
   LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRouteWithChildren
   LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdLayoutQPersonalizationRouteRouteWithChildren
@@ -1155,6 +1236,8 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQRouteChildren: LayoutQuestionnair
       LayoutQuestionnaireQuestionnaireIdLayoutQArticulationRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQCodesListsRouteRouteWithChildren,
+    LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRoute:
+      LayoutQuestionnaireQuestionnaireIdLayoutQDetailsRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRoute:
       LayoutQuestionnaireQuestionnaireIdLayoutQMultimodeRouteRouteWithChildren,
     LayoutQuestionnaireQuestionnaireIdLayoutQNomenclaturesRouteRoute:

@@ -1,0 +1,25 @@
+{
+  "title": "Questionnaire Details",
+  "sidebarTitle": "Details",
+  "serie": "Serie",
+  "operation": "Operation",
+  "altLabel": "Short label",
+  "campaigns": "Campaigns",
+  "questionnaireTitle": "Questionnaire Title",
+  "collectMode": "Collect Mode",
+  "formulaLanguage": "Formula Language",
+  "flowLogic": "Flow logic",
+  "altLabelUndefined": "Not defined",
+  "agency": "DDI Agency: ",
+  "agencyTooltip": "See: ",
+  "agencyDetailLink": "https://registry.ddialliance.org/Agency",
+  "form": {
+    "title": "Edit questionnaire details",
+    "mustProvideSerie": "You must provide a serie",
+    "mustProvideName": "You must provide a name",
+    "updateSuccess": "Questionnaire details updated successfully",
+    "updateError": "Error updating questionnaire details",
+    "confirmTitle": "Confirm changes",
+    "confirmBody": "Are you sure you want to save the changes?"
+  }
+}
