@@ -107,7 +107,6 @@ describe('QuestionnaireDetailsOverview', () => {
       />,
     )
 
-    expect(screen.getByText('Questionnaire Details q123')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /edit/i })).toBeInTheDocument()
   })
 

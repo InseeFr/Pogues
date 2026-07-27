@@ -6,7 +6,6 @@
   "altLabel": "Libellé court",
   "campaigns": "Campagnes",
   "questionnaireTitle": "Titre du questionnaire",
-  "id": "Identifiant",
   "collectMode": "Mode de collecte",
   "formulaLanguage": "Formules spécifiées en",
   "flowLogic": "Dynamique spécifiée en",
@@ -14,7 +13,6 @@
   "agency": "DDI Agency: ",
   "agencyTooltip": "Voir: ",
   "agencyDetailLink": "https://registry.ddialliance.org/Agency",
-
   "form": {
     "title": "Edit questionnaire details",
     "mustProvideSerie": "Vous devez fournir une série",
