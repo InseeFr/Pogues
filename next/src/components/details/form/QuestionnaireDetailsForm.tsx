@@ -93,26 +93,6 @@ export default function QuestionnaireDetailsForm({
   const formFields = (
     <>
       <Controller
-        name="name"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('details.id')}
-            name={name}
-            disabled
-            touched={isTouched}
-          >
-            <Input disabled value={value} onValueChange={onChange} />
-          </Field>
-        )}
-      />
-      <Controller
         name="title"
         control={control}
         render={({

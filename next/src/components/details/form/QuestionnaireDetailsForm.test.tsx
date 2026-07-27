@@ -60,9 +60,6 @@ describe('QuestionnaireDetailsForm', () => {
     )
 
     expect(
-      screen.getByRole('textbox', { name: /questionnaire id/i }),
-    ).toBeInTheDocument()
-    expect(
       screen.getByRole('textbox', { name: /questionnaire title/i }),
     ).toBeInTheDocument()
     expect(
