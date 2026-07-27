@@ -81,11 +81,6 @@ export default function DetailsOverview({
   return (
     <>
       <div className="relative bg-default border border-default shadow-md p-4">
-        <div className="border-b border-default py-3">
-          <h3>
-            {t('details.title')} {questionnaireId}
-          </h3>
-        </div>
         <div className="mt-3">
           <QuestionnaireDetailsForm
             series={series}
