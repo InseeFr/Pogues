@@ -1,6 +1,8 @@
 import { Radio as BaseUIRadio } from '@base-ui-components/react/radio'
 import { RadioGroup as BaseUIRadioGroup } from '@base-ui-components/react/radio-group'
 
+import Label from './Label'
+
 type Props = {
   /**
    * The uncontrolled value of the radio button that should be initially selected.
@@ -21,6 +23,10 @@ type Props = {
    * To render an uncontrolled radio group, use the `defaultValue` prop instead.
    */
   value?: BaseUIRadioGroup.Props['value']
+  /** An accessible label for the group. */
+  label?: string
+  /** Whether the field is mandatory. */
+  required?: boolean
   /** Callback fired when the value changes. */
   onBlur?: BaseUIRadioGroup.Props['onBlur']
   /** Callback fired when the value changes. */
@@ -45,26 +51,31 @@ export default function RadioGroup({
   disabled = false,
   options,
   value,
+  label,
+  required = false,
   onBlur,
   onValueChange,
 }: Readonly<Props>) {
   return (
-    <BaseUIRadioGroup
-      className="flex gap-x-4 items-start gap-1 text-gray-900"
-      defaultValue={defaultValue}
-      disabled={disabled}
-      value={value}
-      onBlur={onBlur}
-      onValueChange={onValueChange}
-    >
-      {options.map(({ label, value }) => (
-        <label
-          className="flex items-center gap-2 text-md font-normal"
-          key={label ?? (value as React.Key)}
-        >
-          <BaseUIRadio.Root
-            value={value}
-            className="
+    <>
+      {label ? <Label required={required}>{label}</Label> : null}
+      <BaseUIRadioGroup
+        aria-label={label ? `${label}${required ? ' *' : ''}` : undefined}
+        className="flex gap-x-4 items-start gap-1 text-gray-900"
+        defaultValue={defaultValue}
+        disabled={disabled}
+        value={value}
+        onBlur={onBlur}
+        onValueChange={onValueChange}
+      >
+        {options.map(({ label, value }) => (
+          <label
+            className="flex items-center gap-2 text-md font-normal"
+            key={label ?? (value as React.Key)}
+          >
+            <BaseUIRadio.Root
+              value={value}
+              className="
               flex size-5
               items-center justify-center
               rounded-full
@@ -72,18 +83,19 @@ export default function RadioGroup({
               data-[checked]:bg-primary
               data-[unchecked]:border data-[unchecked]:border-primary
             "
-          >
-            <BaseUIRadio.Indicator
-              className="
+            >
+              <BaseUIRadio.Indicator
+                className="
                 flex
                 before:size-2 before:rounded-full before:bg-gray-50
                 data-[unchecked]:hidden
               "
-            />
-          </BaseUIRadio.Root>
-          {label}
-        </label>
-      ))}
-    </BaseUIRadioGroup>
+              />
+            </BaseUIRadio.Root>
+            {label}
+          </label>
+        ))}
+      </BaseUIRadioGroup>
+    </>
   )
 }

@@ -35,12 +35,19 @@ export function ReleaseOptionalParametersDisplay({
             {t('release.form.pageTempsReponse.label')}
             {': '}
           </b>
-          <input
-            type="checkbox"
-            disabled
-            checked={overrideGenerationParameters.responseTimeQuestion}
-            className="size-4 accent-gray-400 ml-1"
-          />
+          <span
+            className={
+              overrideGenerationParameters.responseTimeQuestion
+                ? 'text-green-700'
+                : 'text-red-700'
+            }
+          >
+            {t(
+              overrideGenerationParameters.responseTimeQuestion
+                ? 'common.yes'
+                : 'common.no',
+            )}
+          </span>
         </div>
         <div>
           <b className="text-gray-500 font-normal">

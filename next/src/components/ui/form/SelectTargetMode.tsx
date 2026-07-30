@@ -76,8 +76,9 @@ export default function SelectTargetMode({
 
   return (
     <>
-      <Label required>{t('questionnaire.common.targetMode')}</Label>
       <RadioGroup
+        label={t('questionnaire.common.targetMode')}
+        required
         options={TARGET_MODE_OPTIONS}
         value={radioValue}
         disabled={disabled}

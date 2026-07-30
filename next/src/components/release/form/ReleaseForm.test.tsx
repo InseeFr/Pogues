@@ -134,6 +134,50 @@ describe('ReleaseForm', () => {
     expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
   })
 
+  it('should only show optional parameters section when targetMode is CAWI', async () => {
+    const user = userEvent.setup()
+
+    await renderWithRouter(
+      <ReleaseForm
+        questionnaireId="q-id"
+        seriesId="my-series-id"
+        seriesLabel="my-series-label"
+        onSubmit={vi.fn()}
+        targetModes={TARGET_MODES}
+        submitLabel="Publier"
+      />,
+    )
+
+    const businessContextGroup = screen.getByRole('radiogroup', {
+      name: /Context/,
+    })
+    const businessContextRadios =
+      within(businessContextGroup).getAllByRole('radio')
+    await user.click(businessContextRadios[1])
+
+    const modeGroup = screen.getByRole('radiogroup', {
+      name: /Collection mode/,
+    })
+    const modeRadios = within(modeGroup).getAllByRole('radio')
+    await user.click(modeRadios[0])
+
+    await waitFor(() => {
+      expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+    })
+
+    await user.click(modeRadios[1])
+
+    await waitFor(() => {
+      expect(screen.getByText('Optional parameters')).toBeInTheDocument()
+    })
+
+    await user.click(modeRadios[0])
+
+    await waitFor(() => {
+      expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+    })
+  })
+
   it('should toggle optional parameters section when switching context', async () => {
     const user = userEvent.setup()
 

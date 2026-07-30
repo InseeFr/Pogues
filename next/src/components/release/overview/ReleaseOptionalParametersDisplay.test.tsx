@@ -18,8 +18,8 @@ describe('ReleaseOptionalParametersDisplay', () => {
     ).toBeInTheDocument()
   })
 
-  it('renders checkbox checked when responseTimeQuestion is true', () => {
-    const { getByRole } = renderWithI18n(
+  it('renders "Yes" when responseTimeQuestion is true', () => {
+    const { getByText } = renderWithI18n(
       <ReleaseOptionalParametersDisplay
         overrideGenerationParameters={{
           responseTimeQuestion: true,
@@ -28,13 +28,11 @@ describe('ReleaseOptionalParametersDisplay', () => {
       />,
     )
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
-    expect(checkbox.checked).toBe(true)
-    expect(checkbox).toBeDisabled()
+    expect(getByText('Yes')).toBeInTheDocument()
   })
 
-  it('renders checkbox unchecked when responseTimeQuestion is false', () => {
-    const { getByRole } = renderWithI18n(
+  it('renders "No" when responseTimeQuestion is false', () => {
+    const { getByText } = renderWithI18n(
       <ReleaseOptionalParametersDisplay
         overrideGenerationParameters={{
           responseTimeQuestion: false,
@@ -43,8 +41,7 @@ describe('ReleaseOptionalParametersDisplay', () => {
       />,
     )
 
-    const checkbox = getByRole('checkbox') as HTMLInputElement
-    expect(checkbox.checked).toBe(false)
+    expect(getByText('No')).toBeInTheDocument()
   })
 
   it('displays questionNumberingMode value', () => {

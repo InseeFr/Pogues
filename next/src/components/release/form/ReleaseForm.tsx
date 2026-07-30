@@ -10,8 +10,9 @@ import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
+import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
-import type { TargetModes } from '@/models/questionnaires'
+import { TargetModes } from '@/models/questionnaires'
 
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts'
 import { type FormValues, schema } from './schema'
@@ -55,6 +56,7 @@ export default function ReleaseForm({
   })
 
   const contextValue = watch('context')
+  const targetMode = watch('mode')
 
   const isSeriesMissing = !seriesId || !seriesLabel
   const isFormValid = isValid && !isSeriesMissing
@@ -162,39 +164,23 @@ export default function ReleaseForm({
           name="mode"
           control={control}
           rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('release.form.collectMode.label')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={[
-                  {
-                    label: t('release.form.collectMode.options.CAWI'),
-                    value: 'CAWI',
-                  },
-                  {
-                    label: t('release.form.collectMode.options.CAPI'),
-                    value: 'CAPI',
-                  },
-                  {
-                    label: t('release.form.collectMode.options.CATI'),
-                    value: 'CATI',
-                  },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
+          render={({ field, fieldState: { error } }) => (
+            <SelectTargetMode
+              value={
+                new Set([TargetModes[field.value as keyof typeof TargetModes]])
+              }
+              onChange={(newValue) => {
+                const val =
+                  newValue instanceof Set
+                    ? Array.from(newValue)[0]
+                    : newValue[0]
+                field.onChange(
+                  TargetModes[val as unknown as keyof typeof TargetModes],
+                )
+              }}
+              multiple={false}
+              error={error?.message}
+            />
           )}
         />
 
@@ -225,7 +211,7 @@ export default function ReleaseForm({
           )}
         />
 
-        {contextValue === 'BUSINESS' ? (
+        {contextValue === 'BUSINESS' && targetMode === 'CAWI' ? (
           <div className="border-l-2 border-gray-300 pl-4 space-y-4">
             <h3 className="text-sm font-semibold">
               {t('release.form.optionalParameters')}
