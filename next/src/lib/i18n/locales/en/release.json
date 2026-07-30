@@ -69,6 +69,7 @@
       "entreprise": "Business"
     },
     "optionalParameters": "Optional parameters",
+    "optionalParametersLabel": "Optionals parameter are only applied in CAWI mode",
     "pageTempsReponse": {
       "label": "Response time page",
       "warning": "Risk of anomaly if ending on a loop and legal obligation"

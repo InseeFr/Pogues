@@ -84,7 +84,7 @@ describe('ReleaseForm', () => {
       expect(onSubmit).toHaveBeenCalledWith(
         expect.objectContaining({
           releaseDescription: 'My release',
-          mode: 'CAWI',
+          mode: ['CAWI'],
           context: 'HOUSEHOLD',
           overrideGenerationParameters: expect.objectContaining({
             responseTimeQuestion: false,
@@ -134,7 +134,7 @@ describe('ReleaseForm', () => {
     expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
   })
 
-  it('should only show optional parameters section when targetMode is CAWI', async () => {
+  it('should only show optional parameters section when targetMode includes CAWI', async () => {
     const user = userEvent.setup()
 
     await renderWithRouter(
@@ -155,23 +155,26 @@ describe('ReleaseForm', () => {
       within(businessContextGroup).getAllByRole('radio')
     await user.click(businessContextRadios[1])
 
-    const modeGroup = screen.getByRole('radiogroup', {
-      name: /Collection mode/,
+    await waitFor(() => {
+      expect(screen.getByText('Optional parameters')).toBeInTheDocument()
     })
-    const modeRadios = within(modeGroup).getAllByRole('radio')
-    await user.click(modeRadios[0])
+
+    const modeCheckboxes = screen.getAllByRole('checkbox')
+    const cawiCheckbox = modeCheckboxes[1]
+
+    await user.click(cawiCheckbox)
 
     await waitFor(() => {
       expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
     })
 
-    await user.click(modeRadios[1])
+    await user.click(cawiCheckbox)
 
     await waitFor(() => {
       expect(screen.getByText('Optional parameters')).toBeInTheDocument()
     })
 
-    await user.click(modeRadios[0])
+    await user.click(cawiCheckbox)
 
     await waitFor(() => {
       expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()

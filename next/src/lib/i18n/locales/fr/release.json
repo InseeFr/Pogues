@@ -69,6 +69,7 @@
       "entreprise": "Entreprise"
     },
     "optionalParameters": "Paramètres optionnels",
+    "optionalParametersLabel": "(La surcharge n'est appliqué que pour le mode CAWI)",
     "pageTempsReponse": {
       "label": "Page sur les temps de réponse",
       "warning": "Risque d'anomalie si termine sur boucle et obligation légale"

@@ -45,7 +45,7 @@ export default function ReleaseForm({
     mode: 'onChange',
     defaultValues: {
       releaseDescription: '',
-      mode: 'CAWI',
+      mode: ['CAWI'],
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
         responseTimeQuestion: false,
@@ -167,18 +167,23 @@ export default function ReleaseForm({
           render={({ field, fieldState: { error } }) => (
             <SelectTargetMode
               value={
-                new Set([TargetModes[field.value as keyof typeof TargetModes]])
+                new Set(
+                  field.value.map(
+                    (m) => TargetModes[m as keyof typeof TargetModes],
+                  ),
+                )
               }
               onChange={(newValue) => {
-                const val =
-                  newValue instanceof Set
-                    ? Array.from(newValue)[0]
-                    : newValue[0]
+                const arr =
+                  newValue instanceof Set ? Array.from(newValue) : newValue
                 field.onChange(
-                  TargetModes[val as unknown as keyof typeof TargetModes],
+                  arr.map(
+                    (m) =>
+                      TargetModes[m as unknown as keyof typeof TargetModes],
+                  ),
                 )
               }}
-              multiple={false}
+              multiple={true}
               error={error?.message}
             />
           )}
@@ -211,11 +216,16 @@ export default function ReleaseForm({
           )}
         />
 
-        {contextValue === 'BUSINESS' && targetMode === 'CAWI' ? (
+        {contextValue === 'BUSINESS' && targetMode.includes('CAWI') ? (
           <div className="border-l-2 border-gray-300 pl-4 space-y-4">
-            <h3 className="text-sm font-semibold">
-              {t('release.form.optionalParameters')}
-            </h3>
+            <div>
+              <h3 className="text-sm font-semibold">
+                {t('release.form.optionalParameters')}
+              </h3>
+              <p className="text-orange-600 text-sm">
+                {t('release.form.optionalParametersLabel')}
+              </p>
+            </div>
 
             <div className="flex flex-col gap-1">
               <Controller
