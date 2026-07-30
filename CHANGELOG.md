@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.7.0](https://github.com/InseeFr/Pogues/releases/tag/3.7.0) - 2026-07-27
+
+### Added
+
+- Page to edit questionnaire details
+- Login is now required on **new** questionnaire page
+
 ### Changed
 
 - change end-point to get units in legacy client (according to the API)

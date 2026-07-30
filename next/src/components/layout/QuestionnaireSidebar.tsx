@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonSize } from '@/components/ui/Button'
 import DashboardIcon from '@/components/ui/icons/DashboardIcon'
+import DetailsIcon from '@/components/ui/icons/DetailsIcon'
 import DictionaryIcon from '@/components/ui/icons/DictionaryIcon'
 import HistoryIcon from '@/components/ui/icons/HistoryIcon'
 import HomeIcon from '@/components/ui/icons/HomeIcon'
@@ -71,6 +72,17 @@ export default function QuestionnaireSidebar() {
               versionId
                 ? '/questionnaire/$questionnaireId/version/$versionId'
                 : '/questionnaire/$questionnaireId'
+            }
+            questionnaireId={questionnaireId}
+            versionId={versionId}
+          />
+          <SidebarItem
+            label={t('details.sidebarTitle')}
+            Icon={DetailsIcon}
+            path={
+              versionId
+                ? '/questionnaire/$questionnaireId/version/$versionId/details'
+                : '/questionnaire/$questionnaireId/details'
             }
             questionnaireId={questionnaireId}
             versionId={versionId}

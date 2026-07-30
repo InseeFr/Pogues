@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next'
 import ContentHeader from '@/components/layout/ContentHeader'
 import ContentMain from '@/components/layout/ContentMain'
 import CreateQuestionnaire from '@/components/questionnaires/create/CreateQuestionnaire'
+import { loginLoader } from '@/utils/loginLoader'
 
 export const Route = createFileRoute('/_layout/questionnaires/new')({
   component: RouteComponent,
+  beforeLoad: async () => loginLoader(),
   loader: ({ context: { t, user } }) => ({
     crumb: t('common.new'),
     userStamp: user!.stamp!,

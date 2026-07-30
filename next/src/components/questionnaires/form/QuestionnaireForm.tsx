@@ -4,20 +4,19 @@ import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import Checkbox from '@/components/ui/form/Checkbox'
+import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
 import FormField from '@/components/ui/form/FormField'
 import Input from '@/components/ui/form/Input'
-import Label from '@/components/ui/form/Label'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import {
   FlowLogics,
   FormulasLanguages,
   type Questionnaire,
-  TargetModes,
 } from '@/models/questionnaires'
 
+import SelectTargetMode from '../../ui/form/SelectTargetMode'
 import { type FormValues, schema } from './schema'
-import { changeSetValue } from './utils/set'
 
 type Props = {
   /** In an update case, initial questionnaire value. */
@@ -142,6 +141,13 @@ export default function QuestionnaireForm({
               <div className="text-sm text-error ml-1">{error.message}</div>
             ) : null}
           </>
+        render={({ field, fieldState: { error } }) => (
+          <SelectTargetMode
+            value={field.value}
+            onChange={field.onChange}
+            multiple
+            error={error?.message}
+          />
         )}
       </FormField>
 
