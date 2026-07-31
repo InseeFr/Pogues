@@ -1,10 +1,63 @@
-import { MOCK_PUBLICATIONS, MOCK_REQUESTS } from '@/api/releases'
+import { MOCK_PUBLICATIONS } from '@/api/releases'
+import { TargetModes } from '@/models/questionnaires'
 import { renderWithI18n } from '@/testing/render'
 
+import type { ReleaseRequest } from '../../models/releases'
 import ReleaseOverview from './ReleaseOverview'
 
+const pendingRequests: ReleaseRequest[] = [
+  {
+    releaseRequestId: 1,
+    author: 'xbeltv',
+    requestDate: new Date('2026-07-06T10:30:00').getTime(),
+    status: 'RUNNING',
+    statusDescription: '',
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
+    poguesId: 'SRCV_REINTERRO',
+    releaseDescription: 'Recette intégrée oct 2025 pour SRCV_REINTERRO 2026',
+    modes: [TargetModes.CAPI],
+    context: 'HOUSEHOLD',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'SEQUENCE',
+      responseTimeQuestion: true,
+    },
+  },
+  {
+    releaseRequestId: 2,
+    author: 'nazdsn',
+    requestDate: new Date('2026-07-05T14:15:00').getTime(),
+    status: 'FAILED',
+    statusDescription: 'Erreur lors de la génération Eno',
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440001',
+    poguesId: 'SRCV_REINTERRO',
+    releaseDescription: 'Autre demande de publication pour SRCV_REINTERRO 2026',
+    modes: [TargetModes.CAWI],
+    context: 'BUSINESS',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'NONE',
+      responseTimeQuestion: false,
+    },
+  },
+  {
+    releaseRequestId: 3,
+    author: 'bcbab8',
+    requestDate: new Date('2026-07-04T09:00:00').getTime(),
+    status: 'FAILED',
+    statusDescription: 'Erreur 409 - Conflit de version',
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440002',
+    poguesId: 'SRCV_REINTERRO',
+    releaseDescription: 'Recette intégrée oct 2025 pour SRCV_REINTERRO 2026',
+    modes: [TargetModes.CAWI],
+    context: 'HOUSEHOLD',
+    overrideGenerationParameters: {
+      questionNumberingMode: 'ALL',
+      responseTimeQuestion: true,
+    },
+  },
+]
+
 const defaultProps = {
-  pendingRequests: MOCK_REQUESTS,
+  pendingRequests,
   releases: MOCK_PUBLICATIONS,
 }
 

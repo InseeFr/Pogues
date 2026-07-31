@@ -4,8 +4,9 @@ import { isAxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
-import { instance } from '@/api/instance'
 import { questionnairesKeys } from '@/api/questionnaires'
+import { postRelease } from '@/api/releases'
+import { computeCreateReleaseDTO } from '@/api/utils/releases'
 import type { TargetModes } from '@/models/questionnaires'
 
 import ReleaseForm from '../form/ReleaseForm'
@@ -15,7 +16,7 @@ type Props = {
   questionnaireId: string
   seriesId?: string
   seriesLabel?: string
-  targetModes: Set<TargetModes>
+  targetModes: TargetModes[]
 }
 
 export default function CreateReleaseForm({
@@ -31,14 +32,10 @@ export default function CreateReleaseForm({
   const mutation = useMutation({
     mutationFn: async (formValues: FormValues) => {
       try {
-        const response = await instance.post(
-          `/api/questionnaire/${questionnaireId}/releases`,
-          {
-            poguesId: questionnaireId,
-            ...formValues,
-          },
+        return await postRelease(
+          questionnaireId,
+          computeCreateReleaseDTO(questionnaireId, formValues),
         )
-        return response.data
       } catch (error) {
         if (isAxiosError(error) && error.response?.status === 404) {
           throw new Error(t('release.create.notFound'))

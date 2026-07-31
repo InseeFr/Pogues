@@ -21,7 +21,7 @@ type Props = {
   questionnaireId: string
   seriesId?: string
   seriesLabel?: string
-  targetModes: Set<TargetModes>
+  targetModes: TargetModes[]
   onSubmit: SubmitHandler<FormValues>
   submitLabel: string
 }

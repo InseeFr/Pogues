@@ -6,11 +6,7 @@ import { renderWithRouter } from '@/testing/render'
 
 import ReleaseForm from './ReleaseForm'
 
-const TARGET_MODES = new Set([
-  TargetModes.CAWI,
-  TargetModes.CAPI,
-  TargetModes.CATI,
-])
+const TARGET_MODES = [TargetModes.CAWI, TargetModes.CAPI, TargetModes.CATI]
 
 describe('ReleaseForm', () => {
   it('should disable submit button when description is empty', async () => {

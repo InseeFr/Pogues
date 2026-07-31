@@ -1,9 +1,10 @@
 import nock from 'nock'
 
-import type { CreateReleaseDTO } from './models/releaseDTO'
+import { TargetModes } from '@/models/questionnaires'
+
+import type { CreateReleaseDTO, ReleaseRequestDTO } from './models/releaseDTO'
 import {
   MOCK_PUBLICATIONS,
-  MOCK_REQUESTS,
   deleteReleaseRequest,
   getPendingReleases,
   getReleases,
@@ -27,16 +28,37 @@ it('Get releases works', async () => {
 })
 
 it('Get pending releases works', async () => {
-  // const requests: ReleaseRequestDTO[] = [releaseRequestDTO]
+  const requests: ReleaseRequestDTO[] = [
+    {
+      releaseRequestId: 1,
+      author: 'xbeltv',
+      requestDate: '2026-07-06T10:30:00.000Z',
+      status: 'RUNNING',
+      statusDescription: '',
+      poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
+      poguesId: 'SRCV_REINTERRO',
+      releaseDescription: 'Release description',
+      modes: ['CAWI'],
+      context: 'HOUSEHOLD',
+      overrideGenerationParameters: {
+        questionNumberingMode: 'SEQUENCE',
+        responseTimeQuestion: true,
+      },
+    },
+  ]
 
-  // nock('https://mock-api')
-  //   .get('/persistence/questionnaire/my-questionnaire/release-requests')
-  //   .reply(200, requests)
+  nock('https://mock-api')
+    .get('/questionnaire/my-questionnaire/release-requests')
+    .reply(200, requests)
 
-  // const res = await getPendingReleases('my-questionnaire')
-  // expect(res).toEqual([releaseRequest])
   const res = await getPendingReleases('my-questionnaire')
-  expect(res).toEqual(MOCK_REQUESTS)
+  expect(res).toEqual([
+    {
+      ...requests[0],
+      requestDate: new Date(requests[0].requestDate).getTime(),
+      modes: [TargetModes.CAWI],
+    },
+  ])
 })
 
 it('Post release works', async () => {
@@ -52,7 +74,7 @@ it('Post release works', async () => {
   }
 
   nock('https://mock-api')
-    .post('/persistence/questionnaire/my-questionnaire/releases')
+    .post('/questionnaire/my-questionnaire/releases')
     .reply(201)
 
   const res = await postRelease('my-questionnaire', createRelease)
@@ -61,7 +83,7 @@ it('Post release works', async () => {
 
 it('Delete release request works', async () => {
   nock('https://mock-api')
-    .delete('/persistence/questionnaire/my-questionnaire/release-requests/42')
+    .delete('/questionnaire/my-questionnaire/release-requests/42')
     .reply(204)
 
   const res = await deleteReleaseRequest('my-questionnaire', 42)

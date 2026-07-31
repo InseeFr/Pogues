@@ -4,104 +4,70 @@ import { TargetModes } from '@/models/questionnaires'
 import type { RegistryRelease, ReleaseRequest } from '@/models/releases'
 
 import { instance } from './instance'
-import type { CreateReleaseDTO } from './models/releaseDTO'
-
-export const MOCK_REQUESTS: ReleaseRequest[] = [
-  {
-    trackerId: 1,
-    author: 'xbeltv',
-    requestDate: new Date('2026-07-06T10:30:00').getTime(),
-    currentStep: 'BUILD_PARAMETERS',
-    status: 'RUNNING',
-    statusDescription: '',
-    poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
-    poguesId: 'SRCV_REINTERRO',
-    releaseDescription: 'Recette intégrée oct 2025 pour SRCV_REINTERRO 2026',
-    mode: TargetModes.CAPI,
-    context: 'HOUSEHOLD',
-    overrideGenerationParameters: {
-      questionNumberingMode: 'SEQUENCE',
-      responseTimeQuestion: true,
-    },
-  },
-  {
-    trackerId: 2,
-    author: 'nazdsn',
-    requestDate: new Date('2026-07-05T14:15:00').getTime(),
-    currentStep: 'GENERATE_DDI',
-    status: 'FAILED',
-    statusDescription: 'Erreur lors de la génération Eno',
-    poguesVersionId: '550e8400-e29b-41d4-a716-446655440001',
-    poguesId: 'SRCV_REINTERRO',
-    releaseDescription: 'Autre demande de publication pour SRCV_REINTERRO 2026',
-    mode: TargetModes.CAWI,
-    context: 'BUSINESS',
-    overrideGenerationParameters: {
-      questionNumberingMode: 'NONE',
-      responseTimeQuestion: false,
-    },
-  },
-  {
-    trackerId: 3,
-    author: 'bcbab8',
-    requestDate: new Date('2026-07-04T09:00:00').getTime(),
-    currentStep: 'PUBLISH_DDI',
-    status: 'FAILED',
-    statusDescription: 'Erreur 409 - Conflit de version',
-    poguesVersionId: '550e8400-e29b-41d4-a716-446655440002',
-    poguesId: 'SRCV_REINTERRO',
-    releaseDescription: 'Recette intégrée oct 2025 pour SRCV_REINTERRO 2026',
-    mode: TargetModes.CAWI,
-    context: 'HOUSEHOLD',
-    overrideGenerationParameters: {
-      questionNumberingMode: 'ALL',
-      responseTimeQuestion: true,
-    },
-  },
-]
+import type { CreateReleaseDTO, ReleaseRequestDTO } from './models/releaseDTO'
+import { computeReleaseRequests } from './utils/releases'
 
 export const MOCK_PUBLICATIONS: RegistryRelease[] = [
   {
-    collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
-    version: 3,
     author: 'xbeltv',
     releaseDate: new Date('2026-07-04T08:00:00').getTime(),
     poguesVersionId: '93d1e85c-327d-4153-a5fa-e04f54ca0e3e',
     releaseDescription: 'ESA 2026 PROD',
-    mode: TargetModes.CAWI,
     context: 'HOUSEHOLD',
-    overrideGenerationParameters: {
-      questionNumberingMode: 'NONE',
-      responseTimeQuestion: false,
-    },
-    visualizeUrl: 'https://visu.example.com/esa-2026-prod',
+    collectionInstruments: [
+      {
+        mode: TargetModes.CAWI,
+        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
+        version: 3,
+        overrideGenerationParameters: {
+          questionNumberingMode: 'NONE',
+          responseTimeQuestion: false,
+        },
+        visualizeUrl: 'https://visu.example.com/esa-2026-prod',
+      },
+      {
+        mode: TargetModes.CAPI,
+        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440010',
+        version: 3,
+        overrideGenerationParameters: null,
+        visualizeUrl: 'https://visu.example.com/esa-2026-prod-capi',
+      },
+    ],
   },
   {
-    collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440002',
-    version: 2,
     author: 'nazdsn',
     releaseDate: new Date('2026-06-28T10:00:00').getTime(),
     poguesVersionId: '5ddf61df-00c8-4018-a763-fa7bc91b0162',
     releaseDescription: 'ESA 2026 TEST TERRAIN',
-    mode: TargetModes.CAPI,
     context: 'BUSINESS',
-    overrideGenerationParameters: {
-      questionNumberingMode: 'NONE',
-      responseTimeQuestion: false,
-    },
-    visualizeUrl: 'https://visu.example.com/esa-2026-test',
+    collectionInstruments: [
+      {
+        mode: TargetModes.CAPI,
+        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440002',
+        version: 2,
+        overrideGenerationParameters: {
+          questionNumberingMode: 'NONE',
+          responseTimeQuestion: false,
+        },
+        visualizeUrl: 'https://visu.example.com/esa-2026-test',
+      },
+    ],
   },
   {
-    collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440003',
-    version: 1,
     author: 'bcbab8',
     releaseDate: new Date('2026-06-15T11:30:00').getTime(),
     poguesVersionId: 'b77e7cad-475d-4d83-b036-fa7a98a84a8a',
     releaseDescription: "Publication la plus ancienne d'ESA",
-    mode: TargetModes.CAWI,
     context: 'HOUSEHOLD',
-    overrideGenerationParameters: null,
-    visualizeUrl: 'https://visu.example.com/esa-2026-old',
+    collectionInstruments: [
+      {
+        mode: TargetModes.CAWI,
+        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440003',
+        version: 1,
+        overrideGenerationParameters: null,
+        visualizeUrl: 'https://visu.example.com/esa-2026-old',
+      },
+    ],
   },
 ]
 
@@ -135,7 +101,7 @@ export async function getReleases(
   console.log('questionnaireId', questionnaireId)
 
   // return instance
-  //   .get(`/persistence/questionnaire/${questionnaireId}/releases`, {
+  //   .get(`/questionnaire/${questionnaireId}/releases`, {
   //     headers: { Accept: 'application/json' },
   //   })
   //   .then(({ data }: { data: RegistryReleaseDTO[] }) => {
@@ -150,14 +116,13 @@ export async function getPendingReleases(
 ): Promise<ReleaseRequest[]> {
   console.log('questionnaireId', questionnaireId)
 
-  // return instance
-  //   .get(`/persistence/questionnaire/${questionnaireId}/release-requests`, {
-  //     headers: { Accept: 'application/json' },
-  //   })
-  //   .then(({ data }: { data: ReleaseRequestDTO[] }) => {
-  //     return computeReleaseRequests(data)
-  //   })
-  return Promise.resolve(MOCK_REQUESTS)
+  return instance
+    .get(`/questionnaire/${questionnaireId}/release-requests`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: ReleaseRequestDTO[] }) => {
+      return computeReleaseRequests(data)
+    })
 }
 
 /** Create a new release. */
@@ -165,21 +130,17 @@ export async function postRelease(
   questionnaireId: string,
   release: CreateReleaseDTO,
 ): Promise<Response> {
-  return instance.post(
-    `/persistence/questionnaire/${questionnaireId}/releases`,
-    release,
-    {
-      headers: { 'Content-Type': 'application/json' },
-    },
-  )
+  return instance.post(`/questionnaire/${questionnaireId}/releases`, release, {
+    headers: { 'Content-Type': 'application/json' },
+  })
 }
 
-/** Delete a release request by tracker id. */
+/** Delete a release request by its id. */
 export async function deleteReleaseRequest(
   questionnaireId: string,
-  trackerId: number,
+  releaseRequestId: number,
 ): Promise<Response> {
   return instance.delete(
-    `/persistence/questionnaire/${questionnaireId}/release-requests/${trackerId}`,
+    `/questionnaire/${questionnaireId}/release-requests/${releaseRequestId}`,
   )
 }

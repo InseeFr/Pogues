@@ -30,8 +30,10 @@ export default function ReleaseOverview({
 
   const hasAnyContent = requests.length > 0 || publications.length > 0
 
-  function handleDeleteRequest(trackerId: number) {
-    setRequests((prev) => prev.filter((d) => d.trackerId !== trackerId))
+  function handleDeleteRequest(releaseRequestId: number) {
+    setRequests((prev) =>
+      prev.filter((d) => d.releaseRequestId !== releaseRequestId),
+    )
   }
 
   const sortedRequests = sortByRequestDateDesc(requests)
@@ -54,7 +56,7 @@ export default function ReleaseOverview({
           </div>
           {sortedRequests.map((request) => (
             <ReleaseRequestTile
-              key={request.trackerId}
+              key={request.releaseRequestId}
               request={request}
               onDelete={handleDeleteRequest}
             />
@@ -69,7 +71,7 @@ export default function ReleaseOverview({
           </div>
           {sortedPublications.map((release) => (
             <RegistryReleaseTile
-              key={release.collectionInstrumentId}
+              key={release.poguesVersionId}
               release={release}
             />
           ))}

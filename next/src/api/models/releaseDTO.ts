@@ -1,31 +1,35 @@
 import type { TargetMode } from '@/models/questionnaires'
 
-/** Model of the registry release returned by the Pogues API's releases endpoint. */
-export type RegistryReleaseDTO = {
+/** Model of a collection instrument of a registry release returned by the Pogues API's releases endpoint. */
+export type RegistryCollectionInstrumentDTO = {
+  mode: TargetMode
   collectionInstrumentId: string
   version: number
-  author: string
-  releaseDate: number
-  poguesVersionId: string
-  releaseDescription: string
-  mode: TargetMode
-  context: ReleaseContextDTO
   overrideGenerationParameters: OverrideGenerationParametersDTO | null
   visualizeUrl: string
 }
 
+/** Model of the registry release returned by the Pogues API's releases endpoint. */
+export type RegistryReleaseDTO = {
+  author: string
+  releaseDate: string
+  poguesVersionId: string
+  releaseDescription: string
+  context: ReleaseContextDTO
+  collectionInstruments: RegistryCollectionInstrumentDTO[]
+}
+
 /** Model of the release request returned by the Pogues API's release-requests endpoint. */
 export type ReleaseRequestDTO = {
-  trackerId: number
+  releaseRequestId: number
   author: string
-  requestDate: number
-  currentStep: CurrentStepDTO
+  requestDate: string
   status: ReleaseRequestStatusDTO
   statusDescription: string
   poguesVersionId: string
   poguesId: string
   releaseDescription: string
-  mode: TargetMode
+  modes: TargetMode[]
   context: ReleaseContextDTO
   overrideGenerationParameters: OverrideGenerationParametersDTO
 }
@@ -44,15 +48,6 @@ export type OverrideGenerationParametersDTO = {
 }
 
 export type ReleaseContextDTO = 'HOUSEHOLD' | 'BUSINESS'
-
-export type CurrentStepDTO =
-  | 'BUILD_PARAMETERS'
-  | 'PUBLISH_PRERELEASE'
-  | 'GENERATE_DDI'
-  | 'GENERATE_LUNATIC'
-  | 'PUBLISH_DDI'
-  | 'PUBLISH_LUNATIC'
-  | 'FINISHED'
 
 export type ReleaseRequestStatusDTO =
   | 'CREATED'

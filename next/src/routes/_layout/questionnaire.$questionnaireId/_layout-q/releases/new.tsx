@@ -1,11 +1,9 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
-import { questionnaireQueryOptions } from '@/api/questionnaires'
+import { questionnaireDetailsQueryOptions } from '@/api/questionnaireDetails'
 import ErrorComponent from '@/components/layout/ErrorComponent'
 import CreateRelease from '@/components/release/create/CreateRelease'
 import CreateReleaseLayout from '@/components/release/create/CreateReleaseLayout'
-import type { Questionnaire } from '@/models/questionnaires'
 
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/releases/new',
@@ -16,23 +14,27 @@ export const Route = createFileRoute(
       <ErrorComponent error={error} />
     </CreateReleaseLayout>
   ),
-  loader: async ({ context: { t } }) => {
-    return { crumb: t('crumb.new') }
+  loader: async ({ params: { questionnaireId }, context: { queryClient } }) => {
+    const questionnaireDetails = await queryClient.fetchQuery(
+      questionnaireDetailsQueryOptions(questionnaireId),
+    )
+    return {
+      questionnaireDetails,
+    }
   },
 })
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId
 
-  const { data: questionnaire }: { data: Questionnaire } = useSuspenseQuery(
-    questionnaireQueryOptions(questionnaireId),
-  )
+  const { questionnaireDetails } = Route.useLoaderData()
 
   return (
     <CreateReleaseLayout>
       <CreateRelease
         questionnaireId={questionnaireId}
-        targetModes={questionnaire.targetModes}
+        targetModes={questionnaireDetails.targetMode}
+        serie={questionnaireDetails.dataCollection?.serie}
       />
     </CreateReleaseLayout>
   )

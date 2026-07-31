@@ -6,30 +6,20 @@ export type ReleaseRequestStatus =
   | 'COMPLETED'
   | 'FAILED'
 
-export type CurrentStep =
-  | 'BUILD_PARAMETERS'
-  | 'PUBLISH_PRERELEASE'
-  | 'GENERATE_DDI'
-  | 'GENERATE_LUNATIC'
-  | 'PUBLISH_DDI'
-  | 'PUBLISH_LUNATIC'
-  | 'FINISHED'
-
 export type QuestionNumberingMode = 'NONE' | 'SEQUENCE' | 'ALL'
 
 export type ReleaseContext = 'HOUSEHOLD' | 'BUSINESS'
 
 export type ReleaseRequest = {
-  trackerId: number
+  releaseRequestId: number
   author: string
   requestDate: number
-  currentStep: CurrentStep
   status: ReleaseRequestStatus
   statusDescription: string
   poguesVersionId: string
   poguesId: string
   releaseDescription: string
-  mode: TargetModes
+  modes: TargetModes[]
   context: ReleaseContext
   overrideGenerationParameters: {
     questionNumberingMode: QuestionNumberingMode
@@ -37,18 +27,22 @@ export type ReleaseRequest = {
   }
 }
 
-export type RegistryRelease = {
+export type RegistryCollectionInstrument = {
+  mode: TargetModes
   collectionInstrumentId: string
   version: number
-  author: string
-  releaseDate: number
-  poguesVersionId: string
-  releaseDescription: string
-  mode: TargetModes
-  context: ReleaseContext
   overrideGenerationParameters: {
     questionNumberingMode: QuestionNumberingMode
     responseTimeQuestion: boolean
   } | null
   visualizeUrl: string
+}
+
+export type RegistryRelease = {
+  author: string
+  releaseDate: number
+  poguesVersionId: string
+  releaseDescription: string
+  context: ReleaseContext
+  collectionInstruments: RegistryCollectionInstrument[]
 }

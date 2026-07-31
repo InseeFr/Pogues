@@ -9,16 +9,15 @@ import { ReleaseRequestTile } from './ReleaseRequestTile'
 
 describe('ReleaseRequestTile', () => {
   const baseRequest: ReleaseRequest = {
-    trackerId: 1,
+    releaseRequestId: 1,
     author: 'maelle',
     requestDate: new Date('2025-06-15T10:00:00Z').getTime(),
-    currentStep: 'BUILD_PARAMETERS',
     status: 'RUNNING',
     statusDescription: '',
     poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
     poguesId: 'ESA2026',
     releaseDescription: 'Publication ESA 2026',
-    mode: TargetModes.CAWI,
+    modes: [TargetModes.CAWI],
     context: 'BUSINESS',
     overrideGenerationParameters: {
       questionNumberingMode: 'NONE',
@@ -98,6 +97,7 @@ describe('ReleaseRequestTile', () => {
 
     expect(getByText('BUSINESS')).toBeInTheDocument()
     expect(getByText('maelle')).toBeInTheDocument()
+    expect(getByText('CAWI')).toBeInTheDocument()
     expect(
       getByText(computeDayFromDate(new Date(baseRequest.requestDate))),
     ).toBeInTheDocument()
@@ -158,7 +158,7 @@ describe('ReleaseRequestTile', () => {
     expect(queryByRole('button', { name: 'Delete this request' })).toBeNull()
   })
 
-  it('calls onDelete with trackerId when delete button is clicked', async () => {
+  it('calls onDelete with releaseRequestId when delete button is clicked', async () => {
     const user = userEvent.setup()
     const onDelete = vi.fn()
     const request: ReleaseRequest = { ...baseRequest, status: 'FAILED' }

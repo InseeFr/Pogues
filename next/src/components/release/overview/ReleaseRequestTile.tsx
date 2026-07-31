@@ -37,11 +37,11 @@ export function ReleaseRequestTile({
   onDelete,
 }: Readonly<{
   request: ReleaseRequest
-  onDelete: (trackerId: number) => void
+  onDelete: (releaseRequestId: number) => void
 }>) {
   const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(false)
-  const contentId = `request-content-${request.trackerId}`
+  const contentId = `request-content-${request.releaseRequestId}`
   const trombiUrl = import.meta.env.VITE_TROMBI_URL
   const requestDate = new Date(request.requestDate)
 
@@ -91,7 +91,7 @@ export function ReleaseRequestTile({
                 <b className="text-gray-500 font-normal">
                   {t('release.collectMode')} :{' '}
                 </b>
-                {TargetModes[request.mode]}
+                {request.modes.map((mode) => TargetModes[mode]).join(', ')}
               </div>
               <div />
               <div />
@@ -152,7 +152,7 @@ export function ReleaseRequestTile({
                 className="col-start-4 h-12"
                 Icon={DeleteIcon}
                 title={t('release.deleteRequest')}
-                onClick={() => onDelete(request.trackerId)}
+                onClick={() => onDelete(request.releaseRequestId)}
                 buttonStyle={ButtonIconStyle.Delete}
               />
             )}

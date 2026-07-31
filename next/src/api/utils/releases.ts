@@ -1,10 +1,17 @@
+import type { FormValues } from '@/components/release/form/schema'
 import { TargetModes } from '@/models/questionnaires'
-import type { RegistryRelease, ReleaseRequest } from '@/models/releases'
+import type { TargetMode } from '@/models/questionnaires'
+import type {
+  RegistryCollectionInstrument,
+  RegistryRelease,
+  ReleaseRequest,
+} from '@/models/releases'
 
 import type {
+  CreateReleaseDTO,
+  RegistryCollectionInstrumentDTO,
   RegistryReleaseDTO,
   ReleaseRequestDTO,
-  TargetModesDTO,
 } from '../models/releaseDTO'
 
 /** Compute registry releases from API data. */
@@ -20,7 +27,10 @@ export function computeRegistryRelease(
 ): RegistryRelease {
   return {
     ...dto,
-    mode: computeTargetModes(dto.mode),
+    releaseDate: new Date(dto.releaseDate).getTime(),
+    collectionInstruments: dto.collectionInstruments.map(
+      computeRegistryCollectionInstrument,
+    ),
   }
 }
 
@@ -30,7 +40,28 @@ export function computeRegistryReleaseDTO(
 ): RegistryReleaseDTO {
   return {
     ...release,
-    mode: computeTargetModesDTO(release.mode),
+    releaseDate: new Date(release.releaseDate).toISOString(),
+    collectionInstruments: release.collectionInstruments.map(
+      computeRegistryCollectionInstrumentDTO,
+    ),
+  }
+}
+
+function computeRegistryCollectionInstrument(
+  dto: RegistryCollectionInstrumentDTO,
+): RegistryCollectionInstrument {
+  return {
+    ...dto,
+    mode: computeTargetModes(dto.mode),
+  }
+}
+
+function computeRegistryCollectionInstrumentDTO(
+  instrument: RegistryCollectionInstrument,
+): RegistryCollectionInstrumentDTO {
+  return {
+    ...instrument,
+    mode: computeTargetModesDTO(instrument.mode),
   }
 }
 
@@ -45,7 +76,8 @@ export function computeReleaseRequests(
 export function computeReleaseRequest(dto: ReleaseRequestDTO): ReleaseRequest {
   return {
     ...dto,
-    mode: computeTargetModes(dto.mode),
+    requestDate: new Date(dto.requestDate).getTime(),
+    modes: dto.modes.map(computeTargetModes),
   }
 }
 
@@ -55,11 +87,32 @@ export function computeReleaseRequestDTO(
 ): ReleaseRequestDTO {
   return {
     ...request,
-    mode: computeTargetModesDTO(request.mode),
+    requestDate: new Date(request.requestDate).toISOString(),
+    modes: request.modes.map(computeTargetModesDTO),
   }
 }
 
-function computeTargetModes(mode: TargetModesDTO): TargetModes {
+/** Compute a create release DTO from form values. */
+export function computeCreateReleaseDTO(
+  questionnaireId: string,
+  formValues: FormValues,
+): CreateReleaseDTO {
+  return {
+    poguesId: questionnaireId,
+    releaseDescription: formValues.releaseDescription,
+    mode: formValues.mode[0],
+    context: formValues.context,
+    overrideGenerationParameters: {
+      responseTimeQuestion:
+        formValues.overrideGenerationParameters.responseTimeQuestion ?? true,
+      questionNumberingMode:
+        formValues.overrideGenerationParameters.questionNumberingMode ??
+        'SEQUENCE',
+    },
+  }
+}
+
+function computeTargetModes(mode: TargetMode): TargetModes {
   switch (mode) {
     case 'CAWI':
       return TargetModes.CAWI
@@ -74,7 +127,7 @@ function computeTargetModes(mode: TargetModesDTO): TargetModes {
   }
 }
 
-function computeTargetModesDTO(mode: TargetModes): TargetModesDTO {
+function computeTargetModesDTO(mode: TargetModes): TargetMode {
   switch (mode) {
     case TargetModes.CAWI:
       return 'CAWI'
