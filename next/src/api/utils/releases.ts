@@ -100,7 +100,7 @@ export function computeCreateReleaseDTO(
   return {
     poguesId: questionnaireId,
     releaseDescription: formValues.releaseDescription,
-    mode: formValues.mode[0],
+    modes: formValues.modes,
     context: formValues.context,
     overrideGenerationParameters: {
       responseTimeQuestion:

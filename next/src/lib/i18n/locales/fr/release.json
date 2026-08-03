@@ -23,6 +23,8 @@
     "failed": "Échec "
   },
   "deleteRequest": "Supprimer cette demande",
+  "deleteRequestSuccess": "Demande supprimée avec succès",
+  "deleteRequestError": "Erreur lors de la suppression de la demande",
   "copy": {
     "tooltip": "Copier dans le presse-papier",
     "copiedTooltip": "Copié !",

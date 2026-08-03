@@ -7,7 +7,7 @@ export const schema = z.object({
     .string()
     .min(1, { message: i18next.t('release.form.description.required') })
     .max(249, { message: i18next.t('release.form.description.maxLength') }),
-  mode: z.array(z.enum(['CAWI', 'CAPI', 'CATI'])).min(1, {
+  modes: z.array(z.enum(['CAWI', 'CAPI', 'CATI'])).min(1, {
     message: i18next.t('release.form.collectMode.required'),
   }),
   context: z.enum(['HOUSEHOLD', 'BUSINESS'], {

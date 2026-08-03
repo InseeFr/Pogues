@@ -37,7 +37,7 @@ export type ReleaseRequestDTO = {
 export type CreateReleaseDTO = {
   poguesId: string
   releaseDescription: string
-  mode: TargetMode
+  modes: TargetMode[]
   context: ReleaseContextDTO
   overrideGenerationParameters: OverrideGenerationParametersDTO
 }

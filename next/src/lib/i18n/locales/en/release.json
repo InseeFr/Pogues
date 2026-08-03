@@ -23,6 +23,8 @@
     "failed": "Failed "
   },
   "deleteRequest": "Delete this request",
+  "deleteRequestSuccess": "Release request deleted successfully",
+  "deleteRequestError": "Error occurred while deleting the release request",
   "copy": {
     "tooltip": "Copy to clipboard",
     "copiedTooltip": "Copied!",

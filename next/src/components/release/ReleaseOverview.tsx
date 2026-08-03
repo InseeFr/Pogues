@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
 
-import { useState } from 'react'
-
 import type { RegistryRelease, ReleaseRequest } from '../../models/releases'
 import { RegistryReleaseTile } from './overview/RegistryReleaseTile'
 import { ReleaseRequestTile } from './overview/ReleaseRequestTile'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deleteReleaseRequest, releasesKeys } from '@/api/releases'
+import { toast } from 'react-hot-toast'
 
 interface ReleaseOveriewProps {
   pendingRequests: ReleaseRequest[]
@@ -23,20 +24,45 @@ export default function ReleaseOverview({
   pendingRequests,
   releases,
 }: Readonly<ReleaseOveriewProps>) {
+
   const { t } = useTranslation()
 
-  const [requests, setRequests] = useState<ReleaseRequest[]>(pendingRequests)
+  const queryClient = useQueryClient()
+
   const publications = releases
 
-  const hasAnyContent = requests.length > 0 || publications.length > 0
+  const hasAnyContent = pendingRequests.length > 0 || publications.length > 0
 
-  function handleDeleteRequest(releaseRequestId: number) {
-    setRequests((prev) =>
-      prev.filter((d) => d.releaseRequestId !== releaseRequestId),
-    )
+  const deleteMutation = useMutation({
+    mutationFn: ({
+      questionnaireId,
+      trackerId,
+    }: {
+      questionnaireId: string
+      trackerId: number
+    }) => {
+      return deleteReleaseRequest(questionnaireId, trackerId)
+    },
+    onSuccess: (_, { questionnaireId }) =>
+      queryClient.invalidateQueries({
+        queryKey: releasesKeys.pending(questionnaireId),
+      }),
+  })
+
+  function onDelete(trackerId: number) {
+    const promise = deleteMutation.mutateAsync({
+      questionnaireId: pendingRequests[0].poguesId,
+      trackerId: trackerId,
+    })
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('release.deleteRequestSuccess', { label: trackerId }),
+      error: t('release.deleteRequestError')
+    })
   }
 
-  const sortedRequests = sortByRequestDateDesc(requests)
+
+  const sortedRequests = sortByRequestDateDesc(pendingRequests)
   const sortedPublications = sortByReleaseDateDesc(publications)
 
   if (!hasAnyContent) {
@@ -58,7 +84,7 @@ export default function ReleaseOverview({
             <ReleaseRequestTile
               key={request.releaseRequestId}
               request={request}
-              onDelete={handleDeleteRequest}
+              onDelete={() => onDelete(request.releaseRequestId)}
             />
           ))}
         </div>

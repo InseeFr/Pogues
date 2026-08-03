@@ -14,6 +14,8 @@ import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
 import { TargetModes } from '@/models/questionnaires'
 
+const RELEASE_TARGET_MODES = [TargetModes.CAWI, TargetModes.CAPI, TargetModes.CATI]
+
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts'
 import { type FormValues, schema } from './schema'
 
@@ -45,7 +47,7 @@ export default function ReleaseForm({
     mode: 'onChange',
     defaultValues: {
       releaseDescription: '',
-      mode: ['CAWI'],
+      modes: ['CAWI'],
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
         responseTimeQuestion: false,
@@ -56,7 +58,7 @@ export default function ReleaseForm({
   })
 
   const contextValue = watch('context')
-  const targetMode = watch('mode')
+  const targetMode = watch('modes')
 
   const isSeriesMissing = !seriesId || !seriesLabel
   const isFormValid = isValid && !isSeriesMissing
@@ -161,7 +163,7 @@ export default function ReleaseForm({
         />
 
         <Controller
-          name="mode"
+          name="modes"
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -184,6 +186,7 @@ export default function ReleaseForm({
                 )
               }}
               multiple={true}
+              availableModes={RELEASE_TARGET_MODES}
               error={error?.message}
             />
           )}
