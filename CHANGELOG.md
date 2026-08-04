@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.7.1](https://github.com/InseeFr/Pogues/releases/tag/3.7.1) - 2026-08-04
+
+### Changed
+
+- Series are no longer mandatory in questionnaire details
+
 ## [3.7.0](https://github.com/InseeFr/Pogues/releases/tag/3.7.0) - 2026-07-27
 
 ### Added
