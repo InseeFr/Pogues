@@ -25,7 +25,7 @@ export default function Autocomplete<T extends string>({
   return (
     <Combobox.Root
       value={value ?? null}
-      onValueChange={(v) => onChange?.(v as T)}
+      onValueChange={(v) => onChange?.((v ?? '') as T)}
       onInputValueChange={setInputValue}
       itemToStringLabel={(v) => {
         const option = options.find((o) => o.value === v)

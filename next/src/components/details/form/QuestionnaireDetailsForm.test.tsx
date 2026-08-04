@@ -227,4 +227,30 @@ describe('QuestionnaireDetailsForm', () => {
     })
     expect(screen.getByText(/must provide a title/i)).toBeInTheDocument()
   })
+
+  it('clears selected serie when delete button is clicked', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+    await renderWithRouter(
+      <QuestionnaireDetailsForm
+        series={series}
+        defaultValues={validDefaultValues}
+        onSubmit={onSubmit}
+        submitLabel="Edit"
+      />,
+    )
+
+    await user.click(screen.getByTitle(/delete/i))
+
+    await user.click(screen.getByTestId('form-submit-button'))
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledOnce()
+    })
+    expect(onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        serie: '',
+      }),
+    )
+  })
 })
