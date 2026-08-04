@@ -20,9 +20,7 @@ export const schema = z.object({
     .min(1, { error: i18next.t('details.form.mustProvideSerie') }),
   flowLogic: z.enum(FlowLogics),
   formulasLanguage: z.enum(FormulasLanguages),
-  serie: z
-    .string()
-    .min(1, { error: i18next.t('details.form.mustProvideSerie') }),
+  serie: z.string().optional(),
   operation: z.string().optional(),
 })
 
