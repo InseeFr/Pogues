@@ -60,6 +60,7 @@ export default function QuestionnaireDetailsForm({
 
   const selectedSerie = watch('serie')
 
+  const [isSerieOpen, setIsSerieOpen] = useState(false)
   const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
 
   useEffect(() => {
@@ -141,6 +142,8 @@ export default function QuestionnaireDetailsForm({
                   options={seriesOptions}
                   value={value || undefined}
                   disabled={readOnly}
+                  open={isSerieOpen}
+                  onOpenChange={setIsSerieOpen}
                   onChange={(serieValue = '') => {
                     onChange(serieValue)
                     handleSerieChange(serieValue)
@@ -154,6 +157,7 @@ export default function QuestionnaireDetailsForm({
                   onClick={() => {
                     onChange('')
                     handleSerieChange('')
+                    setIsSerieOpen(false)
                   }}
                 />
               ) : null}

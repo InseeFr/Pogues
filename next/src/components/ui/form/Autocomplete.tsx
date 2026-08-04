@@ -9,12 +9,16 @@ type Props<T> = {
   options: { label: string; value: T }[]
   value?: T
   disabled?: boolean
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export default function Autocomplete<T extends string>({
   onChange,
   options = [],
   value,
+  open,
+  onOpenChange,
 }: Readonly<Props<T>>) {
   const [inputValue, setInputValue] = useState('')
 
@@ -25,6 +29,8 @@ export default function Autocomplete<T extends string>({
   return (
     <Combobox.Root
       value={value ?? null}
+      open={open}
+      onOpenChange={onOpenChange}
       onValueChange={(v) => onChange?.((v ?? '') as T)}
       onInputValueChange={setInputValue}
       itemToStringLabel={(v) => {
