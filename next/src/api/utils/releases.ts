@@ -65,6 +65,17 @@ function computeRegistryCollectionInstrumentDTO(
   }
 }
 
+const STATUS_DESCRIPTION_KEY_MAP: Record<string, string> = {
+  'error:publication': 'error.publication_default',
+}
+
+export function getStatusDescriptionKey(statusDescription: string): string {
+  return (
+    STATUS_DESCRIPTION_KEY_MAP[statusDescription] ??
+    statusDescription.replace(/:/g, '.')
+  )
+}
+
 /** Compute release requests from API data. */
 export function computeReleaseRequests(
   dtos: ReleaseRequestDTO[],

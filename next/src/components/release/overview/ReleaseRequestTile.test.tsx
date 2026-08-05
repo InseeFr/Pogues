@@ -58,6 +58,17 @@ describe('ReleaseRequestTile', () => {
     ).toBeInTheDocument()
   })
 
+  it('shows completed status badge', () => {
+    const request: ReleaseRequest = { ...baseRequest, status: 'COMPLETED' }
+    const { getByText } = renderWithI18n(
+      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
+    )
+
+    expect(
+      getByText((content) => content.startsWith('Validated')),
+    ).toBeInTheDocument()
+  })
+
   it('shows error message when failed with statusDescription', async () => {
     const user = userEvent.setup()
     const request: ReleaseRequest = {

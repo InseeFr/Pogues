@@ -13,7 +13,38 @@ import {
   computeRegistryReleaseDTO,
   computeReleaseRequest,
   computeReleaseRequestDTO,
+  getStatusDescriptionKey,
 } from './releases'
+
+describe('getStatusDescriptionKey', () => {
+  it.each([
+    ['publication:not_started', 'publication.not_started'],
+    ['publication:in_progress', 'publication.in_progress'],
+    ['publication:completed', 'publication.completed'],
+    ['error:generation:ddi', 'error.generation.ddi'],
+    ['error:generation:lunatic', 'error.generation.lunatic'],
+    ['error:generation:parameters', 'error.generation.parameters'],
+    ['error:publication:ddi', 'error.publication.ddi'],
+    ['error:publication:lunatic', 'error.publication.lunatic'],
+    ['error:publication:prerelease', 'error.publication.prerelease'],
+  ])('maps "%s" to key "%s"', (code, expected) => {
+    expect(getStatusDescriptionKey(code)).toBe(expected)
+  })
+
+  it('maps "error:publication" to the default publication key', () => {
+    expect(getStatusDescriptionKey('error:publication')).toBe(
+      'error.publication_default',
+    )
+  })
+
+  it('returns the original value for unknown codes', () => {
+    expect(getStatusDescriptionKey('unknown:code')).toBe('unknown.code')
+  })
+
+  it('returns an empty string for empty input', () => {
+    expect(getStatusDescriptionKey('')).toBe('')
+  })
+})
 
 describe('computeRegistryRelease', () => {
   it.each([

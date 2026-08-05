@@ -1,11 +1,12 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
+
+import { deleteReleaseRequest, releasesKeys } from '@/api/releases'
 
 import type { RegistryRelease, ReleaseRequest } from '../../models/releases'
 import { RegistryReleaseTile } from './overview/RegistryReleaseTile'
 import { ReleaseRequestTile } from './overview/ReleaseRequestTile'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteReleaseRequest, releasesKeys } from '@/api/releases'
-import { toast } from 'react-hot-toast'
 
 interface ReleaseOveriewProps {
   pendingRequests: ReleaseRequest[]
@@ -24,7 +25,6 @@ export default function ReleaseOverview({
   pendingRequests,
   releases,
 }: Readonly<ReleaseOveriewProps>) {
-
   const { t } = useTranslation()
 
   const queryClient = useQueryClient()
@@ -57,10 +57,9 @@ export default function ReleaseOverview({
     toast.promise(promise, {
       loading: t('common.loading'),
       success: t('release.deleteRequestSuccess', { label: trackerId }),
-      error: t('release.deleteRequestError')
+      error: t('release.deleteRequestError'),
     })
   }
-
 
   const sortedRequests = sortByRequestDateDesc(pendingRequests)
   const sortedPublications = sortByReleaseDateDesc(publications)
@@ -75,20 +74,24 @@ export default function ReleaseOverview({
 
   return (
     <div className="space-y-8">
-      {sortedRequests.length > 0 && (
-        <div className="relative bg-default border border-default shadow-md">
-          <div className="border-b border-default px-4 py-3">
-            <h3>{t('release.publicationRequests')}</h3>
-          </div>
-          {sortedRequests.map((request) => (
+      <div className="relative bg-default border border-default shadow-md">
+        <div className="border-b border-default px-4 py-3">
+          <h3>{t('release.publicationRequests')}</h3>
+        </div>
+        {sortedRequests.length > 0 ? (
+          sortedRequests.map((request) => (
             <ReleaseRequestTile
               key={request.releaseRequestId}
               request={request}
               onDelete={() => onDelete(request.releaseRequestId)}
             />
-          ))}
-        </div>
-      )}
+          ))
+        ) : (
+          <div className="px-4 py-3 text-color-secondary">
+            {t('release.noReleases')}
+          </div>
+        )}
+      </div>
 
       {sortedPublications.length > 0 && (
         <div className="relative bg-default border border-default shadow-md">

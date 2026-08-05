@@ -22,6 +22,26 @@
     "inProgress": "En cours ",
     "failed": "Échec "
   },
+  "statusDescription": {
+    "error": {
+      "generation": {
+        "ddi": "Erreur de génération DDI",
+        "lunatic": "Erreur de génération Lunatic",
+        "parameters": "Erreur lors de la customisation des paramètres de génération"
+      },
+      "publication": {
+        "ddi": "Erreur de publication DDI dans le registre",
+        "lunatic": "Erreur de publication de l'instrument de collecte dans le registre",
+        "prerelease": "Erreur d'initialisation de la publication dans le registre"
+      },
+      "publication_default": "Erreur lors de la publication du questionnaire"
+    },
+    "publication": {
+      "not_started": "Non débuté",
+      "in_progress": "En cours",
+      "completed": "Terminé"
+    }
+  },
   "deleteRequest": "Supprimer cette demande",
   "deleteRequestSuccess": "Demande supprimée avec succès",
   "deleteRequestError": "Erreur lors de la suppression de la demande",

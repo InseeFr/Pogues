@@ -111,4 +111,24 @@ describe('ReleaseOverview', () => {
     )
     expect(descriptions.length).toBeGreaterThanOrEqual(2)
   })
+
+  it('shows empty message when there are no pending requests', async () => {
+    const { getByText } = await renderWithRouter(
+      <ReleaseOverview pendingRequests={[]} releases={MOCK_PUBLICATIONS} />,
+    )
+
+    expect(getByText('No release available')).toBeInTheDocument()
+    expect(getByText('My release requests')).toBeInTheDocument()
+    expect(getByText('My publications')).toBeInTheDocument()
+  })
+
+  it('shows noPublication message when there are no requests and no publications', async () => {
+    const { getByText } = await renderWithRouter(
+      <ReleaseOverview pendingRequests={[]} releases={[]} />,
+    )
+
+    expect(
+      getByText('The questionnaire has not yet been published'),
+    ).toBeInTheDocument()
+  })
 })

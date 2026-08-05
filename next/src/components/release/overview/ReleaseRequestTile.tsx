@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 
+import { getStatusDescriptionKey } from '@/api/utils/releases'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import ExpandButton from '@/components/ui/ExpandButton'
 import Tooltip from '@/components/ui/Tooltip'
@@ -30,6 +31,14 @@ function getStatusLabel(
 
 function isFailedOrCompleted(status: ReleaseRequest['status']): boolean {
   return status === 'FAILED' || status === 'COMPLETED'
+}
+
+function getStatusDescription(statusDescription: string, t: TFunction): string {
+  if (!statusDescription) {
+    return ''
+  }
+  const key = getStatusDescriptionKey(statusDescription)
+  return t(`release.statusDescription.${key}`, statusDescription)
 }
 
 export function ReleaseRequestTile({
@@ -71,7 +80,9 @@ export function ReleaseRequestTile({
         <div className="font-semibold">{request.releaseDescription}</div>
         <div className="flex flex-row items-end gap-2">
           {request.status === 'FAILED' && request.statusDescription ? (
-            <Tooltip title={request.statusDescription}>{statusBadge}</Tooltip>
+            <Tooltip title={getStatusDescription(request.statusDescription, t)}>
+              {statusBadge}
+            </Tooltip>
           ) : (
             statusBadge
           )}
@@ -142,7 +153,7 @@ export function ReleaseRequestTile({
             </div>
             {request.status === 'FAILED' && request.statusDescription && (
               <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded p-2 mt-2">
-                {request.statusDescription}
+                {getStatusDescription(request.statusDescription, t)}
               </div>
             )}
           </div>

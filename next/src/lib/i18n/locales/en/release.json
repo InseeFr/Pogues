@@ -22,6 +22,26 @@
     "inProgress": "In progress ",
     "failed": "Failed "
   },
+  "statusDescription": {
+    "error": {
+      "generation": {
+        "ddi": "DDI generation error",
+        "lunatic": "Lunatic generation error",
+        "parameters": "Error when customising generation parameters"
+      },
+      "publication": {
+        "ddi": "Error publishing DDI to the registry",
+        "lunatic": "Error publishing collection instrument to the registry",
+        "prerelease": "Error initialising publication in the registry"
+      },
+      "publication_default": "Error when publishing the questionnaire"
+    },
+    "publication": {
+      "not_started": "Not started",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    }
+  },
   "deleteRequest": "Delete this request",
   "deleteRequestSuccess": "Release request deleted successfully",
   "deleteRequestError": "Error occurred while deleting the release request",
