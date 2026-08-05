@@ -80,7 +80,7 @@ describe('ReleaseForm', () => {
       expect(onSubmit).toHaveBeenCalledWith(
         expect.objectContaining({
           releaseDescription: 'My release',
-          mode: ['CAWI'],
+          modes: ['CAWI'],
           context: 'HOUSEHOLD',
           overrideGenerationParameters: expect.objectContaining({
             responseTimeQuestion: false,

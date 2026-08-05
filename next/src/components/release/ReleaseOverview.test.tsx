@@ -1,6 +1,6 @@
 import { MOCK_PUBLICATIONS } from '@/api/releases'
 import { TargetModes } from '@/models/questionnaires'
-import { renderWithI18n } from '@/testing/render'
+import { renderWithRouter } from '@/testing/render'
 
 import type { ReleaseRequest } from '../../models/releases'
 import ReleaseOverview from './ReleaseOverview'
@@ -66,15 +66,17 @@ describe('ReleaseOverview', () => {
     vi.stubEnv('VITE_TROMBI_URL', 'https://trombi.example.com')
   })
 
-  it('renders both sections with correct headers', () => {
-    const { getByText } = renderWithI18n(<ReleaseOverview {...defaultProps} />)
+  it('renders both sections with correct headers', async () => {
+    const { getByText } = await renderWithRouter(
+      <ReleaseOverview {...defaultProps} />,
+    )
 
     expect(getByText('My release requests')).toBeInTheDocument()
     expect(getByText('My publications')).toBeInTheDocument()
   })
 
-  it('renders all request tiles', () => {
-    const { getByText, getAllByText } = renderWithI18n(
+  it('renders all request tiles', async () => {
+    const { getByText, getAllByText } = await renderWithRouter(
       <ReleaseOverview {...defaultProps} />,
     )
 
@@ -86,16 +88,18 @@ describe('ReleaseOverview', () => {
     ).toBeInTheDocument()
   })
 
-  it('renders all publication tiles', () => {
-    const { getByText } = renderWithI18n(<ReleaseOverview {...defaultProps} />)
+  it('renders all publication tiles', async () => {
+    const { getByText } = await renderWithRouter(
+      <ReleaseOverview {...defaultProps} />,
+    )
 
     expect(getByText('ESA 2026 PROD')).toBeInTheDocument()
     expect(getByText('ESA 2026 TEST TERRAIN')).toBeInTheDocument()
     expect(getByText("Publication la plus ancienne d'ESA")).toBeInTheDocument()
   })
 
-  it('renders requests sorted by date descending', () => {
-    const { getAllByText } = renderWithI18n(
+  it('renders requests sorted by date descending', async () => {
+    const { getAllByText } = await renderWithRouter(
       <ReleaseOverview {...defaultProps} />,
     )
 

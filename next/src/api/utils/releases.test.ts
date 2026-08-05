@@ -100,7 +100,7 @@ describe('computeCreateReleaseDTO', () => {
   it('should compute a create release DTO from form values', () => {
     const formValues: FormValues = {
       releaseDescription: 'New release',
-      mode: ['CAWI', 'CAPI'],
+      modes: ['CAWI', 'CAPI'],
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
         questionNumberingMode: 'SEQUENCE',
@@ -111,7 +111,7 @@ describe('computeCreateReleaseDTO', () => {
     expect(computeCreateReleaseDTO('my-questionnaire', formValues)).toEqual({
       poguesId: 'my-questionnaire',
       releaseDescription: 'New release',
-      mode: 'CAWI',
+      modes: ['CAWI', 'CAPI'],
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
         questionNumberingMode: 'SEQUENCE',
