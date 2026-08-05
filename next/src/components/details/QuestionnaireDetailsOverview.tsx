@@ -20,7 +20,7 @@ import type { FormValues } from './form/schema'
 interface DetailsOverviewProps {
   questionnaireId: string
   questionnaireDetails: QuestionnaireDetailsDTO
-  series: SerieItem[]
+  series?: SerieItem[]
 }
 
 /**
@@ -42,7 +42,12 @@ export default function DetailsOverview({
   const mutation = useMutation({
     mutationFn: (params: {
       data: FormValues
-      serieDetails: { id: string; uri: string; label: string; altLabel: string }
+      serieDetails?: {
+        id: string
+        uri: string
+        label: string
+        altLabel: string
+      }
     }) => {
       const dto = computeQuestionnaireDetailsDTO(
         params.data,
@@ -71,8 +76,12 @@ export default function DetailsOverview({
     if (!pendingFormData) return
 
     try {
-      const serieDetails = await getSerieById(pendingFormData.serie)
-      mutation.mutate({ data: pendingFormData, serieDetails })
+      if (pendingFormData.serie) {
+        const serieDetails = await getSerieById(pendingFormData.serie)
+        mutation.mutate({ data: pendingFormData, serieDetails })
+      } else {
+        mutation.mutate({ data: pendingFormData })
+      }
     } catch {
       toast.error(t('details.form.updateError'))
     }

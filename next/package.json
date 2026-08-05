@@ -29,7 +29,7 @@
     "@tanstack/react-router": "^1.121.34",
     "axios": "^1.11.0",
     "dayjs": "^1.11.13",
-    "i18next": "^25.5.2",
+    "i18next": "^26.0.0",
     "i18next-browser-languagedetector": "^8.2.0",
     "oidc-spa": "^10.1.0",
     "papaparse": "^5.5.3",
@@ -39,7 +39,7 @@
     "react-error-boundary": "^5.0.0",
     "react-hook-form": "^7.62.0",
     "react-hot-toast": "^2.5.1",
-    "react-i18next": "^15.4.0",
+    "react-i18next": "^17.0.0",
     "vite-envs": "^4.4.11",
     "zod": "^4.0.5"
   },
