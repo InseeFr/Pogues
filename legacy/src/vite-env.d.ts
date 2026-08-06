@@ -8,6 +8,11 @@ type ImportMetaEnv = {
   VITE_OIDC_CLIENT_ID: string
   VITE_OIDC_SCOPES: string
   VITE_ENABLE_PAIRING_RECAP: string
+  VITE_TROMBI_URL: string
+  VITE_PERSONALIZATION_URL: string
+  VITE_ENABLE_ARTICULATION_PAGE: string
+  VITE_ENABLE_MULTIMODE_PAGE: string
+  VITE_ENABLE_DOWNLOAD_PDF_PERSO: string
   BASE_URL: string
   MODE: string
   DEV: boolean
