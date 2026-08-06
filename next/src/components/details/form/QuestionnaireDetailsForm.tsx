@@ -121,6 +121,31 @@ export default function QuestionnaireDetailsForm({
         )}
       />
       <Controller
+        name="name"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('details.questionnaireName')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Input
+              autoFocus
+              value={value}
+              onValueChange={onChange}
+              disabled={readOnly}
+            />
+          </Field>
+        )}
+      />
+      <Controller
         name="serie"
         control={control}
         render={({

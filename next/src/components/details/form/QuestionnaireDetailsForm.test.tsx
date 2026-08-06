@@ -47,7 +47,7 @@ const validDefaultValues: Partial<FormValues> = {
 describe('QuestionnaireDetailsForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    getSerieById.mockResolvedValue(mockSerieDetail)
+    vi.mocked(getSerieById).mockResolvedValue(mockSerieDetail)
   })
 
   it('renders all form fields with correct labels', async () => {
@@ -61,6 +61,9 @@ describe('QuestionnaireDetailsForm', () => {
 
     expect(
       screen.getByRole('textbox', { name: /questionnaire title/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('textbox', { name: /questionnaire name/i }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('textbox', { name: /ddi agency/i }),
@@ -176,7 +179,7 @@ describe('QuestionnaireDetailsForm', () => {
   })
 
   it('fetches serie details when serie defaults are provided', async () => {
-    getSerieById.mockResolvedValue(mockSerieDetail)
+    vi.mocked(getSerieById).mockResolvedValue(mockSerieDetail)
 
     await renderWithRouter(
       <QuestionnaireDetailsForm

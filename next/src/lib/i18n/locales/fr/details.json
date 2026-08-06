@@ -6,6 +6,7 @@
   "altLabel": "Libellé court",
   "campaigns": "Campagnes",
   "questionnaireTitle": "Titre du questionnaire",
+  "questionnaireName": "Nom court",
   "collectMode": "Mode de collecte",
   "formulaLanguage": "Formules spécifiées en",
   "flowLogic": "Dynamique spécifiée en",
