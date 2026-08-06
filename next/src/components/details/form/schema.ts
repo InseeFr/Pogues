@@ -8,6 +8,9 @@ import {
 } from '@/models/questionnaires'
 
 export const schema = z.object({
+  title: z
+    .string()
+    .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
   name: z
     .string()
     .min(1, { error: i18next.t('details.form.mustProvideName') })
@@ -15,9 +18,6 @@ export const schema = z.object({
     .regex(/^[A-Za-z0-9_]+$/, {
       error: i18next.t('details.form.nameInvalidChars'),
     }),
-  title: z
-    .string()
-    .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
   targetModes: z
     .array(z.enum(TargetModes))
     .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),

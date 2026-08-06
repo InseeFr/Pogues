@@ -137,12 +137,7 @@ export default function QuestionnaireDetailsForm({
             required
             touched={isTouched}
           >
-            <Input
-              autoFocus
-              value={value}
-              onValueChange={onChange}
-              disabled={readOnly}
-            />
+            <Input value={value} onValueChange={onChange} disabled={readOnly} />
           </Field>
         )}
       />
@@ -241,12 +236,7 @@ export default function QuestionnaireDetailsForm({
             touched={isTouched}
             disabled
           >
-            <Input
-              autoFocus
-              value={'fr.insee'}
-              onValueChange={onChange}
-              disabled
-            />
+            <Input value={'fr.insee'} onValueChange={onChange} disabled />
           </Field>
         )}
       />
