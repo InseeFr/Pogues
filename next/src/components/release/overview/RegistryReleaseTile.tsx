@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useId, useState } from 'react'
 
+import Button, { ButtonStyle } from '@/components/ui/Button'
 import ExpandButton from '@/components/ui/ExpandButton'
 import { TargetModes } from '@/models/questionnaires'
 import { computeDayFromDate, computeFullDateFromDate } from '@/utils/date'
@@ -11,7 +12,6 @@ import type {
   RegistryRelease,
 } from '../../../models/releases'
 import OpenInNewIcon from '../../ui/icons/OpenInNewIcon'
-import VisualizeIcon from '../../ui/icons/VisualizeIcon'
 import { CopyButton } from './CopyButton'
 import { ReleaseOptionalParametersDisplay } from './ReleaseOptionalParametersDisplay'
 
@@ -23,6 +23,10 @@ function RegistryCollectionInstrumentCard({
   const { t } = useTranslation()
   const expandDetailsId = useId()
   const [isExpanded, setIsExpanded] = useState(false)
+
+  const handleNavigateVisualize = (visualizeUrl: string) => {
+    window.open(visualizeUrl, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <div className="border border-default rounded">
@@ -49,7 +53,7 @@ function RegistryCollectionInstrumentCard({
           id={expandDetailsId}
           className="border-t border-default px-3 py-2 space-y-2 text-sm"
         >
-          <div className="flex flex-row flex-wrap items-center gap-x-6 gap-y-1">
+          <div className="flex flex-row flex-wrap items-center space-around gap-x-6 gap-y-1">
             <div>
               <b className="text-gray-500 font-normal">
                 {t('release.collectInstrument')} :{' '}
@@ -63,13 +67,14 @@ function RegistryCollectionInstrumentCard({
               </b>
               {instrument.version}
             </div>
-            <a
-              href={instrument.visualizeUrl}
-              target="_blank"
-              className="text-action-primary fill-action-primary inline-flex items-center gap-1 hover:underline"
+            <Button
+              type="button"
+              onClick={() => handleNavigateVisualize(instrument.visualizeUrl)}
+              buttonStyle={ButtonStyle.Primary}
+              className="ml-auto"
             >
-              <VisualizeIcon height="16" width="16" />
-            </a>
+              {t('release.vizualiseLink')}
+            </Button>
           </div>
           {instrument.overrideGenerationParameters && (
             <ReleaseOptionalParametersDisplay

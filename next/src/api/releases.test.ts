@@ -2,9 +2,12 @@ import nock from 'nock'
 
 import { TargetModes } from '@/models/questionnaires'
 
-import type { CreateReleaseDTO, ReleaseRequestDTO } from './models/releaseDTO'
+import type {
+  CreateReleaseDTO,
+  RegistryReleaseDTO,
+  ReleaseRequestDTO,
+} from './models/releaseDTO'
 import {
-  MOCK_PUBLICATIONS,
   deleteReleaseRequest,
   getPendingReleases,
   getReleases,
@@ -13,18 +16,53 @@ import {
 
 vi.mock('@/lib/auth/oidc')
 
+const registryReleaseDTO: RegistryReleaseDTO = {
+  author: 'xbeltv',
+  releaseDate: '2026-07-06T10:30:00.000Z',
+  poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
+  releaseDescription: 'Release description',
+  context: 'HOUSEHOLD',
+  collectionInstruments: [
+    {
+      mode: 'CAWI',
+      collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
+      version: 1,
+      overrideGenerationParameters: {
+        questionNumberingMode: 'SEQUENCE',
+        responseTimeQuestion: true,
+      },
+      visualizeUrl: 'https://visu.example.com/test',
+    },
+  ],
+}
+
 it('Get releases works', async () => {
-  // const releases: RegistryReleaseDTO[] = [registryReleaseDTO]
-
-  // nock('https://mock-api')
-  //   .get('/persistence/questionnaire/my-questionnaire/releases')
-  //   .reply(200, releases)
-
-  // const res = await getReleases('my-questionnaire')
-  // expect(res).toEqual([registryRelease])
+  nock('https://mock-api')
+    .get('/questionnaire/my-questionnaire/releases')
+    .reply(200, [registryReleaseDTO])
 
   const res = await getReleases('my-questionnaire')
-  expect(res).toEqual(MOCK_PUBLICATIONS)
+  expect(res).toEqual([
+    {
+      author: 'xbeltv',
+      releaseDate: new Date('2026-07-06T10:30:00.000Z').getTime(),
+      poguesVersionId: '550e8400-e29b-41d4-a716-446655440000',
+      releaseDescription: 'Release description',
+      context: 'HOUSEHOLD',
+      collectionInstruments: [
+        {
+          mode: TargetModes.CAWI,
+          collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
+          version: 1,
+          overrideGenerationParameters: {
+            questionNumberingMode: 'SEQUENCE',
+            responseTimeQuestion: true,
+          },
+          visualizeUrl: 'https://visu.example.com/test',
+        },
+      ],
+    },
+  ])
 })
 
 it('Get pending releases works', async () => {
@@ -65,7 +103,7 @@ it('Post release works', async () => {
   const createRelease: CreateReleaseDTO = {
     poguesId: 'my-questionnaire',
     releaseDescription: 'New release',
-    mode: 'CAWI',
+    modes: ['CAWI'],
     context: 'HOUSEHOLD',
     overrideGenerationParameters: {
       questionNumberingMode: 'SEQUENCE',

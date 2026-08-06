@@ -2,6 +2,7 @@
   "author": "Author",
   "id": "ID",
   "noReleases": "No release available",
+  "noReleaseRequests": "No release request pending",
   "oldReleases": "{{count}} older releases",
   "questionnaireIsReadonly": "This release of the survey is on readonly.",
   "title": "Releases",
@@ -54,6 +55,7 @@
   "version": "Version",
   "publicationDate": "Publication date",
   "poguesSave": "Pogues save",
+  "vizualiseLink": "Visualize collection instrument",
   "form": {
     "introduction": "You are about to publish in the survey questionnaire register a version of your questionnaire based on the latest save. Make sure you have completed your review beforehand.",
     "seriesInfo": "Series information",

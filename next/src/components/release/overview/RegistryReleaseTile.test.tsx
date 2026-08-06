@@ -130,21 +130,27 @@ describe('RegistryReleaseTile', () => {
     ).toBeNull()
   })
 
-  it('renders the visualize link of the collection instrument', async () => {
+  it('renders the visualize button of the collection instrument', async () => {
+    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
     const user = userEvent.setup()
-    const { getByRole, getAllByRole } = renderWithI18n(
+    const { getByRole } = renderWithI18n(
       <RegistryReleaseTile release={mockRelease} />,
     )
 
     await user.click(getByRole('button', { name: 'CAPI' }))
 
-    const links = getAllByRole('link')
-    const visualizeLink = links.find(
-      (link) =>
-        link.getAttribute('href') === 'https://visu.example.com/esa-2026',
+    const visualizeButton = getByRole('button', {
+      name: 'Visualize collection instrument',
+    })
+    expect(visualizeButton).toBeInTheDocument()
+
+    await user.click(visualizeButton)
+    expect(openSpy).toHaveBeenCalledWith(
+      'https://visu.example.com/esa-2026',
+      '_blank',
+      'noopener,noreferrer',
     )
-    expect(visualizeLink).toBeDefined()
-    expect(visualizeLink).toHaveAttribute('target', '_blank')
+    openSpy.mockRestore()
   })
 
   it('renders author link with trombi URL', () => {

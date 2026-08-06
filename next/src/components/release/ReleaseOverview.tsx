@@ -88,12 +88,12 @@ export default function ReleaseOverview({
           ))
         ) : (
           <div className="px-4 py-3 text-color-secondary">
-            {t('release.noReleases')}
+            {t('release.noReleaseRequests')}
           </div>
         )}
       </div>
 
-      {sortedPublications.length > 0 && (
+      {sortedPublications.length > 0 ? (
         <div className="relative bg-default border border-default shadow-md">
           <div className="border-b border-default px-4 py-3">
             <h3>{t('release.myPublications')}</h3>
@@ -104,6 +104,10 @@ export default function ReleaseOverview({
               release={release}
             />
           ))}
+        </div>
+      ) : (
+        <div className="px-4 py-3 text-color-secondary">
+          {t('release.noReleases')}
         </div>
       )}
     </div>

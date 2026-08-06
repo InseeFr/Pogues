@@ -4,8 +4,15 @@ import { TargetModes } from '@/models/questionnaires'
 import type { RegistryRelease, ReleaseRequest } from '@/models/releases'
 
 import { instance } from './instance'
-import type { CreateReleaseDTO, ReleaseRequestDTO } from './models/releaseDTO'
-import { computeReleaseRequests } from './utils/releases'
+import type {
+  CreateReleaseDTO,
+  RegistryReleaseDTO,
+  ReleaseRequestDTO,
+} from './models/releaseDTO'
+import {
+  computeRegistryReleases,
+  computeReleaseRequests,
+} from './utils/releases'
 
 export const MOCK_PUBLICATIONS: RegistryRelease[] = [
   {
@@ -100,14 +107,13 @@ export async function getReleases(
 ): Promise<RegistryRelease[]> {
   console.log('questionnaireId', questionnaireId)
 
-  // return instance
-  //   .get(`/questionnaire/${questionnaireId}/releases`, {
-  //     headers: { Accept: 'application/json' },
-  //   })
-  //   .then(({ data }: { data: RegistryReleaseDTO[] }) => {
-  //     return computeRegistryReleases(data)
-  //   })
-  return Promise.resolve(MOCK_PUBLICATIONS)
+  return instance
+    .get(`/questionnaire/${questionnaireId}/releases`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: RegistryReleaseDTO[] }) => {
+      return computeRegistryReleases(data)
+    })
 }
 
 /** Retrieve questionnaire pending releases by the questionnaire id. */

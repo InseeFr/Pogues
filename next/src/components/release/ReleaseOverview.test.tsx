@@ -117,7 +117,7 @@ describe('ReleaseOverview', () => {
       <ReleaseOverview pendingRequests={[]} releases={MOCK_PUBLICATIONS} />,
     )
 
-    expect(getByText('No release available')).toBeInTheDocument()
+    expect(getByText('No release request pending')).toBeInTheDocument()
     expect(getByText('My release requests')).toBeInTheDocument()
     expect(getByText('My publications')).toBeInTheDocument()
   })
