@@ -11,10 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - restore desired uri after login
 
-### Fixed
-
-- fix outline visibility on button when focused
-
 ### Changed
 
 - migrate to latest oidc-spa (v10)
