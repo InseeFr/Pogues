@@ -1,4 +1,4 @@
-import { Checkbox as BaseUICheckbox } from '@base-ui-components/react/checkbox'
+import { Checkbox as BaseUICheckbox } from '@base-ui/react/checkbox'
 
 import * as React from 'react'
 

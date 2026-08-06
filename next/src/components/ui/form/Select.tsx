@@ -1,4 +1,4 @@
-import { Select as BaseUISelect } from '@base-ui-components/react/select'
+import { Select as BaseUISelect } from '@base-ui/react/select'
 
 import ArrowDownIcon from '../icons/ArrowDownIcon'
 
@@ -34,7 +34,7 @@ type Props<T> = {
  * ```
  */
 export default function Select<T>({
-  onChange = () => {},
+  onChange = () => { },
   options = [],
   defaultValue,
   value,
