@@ -80,8 +80,9 @@ export default function QuestionnaireDetailsForm({
   )
 
   const handleFormSubmit = (data: FormValues) => {
-    onSubmit(data)
-    reset(data)
+    const submittedData = { ...data, name: data.name.toUpperCase() }
+    onSubmit(submittedData)
+    reset(submittedData)
   }
 
   const handleCancel = () => {

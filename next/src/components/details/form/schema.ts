@@ -12,7 +12,7 @@ export const schema = z.object({
     .string()
     .min(1, { error: i18next.t('details.form.mustProvideName') })
     .max(10, { error: i18next.t('details.form.nameMaxLength') })
-    .regex(/^[A-Z0-9_]+$/, {
+    .regex(/^[A-Za-z0-9_]+$/, {
       error: i18next.t('details.form.nameInvalidChars'),
     }),
   title: z
