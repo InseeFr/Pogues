@@ -1,4 +1,4 @@
-import { Menu as UIMenu } from '@base-ui-components/react/menu'
+import { Menu as UIMenu } from '@base-ui/react/menu'
 
 import { MenuItemType } from './consts/menuItemVariants'
 import MenuIcon from './icons/MenuIcon'
