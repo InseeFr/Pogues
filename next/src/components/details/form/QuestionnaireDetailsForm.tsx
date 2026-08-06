@@ -131,7 +131,21 @@ export default function QuestionnaireDetailsForm({
             dirty={isDirty}
             error={error}
             invalid={invalid}
-            label={t('details.questionnaireName')}
+            label={
+              <div className="flex items-bottom gap-1">
+                <i> {t('details.agency')}</i>
+
+                <Tooltip title={<div>{t('details.form.nameHintLabel')}</div>}>
+                  <InfoIcon
+                    height="12"
+                    width="12"
+                    className="cursor-help"
+                    role="img"
+                    aria-label={`${t('details.form.nameHintLabel')}`}
+                  />
+                </Tooltip>
+              </div>
+            }
             name={name}
             required
             touched={isTouched}
