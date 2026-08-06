@@ -16,6 +16,8 @@ export default mergeConfig(
       environment: 'jsdom',
       include: ['src/**/*.{test,spec}.{ts,tsx}'],
       coverage: {
+        include: ['src/**/*.{ts,tsx}'],
+        exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}'],
         reporter: ['text', 'lcov'],
       },
     },
