@@ -35,7 +35,7 @@ export default function Button({
       onClick={!disabled ? onClick : undefined}
       disabled={disabled || isLoading}
       aria-disabled={disabled || isLoading}
-      className={`${className} border cursor-pointer font-semibold transition rounded disabled:cursor-not-allowed outline-hidden focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary text-nowrap
+      className={`${className} border cursor-pointer font-semibold transition rounded disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 text-nowrap
         ${
           buttonStyle === ButtonStyle.Primary
             ? 'bg-primary text-negative disabled:bg-primary-disabled hover:enabled:bg-primary-accent active:enabled:bg-primary-active'

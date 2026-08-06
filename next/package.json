@@ -39,7 +39,7 @@
     "react-error-boundary": "^5.0.0",
     "react-hook-form": "^7.62.0",
     "react-hot-toast": "^2.5.1",
-    "react-i18next": "^15.4.0",
+    "react-i18next": "^17.0.0",
     "vite-envs": "^4.4.11",
     "zod": "^4.0.5"
   },
