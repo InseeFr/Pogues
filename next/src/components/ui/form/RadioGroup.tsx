@@ -1,5 +1,5 @@
-import { Radio as BaseUIRadio } from '@base-ui-components/react/radio'
-import { RadioGroup as BaseUIRadioGroup } from '@base-ui-components/react/radio-group'
+import { Radio as BaseUIRadio } from '@base-ui/react/radio'
+import { RadioGroup as BaseUIRadioGroup } from '@base-ui/react/radio-group'
 
 import Label from './Label'
 

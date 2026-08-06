@@ -1,4 +1,4 @@
-import { NumberField as BaseUINumberField } from '@base-ui-components/react/number-field'
+import { NumberField as BaseUINumberField } from '@base-ui/react/number-field'
 
 import { MinusIcon } from '../icons/MinusIcon'
 import { PlusIcon } from '../icons/PlusIcon'

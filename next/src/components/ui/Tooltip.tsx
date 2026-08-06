@@ -1,4 +1,4 @@
-import { Tooltip as UITooltip } from '@base-ui-components/react/tooltip'
+import { Tooltip as UITooltip } from '@base-ui/react/tooltip'
 
 import * as React from 'react'
 
@@ -16,7 +16,7 @@ export default function Tooltip({ children, title }: Readonly<TooltipProps>) {
   return (
     <UITooltip.Provider>
       <UITooltip.Root>
-        <UITooltip.Trigger>{children}</UITooltip.Trigger>
+        <UITooltip.Trigger delay={100}>{children}</UITooltip.Trigger>
         <UITooltip.Portal>
           <UITooltip.Positioner sideOffset={10}>
             <UITooltip.Popup className="flex origin-[var(--transform-origin)] flex-col rounded-md bg-[canvas] px-2 py-1 text-sm shadow-lg shadow-gray-200 outline outline-gray-200 transition-[transform,scale,opacity] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[instant]:duration-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1 dark:outline-gray-300">
