@@ -1,5 +1,5 @@
-import { Checkbox } from '@base-ui-components/react/checkbox'
-import { CheckboxGroup as UICheckboxGroup } from '@base-ui-components/react/checkbox-group'
+import { Checkbox } from '@base-ui/react/checkbox'
+import { CheckboxGroup as UICheckboxGroup } from '@base-ui/react/checkbox-group'
 
 import { useId } from 'react'
 

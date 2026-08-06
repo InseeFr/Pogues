@@ -1,4 +1,4 @@
-import { Input as BaseUIInput } from '@base-ui-components/react/input'
+import { Input as BaseUIInput } from '@base-ui/react/input'
 
 import React from 'react'
 

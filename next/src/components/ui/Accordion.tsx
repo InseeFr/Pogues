@@ -1,4 +1,4 @@
-import { Accordion as UIAccordion } from '@base-ui-components/react/accordion'
+import { Accordion as UIAccordion } from '@base-ui/react/accordion'
 
 import * as React from 'react'
 
