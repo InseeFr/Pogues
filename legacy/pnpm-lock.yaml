@@ -75,8 +75,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1
       react-csv-reader:
-        specifier: ^3.1.2
-        version: 3.5.2(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^4.0.0
+        version: 4.0.0(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-dnd:
         specifier: 2.6.0
         version: 2.6.0(react@18.3.1)
@@ -2950,12 +2950,12 @@ packages:
   react-classset@0.0.2:
     resolution: {integrity: sha512-dcrmTCT96T1EsSUAbgEhJbf62u0/WJj6PoxrsmwXAEw9eaXKvk0NAzRAtWEWiQ5XkWGgrEuhH9hrQDAwo+PgBA==}
 
-  react-csv-reader@3.5.2:
-    resolution: {integrity: sha512-SRjVAHaLOFy3s7R8iJdN0PHcIdLs+8MHy97fsZeSPD1feB/Fg2qidgALmu9DUHneMa0rkNDG/qeFp//r7HWH8Q==}
+  react-csv-reader@4.0.0:
+    resolution: {integrity: sha512-NRo27kv1YWYAJAR3H5ZZ5KREEw35avUtdGr4DwYel87QN3rwJf2wdAw97swNDO3cTW2i3cuXSNjfPqVIJm5xOg==}
     peerDependencies:
       prop-types: ^15.7.2
-      react: ^16.0.0 || ^17.0.0
-      react-dom: ^16.0.0 || ^17.0.0
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-dnd-html5-backend@2.6.0:
     resolution: {integrity: sha512-8gOfBfqFikWmXvAGSZz1mgoctwkcsKdUC9POt/WGnMoZwGB4ivB0Ex5D6pwHTNjvAs0ixqqWdJKy57CzjDg5Sg==}
@@ -6595,7 +6595,7 @@ snapshots:
 
   react-classset@0.0.2: {}
 
-  react-csv-reader@3.5.2(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-csv-reader@4.0.0(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       papaparse: 5.4.1
       prop-types: 15.8.1
