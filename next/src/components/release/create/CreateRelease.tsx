@@ -18,8 +18,8 @@ export default function CreateRelease({
     <div className="bg-default p-4 border border-default shadow-xl">
       <CreateReleaseForm
         questionnaireId={questionnaireId}
-        seriesId={serie ? serie.id : ''}
-        seriesLabel={serie ? serie.label : ''}
+        seriesId={serie ? serie.label : ''}
+        seriesLabel={serie ? serie.altLabel : ''}
         targetModes={targetModes}
       />
     </div>

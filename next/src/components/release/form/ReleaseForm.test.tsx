@@ -83,7 +83,7 @@ describe('ReleaseForm', () => {
           modes: ['CAWI'],
           context: 'HOUSEHOLD',
           overrideGenerationParameters: expect.objectContaining({
-            responseTimeQuestion: false,
+            responseTimeQuestion: true,
             questionNumberingMode: 'SEQUENCE',
           }),
         }),
@@ -111,7 +111,11 @@ describe('ReleaseForm', () => {
     await user.click(contextRadios[1])
 
     await waitFor(() => {
-      expect(screen.getByText('Optional parameters')).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).toBeInTheDocument()
     })
   })
 
@@ -127,7 +131,11 @@ describe('ReleaseForm', () => {
       />,
     )
 
-    expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(
+        'Optional parameters applied to Web questionnaires only',
+      ),
+    ).not.toBeInTheDocument()
   })
 
   it('should only show optional parameters section when targetMode includes CAWI', async () => {
@@ -152,7 +160,11 @@ describe('ReleaseForm', () => {
     await user.click(businessContextRadios[1])
 
     await waitFor(() => {
-      expect(screen.getByText('Optional parameters')).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).toBeInTheDocument()
     })
 
     const modeCheckboxes = screen.getAllByRole('checkbox')
@@ -161,19 +173,31 @@ describe('ReleaseForm', () => {
     await user.click(cawiCheckbox)
 
     await waitFor(() => {
-      expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).not.toBeInTheDocument()
     })
 
     await user.click(cawiCheckbox)
 
     await waitFor(() => {
-      expect(screen.getByText('Optional parameters')).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).toBeInTheDocument()
     })
 
     await user.click(cawiCheckbox)
 
     await waitFor(() => {
-      expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).not.toBeInTheDocument()
     })
   })
 
@@ -194,18 +218,30 @@ describe('ReleaseForm', () => {
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
 
-    expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(
+        'Optional parameters applied to Web questionnaires only',
+      ),
+    ).not.toBeInTheDocument()
 
     await user.click(contextRadios[1])
 
     await waitFor(() => {
-      expect(screen.getByText('Optional parameters')).toBeInTheDocument()
+      expect(
+        screen.getByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).toBeInTheDocument()
     })
 
     await user.click(contextRadios[0])
 
     await waitFor(() => {
-      expect(screen.queryByText('Optional parameters')).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).not.toBeInTheDocument()
     })
   })
 

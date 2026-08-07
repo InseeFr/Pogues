@@ -14,10 +14,14 @@ import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
 import { TargetModes } from '@/models/questionnaires'
 
-const RELEASE_TARGET_MODES = [TargetModes.CAWI, TargetModes.CAPI, TargetModes.CATI]
-
-import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts'
+import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts.tsx'
 import { type FormValues, schema } from './schema'
+
+const RELEASE_TARGET_MODES = [
+  TargetModes.CAWI,
+  TargetModes.CAPI,
+  TargetModes.CATI,
+]
 
 type Props = {
   questionnaireId: string
@@ -50,7 +54,7 @@ export default function ReleaseForm({
       modes: ['CAWI'],
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
-        responseTimeQuestion: false,
+        responseTimeQuestion: true,
         questionNumberingMode: 'SEQUENCE',
       },
     },
@@ -84,7 +88,7 @@ export default function ReleaseForm({
         {t('release.form.introduction')}
       </p>
 
-      <h3 className="text-sm font-semibold mb-3">
+      <h3 className="text-base font-semibold mb-3">
         {t('release.form.seriesInfo')}
       </h3>
       <div className="space-y-2 text-sm ">
@@ -92,9 +96,7 @@ export default function ReleaseForm({
           <b className="text-gray-500 font-normal">
             {t('release.form.series.id')} :{' '}
           </b>
-          {seriesId ? (
-            <code>{seriesId}</code>
-          ) : (
+          {seriesId || (
             <>
               <strong className="text-error font-semibold">
                 {t('release.form.series.missingId')}
@@ -221,16 +223,11 @@ export default function ReleaseForm({
 
         {contextValue === 'BUSINESS' && targetMode.includes('CAWI') ? (
           <div className="border-l-2 border-gray-300 pl-4 space-y-4">
-            <div>
-              <h3 className="text-sm font-semibold">
-                {t('release.form.optionalParameters')}
-              </h3>
-              <p className="text-orange-600 text-sm">
-                {t('release.form.optionalParametersLabel')}
-              </p>
-            </div>
+            <h3 className="text-base font-semibold text-red-600">
+              {t('release.form.optionalParameters')}
+            </h3>
 
-            <div className="flex flex-col gap-1">
+            <div>
               <Controller
                 name="overrideGenerationParameters.responseTimeQuestion"
                 control={control}
@@ -242,7 +239,7 @@ export default function ReleaseForm({
                       label={t('release.form.pageTempsReponse.label')}
                     />
                     {!value ? (
-                      <p className="text-orange-600 text-sm ml-7">
+                      <p className="text-red-600 text-sm ml-7">
                         {t('release.form.pageTempsReponse.warning')}
                       </p>
                     ) : null}
@@ -251,50 +248,48 @@ export default function ReleaseForm({
               />
             </div>
 
-            <div className="flex items-start gap-2">
-              <div className="flex-1">
-                <Controller
-                  name="overrideGenerationParameters.questionNumberingMode"
-                  control={control}
-                  render={({
-                    field: { name, value, onChange },
-                    fieldState: { invalid, isTouched, isDirty, error },
-                  }) => (
-                    <Field
-                      dirty={isDirty}
-                      error={error}
-                      invalid={invalid}
-                      label={
-                        <div className="flex items-bottom gap-1">
-                          {t('release.form.questionNumbering.label')}
+            <div>
+              <Controller
+                name="overrideGenerationParameters.questionNumberingMode"
+                control={control}
+                render={({
+                  field: { name, value, onChange },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                }) => (
+                  <Field
+                    dirty={isDirty}
+                    error={error}
+                    invalid={invalid}
+                    label={
+                      <div className="flex items-bottom gap-1">
+                        {t('release.form.questionNumbering.label')}
 
-                          <Tooltip
-                            title={t('release.form.questionNumbering.tooltip')}
-                          >
-                            <InfoIcon
-                              height="12"
-                              width="12"
-                              className="cursor-help"
-                              role="img"
-                              aria-label={t(
-                                'release.form.questionNumbering.tooltip',
-                              )}
-                            />
-                          </Tooltip>
-                        </div>
-                      }
-                      name={name}
-                      touched={isTouched}
-                    >
-                      <Select<string>
-                        options={NUMEROTATION_OPTIONS}
-                        value={value}
-                        onChange={onChange}
-                      />
-                    </Field>
-                  )}
-                />
-              </div>
+                        <Tooltip
+                          title={t('release.form.questionNumbering.tooltip')}
+                        >
+                          <InfoIcon
+                            height="12"
+                            width="12"
+                            className="cursor-help"
+                            role="img"
+                            aria-label={t(
+                              'release.form.questionNumbering.tooltip',
+                            )}
+                          />
+                        </Tooltip>
+                      </div>
+                    }
+                    name={name}
+                    touched={isTouched}
+                  >
+                    <Select<string>
+                      options={NUMEROTATION_OPTIONS}
+                      value={value}
+                      onChange={onChange}
+                    />
+                  </Field>
+                )}
+              />
             </div>
           </div>
         ) : null}

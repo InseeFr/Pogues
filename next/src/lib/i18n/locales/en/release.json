@@ -92,18 +92,20 @@
       "menages": "Household",
       "entreprise": "Business"
     },
-    "optionalParameters": "Optional parameters",
-    "optionalParametersLabel": "Optionals parameter are only applied in CAWI mode",
+    "optionalParameters": "Optional parameters applied to Web questionnaires only",
     "pageTempsReponse": {
       "label": "Response time page",
-      "warning": "Risk of anomaly if ending on a loop and legal obligation"
+      "warning": "Collecting response times for statistical questionnaires in order to measure the burden on businesses is a legal obligation. Furthermore, removing the final response time questions may cause anomalies if the questionnaire ends with a loop."
     },
     "questionNumbering": {
       "label": "Question numbering",
       "none": "No numbering",
       "sequence": "By sequence",
       "questionnaire": "Entire questionnaire",
-      "tooltip": "No numbering: no automatic numbering. By sequence: numbering reset at each sequence. Entire questionnaire: continuous numbering throughout the questionnaire."
+      "tooltip": "No numbering: no automatic numbering. By sequence: numbering reset at each sequence. Entire questionnaire: continuous numbering throughout the questionnaire.",
+      "sequenceDescription": "Numbering reset at each sequence",
+      "questionnaireDescription": "Continuous numbering throughout the questionnaire",
+      "noneDescription": "No automatic numbering"
     }
   }
 }
