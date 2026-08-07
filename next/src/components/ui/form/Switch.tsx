@@ -1,4 +1,4 @@
-import { Switch as BaseUISwitch } from '@base-ui-components/react/switch'
+import { Switch as BaseUISwitch } from '@base-ui/react/switch'
 
 export type Props = {
   /**

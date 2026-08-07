@@ -1,4 +1,4 @@
-import { Select as BaseUISelect } from '@base-ui-components/react/select'
+import { Select as BaseUISelect } from '@base-ui/react/select'
 
 import ArrowDownIcon from '../icons/ArrowDownIcon'
 

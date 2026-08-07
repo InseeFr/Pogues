@@ -1,5 +1,5 @@
-import { Field } from '@base-ui-components/react/field'
-import { Input as UIInput } from '@base-ui-components/react/input'
+import { Field } from '@base-ui/react/field'
+import { Input as UIInput } from '@base-ui/react/input'
 
 import React from 'react'
 
@@ -34,9 +34,9 @@ const FormInput = React.forwardRef<HTMLInputElement, Props>(
     // `value` prop was explicitly provided. In controlled mode, normalize
     // `undefined` to '' so Base UI's FieldControl never switches modes
     // (e.g. during react-hook-form resets when using the `values` option).
-    const hasValueProp = 'value' in props;
-    const { value, ...restProps } = props;
-    const controlledValue = hasValueProp ? (value ?? '') : undefined;
+    const hasValueProp = 'value' in props
+    const { value, ...restProps } = props
+    const controlledValue = hasValueProp ? (value ?? '') : undefined
 
     return (
       <Field.Root

@@ -80,8 +80,9 @@ export default function QuestionnaireDetailsForm({
   )
 
   const handleFormSubmit = (data: FormValues) => {
-    onSubmit(data)
-    reset(data)
+    const submittedData = { ...data, name: data.name.toUpperCase() }
+    onSubmit(submittedData)
+    reset(submittedData)
   }
 
   const handleCancel = () => {
@@ -117,6 +118,26 @@ export default function QuestionnaireDetailsForm({
               onValueChange={onChange}
               disabled={readOnly}
             />
+          </Field>
+        )}
+      />
+      <Controller
+        name="name"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('details.questionnaireName')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Input value={value} onValueChange={onChange} disabled={readOnly} />
           </Field>
         )}
       />
@@ -215,12 +236,7 @@ export default function QuestionnaireDetailsForm({
             touched={isTouched}
             disabled
           >
-            <Input
-              autoFocus
-              value={'fr.insee'}
-              onValueChange={onChange}
-              disabled
-            />
+            <Input value={'fr.insee'} onValueChange={onChange} disabled />
           </Field>
         )}
       />

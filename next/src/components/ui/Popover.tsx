@@ -1,4 +1,4 @@
-import { Popover as UIPopover } from '@base-ui-components/react/popover'
+import { Popover as UIPopover } from '@base-ui/react/popover'
 
 import * as React from 'react'
 
