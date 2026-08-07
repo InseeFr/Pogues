@@ -75,7 +75,7 @@
     "tailwindcss": "^4.1.17",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.5",
+    "vite": "^8.0.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.1.10"
   }
