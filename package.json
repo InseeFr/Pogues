@@ -16,6 +16,9 @@
     "preview": "vite preview"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
   "packageManager": "pnpm@11.8.0",
   "devDependencies": {
     "@eslint/js": "^9.17.0",
