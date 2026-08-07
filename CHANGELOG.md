@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page to overview released and pending releases of a questionnaire
 - Form to create a release of a questionnaire
 
+## [3.7.2](https://github.com/InseeFr/Pogues/releases/tag/3.7.2) - 2026-08-06
+
+### Added
+
+- Add short name field in questionnaire details form
+
 ### Fixed
 
 - fix outline visibility on button when focused

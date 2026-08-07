@@ -8,10 +8,16 @@ import {
 } from '@/models/questionnaires'
 
 export const schema = z.object({
-  name: z.string().min(1, { error: i18next.t('details.form.mustProvideName') }),
   title: z
     .string()
     .min(1, { error: i18next.t('questionnaire.form.mustProvideTitle') }),
+  name: z
+    .string()
+    .min(1, { error: i18next.t('details.form.mustProvideName') })
+    .max(10, { error: i18next.t('details.form.nameMaxLength') })
+    .regex(/^[A-Za-z0-9_]+$/, {
+      error: i18next.t('details.form.nameInvalidChars'),
+    }),
   targetModes: z
     .array(z.enum(TargetModes))
     .min(1, { error: i18next.t('questionnaire.form.mustProvideTarget') }),
