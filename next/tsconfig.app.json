@@ -23,7 +23,11 @@
     "noUncheckedSideEffectImports": true,
 
     /* Testing */
-    "types": ["vitest/globals", "@testing-library/jest-dom", "vite/client"],
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "vite-envs/client"
+    ],
 
     "paths": {
       "@/*": ["./src/*"]

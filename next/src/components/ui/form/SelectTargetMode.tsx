@@ -11,9 +11,10 @@ type Props = {
   multiple: boolean
   disabled?: boolean
   error?: string
+  availableModes?: TargetModes[]
 }
 
-const TARGET_MODE_OPTIONS = [
+const ALL_TARGET_MODES = [
   { label: 'CAPI', value: TargetModes.CAPI },
   { label: 'CAWI', value: TargetModes.CAWI },
   { label: 'CATI', value: TargetModes.CATI },
@@ -26,9 +27,13 @@ export default function SelectTargetMode({
   multiple,
   disabled = false,
   error,
+  availableModes = ALL_TARGET_MODES.map((m) => m.value),
 }: Readonly<Props>) {
   const { t } = useTranslation()
 
+  const modes = ALL_TARGET_MODES.filter((m) =>
+    availableModes.includes(m.value),
+  )
   const isSet = value instanceof Set
 
   if (multiple) {
@@ -36,7 +41,7 @@ export default function SelectTargetMode({
       <>
         <Label required>{t('questionnaire.common.targetMode')}</Label>
         <div className="flex gap-x-4">
-          {TARGET_MODE_OPTIONS.map(({ label, value: modeValue }) => (
+          {modes.map(({ label, value: modeValue }) => (
             <Checkbox
               key={label}
               label={label}
@@ -76,9 +81,10 @@ export default function SelectTargetMode({
 
   return (
     <>
-      <Label required>{t('questionnaire.common.targetMode')}</Label>
       <RadioGroup
-        options={TARGET_MODE_OPTIONS}
+        label={t('questionnaire.common.targetMode')}
+        required
+        options={modes}
         value={radioValue}
         disabled={disabled}
         onValueChange={(newValue) => {
