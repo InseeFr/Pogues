@@ -34,7 +34,7 @@ type Props<T> = {
  * ```
  */
 export default function Select<T>({
-  onChange = () => { },
+  onChange = () => {},
   options = [],
   defaultValue,
   value,
