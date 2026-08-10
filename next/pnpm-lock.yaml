@@ -84,8 +84,8 @@ importers:
         specifier: ^2.0.0
         version: 2.8.2(@rspack/core@1.6.7(@swc/helpers@0.5.17))(typescript@5.9.3)
       '@module-federation/vite':
-        specifier: ^1.5.1
-        version: 1.20.4(typescript@5.9.3)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))
+        specifier: ^1.20.5
+        version: 1.20.5(typescript@5.9.3)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))
       '@tailwindcss/postcss':
         specifier: ^4.0.0
         version: 4.3.3
@@ -148,7 +148,7 @@ importers:
         version: 14.0.17
       postcss:
         specifier: ^8.5.1
-        version: 8.5.6
+        version: 8.5.26
       prettier:
         specifier: ^3.8.1
         version: 3.9.6
@@ -1121,10 +1121,10 @@ packages:
         integrity: sha512-Xf3iZ4iDi972XMOMbmUm/c5Vwwb6cTsU+Jpoz96lUom6Yps9FQX48elIdhgcQsL7/K64PqdOONsrlZVo8zphKA==,
       }
 
-  '@module-federation/vite@1.20.4':
+  '@module-federation/vite@1.20.5':
     resolution:
       {
-        integrity: sha512-OWqLfo2qush6/RmoLMG6DN2qqlWtzIvyqoGjMt5vTENwfzob+6oFRWNAy2IS+2DIscq3wRdPqLJn75JjR3gpFQ==,
+        integrity: sha512-RUonpW3aYgmVR9DCVdUzgHBgGA2BdEy67DMgobCtOS46/G+T5Xgm4WQvFOE1f3IDIRb15TZo45rsRwrAqn1csg==,
       }
     engines: { node: ^20.19.0 || >=22.12.0 }
     peerDependencies:
@@ -3652,14 +3652,6 @@ packages:
         integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==,
       }
 
-  nanoid@3.3.11:
-    resolution:
-      {
-        integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==,
-      }
-    engines: { node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1 }
-    hasBin: true
-
   nanoid@3.3.17:
     resolution:
       {
@@ -3838,13 +3830,6 @@ packages:
     resolution:
       {
         integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==,
-      }
-    engines: { node: ^10 || ^12 || >=14 }
-
-  postcss@8.5.6:
-    resolution:
-      {
-        integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==,
       }
     engines: { node: ^10 || ^12 || >=14 }
 
@@ -5301,7 +5286,7 @@ snapshots:
 
   '@module-federation/third-party-dts-extractor@2.8.2': {}
 
-  '@module-federation/vite@1.20.4(typescript@5.9.3)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))':
+  '@module-federation/vite@1.20.5(typescript@5.9.3)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))':
     dependencies:
       '@module-federation/dts-plugin': 2.8.2(typescript@5.9.3)
       '@module-federation/runtime': 2.8.2
@@ -6736,8 +6721,6 @@ snapshots:
 
   ms@2.1.3: {}
 
-  nanoid@3.3.11: {}
-
   nanoid@3.3.17: {}
 
   natural-compare@1.4.0: {}
@@ -6810,12 +6793,6 @@ snapshots:
   postcss@8.5.26:
     dependencies:
       nanoid: 3.3.17
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
-  postcss@8.5.6:
-    dependencies:
-      nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
 

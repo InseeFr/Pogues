@@ -1,7 +1,7 @@
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
 import { oidcSpa } from 'oidc-spa/vite-plugin';
-import type { UserConfig } from 'vite';
+import { type UserConfig, defineConfig } from 'vite';
 import { viteEnvs } from 'vite-envs';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -17,7 +17,15 @@ const defaultPlugin = [
   }),
 ];
 
-export const buildViteConf = (withFederation: boolean): UserConfig => {
+const mFSharedConfig = {
+  react: { singleton: true, requiredVersion: '^18.3.1' },
+  'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
+};
+
+export const buildViteConf = (
+  withFederation: boolean,
+  mode: string,
+): UserConfig => {
   return {
     plugins: withFederation
       ? [
@@ -28,7 +36,7 @@ export const buildViteConf = (withFederation: boolean): UserConfig => {
             exposes: {
               './App': './src/main.tsx',
             },
-            shared: ['react/', 'react-dom/'],
+            shared: mode === 'development' ? [] : mFSharedConfig,
           }),
         ]
       : defaultPlugin,
@@ -52,4 +60,4 @@ export const buildViteConf = (withFederation: boolean): UserConfig => {
   };
 };
 
-export default buildViteConf(true);
+export default defineConfig(({ mode }) => buildViteConf(true, mode));

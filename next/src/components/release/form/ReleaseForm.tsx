@@ -260,7 +260,11 @@ export default function ReleaseForm({
                     dirty={isDirty}
                     error={error}
                     invalid={invalid}
-                    label={t('release.form.questionNumbering.label')}
+                    label={
+                      <span className="font-normal">
+                        {t('release.form.questionNumbering.label')}
+                      </span>
+                    }
                     name={name}
                     touched={isTouched}
                   >
