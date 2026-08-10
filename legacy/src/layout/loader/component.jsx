@@ -1,12 +1,13 @@
-import Loader from 'react-loader-spinner';
+import { RevolvingDot } from 'react-loader-spinner';
 
 const PoguesLoader = () => (
-  <Loader
-    className="loaderClass"
-    type="RevolvingDot"
+  <RevolvingDot
+    wrapperClass="loaderClass"
     color="#facb21"
     height={100}
     width={100}
+    ariaLabel="revolving-dot-loading"
+    visible={true}
   />
 );
 

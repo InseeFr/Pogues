@@ -17,7 +17,13 @@ export default defineConfig(({ mode }) => ({
           entry: '/legacy-remote-entry.js',
         },
       },
-      shared: mode === 'development' ? [] : ['react/', 'react-dom/'],
+      shared:
+        mode === 'development'
+          ? []
+          : {
+              react: { singleton: true, requiredVersion: '^18.3.1' },
+              'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
+            },
       runtimePlugins: ['./mfe/plugin.ts'],
     }),
     oidcSpa(),

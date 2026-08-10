@@ -2,7 +2,7 @@ import { useCallback, useContext, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import NavigationPrompt from 'react-router-navigation-prompt';
+import NavigationPromptModule from 'react-router-navigation-prompt';
 
 import { AuthContext } from '@/auth/context';
 
@@ -15,6 +15,8 @@ import { ComponentNew } from '../component-new';
 import Loader from '../loader';
 import { ExternalQuestionnaireDropdown } from './components/external-questionnaire-dropdown';
 import ValidationModal from './components/validation-modal';
+
+const NavigationPrompt = NavigationPromptModule.default;
 
 const {
   QUESTION,
