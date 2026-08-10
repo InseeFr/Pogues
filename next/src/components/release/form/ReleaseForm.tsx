@@ -136,7 +136,7 @@ export default function ReleaseForm({
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 mt-6">
         <Controller
           name="releaseDescription"
           control={control}
@@ -223,7 +223,7 @@ export default function ReleaseForm({
 
         {contextValue === 'BUSINESS' && targetMode.includes('CAWI') ? (
           <div className="border-l-2 border-gray-300 pl-4 space-y-4">
-            <h3 className="text-base font-semibold text-red-600">
+            <h3 className="text-base font-semibold ">
               {t('release.form.optionalParameters')}
             </h3>
 
@@ -239,7 +239,7 @@ export default function ReleaseForm({
                       label={t('release.form.pageTempsReponse.label')}
                     />
                     {!value ? (
-                      <p className="text-red-600 text-sm ml-7">
+                      <p className="text-orange-500 text-sm ml-7">
                         {t('release.form.pageTempsReponse.warning')}
                       </p>
                     ) : null}
@@ -260,25 +260,7 @@ export default function ReleaseForm({
                     dirty={isDirty}
                     error={error}
                     invalid={invalid}
-                    label={
-                      <div className="flex items-bottom gap-1">
-                        {t('release.form.questionNumbering.label')}
-
-                        <Tooltip
-                          title={t('release.form.questionNumbering.tooltip')}
-                        >
-                          <InfoIcon
-                            height="12"
-                            width="12"
-                            className="cursor-help"
-                            role="img"
-                            aria-label={t(
-                              'release.form.questionNumbering.tooltip',
-                            )}
-                          />
-                        </Tooltip>
-                      </div>
-                    }
+                    label={t('release.form.questionNumbering.label')}
                     name={name}
                     touched={isTouched}
                   >
