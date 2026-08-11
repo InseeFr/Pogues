@@ -47,7 +47,7 @@ const validDefaultValues: Partial<FormValues> = {
 describe('QuestionnaireDetailsForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    getSerieById.mockResolvedValue(mockSerieDetail)
+    vi.mocked(getSerieById).mockResolvedValue(mockSerieDetail)
   })
 
   it('renders all form fields with correct labels', async () => {
@@ -61,6 +61,9 @@ describe('QuestionnaireDetailsForm', () => {
 
     expect(
       screen.getByRole('textbox', { name: /questionnaire title/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('textbox', { name: /questionnaire name/i }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('textbox', { name: /ddi agency/i }),
@@ -176,7 +179,7 @@ describe('QuestionnaireDetailsForm', () => {
   })
 
   it('fetches serie details when serie defaults are provided', async () => {
-    getSerieById.mockResolvedValue(mockSerieDetail)
+    vi.mocked(getSerieById).mockResolvedValue(mockSerieDetail)
 
     await renderWithRouter(
       <QuestionnaireDetailsForm
@@ -226,5 +229,31 @@ describe('QuestionnaireDetailsForm', () => {
       expect(screen.getByRole('alert')).toBeInTheDocument()
     })
     expect(screen.getByText(/must provide a title/i)).toBeInTheDocument()
+  })
+
+  it('clears selected serie when delete button is clicked', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+    await renderWithRouter(
+      <QuestionnaireDetailsForm
+        series={series}
+        defaultValues={validDefaultValues}
+        onSubmit={onSubmit}
+        submitLabel="Edit"
+      />,
+    )
+
+    await user.click(screen.getByTitle(/delete/i))
+
+    await user.click(screen.getByTestId('form-submit-button'))
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledOnce()
+    })
+    expect(onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        serie: '',
+      }),
+    )
   })
 })

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
+import ButtonIcon from '@/components/ui/ButtonIcon'
 import Tooltip from '@/components/ui/Tooltip'
 import Autocomplete from '@/components/ui/form/Autocomplete'
 import Field from '@/components/ui/form/Field'
@@ -13,6 +14,7 @@ import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
+import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
 import { FlowLogics, FormulasLanguages } from '@/models/questionnaires'
 import { SerieItem } from '@/models/series'
@@ -23,7 +25,7 @@ type Props = {
   defaultValues?: Partial<FormValues>
   onSubmit: SubmitHandler<FormValues>
   submitLabel: string
-  series: SerieItem[]
+  series?: SerieItem[]
   readOnly?: boolean
 }
 
@@ -58,6 +60,7 @@ export default function QuestionnaireDetailsForm({
 
   const selectedSerie = watch('serie')
 
+  const [isSerieOpen, setIsSerieOpen] = useState(false)
   const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
 
   useEffect(() => {
@@ -72,13 +75,14 @@ export default function QuestionnaireDetailsForm({
       })
   }, [selectedSerie])
 
-  const seriesOptions: { label: string; value: string }[] = series.map(
+  const seriesOptions: { label: string; value: string }[] = (series ?? []).map(
     (s: SerieItem) => ({ label: s.label, value: s.id }),
   )
 
   const handleFormSubmit = (data: FormValues) => {
-    onSubmit(data)
-    reset(data)
+    const submittedData = { ...data, name: data.name.toUpperCase() }
+    onSubmit(submittedData)
+    reset(submittedData)
   }
 
   const handleCancel = () => {
@@ -118,9 +122,28 @@ export default function QuestionnaireDetailsForm({
         )}
       />
       <Controller
+        name="name"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('details.questionnaireName')}
+            name={name}
+            required
+            touched={isTouched}
+          >
+            <Input value={value} onValueChange={onChange} disabled={readOnly} />
+          </Field>
+        )}
+      />
+      <Controller
         name="serie"
         control={control}
-        rules={{ required: true }}
         render={({
           field: { name, value, onChange },
           fieldState: { invalid, isTouched, isDirty, error },
@@ -131,19 +154,35 @@ export default function QuestionnaireDetailsForm({
             invalid={invalid}
             label={t('details.serie')}
             name={name}
-            required
             touched={isTouched}
             disabled={readOnly}
           >
-            <Autocomplete
-              options={seriesOptions}
-              value={value || undefined}
-              disabled={readOnly}
-              onChange={(serieValue = '') => {
-                onChange(serieValue)
-                handleSerieChange(serieValue)
-              }}
-            />
+            <div className="flex items-center gap-1">
+              <div className="flex-1">
+                <Autocomplete
+                  options={seriesOptions}
+                  value={value || undefined}
+                  disabled={readOnly}
+                  open={isSerieOpen}
+                  onOpenChange={setIsSerieOpen}
+                  onChange={(serieValue = '') => {
+                    onChange(serieValue)
+                    handleSerieChange(serieValue)
+                  }}
+                />
+              </div>
+              {value ? (
+                <ButtonIcon
+                  Icon={DeleteIcon}
+                  title={t('common.delete')}
+                  onClick={() => {
+                    onChange('')
+                    handleSerieChange('')
+                    setIsSerieOpen(false)
+                  }}
+                />
+              ) : null}
+            </div>
             {serieDetails ? (
               <div className="ml-4 mt-3 text-sm border-l-2 border-gray-300 pl-3">
                 <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.altLabel ?? t('details.altLabelUndefined')}`}</div>
@@ -197,12 +236,7 @@ export default function QuestionnaireDetailsForm({
             touched={isTouched}
             disabled
           >
-            <Input
-              autoFocus
-              value={'fr.insee'}
-              onValueChange={onChange}
-              disabled
-            />
+            <Input value={'fr.insee'} onValueChange={onChange} disabled />
           </Field>
         )}
       />

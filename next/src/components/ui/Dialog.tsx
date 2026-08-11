@@ -1,4 +1,4 @@
-import { Dialog as UIDialog } from '@base-ui-components/react/dialog'
+import { Dialog as UIDialog } from '@base-ui/react/dialog'
 import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'

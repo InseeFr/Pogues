@@ -1,5 +1,5 @@
-import { Toggle as BaseUIToggle } from '@base-ui-components/react/toggle'
-import { ToggleGroup as BaseUIToggleGroup } from '@base-ui-components/react/toggle-group'
+import { Toggle as BaseUIToggle } from '@base-ui/react/toggle'
+import { ToggleGroup as BaseUIToggleGroup } from '@base-ui/react/toggle-group'
 
 interface Props {
   onChange: (v: string[]) => void

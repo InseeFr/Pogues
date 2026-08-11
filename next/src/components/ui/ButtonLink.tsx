@@ -31,7 +31,7 @@ const AnchorButtonComponent = React.forwardRef<
     ref,
   ) => {
     const baseClass =
-      'inline-block text-center border font-semibold transition rounded px-4 py-3 min-w-40 outline-hidden focus-visible:outline focus-visible:outline-primary'
+      'inline-block text-center border font-semibold transition rounded px-4 py-3 min-w-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
 
     const primaryClass =
       'bg-primary text-negative hover:bg-primary-accent active:bg-primary-active border-none disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed'

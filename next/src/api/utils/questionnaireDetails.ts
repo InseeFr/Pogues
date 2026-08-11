@@ -19,7 +19,7 @@ import { computeTargetModes } from './targetModes'
 export type FormDetails = {
   name: string
   title: string
-  serie: string
+  serie?: string
   agency: string
   targetModes: TargetModes[]
   flowLogic: FlowLogics
@@ -50,10 +50,11 @@ export function computeQuestionnaireDetails(
 export function computeQuestionnaireDetailsDTO(
   formDetails: FormDetails,
   existingDto: QuestionnaireDetailsDTO,
-  serieDetails: SerieDetailDTO,
+  serieDetails?: SerieDetailDTO,
 ): QuestionnaireDetailsDTO {
-  return {
+  const base = {
     ...existingDto,
+    dataCollection: undefined,
     name: formDetails.name,
     label: formDetails.title,
     flowLogic: computePoguesFlowLogic(formDetails.flowLogic),
@@ -64,13 +65,21 @@ export function computeQuestionnaireDetailsDTO(
       (mode) => TargetModes[mode as number] as string,
     ),
     agency: formDetails.agency,
-    dataCollection: {
-      serie: {
-        id: serieDetails.id,
-        uri: serieDetails.uri,
-        label: serieDetails.label,
-        altLabel: serieDetails.altLabel,
-      },
-    },
   }
+
+  if (serieDetails) {
+    return {
+      ...base,
+      dataCollection: {
+        serie: {
+          id: serieDetails.id,
+          uri: serieDetails.uri,
+          label: serieDetails.label,
+          altLabel: serieDetails.altLabel,
+        },
+      },
+    }
+  }
+
+  return base
 }
