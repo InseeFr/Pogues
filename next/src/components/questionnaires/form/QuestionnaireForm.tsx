@@ -3,8 +3,6 @@ import { useNavigate } from '@tanstack/react-router'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import Checkbox from '@/components/ui/form/Checkbox'
-import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
 import FormField from '@/components/ui/form/FormField'
 import Input from '@/components/ui/form/Input'
@@ -93,55 +91,6 @@ export default function QuestionnaireForm({
         noField
       >
         {({ field, fieldState: { error } }) => (
-          <>
-            <Label required>{t('questionnaire.common.targetMode')}</Label>
-            <div className="flex gap-x-4">
-              <Checkbox
-                label={'CAPI'}
-                checked={field.value?.has(TargetModes.CAPI)}
-                {...field}
-                onChange={(v) =>
-                  field.onChange(
-                    changeSetValue(field.value, TargetModes.CAPI, v),
-                  )
-                }
-              />
-              <Checkbox
-                label={'CAWI'}
-                checked={field.value?.has(TargetModes.CAWI)}
-                {...field}
-                onChange={(v) =>
-                  field.onChange(
-                    changeSetValue(field.value, TargetModes.CAWI, v),
-                  )
-                }
-              />
-              <Checkbox
-                label={'CATI'}
-                checked={field.value?.has(TargetModes.CATI)}
-                {...field}
-                onChange={(v) =>
-                  field.onChange(
-                    changeSetValue(field.value, TargetModes.CATI, v),
-                  )
-                }
-              />
-              <Checkbox
-                label={'PAPI'}
-                checked={field.value?.has(TargetModes.PAPI)}
-                {...field}
-                onChange={(v) =>
-                  field.onChange(
-                    changeSetValue(field.value, TargetModes.PAPI, v),
-                  )
-                }
-              />
-            </div>
-            {error ? (
-              <div className="text-sm text-error ml-1">{error.message}</div>
-            ) : null}
-          </>
-        render={({ field, fieldState: { error } }) => (
           <SelectTargetMode
             value={field.value}
             onChange={field.onChange}
