@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import userEvent from '@testing-library/user-event'
 
 import { TargetModes } from '@/models/questionnaires'
@@ -6,6 +7,33 @@ import { computeDayFromDate } from '@/utils/date'
 
 import type { ReleaseRequest } from '../../../models/releases'
 import { ReleaseRequestTile } from './ReleaseRequestTile'
+
+vi.mock('@/api/versions', () => ({
+  versionQueryOptions: (versionId: string) => ({
+    queryKey: ['version', versionId],
+    queryFn: () =>
+      Promise.resolve({ id: versionId, day: '15/06/2025' } as const),
+  }),
+}))
+
+function renderTile(
+  request: ReleaseRequest,
+  props: {
+    onDelete?: (id: number) => void
+  } = {},
+) {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
+  return renderWithI18n(
+    <QueryClientProvider client={queryClient}>
+      <ReleaseRequestTile
+        request={request}
+        onDelete={props.onDelete ?? vi.fn()}
+      />
+    </QueryClientProvider>,
+  )
+}
 
 describe('ReleaseRequestTile', () => {
   const baseRequest: ReleaseRequest = {
@@ -30,17 +58,13 @@ describe('ReleaseRequestTile', () => {
   })
 
   it('displays request description', () => {
-    const { getByText } = renderWithI18n(
-      <ReleaseRequestTile request={baseRequest} onDelete={vi.fn()} />,
-    )
+    const { getByText } = renderTile(baseRequest)
 
     expect(getByText('Publication ESA 2026')).toBeInTheDocument()
   })
 
   it('shows in progress status badge', () => {
-    const { getByText } = renderWithI18n(
-      <ReleaseRequestTile request={baseRequest} onDelete={vi.fn()} />,
-    )
+    const { getByText } = renderTile(baseRequest)
 
     expect(
       getByText((content) => content.startsWith('In progress')),
@@ -49,9 +73,7 @@ describe('ReleaseRequestTile', () => {
 
   it('shows failed status badge', () => {
     const request: ReleaseRequest = { ...baseRequest, status: 'FAILED' }
-    const { getByText } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
-    )
+    const { getByText } = renderTile(request)
 
     expect(
       getByText((content) => content.startsWith('Failed')),
@@ -60,9 +82,7 @@ describe('ReleaseRequestTile', () => {
 
   it('shows completed status badge', () => {
     const request: ReleaseRequest = { ...baseRequest, status: 'COMPLETED' }
-    const { getByText } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
-    )
+    const { getByText } = renderTile(request)
 
     expect(
       getByText((content) => content.startsWith('Validated')),
@@ -76,9 +96,7 @@ describe('ReleaseRequestTile', () => {
       status: 'FAILED',
       statusDescription: 'Error during publication',
     }
-    const { getByText, getByRole } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
-    )
+    const { getByText, getByRole } = renderTile(request)
 
     await user.click(getByRole('button', { name: /Publication ESA 2026/ }))
 
@@ -91,22 +109,18 @@ describe('ReleaseRequestTile', () => {
       status: 'RUNNING',
       statusDescription: 'Should not appear',
     }
-    const { queryByText } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
-    )
+    const { queryByText } = renderTile(request)
 
     expect(queryByText('Should not appear')).toBeNull()
   })
 
   it('displays expanded content on click', async () => {
     const user = userEvent.setup()
-    const { getByText, getByRole } = renderWithI18n(
-      <ReleaseRequestTile request={baseRequest} onDelete={vi.fn()} />,
-    )
+    const { getByText, getByRole } = renderTile(baseRequest)
 
     await user.click(getByRole('button', { name: /Publication ESA 2026/ }))
 
-    expect(getByText('BUSINESS')).toBeInTheDocument()
+    expect(getByText('Business')).toBeInTheDocument()
     expect(getByText('maelle')).toBeInTheDocument()
     expect(getByText('CAWI')).toBeInTheDocument()
     expect(
@@ -116,13 +130,14 @@ describe('ReleaseRequestTile', () => {
       getByText((content) => content.startsWith('Optional parameters')),
     ).toBeInTheDocument()
     expect(getByText('No numbering')).toBeInTheDocument()
+    expect(
+      getByText('550e8400-e29b-41d4-a716-446655440000'),
+    ).toBeInTheDocument()
   })
 
   it('collapses content on click', async () => {
     const user = userEvent.setup()
-    const { getByRole, queryByText } = renderWithI18n(
-      <ReleaseRequestTile request={baseRequest} onDelete={vi.fn()} />,
-    )
+    const { getByRole, queryByText } = renderTile(baseRequest)
 
     const header = getByRole('button', { name: /Publication ESA 2026/ })
     await user.click(header)
@@ -136,9 +151,7 @@ describe('ReleaseRequestTile', () => {
   it('shows delete button when request has failed', async () => {
     const user = userEvent.setup()
     const request: ReleaseRequest = { ...baseRequest, status: 'FAILED' }
-    const { getByRole } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
-    )
+    const { getByRole } = renderTile(request)
 
     await user.click(getByRole('button', { name: /Publication ESA 2026/ }))
 
@@ -150,9 +163,7 @@ describe('ReleaseRequestTile', () => {
   it('shows delete button when request is completed', async () => {
     const user = userEvent.setup()
     const request: ReleaseRequest = { ...baseRequest, status: 'COMPLETED' }
-    const { getByRole } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={vi.fn()} />,
-    )
+    const { getByRole } = renderTile(request)
 
     await user.click(getByRole('button', { name: /Publication ESA 2026/ }))
 
@@ -162,9 +173,7 @@ describe('ReleaseRequestTile', () => {
   })
 
   it('does not show delete button when request is in progress', () => {
-    const { queryByRole } = renderWithI18n(
-      <ReleaseRequestTile request={baseRequest} onDelete={vi.fn()} />,
-    )
+    const { queryByRole } = renderTile(baseRequest)
 
     expect(queryByRole('button', { name: 'Delete this request' })).toBeNull()
   })
@@ -173,13 +182,23 @@ describe('ReleaseRequestTile', () => {
     const user = userEvent.setup()
     const onDelete = vi.fn()
     const request: ReleaseRequest = { ...baseRequest, status: 'FAILED' }
-    const { getByRole } = renderWithI18n(
-      <ReleaseRequestTile request={request} onDelete={onDelete} />,
-    )
+    const { getByRole } = renderTile(request, { onDelete })
 
     await user.click(getByRole('button', { name: /Publication ESA 2026/ }))
     await user.click(getByRole('button', { name: 'Delete this request' }))
 
     expect(onDelete).toHaveBeenCalledWith(1)
+  })
+
+  it('shows version date in tooltip on hover', async () => {
+    const user = userEvent.setup()
+    const { getByText, getByRole, findByText } = renderTile(baseRequest)
+
+    await user.click(getByRole('button', { name: /Publication ESA 2026/ }))
+
+    const saveId = getByText('550e8400-e29b-41d4-a716-446655440000')
+    await user.hover(saveId)
+
+    expect(await findByText('15/06/2025')).toBeInTheDocument()
   })
 })

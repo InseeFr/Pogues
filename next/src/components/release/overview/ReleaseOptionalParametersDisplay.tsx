@@ -35,13 +35,7 @@ export function ReleaseOptionalParametersDisplay({
             {t('release.form.pageTempsReponse.label')}
             {': '}
           </b>
-          <span
-            className={
-              overrideGenerationParameters.responseTimeQuestion
-                ? 'text-green-700'
-                : 'text-red-700'
-            }
-          >
+          <span>
             {t(
               overrideGenerationParameters.responseTimeQuestion
                 ? 'common.yes'

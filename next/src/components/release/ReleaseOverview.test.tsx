@@ -1,9 +1,67 @@
-import { MOCK_PUBLICATIONS } from '@/api/releases'
 import { TargetModes } from '@/models/questionnaires'
 import { renderWithRouter } from '@/testing/render'
 
-import type { ReleaseRequest } from '../../models/releases'
+import type { RegistryRelease, ReleaseRequest } from '../../models/releases'
 import ReleaseOverview from './ReleaseOverview'
+
+vi.mock('@/api/versions', () => ({
+  versionQueryOptions: (versionId: string) => ({
+    queryKey: ['version', versionId],
+    queryFn: () =>
+      Promise.resolve({ id: versionId, day: '15/06/2025' } as const),
+  }),
+}))
+
+const MOCK_PUBLICATIONS: RegistryRelease[] = [
+  {
+    author: 'testuser',
+    releaseDate: new Date('2026-06-15T10:00:00Z').getTime(),
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440003',
+    releaseDescription: 'ESA 2026 PROD',
+    context: 'HOUSEHOLD',
+    collectionInstruments: [
+      {
+        mode: TargetModes.CAPI,
+        collectionInstrumentId: 'COL-001',
+        version: 1,
+        overrideGenerationParameters: null,
+        visualizeUrl: 'https://visu.example.com/esa-2026-prod',
+      },
+    ],
+  },
+  {
+    author: 'testuser2',
+    releaseDate: new Date('2026-05-10T10:00:00Z').getTime(),
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440004',
+    releaseDescription: 'ESA 2026 TEST TERRAIN',
+    context: 'BUSINESS',
+    collectionInstruments: [
+      {
+        mode: TargetModes.CAWI,
+        collectionInstrumentId: 'COL-002',
+        version: 1,
+        overrideGenerationParameters: null,
+        visualizeUrl: 'https://visu.example.com/esa-2026-test',
+      },
+    ],
+  },
+  {
+    author: 'testuser3',
+    releaseDate: new Date('2024-01-01T10:00:00Z').getTime(),
+    poguesVersionId: '550e8400-e29b-41d4-a716-446655440005',
+    releaseDescription: "Publication la plus ancienne d'ESA",
+    context: 'HOUSEHOLD',
+    collectionInstruments: [
+      {
+        mode: TargetModes.PAPI,
+        collectionInstrumentId: 'COL-003',
+        version: 1,
+        overrideGenerationParameters: null,
+        visualizeUrl: 'https://visu.example.com/esa-old',
+      },
+    ],
+  },
+]
 
 const pendingRequests: ReleaseRequest[] = [
   {

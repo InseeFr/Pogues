@@ -1,9 +1,13 @@
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 import { useId, useState } from 'react'
 
+import { getContextLabel } from '@/api/utils/releases'
+import { versionQueryOptions } from '@/api/versions'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import ExpandButton from '@/components/ui/ExpandButton'
+import Tooltip from '@/components/ui/Tooltip'
 import { TargetModes } from '@/models/questionnaires'
 import { computeDayFromDate, computeFullDateFromDate } from '@/utils/date'
 
@@ -98,6 +102,9 @@ export function RegistryReleaseTile({
   const { t } = useTranslation()
   const trombiUrl = import.meta.env.VITE_TROMBI_URL
   const releaseDate = new Date(release.releaseDate)
+  const { data: version } = useQuery(
+    versionQueryOptions(release.poguesVersionId),
+  )
 
   return (
     <div className="bg-default odd:bg-main p-4 border-b border-default last:border-b-0">
@@ -134,7 +141,7 @@ export function RegistryReleaseTile({
               <b className="text-gray-500 font-normal">
                 {t('release.contexte')} :{' '}
               </b>
-              {release.context}
+              {getContextLabel(release.context, t)}
             </div>
           </div>
         </div>
@@ -143,7 +150,9 @@ export function RegistryReleaseTile({
           <b className="text-gray-500 font-normal">
             {t('release.poguesSave')} :{' '}
           </b>
-          {release.poguesVersionId}
+          <Tooltip title={version?.day}>
+            <span>{release.poguesVersionId}</span>
+          </Tooltip>
         </div>
 
         <div className="space-y-2">

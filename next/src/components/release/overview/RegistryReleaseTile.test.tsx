@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import userEvent from '@testing-library/user-event'
 
 import { TargetModes } from '@/models/questionnaires'
@@ -6,6 +7,25 @@ import { computeDayFromDate } from '@/utils/date'
 
 import type { RegistryRelease } from '../../../models/releases'
 import { RegistryReleaseTile } from './RegistryReleaseTile'
+
+vi.mock('@/api/versions', () => ({
+  versionQueryOptions: (versionId: string) => ({
+    queryKey: ['version', versionId],
+    queryFn: () =>
+      Promise.resolve({ id: versionId, day: '15/06/2025' } as const),
+  }),
+}))
+
+function renderTile(release: RegistryRelease) {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
+  return renderWithI18n(
+    <QueryClientProvider client={queryClient}>
+      <RegistryReleaseTile release={release} />
+    </QueryClientProvider>,
+  )
+}
 
 describe('RegistryReleaseTile', () => {
   const mockRelease: RegistryRelease = {
@@ -33,22 +53,18 @@ describe('RegistryReleaseTile', () => {
   })
 
   it('displays description, author, publication date and context in the root card', () => {
-    const { getByText } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByText } = renderTile(mockRelease)
 
     expect(getByText('ESA 2026')).toBeInTheDocument()
     expect(getByText('maelle')).toBeInTheDocument()
     expect(
       getByText(computeDayFromDate(new Date(mockRelease.releaseDate))),
     ).toBeInTheDocument()
-    expect(getByText('BUSINESS')).toBeInTheDocument()
+    expect(getByText('Business')).toBeInTheDocument()
   })
 
   it('displays the pogues save id in the root card', () => {
-    const { getByText } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByText } = renderTile(mockRelease)
 
     expect(
       getByText('550e8400-e29b-41d4-a716-446655440001'),
@@ -69,9 +85,7 @@ describe('RegistryReleaseTile', () => {
         ...mockRelease.collectionInstruments,
       ],
     }
-    const { getByRole } = renderWithI18n(
-      <RegistryReleaseTile release={release} />,
-    )
+    const { getByRole } = renderTile(release)
 
     expect(getByRole('button', { name: 'CAWI' })).toBeInTheDocument()
     expect(getByRole('button', { name: 'CAPI' })).toBeInTheDocument()
@@ -79,9 +93,7 @@ describe('RegistryReleaseTile', () => {
 
   it('shows collection instrument details when the subcard is expanded', async () => {
     const user = userEvent.setup()
-    const { getByRole, getByText } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByRole, getByText } = renderTile(mockRelease)
 
     await user.click(getByRole('button', { name: 'CAPI' }))
 
@@ -95,9 +107,7 @@ describe('RegistryReleaseTile', () => {
 
   it('hides collection instrument details when the subcard is collapsed', async () => {
     const user = userEvent.setup()
-    const { getByRole, queryByText } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByRole, queryByText } = renderTile(mockRelease)
 
     expect(queryByText('COL-123')).toBeNull()
 
@@ -119,9 +129,7 @@ describe('RegistryReleaseTile', () => {
         },
       ],
     }
-    const { getByRole, queryByText } = renderWithI18n(
-      <RegistryReleaseTile release={release} />,
-    )
+    const { getByRole, queryByText } = renderTile(release)
 
     await user.click(getByRole('button', { name: 'CAPI' }))
 
@@ -133,9 +141,7 @@ describe('RegistryReleaseTile', () => {
   it('renders the visualize button of the collection instrument', async () => {
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null)
     const user = userEvent.setup()
-    const { getByRole } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByRole } = renderTile(mockRelease)
 
     await user.click(getByRole('button', { name: 'CAPI' }))
 
@@ -154,9 +160,7 @@ describe('RegistryReleaseTile', () => {
   })
 
   it('renders author link with trombi URL', () => {
-    const { getByText } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByText } = renderTile(mockRelease)
 
     const authorLink = getByText('maelle').closest('a')
     expect(authorLink).toHaveAttribute(
@@ -168,14 +172,22 @@ describe('RegistryReleaseTile', () => {
 
   it('renders a copy button for the collection instrument ID when expanded', async () => {
     const user = userEvent.setup()
-    const { getByRole } = renderWithI18n(
-      <RegistryReleaseTile release={mockRelease} />,
-    )
+    const { getByRole } = renderTile(mockRelease)
 
     await user.click(getByRole('button', { name: 'CAPI' }))
 
     expect(
       getByRole('button', { name: 'Copy to clipboard' }),
     ).toBeInTheDocument()
+  })
+
+  it('shows version date in tooltip on hover', async () => {
+    const user = userEvent.setup()
+    const { getByText, findByText } = renderTile(mockRelease)
+
+    const saveId = getByText('550e8400-e29b-41d4-a716-446655440001')
+    await user.hover(saveId)
+
+    expect(await findByText('15/06/2025')).toBeInTheDocument()
   })
 })

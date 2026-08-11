@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query'
 import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 
-import { getStatusDescriptionKey } from '@/api/utils/releases'
+import { getContextLabel, getStatusDescriptionKey } from '@/api/utils/releases'
+import { versionQueryOptions } from '@/api/versions'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import ExpandButton from '@/components/ui/ExpandButton'
 import Tooltip from '@/components/ui/Tooltip'
@@ -53,6 +55,13 @@ export function ReleaseRequestTile({
   const contentId = `request-content-${request.releaseRequestId}`
   const trombiUrl = import.meta.env.VITE_TROMBI_URL
   const requestDate = new Date(request.requestDate)
+  const { data: version } = useQuery(
+    versionQueryOptions(request.poguesVersionId),
+  )
+  console.log('version', version)
+  const versionDay = version?.day
+    ? computeDayFromDate(new Date(version.day))
+    : ''
 
   const statusBadge = (
     <div
@@ -120,7 +129,15 @@ export function ReleaseRequestTile({
                 <b className="text-gray-500 font-normal">
                   {t('release.contexte')} :{' '}
                 </b>
-                {request.context}
+                {getContextLabel(request.context, t)}
+              </div>
+              <div>
+                <b className="text-gray-500 font-normal">
+                  {t('release.poguesSave')} :{' '}
+                </b>
+                <Tooltip title={versionDay}>
+                  <span>{request.poguesVersionId}</span>
+                </Tooltip>
               </div>
               <div />
               <div />

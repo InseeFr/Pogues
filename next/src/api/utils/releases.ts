@@ -1,9 +1,12 @@
+import type { TFunction } from 'i18next'
+
 import type { FormValues } from '@/components/release/form/schema'
 import { TargetModes } from '@/models/questionnaires'
 import type { TargetMode } from '@/models/questionnaires'
 import type {
   RegistryCollectionInstrument,
   RegistryRelease,
+  ReleaseContext,
   ReleaseRequest,
 } from '@/models/releases'
 
@@ -63,6 +66,15 @@ function computeRegistryCollectionInstrumentDTO(
     ...instrument,
     mode: computeTargetModesDTO(instrument.mode),
   }
+}
+
+const CONTEXT_I18N_KEY_MAP = {
+  HOUSEHOLD: 'release.form.contexte.menages',
+  BUSINESS: 'release.form.contexte.entreprise',
+} as const
+
+export function getContextLabel(context: ReleaseContext, t: TFunction): string {
+  return t(CONTEXT_I18N_KEY_MAP[context])
 }
 
 const STATUS_DESCRIPTION_KEY_MAP: Record<string, string> = {

@@ -1,6 +1,5 @@
 import { queryOptions } from '@tanstack/react-query'
 
-import { TargetModes } from '@/models/questionnaires'
 import type { RegistryRelease, ReleaseRequest } from '@/models/releases'
 
 import { instance } from './instance'
@@ -13,70 +12,6 @@ import {
   computeRegistryReleases,
   computeReleaseRequests,
 } from './utils/releases'
-
-export const MOCK_PUBLICATIONS: RegistryRelease[] = [
-  {
-    author: 'xbeltv',
-    releaseDate: new Date('2026-07-04T08:00:00').getTime(),
-    poguesVersionId: '93d1e85c-327d-4153-a5fa-e04f54ca0e3e',
-    releaseDescription: 'ESA 2026 PROD',
-    context: 'HOUSEHOLD',
-    collectionInstruments: [
-      {
-        mode: TargetModes.CAWI,
-        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440001',
-        version: 3,
-        overrideGenerationParameters: {
-          questionNumberingMode: 'NONE',
-          responseTimeQuestion: false,
-        },
-        visualizeUrl: 'https://visu.example.com/esa-2026-prod',
-      },
-      {
-        mode: TargetModes.CAPI,
-        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440010',
-        version: 3,
-        overrideGenerationParameters: null,
-        visualizeUrl: 'https://visu.example.com/esa-2026-prod-capi',
-      },
-    ],
-  },
-  {
-    author: 'nazdsn',
-    releaseDate: new Date('2026-06-28T10:00:00').getTime(),
-    poguesVersionId: '5ddf61df-00c8-4018-a763-fa7bc91b0162',
-    releaseDescription: 'ESA 2026 TEST TERRAIN',
-    context: 'BUSINESS',
-    collectionInstruments: [
-      {
-        mode: TargetModes.CAPI,
-        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440002',
-        version: 2,
-        overrideGenerationParameters: {
-          questionNumberingMode: 'NONE',
-          responseTimeQuestion: false,
-        },
-        visualizeUrl: 'https://visu.example.com/esa-2026-test',
-      },
-    ],
-  },
-  {
-    author: 'bcbab8',
-    releaseDate: new Date('2026-06-15T11:30:00').getTime(),
-    poguesVersionId: 'b77e7cad-475d-4d83-b036-fa7a98a84a8a',
-    releaseDescription: "Publication la plus ancienne d'ESA",
-    context: 'HOUSEHOLD',
-    collectionInstruments: [
-      {
-        mode: TargetModes.CAWI,
-        collectionInstrumentId: '550e8400-e29b-41d4-a716-446655440003',
-        version: 1,
-        overrideGenerationParameters: null,
-        visualizeUrl: 'https://visu.example.com/esa-2026-old',
-      },
-    ],
-  },
-]
 
 export const releasesKeys = {
   released: (questionnaireId: string) => ['released', questionnaireId] as const,
