@@ -16,7 +16,7 @@
       "email": "romain.tailhurat@insee.fr"
     },
     {
-      "name": "François Bulot",
+      "name": "Fran\u00e7ois Bulot",
       "email": "francois.bulot@insee.fr"
     },
     {
@@ -169,5 +169,10 @@
       "last 1 safari version"
     ]
   },
-  "type": "module"
+  "type": "module",
+  "pnpm": {
+    "overrides": {
+      "immutable": "5.1.8"
+    }
+  }
 }
