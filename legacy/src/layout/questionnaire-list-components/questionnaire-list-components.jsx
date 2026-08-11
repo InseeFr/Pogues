@@ -1,8 +1,8 @@
 import { forwardRef, useContext, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
 
 import { AuthContext } from '@/auth/context';
@@ -131,12 +131,13 @@ const QuestionnaireListComponents = (props) => {
   const componentHeader = Dictionary[`componentEdit${componentType}`] || '';
 
   return (
-    <div id="questionnaire">
-      {!questionnaire.id ? (
-        <Loader />
-      ) : (
-        <div>
-          {/* Questionnaire edit */}
+    <DndProvider backend={HTML5Backend}>
+      <div id="questionnaire">
+        {!questionnaire.id ? (
+          <Loader />
+        ) : (
+          <div>
+            {/* Questionnaire edit */}
 
           <div id="questionnaire-head">
             <h4>{questionnaire.label}</h4>
@@ -273,7 +274,8 @@ const QuestionnaireListComponents = (props) => {
           />
         </div>
       )}
-    </div>
+      </div>
+    </DndProvider>
   );
 };
 
@@ -311,8 +313,4 @@ const ForwardedQuestionnaireListComponents = withForwardRef(
   QuestionnaireListComponents,
 );
 
-const WrappedQuestionnaireListComponents = DragDropContext(HTML5Backend)(
-  ForwardedQuestionnaireListComponents,
-);
-
-export default WrappedQuestionnaireListComponents;
+export default ForwardedQuestionnaireListComponents;
