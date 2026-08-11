@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@making-sense/antlr-editor':
         specifier: ^2.0.0
-        version: 2.5.0(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.9.2(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)
       '@making-sense/vtl-2-0-antlr-tools-ts':
         specifier: ^2.0.1
         version: 2.0.1
@@ -28,7 +28,7 @@ importers:
         version: 1.4.1(draft-js@0.11.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(immutable@3.8.3)
       iconoir-react:
         specifier: ^7.10.1
-        version: 7.11.0(react@18.3.1)
+        version: 7.11.1(react@18.3.1)
       lodash.clonedeep:
         specifier: 4.5.0
         version: 4.5.0
@@ -63,11 +63,11 @@ importers:
         specifier: 4.5.0
         version: 4.5.0
       monaco-editor:
-        specifier: ^0.51.0
-        version: 0.51.0
+        specifier: ^0.56.0
+        version: 0.56.0
       oidc-spa:
         specifier: ^10.1.0
-        version: 10.2.1(@types/react@18.3.31)(react@18.3.1)
+        version: 10.2.11(@types/react@18.3.31)(react@18.3.1)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -118,7 +118,7 @@ importers:
         version: 1.4.0
       zod:
         specifier: ^4.3.6
-        version: 4.3.6
+        version: 4.4.3
     devDependencies:
       '@babel/eslint-parser':
         specifier: ^7.25.9
@@ -548,9 +548,12 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@making-sense/antlr-editor@2.5.0':
-    resolution: {integrity: sha512-LJgWIum9rtBOk8fiBCikfudolUTw5R947rbrCIJxybq3ZxTVkzqyaNAVNOEHCb5mEc1Da7wxMY7e+tMa4E/DxQ==}
-    engines: {node: '>=20.0.0'}
+  '@making-sense/antlr-editor@2.9.2':
+    resolution: {integrity: sha512-x8FK0otaD6Y1lj2HpxonRPV7axU+Of1jMEK9BXbGUkbhLDIa2rNAWv0u8osPFpFftuQnAfPyZB9lqA88CWeQsw==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      react: '>=19.0.0'
+      react-dom: '>=19.0.0'
 
   '@making-sense/antlr4ng@3.0.4':
     resolution: {integrity: sha512-grrhXCk7f5On2xC+xenRjPmb7b+Z10mnrSD7aa19Pn4cMv19HJuW2eAJNSWqgX++4zjvCHOovwiyBufEQVfcxg==}
@@ -962,6 +965,9 @@ packages:
 
   '@types/scheduler@0.16.8':
     resolution: {integrity: sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A==}
+
+  '@types/trusted-types@2.0.7':
+    resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
   '@typescript-eslint/eslint-plugin@8.66.0':
     resolution: {integrity: sha512-p088eaGrzYz1s+7cov0aMOCkNGTJlVxF4jgubf28c8L0Cv9Rloj8YBHnv4hXLq6IIEE1AsjNWavO+k+8kP2Y0A==}
@@ -1521,6 +1527,9 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
+  dompurify@3.4.8:
+    resolution: {integrity: sha512-yb1cEmaOum7wFvOCSQxyfgVlv5D47Rc30iZWoMpbDIWTnJ6grDDQyu2KFJzB2k7u0pMuJcQ1zphH//fFnw2tjQ==}
+
   domutils@3.1.0:
     resolution: {integrity: sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA==}
 
@@ -1954,8 +1963,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  iconoir-react@7.11.0:
-    resolution: {integrity: sha512-uvTKtnHYwbbTsmQ6HCcliYd50WK0GbjP497RwdISxKzfS01x4cK1Mn/F2mT/t2roSaJQ0I+KnHxMcyvmNMXWsQ==}
+  iconoir-react@7.11.1:
+    resolution: {integrity: sha512-uUdoKZ5SvvleMWf+mJWbAxLt5WaEcvBAU3YmO5Ho+JA5JLxBKntT0KNXpJqQArq7b5DxiN5xobIVoDBIPAvA/w==}
     peerDependencies:
       react: 18 || 19
 
@@ -2394,6 +2403,11 @@ packages:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
 
+  marked@14.0.0:
+    resolution: {integrity: sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ==}
+    engines: {node: '>= 18'}
+    hasBin: true
+
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -2439,11 +2453,11 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
-  monaco-editor@0.51.0:
-    resolution: {integrity: sha512-xaGwVV1fq343cM7aOYB6lVE4Ugf0UyimdD/x5PWcWBMKENwectaEu77FAN7c5sFiyumqeJdX1RPTh1ocioyDjw==}
-
   monaco-editor@0.52.2:
     resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
+
+  monaco-editor@0.56.0:
+    resolution: {integrity: sha512-sXboRm3BeBeLm938eaiyLMe0OxzfXIlZvbv4ir/jVgQy1zDhWjgmny0WoN45fuDKhCCQsYMbBJrv/A6jd8aCUg==}
 
   moo@0.5.2:
     resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
@@ -2543,15 +2557,15 @@ packages:
     resolution: {integrity: sha512-4a+OsYv9UktOJKE+l1A4OufDgdRF9PifWj+tJnHURo/P+WOxpG4GzUFL9qCalmWauao6ogiG+QvnCovwPoyAWA==}
     engines: {node: '>=12.20.0'}
 
-  oidc-spa@10.2.1:
-    resolution: {integrity: sha512-Z3YEKQ+B2UMfieU+1CHfGhptHVbHjo5DrqVjTAKG+IFVAGZZeD9dP/vRuT1mTOomjAEpytnlqHtYkGryr1vJtw==}
+  oidc-spa@10.2.11:
+    resolution: {integrity: sha512-2g8m3PNxB/jNpsv4G5Nns/qFPjRKdKlYqlrQaMpIVdCV3ug8a326lHi2SOderTO5Ocboa+zMbpWVXtLJRCYP7g==}
     peerDependencies:
       '@angular/common': '*'
       '@angular/core': '*'
       '@angular/router': '*'
       '@nuxt/kit': '*'
       '@tanstack/react-router': '*'
-      '@tanstack/react-start': '*'
+      '@tanstack/react-start': '>=1.168.25'
       '@types/react': '*'
       react: '*'
       rxjs: '*'
@@ -3599,8 +3613,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@4.3.6:
-    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
 
@@ -3881,15 +3895,17 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@making-sense/antlr-editor@2.5.0(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@making-sense/antlr-editor@2.9.2(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)':
     dependencies:
       '@making-sense/antlr4ng': 3.0.4(antlr4ng-cli@2.0.0)
       '@monaco-editor/react': 4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      debug: 4.4.3(supports-color@7.2.0)
       monaco-editor: 0.52.2
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
       - antlr4ng-cli
-      - react
-      - react-dom
+      - supports-color
 
   '@making-sense/antlr4ng@3.0.4(antlr4ng-cli@2.0.0)':
     dependencies:
@@ -4265,6 +4281,9 @@ snapshots:
       redux: 4.2.1
 
   '@types/scheduler@0.16.8': {}
+
+  '@types/trusted-types@2.0.7':
+    optional: true
 
   '@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@9.39.5(jiti@1.21.7)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3))(eslint@9.39.5(jiti@1.21.7)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)':
     dependencies:
@@ -4942,6 +4961,10 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
+  dompurify@3.4.8:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
+
   domutils@3.1.0:
     dependencies:
       dom-serializer: 2.0.0
@@ -5540,7 +5563,7 @@ snapshots:
 
   husky@9.1.7: {}
 
-  iconoir-react@7.11.0(react@18.3.1):
+  iconoir-react@7.11.1(react@18.3.1):
     dependencies:
       react: 18.3.1
 
@@ -5936,6 +5959,8 @@ snapshots:
     dependencies:
       semver: 7.8.5
 
+  marked@14.0.0: {}
+
   math-intrinsics@1.1.0: {}
 
   merge2@1.4.1: {}
@@ -5975,9 +6000,12 @@ snapshots:
 
   minimist@1.2.8: {}
 
-  monaco-editor@0.51.0: {}
-
   monaco-editor@0.52.2: {}
+
+  monaco-editor@0.56.0:
+    dependencies:
+      dompurify: 3.4.8
+      marked: 14.0.0
 
   moo@0.5.2: {}
 
@@ -6076,7 +6104,7 @@ snapshots:
 
   obug@2.1.4: {}
 
-  oidc-spa@10.2.1(@types/react@18.3.31)(react@18.3.1):
+  oidc-spa@10.2.11(@types/react@18.3.31)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.31
       react: 18.3.1
@@ -7150,4 +7178,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@4.3.6: {}
+  zod@4.4.3: {}
