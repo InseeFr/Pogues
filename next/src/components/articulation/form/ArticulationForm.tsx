@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 
 import Form from '@/components/ui/form/Form'
+import FormField from '@/components/ui/form/FormField'
 import VTLEditor from '@/components/ui/form/VTLEditor'
 import {
   type ArticulationItems,
@@ -57,13 +58,15 @@ export default function ArticulationForm({
       isSubmitted={isSubmitted}
     >
       {articulationItems.map((item, index) => (
-        <Controller
+        <FormField
           key={item.label}
-          name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values
           control={control}
-          render={({
+          name={`items.${index as 0 | 1 | 2}.value`}
+          noField
+        >
+          {({
             field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
+            fieldState: { isDirty, error, invalid, isTouched },
           }) => (
             <VTLEditor
               dirty={isDirty}
@@ -79,7 +82,7 @@ export default function ArticulationForm({
               value={value}
             />
           )}
-        />
+        </FormField>
       ))}
     </Form>
   )
