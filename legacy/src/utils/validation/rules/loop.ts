@@ -1,7 +1,7 @@
 /*
 List of business rules to be applied to each questionnaire's components.
 */
-import get from 'lodash.get';
+import { get } from 'lodash';
 
 import { nameLoop, required } from '../validate-rules';
 

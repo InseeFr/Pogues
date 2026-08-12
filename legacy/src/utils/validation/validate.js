@@ -2,7 +2,7 @@
 Trigger the validations rules to survey's components (sequences, questions, etc.)
 when one create or update a component in the questionnaire.
 */
-import get from 'lodash.get';
+import { get } from 'lodash';
 import { SubmissionError } from 'redux-form';
 
 import {
