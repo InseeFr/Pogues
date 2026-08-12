@@ -111,7 +111,7 @@
     "font-awesome": "4.7.0",
     "globals": "^17.0.0",
     "husky": "^9.1.7",
-    "jsdom": "^25.0.0",
+    "jsdom": "^30.0.0",
     "lint-staged": "^17.0.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.1",
