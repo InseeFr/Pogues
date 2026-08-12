@@ -1,4 +1,4 @@
-import uniq from 'lodash.uniq';
+import { uniq } from 'lodash';
 
 import { INTEGRITY_TYPES } from '../../constants/pogues-constants';
 import Dictionary from '../dictionary/dictionary';

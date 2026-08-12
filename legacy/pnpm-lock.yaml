@@ -29,39 +29,9 @@ importers:
       iconoir-react:
         specifier: ^7.10.1
         version: 7.11.1(react@18.3.1)
-      lodash.clonedeep:
-        specifier: 4.5.0
-        version: 4.5.0
-      lodash.debounce:
-        specifier: 4.0.8
-        version: 4.0.8
-      lodash.find:
-        specifier: 4.6.0
-        version: 4.6.0
-      lodash.get:
-        specifier: 4.4.2
-        version: 4.4.2
-      lodash.isequal:
-        specifier: ^4.5.0
-        version: 4.5.0
-      lodash.maxby:
-        specifier: ^4.6.0
-        version: 4.6.0
-      lodash.merge:
-        specifier: ^4.6.2
-        version: 4.6.2
-      lodash.sortby:
-        specifier: 4.7.0
-        version: 4.7.0
-      lodash.takeright:
-        specifier: 4.1.1
-        version: 4.1.1
-      lodash.takewhile:
-        specifier: 4.6.0
-        version: 4.6.0
-      lodash.uniq:
-        specifier: 4.5.0
-        version: 4.5.0
+      lodash:
+        specifier: ^4.18.1
+        version: 4.18.1
       monaco-editor:
         specifier: ^0.56.0
         version: 0.56.0
@@ -150,39 +120,9 @@ importers:
       '@types/enzyme':
         specifier: ^3.10.18
         version: 3.10.19
-      '@types/lodash.clonedeep':
-        specifier: ^4.5.9
-        version: 4.5.9
-      '@types/lodash.debounce':
-        specifier: ^4.0.9
-        version: 4.0.9
-      '@types/lodash.find':
-        specifier: ^4.6.9
-        version: 4.6.9
-      '@types/lodash.get':
-        specifier: ^4.4.9
-        version: 4.4.9
-      '@types/lodash.isequal':
-        specifier: ^4.5.8
-        version: 4.5.8
-      '@types/lodash.maxby':
-        specifier: ^4.6.9
-        version: 4.6.9
-      '@types/lodash.merge':
-        specifier: ^4.6.9
-        version: 4.6.9
-      '@types/lodash.sortby':
-        specifier: ^4.7.9
-        version: 4.7.9
-      '@types/lodash.takeright':
-        specifier: ^4.1.9
-        version: 4.1.9
-      '@types/lodash.takewhile':
-        specifier: ^4.6.9
-        version: 4.6.9
-      '@types/lodash.uniq':
-        specifier: ^4.5.9
-        version: 4.5.9
+      '@types/lodash':
+        specifier: ^4.17.25
+        version: 4.17.25
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.3
@@ -910,41 +850,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/lodash.clonedeep@4.5.9':
-    resolution: {integrity: sha512-19429mWC+FyaAhOLzsS8kZUsI+/GmBAQ0HFiCPsKGU+7pBXOQWhyrY6xNNDwUSX8SMZMJvuFVMF9O5dQOlQK9Q==}
-
-  '@types/lodash.debounce@4.0.9':
-    resolution: {integrity: sha512-Ma5JcgTREwpLRwMM+XwBR7DaWe96nC38uCBDFKZWbNKD+osjVzdpnUSwBcqCptrp16sSOLBAUb50Car5I0TCsQ==}
-
-  '@types/lodash.find@4.6.9':
-    resolution: {integrity: sha512-v1qcNZs0ksl0+BO+aflReb8oIDHLc+rSc4n+RYZ3pMaxIFw2/mcW/wlTYFqrh+8dY1ZqRbX22ytFfUgs4sAXtw==}
-
-  '@types/lodash.get@4.4.9':
-    resolution: {integrity: sha512-J5dvW98sxmGnamqf+/aLP87PYXyrha9xIgc2ZlHl6OHMFR2Ejdxep50QfU0abO1+CH6+ugx+8wEUN1toImAinA==}
-
-  '@types/lodash.isequal@4.5.8':
-    resolution: {integrity: sha512-uput6pg4E/tj2LGxCZo9+y27JNyB2OZuuI/T5F+ylVDYuqICLG2/ktjxx0v6GvVntAf8TvEzeQLcV0ffRirXuA==}
-
-  '@types/lodash.maxby@4.6.9':
-    resolution: {integrity: sha512-sLH16KjHUjrLya0zAtIOQ4xraDpLhnYBgcgRwevpxj06El1Pbeu9B4F8o0u8eBvZv8iDw/5qteJwmKDw3wEyuA==}
-
-  '@types/lodash.merge@4.6.9':
-    resolution: {integrity: sha512-23sHDPmzd59kUgWyKGiOMO2Qb9YtqRO/x4IhkgNUiPQ1+5MUVqi6bCZeq9nBJ17msjIMbEIO5u+XW4Kz6aGUhQ==}
-
-  '@types/lodash.sortby@4.7.9':
-    resolution: {integrity: sha512-PDmjHnOlndLS59GofH0pnxIs+n9i4CWeXGErSB5JyNFHu2cmvW6mQOaUKjG8EDPkni14IgF8NsRW8bKvFzTm9A==}
-
-  '@types/lodash.takeright@4.1.9':
-    resolution: {integrity: sha512-AGnwgjSy0sYhOW+QWLcubGibV+87evFBQHPIWxWvBRuqQ0u/TeXXUigg2higHx3J6+8uofdoOYU6whgJeCeIIg==}
-
-  '@types/lodash.takewhile@4.6.9':
-    resolution: {integrity: sha512-D7UAZxOlzh1NM0CIJVGLiF8E/lFOaWRrnOgNNRnRsWU3id5X6YVHvKXBRHvCufW2fSJUpvsg5DzW3Rh+YCsYuQ==}
-
-  '@types/lodash.uniq@4.5.9':
-    resolution: {integrity: sha512-2Vd5avnDMNLbDSnUwwgwExKXvX9W3CN72rodT+ikGqGHXn7gVK6BM6Z+kHonbpGgCI2BzM+QDMHrkgKoofOi6A==}
-
-  '@types/lodash@4.17.13':
-    resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
+  '@types/lodash@4.17.25':
+    resolution: {integrity: sha512-+K1NIO8I+F9/wNulfVvu23QYd0Pe9/OCqRrim4NoYIf1VoEDL90Ve4ClzpyqBLc7NpGGWRvYNCKZ1BE/Jpf8dQ==}
 
   '@types/minimatch@3.0.5':
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
@@ -2352,49 +2259,21 @@ packages:
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
-  lodash.clonedeep@4.5.0:
-    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
-
-  lodash.debounce@4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-
   lodash.escape@4.0.1:
     resolution: {integrity: sha512-nXEOnb/jK9g0DYMr1/Xvq6l5xMD7GDG55+GSYIYmS0G4tBk/hURD4JR9WCavs04t33WmJx9kCyp9vJ+mr4BOUw==}
 
-  lodash.find@4.6.0:
-    resolution: {integrity: sha512-yaRZoAV3Xq28F1iafWN1+a0rflOej93l1DQUejs3SZ41h2O9UJBoS9aueGjPDgAl4B6tPC0NuuchLKaDQQ3Isg==}
-
   lodash.flattendeep@4.4.0:
     resolution: {integrity: sha512-uHaJFihxmJcEX3kT4I23ABqKKalJ/zDrDg0lsFtc1h+3uw49SIJ5beyhx5ExVRti3AvKoOJngIj7xz3oylPdWQ==}
-
-  lodash.get@4.4.2:
-    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
-    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
     deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
-  lodash.maxby@4.6.0:
-    resolution: {integrity: sha512-QfTqQTwzmKxLy7VZlbx2M/ipWv8DCQ2F5BI/MRxLharOQ5V78yMSuB+JE+EuUM22txYfj09R2Q7hUlEYj7KdNg==}
-
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
-  lodash.sortby@4.7.0:
-    resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
-
-  lodash.takeright@4.1.1:
-    resolution: {integrity: sha512-/I41i2h8VkHtv3PYD8z1P4dkLIco5Z3z35hT/FJl18AxwSdifcATaaiBOxuQOT3T/F1qfRTct3VWMFSj1xCtAw==}
-
-  lodash.takewhile@4.6.0:
-    resolution: {integrity: sha512-Sk8EkhjedgxlInlTgbJEz2CBWinPcEKd7c2szvoj4fV13U3/MRaiUurt3I4IUBx+OYM0MY3BCbuPtoqgorxAxA==}
-
-  lodash.uniq@4.5.0:
-    resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
-
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -4202,51 +4081,7 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/lodash.clonedeep@4.5.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.debounce@4.0.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.find@4.6.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.get@4.4.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.isequal@4.5.8':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.maxby@4.6.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.merge@4.6.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.sortby@4.7.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.takeright@4.1.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.takewhile@4.6.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash.uniq@4.5.9':
-    dependencies:
-      '@types/lodash': 4.17.13
-
-  '@types/lodash@4.17.13': {}
+  '@types/lodash@4.17.25': {}
 
   '@types/minimatch@3.0.5': {}
 
@@ -4926,7 +4761,7 @@ snapshots:
       is-core-module: 2.16.1
       js-yaml: 3.14.1
       json5: 2.2.3
-      lodash: 4.17.21
+      lodash: 4.18.1
       minimatch: 7.4.6
       multimatch: 5.0.0
       please-upgrade-node: 3.2.0
@@ -5926,33 +5761,15 @@ snapshots:
 
   lodash-es@4.17.21: {}
 
-  lodash.clonedeep@4.5.0: {}
-
-  lodash.debounce@4.0.8: {}
-
   lodash.escape@4.0.1: {}
-
-  lodash.find@4.6.0: {}
 
   lodash.flattendeep@4.4.0: {}
 
-  lodash.get@4.4.2: {}
-
   lodash.isequal@4.5.0: {}
-
-  lodash.maxby@4.6.0: {}
 
   lodash.merge@4.6.2: {}
 
-  lodash.sortby@4.7.0: {}
-
-  lodash.takeright@4.1.1: {}
-
-  lodash.takewhile@4.6.0: {}
-
-  lodash.uniq@4.5.0: {}
-
-  lodash@4.17.21: {}
+  lodash@4.18.1: {}
 
   loose-envify@1.4.0:
     dependencies:
@@ -6463,14 +6280,14 @@ snapshots:
 
   redux-devtools-instrument@1.10.0(redux@4.2.1):
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.18.1
       redux: 4.2.1
       symbol-observable: 1.2.0
 
   redux-devtools@3.7.0(react-redux@7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(redux@4.2.1):
     dependencies:
       '@types/prop-types': 15.7.15
-      lodash: 4.17.21
+      lodash: 4.18.1
       prop-types: 15.8.1
       react: 18.3.1
       react-redux: 7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6490,7 +6307,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       invariant: 2.2.4
       is-promise: 2.2.2
-      lodash: 4.17.21
+      lodash: 4.18.1
       prop-types: 15.8.1
       react: 18.3.1
       react-is: 16.13.1
