@@ -16,7 +16,7 @@ importers:
         version: 5.3.0
       '@hookform/resolvers':
         specifier: ^5.1.1
-        version: 5.7.1(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)
+        version: 5.9.0(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)
       '@making-sense/antlr-editor':
         specifier: 2.9.2
         version: 2.9.2(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)
@@ -31,13 +31,13 @@ importers:
         version: 5.101.4(react@18.3.1)
       '@tanstack/react-router':
         specifier: ^1.121.34
-        version: 1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.11.0
         version: 1.19.0(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       dayjs:
         specifier: ^1.11.13
-        version: 1.11.21
+        version: 1.11.22
       i18next:
         specifier: ^26.0.0
         version: 26.3.6(typescript@5.9.3)
@@ -46,10 +46,10 @@ importers:
         version: 8.2.1
       oidc-spa:
         specifier: ^10.1.0
-        version: 10.2.11(@tanstack/react-router@1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.31)(react@18.3.1)
+        version: 10.2.11(@tanstack/react-router@1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.31)(react@18.3.1)
       papaparse:
         specifier: ^5.5.3
-        version: 5.5.4
+        version: 5.6.0
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
@@ -61,7 +61,7 @@ importers:
         version: 18.3.1(react@18.3.1)
       react-error-boundary:
         specifier: ^6.0.0
-        version: 6.1.2(react@18.3.1)
+        version: 6.1.3(@types/react@18.3.31)(react@18.3.1)
       react-hook-form:
         specifier: ^7.62.0
         version: 7.85.0(react@18.3.1)
@@ -95,7 +95,7 @@ importers:
         version: 1.167.30(supports-color@7.2.0)
       '@tanstack/router-plugin':
         specifier: ^1.121.37
-        version: 1.168.32(@rspack/core@1.6.7(@swc/helpers@0.5.17))(@tanstack/react-router@1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rolldown@1.2.3)(rollup@4.45.1)(supports-color@7.2.0)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))
+        version: 1.168.32(@rspack/core@1.6.7(@swc/helpers@0.5.17))(@tanstack/react-router@1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rolldown@1.2.3)(rollup@4.45.1)(supports-color@7.2.0)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))
       '@testing-library/dom':
         specifier: ^10.4.0
         version: 10.4.1
@@ -598,8 +598,8 @@ packages:
   '@fontsource-variable/open-sans@5.3.0':
     resolution: {integrity: sha512-VOfhZfLIOBVa6K/dTEu7scqQXYdGa4jBX8quFpQ0S6574B+W2EOBJf9PkqyVtMEI7WWIWNEbpvPc3vY1mN2mmQ==}
 
-  '@hookform/resolvers@5.7.1':
-    resolution: {integrity: sha512-8wS/P4UDr5sQDe4nFaV51TVyfDPrWgNIXweqG0Bs9Z5LSuzKLb+RQNPvkN2oHM5SRrJyWrVH/F+LOUcFjUyvwQ==}
+  '@hookform/resolvers@5.9.0':
+    resolution: {integrity: sha512-8sNo1IklGaONrsKzXjwZJNsPbccAXLXGX//G+VFEcQOviMtbvR8/fM6HWyA0qrjgpOYauwoodda53CQIWOZ7Ag==}
     peerDependencies:
       '@sinclair/typebox': '>=0.25.24'
       '@standard-schema/spec': ^1.0.0
@@ -617,13 +617,13 @@ packages:
       fluentvalidation-ts: ^3.0.0
       fp-ts: ^2.7.0
       io-ts: ^2.0.0
-      joi: ^17.0.0
+      joi: ^17.0.0 || ^18.0.0
       nope-validator: '>=0.12.0'
       react-hook-form: ^7.55.0
       superstruct: '>=0.12.0'
       typanion: ^3.3.2
       valibot: '>=0.31.0 || ^1.0.0-beta.4 || ^1.0.0-rc'
-      vest: '>=3.0.0'
+      vest: '>=6.0.0'
       yup: ^1.0.0
       zod: ^3.25.0 || ^4.0.0
     peerDependenciesMeta:
@@ -1254,8 +1254,8 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@tanstack/react-router@1.170.25':
-    resolution: {integrity: sha512-XiWYvkLAGhcZHhV2xUvicpF/VfTVSnewP6CqviDONAjmD50tBob5x/93u2W8QZAc/JgkPd+jijCmu6t4NCzmew==}
+  '@tanstack/react-router@1.170.29':
+    resolution: {integrity: sha512-xQwakR0ReaUGu3xeXEl2CqzlIXk4i9vxaf/zqdzoELMY0mDZgMOr+xobiA5cQdn8cnovqZgqqUxcwXhsruC+NA==}
     engines: {node: '>=20.19'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
@@ -1271,10 +1271,6 @@ packages:
     resolution: {integrity: sha512-qds8Fl+VY5KU1xlTUHRT12hXSujr8TW3TqE1hwotDjh3SGMQ/uEO6gF57FiEZNIg3L896f3XLZ30JgF8C7WbGw==}
     engines: {node: '>=20.19'}
     hasBin: true
-
-  '@tanstack/router-core@1.171.21':
-    resolution: {integrity: sha512-t6xUHBO94nQDrPHPh6ag5UuKHWIkVjq9s63q2ctbxgzq3vtSoGKmAIdLD5o+NU6JUS1ppXRHgL0YGzEHvH32Ng==}
-    engines: {node: '>=20.19'}
 
   '@tanstack/router-core@1.171.24':
     resolution: {integrity: sha512-+j+8NmV4QOS+ILNLdXFlLTdKPPbBQIy6mXDZ0QWEKYZ0xQOdlnOCXVHPflyGanD2SWSxjqGkw8CsW0CXXP7fLg==}
@@ -1700,8 +1696,8 @@ packages:
     resolution: {integrity: sha512-23XHcCF+coGYevirZceTVD7NdJOqVn+49IHyxgszm+JIiHLoB2TkmPtsYkNWT1pvRSGkc35L6NHs0yHkN2SumA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
-  dayjs@1.11.21:
-    resolution: {integrity: sha512-98IT+HOahAisibz/yjKbzuOBwYcjJ7BCLPzARyHiyEBmRz4fatF+KPJszEHXsGYjUG234aH/cOjW1wwTbKUZlA==}
+  dayjs@1.11.22:
+    resolution: {integrity: sha512-1YRnxzt/AabP3GHxnaB9/b+ZScCKu5TeF+co+BWG+lnWVIwEcTFc1FVE0WLNmNO3sA6GGXL40i5qkHfbLzpwrg==}
 
   debug@4.4.1:
     resolution: {integrity: sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==}
@@ -2417,8 +2413,8 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
-  papaparse@5.5.4:
-    resolution: {integrity: sha512-SwzWD9gl/ElwYLCI0nUja1mFJzjq2D8ziShfNBa7zCHzkOozeOGDwHWQ+tvCzEZcewecWZ5U7kUopDnG+DFYEQ==}
+  papaparse@5.6.0:
+    resolution: {integrity: sha512-N2vuNQAYGK1/4vs6HJX86+VYU6OkiSTgdJz3JQfTk1y51cFCO/U8gnaeTF4iNE4r57Tt0sV47dUua1/19pxO6Q==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -2493,10 +2489,14 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
-  react-error-boundary@6.1.2:
-    resolution: {integrity: sha512-3DpCr5HVdZ0caUjYE/kIHBEJN0mNP3ZCgf16c48uJ5TbWjorKVp+YG8W3XqlJ7vJAVNw6wNIImyPXmFydwmyng==}
+  react-error-boundary@6.1.3:
+    resolution: {integrity: sha512-GnSKpCohFi2nQmJCWwP8O8wub7zexlePvpsejvQr35vS5RTouS1+utTNOmyc540yw5vyOXnSL1rBWsCQDmkyUA==}
     peerDependencies:
+      '@types/react': ^18.0.0 || ^19.0.0
       react: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-hook-form@7.85.0:
     resolution: {integrity: sha512-U2MTriFXnclmV4rOE20p2DcRFv5WEg3FIcBFOKcOLFHDVvGIMPvLTkTWefUsonmlaVy23khVDxDWym6uJVGOzw==}
@@ -3345,7 +3345,7 @@ snapshots:
 
   '@fontsource-variable/open-sans@5.3.0': {}
 
-  '@hookform/resolvers@5.7.1(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)':
+  '@hookform/resolvers@5.9.0(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)':
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.85.0(react@18.3.1)
@@ -3859,11 +3859,11 @@ snapshots:
       '@tanstack/query-core': 5.101.4
       react: 18.3.1
 
-  '@tanstack/react-router@1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-router@1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/history': 1.162.1
       '@tanstack/react-store': 0.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/router-core': 1.171.21
+      '@tanstack/router-core': 1.171.24
       isbot: 5.2.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -3882,13 +3882,6 @@ snapshots:
       yargs: 17.7.3
     transitivePeerDependencies:
       - supports-color
-
-  '@tanstack/router-core@1.171.21':
-    dependencies:
-      '@tanstack/history': 1.162.1
-      cookie-es: 3.1.1
-      seroval: 1.6.2
-      seroval-plugins: 1.6.2(seroval@1.6.2)
 
   '@tanstack/router-core@1.171.24':
     dependencies:
@@ -3910,7 +3903,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tanstack/router-plugin@1.168.32(@rspack/core@1.6.7(@swc/helpers@0.5.17))(@tanstack/react-router@1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rolldown@1.2.3)(rollup@4.45.1)(supports-color@7.2.0)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))':
+  '@tanstack/router-plugin@1.168.32(@rspack/core@1.6.7(@swc/helpers@0.5.17))(@tanstack/react-router@1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rolldown@1.2.3)(rollup@4.45.1)(supports-color@7.2.0)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@babel/template': 7.29.7
@@ -3922,7 +3915,7 @@ snapshots:
       unplugin: 3.3.0(@rspack/core@1.6.7(@swc/helpers@0.5.17))(rolldown@1.2.3)(rollup@4.45.1)(vite@8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3))
       zod: 4.4.3
     optionalDependencies:
-      '@tanstack/react-router': 1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-router': 1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       vite: 8.2.1(@types/node@26.1.2)(jiti@2.7.0)(tsx@4.20.3)
     transitivePeerDependencies:
       - '@farmfe/core'
@@ -4375,7 +4368,7 @@ snapshots:
     transitivePeerDependencies:
       - '@noble/hashes'
 
-  dayjs@1.11.21: {}
+  dayjs@1.11.22: {}
 
   debug@4.4.1(supports-color@7.2.0):
     dependencies:
@@ -4967,9 +4960,9 @@ snapshots:
 
   obug@2.1.4: {}
 
-  oidc-spa@10.2.11(@tanstack/react-router@1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.31)(react@18.3.1):
+  oidc-spa@10.2.11(@tanstack/react-router@1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.31)(react@18.3.1):
     optionalDependencies:
-      '@tanstack/react-router': 1.170.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-router': 1.170.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react': 18.3.31
       react: 18.3.1
 
@@ -4992,7 +4985,7 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
-  papaparse@5.5.4: {}
+  papaparse@5.6.0: {}
 
   parent-module@1.0.1:
     dependencies:
@@ -5050,9 +5043,11 @@ snapshots:
       react: 18.3.1
       scheduler: 0.23.2
 
-  react-error-boundary@6.1.2(react@18.3.1):
+  react-error-boundary@6.1.3(@types/react@18.3.31)(react@18.3.1):
     dependencies:
       react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.31
 
   react-hook-form@7.85.0(react@18.3.1):
     dependencies:
