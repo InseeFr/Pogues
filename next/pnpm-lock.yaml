@@ -16,7 +16,7 @@ importers:
         version: 5.3.0
       '@hookform/resolvers':
         specifier: ^5.1.1
-        version: 5.9.0(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)
+        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)
       '@making-sense/antlr-editor':
         specifier: 2.9.2
         version: 2.9.2(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)
@@ -37,7 +37,7 @@ importers:
         version: 1.19.0(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       dayjs:
         specifier: ^1.11.13
-        version: 1.11.22
+        version: 1.11.23
       i18next:
         specifier: ^26.0.0
         version: 26.3.6(typescript@5.9.3)
@@ -598,8 +598,8 @@ packages:
   '@fontsource-variable/open-sans@5.3.0':
     resolution: {integrity: sha512-VOfhZfLIOBVa6K/dTEu7scqQXYdGa4jBX8quFpQ0S6574B+W2EOBJf9PkqyVtMEI7WWIWNEbpvPc3vY1mN2mmQ==}
 
-  '@hookform/resolvers@5.9.0':
-    resolution: {integrity: sha512-8sNo1IklGaONrsKzXjwZJNsPbccAXLXGX//G+VFEcQOviMtbvR8/fM6HWyA0qrjgpOYauwoodda53CQIWOZ7Ag==}
+  '@hookform/resolvers@5.9.1':
+    resolution: {integrity: sha512-7b7vsbraJxKgjVSA1Nur9tLwj539WGJUBLA7QNvXnFoT2pM5Z7G+6rlukk4B2/QrTZy6huRtH6wKeESPKuIr6w==}
     peerDependencies:
       '@sinclair/typebox': '>=0.25.24'
       '@standard-schema/spec': ^1.0.0
@@ -1696,8 +1696,8 @@ packages:
     resolution: {integrity: sha512-23XHcCF+coGYevirZceTVD7NdJOqVn+49IHyxgszm+JIiHLoB2TkmPtsYkNWT1pvRSGkc35L6NHs0yHkN2SumA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
-  dayjs@1.11.22:
-    resolution: {integrity: sha512-1YRnxzt/AabP3GHxnaB9/b+ZScCKu5TeF+co+BWG+lnWVIwEcTFc1FVE0WLNmNO3sA6GGXL40i5qkHfbLzpwrg==}
+  dayjs@1.11.23:
+    resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
 
   debug@4.4.1:
     resolution: {integrity: sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==}
@@ -3345,7 +3345,7 @@ snapshots:
 
   '@fontsource-variable/open-sans@5.3.0': {}
 
-  '@hookform/resolvers@5.9.0(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)':
+  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.17.1))(ajv@8.17.1)(react-hook-form@7.85.0(react@18.3.1))(zod@4.4.3)':
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.85.0(react@18.3.1)
@@ -4368,7 +4368,7 @@ snapshots:
     transitivePeerDependencies:
       - '@noble/hashes'
 
-  dayjs@1.11.22: {}
+  dayjs@1.11.23: {}
 
   debug@4.4.1(supports-color@7.2.0):
     dependencies:
