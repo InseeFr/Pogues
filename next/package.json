@@ -24,7 +24,7 @@
   "dependencies": {
     "@base-ui/react": "^1.7.0",
     "@fontsource-variable/open-sans": "^5.1.1",
-    "@hookform/resolvers": "^5.1.1",
+    "@hookform/resolvers": "^5.9.1",
     "@making-sense/antlr-editor": "2.9.2",
     "@making-sense/vtl-2-1-antlr-tools-ts": "^1.0.5",
     "@making-sense/vtl-2-1-monaco-tools-ts": "^1.0.1",
