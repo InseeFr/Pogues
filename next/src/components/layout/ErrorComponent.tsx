@@ -106,7 +106,7 @@ export default function ErrorComponent({
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL as string | undefined
   return (
     <div className="flex items-center justify-center p-4 bg-main">
-      <div className="flex flex-col lg:flex-row items-center gap-12 max-w-4xl w-full">
+      <div className="flex flex-col lg:flex-row items-center gap-12 max-w-5xl w-full">
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold">{title}</h1>
           {customMessage ? (
@@ -135,7 +135,7 @@ export default function ErrorComponent({
             <ButtonLink to="/">{t('error.backToHome')}</ButtonLink>
           </div>
         </div>
-        <div className="lg:block w-72 shrink-0">
+        <div className="lg:block w-92 shrink-0">
           <img src="/LostPenguin.svg" alt="" aria-hidden="true" />
         </div>
       </div>

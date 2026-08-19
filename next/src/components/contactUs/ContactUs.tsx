@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
 import ButtonLink from '../ui/ButtonLink'
-import OpenInNewIcon from '../ui/icons/OpenInNewIcon'
 
 export default function ContactUs() {
   const { t } = useTranslation()
@@ -11,7 +10,7 @@ export default function ContactUs() {
 
   return (
     <div className="flex items-center justify-center bg-main p-4">
-      <div className="flex w-full max-w-4xl flex-col items-center gap-6 lg:flex-row">
+      <div className="flex w-full max-w-5xl flex-col items-center gap-6 lg:flex-row">
         <div className="flex-1 space-y-8">
           <h1 className="text-3xl font-bold">{t('common.contactUs.title')}</h1>
 
@@ -53,15 +52,14 @@ export default function ContactUs() {
               rel="noopener noreferrer"
             >
               {t('common.contactUs.frequentlyAskedQuestionsLink')}
-              <OpenInNewIcon height="16" width="16" />
             </a>
           </div>
 
           <ButtonLink to="/">{t('error.backToHome')}</ButtonLink>
         </div>
 
-        <div className="w-72 shrink-0 lg:block">
-          <img src="/LostPenguin.svg" alt="" aria-hidden="true" />
+        <div className="w-92 shrink-0 lg:block">
+          <img src="/ContactPenguin.svg" alt="" aria-hidden="true" />
         </div>
       </div>
     </div>
