@@ -20,9 +20,10 @@ export default function Header({ user }: Readonly<HeaderProps>) {
   const { t } = useTranslation()
 
   const appVersion = import.meta.env.APP_VERSION
+  const isContactEnabled = import.meta.env.VITE_ENABLE_CONTACT === 'true'
 
   return (
-    <div className="grid grid-cols-[auto_1fr_auto] bg-negative text-negative fill-negative items-center">
+    <div className="grid grid-cols-[auto_1fr_auto_auto] bg-negative text-negative fill-negative items-center">
       <div className="px-3 py-2">
         <h1>
           <Link to="/">{t('common.appName')}</Link>
@@ -41,6 +42,20 @@ export default function Header({ user }: Readonly<HeaderProps>) {
           </div>
         </a>
       </div>
+      {isContactEnabled && (
+        <div className="flex justify-center gap-x-15 px-3 py-2">
+          <a
+            className="flex items-center gap-x-1 hover:underline"
+            href="/contactUs"
+          >
+            {t('common.contactUs.title')}
+            <div>
+              <OpenInNewIcon height="16" width="16" />
+            </div>
+          </a>
+        </div>
+      )}
+
       <div className="p-3 grid grid-flow-col items-center gap-x-3 focus:outline-none bg-transparent border-none text-transparent">
         <User user={user} />
       </div>
