@@ -21,15 +21,15 @@
   },
   "packageManager": "pnpm@11.22.0",
   "devDependencies": {
-    "@eslint/js": "^10.0.0",
+    "@eslint/js": "^10.0.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-    "eslint": "^10.0.0",
+    "eslint": "^10.8.1",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "lint-staged": "^17.0.0",
-    "prettier": "^3.8.1",
-    "vite": "^8.0.1"
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.4",
+    "lint-staged": "^17.3.0",
+    "prettier": "^3.9.6",
+    "vite": "^8.2.2"
   },
   "lint-staged": {
     "next/**/*.{js,jsx,ts,tsx}": [
