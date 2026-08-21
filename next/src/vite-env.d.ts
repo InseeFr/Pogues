@@ -5,10 +5,13 @@ export type ImportMetaEnv = {
   // You probably want to add `/src/vite-env.d.ts` to your .prettierignore
   VITE_API_URL: string
   VITE_CONTACT_EMAIL: string
+  VITE_CONTACT_MAIL_CONCEPTION: string
   VITE_ENABLE_ARTICULATION_PAGE: string
+  VITE_ENABLE_CONTACT: string
   VITE_ENABLE_DOWNLOAD_PDF_PERSO: string
   VITE_ENABLE_MULTIMODE_PAGE: string
   VITE_ENABLE_PAIRING_RECAP: string
+  VITE_FREQUENTLY_ASKED_QUESTIONS_URL: string
   VITE_OIDC_CLIENT_ID: string
   VITE_OIDC_ENABLED: string
   VITE_OIDC_ISSUER: string
@@ -20,6 +23,7 @@ export type ImportMetaEnv = {
   DEV: boolean
   PROD: boolean
   APP_VERSION: string
+  VITE_CONTACT_MAIL_GENERAL: string
   // @user-defined-start
   /*
    *  You can use this section to explicitly extend the type definition of `import.meta.env`

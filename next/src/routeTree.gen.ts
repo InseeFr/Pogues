@@ -6,6 +6,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as LayoutContactUsRouteImport } from './routes/_layout/contactUs'
 import { Route as LayoutLoginRouteImport } from './routes/_layout/login'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q'
 import { Route as LayoutQuestionnaireQuestionnaireIdLayoutQArticulationEditRouteImport } from './routes/_layout/questionnaire.$questionnaireId/_layout-q/articulation/edit'
@@ -62,6 +63,11 @@ const IndexRoute = IndexRouteImport.update({
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutContactUsRoute = LayoutContactUsRouteImport.update({
+  id: '/contactUs',
+  path: '/contactUs',
+  getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutLoginRoute = LayoutLoginRouteImport.update({
   id: '/login',
@@ -398,6 +404,7 @@ const LayoutQuestionnaireQuestionnaireIdLayoutQVersionVersionIdVariablesRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/questionnaires': typeof LayoutQuestionnairesRouteRouteWithChildren
+  '/contactUs': typeof LayoutContactUsRoute
   '/login': typeof LayoutLoginRoute
   '/questionnaire/$questionnaireId': typeof LayoutQuestionnaireQuestionnaireIdRouteRouteWithChildren
   '/questionnaires/new': typeof LayoutQuestionnairesNewRoute
@@ -445,6 +452,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contactUs': typeof LayoutContactUsRoute
   '/login': typeof LayoutLoginRoute
   '/questionnaire/$questionnaireId': typeof LayoutQuestionnaireQuestionnaireIdLayoutQIndexRoute
   '/questionnaires/new': typeof LayoutQuestionnairesNewRoute
@@ -485,6 +493,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/questionnaires': typeof LayoutQuestionnairesRouteRouteWithChildren
+  '/_layout/contactUs': typeof LayoutContactUsRoute
   '/_layout/login': typeof LayoutLoginRoute
   '/_layout/questionnaire/$questionnaireId': typeof LayoutQuestionnaireQuestionnaireIdRouteRouteWithChildren
   '/_layout/questionnaires/new': typeof LayoutQuestionnairesNewRoute
@@ -536,6 +545,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/questionnaires'
+    | '/contactUs'
     | '/login'
     | '/questionnaire/$questionnaireId'
     | '/questionnaires/new'
@@ -583,6 +593,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contactUs'
     | '/login'
     | '/questionnaire/$questionnaireId'
     | '/questionnaires/new'
@@ -622,6 +633,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_layout'
     | '/_layout/questionnaires'
+    | '/_layout/contactUs'
     | '/_layout/login'
     | '/_layout/questionnaire/$questionnaireId'
     | '/_layout/questionnaires/new'
@@ -689,6 +701,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof LayoutRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_layout/contactUs': {
+      id: '/_layout/contactUs'
+      path: '/contactUs'
+      fullPath: '/contactUs'
+      preLoaderRoute: typeof LayoutContactUsRouteImport
+      parentRoute: typeof LayoutRoute
     }
     '/_layout/login': {
       id: '/_layout/login'
@@ -1288,12 +1307,14 @@ const LayoutQuestionnaireQuestionnaireIdRouteRouteWithChildren =
 
 interface LayoutRouteChildren {
   LayoutQuestionnairesRouteRoute: typeof LayoutQuestionnairesRouteRouteWithChildren
+  LayoutContactUsRoute: typeof LayoutContactUsRoute
   LayoutLoginRoute: typeof LayoutLoginRoute
   LayoutQuestionnaireQuestionnaireIdRouteRoute: typeof LayoutQuestionnaireQuestionnaireIdRouteRouteWithChildren
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutQuestionnairesRouteRoute: LayoutQuestionnairesRouteRouteWithChildren,
+  LayoutContactUsRoute: LayoutContactUsRoute,
   LayoutLoginRoute: LayoutLoginRoute,
   LayoutQuestionnaireQuestionnaireIdRouteRoute:
     LayoutQuestionnaireQuestionnaireIdRouteRouteWithChildren,

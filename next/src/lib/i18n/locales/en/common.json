@@ -4,6 +4,15 @@
   "cancel": "Cancel",
   "clearInput": "Clear input",
   "collapse": "Collapse",
+  "contactUs": {
+    "title": "Contact us",
+    "conceptionQuestion": "For questions about the conception of questionnaires please contact the conception team at: ",
+    "contactConceptionTeam": "Contact conception team",
+    "generalQuestion": "For any other questions please contact the general team at: ",
+    "contactGeneralTeam": "Contact general team",
+    "frequentlyAskedQuestions": "Frequently asked questions",
+    "frequentlyAskedQuestionsLink": "🧐 Frequents issues"
+  },
   "create": "Create",
   "date": "Date",
   "delete": "Delete",

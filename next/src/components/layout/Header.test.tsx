@@ -24,8 +24,14 @@ describe('Header', () => {
     stamp: 'jd123',
   }
 
+  beforeEach(() => {
+    vi.stubEnv('VITE_ENABLE_CONTACT', 'false')
+  })
+
   afterEach(() => {
     vi.clearAllMocks()
+    vi.unstubAllEnvs()
+    vi.stubEnv('APP_VERSION', '1.2.3')
   })
 
   it('renders the app name and version', async () => {
@@ -62,5 +68,24 @@ describe('Header', () => {
       }),
       expect.anything(),
     )
+  })
+
+  it('render the contactUs link if enabled', async () => {
+    vi.stubEnv('VITE_ENABLE_CONTACT', 'true')
+    await renderWithRouter(<Header user={user} />)
+
+    const contactLink = screen.getByRole('link', {
+      name: 'Contact us',
+    })
+    expect(contactLink).toBeInTheDocument()
+  })
+
+  it('does not render the contactUs button if disabled', async () => {
+    await renderWithRouter(<Header user={user} />)
+
+    const contactLink = screen.queryByRole('link', {
+      name: 'Contact us',
+    })
+    expect(contactLink).not.toBeInTheDocument()
   })
 })

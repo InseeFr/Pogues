@@ -12,6 +12,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page to overview released and pending releases of a questionnaire
 - Form to create a release of a questionnaire
 
+## [3.7.4](https://github.com/InseeFr/Pogues/releases/tag/3.7.4) - 2026-08-21
+
+### Fixed
+
+#### Dependencies
+
+- fix cves
+
+**_Next_ Client**
+
+- update lots of dependencies & devDependencies (minor & patch)
+
+### Added
+
+- Add the read-only banner in details page when visualizing a previous version of a questionnaire
+
+### Fixed
+
+- Suggester is now more permissive in details page
+
+## [3.7.3](https://github.com/InseeFr/Pogues/releases/tag/3.7.3) - 2026-08-20
+
+### Added
+
+- Contact us page
+
 ## [3.7.2](https://github.com/InseeFr/Pogues/releases/tag/3.7.2) - 2026-08-06
 
 ### Added
