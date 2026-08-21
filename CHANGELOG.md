@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.7.4](https://github.com/InseeFr/Pogues/releases/tag/3.7.4) - 2026-08-21
+
 ### Fixed
 
 #### Dependencies
