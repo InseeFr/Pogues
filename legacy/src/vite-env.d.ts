@@ -8,11 +8,6 @@ type ImportMetaEnv = {
   VITE_OIDC_ENABLED: string;
   VITE_OIDC_ISSUER: string;
   VITE_OIDC_SCOPES: string;
-  VITE_ENABLE_ARTICULATION_PAGE: string;
-  VITE_ENABLE_DOWNLOAD_PDF_PERSO: string;
-  VITE_ENABLE_MULTIMODE_PAGE: string;
-  VITE_PERSONALIZATION_URL: string;
-  VITE_TROMBI_URL: string;
   BASE_URL: string;
   MODE: string;
   DEV: boolean;
