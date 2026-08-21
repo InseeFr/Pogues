@@ -22,6 +22,8 @@ export enum TargetModes {
   CATI,
 }
 
+export type TargetMode = keyof typeof TargetModes
+
 export enum FlowLogics {
   Filter = 'FILTER',
   Redirection = 'REDIRECTION',
