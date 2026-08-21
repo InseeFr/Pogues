@@ -3,6 +3,7 @@ import { Combobox } from '@base-ui/react/combobox'
 import { useState } from 'react'
 
 import ArrowDownIcon from '../icons/ArrowDownIcon'
+import { filterOptions } from './utils/filterOptions'
 
 type Props<T> = {
   onChange?: (value: T) => void
@@ -22,9 +23,7 @@ export default function Autocomplete<T extends string>({
 }: Readonly<Props<T>>) {
   const [inputValue, setInputValue] = useState('')
 
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(inputValue.toLowerCase()),
-  )
+  const filteredOptions = filterOptions(options, inputValue)
 
   return (
     <Combobox.Root

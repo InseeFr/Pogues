@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Suggester is now more permissive in details page
+
 ## [3.7.3](https://github.com/InseeFr/Pogues/releases/tag/3.7.3) - 2026-08-20
 
 ### Added
