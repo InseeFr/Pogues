@@ -4,11 +4,28 @@ import ContentWrapper from '@/components/layout/ContentWrapper'
 
 type Props = {
   children: React.ReactNode
+  isReadonly?: boolean
+  questionnaireId?: string
+  versionId?: string
 }
 
 /** Display questionnaire details. */
-export default function DetailsOverviewLayout({ children }: Readonly<Props>) {
+export default function DetailsOverviewLayout({
+  children,
+  isReadonly = false,
+  questionnaireId,
+  versionId,
+}: Readonly<Props>) {
   const { t } = useTranslation()
 
-  return <ContentWrapper title={t('details.title')}>{children}</ContentWrapper>
+  return (
+    <ContentWrapper
+      isReadonly={isReadonly}
+      questionnaireId={questionnaireId}
+      title={t('details.title')}
+      versionId={versionId}
+    >
+      {children}
+    </ContentWrapper>
+  )
 }
