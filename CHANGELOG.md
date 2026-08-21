@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+#### Dependencies
+
+- fix cves
+
+**_Next_ Client**
+
+- update lots of dependencies & devDependencies (minor & patch)
+
 ### Added
 
 - Add the read-only banner in details page when visualizing a previous version of a questionnaire
