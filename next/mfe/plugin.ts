@@ -8,7 +8,7 @@ const devModeConfig = {
   get: (_id: string) => {
     return () => ({
       Main: () => {
-        return '=====> Pogues Legacy is not available on dev mode <====='
+        return 'Legacy editor not available in Vite DEV — use root `pnpm standalone`.'
       },
     })
   },

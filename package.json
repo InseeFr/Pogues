@@ -3,17 +3,22 @@
   "version": "3.7.4",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
+    "install:all": "pnpm install && pnpm --dir next install && pnpm --dir legacy install",
     "test:next": "cd next && pnpm test",
     "test:legacy": "cd legacy && pnpm test",
     "build:next": "cd next && pnpm build",
     "build:legacy": "cd legacy && pnpm build",
     "test": "pnpm test:next && pnpm test:legacy",
     "build": "pnpm build:next && pnpm build:legacy",
+    "build:standalone": "cd next && pnpm build:standalone && cd ../legacy && pnpm build:standalone && cd .. && node scripts/postbuild.cjs",
     "lint": "pnpm lint:next && pnpm lint:legacy",
     "lint:next": "cd next && pnpm lint",
     "lint:legacy": "cd legacy && pnpm lint",
     "postbuild": "node scripts/postbuild.cjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:standalone": "node --env-file=.env.standalone ./node_modules/vite/bin/vite.js preview --mode standalone",
+    "prestandalone": "node scripts/ensure-installed.cjs",
+    "standalone": "pnpm build:standalone && pnpm preview:standalone"
   },
   "license": "MIT",
   "engines": {

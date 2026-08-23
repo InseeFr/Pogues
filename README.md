@@ -39,7 +39,7 @@ Thanks to **Module Federation**, both can be deployed at the same time and allow
 
 New features are developed there if possible.
 
-It can be launched in standalone if the old client is not needed:
+### Next only
 
 ```bash
 cd next
@@ -47,18 +47,38 @@ pnpm i
 pnpm dev
 ```
 
-Or with the legacy client (in build only so you need to rebuild when you edit something):
-**Required**
+Needs a real OIDC issuer and Pogues API (see `next/.env`).
 
-- dependencies of _next_ & _legacy_ are installed
-
-**At root level**
+Without backend / Keycloak (mock auth + fake API):
 
 ```bash
+cd next
 pnpm i
+pnpm dev:standalone
+```
+
+→ http://localhost:5173 — VTL editor via sidebar (variables / codes-lists).
+
+### Next + legacy together
+
+`root`, `next` and `legacy` each have their own `node_modules` (not a pnpm workspace).
+
+```bash
+pnpm install:all
 pnpm build
 pnpm preview
 ```
+
+Same without backend / Keycloak:
+
+```bash
+pnpm install:all
+pnpm standalone
+```
+
+→ http://localhost:4173 — next + legacy MFE + mock API.
+
+Config: `.env.standalone` at the repository root.
 
 ## Legacy client
 
