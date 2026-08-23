@@ -20,11 +20,37 @@ Pogues is a tool that allow to design questionnaires with components that are st
 
 This is the repository of the front-end part of Pogues.
 
-For more information on how to use the application, a [user documentation](https://inseefr.github.io/Bowie/1._Pogues/) is available (French only).
+For more information on how to use the application, a [utilisateur documentation](https://inseefr.github.io/Bowie/1._Pogues/) is available (French only).
 
 ## Local installation
+
+### With Keycloak + Pogues API
 
 ```bash
 pnpm i
 pnpm dev
 ```
+
+Config: `.env`
+
+### Without backend (mock)
+
+```bash
+pnpm i
+pnpm dev:standalone
+```
+
+Config: `../.env.standalone`  
+→ Guybrush / `FAKEPERMISSION`, demo questionnaires.  
+→ Opening a questionnaire goes to **details** (no legacy remote in Vite DEV).  
+→ **Variables / codes-lists** (VTL + antlr-editor) via the sidebar.
+
+### Full stack next + legacy, mocked
+
+```bash
+# from the repository root
+pnpm install:all
+pnpm standalone
+```
+
+→ http://localhost:4173 — next + federated legacy + mock API.
