@@ -26,8 +26,8 @@ importers:
         specifier: ^5.9.1
         version: 5.9.1(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.20.0))(ajv@8.20.0)(react-hook-form@7.85.0(react@19.2.8))(zod@4.4.3)
       '@making-sense/antlr-editor':
-        specifier: ^2.9.3
-        version: 2.9.3(antlr4ng-cli@2.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@7.2.0)
+        specifier: ^2.9.4
+        version: 2.9.4(antlr4ng-cli@2.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@7.2.0)
       '@making-sense/antlr4ng':
         specifier: ^3.0.16
         version: 3.0.16(antlr4ng-cli@2.0.0)
@@ -687,8 +687,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@making-sense/antlr-editor@2.9.3':
-    resolution: {integrity: sha512-UOGbQwb0h0s9VWTS2rGFtasuML5iBN2ROXXT9Nyln17Hpf+DUxeu1cCgSXCG6oI+rqDYFaKY2evVp0fn1FSFfA==}
+  '@making-sense/antlr-editor@2.9.4':
+    resolution: {integrity: sha512-rcN2NmqkUBovWZXiKbUy54BzJd9yd8ffQ0+Qt/THilKFLMKx61WjbAxwiIp86t87EKfDtfAY3mKqFsfUnxosgg==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       react: '>=19.0.0'
@@ -3140,7 +3140,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@making-sense/antlr-editor@2.9.3(antlr4ng-cli@2.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@7.2.0)':
+  '@making-sense/antlr-editor@2.9.4(antlr4ng-cli@2.0.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@7.2.0)':
     dependencies:
       '@making-sense/antlr4ng': 3.0.16(antlr4ng-cli@2.0.0)
       '@monaco-editor/react': 4.7.0(monaco-editor@0.56.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
