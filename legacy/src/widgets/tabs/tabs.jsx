@@ -3,7 +3,7 @@ import { Children, useState } from 'react';
 import PropTypes from 'prop-types';
 import classSet from 'react-classset';
 
-function Tabs({ children, errorsByTab }) {
+function Tabs({ children, errorsByTab = {} }) {
   const [activePanelIndex, setActivePanelIndex] = useState(0);
 
   function renderTabs() {
@@ -50,11 +50,6 @@ function Tabs({ children, errorsByTab }) {
 Tabs.propTypes = {
   errorsByTab: PropTypes.object,
   children: PropTypes.array.isRequired,
-};
-
-Tabs.defaultProps = {
-  errorsByTab: {},
-  validationErrors: {},
 };
 
 export default Tabs;

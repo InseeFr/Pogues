@@ -22,9 +22,9 @@ const selectorPath = TABLE;
  * Form used to create a table.
  */
 function ResponseFormatTable({
-  selectorPathParent,
-  showSecondaryAxis,
-  primaryAxisType,
+  selectorPathParent = undefined,
+  showSecondaryAxis = false,
+  primaryAxisType = LIST,
   addErrors,
 }) {
   const selectorPathComposed = selectorPathParent
@@ -86,10 +86,5 @@ ResponseFormatTable.propTypes = {
   addErrors: PropTypes.func.isRequired,
 };
 
-ResponseFormatTable.defaultProps = {
-  selectorPathParent: undefined,
-  showSecondaryAxis: false,
-  primaryAxisType: LIST,
-};
 
 export default connect(mapStateToProps)(ResponseFormatTable);

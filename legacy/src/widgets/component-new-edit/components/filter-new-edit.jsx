@@ -9,7 +9,7 @@ import { FilterLoopMembers } from './filter-loop-members';
 
 export const FilterNewEdit = ({
   componentsStore,
-  InitialMember,
+  InitialMember = undefined,
   handleDisableValidation,
 }) => {
   const { FILTER } = COMPONENT_TYPE;
@@ -46,6 +46,3 @@ FilterNewEdit.propTypes = {
   handleDisableValidation: PropTypes.func.isRequired,
 };
 
-FilterNewEdit.defaultProps = {
-  InitialMember: undefined,
-};

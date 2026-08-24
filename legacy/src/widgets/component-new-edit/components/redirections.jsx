@@ -37,19 +37,13 @@ const propTypes = {
   componentsStore: PropTypes.object.isRequired,
 };
 
-const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.REDIRECTIONS,
-  errors: [],
-};
-
 // Component
 
 const Redirections = ({
-  formName,
-  selectorPath,
+  formName = DEFAULT_FORM_NAME,
+  selectorPath = TABS_PATHS.REDIRECTIONS,
   componentType,
-  errors,
+  errors = [],
   addErrors,
   componentsStore,
   editingComponentId,
@@ -97,6 +91,4 @@ const Redirections = ({
 };
 
 Redirections.propTypes = propTypes;
-Redirections.defaultProps = defaultProps;
-
 export default Redirections;

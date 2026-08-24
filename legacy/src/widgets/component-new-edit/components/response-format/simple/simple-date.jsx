@@ -23,9 +23,9 @@ function ResponseFormatDatatypeDate({
   formatTableList,
   formatTable,
   formatCollectedVariables,
-  name,
-  required,
-  readOnly,
+  name = DATE,
+  required = true,
+  readOnly = false,
 }) {
   const formatInit =
     (type !== 'TABLE' && format) ||
@@ -95,11 +95,6 @@ function ResponseFormatDatatypeDate({
   );
 }
 
-ResponseFormatDatatypeDate.defaultProps = {
-  name: DATE,
-  readOnly: false,
-  required: true,
-};
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('component');

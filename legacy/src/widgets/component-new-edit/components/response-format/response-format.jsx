@@ -20,7 +20,7 @@ const { SIMPLE, SINGLE_CHOICE, MULTIPLE_CHOICE, TABLE, PAIRING } =
 const { RESPONSE_FORMAT } = TABS_PATHS;
 const selectorPath = RESPONSE_FORMAT;
 
-function ResponseFormat({ edit, name, addErrors }) {
+function ResponseFormat({ edit, name = RESPONSE_FORMAT, addErrors }) {
   let customProps = {
     label: Dictionary.responseFormats,
     selectorPath: selectorPath,
@@ -86,8 +86,5 @@ ResponseFormat.propTypes = {
   addErrors: PropTypes.func.isRequired,
 };
 
-ResponseFormat.defaultProps = {
-  name: RESPONSE_FORMAT,
-};
 
 export default ResponseFormat;

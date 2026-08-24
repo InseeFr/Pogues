@@ -41,18 +41,18 @@ const ListWithInputPanel = ({
   formName,
   selectorPath,
   name,
-  canAddNew,
+  canAddNew = true,
   resetObject,
   change,
-  errors,
+  errors = [],
   componentId,
   removeIntegrityError,
   children,
-  canRemove,
-  canDuplicate,
+  canRemove = true,
+  canDuplicate = true,
   validateForm,
   clearSubformValidationErrors,
-  disableValidation,
+  disableValidation = false,
 }) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(undefined);
   const [showPopup, setShowPopup] = useState(false);
@@ -303,15 +303,6 @@ ListWithInputPanel.propTypes = {
   clearSubformValidationErrors: PropTypes.func.isRequired,
   removeIntegrityError: PropTypes.func.isRequired,
   disableValidation: PropTypes.bool,
-};
-
-ListWithInputPanel.defaultProps = {
-  errors: [],
-  canAddNew: true,
-  canRemove: true,
-  canDuplicate: true,
-  componentsStore: {},
-  disableValidation: false,
 };
 
 export default ListWithInputPanel;

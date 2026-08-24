@@ -22,18 +22,18 @@ const ComponentNewEdit = ({
   componentType,
   componentId,
   addSubformValidationErrors,
-  componentsStore,
-  errorsIntegrityByTab,
+  componentsStore = {},
+  errorsIntegrityByTab = {},
   handleSubmit,
   submitting,
-  form,
+  form = undefined,
   onCancel,
-  deleteComponent,
+  deleteComponent = undefined,
   onSubmit,
   clearSubformValidationErrors,
   externalLoopsStore,
-  InitialMember,
-  redirectionNeeded,
+  InitialMember = undefined,
+  redirectionNeeded = false,
   activeQuestionnaire,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -268,15 +268,6 @@ ComponentNewEdit.propTypes = {
   form: PropTypes.string,
   redirectionNeeded: PropTypes.bool,
   activeQuestionnaire: PropTypes.object.isRequired,
-};
-
-ComponentNewEdit.defaultProps = {
-  errorsIntegrityByTab: {},
-  componentsStore: {},
-  deleteComponent: undefined,
-  InitialMember: undefined,
-  form: undefined,
-  redirectionNeeded: false,
 };
 
 export default ComponentNewEdit;

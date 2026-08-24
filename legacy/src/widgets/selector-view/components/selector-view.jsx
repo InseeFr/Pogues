@@ -42,12 +42,12 @@ export const defaultProps = {
 // Component
 
 function SelectorView({
-  fieldName,
+  fieldName = 'type',
   activeViewValue,
   label,
-  emptyOption,
+  emptyOption = undefined,
   radio,
-  children,
+  children = [],
   readOnly,
   required,
 }) {
@@ -97,6 +97,5 @@ function SelectorView({
 }
 
 SelectorView.propTypes = propTypes;
-SelectorView.defaultProps = defaultProps;
 
 export default SelectorView;

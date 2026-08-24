@@ -15,15 +15,15 @@ function AssociatedFields({
   change,
   formName,
   fieldTarget: { name: nameTarget },
-  currentValueOrigin,
-  currentValueTarget,
+  currentValueOrigin = '',
+  currentValueTarget = '',
   fieldOrigin,
   fieldTarget,
   targetIsRichTextarea,
   targetIsQuestion,
-  focusOnInit,
+  focusOnInit = false,
   handleDisableValidation,
-  onEnter,
+  onEnter = undefined,
 }) {
   const onBlur = useCallback(() => {
     let valueOrigin = currentValueOrigin;
@@ -99,13 +99,6 @@ AssociatedFields.propTypes = {
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool.isRequired,
   focusOnInit: PropTypes.bool,
-};
-
-AssociatedFields.defaultProps = {
-  currentValueOrigin: '',
-  currentValueTarget: '',
-  focusOnInit: false,
-  onEnter: undefined,
 };
 
 export default AssociatedFields;

@@ -24,13 +24,13 @@ const { RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 /** Form to create a QCU. */
 function ResponseFormatSingle({
-  selectorPathParent,
-  showMandatory,
-  visHint,
-  choiceType,
-  allowPrecision,
-  allowFilter,
-  disableSetArbitrary,
+  selectorPathParent = undefined,
+  showMandatory = true,
+  visHint = RADIO,
+  choiceType = CODE_LIST,
+  allowPrecision = true,
+  allowFilter = true,
+  disableSetArbitrary = false,
   setFieldValue,
 }) {
   const selectorPath = SINGLE_CHOICE;
@@ -112,18 +112,6 @@ ResponseFormatSingle.propTypes = {
   disableSetArbitrary: PropTypes.bool,
   collectedVariableStore: PropTypes.object,
   setFieldValue: PropTypes.func.isRequired,
-};
-
-ResponseFormatSingle.defaultProps = {
-  selectorPathParent: undefined,
-  showMandatory: true,
-  choiceType: CODE_LIST,
-  visHint: RADIO,
-  type: CODE_LIST,
-  allowPrecision: true,
-  allowFilter: true,
-  disableSetArbitrary: false,
-  collectedVariableStore: {},
 };
 
 const mapStateToProps = (state, { selectorPathParent }) => {

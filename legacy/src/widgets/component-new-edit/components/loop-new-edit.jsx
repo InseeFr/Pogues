@@ -16,9 +16,9 @@ import { LoopFixedLength } from './loop-new-edit-loop-fixed-length';
 const LoopNewEdit = ({
   componentsStore,
   componentType,
-  InitialMember,
+  InitialMember = undefined,
   scopes,
-  loopBasedOn,
+  loopBasedOn = undefined,
   isFixedLength,
   shouldSplitIterations,
 }) => {
@@ -117,10 +117,6 @@ LoopNewEdit.propTypes = {
   shouldSplitIterations: PropTypes.bool,
 };
 
-LoopNewEdit.defaultProps = {
-  InitialMember: undefined,
-  loopBasedOn: undefined,
-};
 
 // Container
 const mapStateToProps = (state, { form }) => {

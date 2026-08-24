@@ -31,8 +31,8 @@ function CollectedVariables({
   componentName,
   collectedVariablesIds = new Set(),
   responseFormatType,
-  reponseFormatValues,
-  codesListsStore,
+  reponseFormatValues = {},
+  codesListsStore = {},
   formName,
   arrayRemoveAll,
   arrayPush,
@@ -40,10 +40,10 @@ function CollectedVariables({
   selectorPath,
   errors,
   addErrors,
-  referencedCodeList,
-  referencedVariable,
-  variableReferenceLabel,
-  isVariableCollected,
+  referencedCodeList = '',
+  referencedVariable = '',
+  variableReferenceLabel = '',
+  isVariableCollected = '1',
 }) {
   function generateVariables() {
     const newVariables = generateCollectedVariables(
@@ -202,15 +202,6 @@ CollectedVariables.propTypes = {
   referencedVariable: PropTypes.string,
   variableReferenceLabel: PropTypes.string,
   isVariableCollected: PropTypes.string,
-};
-
-CollectedVariables.defaultProps = {
-  codesListsStore: {},
-  reponseFormatValues: {},
-  referencedCodeList: '',
-  referencedVariable: '',
-  variableReferenceLabel: '',
-  isVariableCollected: '1',
 };
 
 export default CollectedVariables;

@@ -43,10 +43,6 @@ export const propTypes = {
   componentId: PropTypes.string,
 };
 
-export const defaultProps = {
-  componentId: '',
-};
-
 // Container
 
 const mapStateToProps = (state, { componentId }) => {
@@ -81,6 +77,5 @@ const ComponentNewEditContainer = connect(
 )(ComponentNewEdit);
 
 ComponentNewEditContainer.propTypes = propTypes;
-ComponentNewEditContainer.defaultProps = defaultProps;
 
 export default ComponentNewEditContainer;

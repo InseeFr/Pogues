@@ -4,7 +4,7 @@ import { markdownVtlToString } from '../../../forms/controls/rich-textarea/utils
 import Dictionary from '../../../utils/dictionary/dictionary';
 import ListWithInputPanelItem from './list-with-input-panel-item';
 
-function ListWithInputPanelList({ fields, select, errors }) {
+function ListWithInputPanelList({ fields, select, errors = [] }) {
   const fieldsName = fields.name.split('.')[1];
   const items = fields.map((key, index, listFields) => {
     const item = listFields.get(index);
@@ -74,10 +74,6 @@ ListWithInputPanelList.propTypes = {
   fields: PropTypes.object.isRequired,
   select: PropTypes.func.isRequired,
   errors: PropTypes.array,
-};
-
-ListWithInputPanelList.defaultProps = {
-  errors: [],
 };
 
 export default ListWithInputPanelList;

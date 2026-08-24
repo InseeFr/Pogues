@@ -10,7 +10,7 @@ const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
  * In a static table, we must provide a code list that will determinate the
  * size of the table.
  */
-const ResponseFormatTablePrincipalStatic = ({ selectorPathParent }) => {
+const ResponseFormatTablePrincipalStatic = ({ selectorPathParent = undefined }) => {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -28,8 +28,5 @@ ResponseFormatTablePrincipalStatic.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatTablePrincipalStatic.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatTablePrincipalStatic;

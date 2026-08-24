@@ -46,9 +46,9 @@ export function SuggesterLists({
   formName,
   path,
   loadNomenclaturesIfNeeded,
-  nomenclatures,
+  nomenclatures = {},
   selectorPath,
-  currentId,
+  currentId = '',
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
 
@@ -109,7 +109,3 @@ SuggesterLists.propTypes = {
   currentId: PropTypes.string,
 };
 
-SuggesterLists.defaultProps = {
-  currentId: '',
-  nomenclatures: {},
-};

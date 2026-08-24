@@ -19,15 +19,15 @@ import Redirections from './redirections';
 import ResponseFormat from './response-format/response-format';
 
 export const QuestionNewEdit = ({
-  form,
+  form = undefined,
   componentId,
   errorsIntegrityByTab,
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
   activeQuestionnaire,
-  redirectionNeeded,
-  componentsStore,
+  redirectionNeeded = false,
+  componentsStore = {},
 }) => {
   const { QUESTION } = COMPONENT_TYPE;
 
@@ -137,8 +137,3 @@ QuestionNewEdit.propTypes = {
   componentsStore: PropTypes.object,
 };
 
-QuestionNewEdit.defaultProps = {
-  form: undefined,
-  redirectionNeeded: false,
-  componentsStore: {},
-};

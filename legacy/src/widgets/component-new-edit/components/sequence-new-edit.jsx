@@ -17,17 +17,17 @@ import Declarations from './declarations';
 import LoopNewEdit from './loop-new-edit';
 
 export const SequenceNewEdit = ({
-  form,
+  form = undefined,
   componentType,
-  componentId,
+  componentId = '',
   errorsIntegrityByTab,
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
   activeQuestionnaire,
-  componentsStore,
-  InitialMember,
-  scopes,
+  componentsStore = {},
+  InitialMember = undefined,
+  scopes = undefined,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -142,10 +142,3 @@ SequenceNewEdit.propTypes = {
   form: PropTypes.string,
 };
 
-SequenceNewEdit.defaultProps = {
-  componentId: '',
-  componentsStore: {},
-  InitialMember: undefined,
-  scopes: undefined,
-  form: undefined,
-};

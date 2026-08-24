@@ -25,10 +25,5 @@ function ResponseFormatDatatypeText({ name, required, readOnly }) {
   );
 }
 
-ResponseFormatDatatypeText.defaultProps = {
-  name: TEXT,
-  readOnly: false,
-  required: true,
-};
 
 export default ResponseFormatDatatypeText;

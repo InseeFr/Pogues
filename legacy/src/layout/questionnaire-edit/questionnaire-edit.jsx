@@ -83,9 +83,9 @@ function validateAndSubmit(
 function QuestionnaireNew({
   updateActiveQuestionnaire,
   updateComponent,
-  setErrors,
+  setErrors = () => {},
   questionnaire,
-  componentsStore,
+  componentsStore = {},
   onSuccess,
   onCancel,
   activeCalculatedVariablesById,
@@ -127,6 +127,5 @@ function QuestionnaireNew({
 }
 
 QuestionnaireNew.propTypes = propTypes;
-QuestionnaireNew.defaultProps = defaultProps;
 
 export default QuestionnaireNew;
