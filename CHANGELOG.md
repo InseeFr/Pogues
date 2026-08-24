@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page to overview released and pending releases of a questionnaire
 - Form to create a release of a questionnaire
 
+## [3.7.5](https://github.com/InseeFr/Pogues/releases/tag/3.7.5) - 2026-08-24
+
+### Added
+
+- Open the new questionnaire in a new tab when duplicating a questionnaire
+
 ## [3.7.4](https://github.com/InseeFr/Pogues/releases/tag/3.7.4) - 2026-08-21
 
 ### Fixed
