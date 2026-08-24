@@ -8,7 +8,11 @@ import Dictionary from '../../../../../utils/dictionary/dictionary';
 
 const { TEXT } = DATATYPE_NAME;
 
-function ResponseFormatDatatypeText({ name, required, readOnly }) {
+function ResponseFormatDatatypeText({
+  name = TEXT,
+  required = true,
+  readOnly = false,
+}) {
   return (
     <FormSection name={name}>
       <div className="response-format-datatype-text">
