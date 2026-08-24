@@ -3,6 +3,7 @@ import { Field } from 'redux-form';
 
 import {
   COMPONENT_TYPE,
+  DEFAULT_FORM_NAME,
   TABS_PATHS,
   TargetMode,
 } from '../../../constants/pogues-constants';
@@ -19,7 +20,7 @@ import Redirections from './redirections';
 import ResponseFormat from './response-format/response-format';
 
 export const QuestionNewEdit = ({
-  form = undefined,
+  form = DEFAULT_FORM_NAME,
   componentId,
   errorsIntegrityByTab,
   addSubformValidationErrors,
@@ -83,6 +84,8 @@ export const QuestionNewEdit = ({
       key={TABS_PATHS.COLLECTED_VARIABLES}
     >
       <CollectedVariablesContainer
+        formName={form}
+        selectorPath={TABS_PATHS.COLLECTED_VARIABLES}
         errors={errorsIntegrityByTab[TABS_PATHS.COLLECTED_VARIABLES]}
         addErrors={addSubformValidationErrors}
       />

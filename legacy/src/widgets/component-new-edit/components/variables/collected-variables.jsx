@@ -3,7 +3,9 @@ import { Field, FormSection } from 'redux-form';
 
 import {
   DATATYPE_NAME,
+  DEFAULT_FORM_NAME,
   QUESTION_TYPE_ENUM,
+  TABS_PATHS,
 } from '../../../../constants/pogues-constants';
 import { RichEditorWithVariable } from '../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../forms/controls/generic-option';
@@ -33,12 +35,12 @@ function CollectedVariables({
   responseFormatType,
   reponseFormatValues = {},
   codesListsStore = {},
-  formName,
+  formName = DEFAULT_FORM_NAME,
   arrayRemoveAll,
   arrayPush,
   removeValidationErrors,
-  selectorPath,
-  errors,
+  selectorPath = TABS_PATHS.COLLECTED_VARIABLES,
+  errors = [],
   addErrors,
   referencedCodeList = '',
   referencedVariable = '',
