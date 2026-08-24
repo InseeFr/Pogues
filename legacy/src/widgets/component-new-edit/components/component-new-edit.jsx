@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { domSelectorForModal } from '../../../constants/dom-constants';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -20,13 +23,13 @@ const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, ROUNDABOUT } =
 
 const ComponentNewEdit = ({
   componentType,
-  componentId,
+  componentId = '',
   addSubformValidationErrors,
   componentsStore = {},
   errorsIntegrityByTab = {},
   handleSubmit,
   submitting,
-  form = undefined,
+  form = DEFAULT_FORM_NAME,
   onCancel,
   deleteComponent = undefined,
   onSubmit,

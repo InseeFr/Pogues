@@ -45,7 +45,7 @@ export const propTypes = {
 
 // Container
 
-const mapStateToProps = (state, { componentId }) => {
+const mapStateToProps = (state, { componentId = '' }) => {
   const errorsIntegrity = state.errors.errorsIntegrity[componentId];
   const externalLoopsAvailable =
     state.metadataByType.externalQuestionnairesLoops || {};
