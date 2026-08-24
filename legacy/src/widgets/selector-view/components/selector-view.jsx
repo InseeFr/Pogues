@@ -46,12 +46,12 @@ function SelectorView({
   activeViewValue,
   label,
   emptyOption = undefined,
-  radio,
+  radio = false,
   children = [],
-  readOnly,
-  required,
+  readOnly = false,
+  required = true,
 }) {
-  const values = getValuesFromViews(children);
+  const values = getValuesFromViews(children) || [];
   const options = values.map((v) => (
     <GenericOption key={v.value} value={v.value}>
       {v.label}

@@ -6,7 +6,13 @@ import Input from '../../../../../../../forms/controls/input';
 import ListRadios from '../../../../../../../forms/controls/list-radios';
 import Dictionary from '../../../../../../../utils/dictionary/dictionary';
 
-function OptionalView({ name, label, children, active = false, checkbox }) {
+function OptionalView({
+  name,
+  label,
+  children,
+  active = false,
+  checkbox = false,
+}) {
   return (
     <div className="optional-view">
       {checkbox ? (

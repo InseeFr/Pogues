@@ -13,6 +13,7 @@ import {
   clearSubformValidationErrors,
   removeIntegrityError,
 } from '../../../actions/errors';
+import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 import ListWithInputPanel from '../components/list-with-input-panel';
 
 // Proptypes and defaultProps
@@ -45,7 +46,10 @@ const defaultProps = {
 
 // Container
 
-const mapStateToProps = (state, { formName, selectorPath }) => {
+const mapStateToProps = (
+  state,
+  { formName = DEFAULT_FORM_NAME, selectorPath },
+) => {
   const selector = formValueSelector(formName);
 
   return {
