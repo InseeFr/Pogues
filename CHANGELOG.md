@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.7.5](https://github.com/InseeFr/Pogues/releases/tag/3.7.5) - 2026-08-24
+
 ### Added
 
 - Open the new questionnaire in a new tab when duplicating a questionnaire
