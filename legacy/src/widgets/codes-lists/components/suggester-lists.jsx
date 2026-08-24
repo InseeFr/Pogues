@@ -6,6 +6,10 @@ import { Field, FormSection } from 'redux-form';
 import { AuthContext } from '@/auth/context';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import {
+  DEFAULT_FORM_NAME,
+  DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -42,12 +46,12 @@ export const updateFormFields = (change, formName, path, nomenclature) => {
 
 export function SuggesterLists({
   change,
-  selectorPathParent,
-  formName,
+  selectorPathParent = '',
+  formName = DEFAULT_FORM_NAME,
   path,
   loadNomenclaturesIfNeeded,
   nomenclatures = {},
-  selectorPath,
+  selectorPath = DEFAULT_NOMENCLATURE_SELECTOR_PATH,
   currentId = '',
 }) {
   const [currentIdState, setCurrentIdState] = useState(currentId);
