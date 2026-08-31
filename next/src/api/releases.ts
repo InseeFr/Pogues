@@ -40,8 +40,6 @@ export const pendingReleasesQueryOptions = (questionnaireId: string) =>
 export async function getReleases(
   questionnaireId: string,
 ): Promise<RegistryRelease[]> {
-  console.log('questionnaireId', questionnaireId)
-
   return instance
     .get(`/questionnaire/${questionnaireId}/releases`, {
       headers: { Accept: 'application/json' },
@@ -55,8 +53,6 @@ export async function getReleases(
 export async function getPendingReleases(
   questionnaireId: string,
 ): Promise<ReleaseRequest[]> {
-  console.log('questionnaireId', questionnaireId)
-
   return instance
     .get(`/questionnaire/${questionnaireId}/release-requests`, {
       headers: { Accept: 'application/json' },

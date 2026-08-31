@@ -9,7 +9,7 @@
   "nomenclatures": "Nomenclatures",
   "questionnaire": "Questionnaire {{id}}",
   "questionnaires": "Questionnaires",
-  "release": "Release {{id}}",
+  "releases": "Releases",
   "variable": "Variable {{id}}",
   "variables": "Variables",
   "version": "Version {{id}}",

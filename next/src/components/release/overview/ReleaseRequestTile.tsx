@@ -58,20 +58,18 @@ export function ReleaseRequestTile({
   const { data: version } = useQuery(
     versionQueryOptions(request.poguesVersionId),
   )
-  console.log('version', version)
   const versionDay = version?.day
     ? computeDayFromDate(new Date(version.day))
     : ''
 
   const statusBadge = (
     <div
-      className={`inline-flex items-center gap-1 px-3 py-1 rounded text-sm font-medium ${
-        request.status === 'FAILED'
+      className={`inline-flex items-center gap-1 px-3 py-1 rounded text-sm font-medium ${request.status === 'FAILED'
           ? 'bg-red-50 text-red-600'
           : request.status === 'COMPLETED'
             ? 'bg-green-50 text-green-600'
             : 'bg-gray-100 text-gray-500'
-      }`}
+        }`}
     >
       {getStatusLabel(request.status, t)}
     </div>
