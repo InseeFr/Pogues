@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Page to overview released and pending releases of a questionnaire
-- Form to create a release of a questionnaire
+- Page to overview released and pending releases of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
+- Form to create a release of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
 
 ### Changed
 
