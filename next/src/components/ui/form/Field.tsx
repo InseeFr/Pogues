@@ -78,7 +78,7 @@ export default function Field({
       touched={touched}
       dirty={dirty}
     >
-      <BaseUIField.Label className="w-full space-y-1 text-sm font-semibold text-default">
+      <BaseUIField.Label className="w-full space-y-1 text-base font-semibold text-default">
         {label ? (
           <p>
             {label}

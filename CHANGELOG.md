@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Page to overview released and pending releases of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
+- Form to create a release of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
+
+### Changed
+
+- Download button for PDF data summary is now always enabled, removing `VITE_ENABLE_DOWNLOAD_PDF_PERSO`.
+
 ## [3.7.6](https://github.com/InseeFr/Pogues/releases/tag/3.7.6) - 2026-09-02
 
 ### Fixed
