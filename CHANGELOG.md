@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Download button for PDF data summary is now always enabled, removing `VITE_ENABLE_DOWNLOAD_PDF_PERSO`.
 
+## [3.7.6](https://github.com/InseeFr/Pogues/releases/tag/3.7.6) - 2026-09-02
+
+### Fixed
+
+- Loops could not be based on children questionnaire scope (since 3.7.0)
+
 ## [3.7.5](https://github.com/InseeFr/Pogues/releases/tag/3.7.5) - 2026-08-24
 
 ### Added
