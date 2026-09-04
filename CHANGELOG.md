@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.0](https://github.com/InseeFr/Pogues/releases/tag/3.8.0) - 2026-09-04
+
 ### Added
 
 - Page to overview released and pending releases of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
