@@ -32,6 +32,7 @@
     "dev": "vite --port 5145",
     "build": "vite build",
     "build:standalone": "node --env-file=../.env.standalone ./node_modules/vite/bin/vite.js build --mode standalone",
+    "build:api": "node --env-file=../.env.local-api ./node_modules/vite/bin/vite.js build",
     "preview": "vite preview --port 5145",
     "test": "vitest run",
     "test:watch": "vitest",

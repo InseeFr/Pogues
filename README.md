@@ -59,6 +59,47 @@ pnpm dev:standalone
 
 → http://localhost:5173 — VTL editor via sidebar (variables / codes-lists).
 
+### Next + Pogues API in local (no Keycloak)
+
+Front and back talk to each other. Fake auth (Guybrush / `FAKEPERMISSION`), Postgres started with the API (no Docker), one demo questionnaire.
+
+Prerequisites: Java 25, Maven, Node 24, pnpm.
+
+Same commands on macOS, Linux and Windows (PowerShell, Git Bash or cmd).
+
+Terminal 1 — API (from the Pogues-API repo):
+
+```bash
+mvn spring-boot:run
+```
+
+Postgres is started automatically on port 5433. API listens on http://localhost:8081. Swagger: http://localhost:8081/
+
+Terminal 2 — front (from this repo):
+
+```bash
+pnpm install
+pnpm --dir next install
+pnpm dev:api
+```
+
+→ http://localhost:5173 — questionnaire sheet, variables, code lists. The question editor (legacy) is not loaded in Vite DEV: `/questionnaire/:id` redirects to `/details`.
+
+For the full editor (next + legacy) against the same API:
+
+```bash
+pnpm install:all
+pnpm preview:api
+```
+
+→ http://localhost:4173
+
+To add a questionnaire, drop a Pogues `.json` in `Pogues-API/local-questionnaires/` and refresh the UI. No need to restart the API. An id already in the database is not overwritten.
+
+To wipe the local database, stop the API and delete `Pogues-API/.local-postgres/`.
+
+Config: `.env.local-api` at the repository root. Details: Pogues-API README.
+
 ### Next + legacy together
 
 `root`, `next` and `legacy` each have their own `node_modules` (not a pnpm workspace).

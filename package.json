@@ -18,7 +18,11 @@
     "preview": "vite preview",
     "preview:standalone": "node --env-file=.env.standalone ./node_modules/vite/bin/vite.js preview --mode standalone",
     "prestandalone": "node scripts/ensure-installed.cjs",
-    "standalone": "pnpm build:standalone && pnpm preview:standalone"
+    "standalone": "pnpm build:standalone && pnpm preview:standalone",
+    "dev:api": "pnpm --dir next dev:api",
+    "prepreview:api": "node scripts/ensure-installed.cjs",
+    "build:api": "cd next && pnpm build:api && cd ../legacy && pnpm build:api && cd .. && node scripts/postbuild.cjs",
+    "preview:api": "pnpm build:api && node --env-file=.env.local-api ./node_modules/vite/bin/vite.js preview"
   },
   "license": "MIT",
   "engines": {
