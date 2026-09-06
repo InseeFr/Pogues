@@ -40,6 +40,8 @@
   "usedByQuestion": "Used by question:",
   "usedByQuestion_other": "Used by questions:",
   "validate": "Validate",
+  "yes": "Yes",
+  "no": "No",
   "form": {
     "submitInvalid": "Please fix the form errors before submitting",
     "submitUnchanged": "No changes to save"

@@ -1,0 +1,111 @@
+{
+  "author": "Auteur",
+  "id": "ID",
+  "noReleases": "Aucune publication disponible",
+  "noReleaseRequests": "Aucune demande de publication en cours",
+  "oldReleases": "{{count}} publications plus anciennes",
+  "questionnaireIsReadonly": "Cette publication du questionnaire est en lecture seule.",
+  "title": "Publications",
+  "view": "Consulter",
+  "create": "Publier des instruments de collecte",
+  "create.title": "Nouvelle publication",
+  "create.success": "Publication créée avec succès",
+  "create.notFound": "Questionnaire introuvable",
+  "noPublication": "Le questionnaire n'a pas encore été publié",
+  "publicationRequests": "Mes demandes de publication",
+  "myPublications": "Mes publications",
+  "collectMode": "Mode de collecte",
+  "contexte": "Contexte",
+  "optionalParameters": "Paramètres optionnels",
+  "demandDate": "Date de demande",
+  "status": {
+    "completed": "Validé",
+    "inProgress": "En cours ",
+    "failed": "Échec "
+  },
+  "statusDescription": {
+    "error": {
+      "generation": {
+        "ddi": "Erreur de génération DDI",
+        "lunatic": "Erreur de génération Lunatic",
+        "parameters": "Erreur lors de la customisation des paramètres de génération"
+      },
+      "publication": {
+        "ddi": "Erreur de publication DDI dans le registre",
+        "lunatic": "Erreur de publication de l'instrument de collecte dans le registre",
+        "prerelease": "Erreur d'initialisation de la publication dans le registre"
+      },
+      "publication_default": "Erreur lors de la publication du questionnaire"
+    },
+    "publication": {
+      "not_started": "Non débuté",
+      "in_progress": "En cours",
+      "completed": "Terminé"
+    }
+  },
+  "deleteRequest": "Supprimer cette demande",
+  "deleteRequestSuccess": "Demande supprimée avec succès",
+  "deleteRequestError": "Erreur lors de la suppression de la demande",
+  "copy": {
+    "tooltip": "Copier dans le presse-papier",
+    "copiedTooltip": "Copié !",
+    "copiedLabel": "Copié"
+  },
+  "collectInstrument": "Instrument de collecte",
+  "version": "Version",
+  "publicationDate": "Date de publication",
+  "poguesSave": "Sauvegarde Pogues",
+  "vizualiseLink": "Visualiser l'instrument de collecte",
+  "form": {
+    "introduction": "Vous allez publier dans le registre de questionnaires de la filière d'enquêtes une version de votre questionnaire basée sur la dernière sauvegarde. Assurez-vous au préalable d'avoir terminé votre recette.",
+    "seriesInfo": "Informations sur la série",
+    "publish": "Publier",
+    "series": {
+      "id": "Série",
+      "label": "Libellé court de la série",
+      "missingId": "La série est absente, veuillez en sélectionner une dans le détail de votre questionnaire",
+      "missingIdTooltip": "Si la série qui concerne votre enquête n'est pas présente dans la liste, rapprochez-vous de l'unité qualité de l'Insee.",
+      "missingLabel": "Le libellé court est absent, veuillez en sélectionner un dans le détail de votre questionnaire",
+      "missingLabelTooltip": "Si le libellé court qui concerne votre enquête n'est pas présent dans la liste, rapprochez-vous de l'unité qualité de l'Insee."
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Saisissez une description",
+      "example": "Par exemple ESA 2026 PROD, recette intégrée oct 2025 pour SRCV_REINTERRO 2026, publication pour intégration du 01/01/2030, VPP PROD web",
+      "required": "La description est obligatoire",
+      "maxLength": "La description ne peut pas dépasser 249 caractères"
+    },
+    "collectMode": {
+      "label": "Mode de collecte",
+      "required": "Le mode de collecte est obligatoire",
+      "noMatch": "Aucun mode de collecte compatible avec les modes déclarés dans le questionnaire",
+      "options": {
+        "CAWI": "CAWI",
+        "CAPI": "CAPI",
+        "PAPI": "PAPI",
+        "CATI": "CATI"
+      }
+    },
+    "contexte": {
+      "label": "Contexte",
+      "required": "Le contexte est obligatoire",
+      "menages": "Ménages",
+      "entreprise": "Entreprise"
+    },
+    "optionalParameters": "Paramètres optionnels appliqués aux questionnaires Web uniquement",
+    "pageTempsReponse": {
+      "label": "Page sur les temps de réponse",
+      "warning": "La collecte des temps de réponses aux questionnaires statistiques afin de mesurer la charge sur les entreprises est une obligation légale. Par ailleurs la suppression des questions finales sur les temps de réponses peut provoquer des anomalies si le questionnaire termine par une boucle."
+    },
+    "questionNumbering": {
+      "label": "Numérotation des questions",
+      "none": "Pas de numérotation",
+      "sequence": "Par séquence",
+      "questionnaire": "Questionnaire entier",
+      "tooltip": "Pas de numérotation : aucune numérotation automatique. Par séquence : numérotation réinitialisée à chaque séquence. Questionnaire entier : numérotation continue sur l'ensemble du questionnaire.",
+      "sequenceDescription": "Numérotation réinitialisée à chaque séquence",
+      "questionnaireDescription": "Numérotation continue sur l'ensemble du questionnaire",
+      "noneDescription": "Aucune numérotation automatique"
+    }
+  }
+}

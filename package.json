@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "3.7.4",
+  "version": "3.8.0",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "install:all": "pnpm install && pnpm --dir next install && pnpm --dir legacy install",

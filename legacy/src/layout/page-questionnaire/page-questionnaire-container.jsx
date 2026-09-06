@@ -7,6 +7,7 @@ import {
   setActiveQuestionnaire,
   setActiveVariables,
 } from '../../actions/app-state';
+import { loadExternalQuestionnairesIfNeeded } from '../../actions/metadata';
 import {
   loadQuestionnaire,
   loadQuestionnaireWithVersion,
@@ -55,6 +56,7 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = {
+  loadExternalQuestionnairesIfNeeded,
   setActiveQuestionnaire,
   setActiveComponents,
   setActiveCodeLists,

@@ -15,6 +15,7 @@ import VariableIcon from '@/components/ui/icons/VariableIcon'
 import { useAltIcon } from '@/hooks/useAltIcon'
 
 import ProtocolesIcon from '../ui/icons/ProtocolesIcon'
+import ReleaseIcon from '../ui/icons/ReleaseIcon'
 import Sidebar from './sidebar/Sidebar'
 import SidebarItem from './sidebar/SidebarItem'
 import SidebarItemGroup from './sidebar/SidebarItemGroup'
@@ -22,6 +23,7 @@ import SidebarSubmenuItem from './sidebar/SidebarSubMenuItem'
 
 const enableArticulationPage = import.meta.env.VITE_ENABLE_ARTICULATION_PAGE
 const enableMultimodePage = import.meta.env.VITE_ENABLE_MULTIMODE_PAGE
+const enableReleasesPage = import.meta.env.VITE_ENABLE_RELEASES_PAGE
 
 /** Display the available navigation items of the questionnaire in a sidebar. */
 export default function QuestionnaireSidebar() {
@@ -166,6 +168,13 @@ export default function QuestionnaireSidebar() {
           label={t('history.title')}
           Icon={HistoryIcon}
           path="/questionnaire/$questionnaireId/versions"
+          questionnaireId={questionnaireId}
+        />
+        <SidebarItem
+          label={t('release.title')}
+          Icon={ReleaseIcon}
+          path="/questionnaire/$questionnaireId/releases"
+          isHidden={!enableReleasesPage}
           questionnaireId={questionnaireId}
         />
         <SidebarItem

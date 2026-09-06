@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.0](https://github.com/InseeFr/Pogues/releases/tag/3.8.0) - 2026-09-04
+
+### Added
+
+- Page to overview released and pending releases of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
+- Form to create a release of a questionnaire, available with `VITE_ENABLE_RELEASES_PAGE`
+
+### Changed
+
+- Download button for PDF data summary is now always enabled, removing `VITE_ENABLE_DOWNLOAD_PDF_PERSO`.
+
+## [3.7.6](https://github.com/InseeFr/Pogues/releases/tag/3.7.6) - 2026-09-02
+
+### Fixed
+
+- Loops could not be based on children questionnaire scope (since 3.7.0)
+
+## [3.7.5](https://github.com/InseeFr/Pogues/releases/tag/3.7.5) - 2026-08-24
+
+### Added
+
+- Open the new questionnaire in a new tab when duplicating a questionnaire
+
 ## [3.7.4](https://github.com/InseeFr/Pogues/releases/tag/3.7.4) - 2026-08-21
 
 ### Fixed
