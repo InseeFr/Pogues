@@ -9,14 +9,19 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
       class="ctrl-select"
     >
       <label
-        for="select-format"
+        for="select-DURATION.format"
       >
         Format
+        <span
+          class="ctrl-required"
+        >
+          *
+        </span>
       </label>
       <div>
         <select
-          id="select-format"
-          name="format"
+          id="select-DURATION.format"
+          name="DURATION.format"
           placeholder="Format"
         >
           <option
@@ -56,7 +61,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-mihours"
+                for="input-DURATION.mihours"
               >
                 hours
                 <span
@@ -67,8 +72,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-mihours"
-                  name="mihours"
+                  id="input-DURATION.mihours"
+                  name="DURATION.mihours"
                   placeholder="hours"
                   step="any"
                   type="number"
@@ -80,7 +85,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-miminutes"
+                for="input-DURATION.miminutes"
               >
                 minutes
                 <span
@@ -91,8 +96,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-miminutes"
-                  name="miminutes"
+                  id="input-DURATION.miminutes"
+                  name="DURATION.miminutes"
                   placeholder="minutes"
                   step="any"
                   type="number"
@@ -121,7 +126,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-mahours"
+                for="input-DURATION.mahours"
               >
                 hours
                 <span
@@ -132,8 +137,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-mahours"
-                  name="mahours"
+                  id="input-DURATION.mahours"
+                  name="DURATION.mahours"
                   placeholder="hours"
                   step="any"
                   type="number"
@@ -145,7 +150,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-maminutes"
+                for="input-DURATION.maminutes"
               >
                 minutes
                 <span
@@ -156,8 +161,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-maminutes"
-                  name="maminutes"
+                  id="input-DURATION.maminutes"
+                  name="DURATION.maminutes"
                   placeholder="minutes"
                   step="any"
                   type="number"
@@ -182,14 +187,19 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
       class="ctrl-select"
     >
       <label
-        for="select-format"
+        for="select-DURATION.format"
       >
         Format
+        <span
+          class="ctrl-required"
+        >
+          *
+        </span>
       </label>
       <div>
         <select
-          id="select-format"
-          name="format"
+          id="select-DURATION.format"
+          name="DURATION.format"
           placeholder="Format"
         >
           <option
@@ -229,7 +239,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-miyears"
+                for="input-DURATION.miyears"
               >
                 years
                 <span
@@ -240,8 +250,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-miyears"
-                  name="miyears"
+                  id="input-DURATION.miyears"
+                  name="DURATION.miyears"
                   placeholder="years"
                   step="any"
                   type="number"
@@ -253,7 +263,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-mimonths"
+                for="input-DURATION.mimonths"
               >
                 months
                 <span
@@ -264,8 +274,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-mimonths"
-                  name="mimonths"
+                  id="input-DURATION.mimonths"
+                  name="DURATION.mimonths"
                   placeholder="months"
                   step="any"
                   type="number"
@@ -294,7 +304,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-mayears"
+                for="input-DURATION.mayears"
               >
                 years
                 <span
@@ -305,8 +315,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-mayears"
-                  name="mayears"
+                  id="input-DURATION.mayears"
+                  name="DURATION.mayears"
                   placeholder="years"
                   step="any"
                   type="number"
@@ -318,7 +328,7 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               class="ctrl-input "
             >
               <label
-                for="input-mamonths"
+                for="input-DURATION.mamonths"
               >
                 months
                 <span
@@ -329,8 +339,8 @@ exports[`Visualize Duration Component:  > Should return the right HTML according
               </label>
               <div>
                 <input
-                  id="input-mamonths"
-                  name="mamonths"
+                  id="input-DURATION.mamonths"
+                  name="DURATION.mamonths"
                   placeholder="months"
                   step="any"
                   type="number"

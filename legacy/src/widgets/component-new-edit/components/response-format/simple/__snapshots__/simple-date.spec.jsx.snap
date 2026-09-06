@@ -9,14 +9,19 @@ exports[`Visualize Date Component "YYYY" format:  > Should return the right HTML
       class="ctrl-select"
     >
       <label
-        for="select-format"
+        for="select-DATE.format"
       >
         Format
+        <span
+          class="ctrl-required"
+        >
+          *
+        </span>
       </label>
       <div>
         <select
-          id="select-format"
-          name="format"
+          id="select-DATE.format"
+          name="DATE.format"
           placeholder="Format"
         >
           <option
@@ -47,7 +52,7 @@ exports[`Visualize Date Component "YYYY" format:  > Should return the right HTML
         class="ctrl-input "
       >
         <label
-          for="input-minimum"
+          for="input-DATE.minimum"
         >
           Minimum
           <span
@@ -58,8 +63,8 @@ exports[`Visualize Date Component "YYYY" format:  > Should return the right HTML
         </label>
         <div>
           <input
-            id="input-minimum"
-            name="minimum"
+            id="input-DATE.minimum"
+            name="DATE.minimum"
             placeholder="Minimum"
             step="any"
             type="text"
@@ -71,7 +76,7 @@ exports[`Visualize Date Component "YYYY" format:  > Should return the right HTML
         class="ctrl-input "
       >
         <label
-          for="input-maximum"
+          for="input-DATE.maximum"
         >
           Maximum
           <span
@@ -82,8 +87,8 @@ exports[`Visualize Date Component "YYYY" format:  > Should return the right HTML
         </label>
         <div>
           <input
-            id="input-maximum"
-            name="maximum"
+            id="input-DATE.maximum"
+            name="DATE.maximum"
             placeholder="Maximum"
             step="any"
             type="text"
@@ -105,14 +110,19 @@ exports[`Visualize Date Component "YYYY-MM" format:  > Should return the right H
       class="ctrl-select"
     >
       <label
-        for="select-format"
+        for="select-DATE.format"
       >
         Format
+        <span
+          class="ctrl-required"
+        >
+          *
+        </span>
       </label>
       <div>
         <select
-          id="select-format"
-          name="format"
+          id="select-DATE.format"
+          name="DATE.format"
           placeholder="Format"
         >
           <option
@@ -143,7 +153,7 @@ exports[`Visualize Date Component "YYYY-MM" format:  > Should return the right H
         class="ctrl-input "
       >
         <label
-          for="input-minimum"
+          for="input-DATE.minimum"
         >
           Minimum
           <span
@@ -154,8 +164,8 @@ exports[`Visualize Date Component "YYYY-MM" format:  > Should return the right H
         </label>
         <div>
           <input
-            id="input-minimum"
-            name="minimum"
+            id="input-DATE.minimum"
+            name="DATE.minimum"
             placeholder="Minimum"
             step="any"
             type="text"
@@ -167,7 +177,7 @@ exports[`Visualize Date Component "YYYY-MM" format:  > Should return the right H
         class="ctrl-input "
       >
         <label
-          for="input-maximum"
+          for="input-DATE.maximum"
         >
           Maximum
           <span
@@ -178,8 +188,8 @@ exports[`Visualize Date Component "YYYY-MM" format:  > Should return the right H
         </label>
         <div>
           <input
-            id="input-maximum"
-            name="maximum"
+            id="input-DATE.maximum"
+            name="DATE.maximum"
             placeholder="Maximum"
             step="any"
             type="text"
@@ -201,14 +211,19 @@ exports[`Visualize Date Component "YYYY-MM-DD" format:  > Should return the righ
       class="ctrl-select"
     >
       <label
-        for="select-format"
+        for="select-DATE.format"
       >
         Format
+        <span
+          class="ctrl-required"
+        >
+          *
+        </span>
       </label>
       <div>
         <select
-          id="select-format"
-          name="format"
+          id="select-DATE.format"
+          name="DATE.format"
           placeholder="Format"
         >
           <option
@@ -239,7 +254,7 @@ exports[`Visualize Date Component "YYYY-MM-DD" format:  > Should return the righ
         class="ctrl-input "
       >
         <label
-          for="input-minimum"
+          for="input-DATE.minimum"
         >
           Minimum
           <span
@@ -250,8 +265,8 @@ exports[`Visualize Date Component "YYYY-MM-DD" format:  > Should return the righ
         </label>
         <div>
           <input
-            id="input-minimum"
-            name="minimum"
+            id="input-DATE.minimum"
+            name="DATE.minimum"
             placeholder="Minimum"
             step="any"
             type="text"
@@ -263,7 +278,7 @@ exports[`Visualize Date Component "YYYY-MM-DD" format:  > Should return the righ
         class="ctrl-input "
       >
         <label
-          for="input-maximum"
+          for="input-DATE.maximum"
         >
           Maximum
           <span
@@ -274,8 +289,8 @@ exports[`Visualize Date Component "YYYY-MM-DD" format:  > Should return the righ
         </label>
         <div>
           <input
-            id="input-maximum"
-            name="maximum"
+            id="input-DATE.maximum"
+            name="DATE.maximum"
             placeholder="Maximum"
             step="any"
             type="text"
