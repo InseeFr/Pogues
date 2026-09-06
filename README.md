@@ -94,7 +94,7 @@ pnpm preview:api
 
 → http://localhost:4173
 
-To add a questionnaire, drop a Pogues `.json` in `Pogues-API/local-questionnaires/` and refresh the UI. No need to restart the API. An id already in the database is not overwritten.
+To add a questionnaire, drop a Pogues `.json` in `Pogues-API/local-questionnaires/` and refresh the UI. The file overwrites the same id (on drop and on API restart).
 
 To wipe the local database, stop the API and delete `Pogues-API/.local-postgres/`.
 
