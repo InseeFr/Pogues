@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.1](https://github.com/InseeFr/Pogues/releases/tag/3.8.1) - 2026-09-07
+
+### Fixed
+
+- Fix cves in Docker by upgrading nginx to `1.31.5-alpine`
+
 ## [3.8.0](https://github.com/InseeFr/Pogues/releases/tag/3.8.0) - 2026-09-04
 
 ### Added
