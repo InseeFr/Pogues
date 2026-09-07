@@ -10,7 +10,7 @@ import ResponseFormatMultiplePrimary from './multiple-primary';
 
 const { MULTIPLE_CHOICE: selectorPath } = QUESTION_TYPE_ENUM;
 
-function ResponseFormatMultiple({ selectorPathParent }) {
+function ResponseFormatMultiple({ selectorPathParent = undefined }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -44,8 +44,5 @@ ResponseFormatMultiple.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatMultiple.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatMultiple;

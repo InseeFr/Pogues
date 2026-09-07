@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
+import { DEFAULT_FORM_NAME } from '../../constants/pogues-constants';
 import {
   InputWithVariableAutoCompletion,
   RichEditorWithVariable,
@@ -13,17 +14,17 @@ import { markdownVtlToString } from '../../forms/controls/rich-textarea';
 function AssociatedFields({
   action,
   change,
-  formName,
+  formName = DEFAULT_FORM_NAME,
   fieldTarget: { name: nameTarget },
-  currentValueOrigin,
-  currentValueTarget,
+  currentValueOrigin = '',
+  currentValueTarget = '',
   fieldOrigin,
   fieldTarget,
-  targetIsRichTextarea,
+  targetIsRichTextarea = false,
   targetIsQuestion,
-  focusOnInit,
+  focusOnInit = false,
   handleDisableValidation,
-  onEnter,
+  onEnter = undefined,
 }) {
   const onBlur = useCallback(() => {
     let valueOrigin = currentValueOrigin;
@@ -99,13 +100,6 @@ AssociatedFields.propTypes = {
   }).isRequired,
   targetIsRichTextarea: PropTypes.bool.isRequired,
   focusOnInit: PropTypes.bool,
-};
-
-AssociatedFields.defaultProps = {
-  currentValueOrigin: '',
-  currentValueTarget: '',
-  focusOnInit: false,
-  onEnter: undefined,
 };
 
 export default AssociatedFields;

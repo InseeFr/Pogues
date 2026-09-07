@@ -10,7 +10,7 @@ const { QUESTIONNAIRE } = COMPONENT_TYPE;
 function QuestionnaireErrors({
   setSelectedComponentId,
   errorsByComponent,
-  components,
+  components = {},
 }) {
   const [expanded, setExpanded] = useState([]);
 
@@ -67,10 +67,6 @@ QuestionnaireErrors.propTypes = {
   errorsByComponent: PropTypes.object.isRequired,
   components: PropTypes.object,
   setSelectedComponentId: PropTypes.func.isRequired,
-};
-
-QuestionnaireErrors.defaultProps = {
-  components: {},
 };
 
 export default QuestionnaireErrors;

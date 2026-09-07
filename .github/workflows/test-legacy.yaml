@@ -34,6 +34,11 @@ jobs:
     name: SonarCloud Legacy
     runs-on: ubuntu-latest
     needs: test
+    # Fork PRs do not get Sonar secrets; skip instead of failing the required check.
+    if: |
+      github.repository == 'InseeFr/Pogues' &&
+      (github.event_name == 'push' ||
+       github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login)
     steps:
       - uses: actions/checkout@v7
         with:

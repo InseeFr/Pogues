@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import { AntlrEditor } from '@making-sense/antlr-editor';
-import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
+import * as tools from '@making-sense/vtl-2-1-antlr-tools-ts';
 import {
   getSuggestionsFromRange,
   monarchDefinition,
-} from '@making-sense/vtl-2-0-monaco-tools-ts';
+} from '@making-sense/vtl-2-1-monaco-tools-ts';
 
 const VTLEditor = ({
   availableSuggestions,
@@ -21,6 +21,8 @@ const VTLEditor = ({
     variables[s] = { type: 'Variable' };
   }
 
+  // expr: Pogues stores VTL expressions (not full scripts). EOF leftover
+  // tokens / empty input are handled by @making-sense/antlr-editor ≥ 2.9.4.
   const customTools = {
     ...tools,
     monarchDefinition,

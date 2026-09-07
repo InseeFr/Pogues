@@ -42,16 +42,16 @@ export const defaultProps = {
 // Component
 
 function SelectorView({
-  fieldName,
+  fieldName = 'type',
   activeViewValue,
   label,
-  emptyOption,
-  radio,
-  children,
-  readOnly,
-  required,
+  emptyOption = undefined,
+  radio = false,
+  children = [],
+  readOnly = false,
+  required = true,
 }) {
-  const values = getValuesFromViews(children);
+  const values = getValuesFromViews(children) || [];
   const options = values.map((v) => (
     <GenericOption key={v.value} value={v.value}>
       {v.label}
@@ -97,6 +97,5 @@ function SelectorView({
 }
 
 SelectorView.propTypes = propTypes;
-SelectorView.defaultProps = defaultProps;
 
 export default SelectorView;

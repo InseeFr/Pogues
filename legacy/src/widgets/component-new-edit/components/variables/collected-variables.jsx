@@ -3,7 +3,9 @@ import { Field, FormSection } from 'redux-form';
 
 import {
   DATATYPE_NAME,
+  DEFAULT_FORM_NAME,
   QUESTION_TYPE_ENUM,
+  TABS_PATHS,
 } from '../../../../constants/pogues-constants';
 import { RichEditorWithVariable } from '../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../forms/controls/generic-option';
@@ -31,19 +33,19 @@ function CollectedVariables({
   componentName,
   collectedVariablesIds = new Set(),
   responseFormatType,
-  reponseFormatValues,
-  codesListsStore,
-  formName,
+  reponseFormatValues = {},
+  codesListsStore = {},
+  formName = DEFAULT_FORM_NAME,
   arrayRemoveAll,
   arrayPush,
   removeValidationErrors,
-  selectorPath,
-  errors,
+  selectorPath = TABS_PATHS.COLLECTED_VARIABLES,
+  errors = [],
   addErrors,
-  referencedCodeList,
-  referencedVariable,
-  variableReferenceLabel,
-  isVariableCollected,
+  referencedCodeList = '',
+  referencedVariable = '',
+  variableReferenceLabel = '',
+  isVariableCollected = '1',
 }) {
   function generateVariables() {
     const newVariables = generateCollectedVariables(
@@ -202,15 +204,6 @@ CollectedVariables.propTypes = {
   referencedVariable: PropTypes.string,
   variableReferenceLabel: PropTypes.string,
   isVariableCollected: PropTypes.string,
-};
-
-CollectedVariables.defaultProps = {
-  codesListsStore: {},
-  reponseFormatValues: {},
-  referencedCodeList: '',
-  referencedVariable: '',
-  variableReferenceLabel: '',
-  isVariableCollected: '1',
 };
 
 export default CollectedVariables;

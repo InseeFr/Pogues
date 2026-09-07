@@ -16,7 +16,7 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
  * In a dynamic table, we must choose whether the size is determinated by
  * a number or a VTL formula.
  */
-function ResponseFormatTablePrincipalDynamic({ selectorPathParent }) {
+function ResponseFormatTablePrincipalDynamic({ selectorPathParent = '' }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -51,8 +51,5 @@ ResponseFormatTablePrincipalDynamic.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatTablePrincipalDynamic.defaultProps = {
-  selectorPathParent: '',
-};
 
 export default ResponseFormatTablePrincipalDynamic;

@@ -3,6 +3,7 @@ import { Field } from 'redux-form';
 
 import {
   COMPONENT_TYPE,
+  DEFAULT_FORM_NAME,
   TABS_PATHS,
   TargetMode,
 } from '../../../constants/pogues-constants';
@@ -17,17 +18,17 @@ import Declarations from './declarations';
 import LoopNewEdit from './loop-new-edit';
 
 export const SequenceNewEdit = ({
-  form,
+  form = DEFAULT_FORM_NAME,
   componentType,
-  componentId,
+  componentId = '',
   errorsIntegrityByTab,
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
   activeQuestionnaire,
-  componentsStore,
-  InitialMember,
-  scopes,
+  componentsStore = {},
+  InitialMember = undefined,
+  scopes = undefined,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
 
@@ -142,10 +143,3 @@ SequenceNewEdit.propTypes = {
   form: PropTypes.string,
 };
 
-SequenceNewEdit.defaultProps = {
-  componentId: '',
-  componentsStore: {},
-  InitialMember: undefined,
-  scopes: undefined,
-  form: undefined,
-};

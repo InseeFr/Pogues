@@ -8,10 +8,10 @@ import {
 
 function ListRadios({
   label,
-  required,
-  disabled,
-  noValuesMessage,
-  children,
+  required = false,
+  disabled = false,
+  noValuesMessage = undefined,
+  children = [],
   input,
   meta: { touched, error },
 }) {
@@ -65,13 +65,6 @@ ListRadios.propTypes = {
   disabled: PropTypes.bool,
   noValuesMessage: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-};
-
-ListRadios.defaultProps = {
-  required: false,
-  disabled: false,
-  children: [],
-  noValuesMessage: undefined,
 };
 
 export default ListRadios;

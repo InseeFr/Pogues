@@ -17,7 +17,7 @@ import ResponseFormatDatatypeText from './simple-text';
 const { DATE, NUMERIC, TEXT, BOOLEAN, DURATION } = DATATYPE_NAME;
 const { SIMPLE: selectorPath } = QUESTION_TYPE_ENUM;
 
-function ResponseFormatSimple({ selectorPathParent, showMandatory }) {
+function ResponseFormatSimple({ selectorPathParent = undefined, showMandatory = true }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -64,10 +64,6 @@ function ResponseFormatSimple({ selectorPathParent, showMandatory }) {
 ResponseFormatSimple.propTypes = {
   selectorPathParent: PropTypes.string,
   showMandatory: PropTypes.bool,
-};
-ResponseFormatSimple.defaultProps = {
-  selectorPathParent: undefined,
-  showMandatory: true,
 };
 
 export default ResponseFormatSimple;

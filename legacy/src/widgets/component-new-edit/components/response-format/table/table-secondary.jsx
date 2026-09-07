@@ -8,7 +8,7 @@ import ResponseFormatTableSecondaryOptional from './table-secondary-optional';
 
 const { SECONDARY: selectorPath } = DIMENSION_TYPE;
 
-function ResponseFormatTableSecondary({ selectorPathParent }) {
+function ResponseFormatTableSecondary({ selectorPathParent = undefined }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -33,8 +33,5 @@ ResponseFormatTableSecondary.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatTableSecondary.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatTableSecondary;

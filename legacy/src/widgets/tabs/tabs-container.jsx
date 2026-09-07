@@ -62,7 +62,7 @@ const defaultProps = {
 
 // Container
 
-const mapStateToProps = (state, { componentId }) => {
+const mapStateToProps = (state, { componentId = '' }) => {
   const integrityErrors = state.errors.errorsIntegrity[componentId];
   const validationErrors = state.errors.errorsValidation;
 

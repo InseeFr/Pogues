@@ -25,12 +25,12 @@ const validateForm = (addErrors, validate) => (values) => {
 };
 
 const Controls = ({
-  formName,
-  selectorPath,
-  errors,
+  formName = DEFAULT_FORM_NAME,
+  selectorPath = TABS_PATHS.CONTROLS,
+  errors = [],
   addErrors,
-  isDynamicArray,
-  isRoundabout,
+  isDynamicArray = false,
+  isRoundabout = false,
 }) => {
   const [disableValidation, setDisableValidation] = useState(false);
   return (
@@ -138,12 +138,4 @@ Controls.propTypes = {
   isDynamicArray: PropTypes.bool,
   isRoundabout: PropTypes.bool,
 };
-Controls.defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.CONTROLS,
-  errors: [],
-  isDynamicArray: false,
-  isRoundabout: false,
-};
-
 export default connect(mapStateToProps)(Controls);

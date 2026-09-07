@@ -12,12 +12,12 @@ const mapStateToProps = (state, { type }) => ({
 });
 
 function SelectMetadataContainer({
-  meatadata,
+  meatadata = [],
   name,
   label,
-  emptyValue,
+  emptyValue = '',
   mapMetadataFunction,
-  disabled,
+  disabled = false,
 }) {
   return (
     <Field
@@ -48,12 +48,6 @@ SelectMetadataContainer.propTypes = {
   label: PropTypes.string.isRequired,
   emptyValue: PropTypes.string,
   disabled: PropTypes.bool,
-};
-
-SelectMetadataContainer.defaultProps = {
-  meatadata: [],
-  emptyValue: '',
-  disabled: false,
 };
 
 export default connect(mapStateToProps)(SelectMetadataContainer);

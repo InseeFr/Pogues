@@ -15,7 +15,7 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 /**
  * In a dynamic table, the user can specify a fixed length.
  */
-export function ResponseFormatTablePrincipalDynamicFixed({ type }) {
+export function ResponseFormatTablePrincipalDynamicFixed({ type = NUMBER }) {
   return (
     <FormSection name={selectorPath}>
       <Field
@@ -33,8 +33,5 @@ ResponseFormatTablePrincipalDynamicFixed.propTypes = {
   type: PropTypes.oneOf([NUMBER, FORMULA]),
 };
 
-ResponseFormatTablePrincipalDynamicFixed.defaultProps = {
-  type: NUMBER,
-};
 
 export default ResponseFormatTablePrincipalDynamicFixed;

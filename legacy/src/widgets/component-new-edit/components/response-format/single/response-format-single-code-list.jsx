@@ -13,9 +13,9 @@ import { CodesLists } from '../../../../codes-lists';
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 
 function ResponseFormatSingleCodeslist({
-  selectorPathParent,
-  allowPrecision,
-  allowFilter,
+  selectorPathParent = undefined,
+  allowPrecision = false,
+  allowFilter = false,
   showMandatory,
 }) {
   const styleMandatory = {
@@ -66,10 +66,5 @@ ResponseFormatSingleCodeslist.propTypes = {
   allowFilter: PropTypes.bool,
 };
 
-ResponseFormatSingleCodeslist.defaultProps = {
-  selectorPathParent: undefined,
-  allowPrecision: false,
-  allowFilter: false,
-};
 
 export default ResponseFormatSingleCodeslist;

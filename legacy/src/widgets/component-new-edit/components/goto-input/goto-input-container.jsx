@@ -20,7 +20,14 @@ const defaultProps = {
 
 // Container
 
-const mapStateToProps = (state, { formName, selectorPath, componentType }) => {
+const mapStateToProps = (
+  state,
+  {
+    formName = DEFAULT_FORM_NAME,
+    selectorPath,
+    componentType,
+  },
+) => {
   const selector = formValueSelector(formName);
   const componentsStore = state.appState.activeComponentsById;
   const selectedTarget = selector(state, `${selectorPath}.cible`);

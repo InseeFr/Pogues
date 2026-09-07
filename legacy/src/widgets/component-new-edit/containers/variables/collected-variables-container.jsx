@@ -26,7 +26,13 @@ export const defaultProps = {
 
 // Container
 
-const mapStateToProps = (state, { formName }) => {
+const mapStateToProps = (
+  state,
+  {
+    formName = DEFAULT_FORM_NAME,
+    selectorPath = TABS_PATHS.COLLECTED_VARIABLES,
+  },
+) => {
   const selector = formValueSelector(formName);
   const responseFormatType = selector(state, 'responseFormat.type');
   const codesListsStore = state.appState.activeCodeListsById || {};
