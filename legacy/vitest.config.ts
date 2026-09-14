@@ -11,7 +11,7 @@ export default defineConfig(
         globals: true,
         environment: 'jsdom',
         include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-        setupFiles: ['tests/setup.ts', 'tests/setupEnzyme.ts'],
+        setupFiles: ['tests/setup.ts'],
         coverage: {
           include: ['src/**/*.{ts,tsx}'],
           exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}'],

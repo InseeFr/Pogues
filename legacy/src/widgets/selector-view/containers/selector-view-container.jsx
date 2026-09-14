@@ -30,7 +30,14 @@ export const defaultProps = {
 
 // Container
 
-const mapStateToProps = (state, { selectorPath, formName, fieldName }) => {
+const mapStateToProps = (
+  state,
+  {
+    selectorPath,
+    formName = DEFAULT_FORM_NAME,
+    fieldName = 'type',
+  },
+) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPath)}${fieldName}`;
   return {

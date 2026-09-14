@@ -32,8 +32,5 @@ ResponseFormatTableMeasure.propTypes = {
   disableSetConditionReadOnly: PropTypes.bool,
 };
 
-ResponseFormatTableMeasure.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatTableMeasure;

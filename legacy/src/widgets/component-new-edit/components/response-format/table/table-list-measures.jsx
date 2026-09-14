@@ -12,7 +12,7 @@ const validateForm = (addErrors, validate) => (values) => {
 };
 
 function TableListMeasures({
-  formName,
+  formName = DEFAULT_FORM_NAME,
   selectorPath,
   addErrors,
   disableSetConditionFilter,
@@ -45,8 +45,5 @@ TableListMeasures.propTypes = {
   disableSetConditionReadOnly: PropTypes.bool,
 };
 
-TableListMeasures.defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-};
 
 export default TableListMeasures;

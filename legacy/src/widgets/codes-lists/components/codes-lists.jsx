@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { Field, FieldArray, FormSection } from 'redux-form';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import {
+  DEFAULT_CODES_LIST_SELECTOR_PATH,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -46,9 +50,9 @@ export const defaultProps = {
  * is `true`).
  */
 const CodesLists = ({
-  selectorPath,
-  selectorPathParent,
-  formName,
+  selectorPath = DEFAULT_CODES_LIST_SELECTOR_PATH,
+  selectorPathParent = '',
+  formName = DEFAULT_FORM_NAME,
   path,
   currentId = '',
   currentCodesListsStore = {},
