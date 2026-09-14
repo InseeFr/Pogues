@@ -40,7 +40,13 @@
     "mustProvideCodes": "You must provide at least one code",
     "mustProvideUniqueValue": "Value must be unique: \"{{value}}\"",
     "moveUp": "Move up",
-    "moveDown": "Move down"
+    "moveDown": "Move down",
+    "dialog": {
+      "resetVariableTitle": "Regenerating variables",
+      "resetVariableSubTitle": "You are about to regenerate the collected variables associated with the question",
+      "resetVariableSubTitle_other": "You are about to regenerate the collected variables associated with the questions",
+      "resetVariableBody": "This can lead to various bugs in the VTL expressions that use these variables. After validation, please check that the variables names are still consistent with your VTL expressions."
+    }
   },
   "import": {
     "title": "Import codes from CSV",

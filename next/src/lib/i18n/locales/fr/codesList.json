@@ -40,7 +40,13 @@
     "mustProvideCodes": "Vous devez renseigner au moins un code",
     "mustProvideUniqueValue": "La valeur doit être unique : \"{{value}}\"",
     "moveUp": "Monter d'un niveau",
-    "moveDown": "Descendre d'un niveau"
+    "moveDown": "Descendre d'un niveau",
+    "dialog": {
+      "resetVariableTitle": "Regénération des variables",
+      "resetVariableSubTitle": "Vous allez re-générer les variables collectées associées à la question",
+      "resetVariableSubTitle_other": "Vous allez re-générer les variables collectées associées aux questions",
+      "resetVariableBody": "Ceci peut engendrer des bugs dans les expressions VTL qui utilisent ces variables. Après avoir valider, veuillez vérifier que les noms de variables sont toujours cohérents avec vos expressions VTL."
+    }
   },
   "import": {
     "title": "Importer une liste de codes depuis un CSV",
