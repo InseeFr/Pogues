@@ -97,29 +97,6 @@ describe('EditCodesListForm', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
-  it('should open a confirmation dialog with the question name when the codes list is used by one question', async () => {
-    const user = await renderFormAndFillLabel(
-      { ...baseCodesList, relatedQuestionNames: ['QUELSPERSO'] },
-      'new label',
-    )
-
-    await user.click(screen.getByRole('button', { name: /validate/i }))
-
-    expect(
-      screen.getByText(
-        'You are about to regenerate the collected variables associated with the question',
-      ),
-    ).toBeInTheDocument()
-    expect(screen.getByText('QUELSPERSO')).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        'This can lead to various bugs in the VTL expressions that use these variables. After validation, please check that the variables names are still consistent with your VTL expressions.',
-      ),
-    ).toBeInTheDocument()
-
-    expect(mockPutCodesList).not.toHaveBeenCalled()
-  })
-
   it('should list all question names in the confirmation dialog when the codes list is used by several questions', async () => {
     const user = await renderFormAndFillLabel(
       {
@@ -133,7 +110,7 @@ describe('EditCodesListForm', () => {
 
     expect(
       screen.getByText(
-        'You are about to regenerate the collected variables associated with the questions',
+        'You are about to regenerate the collected variables associated with the following questions',
       ),
     ).toBeInTheDocument()
     expect(screen.getByText('QUELSPERSO')).toBeInTheDocument()

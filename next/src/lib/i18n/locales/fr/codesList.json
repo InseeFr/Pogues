@@ -43,9 +43,8 @@
     "moveDown": "Descendre d'un niveau",
     "dialog": {
       "resetVariableTitle": "Regénération des variables",
-      "resetVariableSubTitle": "Vous allez re-générer les variables collectées associées à la question",
-      "resetVariableSubTitle_other": "Vous allez re-générer les variables collectées associées aux questions",
-      "resetVariableBody": "Ceci peut engendrer des bugs dans les expressions VTL qui utilisent ces variables. Après avoir valider, veuillez vérifier que les noms de variables sont toujours cohérents avec vos expressions VTL."
+      "resetVariableSubTitle": "Vous allez re-générer les variables collectées associées aux questions",
+      "resetVariableBody": "Ceci peut engendrer des bugs dans les expressions VTL qui utilisent ces variables. Après avoir validé, veuillez vérifier que les noms de variables sont toujours cohérents avec vos expressions VTL."
     }
   },
   "import": {

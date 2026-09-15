@@ -54,7 +54,7 @@ it('Get codes lists from version works', async () => {
   expect(res).toEqual([codeList])
 })
 
-it('Get codes lists from id works', async () => {
+it('Get codes list from id works', async () => {
   nock('https://mock-api')
     .get('/persistence/questionnaire/my-questionnaire/codes-list/id1')
     .reply(200, codeList)

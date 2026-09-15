@@ -54,7 +54,7 @@ export const codesListsFromVersionQueryOptions = (
  *
  * @see {@link getCodeListFromId}
  */
-export const codesListsFromIdQueryOptions = (
+export const codesListFromIdQueryOptions = (
   questionnaireId: string,
   codesListId: string,
 ) =>

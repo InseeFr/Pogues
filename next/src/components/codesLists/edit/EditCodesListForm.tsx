@@ -100,11 +100,7 @@ export default function EditCodesListForm({
           title={t('codesList.form.dialog.resetVariableTitle')}
           body={
             <>
-              <p>
-                {t('codesList.form.dialog.resetVariableSubTitle', {
-                  count: relatedQuestionNames.length,
-                })}
-              </p>
+              <p>{t('codesList.form.dialog.resetVariableSubTitle')}</p>
               <ul className="list-disc list-inside my-1">
                 {relatedQuestionNames.map((questionName) => (
                   <li key={questionName}>{questionName}</li>
