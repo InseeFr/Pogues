@@ -1,3 +1,4 @@
+import { QueryClient } from '@tanstack/react-query'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
@@ -23,6 +24,8 @@ vi.mock('@tanstack/react-router', async () => {
 vi.mock('@/api/codesLists', () => ({
   codesListsKeys: {
     all: (questionnaireId: string) => ['codesLists', questionnaireId] as const,
+    one: (questionnaireId: string, codesListId: string) =>
+      ['codesList', questionnaireId, codesListId] as const,
   },
   putCodesList: mockPutCodesList,
 }))
@@ -169,5 +172,23 @@ describe('EditCodesListForm', () => {
         params: { questionnaireId: 'q-id' },
       })
     })
+  })
+
+  it('should invalidate both the codes lists and the single codes list queries after a save', async () => {
+    const invalidateSpy = vi.spyOn(QueryClient.prototype, 'invalidateQueries')
+    const user = await renderFormAndFillLabel(baseCodesList, 'new label')
+
+    await user.click(screen.getByRole('button', { name: /validate/i }))
+
+    await waitFor(() => {
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: ['codesLists', 'q-id'],
+      })
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: ['codesList', 'q-id', 'cl-1'],
+      })
+    })
+
+    invalidateSpy.mockRestore()
   })
 })

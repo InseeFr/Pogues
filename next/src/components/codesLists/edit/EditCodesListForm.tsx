@@ -50,10 +50,15 @@ export default function EditCodesListForm({
     }) => {
       return putCodesList(questionnaireId, codesList.id, codesList)
     },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: codesListsKeys.all(questionnaireId),
-      }),
+    onSuccess: (_, { questionnaireId, codesList }) =>
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: codesListsKeys.all(questionnaireId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: codesListsKeys.one(questionnaireId, codesList.id),
+        }),
+      ]),
   })
 
   const saveCodesList = async ({ label, codes }: FormValues) => {

@@ -61,7 +61,6 @@ export const codesListFromIdQueryOptions = (
   queryOptions({
     queryKey: codesListsKeys.one(questionnaireId, codesListId),
     queryFn: () => getCodesListFromId(questionnaireId, codesListId),
-    staleTime: Infinity,
   })
 
 /** Retrieve codes lists associated to the questionnaire. */
