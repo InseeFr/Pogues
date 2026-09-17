@@ -48,6 +48,9 @@ export default function Dialog({
   const open = controlledOpen ?? uncontrolledOpen
   const setOpen = setControlledOpen ?? setUncontrolledOpen
 
+  const hasSingleButton = onValidate === undefined
+  const actionsClassName = hasSingleButton ? 'justify-center' : 'justify-end'
+
   return (
     <UIDialog.Root open={open} onOpenChange={setOpen}>
       {children && <UIDialog.Trigger render={children}></UIDialog.Trigger>}
@@ -60,7 +63,7 @@ export default function Dialog({
           <UIDialog.Description className="mb-6 text-base text-gray-600">
             {body}
           </UIDialog.Description>
-          <div className="flex justify-end gap-4">
+          <div className={`flex gap-4 ${actionsClassName}`}>
             {onCancel ? (
               <Button onClick={onCancel}>{t('common.cancel')}</Button>
             ) : (
