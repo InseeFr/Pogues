@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Prevent the user to create a release when there is already a request or a release for the same questionnaire version
+
 ## [3.8.2](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-07
 
 ### Fixed

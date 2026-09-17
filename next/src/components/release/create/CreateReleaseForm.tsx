@@ -17,6 +17,7 @@ type Props = {
   seriesId?: string
   seriesLabel?: string
   targetModes: TargetModes[]
+  isPublishDisabled: boolean
 }
 
 export default function CreateReleaseForm({
@@ -24,6 +25,7 @@ export default function CreateReleaseForm({
   seriesId,
   seriesLabel,
   targetModes,
+  isPublishDisabled,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -74,6 +76,7 @@ export default function CreateReleaseForm({
       targetModes={targetModes}
       onSubmit={onSubmit}
       submitLabel={t('release.form.publish')}
+      isPublishDisabled={isPublishDisabled}
     />
   )
 }
