@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prevent the user to create a release when there is already a request or a release for the same questionnaire version
 
+## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.3) - 2026-09-17
+
+### Added
+
+- Add a warning modal when editing a code list used by questions, warning the user that the collected variables will be regenerated.
+
 ## [3.8.2](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-07
 
 ### Fixed
