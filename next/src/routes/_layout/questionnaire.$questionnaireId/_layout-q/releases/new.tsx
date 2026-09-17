@@ -6,14 +6,11 @@ import {
   pendingReleasesQueryOptions,
   releasesQueryOptions,
 } from '@/api/releases'
-import { versionsQueryOptions } from '@/api/versions'
+import { latestVersionQueryOptions } from '@/api/versions'
 import ErrorComponent from '@/components/layout/ErrorComponent'
 import CreateRelease from '@/components/release/create/CreateRelease'
 import CreateReleaseLayout from '@/components/release/create/CreateReleaseLayout'
-import {
-  getLatestVersionId,
-  hasReleaseForVersion,
-} from '@/components/release/overview/utils/utils'
+import { hasReleaseForVersion } from '@/components/release/overview/utils/utils'
 
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/releases/new',
@@ -31,7 +28,7 @@ export const Route = createFileRoute(
     await Promise.all([
       queryClient.ensureQueryData(releasesQueryOptions(questionnaireId)),
       queryClient.ensureQueryData(pendingReleasesQueryOptions(questionnaireId)),
-      queryClient.ensureQueryData(versionsQueryOptions(questionnaireId)),
+      queryClient.ensureQueryData(latestVersionQueryOptions(questionnaireId)),
     ])
     return {
       questionnaireDetails,
@@ -49,11 +46,11 @@ function RouteComponent() {
   const { data: pendingRequests = [] } = useSuspenseQuery(
     pendingReleasesQueryOptions(questionnaireId),
   )
-  const { data: versions = [] } = useSuspenseQuery(
-    versionsQueryOptions(questionnaireId),
+  const { data: latestVersion } = useSuspenseQuery(
+    latestVersionQueryOptions(questionnaireId),
   )
 
-  const latestVersionId = getLatestVersionId(versions)
+  const latestVersionId = latestVersion?.id
   const isPublishDisabled = hasReleaseForVersion(
     latestVersionId,
     releases,
