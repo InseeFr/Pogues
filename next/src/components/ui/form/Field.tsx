@@ -88,7 +88,7 @@ export default function Field({
         {children}
       </BaseUIField.Label>
       <BaseUIField.Description
-        className={`text-sm text-secondary ${description ? '' : 'hidden'}`}
+        className={`text-sm text-secondary ${description ? '' : 'hidden'} italic`}
         aria-hidden={!description}
       >
         {description}

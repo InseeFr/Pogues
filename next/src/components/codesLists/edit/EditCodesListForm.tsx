@@ -3,10 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
-import { useState } from 'react'
-
 import { codesListsKeys, putCodesList } from '@/api/codesLists'
-import Dialog from '@/components/ui/Dialog'
 import { CodesList } from '@/models/codesLists'
 import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
@@ -34,12 +31,6 @@ export default function EditCodesListForm({
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [pendingValues, setPendingValues] = useState<FormValues | null>(null)
-
-  const relatedQuestionNames = codesList.relatedQuestionNames ?? []
-  const hasRelatedQuestions = relatedQuestionNames.length > 0
-
   const mutation = useMutation({
     mutationFn: ({
       codesList,
@@ -50,18 +41,13 @@ export default function EditCodesListForm({
     }) => {
       return putCodesList(questionnaireId, codesList.id, codesList)
     },
-    onSuccess: (_, { questionnaireId, codesList }) =>
-      Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: codesListsKeys.all(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: codesListsKeys.one(questionnaireId, codesList.id),
-        }),
-      ]),
+    onSuccess: (_, { questionnaireId }) =>
+      queryClient.invalidateQueries({
+        queryKey: codesListsKeys.all(questionnaireId),
+      }),
   })
 
-  const saveCodesList = async ({ label, codes }: FormValues) => {
+  const onSubmit = async ({ label, codes }: FormValues) => {
     const updatedCodesList = { id: codesList.id, label, codes }
     const promise = mutation.mutateAsync(
       { questionnaireId, codesList: updatedCodesList },
@@ -82,48 +68,13 @@ export default function EditCodesListForm({
     })
   }
 
-  const onSubmit = (values: FormValues) => {
-    if (hasRelatedQuestions) {
-      setPendingValues(values)
-      setDialogOpen(true)
-    } else {
-      saveCodesList(values)
-    }
-  }
-
   return (
-    <>
-      <CodesListForm
-        codesList={codesList}
-        questionnaireId={questionnaireId}
-        formulasLanguage={formulasLanguage}
-        variables={variables}
-        onSubmit={onSubmit}
-      />
-      {hasRelatedQuestions ? (
-        <Dialog
-          title={t('codesList.form.dialog.resetVariableTitle')}
-          body={
-            <>
-              <p>{t('codesList.form.dialog.resetVariableSubTitle')}</p>
-              <ul className="list-disc list-inside my-1">
-                {relatedQuestionNames.map((questionName) => (
-                  <li key={questionName}>{questionName}</li>
-                ))}
-              </ul>
-              <p>{t('codesList.form.dialog.resetVariableBody')}</p>
-            </>
-          }
-          controlledOpen={dialogOpen}
-          setControlledOpen={setDialogOpen}
-          onCancel={() => setDialogOpen(false)}
-          onValidate={() => {
-            if (pendingValues) {
-              saveCodesList(pendingValues)
-            }
-          }}
-        />
-      ) : null}
-    </>
+    <CodesListForm
+      codesList={codesList}
+      questionnaireId={questionnaireId}
+      formulasLanguage={formulasLanguage}
+      variables={variables}
+      onSubmit={onSubmit}
+    />
   )
 }

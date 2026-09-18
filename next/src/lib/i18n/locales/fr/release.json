@@ -65,7 +65,7 @@
       "label": "Libellé court de la série",
       "missingId": "La série est absente, veuillez en sélectionner une dans le détail de votre questionnaire",
       "missingIdTooltip": "Si la série qui concerne votre enquête n'est pas présente dans la liste, rapprochez-vous de l'unité qualité de l'Insee.",
-      "missingLabel": "Le libellé court est absent, veuillez en sélectionner un dans le détail de votre questionnaire",
+      "missingLabel": "Le libellé court est absent, veuillez vous rapprocher de l'unité qualité de l'Insee afin d'en définir un",
       "missingLabelTooltip": "Si le libellé court qui concerne votre enquête n'est pas présent dans la liste, rapprochez-vous de l'unité qualité de l'Insee."
     },
     "description": {

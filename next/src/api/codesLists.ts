@@ -19,8 +19,6 @@ export const codesListsKeys = {
   all: (questionnaireId: string) => ['codesLists', questionnaireId] as const,
   version: (questionnaireId: string, versionId: string) =>
     ['codesListsVersion', questionnaireId, versionId] as const,
-  one: (questionnaireId: string, codeListId: string) =>
-    ['codesList', questionnaireId, codeListId] as const,
 }
 
 /**
@@ -49,20 +47,6 @@ export const codesListsFromVersionQueryOptions = (
     staleTime: Infinity,
   })
 
-/**
- * Used to retrieve codes lists associated to an older version of a questionnaire.
- *
- * @see {@link getCodeListFromId}
- */
-export const codesListFromIdQueryOptions = (
-  questionnaireId: string,
-  codesListId: string,
-) =>
-  queryOptions({
-    queryKey: codesListsKeys.one(questionnaireId, codesListId),
-    queryFn: () => getCodesListFromId(questionnaireId, codesListId),
-  })
-
 /** Retrieve codes lists associated to the questionnaire. */
 export async function getCodesLists(
   questionnaireId: string,
@@ -87,21 +71,6 @@ export async function getCodesListsFromVersion(
       { headers: { Accept: 'application/json' } },
     )
     .then(({ data }: { data: CodesList[] }) => {
-      return data
-    })
-}
-
-/** Retrieve codes lists associated to a codes list ID. */
-export async function getCodesListFromId(
-  questionnaireId: string,
-  codesListId: string,
-): Promise<CodesList> {
-  return instance
-    .get(
-      `/persistence/questionnaire/${questionnaireId}/codes-list/${codesListId}`,
-      { headers: { Accept: 'application/json' } },
-    )
-    .then(({ data }: { data: CodesList }) => {
       return data
     })
 }

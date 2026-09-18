@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
-import { codesListFromIdQueryOptions } from '@/api/codesLists'
 import { questionnaireQueryOptions } from '@/api/questionnaires'
 import { variablesQueryOptions } from '@/api/variables'
 import EditCodesList from '@/components/codesLists/edit/EditCodesList'
@@ -25,9 +24,6 @@ export const Route = createFileRoute(
     params: { codesListId, questionnaireId },
   }) => {
     queryClient.ensureQueryData(questionnaireQueryOptions(questionnaireId))
-    queryClient.ensureQueryData(
-      codesListFromIdQueryOptions(questionnaireId, codesListId),
-    )
     queryClient.ensureQueryData(variablesQueryOptions(questionnaireId))
     return { crumb: t('crumb.codesList', { id: codesListId }) }
   },
@@ -36,14 +32,18 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { questionnaireId, codesListId } = Route.useParams()
   const {
-    data: { formulasLanguage },
+    data: { codesLists, formulasLanguage },
   } = useSuspenseQuery(questionnaireQueryOptions(questionnaireId))
-  const { data: codesList } = useSuspenseQuery(
-    codesListFromIdQueryOptions(questionnaireId, codesListId),
-  )
   const { data: variables } = useSuspenseQuery(
     variablesQueryOptions(questionnaireId),
   )
+
+  let codesList
+  if (codesLists) {
+    for (const element of codesLists) {
+      if (element.id === codesListId) codesList = element
+    }
+  }
 
   return (
     <EditCodesListLayout codesList={codesList}>

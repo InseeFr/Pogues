@@ -4,7 +4,6 @@ import { CodesList } from '@/models/codesLists'
 
 import {
   deleteCodesList,
-  getCodesListFromId,
   getCodesLists,
   getCodesListsFromVersion,
   putCodesList,
@@ -52,15 +51,6 @@ it('Get codes lists from version works', async () => {
 
   const res = await getCodesListsFromVersion('my-questionnaire', 'my-version')
   expect(res).toEqual([codeList])
-})
-
-it('Get codes list from id works', async () => {
-  nock('https://mock-api')
-    .get('/persistence/questionnaire/my-questionnaire/codes-list/id1')
-    .reply(200, codeList)
-
-  const res = await getCodesListFromId('my-questionnaire', 'id1')
-  expect(res).toEqual(codeList)
 })
 
 it('Delete codes list', async () => {
