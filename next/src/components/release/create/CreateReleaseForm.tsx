@@ -4,6 +4,8 @@ import { isAxiosError } from 'axios'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
+import { useState } from 'react'
+
 import { questionnairesKeys } from '@/api/questionnaires'
 import { postRelease } from '@/api/releases'
 import { computeCreateReleaseDTO } from '@/api/utils/releases'
@@ -11,12 +13,14 @@ import type { TargetModes } from '@/models/questionnaires'
 
 import ReleaseForm from '../form/ReleaseForm'
 import { type FormValues } from '../form/schema'
+import DuplicateReleaseBanner from './DuplicateReleaseBanner.tsx'
 
 type Props = {
   questionnaireId: string
   seriesId?: string
   seriesLabel?: string
   targetModes: TargetModes[]
+  isPublishDisabled: boolean
 }
 
 export default function CreateReleaseForm({
@@ -24,10 +28,12 @@ export default function CreateReleaseForm({
   seriesId,
   seriesLabel,
   targetModes,
+  isPublishDisabled,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const [isAlreadyPublished, setIsAlreadyPublished] = useState(false)
 
   const mutation = useMutation({
     mutationFn: async (formValues: FormValues) => {
@@ -39,6 +45,12 @@ export default function CreateReleaseForm({
       } catch (error) {
         if (isAxiosError(error) && error.response?.status === 404) {
           throw new Error(t('release.create.notFound'), { cause: error })
+        }
+        if (isAxiosError(error) && error.response?.status === 409) {
+          setIsAlreadyPublished(true)
+          throw new Error(t('release.create.alreadyPublished'), {
+            cause: error,
+          })
         }
         throw error
       }
@@ -67,13 +79,17 @@ export default function CreateReleaseForm({
   }
 
   return (
-    <ReleaseForm
-      questionnaireId={questionnaireId}
-      seriesId={seriesId}
-      seriesLabel={seriesLabel}
-      targetModes={targetModes}
-      onSubmit={onSubmit}
-      submitLabel={t('release.form.publish')}
-    />
+    <>
+      {isAlreadyPublished ? <DuplicateReleaseBanner /> : null}
+      <ReleaseForm
+        questionnaireId={questionnaireId}
+        seriesId={seriesId}
+        seriesLabel={seriesLabel}
+        targetModes={targetModes}
+        onSubmit={onSubmit}
+        submitLabel={t('release.form.publish')}
+        isPublishDisabled={isPublishDisabled}
+      />
+    </>
   )
 }
