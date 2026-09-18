@@ -5,9 +5,11 @@ import {
   pendingReleasesQueryOptions,
   releasesQueryOptions,
 } from '@/api/releases'
+import { latestVersionQueryOptions } from '@/api/versions'
 import ErrorComponent from '@/components/layout/ErrorComponent'
 import ReleaseOverview from '@/components/release/ReleaseOverview'
 import ReleaseOverviewLayout from '@/components/release/ReleasesOverviewLayout'
+import { hasReleaseForVersion } from '@/components/release/overview/utils/utils'
 
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/releases/',
@@ -22,6 +24,7 @@ export const Route = createFileRoute(
     await Promise.all([
       queryClient.ensureQueryData(releasesQueryOptions(questionnaireId)),
       queryClient.ensureQueryData(pendingReleasesQueryOptions(questionnaireId)),
+      queryClient.ensureQueryData(latestVersionQueryOptions(questionnaireId)),
     ])
   },
 })
@@ -35,9 +38,22 @@ function RouteComponent() {
   const { data: releases } = useSuspenseQuery(
     releasesQueryOptions(questionnaireId),
   )
+  const { data: latestVersion } = useSuspenseQuery(
+    latestVersionQueryOptions(questionnaireId),
+  )
+
+  const latestVersionId = latestVersion?.id
+  const isPublishDisabled = hasReleaseForVersion(
+    latestVersionId,
+    releases,
+    requests,
+  )
 
   return (
-    <ReleaseOverviewLayout questionnaireId={questionnaireId}>
+    <ReleaseOverviewLayout
+      questionnaireId={questionnaireId}
+      isPublishDisabled={isPublishDisabled}
+    >
       <ReleaseOverview pendingRequests={requests} releases={releases} />
     </ReleaseOverviewLayout>
   )
@@ -47,7 +63,10 @@ function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { questionnaireId } = Route.useParams()
 
   return (
-    <ReleaseOverviewLayout questionnaireId={questionnaireId}>
+    <ReleaseOverviewLayout
+      questionnaireId={questionnaireId}
+      isPublishDisabled={false}
+    >
       {children}
     </ReleaseOverviewLayout>
   )

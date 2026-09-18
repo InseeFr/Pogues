@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Prevent the user to create a release when there is already a request or a release for the same questionnaire version
+
 ### Changed
 
 - Swap the “Personalization” and “Releases” items in the sidebar
