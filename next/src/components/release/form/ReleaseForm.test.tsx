@@ -245,7 +245,7 @@ describe('ReleaseForm', () => {
     })
   })
 
-  it('should disable submit button when series is missing', async () => {
+  it('should not show the form when series id is missing', async () => {
     await renderWithRouter(
       <ReleaseForm
         questionnaireId="q-id"
@@ -256,6 +256,14 @@ describe('ReleaseForm', () => {
         submitLabel="Publier"
       />,
     )
+
+    expect(
+      screen.queryByRole('textbox', { name: /Description/i }),
+    ).not.toBeInTheDocument()
+
+    expect(
+      screen.queryByRole('radiogroup', { name: /Context/ }),
+    ).not.toBeInTheDocument()
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
