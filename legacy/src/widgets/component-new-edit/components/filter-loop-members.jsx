@@ -9,7 +9,7 @@ import Dictionary from '../../../utils/dictionary/dictionary';
 export const FilterLoopMembers = ({
   componentsStore,
   componentType,
-  InitialMember,
+  InitialMember = undefined,
 }) => {
   const {
     SEQUENCE,
@@ -142,6 +142,3 @@ FilterLoopMembers.propTypes = {
   InitialMember: PropTypes.string,
 };
 
-FilterLoopMembers.defaultProps = {
-  InitialMember: undefined,
-};

@@ -43,13 +43,9 @@ export const propTypes = {
   componentId: PropTypes.string,
 };
 
-export const defaultProps = {
-  componentId: '',
-};
-
 // Container
 
-const mapStateToProps = (state, { componentId }) => {
+const mapStateToProps = (state, { componentId = '' }) => {
   const errorsIntegrity = state.errors.errorsIntegrity[componentId];
   const externalLoopsAvailable =
     state.metadataByType.externalQuestionnairesLoops || {};
@@ -81,6 +77,5 @@ const ComponentNewEditContainer = connect(
 )(ComponentNewEdit);
 
 ComponentNewEditContainer.propTypes = propTypes;
-ComponentNewEditContainer.defaultProps = defaultProps;
 
 export default ComponentNewEditContainer;

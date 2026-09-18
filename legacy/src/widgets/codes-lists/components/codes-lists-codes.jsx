@@ -25,14 +25,14 @@ function CodesListsCodes(props) {
     inputCodePath,
     formName,
     change,
-    currentPrecisionid,
-    currentPrecisionlabel,
-    currentPrecisionsize,
+    currentPrecisionid = '',
+    currentPrecisionlabel = '',
+    currentPrecisionsize = undefined,
     collectedVariablesIds,
     meta,
     fields: { getAll, push, remove, get },
-    allowPrecision,
-    allowFilter,
+    allowPrecision = true,
+    allowFilter = false,
     codeFilters = [],
   } = props;
   const [activeCodeIndex, setActiveCodeIndex] = useState(undefined);
@@ -299,14 +299,6 @@ CodesListsCodes.propTypes = {
   allowFilter: PropTypes.bool,
 
   collectedVariablesIds: PropTypes.isRequired,
-};
-
-CodesListsCodes.defaultProps = {
-  currentPrecisionid: '',
-  currentPrecisionlabel: '',
-  currentPrecisionsize: undefined,
-  allowPrecision: true,
-  allowFilter: false,
 };
 
 const mapStateToProps = (state) => {

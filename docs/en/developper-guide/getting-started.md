@@ -1,5 +1,9 @@
 # Getting started
 
+Current local setups (no Keycloak) are documented in the repository [README](../../../README.md): `pnpm dev:standalone` (mock API), or `pnpm dev:api` against Pogues-API (`mvn spring-boot:run`, profile `local`).
+
+The notes below describe an older npm-based workflow.
+
 Pogues is a Single Page Application built with React and Redux. To run the application in development mode, run the following commands from a shell prompt in the local directory, and then navigate to [http://localhost:3000](http://localhost:3000):
 
 ```

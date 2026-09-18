@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import { getAllVariables } from '../../../utils/variables/variables-utils';
 
 export function questionnaireDuplicateVariables(
@@ -94,20 +92,3 @@ export function questionnaireDuplicateVariables(
   ];
 }
 
-questionnaireDuplicateVariables.propTypes = {
-  collectedVariableByQuestion: PropTypes.object,
-  activeExternalVariablesById: PropTypes.object,
-  activeCalculatedVariablesById: PropTypes.object,
-  activeQuestionnaire: PropTypes.object,
-  externalQuestionnairesVariables: PropTypes.object,
-  activeComponentsById: PropTypes.object,
-};
-
-questionnaireDuplicateVariables.defaultProps = {
-  collectedVariableByQuestion: {},
-  activeExternalVariablesById: {},
-  activeCalculatedVariablesById: {},
-  activeQuestionnaire: {},
-  externalQuestionnairesVariables: {},
-  activeComponentsById: {},
-};
