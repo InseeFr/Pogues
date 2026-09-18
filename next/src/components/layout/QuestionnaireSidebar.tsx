@@ -171,17 +171,17 @@ export default function QuestionnaireSidebar() {
           questionnaireId={questionnaireId}
         />
         <SidebarItem
-          label={t('release.title')}
-          Icon={ReleaseIcon}
-          path="/questionnaire/$questionnaireId/releases"
-          isHidden={!enableReleasesPage}
-          questionnaireId={questionnaireId}
-        />
-        <SidebarItem
           label={t('personalization.title')}
           Icon={PersonalizeIcon}
           path="/questionnaire/$questionnaireId/personalization"
           innerPaths={['/questionnaire/$questionnaireId/personalization/new']}
+          questionnaireId={questionnaireId}
+        />
+        <SidebarItem
+          label={t('release.title')}
+          Icon={ReleaseIcon}
+          path="/questionnaire/$questionnaireId/releases"
+          isHidden={!enableReleasesPage}
           questionnaireId={questionnaireId}
         />
       </ul>
