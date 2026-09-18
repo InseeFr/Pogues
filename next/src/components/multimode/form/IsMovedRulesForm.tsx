@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import Form from '@/components/ui/form/Form'
+import FormField from '@/components/ui/form/FormField'
 import Label from '@/components/ui/form/Label'
 import VTLEditor from '@/components/ui/form/VTLEditor'
 import type { MultimodeIsMovedRules } from '@/models/multimode'
@@ -61,12 +62,10 @@ export default function MultimodeIsMovedRulesForm({
       isValid={isValid}
       isSubmitted={isSubmitted}
     >
-      <Controller
-        name="questionnaireFormula"
-        control={control}
-        render={({
+      <FormField control={control} name="questionnaireFormula" noField>
+        {({
           field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
+          fieldState: { isDirty, error, invalid, isTouched },
         }) => (
           <VTLEditor
             dirty={isDirty}
@@ -81,14 +80,12 @@ export default function MultimodeIsMovedRulesForm({
             value={value}
           />
         )}
-      />
+      </FormField>
       {roundaboutVariables.length > 0 ? (
-        <Controller
-          name="leafFormula"
-          control={control}
-          render={({
+        <FormField control={control} name="leafFormula" noField>
+          {({
             field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
+            fieldState: { isDirty, error, invalid, isTouched },
           }) => (
             <VTLEditor
               dirty={isDirty}
@@ -106,7 +103,7 @@ export default function MultimodeIsMovedRulesForm({
               value={value}
             />
           )}
-        />
+        </FormField>
       ) : (
         <div>
           <Label>{t('multimode.form.leafFormula')}</Label>

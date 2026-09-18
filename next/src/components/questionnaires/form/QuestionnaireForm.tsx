@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
+import FormField from '@/components/ui/form/FormField'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import {
@@ -73,31 +73,24 @@ export default function QuestionnaireForm({
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
     >
-      <Controller
+      <FormField
+        control={control}
         name="title"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('common.title')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input autoFocus value={value} onValueChange={onChange} />
-          </Field>
+        label={t('common.title')}
+        required
+      >
+        {({ field: { value, onChange } }) => (
+          <Input autoFocus value={value} onValueChange={onChange} />
         )}
-      />
-      <Controller
-        name="targetModes"
+      </FormField>
+
+      <FormField
         control={control}
+        name="targetModes"
         rules={{ required: true }}
-        render={({ field, fieldState: { error } }) => (
+        noField
+      >
+        {({ field, fieldState: { error } }) => (
           <SelectTargetMode
             value={field.value}
             onChange={field.onChange}
@@ -105,68 +98,50 @@ export default function QuestionnaireForm({
             error={error?.message}
           />
         )}
-      />
+      </FormField>
+
       <div>
-        <Controller
+        <FormField
+          control={control}
           name="flowLogic"
-          control={control}
+          label={t('questionnaire.common.dynamicField')}
+          required
           rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('questionnaire.common.dynamicField')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={[
-                  { label: 'Filtre', value: FlowLogics.Filter },
-                  { label: 'Redirection', value: FlowLogics.Redirection },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
+        >
+          {({ field: { value, onBlur, onChange } }) => (
+            <RadioGroup
+              options={[
+                { label: 'Filtre', value: FlowLogics.Filter },
+                { label: 'Redirection', value: FlowLogics.Redirection },
+              ]}
+              value={value}
+              onBlur={onBlur}
+              onValueChange={onChange}
+            />
           )}
-        />
+        </FormField>
       </div>
+
       <div>
-        <Controller
-          name="formulasLanguage"
+        <FormField
           control={control}
+          name="formulasLanguage"
+          label={t('questionnaire.common.formulaField')}
+          required
           rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('questionnaire.common.formulaField')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={[
-                  { label: 'VTL', value: FormulasLanguages.VTL },
-                  { label: 'XPath', value: FormulasLanguages.XPath },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
+        >
+          {({ field: { value, onBlur, onChange } }) => (
+            <RadioGroup
+              options={[
+                { label: 'VTL', value: FormulasLanguages.VTL },
+                { label: 'XPath', value: FormulasLanguages.XPath },
+              ]}
+              value={value}
+              onBlur={onBlur}
+              onValueChange={onChange}
+            />
           )}
-        />
+        </FormField>
       </div>
     </Form>
   )

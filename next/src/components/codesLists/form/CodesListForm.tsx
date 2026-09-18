@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
 import {
   type Control,
-  Controller,
   type SubmitHandler,
   type UseFieldArrayMove,
   type UseFieldArrayRemove,
@@ -17,8 +16,8 @@ import { useCallback, useEffect, useState } from 'react'
 
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
-import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
+import FormField from '@/components/ui/form/FormField'
 import Input from '@/components/ui/form/Input'
 import Label from '@/components/ui/form/Label'
 import VTLEditor from '@/components/ui/form/VTLEditor'
@@ -145,26 +144,16 @@ export default function CodesListForm({
       isValid={isValid}
       isSubmitted={isSubmitted}
     >
-      <Controller
-        name="label"
+      <FormField
         control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('codesList.common.label')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input value={value} onValueChange={onChange} />
-          </Field>
+        name="label"
+        label={t('codesList.common.label')}
+        required
+      >
+        {({ field: { value, onChange } }) => (
+          <Input value={value} onValueChange={onChange} />
         )}
-      />
+      </FormField>
       <div>
         {!showCsvImport && (
           <Button
@@ -315,43 +304,35 @@ function CodesField({
             disabled={isLast}
           />
         </div>
-        <Controller
-          name={`${namePrefix}.value` as `codes.${number}.value`}
+        <FormField
           control={control}
+          name={`${namePrefix}.value` as `codes.${number}.value`}
+          required
           rules={{ required: true }}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <Input
-                value={value}
-                onValueChange={(e) => {
-                  onChange(e)
-                  trigger()
-                }}
-              />
-            </Field>
+        >
+          {({ field: { value, onChange } }) => (
+            <Input
+              value={value}
+              onValueChange={(e) => {
+                onChange(e)
+                trigger()
+              }}
+            />
           )}
-        />
+        </FormField>
       </div>
       <div className="col-start-2">
-        <Controller
-          name={`${namePrefix}.label` as `codes.${number}.label`}
-          control={control}
-          rules={{ required: true }}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) =>
-            formulasLanguage === FormulasLanguages.VTL ? (
+        {formulasLanguage === FormulasLanguages.VTL ? (
+          <FormField
+            control={control}
+            name={`${namePrefix}.label` as `codes.${number}.label`}
+            rules={{ required: true }}
+            noField
+          >
+            {({
+              field: { name, value, onChange },
+              fieldState: { isDirty, error, invalid, isTouched },
+            }) => (
               <VTLEditor
                 key={`${namePrefix}.label`}
                 data-testid={`${namePrefix}.label`}
@@ -366,25 +347,25 @@ function CodesField({
                 touched={isTouched}
                 value={value}
               />
-            ) : (
-              <Field
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                name={name}
+            )}
+          </FormField>
+        ) : (
+          <FormField
+            control={control}
+            name={`${namePrefix}.label` as `codes.${number}.label`}
+            required
+            rules={{ required: true }}
+          >
+            {({ field: { value, onChange } }) => (
+              <Input
+                data-testid={`${namePrefix}.label`}
+                value={value}
+                onValueChange={onChange}
                 required
-                touched={isTouched}
-              >
-                <Input
-                  data-testid={`${namePrefix}.label`}
-                  value={value}
-                  onValueChange={onChange}
-                  required
-                />
-              </Field>
-            )
-          }
-        />
+              />
+            )}
+          </FormField>
+        )}
       </div>
       <ButtonIcon
         className="col-start-3 h-12"
