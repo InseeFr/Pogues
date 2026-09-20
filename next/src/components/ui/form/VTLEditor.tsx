@@ -13,6 +13,7 @@ import { type Variable } from '@/models/variables'
 
 import Field, { type Props as FieldProps } from './Field'
 import { computeAntlrVariables } from './utils/vtlEditor'
+import { filterPoguesDollarCompatibilityErrors } from './utils/vtlDollarCompatibility'
 
 type Props = {
   /** Additional information about the field. */
@@ -104,7 +105,12 @@ export default function VTLEditor({
   /** Send VTL errors to `react-hook-form` */
   function handleVTLErrors(vtlEditorErrors: Error[]) {
     if (error) return
-    for (const vtlError of vtlEditorErrors) {
+    // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+    const blockingErrors = filterPoguesDollarCompatibilityErrors(
+      vtlEditorErrors,
+      value,
+    )
+    for (const vtlError of blockingErrors) {
       const message = `[Ln ${vtlError.line}, Col ${vtlError.column}] ${vtlError.message}`
       setError({ type: 'custom', message })
     }
