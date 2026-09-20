@@ -7,6 +7,8 @@ import {
   monarchDefinition,
 } from '@making-sense/vtl-2-1-monaco-tools-ts';
 
+import { filterPoguesDollarCompatibilityErrors } from './vtl-dollar-compatibility';
+
 const VTLEditor = ({
   availableSuggestions,
   label,
@@ -33,10 +35,11 @@ const VTLEditor = ({
   const { value, onChange, name: id } = input;
 
   const handleErrors = (e) => {
-    setErrors(e);
+    // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+    const blockingErrors = filterPoguesDollarCompatibilityErrors(e, value);
+    setErrors(blockingErrors);
     if (setDisableValidation) {
-      if (e.length > 0) setDisableValidation(true);
-      else setDisableValidation(false);
+      setDisableValidation(blockingErrors.length > 0);
     }
   };
 
