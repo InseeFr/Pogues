@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-21
+
+- Swap the “Personalization” and “Releases” items in the sidebar
+- Release form no longer display when the serie is not defined in the questionnaire details
+
+### Changed
+
+## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-17
+
 ### Changed
 
 - Release form no longer display when the serie is not defined in the questionnaire details
