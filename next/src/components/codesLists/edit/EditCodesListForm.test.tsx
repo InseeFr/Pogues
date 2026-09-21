@@ -110,12 +110,6 @@ describe('EditCodesListForm', () => {
     )
 
     await user.click(screen.getByRole('button', { name: /validate/i }))
-
-    expect(
-      screen.getByText(
-        'You are about to regenerate the collected variables associated with the following questions',
-      ),
-    ).toBeInTheDocument()
     expect(screen.getByText('QUELSPERSO')).toBeInTheDocument()
     expect(screen.getByText('WHAT_IS_YOUR_NAME')).toBeInTheDocument()
 

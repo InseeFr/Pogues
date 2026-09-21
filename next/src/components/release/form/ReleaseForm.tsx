@@ -18,11 +18,12 @@ import { TargetModes } from '@/models/questionnaires'
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts.tsx'
 import { type FormValues, schema } from './schema'
 
-const RELEASE_TARGET_MODES = [
-  TargetModes.CAWI,
-  TargetModes.CAPI,
-  TargetModes.CATI,
-]
+const getDefaultModes = (modes: TargetModes[]): FormValues['modes'] => {
+  if (modes.includes(TargetModes.CAWI)) {
+    return ['CAWI']
+  }
+  return []
+}
 
 type Props = {
   questionnaireId: string
@@ -37,11 +38,14 @@ export default function ReleaseForm({
   questionnaireId,
   seriesId,
   seriesLabel,
+  targetModes,
   onSubmit,
   submitLabel,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const navigate = useNavigate()
+
+  const availableModes = targetModes.filter((mode) => mode !== TargetModes.PAPI)
 
   const {
     control,
@@ -52,7 +56,7 @@ export default function ReleaseForm({
     mode: 'onChange',
     defaultValues: {
       releaseDescription: '',
-      modes: ['CAWI'],
+      modes: getDefaultModes(availableModes),
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
         responseTimeQuestion: true,
@@ -179,7 +183,7 @@ export default function ReleaseForm({
                   )
                 }}
                 multiple={true}
-                availableModes={RELEASE_TARGET_MODES}
+                availableModes={availableModes}
                 error={error?.message}
               />
             )}

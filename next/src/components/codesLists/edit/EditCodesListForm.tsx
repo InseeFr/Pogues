@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import toast from 'react-hot-toast'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 
@@ -105,12 +105,17 @@ export default function EditCodesListForm({
           title={t('codesList.form.dialog.resetVariableTitle')}
           body={
             <>
-              <p>{t('codesList.form.dialog.resetVariableSubTitle')}</p>
-              <ul className="list-disc list-inside my-1">
+              <p>
+                <Trans
+                  i18nKey="codesList.form.dialog.resetVariableSubTitle"
+                  components={{ bold: <strong /> }}
+                />
+              </p>
+              <ol className="list-decimal list-inside my-1">
                 {relatedQuestionNames.map((questionName) => (
                   <li key={questionName}>{questionName}</li>
                 ))}
-              </ul>
+              </ol>
               <p>{t('codesList.form.dialog.resetVariableBody')}</p>
             </>
           }
