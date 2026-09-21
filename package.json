@@ -1,6 +1,6 @@
 {
   "name": "pogues",
-  "version": "3.9.0-rc-react-19.0",
+  "version": "3.9.0-rc-react-19.1",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "install:all": "pnpm install && pnpm --dir next install && pnpm --dir legacy install",
