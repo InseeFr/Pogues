@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { domSelectorForModal } from '../../../constants/dom-constants';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -20,20 +23,20 @@ const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, ROUNDABOUT } =
 
 const ComponentNewEdit = ({
   componentType,
-  componentId,
+  componentId = '',
   addSubformValidationErrors,
-  componentsStore,
-  errorsIntegrityByTab,
+  componentsStore = {},
+  errorsIntegrityByTab = {},
   handleSubmit,
   submitting,
-  form,
+  form = DEFAULT_FORM_NAME,
   onCancel,
-  deleteComponent,
+  deleteComponent = undefined,
   onSubmit,
   clearSubformValidationErrors,
   externalLoopsStore,
-  InitialMember,
-  redirectionNeeded,
+  InitialMember = undefined,
+  redirectionNeeded = false,
   activeQuestionnaire,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -268,15 +271,6 @@ ComponentNewEdit.propTypes = {
   form: PropTypes.string,
   redirectionNeeded: PropTypes.bool,
   activeQuestionnaire: PropTypes.object.isRequired,
-};
-
-ComponentNewEdit.defaultProps = {
-  errorsIntegrityByTab: {},
-  componentsStore: {},
-  deleteComponent: undefined,
-  InitialMember: undefined,
-  form: undefined,
-  redirectionNeeded: false,
 };
 
 export default ComponentNewEdit;

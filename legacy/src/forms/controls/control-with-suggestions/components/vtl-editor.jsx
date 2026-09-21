@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
 import { AntlrEditor } from '@making-sense/antlr-editor';
-import * as tools from '@making-sense/vtl-2-0-antlr-tools-ts';
+import * as tools from '@making-sense/vtl-2-1-antlr-tools-ts';
 import {
   getSuggestionsFromRange,
   monarchDefinition,
-} from '@making-sense/vtl-2-0-monaco-tools-ts';
+} from '@making-sense/vtl-2-1-monaco-tools-ts';
+
+import { filterPoguesDollarCompatibilityErrors } from './vtl-dollar-compatibility';
 
 const VTLEditor = ({
   availableSuggestions,
@@ -21,6 +23,8 @@ const VTLEditor = ({
     variables[s] = { type: 'Variable' };
   }
 
+  // expr: Pogues stores VTL expressions (not full scripts). EOF leftover
+  // tokens / empty input are handled by @making-sense/antlr-editor ≥ 2.9.4.
   const customTools = {
     ...tools,
     monarchDefinition,
@@ -31,10 +35,11 @@ const VTLEditor = ({
   const { value, onChange, name: id } = input;
 
   const handleErrors = (e) => {
-    setErrors(e);
+    // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+    const blockingErrors = filterPoguesDollarCompatibilityErrors(e, value);
+    setErrors(blockingErrors);
     if (setDisableValidation) {
-      if (e.length > 0) setDisableValidation(true);
-      else setDisableValidation(false);
+      setDisableValidation(blockingErrors.length > 0);
     }
   };
 

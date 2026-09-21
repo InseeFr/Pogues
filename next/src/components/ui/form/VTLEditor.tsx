@@ -13,6 +13,7 @@ import { type Variable } from '@/models/variables'
 
 import Field, { type Props as FieldProps } from './Field'
 import { computeAntlrVariables } from './utils/vtlEditor'
+import { filterPoguesDollarCompatibilityErrors } from './utils/vtlDollarCompatibility'
 
 type Props = {
   /** Additional information about the field. */
@@ -83,7 +84,10 @@ export default function VTLEditor({
   const isInvalid = !!error
   /** Variables that can be suggested for autocompletion. */
   const antlrVariables = computeAntlrVariables(suggestionsVariables)
-  /** Additional tools to improve user experience. */
+  /** Additional tools to improve user experience.
+   * `expr` (not `start`): Pogues stores VTL expressions, not full scripts.
+   * Full-input validation (EOF + lexer errors) is handled by antlr-editor ≥ 2.9.4.
+   */
   const customTools: Tools = {
     ...tools,
     monarchDefinition,
@@ -99,11 +103,15 @@ export default function VTLEditor({
   }, [])
 
   /** Send VTL errors to `react-hook-form` */
-  function handleVTLErrors(vtlEditorErrors: Error[], value?: string) {
-    if (!value) return
+  function handleVTLErrors(vtlEditorErrors: Error[]) {
     if (error) return
-    for (const error of vtlEditorErrors) {
-      const message = `[Ln ${error.line}, Col ${error.column}] ${error.message}`
+    // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+    const blockingErrors = filterPoguesDollarCompatibilityErrors(
+      vtlEditorErrors,
+      value,
+    )
+    for (const vtlError of blockingErrors) {
+      const message = `[Ln ${vtlError.line}, Col ${vtlError.column}] ${vtlError.message}`
       setError({ type: 'custom', message })
     }
   }
@@ -137,7 +145,7 @@ export default function VTLEditor({
         <AntlrEditor
           script={value}
           setScript={(value: string) => onChange(value)}
-          onListErrors={(e) => handleVTLErrors(e, value)}
+          onListErrors={handleVTLErrors}
           variables={antlrVariables}
           tools={customTools}
           theme="vs-light"

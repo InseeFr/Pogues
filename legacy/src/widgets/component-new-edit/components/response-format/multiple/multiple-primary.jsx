@@ -8,7 +8,7 @@ import { CodesLists } from '../../../../codes-lists';
 
 const { PRIMARY: selectorPath } = DIMENSION_TYPE;
 
-function ResponseFormatMultiplePrimary({ selectorPathParent }) {
+function ResponseFormatMultiplePrimary({ selectorPathParent = undefined }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -28,8 +28,5 @@ ResponseFormatMultiplePrimary.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatMultiplePrimary.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatMultiplePrimary;
