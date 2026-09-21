@@ -13,13 +13,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-21
+
 - Swap the “Personalization” and “Releases” items in the sidebar
+- Release form no longer display when the serie is not defined in the questionnaire details
 
-## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.3) - 2026-09-17
+### Changed
 
-### Added
+## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-17
 
-- Add a warning modal when editing a code list used by questions, warning the user that the collected variables will be regenerated.
+### Changed
+
+- Release form no longer display when the serie is not defined in the questionnaire details
 
 ## [3.8.2](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-07
 

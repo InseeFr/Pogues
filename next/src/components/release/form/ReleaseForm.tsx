@@ -12,6 +12,7 @@ import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
+import WarningIcon from '@/components/ui/icons/WarningIcon.tsx'
 import { TargetModes } from '@/models/questionnaires'
 
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts.tsx'
@@ -94,18 +95,17 @@ export default function ReleaseForm({
       disabledReason={t('release.create.alreadyPublished')}
       validateLabel={submitLabel}
     >
-      <p className="text-sm text-gray-600 mb-6">
-        {t('release.form.introduction')}
-      </p>
-
-      <h3 className="text-base font-semibold mb-3">
-        {t('release.form.seriesInfo')}
-      </h3>
+      <div className="flex flex-row gap-1.5">
+        <h3 className="text-base font-semibold">
+          {t('release.form.seriesInfo')}
+        </h3>
+        {!seriesId && <WarningIcon className="text-error" />}
+      </div>
       <div className="space-y-2 text-sm ">
         <p>
-          <b className="text-gray-500 font-normal">
+          <strong className="font-semibold">
             {t('release.form.series.id')} :{' '}
-          </b>
+          </strong>
           {seriesId || (
             <>
               <strong className="text-error font-semibold">
@@ -123,162 +123,165 @@ export default function ReleaseForm({
             </>
           )}
         </p>
-        <p>
-          <b className="text-gray-500 font-normal">
-            {t('release.form.series.label')} :{' '}
-          </b>
-          {seriesLabel || (
-            <strong className="text-error font-semibold">
-              {t('release.form.series.missingLabel')}
+        {seriesId && (
+          <p>
+            <strong className="font-semibold">
+              {t('release.form.series.label')} :{' '}
             </strong>
-          )}
-        </p>
+            {seriesLabel || (
+              <strong className="text-error font-semibold">
+                {t('release.form.series.missingLabel')}
+              </strong>
+            )}
+          </p>
+        )}
       </div>
+      {seriesId && seriesLabel && (
+        <div className="space-y-6 mt-6">
+          <Controller
+            name="releaseDescription"
+            control={control}
+            render={({
+              field: { name, value, onChange },
+              fieldState: { invalid, isTouched, isDirty, error },
+            }) => (
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                label={t('release.form.description.label')}
+                name={name}
+                required
+                touched={isTouched}
+                description={t('release.form.description.example')}
+              >
+                <Input
+                  placeholder={t('release.form.description.placeholder')}
+                  value={value}
+                  onValueChange={onChange}
+                  maxLength={249}
+                />
+              </Field>
+            )}
+          />
 
-      <div className="space-y-6 mt-6">
-        <Controller
-          name="releaseDescription"
-          control={control}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('release.form.description.label')}
-              name={name}
-              required
-              touched={isTouched}
-              description={t('release.form.description.example')}
-            >
-              <Input
-                placeholder={t('release.form.description.placeholder')}
-                value={value}
-                onValueChange={onChange}
-                maxLength={249}
+          <Controller
+            name="modes"
+            control={control}
+            rules={{ required: true }}
+            render={({ field, fieldState: { error } }) => (
+              <SelectTargetMode
+                value={
+                  new Set(
+                    field.value.map(
+                      (m) => TargetModes[m as keyof typeof TargetModes],
+                    ),
+                  )
+                }
+                onChange={(newValue) => {
+                  const arr =
+                    newValue instanceof Set ? Array.from(newValue) : newValue
+                  field.onChange(
+                    arr.map(
+                      (m) =>
+                        TargetModes[m as unknown as keyof typeof TargetModes],
+                    ),
+                  )
+                }}
+                multiple={true}
+                availableModes={RELEASE_TARGET_MODES}
+                error={error?.message}
               />
-            </Field>
-          )}
-        />
+            )}
+          />
 
-        <Controller
-          name="modes"
-          control={control}
-          rules={{ required: true }}
-          render={({ field, fieldState: { error } }) => (
-            <SelectTargetMode
-              value={
-                new Set(
-                  field.value.map(
-                    (m) => TargetModes[m as keyof typeof TargetModes],
-                  ),
-                )
-              }
-              onChange={(newValue) => {
-                const arr =
-                  newValue instanceof Set ? Array.from(newValue) : newValue
-                field.onChange(
-                  arr.map(
-                    (m) =>
-                      TargetModes[m as unknown as keyof typeof TargetModes],
-                  ),
-                )
-              }}
-              multiple={true}
-              availableModes={RELEASE_TARGET_MODES}
-              error={error?.message}
-            />
-          )}
-        />
+          <Controller
+            name="context"
+            control={control}
+            rules={{ required: true }}
+            render={({
+              field: { name, value, onBlur, onChange },
+              fieldState: { invalid, isTouched, isDirty, error },
+            }) => (
+              <Field
+                dirty={isDirty}
+                error={error}
+                invalid={invalid}
+                label={t('release.form.contexte.label')}
+                name={name}
+                required
+                touched={isTouched}
+              >
+                <RadioGroup
+                  options={CONTEXTE_OPTIONS}
+                  value={value}
+                  onBlur={onBlur}
+                  onValueChange={onChange}
+                />
+              </Field>
+            )}
+          />
 
-        <Controller
-          name="context"
-          control={control}
-          rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('release.form.contexte.label')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={CONTEXTE_OPTIONS}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
-          )}
-        />
+          {contextValue === 'BUSINESS' && targetMode.includes('CAWI') ? (
+            <div className="border-l-2 border-gray-300 pl-4 space-y-4">
+              <h3 className="text-base font-semibold ">
+                {t('release.form.optionalParameters')}
+              </h3>
 
-        {contextValue === 'BUSINESS' && targetMode.includes('CAWI') ? (
-          <div className="border-l-2 border-gray-300 pl-4 space-y-4">
-            <h3 className="text-base font-semibold ">
-              {t('release.form.optionalParameters')}
-            </h3>
+              <div>
+                <Controller
+                  name="overrideGenerationParameters.responseTimeQuestion"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <>
+                      <Checkbox
+                        checked={value}
+                        onChange={onChange}
+                        label={t('release.form.pageTempsReponse.label')}
+                      />
+                      {!value ? (
+                        <p className="text-orange-500 text-sm ml-7">
+                          {t('release.form.pageTempsReponse.warning')}
+                        </p>
+                      ) : null}
+                    </>
+                  )}
+                />
+              </div>
 
-            <div>
-              <Controller
-                name="overrideGenerationParameters.responseTimeQuestion"
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <>
-                    <Checkbox
-                      checked={value}
-                      onChange={onChange}
-                      label={t('release.form.pageTempsReponse.label')}
-                    />
-                    {!value ? (
-                      <p className="text-orange-500 text-sm ml-7">
-                        {t('release.form.pageTempsReponse.warning')}
-                      </p>
-                    ) : null}
-                  </>
-                )}
-              />
+              <div>
+                <Controller
+                  name="overrideGenerationParameters.questionNumberingMode"
+                  control={control}
+                  render={({
+                    field: { name, value, onChange },
+                    fieldState: { invalid, isTouched, isDirty, error },
+                  }) => (
+                    <Field
+                      dirty={isDirty}
+                      error={error}
+                      invalid={invalid}
+                      label={
+                        <span className="font-normal">
+                          {t('release.form.questionNumbering.label')}
+                        </span>
+                      }
+                      name={name}
+                      touched={isTouched}
+                    >
+                      <Select<string>
+                        options={NUMEROTATION_OPTIONS}
+                        value={value}
+                        onChange={onChange}
+                      />
+                    </Field>
+                  )}
+                />
+              </div>
             </div>
-
-            <div>
-              <Controller
-                name="overrideGenerationParameters.questionNumberingMode"
-                control={control}
-                render={({
-                  field: { name, value, onChange },
-                  fieldState: { invalid, isTouched, isDirty, error },
-                }) => (
-                  <Field
-                    dirty={isDirty}
-                    error={error}
-                    invalid={invalid}
-                    label={
-                      <span className="font-normal">
-                        {t('release.form.questionNumbering.label')}
-                      </span>
-                    }
-                    name={name}
-                    touched={isTouched}
-                  >
-                    <Select<string>
-                      options={NUMEROTATION_OPTIONS}
-                      value={value}
-                      onChange={onChange}
-                    />
-                  </Field>
-                )}
-              />
-            </div>
-          </div>
-        ) : null}
-      </div>
+          ) : null}
+        </div>
+      )}
     </Form>
   )
 }

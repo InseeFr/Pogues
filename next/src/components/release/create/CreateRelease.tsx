@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import type { TargetModes } from '@/models/questionnaires'
 
@@ -17,9 +19,15 @@ export default function CreateRelease({
   serie,
   isPublishDisabled,
 }: Readonly<Props>) {
+  const { t } = useTranslation()
   return (
     <>
       {isPublishDisabled ? <DuplicateReleaseBanner /> : null}
+    <div>
+      <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
+        <div>{t('release.form.introduction')}</div>
+      </div>
+
       <div className="bg-default p-4 border border-default shadow-xl">
         <CreateReleaseForm
           questionnaireId={questionnaireId}
