@@ -23,19 +23,20 @@ export default function CreateRelease({
   return (
     <>
       {isPublishDisabled ? <DuplicateReleaseBanner /> : null}
-    <div>
-      <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
-        <div>{t('release.form.introduction')}</div>
-      </div>
+      <div>
+        <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
+          <div>{t('release.form.introduction')}</div>
+        </div>
 
-      <div className="bg-default p-4 border border-default shadow-xl">
-        <CreateReleaseForm
-          questionnaireId={questionnaireId}
-          seriesId={serie ? serie.label : ''}
-          seriesLabel={serie ? serie.altLabel : ''}
-          targetModes={targetModes}
-          isPublishDisabled={isPublishDisabled}
-        />
+        <div className="bg-default p-4 border border-default shadow-xl">
+          <CreateReleaseForm
+            questionnaireId={questionnaireId}
+            seriesId={serie ? serie.label : ''}
+            seriesLabel={serie ? serie.altLabel : ''}
+            targetModes={targetModes}
+            isPublishDisabled={isPublishDisabled}
+          />
+        </div>
       </div>
     </>
   )
