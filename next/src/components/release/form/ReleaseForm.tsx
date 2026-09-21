@@ -119,20 +119,9 @@ export default function ReleaseForm({
               {t('release.form.series.label')} :{' '}
             </strong>
             {seriesLabel || (
-              <>
-                <strong className="text-error font-semibold">
-                  {t('release.form.series.missingLabel')}
-                </strong>
-                <Tooltip title={t('release.form.series.missingLabelTooltip')}>
-                  <InfoIcon
-                    height="12"
-                    width="12"
-                    className="cursor-help ml-1 bg-color-error"
-                    role="img"
-                    aria-label={t('release.form.series.missingLabelTooltip')}
-                  />
-                </Tooltip>
-              </>
+              <strong className="text-error font-semibold">
+                {t('release.form.series.missingLabel')}
+              </strong>
             )}
           </p>
         )}
