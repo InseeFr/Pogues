@@ -10,6 +10,8 @@ export default function ErrorIcon({
       height={height}
       viewBox="0 -960 960 960"
       width={width}
+      aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path

@@ -34,6 +34,7 @@ export default function Button({
     <button
       onClick={!disabled ? onClick : undefined}
       disabled={disabled || isLoading}
+      type={props.type ?? 'button'}
       aria-disabled={disabled || isLoading}
       className={`${className} border cursor-pointer font-semibold transition rounded disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 text-nowrap
         ${

@@ -13,6 +13,8 @@ export default function ArrowDownIcon({
       height={height}
       viewBox="0 -960 960 960"
       width={width}
+      aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
