@@ -24,7 +24,7 @@ export default function CreateRelease({
   return (
     <div>
       {hasPublishableMode(targetModes) ? (
-        <>
+        <div>
           <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
             <div>{t('release.form.introduction')}</div>
           </div>
@@ -36,7 +36,7 @@ export default function CreateRelease({
               targetModes={targetModes}
             />
           </div>
-        </>
+        </div>
       ) : (
         <div
           role="alert"

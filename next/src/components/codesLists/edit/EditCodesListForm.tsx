@@ -111,11 +111,11 @@ export default function EditCodesListForm({
                   components={{ bold: <strong /> }}
                 />
               </p>
-              <ol className="list-decimal list-inside my-1">
+              <ul className="list-decimal list-inside my-1">
                 {relatedQuestionNames.map((questionName) => (
                   <li key={questionName}>{questionName}</li>
                 ))}
-              </ol>
+              </ul>
               <p>{t('codesList.form.dialog.resetVariableBody')}</p>
             </>
           }
