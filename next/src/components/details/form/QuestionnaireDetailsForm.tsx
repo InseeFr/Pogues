@@ -343,6 +343,7 @@ export default function QuestionnaireDetailsForm({
       isValid={isValid}
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
+      ariaLabel="questionnaire-details-form"
     >
       {formFields}
     </Form>
