@@ -78,7 +78,7 @@
     "collectMode": {
       "label": "Mode de collecte",
       "required": "Le mode de collecte est obligatoire",
-      "noMatch": "Aucun mode de collecte compatible avec les modes déclarés dans le questionnaire",
+      "noMatch": "La publication n'est pas disponible pour les questionnaires uniquement papier",
       "options": {
         "CAWI": "CAWI",
         "CAPI": "CAPI",

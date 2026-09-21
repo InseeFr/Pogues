@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Only display selected target modes are available in the release form
+
 ## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-21
 
 - Swap the “Personalization” and “Releases” items in the sidebar
