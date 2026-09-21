@@ -35,7 +35,8 @@ export default function UploadMessageTile({
     : 'bg-blue-100 border-blue-300 text-blue-800 border'
   return (
     <div
-      aria-label="error-component"
+      aria-label="upload-error-banner"
+      role="alert"
       className={`${colorClass} rounded px-4 py-3 flex items-start`}
     >
       {displayIsError ? (
