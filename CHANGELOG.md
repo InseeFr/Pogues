@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Details form now display an error message directly if the short name is longer than 10 characters (when opening an existing questionnaire)
+
 ## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-21
 
 - Swap the “Personalization” and “Releases” items in the sidebar
