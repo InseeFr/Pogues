@@ -52,11 +52,19 @@ export default function QuestionnaireDetailsForm({
     setValue,
     watch,
     reset,
+    trigger,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues,
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    if (readOnly) {
+      return
+    }
+    trigger()
+  }, [readOnly, trigger])
 
   const selectedSerie = watch('serie')
 
