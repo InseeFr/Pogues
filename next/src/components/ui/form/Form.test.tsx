@@ -57,6 +57,30 @@ describe('Form component', () => {
     expect(foo).not.toHaveBeenCalled()
   })
 
+  it('does not allow to validate a valid dirty form when disabled', async () => {
+    // Given a valid dirty form that is explicitly disabled
+    const user = userEvent.setup()
+    const foo = vi.fn()
+    await renderWithRouter(
+      <Form
+        onCancel={vi.fn()}
+        onSubmit={foo}
+        isDirty
+        isValid
+        isDisabled
+        disabledReason="blocked"
+      />,
+    )
+
+    expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+
+    // When we click on the validate button
+    await user.click(screen.getByTestId('form-submit-button'))
+
+    // Then nothing happens
+    expect(foo).not.toHaveBeenCalled()
+  })
+
   it('allows to override validate button label', async () => {
     // Given a form not with a custom validate label 'modify'
     const user = userEvent.setup()

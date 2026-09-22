@@ -5,11 +5,13 @@ import WarningIcon from '@/components/ui/icons/WarningIcon'
 import { TargetModes } from '@/models/questionnaires'
 
 import CreateReleaseForm from './CreateReleaseForm'
+import DuplicateReleaseBanner from './DuplicateReleaseBanner.tsx'
 
 type Props = {
   questionnaireId: string
   targetModes: TargetModes[]
   serie?: SerieDetailDTO
+  isPublishDisabled: boolean
 }
 
 const hasPublishableMode = (modes: TargetModes[]): boolean =>
@@ -19,10 +21,12 @@ export default function CreateRelease({
   questionnaireId,
   targetModes,
   serie,
+  isPublishDisabled,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   return (
     <div>
+      {isPublishDisabled ? <DuplicateReleaseBanner /> : null}
       {hasPublishableMode(targetModes) ? (
         <div>
           <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
@@ -34,6 +38,7 @@ export default function CreateRelease({
               seriesId={serie ? serie.label : ''}
               seriesLabel={serie ? serie.altLabel : ''}
               targetModes={targetModes}
+              isPublishDisabled={isPublishDisabled}
             />
           </div>
         </div>

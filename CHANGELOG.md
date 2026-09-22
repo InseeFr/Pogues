@@ -11,14 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Only display selected target modes are available in the release form
 
-## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-21
+## [3.8.5](https://github.com/InseeFr/Pogues/releases/tag/3.8.5) - 2026-09-22
+
+### Changed
+
+- Prevent the user to create a release when there is already a request or a release for the same questionnaire version
+
+## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.4) - 2026-09-21
+
+### Changed
 
 - Swap the “Personalization” and “Releases” items in the sidebar
 - Release form no longer display when the serie is not defined in the questionnaire details
 
-### Changed
-
-## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-17
+## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.3) - 2026-09-17
 
 ### Changed
 

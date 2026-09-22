@@ -16,6 +16,10 @@ type Props = {
   isSubmitted?: boolean
   /** Set to true if the form doesn't have any errors. */
   isValid?: boolean
+  /** Set to true to disable the submit button even if the form is valid. */
+  isDisabled?: boolean
+  /** Reason displayed when the submit button is disabled via isDisabled. */
+  disabledReason?: string
   /** Override the default validate label (e.g. "modify"). */
   validateLabel?: string
   /**
@@ -36,6 +40,8 @@ export default function Form({
   isDirty,
   isSubmitted,
   isValid,
+  isDisabled = false,
+  disabledReason = '',
   validateLabel = '',
   onCancel,
   onSubmit,
@@ -47,11 +53,14 @@ export default function Form({
     withResolver: true,
   })
 
-  const isSubmitEnabled = isValid && isDirty
+  const isSubmitEnabled = isValid && isDirty && !isDisabled
 
   const getSubmitTooltip = (): string | null => {
     if (isSubmitEnabled) {
       return null
+    }
+    if (isDisabled && disabledReason) {
+      return disabledReason
     }
     if (!isValid) {
       return t('common.form.submitInvalid')
