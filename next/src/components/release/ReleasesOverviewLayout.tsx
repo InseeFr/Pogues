@@ -53,6 +53,7 @@ export default function ReleaseOverviewLayout({
         body={t('release.create.alreadyPublished')}
         controlledOpen={isDialogOpen}
         setControlledOpen={setIsDialogOpen}
+        closeButtonTitle={t('common.close')}
       />
     </>
   )

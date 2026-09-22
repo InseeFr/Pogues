@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import ErrorIcon from '@/components/ui/icons/ErrorIcon'
+import WarningIcon from '@/components/ui/icons/WarningIcon'
 
 export default function DuplicateReleaseBanner() {
   const { t } = useTranslation()
@@ -8,9 +8,9 @@ export default function DuplicateReleaseBanner() {
   return (
     <div
       role="alert"
-      className="text-red-600 text-sm bg-red-50 border border-red-200 rounded p-3 mb-6 flex items-center gap-2"
+      className="bg-orange-100 border border-orange-300 text-orange-800 text-sm rounded p-3 mb-6 flex items-center gap-1"
     >
-      <ErrorIcon height="16px" width="16px" aria-hidden="true" />
+      <WarningIcon className="w-6 h-6 text-orange-800 mr-3 shrink-0" />
       {t('release.create.alreadyPublished')}
     </div>
   )
