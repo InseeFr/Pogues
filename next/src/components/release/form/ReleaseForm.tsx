@@ -31,6 +31,7 @@ type Props = {
   targetModes: TargetModes[]
   onSubmit: SubmitHandler<FormValues>
   submitLabel: string
+  isPublishDisabled: boolean
 }
 
 export default function ReleaseForm({
@@ -39,6 +40,7 @@ export default function ReleaseForm({
   seriesLabel,
   onSubmit,
   submitLabel,
+  isPublishDisabled,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -76,13 +78,21 @@ export default function ReleaseForm({
     })
   }
 
+  const guardedSubmit = handleSubmit((values, event) => {
+    if (!isPublishDisabled) {
+      onSubmit(values, event)
+    }
+  })
+
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={guardedSubmit}
       onCancel={handleCancel}
       isDirty={isDirty}
       isValid={isFormValid}
       isSubmitted={isSubmitted}
+      isDisabled={isPublishDisabled}
+      disabledReason={t('release.create.alreadyPublished')}
       validateLabel={submitLabel}
     >
       <div className="flex flex-row gap-1.5">

@@ -8,18 +8,31 @@ import ReleaseForm from './ReleaseForm'
 
 const TARGET_MODES = [TargetModes.CAWI, TargetModes.CAPI, TargetModes.CATI]
 
+async function renderReleaseForm(
+  overrides: {
+    onSubmit?: (values: { releaseDescription: string }) => void
+    isPublishDisabled?: boolean
+    seriesId?: string
+    seriesLabel?: string
+  } = {},
+) {
+  return renderWithRouter(
+    <ReleaseForm
+      questionnaireId="q-id"
+      seriesId="my-series-id"
+      seriesLabel="my-series-label"
+      onSubmit={vi.fn()}
+      targetModes={TARGET_MODES}
+      submitLabel="Publier"
+      isPublishDisabled={false}
+      {...overrides}
+    />,
+  )
+}
+
 describe('ReleaseForm', () => {
   it('should disable submit button when description is empty', async () => {
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
@@ -29,16 +42,7 @@ describe('ReleaseForm', () => {
   it('should enable submit button when description is filled', async () => {
     const user = userEvent.setup()
 
-    const { getByRole } = await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    const { getByRole } = await renderReleaseForm()
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
@@ -58,16 +62,7 @@ describe('ReleaseForm', () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
 
-    const { getByRole } = await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={onSubmit}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    const { getByRole } = await renderReleaseForm({ onSubmit })
 
     await user.type(
       getByRole('textbox', { name: /Description/i }),
@@ -95,16 +90,7 @@ describe('ReleaseForm', () => {
   it('should show optional parameters section for BUSINESS context', async () => {
     const user = userEvent.setup()
 
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
@@ -120,16 +106,7 @@ describe('ReleaseForm', () => {
   })
 
   it('should hide optional parameters section for HOUSEHOLD context', async () => {
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     expect(
       screen.queryByText(
@@ -141,16 +118,7 @@ describe('ReleaseForm', () => {
   it('should only show optional parameters section when targetMode includes CAWI', async () => {
     const user = userEvent.setup()
 
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     const businessContextGroup = screen.getByRole('radiogroup', {
       name: /Context/,
@@ -204,16 +172,7 @@ describe('ReleaseForm', () => {
   it('should toggle optional parameters section when switching context', async () => {
     const user = userEvent.setup()
 
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
@@ -267,6 +226,38 @@ describe('ReleaseForm', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+    })
+  })
+
+  it('should keep submit button disabled when publishing is blocked', async () => {
+    const user = userEvent.setup()
+
+    const { getByRole } = await renderReleaseForm({ isPublishDisabled: true })
+
+    await user.type(
+      getByRole('textbox', { name: /Description/i }),
+      'My release',
+    )
+
+    expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+  })
+
+  it('should not call onSubmit when publishing is blocked', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+
+    const { getByRole } = await renderReleaseForm({
+      onSubmit,
+      isPublishDisabled: true,
+    })
+
+    await user.type(
+      getByRole('textbox', { name: /Description/i }),
+      'My release{enter}',
+    )
+
+    await waitFor(() => {
+      expect(onSubmit).not.toHaveBeenCalled()
     })
   })
 })
