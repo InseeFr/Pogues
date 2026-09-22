@@ -14,6 +14,7 @@
   "agency": "DDI Agency: ",
   "agencyTooltip": "Voir: ",
   "agencyDetailLink": "https://registry.ddialliance.org/Agency",
+  "seriesSearch": "Rechercher une série...",
   "form": {
     "title": "Edit questionnaire details",
     "mustProvideSerie": "Vous devez fournir une série",

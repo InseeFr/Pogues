@@ -177,6 +177,7 @@ export default function QuestionnaireDetailsForm({
                     onChange(serieValue)
                     handleSerieChange(serieValue)
                   }}
+                  placeholder={t('details.seriesSearch')}
                 />
               </div>
               {value ? (

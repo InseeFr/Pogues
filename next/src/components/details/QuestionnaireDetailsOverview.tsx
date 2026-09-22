@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 import { QuestionnaireDetailsDTO } from '@/api/models/questionnaireDetailsDTO'
 import { detailsKeys, putQuestionnaireDetail } from '@/api/questionnaireDetails'
-import { getSerieById } from '@/api/series'
+import { getSerieById, seriesQueryOptions } from '@/api/series'
 import {
   computeQuestionnaireDetails,
   computeQuestionnaireDetailsDTO,
@@ -60,6 +60,9 @@ export default function DetailsOverview({
       toast.success(t('details.form.updateSuccess'))
       queryClient.invalidateQueries({
         queryKey: detailsKeys.detail(questionnaireId),
+      })
+      queryClient.invalidateQueries({
+        queryKey: seriesQueryOptions().queryKey,
       })
     },
     onError: () => {
