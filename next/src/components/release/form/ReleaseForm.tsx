@@ -18,13 +18,6 @@ import { TargetModes } from '@/models/questionnaires'
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts.tsx'
 import { type FormValues, schema } from './schema'
 
-const getDefaultModes = (modes: TargetModes[]): FormValues['modes'] => {
-  if (modes.includes(TargetModes.CAWI)) {
-    return ['CAWI']
-  }
-  return []
-}
-
 type Props = {
   questionnaireId: string
   seriesId?: string
@@ -56,7 +49,7 @@ export default function ReleaseForm({
     mode: 'onChange',
     defaultValues: {
       releaseDescription: '',
-      modes: getDefaultModes(availableModes),
+      modes: [],
       context: 'HOUSEHOLD',
       overrideGenerationParameters: {
         responseTimeQuestion: true,

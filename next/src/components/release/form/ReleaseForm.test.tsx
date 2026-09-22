@@ -49,6 +49,8 @@ describe('ReleaseForm', () => {
       'My release',
     )
 
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
+
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeEnabled()
     })
@@ -73,6 +75,12 @@ describe('ReleaseForm', () => {
       getByRole('textbox', { name: /Description/i }),
       'My release',
     )
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
+
+    await waitFor(() => {
+      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+    })
 
     await user.click(screen.getByTestId('form-submit-button'))
 
@@ -108,6 +116,8 @@ describe('ReleaseForm', () => {
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
     await user.click(contextRadios[1])
 
     await waitFor(() => {
@@ -161,24 +171,13 @@ describe('ReleaseForm', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(
-          'Optional parameters applied to Web questionnaires only',
-        ),
-      ).toBeInTheDocument()
-    })
-
-    const modeCheckboxes = screen.getAllByRole('checkbox')
-    const cawiCheckbox = modeCheckboxes[1]
-
-    await user.click(cawiCheckbox)
-
-    await waitFor(() => {
-      expect(
         screen.queryByText(
           'Optional parameters applied to Web questionnaires only',
         ),
       ).not.toBeInTheDocument()
     })
+
+    const cawiCheckbox = screen.getByRole('checkbox', { name: 'CAWI' })
 
     await user.click(cawiCheckbox)
 
@@ -198,6 +197,16 @@ describe('ReleaseForm', () => {
           'Optional parameters applied to Web questionnaires only',
         ),
       ).not.toBeInTheDocument()
+    })
+
+    await user.click(cawiCheckbox)
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).toBeInTheDocument()
     })
   })
 
@@ -214,7 +223,7 @@ describe('ReleaseForm', () => {
     )
 
     await waitFor(() => {
-      expect(screen.getByRole('checkbox', { name: 'CAWI' })).toBeChecked()
+      expect(screen.getByRole('checkbox', { name: 'CAWI' })).toBeInTheDocument()
       expect(screen.getByRole('checkbox', { name: 'CATI' })).toBeInTheDocument()
 
       expect(
@@ -269,6 +278,8 @@ describe('ReleaseForm', () => {
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
 
     expect(
       screen.queryByText(
