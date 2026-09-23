@@ -74,9 +74,13 @@ export default function Filters<T>({
           />
         ))}
       </div>
-      <div className="font-medium text-base/10 text-right">
+      <p
+        role="status"
+        aria-live="polite"
+        className="font-medium text-base/10 text-right"
+      >
         {t('filter.result', { count: filteredLength })}
-      </div>
+      </p>
     </div>
   )
 }
