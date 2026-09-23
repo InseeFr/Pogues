@@ -8,18 +8,31 @@ import ReleaseForm from './ReleaseForm'
 
 const TARGET_MODES = [TargetModes.CAWI, TargetModes.CAPI, TargetModes.CATI]
 
+async function renderReleaseForm(
+  overrides: {
+    onSubmit?: (values: { releaseDescription: string }) => void
+    isPublishDisabled?: boolean
+    seriesId?: string
+    seriesLabel?: string
+  } = {},
+) {
+  return renderWithRouter(
+    <ReleaseForm
+      questionnaireId="q-id"
+      seriesId="my-series-id"
+      seriesLabel="my-series-label"
+      onSubmit={vi.fn()}
+      targetModes={TARGET_MODES}
+      submitLabel="Publier"
+      isPublishDisabled={false}
+      {...overrides}
+    />,
+  )
+}
+
 describe('ReleaseForm', () => {
   it('should disable submit button when description is empty', async () => {
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
@@ -29,16 +42,7 @@ describe('ReleaseForm', () => {
   it('should enable submit button when description is filled', async () => {
     const user = userEvent.setup()
 
-    const { getByRole } = await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    const { getByRole } = await renderReleaseForm()
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
@@ -48,6 +52,8 @@ describe('ReleaseForm', () => {
       getByRole('textbox', { name: /Description/i }),
       'My release',
     )
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeEnabled()
@@ -58,21 +64,18 @@ describe('ReleaseForm', () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
 
-    const { getByRole } = await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={onSubmit}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    const { getByRole } = await renderReleaseForm({ onSubmit })
 
     await user.type(
       getByRole('textbox', { name: /Description/i }),
       'My release',
     )
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
+
+    await waitFor(() => {
+      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+    })
 
     await user.click(screen.getByTestId('form-submit-button'))
 
@@ -95,19 +98,12 @@ describe('ReleaseForm', () => {
   it('should show optional parameters section for BUSINESS context', async () => {
     const user = userEvent.setup()
 
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
     await user.click(contextRadios[1])
 
     await waitFor(() => {
@@ -120,16 +116,7 @@ describe('ReleaseForm', () => {
   })
 
   it('should hide optional parameters section for HOUSEHOLD context', async () => {
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     expect(
       screen.queryByText(
@@ -141,16 +128,7 @@ describe('ReleaseForm', () => {
   it('should only show optional parameters section when targetMode includes CAWI', async () => {
     const user = userEvent.setup()
 
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     const businessContextGroup = screen.getByRole('radiogroup', {
       name: /Context/,
@@ -161,14 +139,23 @@ describe('ReleaseForm', () => {
 
     await waitFor(() => {
       expect(
+        screen.queryByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).not.toBeInTheDocument()
+    })
+
+    const cawiCheckbox = screen.getByRole('checkbox', { name: 'CAWI' })
+
+    await user.click(cawiCheckbox)
+
+    await waitFor(() => {
+      expect(
         screen.getByText(
           'Optional parameters applied to Web questionnaires only',
         ),
       ).toBeInTheDocument()
     })
-
-    const modeCheckboxes = screen.getAllByRole('checkbox')
-    const cawiCheckbox = modeCheckboxes[1]
 
     await user.click(cawiCheckbox)
 
@@ -189,8 +176,50 @@ describe('ReleaseForm', () => {
         ),
       ).toBeInTheDocument()
     })
+  })
 
-    await user.click(cawiCheckbox)
+  it('should only display the target modes provided in details', async () => {
+    await renderWithRouter(
+      <ReleaseForm
+        questionnaireId="q-id"
+        seriesId="my-series-id"
+        seriesLabel="my-series-label"
+        onSubmit={vi.fn()}
+        targetModes={[TargetModes.CAWI, TargetModes.CATI]}
+        submitLabel="Publier"
+      />,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('checkbox', { name: 'CAWI' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'CATI' })).toBeInTheDocument()
+
+      expect(
+        screen.queryByRole('checkbox', { name: 'CAPI' }),
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByRole('checkbox', { name: 'PAPI' }),
+      ).not.toBeInTheDocument()
+    })
+  })
+
+  it('should hide optional parameters section when only PAPI is available', async () => {
+    const user = userEvent.setup()
+
+    await renderWithRouter(
+      <ReleaseForm
+        questionnaireId="q-id"
+        seriesId="my-series-id"
+        seriesLabel="my-series-label"
+        onSubmit={vi.fn()}
+        targetModes={[TargetModes.PAPI]}
+        submitLabel="Publier"
+      />,
+    )
+
+    const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
+    const contextRadios = within(contextGroup).getAllByRole('radio')
+    await user.click(contextRadios[1])
 
     await waitFor(() => {
       expect(
@@ -204,19 +233,12 @@ describe('ReleaseForm', () => {
   it('should toggle optional parameters section when switching context', async () => {
     const user = userEvent.setup()
 
-    await renderWithRouter(
-      <ReleaseForm
-        questionnaireId="q-id"
-        seriesId="my-series-id"
-        seriesLabel="my-series-label"
-        onSubmit={vi.fn()}
-        targetModes={TARGET_MODES}
-        submitLabel="Publier"
-      />,
-    )
+    await renderReleaseForm()
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
 
     expect(
       screen.queryByText(
@@ -267,6 +289,38 @@ describe('ReleaseForm', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+    })
+  })
+
+  it('should keep submit button disabled when publishing is blocked', async () => {
+    const user = userEvent.setup()
+
+    const { getByRole } = await renderReleaseForm({ isPublishDisabled: true })
+
+    await user.type(
+      getByRole('textbox', { name: /Description/i }),
+      'My release',
+    )
+
+    expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+  })
+
+  it('should not call onSubmit when publishing is blocked', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn()
+
+    const { getByRole } = await renderReleaseForm({
+      onSubmit,
+      isPublishDisabled: true,
+    })
+
+    await user.type(
+      getByRole('textbox', { name: /Description/i }),
+      'My release{enter}',
+    )
+
+    await waitFor(() => {
+      expect(onSubmit).not.toHaveBeenCalled()
     })
   })
 })

@@ -13,6 +13,8 @@ export default function CloseSmallIcon({
       height={height}
       viewBox="0 -960 960 960"
       width={width}
+      aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path d="m336-280-56-56 144-144-144-143 56-56 144 144 143-144 56 56-144 143 144 144-56 56-143-144-144 144Z" />

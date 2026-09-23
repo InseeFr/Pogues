@@ -10,6 +10,8 @@
   "create.title": "New release",
   "create.success": "Publication created successfully",
   "create.notFound": "Questionnaire not found",
+  "create.alreadyPublished": "Cannot publish: a publication (or publication request) already exists for the latest version of this questionnaire",
+  "create.alreadyPublishedTitle": "Cannot publish",
   "view": "View",
   "noPublication": "The questionnaire has not yet been published",
   "publicationRequests": "My release requests",
@@ -78,7 +80,7 @@
     "collectMode": {
       "label": "Collection mode",
       "required": "Collection mode is required",
-      "noMatch": "No collection mode compatible with those declared in the questionnaire",
+      "noMatch": "Release is not available for PAPI only questionnaire",
       "options": {
         "CAWI": "CAWI",
         "CAPI": "CAPI",

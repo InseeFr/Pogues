@@ -30,6 +30,10 @@ interface DialogButtonProps {
   controlledOpen?: boolean
   /** Optional setter for open state, useful for controlled components. */
   setControlledOpen?: (open: boolean) => void
+  /** Optional label to be displayed on top of the validate button.*/
+  validateButtonTitle?: string
+  /** Optional label to be displayed on top of the close button.*/
+  closeButtonTitle?: string
 }
 
 /** Display a button that opens a confirmation dialog. */
@@ -41,12 +45,17 @@ export default function Dialog({
   children,
   controlledOpen,
   setControlledOpen,
+  validateButtonTitle,
+  closeButtonTitle,
 }: Readonly<DialogButtonProps>) {
   const { t } = useTranslation()
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
 
   const open = controlledOpen ?? uncontrolledOpen
   const setOpen = setControlledOpen ?? setUncontrolledOpen
+
+  const hasSingleButton = onValidate === undefined
+  const actionsClassName = hasSingleButton ? 'justify-center' : 'justify-end'
 
   return (
     <UIDialog.Root open={open} onOpenChange={setOpen}>
@@ -60,11 +69,19 @@ export default function Dialog({
           <UIDialog.Description className="mb-6 text-base text-gray-600">
             {body}
           </UIDialog.Description>
-          <div className="flex justify-end gap-4">
+          <div className={`flex gap-4 ${actionsClassName}`}>
             {onCancel ? (
-              <Button onClick={onCancel}>{t('common.cancel')}</Button>
+              <Button onClick={onCancel}>
+                {closeButtonTitle ? closeButtonTitle : t('common.cancel')}
+              </Button>
             ) : (
-              <UIDialog.Close render={<Button>{t('common.cancel')}</Button>} />
+              <UIDialog.Close
+                render={
+                  <Button>
+                    {closeButtonTitle ? closeButtonTitle : t('common.cancel')}
+                  </Button>
+                }
+              />
             )}
             {onValidate ? (
               <Button
@@ -74,7 +91,9 @@ export default function Dialog({
                 }}
                 buttonStyle={ButtonStyle.Primary}
               >
-                {t('common.validate')}
+                {validateButtonTitle
+                  ? validateButtonTitle
+                  : t('common.validate')}
               </Button>
             ) : null}
           </div>

@@ -11,6 +11,8 @@
   "create.title": "Nouvelle publication",
   "create.success": "Publication créée avec succès",
   "create.notFound": "Questionnaire introuvable",
+  "create.alreadyPublished": "Il existe déjà une publication (ou demande de publication) pour la dernière version de ce questionnaire",
+  "create.alreadyPublishedTitle": "Impossible de publier",
   "noPublication": "Le questionnaire n'a pas encore été publié",
   "publicationRequests": "Mes demandes de publication",
   "myPublications": "Mes publications",
@@ -78,7 +80,7 @@
     "collectMode": {
       "label": "Mode de collecte",
       "required": "Le mode de collecte est obligatoire",
-      "noMatch": "Aucun mode de collecte compatible avec les modes déclarés dans le questionnaire",
+      "noMatch": "La publication n'est pas disponible pour les questionnaires uniquement papier",
       "options": {
         "CAWI": "CAWI",
         "CAPI": "CAPI",
