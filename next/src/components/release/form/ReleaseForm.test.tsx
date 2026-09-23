@@ -53,6 +53,8 @@ describe('ReleaseForm', () => {
       'My release',
     )
 
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
+
     await waitFor(() => {
       expect(screen.getByTestId('form-submit-button')).toBeEnabled()
     })
@@ -68,6 +70,12 @@ describe('ReleaseForm', () => {
       getByRole('textbox', { name: /Description/i }),
       'My release',
     )
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
+
+    await waitFor(() => {
+      expect(screen.getByTestId('form-submit-button')).toBeEnabled()
+    })
 
     await user.click(screen.getByTestId('form-submit-button'))
 
@@ -94,6 +102,8 @@ describe('ReleaseForm', () => {
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
     await user.click(contextRadios[1])
 
     await waitFor(() => {
@@ -129,14 +139,23 @@ describe('ReleaseForm', () => {
 
     await waitFor(() => {
       expect(
+        screen.queryByText(
+          'Optional parameters applied to Web questionnaires only',
+        ),
+      ).not.toBeInTheDocument()
+    })
+
+    const cawiCheckbox = screen.getByRole('checkbox', { name: 'CAWI' })
+
+    await user.click(cawiCheckbox)
+
+    await waitFor(() => {
+      expect(
         screen.getByText(
           'Optional parameters applied to Web questionnaires only',
         ),
       ).toBeInTheDocument()
     })
-
-    const modeCheckboxes = screen.getAllByRole('checkbox')
-    const cawiCheckbox = modeCheckboxes[1]
 
     await user.click(cawiCheckbox)
 
@@ -157,8 +176,50 @@ describe('ReleaseForm', () => {
         ),
       ).toBeInTheDocument()
     })
+  })
 
-    await user.click(cawiCheckbox)
+  it('should only display the target modes provided in details', async () => {
+    await renderWithRouter(
+      <ReleaseForm
+        questionnaireId="q-id"
+        seriesId="my-series-id"
+        seriesLabel="my-series-label"
+        onSubmit={vi.fn()}
+        targetModes={[TargetModes.CAWI, TargetModes.CATI]}
+        submitLabel="Publier"
+      />,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('checkbox', { name: 'CAWI' })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: 'CATI' })).toBeInTheDocument()
+
+      expect(
+        screen.queryByRole('checkbox', { name: 'CAPI' }),
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByRole('checkbox', { name: 'PAPI' }),
+      ).not.toBeInTheDocument()
+    })
+  })
+
+  it('should hide optional parameters section when only PAPI is available', async () => {
+    const user = userEvent.setup()
+
+    await renderWithRouter(
+      <ReleaseForm
+        questionnaireId="q-id"
+        seriesId="my-series-id"
+        seriesLabel="my-series-label"
+        onSubmit={vi.fn()}
+        targetModes={[TargetModes.PAPI]}
+        submitLabel="Publier"
+      />,
+    )
+
+    const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
+    const contextRadios = within(contextGroup).getAllByRole('radio')
+    await user.click(contextRadios[1])
 
     await waitFor(() => {
       expect(
@@ -176,6 +237,8 @@ describe('ReleaseForm', () => {
 
     const contextGroup = screen.getByRole('radiogroup', { name: /Context/ })
     const contextRadios = within(contextGroup).getAllByRole('radio')
+
+    await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
 
     expect(
       screen.queryByText(

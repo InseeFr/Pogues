@@ -80,7 +80,7 @@
     "collectMode": {
       "label": "Collection mode",
       "required": "Collection mode is required",
-      "noMatch": "No collection mode compatible with those declared in the questionnaire",
+      "noMatch": "Release is not available for PAPI only questionnaire",
       "options": {
         "CAWI": "CAWI",
         "CAPI": "CAPI",

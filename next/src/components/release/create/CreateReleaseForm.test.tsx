@@ -81,6 +81,7 @@ async function submitRelease(user: ReturnType<typeof userEvent.setup>) {
     screen.getByRole('textbox', { name: /Description/i }),
     'My release',
   )
+  await user.click(screen.getByRole('checkbox', { name: 'CAWI' }))
 
   await waitFor(() => {
     expect(screen.getByTestId('form-submit-button')).toBeEnabled()

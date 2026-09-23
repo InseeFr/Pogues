@@ -6,17 +6,27 @@ interface TooltipProps {
   children: React.ReactNode
   /** Text to display in the tooltip popup. */
   title: React.ReactNode
+  /**
+   * Element used as the tooltip trigger instead of the default button.
+   * Useful when the trigger content must remain selectable (a button
+   * prevents text selection).
+   */
+  render?: React.ReactElement
 }
 
 /**
  * Display a tooltip when hovering its content. Should be used to display
  * information to sighted users (i.e. display the content of an aria label).
  */
-export default function Tooltip({ children, title }: Readonly<TooltipProps>) {
+export default function Tooltip({
+  children,
+  title,
+  render,
+}: Readonly<TooltipProps>) {
   return (
     <UITooltip.Provider>
       <UITooltip.Root>
-        <UITooltip.Trigger delay={100} className="cursor-help">
+        <UITooltip.Trigger delay={100} className="cursor-help" render={render}>
           {children}
         </UITooltip.Trigger>
         <UITooltip.Portal>

@@ -43,7 +43,7 @@
     "moveDown": "Move down",
     "dialog": {
       "resetVariableTitle": "Regenerating variables",
-      "resetVariableSubTitle": "You are about to regenerate the collected variables associated with the following questions",
+      "resetVariableSubTitle": "You are about to regenerate, and therefore <bold>rename</bold>, the collected variables associated with the question",
       "resetVariableBody": "This can lead to various bugs in the VTL expressions that use these variables. After validation, please check that the variables names are still consistent with your VTL expressions."
     }
   },

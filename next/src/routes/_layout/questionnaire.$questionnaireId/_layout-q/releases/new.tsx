@@ -1,7 +1,9 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
+import { SurveyModeEnum } from '@/api/models/poguesModel'
 import { questionnaireDetailsQueryOptions } from '@/api/questionnaireDetails'
+import { computeTargetModes } from '@/api/utils/targetModes'
 import {
   pendingReleasesQueryOptions,
   releasesQueryOptions,
@@ -61,7 +63,11 @@ function RouteComponent() {
     <CreateReleaseLayout>
       <CreateRelease
         questionnaireId={questionnaireId}
-        targetModes={questionnaireDetails.targetMode}
+        targetModes={Array.from(
+          computeTargetModes(
+            questionnaireDetails.targetMode as SurveyModeEnum[],
+          ),
+        )}
         serie={questionnaireDetails.dataCollection?.serie}
         isPublishDisabled={isPublishDisabled}
       />
