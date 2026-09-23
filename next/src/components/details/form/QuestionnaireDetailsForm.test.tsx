@@ -226,9 +226,23 @@ describe('QuestionnaireDetailsForm', () => {
     await user.clear(titleInput)
 
     await waitFor(() => {
-      expect(screen.getByRole('alert')).toBeInTheDocument()
+      expect(screen.getByText(/must provide a title/i)).toBeInTheDocument()
     })
-    expect(screen.getByText(/must provide a title/i)).toBeInTheDocument()
+  })
+
+  it('displays short name max-length error when default name exceeds 10 characters', async () => {
+    await renderWithRouter(
+      <QuestionnaireDetailsForm
+        series={series}
+        defaultValues={{ ...validDefaultValues, name: 'WAYTOOLONGNAME' }}
+        onSubmit={vi.fn()}
+        submitLabel="Edit"
+      />,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText(/10 characters or less/i)).toBeInTheDocument()
+    })
   })
 
   it('clears selected serie when delete button is clicked', async () => {
