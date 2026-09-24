@@ -1,11 +1,7 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 
-import {
-  FlowLogics,
-  FormulasLanguages,
-  TargetModes,
-} from '@/models/questionnaires'
+import { TargetModes } from '@/models/questionnaires'
 
 export const schema = z.object({
   title: z
@@ -24,8 +20,9 @@ export const schema = z.object({
   agency: z
     .string()
     .min(1, { error: i18next.t('details.form.mustProvideSerie') }),
-  flowLogic: z.enum(FlowLogics),
-  formulasLanguage: z.enum(FormulasLanguages),
+  owner: z
+    .string()
+    .min(1, { error: i18next.t('details.form.mustProvideStamp') }),
   serie: z.string().optional(),
   operation: z.string().optional(),
 })

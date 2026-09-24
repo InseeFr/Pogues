@@ -12,12 +12,11 @@ import Autocomplete from '@/components/ui/form/Autocomplete'
 import Field from '@/components/ui/form/Field'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
-import RadioGroup from '@/components/ui/form/RadioGroup'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
-import { FlowLogics, FormulasLanguages } from '@/models/questionnaires'
 import { SerieItem } from '@/models/series'
+import { Stamp } from '@/models/stamps'
 
 import { type FormValues, schema } from './schema'
 
@@ -26,6 +25,7 @@ type Props = {
   onSubmit: SubmitHandler<FormValues>
   submitLabel: string
   series?: SerieItem[]
+  stamps?: Stamp[]
   readOnly?: boolean
 }
 
@@ -34,14 +34,14 @@ export default function QuestionnaireDetailsForm({
     name: '',
     title: '',
     targetModes: [],
-    flowLogic: FlowLogics.Filter,
-    formulasLanguage: FormulasLanguages.VTL,
     agency: 'fr.insee',
+    owner: '',
     serie: '',
   },
   onSubmit,
   submitLabel,
   series,
+  stamps,
   readOnly = false,
 }: Readonly<Props>) {
   const { t } = useTranslation()
@@ -69,6 +69,7 @@ export default function QuestionnaireDetailsForm({
   const selectedSerie = watch('serie')
 
   const [isSerieOpen, setIsSerieOpen] = useState(false)
+  const [isStampOpen, setIsStampOpen] = useState(false)
   const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
 
   useEffect(() => {
@@ -86,6 +87,9 @@ export default function QuestionnaireDetailsForm({
   const seriesOptions: { label: string; value: string }[] = (series ?? []).map(
     (s: SerieItem) => ({ label: s.label, value: s.id }),
   )
+
+  const stampsOptions: { label: string; value: string }[] =
+    stamps?.map((s) => ({ label: s.label, value: s.id })) || []
 
   const handleFormSubmit = (data: FormValues) => {
     const submittedData = { ...data, name: data.name.toUpperCase() }
@@ -250,6 +254,34 @@ export default function QuestionnaireDetailsForm({
         )}
       />
       <Controller
+        name="owner"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('details.stamp')}
+            name={name}
+            touched={isTouched}
+            disabled={readOnly}
+          >
+            <Autocomplete
+              options={stampsOptions}
+              value={value || undefined}
+              disabled={readOnly}
+              open={isStampOpen}
+              onOpenChange={setIsStampOpen}
+              onChange={onChange}
+              placeholder={t('details.stampSearch')}
+            />
+          </Field>
+        )}
+      />
+      <Controller
         name="targetModes"
         control={control}
         rules={{ required: true }}
@@ -263,72 +295,6 @@ export default function QuestionnaireDetailsForm({
           />
         )}
       />
-      <div>
-        <Controller
-          name="flowLogic"
-          control={control}
-          rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('questionnaire.common.dynamicField')}
-              name={name}
-              required
-              touched={isTouched}
-              disabled={readOnly}
-            >
-              <RadioGroup
-                options={[
-                  { label: 'Filtre', value: FlowLogics.Filter },
-                  { label: 'Redirection', value: FlowLogics.Redirection },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-                disabled={readOnly}
-              />
-            </Field>
-          )}
-        />
-      </div>
-      <div>
-        <Controller
-          name="formulasLanguage"
-          control={control}
-          rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('questionnaire.common.formulaField')}
-              name={name}
-              required
-              touched={isTouched}
-              disabled={readOnly}
-            >
-              <RadioGroup
-                options={[
-                  { label: 'VTL', value: FormulasLanguages.VTL },
-                  { label: 'XPath', value: FormulasLanguages.XPath },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-                disabled={readOnly}
-              />
-            </Field>
-          )}
-        />
-      </div>
     </>
   )
 

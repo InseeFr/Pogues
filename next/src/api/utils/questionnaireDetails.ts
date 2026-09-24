@@ -1,19 +1,10 @@
-import {
-  FlowLogics,
-  FormulasLanguages,
-  TargetModes,
-} from '@/models/questionnaires'
+import { TargetModes } from '@/models/questionnaires'
 
 import { SurveyModeEnum } from '../models/poguesModel'
 import type {
   QuestionnaireDetailsDTO,
   SerieDetailDTO,
 } from '../models/questionnaireDetailsDTO'
-import { computeFlowLogic, computePoguesFlowLogic } from './flowLogic'
-import {
-  computeFormulasLanguage,
-  computePoguesFormulasLanguage,
-} from './formulasLanguage'
 import { computeTargetModes } from './targetModes'
 
 export type FormDetails = {
@@ -22,8 +13,7 @@ export type FormDetails = {
   serie?: string
   agency: string
   targetModes: TargetModes[]
-  flowLogic: FlowLogics
-  formulasLanguage: FormulasLanguages
+  owner: string
 }
 
 function computeSerieId(dto: QuestionnaireDetailsDTO): string {
@@ -41,9 +31,7 @@ export function computeQuestionnaireDetails(
     targetModes: Array.from(
       computeTargetModes(dto.targetMode as SurveyModeEnum[]),
     ),
-    flowLogic: computeFlowLogic(dto.flowLogic) ?? FlowLogics.Filter,
-    formulasLanguage:
-      computeFormulasLanguage(dto.formulasLanguage) ?? FormulasLanguages.VTL,
+    owner: dto.owner,
   }
 }
 
@@ -57,14 +45,11 @@ export function computeQuestionnaireDetailsDTO(
     dataCollection: undefined,
     name: formDetails.name,
     label: formDetails.title,
-    flowLogic: computePoguesFlowLogic(formDetails.flowLogic),
-    formulasLanguage: computePoguesFormulasLanguage(
-      formDetails.formulasLanguage,
-    ),
     targetMode: formDetails.targetModes.map(
       (mode) => TargetModes[mode as number] as string,
     ),
     agency: formDetails.agency,
+    owner: formDetails.owner,
   }
 
   if (serieDetails) {

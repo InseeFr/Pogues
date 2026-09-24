@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added stamp (owner) field in questionnaire details form
+- Removed flow logic and formula fields in questionnaire details form
+
 ## [3.8.6](https://github.com/InseeFr/Pogues/releases/tag/3.8.6) - 2026-09-23
 
 ### Fixed

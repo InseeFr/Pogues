@@ -13,6 +13,7 @@ import {
 } from '@/api/utils/questionnaireDetails'
 import Dialog from '@/components/ui/Dialog'
 import { SerieItem } from '@/models/series'
+import { Stamp } from '@/models/stamps'
 
 import QuestionnaireDetailsForm from './form/QuestionnaireDetailsForm'
 import type { FormValues } from './form/schema'
@@ -21,6 +22,7 @@ interface DetailsOverviewProps {
   questionnaireId: string
   questionnaireDetails: QuestionnaireDetailsDTO
   series?: SerieItem[]
+  stamps?: Stamp[]
 }
 
 /**
@@ -30,6 +32,7 @@ export default function DetailsOverview({
   questionnaireId,
   questionnaireDetails,
   series,
+  stamps,
 }: Readonly<DetailsOverviewProps>) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -99,6 +102,7 @@ export default function DetailsOverview({
             defaultValues={computeQuestionnaireDetails(questionnaireDetails)}
             onSubmit={onSubmit}
             submitLabel={t('common.edit')}
+            stamps={stamps}
           />
         </div>
       </div>
