@@ -28,6 +28,8 @@
   "login": "Se connecter",
   "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
   "logout": "Déconnexion",
+  "opensInNewWindow": "Ouvrir dans une nouvelle fenêtre",
+  "navigation": "Menu de navigation",
   "new": "Nouveau",
   "notUsedByQuestions": "Utilisé par aucune question.",
   "question": "{{count}} question",

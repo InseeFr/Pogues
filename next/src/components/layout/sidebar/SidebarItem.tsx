@@ -37,18 +37,20 @@ export default function SidebarItem({
       <Link
         to={path}
         params={{ questionnaireId, versionId }}
-        aria-disabled={isDisabled}
+        aria-label={label}
+        aria-disabled={isDisabled || undefined}
         className={`w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none`}
+        tabIndex={isDisabled ? -1 : undefined}
+        aria-current={
+          !!matchRoute({ to: path }) ||
+          innerPaths.some((path) => !!matchRoute({ to: path }))
+        }
       >
         <SidebarIcon
           Icon={Icon}
           iconClassName={iconClassName}
           label={label}
           onIconClick={onIconClick}
-          active={
-            !!matchRoute({ to: path }) ||
-            innerPaths.some((path) => !!matchRoute({ to: path }))
-          }
         />
       </Link>
     </li>
