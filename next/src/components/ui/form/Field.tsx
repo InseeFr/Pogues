@@ -80,19 +80,23 @@ export default function Field({
     >
       <BaseUIField.Label className="w-full space-y-1 text-base font-semibold text-default">
         {label ? (
-          <p>
+          <span>
             {label}
-            {required ? '*' : null}
-          </p>
+            {required ? (
+              <>
+                <span aria-hidden="true">*</span>
+                <span className="sr-only">{'(required)'}</span>
+              </>
+            ) : null}
+          </span>
         ) : null}
         {children}
       </BaseUIField.Label>
-      <BaseUIField.Description
-        className={`text-sm text-secondary ${description ? '' : 'hidden'} italic`}
-        aria-hidden={!description}
-      >
-        {description}
-      </BaseUIField.Description>
+      {description ? (
+        <BaseUIField.Description className="text-sm text-secondary italic">
+          {description}
+        </BaseUIField.Description>
+      ) : null}
       <BaseUIField.Error
         className="text-sm text-error"
         match={!!error}

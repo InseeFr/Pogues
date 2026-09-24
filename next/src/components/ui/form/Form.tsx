@@ -10,6 +10,8 @@ import Tooltip from '@/components/ui/Tooltip'
 type Props = {
   /** Form. */
   children?: React.ReactNode
+  /** Aria-label of the form, read by screen readers when navigating fields. */
+  ariaLabel?: string
   /** Set to true after the user modifies any of the inputs. */
   isDirty?: boolean
   /** Set to true after the form is submitted. Will remain true until the reset method is invoked. */
@@ -43,6 +45,7 @@ export default function Form({
   isDisabled = false,
   disabledReason = '',
   validateLabel = '',
+  ariaLabel,
   onCancel,
   onSubmit,
 }: Readonly<Props>) {
@@ -83,7 +86,7 @@ export default function Form({
 
   return (
     <>
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form onSubmit={onSubmit} aria-label={ariaLabel} className="space-y-4">
         {children}
         <div className="flex gap-x-2 mt-6 justify-end">
           <Button type="button" onClick={onCancel}>
@@ -98,6 +101,9 @@ export default function Form({
           )}
         </div>
       </form>
+      <p className="sr-only" role="status">
+        {submitTooltip}
+      </p>
       {status === 'blocked' ? (
         <DirtyStateDialog onValidate={proceed} onCancel={reset} />
       ) : null}

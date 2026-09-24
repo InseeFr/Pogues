@@ -10,6 +10,7 @@ export const seriesQueryOptions = () =>
   queryOptions({
     queryKey: detailsKeys.series,
     queryFn: getSeries,
+    staleTime: Infinity,
   })
 
 export async function getSeries(): Promise<SerieItem[]> {
