@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added stamp (owner) field in questionnaire details form
 - Removed flow logic and formula fields in questionnaire details form
 
+### Fixed
+
+- Fix a bug in the detail form when the user quickly leaves and go back after form validation
+
 ## [3.8.6](https://github.com/InseeFr/Pogues/releases/tag/3.8.6) - 2026-09-23
 
 ### Fixed
