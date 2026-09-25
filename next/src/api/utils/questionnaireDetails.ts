@@ -41,8 +41,7 @@ export function computeQuestionnaireDetailsDTO(
   serieDetails?: SerieDetailDTO,
 ): QuestionnaireDetailsDTO {
   const base = {
-    ...existingDto,
-    dataCollection: undefined,
+    id: existingDto.id,
     name: formDetails.name,
     label: formDetails.title,
     targetMode: formDetails.targetModes.map(

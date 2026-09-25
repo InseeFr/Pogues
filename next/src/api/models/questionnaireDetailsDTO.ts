@@ -1,7 +1,11 @@
+import { FlowLogicEnum, FormulasLanguageEnum } from './poguesModel'
+
 export type QuestionnaireDetailsDTO = {
   id: string
   name: string
   label: string
+  flowLogic?: FlowLogicEnum
+  formulasLanguage?: FormulasLanguageEnum
   dataCollection?: {
     serie: SerieDetailDTO
   }

@@ -1,6 +1,10 @@
 import { TargetModes } from '@/models/questionnaires'
 
-import { SurveyModeEnum } from '../models/poguesModel'
+import {
+  FlowLogicEnum,
+  FormulasLanguageEnum,
+  SurveyModeEnum,
+} from '../models/poguesModel'
 import type { QuestionnaireDetailsDTO } from '../models/questionnaireDetailsDTO'
 import {
   type FormDetails,
@@ -60,6 +64,8 @@ describe('computeQuestionnaireDetailsDTO', () => {
     id: 'q123',
     name: 'original',
     label: 'Original',
+    flowLogic: FlowLogicEnum.Filter,
+    formulasLanguage: FormulasLanguageEnum.VTL,
     targetMode: [SurveyModeEnum.CAPI],
     agency: 'fr.insee',
     owner: 'ESQUIE',
@@ -153,5 +159,25 @@ describe('computeQuestionnaireDetailsDTO', () => {
     )
 
     expect(result.targetMode).toEqual([])
+  })
+
+  it('does not send flowLogic and formulasLanguage in the put request', () => {
+    const formDetails: FormDetails = {
+      name: 'test',
+      title: 'Test',
+      serie: 's1004',
+      agency: 'fr.insee',
+      targetModes: [],
+      owner: 'ESQUIE',
+    }
+
+    const result = computeQuestionnaireDetailsDTO(
+      formDetails,
+      existingDto,
+      serieDetails,
+    )
+
+    expect(result.flowLogic).toBeUndefined()
+    expect(result.formulasLanguage).toBeUndefined()
   })
 })
