@@ -101,8 +101,9 @@ export default function QuestionnaireDetailsForm({
     (s: SerieItem) => ({ label: s.label, value: s.id }),
   )
 
-  const stampsOptions: { label: string; value: string }[] =
-    stamps?.map((s) => ({ label: s.label, value: s.id })) || []
+  const stampsOptions: { label: string; value: string }[] = [
+    ...(stamps?.map((s) => ({ label: s.label, value: s.id })) || []),
+  ].sort((a, b) => a.label.localeCompare(b.label, undefined, { numeric: true }))
 
   const handleFormSubmit = (data: FormValues) => {
     const submittedData = { ...data, name: data.name.toUpperCase() }
