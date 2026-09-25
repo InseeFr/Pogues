@@ -43,7 +43,7 @@ export default function DetailsOverview({
   )
 
   const mutation = useMutation({
-    mutationFn: (params: {
+    mutationFn: async (params: {
       data: FormValues
       serieDetails?: {
         id: string
@@ -57,12 +57,15 @@ export default function DetailsOverview({
         questionnaireDetails,
         params.serieDetails,
       )
-      return putQuestionnaireDetail(questionnaireId, dto)
+      await putQuestionnaireDetail(questionnaireId, dto)
+      return dto
     },
-    onSuccess: () => {
+    onSuccess: (dto) => {
       toast.success(t('details.form.updateSuccess'))
+      queryClient.setQueryData(detailsKeys.detail(questionnaireId), dto)
       queryClient.invalidateQueries({
         queryKey: detailsKeys.detail(questionnaireId),
+        refetchType: 'all',
       })
       queryClient.invalidateQueries({
         queryKey: seriesQueryOptions().queryKey,

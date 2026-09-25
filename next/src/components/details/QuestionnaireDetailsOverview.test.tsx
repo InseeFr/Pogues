@@ -82,6 +82,7 @@ const mockSerieDetail: SerieDetailDTO = {
   id: 's1',
   uri: 'http://example.com/s1',
   label: 'Serie 1',
+  altLabel: 'altLabel',
 }
 
 describe('QuestionnaireDetailsOverview', () => {

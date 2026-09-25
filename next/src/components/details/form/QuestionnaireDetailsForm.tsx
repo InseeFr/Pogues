@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
@@ -65,6 +65,19 @@ export default function QuestionnaireDetailsForm({
     }
     trigger()
   }, [readOnly, trigger])
+
+  //  Did that to force refresh the form when quickly go back to the form after validation
+  //  (due to multiples request made at the same time when opening the form)
+  const previousDefaultValuesRef = useRef(JSON.stringify(defaultValues))
+
+  useEffect(() => {
+    const nextKey = JSON.stringify(defaultValues)
+    if (nextKey === previousDefaultValuesRef.current) {
+      return
+    }
+    previousDefaultValuesRef.current = nextKey
+    reset(defaultValues)
+  }, [defaultValues, reset])
 
   const selectedSerie = watch('serie')
 
