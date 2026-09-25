@@ -13,6 +13,7 @@ import {
 } from '@/api/utils/questionnaireDetails'
 import Dialog from '@/components/ui/Dialog'
 import { SerieItem } from '@/models/series'
+import { Stamp } from '@/models/stamps'
 
 import QuestionnaireDetailsForm from './form/QuestionnaireDetailsForm'
 import type { FormValues } from './form/schema'
@@ -21,6 +22,7 @@ interface DetailsOverviewProps {
   questionnaireId: string
   questionnaireDetails: QuestionnaireDetailsDTO
   series?: SerieItem[]
+  stamps?: Stamp[]
 }
 
 /**
@@ -30,6 +32,7 @@ export default function DetailsOverview({
   questionnaireId,
   questionnaireDetails,
   series,
+  stamps,
 }: Readonly<DetailsOverviewProps>) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -40,7 +43,7 @@ export default function DetailsOverview({
   )
 
   const mutation = useMutation({
-    mutationFn: (params: {
+    mutationFn: async (params: {
       data: FormValues
       serieDetails?: {
         id: string
@@ -54,12 +57,15 @@ export default function DetailsOverview({
         questionnaireDetails,
         params.serieDetails,
       )
-      return putQuestionnaireDetail(questionnaireId, dto)
+      await putQuestionnaireDetail(questionnaireId, dto)
+      return dto
     },
-    onSuccess: () => {
+    onSuccess: (dto) => {
       toast.success(t('details.form.updateSuccess'))
+      queryClient.setQueryData(detailsKeys.detail(questionnaireId), dto)
       queryClient.invalidateQueries({
         queryKey: detailsKeys.detail(questionnaireId),
+        refetchType: 'all',
       })
       queryClient.invalidateQueries({
         queryKey: seriesQueryOptions().queryKey,
@@ -99,6 +105,7 @@ export default function DetailsOverview({
             defaultValues={computeQuestionnaireDetails(questionnaireDetails)}
             onSubmit={onSubmit}
             submitLabel={t('common.edit')}
+            stamps={stamps}
           />
         </div>
       </div>
