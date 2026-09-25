@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, formValueSelector } from 'redux-form';
 
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import { COMPONENT_TYPE, DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 import { InputWithVariableAutoCompletion } from '../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../forms/controls/generic-option';
 import Input from '../../../forms/controls/input';
@@ -16,9 +16,9 @@ import { LoopFixedLength } from './loop-new-edit-loop-fixed-length';
 const LoopNewEdit = ({
   componentsStore,
   componentType,
-  InitialMember,
+  InitialMember = undefined,
   scopes,
-  loopBasedOn,
+  loopBasedOn = undefined,
   isFixedLength,
   shouldSplitIterations,
 }) => {
@@ -117,13 +117,9 @@ LoopNewEdit.propTypes = {
   shouldSplitIterations: PropTypes.bool,
 };
 
-LoopNewEdit.defaultProps = {
-  InitialMember: undefined,
-  loopBasedOn: undefined,
-};
 
 // Container
-const mapStateToProps = (state, { form }) => {
+const mapStateToProps = (state, { form = DEFAULT_FORM_NAME }) => {
   const selector = formValueSelector(form);
   return {
     loopBasedOn: selector(state, 'basedOn'),

@@ -23,15 +23,26 @@ function ResponseFormatDatatypeDate({
   formatTableList,
   formatTable,
   formatCollectedVariables,
-  name,
-  required,
-  readOnly,
+  name = DATE,
+  required = true,
+  readOnly = false,
 }) {
   const formatInit =
     (type !== 'TABLE' && format) ||
     (type === 'TABLE' && isCollectedVariables
       ? formatCollectedVariables
       : formatTableList || formatTable);
+  const dateValidators = [
+    requiredValidationFunction,
+    ...(formatInit
+      ? [
+          date({
+            format: formatInit.toLowerCase(),
+            message: Dictionary.formatDate ? Dictionary.formatDate : '',
+          }),
+        ]
+      : []),
+  ];
   return (
     <FormSection name={name}>
       <div className="response-format-datatype-date">
@@ -63,13 +74,7 @@ function ResponseFormatDatatypeDate({
             step="any"
             component={Input}
             label={Dictionary.minimum}
-            validate={[
-              requiredValidationFunction,
-              date({
-                format: formatInit.toLowerCase(),
-                message: Dictionary.formatDate ? Dictionary.formatDate : '',
-              }),
-            ]}
+            validate={dateValidators}
             disabled={readOnly}
             required
           />
@@ -79,13 +84,7 @@ function ResponseFormatDatatypeDate({
             step="any"
             component={Input}
             label={Dictionary.maximum}
-            validate={[
-              requiredValidationFunction,
-              date({
-                format: formatInit.toLowerCase(),
-                message: Dictionary.formatDate ? Dictionary.formatDate : '',
-              }),
-            ]}
+            validate={dateValidators}
             disabled={readOnly}
             required
           />
@@ -95,11 +94,6 @@ function ResponseFormatDatatypeDate({
   );
 }
 
-ResponseFormatDatatypeDate.defaultProps = {
-  name: DATE,
-  readOnly: false,
-  required: true,
-};
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('component');
