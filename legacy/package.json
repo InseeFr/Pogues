@@ -56,7 +56,7 @@
     "draft-js-utils": "1.4.1",
     "iconoir-react": "^7.10.1",
     "lodash": "^4.18.1",
-    "monaco-editor": "^0.56.0",
+    "monaco-editor": "^0.57.0",
     "oidc-spa": "^10.1.0",
     "prop-types": "15.8.1",
     "react": "^18.2.0",
