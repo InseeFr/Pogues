@@ -1,6 +1,7 @@
 {
   "all": "All",
   "appName": "Pogues",
+  "breadcrumb": "Breadcrumb",
   "cancel": "Cancel",
   "clearInput": "Clear input",
   "close": "Close",
@@ -15,6 +16,7 @@
     "frequentlyAskedQuestionsLink": "🧐 Frequents issues"
   },
   "create": "Create",
+  "csvViewer": "Uploaded csv content",
   "date": "Date",
   "delete": "Delete",
   "documentation": "Documentation",
@@ -24,8 +26,10 @@
   "lastUpdated": "Last updated",
   "loading": "Loading...",
   "login": "Login",
+  "opensInNewWindow": "Open in new window",
   "pleaseLogin": "You should login to access the application.",
   "logout": "Logout",
+  "navigation": "Navigation menu",
   "new": "New",
   "notUsedByQuestions": "Not used by any questions.",
   "question": "{{count}} question",

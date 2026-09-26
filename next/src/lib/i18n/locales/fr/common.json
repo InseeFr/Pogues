@@ -1,6 +1,7 @@
 {
   "all": "Tous",
   "appName": "Pogues",
+  "breadcrumb": "Fil d'ariane",
   "cancel": "Annuler",
   "clearInput": "Effacer la recherche",
   "close": "Fermer",
@@ -15,6 +16,7 @@
     "frequentlyAskedQuestionsLink": "🧐 Problèmes les plus fréquents sur Pogues"
   },
   "create": "Créer",
+  "csvViewer": "Contenu du fichier csv téléchargé",
   "date": "Date",
   "delete": "Supprimer",
   "documentation": "Documentation",
@@ -26,6 +28,8 @@
   "login": "Se connecter",
   "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
   "logout": "Déconnexion",
+  "opensInNewWindow": "Ouvrir dans une nouvelle fenêtre",
+  "navigation": "Menu de navigation",
   "new": "Nouveau",
   "notUsedByQuestions": "Utilisé par aucune question.",
   "question": "{{count}} question",

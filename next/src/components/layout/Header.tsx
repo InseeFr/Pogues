@@ -23,7 +23,7 @@ export default function Header({ user }: Readonly<HeaderProps>) {
   const isContactEnabled = import.meta.env.VITE_ENABLE_CONTACT === 'true'
 
   return (
-    <div className="grid grid-cols-[auto_1fr_auto_auto] bg-negative text-negative fill-negative items-center">
+    <header className="grid grid-cols-[auto_1fr_auto_auto] bg-negative text-negative fill-negative items-center">
       <div className="px-3 py-2">
         <h1>
           <Link to="/">{t('common.appName')}</Link>
@@ -35,6 +35,8 @@ export default function Header({ user }: Readonly<HeaderProps>) {
           className="flex items-center hover:underline gap-x-1"
           href="https://inseefr.github.io/Bowie/1._Pogues/"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t('common.documentation')} (${t('common.opensInNewWindow')})`}
         >
           {t('common.documentation')}
           <div>
@@ -56,6 +58,6 @@ export default function Header({ user }: Readonly<HeaderProps>) {
       <div className="p-3 grid grid-flow-col items-center gap-x-3 focus:outline-none bg-transparent border-none text-transparent">
         <User user={user} />
       </div>
-    </div>
+    </header>
   )
 }
