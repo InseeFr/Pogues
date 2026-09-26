@@ -124,7 +124,7 @@
     "sass": "1.103.1",
     "shx": "^0.4.0",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.2",
+    "typescript": "^7.0.0",
     "typescript-eslint": "^8.10.0",
     "vite": "^8.0.0",
     "vite-envs": "^4.6.0",
