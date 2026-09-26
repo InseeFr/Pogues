@@ -14,13 +14,13 @@ importers:
     dependencies:
       '@making-sense/antlr-editor':
         specifier: ^2.0.0
-        version: 2.9.2(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)
+        version: 2.9.4(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)
       '@making-sense/vtl-2-0-antlr-tools-ts':
         specifier: ^2.0.1
-        version: 2.0.1
+        version: 2.0.2(@making-sense/antlr4ng@3.0.16(antlr4ng-cli@2.0.0))
       '@making-sense/vtl-2-0-monaco-tools-ts':
         specifier: ^0.1.0
-        version: 0.1.0
+        version: 0.1.1
       draft-js:
         specifier: 0.11.7
         version: 0.11.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -37,11 +37,11 @@ importers:
         specifier: ^4.18.1
         version: 4.18.1
       monaco-editor:
-        specifier: ^0.56.0
-        version: 0.56.0
+        specifier: ^0.57.0
+        version: 0.57.0
       oidc-spa:
         specifier: ^10.1.0
-        version: 10.2.11(@types/react@18.3.31)(react@18.3.1)
+        version: 10.2.15(@types/react@18.3.31)(react@18.3.1)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -92,7 +92,7 @@ importers:
         version: 1.4.0
       zod:
         specifier: ^4.3.6
-        version: 4.4.3
+        version: 4.6.5
     devDependencies:
       '@babel/eslint-parser':
         specifier: ^8.0.0
@@ -534,23 +534,25 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@making-sense/antlr-editor@2.9.2':
-    resolution: {integrity: sha512-x8FK0otaD6Y1lj2HpxonRPV7axU+Of1jMEK9BXbGUkbhLDIa2rNAWv0u8osPFpFftuQnAfPyZB9lqA88CWeQsw==}
+  '@making-sense/antlr-editor@2.9.4':
+    resolution: {integrity: sha512-rcN2NmqkUBovWZXiKbUy54BzJd9yd8ffQ0+Qt/THilKFLMKx61WjbAxwiIp86t87EKfDtfAY3mKqFsfUnxosgg==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
 
-  '@making-sense/antlr4ng@3.0.4':
-    resolution: {integrity: sha512-grrhXCk7f5On2xC+xenRjPmb7b+Z10mnrSD7aa19Pn4cMv19HJuW2eAJNSWqgX++4zjvCHOovwiyBufEQVfcxg==}
+  '@making-sense/antlr4ng@3.0.16':
+    resolution: {integrity: sha512-mh6VokrVIXYaVPkVd9uPMNFnYckSWXGGpRGIIWb6h1INoi53ubzazlqosapx+1LkzXGjHxBRlzP1wsmE1KwsDw==}
     peerDependencies:
       antlr4ng-cli: ^2.0.0
 
-  '@making-sense/vtl-2-0-antlr-tools-ts@2.0.1':
-    resolution: {integrity: sha512-FIuIVgfPt0IUfDdhwWiaEi8bDVr1SltafiNONj+2iosTi6JPb1VZTkv1wb7qm1IZ+ylFoz5qeW0y52gJKPYSzQ==}
+  '@making-sense/vtl-2-0-antlr-tools-ts@2.0.2':
+    resolution: {integrity: sha512-EmVzzrCNDA7h/tP8Kj63n6UT/TWLHi+XeJFHhzBXcsT9DB8uf6y31PbNRB2V/82sdns4tt4RjSS63ST7priQWA==}
+    peerDependencies:
+      '@making-sense/antlr4ng': ^3.0.16
 
-  '@making-sense/vtl-2-0-monaco-tools-ts@0.1.0':
-    resolution: {integrity: sha512-q+k3A+TaHRXDR0bxh0wdb7xuTc8dG1CBn6ljzGcJwE9t3GppXJB69uoMGZyNRHz3NMaxsJTP61Gt3mjBFKHswQ==}
+  '@making-sense/vtl-2-0-monaco-tools-ts@0.1.1':
+    resolution: {integrity: sha512-INBmueGoDLFthRsea1+lUAQlFSMR6PIKOtAH0csc9xkbdoWRTkXUEK0gZExz6jfPBuBR49nqHwy8fI6K/3MXdg==}
 
   '@module-federation/dts-plugin@2.8.2':
     resolution: {integrity: sha512-pwZFW8b2LZTymMMC+o2M9xMXDIQKAHGtCRqj/IkOp0jHRYrKjK9cma9xoUNst8/R3sEn878/i9wgv/43BnCEyg==}
@@ -1540,6 +1542,9 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
+  dompurify@3.4.15:
+    resolution: {integrity: sha512-EUBjM+B+lkDE41iE82DDSCfkoPGfXx8IxFxPMjNzm/Uk4xDet77rTN9wqlxlVg71kK7XGuUMv6wUxJUwwv+Xyw==}
+
   dompurify@3.4.8:
     resolution: {integrity: sha512-yb1cEmaOum7wFvOCSQxyfgVlv5D47Rc30iZWoMpbDIWTnJ6grDDQyu2KFJzB2k7u0pMuJcQ1zphH//fFnw2tjQ==}
 
@@ -2461,11 +2466,11 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
-  monaco-editor@0.52.2:
-    resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
-
   monaco-editor@0.56.0:
     resolution: {integrity: sha512-sXboRm3BeBeLm938eaiyLMe0OxzfXIlZvbv4ir/jVgQy1zDhWjgmny0WoN45fuDKhCCQsYMbBJrv/A6jd8aCUg==}
+
+  monaco-editor@0.57.0:
+    resolution: {integrity: sha512-5BkI9KGoqrNvBGUe15/QlZq3OooZ8WLg1AxTpaqHRCP3HNpzPPZKE2EDz8M7c+VRmCeUw1Brp4cx/PWm3kI/5A==}
 
   moo@0.5.2:
     resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
@@ -2551,8 +2556,8 @@ packages:
     resolution: {integrity: sha512-4a+OsYv9UktOJKE+l1A4OufDgdRF9PifWj+tJnHURo/P+WOxpG4GzUFL9qCalmWauao6ogiG+QvnCovwPoyAWA==}
     engines: {node: '>=12.20.0'}
 
-  oidc-spa@10.2.11:
-    resolution: {integrity: sha512-2g8m3PNxB/jNpsv4G5Nns/qFPjRKdKlYqlrQaMpIVdCV3ug8a326lHi2SOderTO5Ocboa+zMbpWVXtLJRCYP7g==}
+  oidc-spa@10.2.15:
+    resolution: {integrity: sha512-ap5vXUnoJyTVcUHuVyg75+rV9huD2Hq6yYIw17Oj0czUtjV8QVRKP8TteSzNgcdMhSkON7j5+mg9l69icyVOXg==}
     peerDependencies:
       '@angular/common': '*'
       '@angular/core': '*'
@@ -3518,8 +3523,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@4.6.5:
+    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
 
 snapshots:
 
@@ -3807,25 +3812,27 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@making-sense/antlr-editor@2.9.2(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)':
+  '@making-sense/antlr-editor@2.9.4(antlr4ng-cli@2.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@7.2.0)':
     dependencies:
-      '@making-sense/antlr4ng': 3.0.4(antlr4ng-cli@2.0.0)
-      '@monaco-editor/react': 4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@making-sense/antlr4ng': 3.0.16(antlr4ng-cli@2.0.0)
+      '@monaco-editor/react': 4.7.0(monaco-editor@0.56.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       debug: 4.4.3(supports-color@7.2.0)
-      monaco-editor: 0.52.2
+      monaco-editor: 0.56.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
       - antlr4ng-cli
       - supports-color
 
-  '@making-sense/antlr4ng@3.0.4(antlr4ng-cli@2.0.0)':
+  '@making-sense/antlr4ng@3.0.16(antlr4ng-cli@2.0.0)':
     dependencies:
       antlr4ng-cli: 2.0.0
 
-  '@making-sense/vtl-2-0-antlr-tools-ts@2.0.1': {}
+  '@making-sense/vtl-2-0-antlr-tools-ts@2.0.2(@making-sense/antlr4ng@3.0.16(antlr4ng-cli@2.0.0))':
+    dependencies:
+      '@making-sense/antlr4ng': 3.0.16(antlr4ng-cli@2.0.0)
 
-  '@making-sense/vtl-2-0-monaco-tools-ts@0.1.0': {}
+  '@making-sense/vtl-2-0-monaco-tools-ts@0.1.1': {}
 
   '@module-federation/dts-plugin@2.8.2(typescript@5.9.3)':
     dependencies:
@@ -3879,10 +3886,10 @@ snapshots:
     dependencies:
       state-local: 1.0.7
 
-  '@monaco-editor/react@4.7.0(monaco-editor@0.52.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@monaco-editor/react@4.7.0(monaco-editor@0.56.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@monaco-editor/loader': 1.7.0
-      monaco-editor: 0.52.2
+      monaco-editor: 0.56.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -4859,6 +4866,10 @@ snapshots:
   domhandler@5.0.3:
     dependencies:
       domelementtype: 2.3.0
+
+  dompurify@3.4.15:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
 
   dompurify@3.4.8:
     optionalDependencies:
@@ -5874,11 +5885,14 @@ snapshots:
 
   minimist@1.2.8: {}
 
-  monaco-editor@0.52.2: {}
-
   monaco-editor@0.56.0:
     dependencies:
       dompurify: 3.4.8
+      marked: 14.0.0
+
+  monaco-editor@0.57.0:
+    dependencies:
+      dompurify: 3.4.15
       marked: 14.0.0
 
   moo@0.5.2: {}
@@ -5966,7 +5980,7 @@ snapshots:
 
   obug@2.1.4: {}
 
-  oidc-spa@10.2.11(@types/react@18.3.31)(react@18.3.1):
+  oidc-spa@10.2.15(@types/react@18.3.31)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.31
       react: 18.3.1
@@ -6947,4 +6961,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@4.4.3: {}
+  zod@4.6.5: {}
