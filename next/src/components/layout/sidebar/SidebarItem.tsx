@@ -38,7 +38,7 @@ export default function SidebarItem({
         to={path}
         params={{ questionnaireId, versionId }}
         aria-label={label}
-        aria-disabled={isDisabled || undefined}
+        aria-disabled={isDisabled}
         className={`w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none`}
         tabIndex={isDisabled ? -1 : undefined}
         aria-current={
