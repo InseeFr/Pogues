@@ -36,7 +36,7 @@ export default function UploadMessageTile({
   return (
     <div
       aria-label="upload-error-banner"
-      role="alert"
+      role={displayIsError ? 'alert' : 'status'}
       className={`${colorClass} rounded px-4 py-3 flex items-start`}
     >
       {displayIsError ? (
