@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change json viewer library (from _prismjs_ to _react-json-view_) in personalization panel
+
 ## [3.8.7](https://github.com/InseeFr/Pogues/releases/tag/3.8.7) - 2026-09-25
 
 ### Added

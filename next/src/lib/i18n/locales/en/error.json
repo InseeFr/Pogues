@@ -31,5 +31,8 @@
     "title": "Unexpected error",
     "subtitle": "Something went wrong.",
     "paragraph": "If the problem persists, please contact support."
+  },
+  "parsing": {
+    "jsonParsing": "An error occurred while reading the JSON"
   }
 }
