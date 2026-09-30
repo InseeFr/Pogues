@@ -8,9 +8,9 @@ import {
   convertCsvToFormValues,
   validateCodeListCsvFile,
 } from '@/components/codesLists/form/utils/csvValidation'
+import Banner, { BannerStyle } from '@/components/ui/Banner'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
-import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import Input from '@/components/ui/form/Input'
 
 import { type FormValues } from '../form/schema'
@@ -145,9 +145,7 @@ export default function ImportCodesListFromCsv({
           <div className="text-action-primary">{t('common.loading')}...</div>
         )}
 
-        {parseError && (
-          <UploadMessageTile message={parseError} isError={true} />
-        )}
+        {parseError && <Banner message={parseError} type={BannerStyle.Error} />}
 
         {parsedData && !parseError && (
           <CsvViewerTable
