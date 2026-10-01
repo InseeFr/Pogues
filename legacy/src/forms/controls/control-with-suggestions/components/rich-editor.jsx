@@ -9,8 +9,7 @@ const { XPATH, VTL } = FORMULA_LANGUAGE;
 
 /**
  * Label / declaration editors: free text + markdown tooltips (+ optional VTL).
- * Do not block VALIDER on VTL lexer/parser noise (antlr-editor ≥ 2.9.4 leftover
- * tokens would otherwise reject any multi-word French label).
+ * VTL syntax errors block VALIDER (same as formula fields).
  */
 const RichEditor = ({
   formulasLanguage,
@@ -18,13 +17,7 @@ const RichEditor = ({
   ...props
 }) => {
   if (formulasLanguage === VTL) {
-    return (
-      <VTLEditor
-        {...props}
-        toolbar={toolbar}
-        blockOnSyntaxErrors={false}
-      />
-    );
+    return <VTLEditor {...props} toolbar={toolbar} />;
   }
   if (formulasLanguage === XPATH) {
     return <TextareaWithSuggestions {...props} />;

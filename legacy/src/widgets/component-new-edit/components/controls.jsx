@@ -31,8 +31,13 @@ const Controls = ({
   addErrors,
   isDynamicArray = false,
   isRoundabout = false,
+  handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidation] = useState(false);
+  const [disableValidation, setDisableValidationLocal] = useState(false);
+  const setDisableValidation = (isDisable) => {
+    setDisableValidationLocal(isDisable);
+    handleDisableValidation?.(isDisable);
+  };
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -137,5 +142,6 @@ Controls.propTypes = {
   addErrors: PropTypes.func.isRequired,
   isDynamicArray: PropTypes.bool,
   isRoundabout: PropTypes.bool,
+  handleDisableValidation: PropTypes.func,
 };
 export default connect(mapStateToProps)(Controls);

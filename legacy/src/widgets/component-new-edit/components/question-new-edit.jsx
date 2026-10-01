@@ -53,6 +53,7 @@ export const QuestionNewEdit = ({
         showPosition
         errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
         addErrors={addSubformValidationErrors}
+        handleDisableValidation={handleDisableValidation}
       />
     </Tab>,
     <Tab
@@ -63,6 +64,7 @@ export const QuestionNewEdit = ({
       <Controls
         errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
         addErrors={addSubformValidationErrors}
+        handleDisableValidation={handleDisableValidation}
       />
     </Tab>,
     <Tab
@@ -76,6 +78,7 @@ export const QuestionNewEdit = ({
         componentType={QUESTION}
         componentsStore={componentsStore}
         editingComponentId={componentId}
+        handleDisableValidation={handleDisableValidation}
       />
     </Tab>,
     <Tab

@@ -35,6 +35,7 @@ const propTypes = {
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
   componentsStore: PropTypes.object.isRequired,
+  handleDisableValidation: PropTypes.func,
 };
 
 // Component
@@ -47,8 +48,13 @@ const Redirections = ({
   addErrors,
   componentsStore,
   editingComponentId,
+  handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidation] = useState(false);
+  const [disableValidation, setDisableValidationLocal] = useState(false);
+  const setDisableValidation = (isDisable) => {
+    setDisableValidationLocal(isDisable);
+    handleDisableValidation?.(isDisable);
+  };
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel

@@ -45,14 +45,20 @@ const Declarations = ({
   addErrors,
   declarationType = DECLARATION_TYPES.HELP,
   activeQuestionnaire,
+  handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidation] = useState(false);
+  const [disableValidation, setDisableValidationLocal] = useState(false);
+  const setDisableValidation = (isDisable) => {
+    setDisableValidationLocal(isDisable);
+    handleDisableValidation?.(isDisable);
+  };
 
   useEffect(() => {
     // Reset validation state when switching to code card, since we don't keep VTL editor
     if (declarationType === DECLARATION_TYPES.CODE_CARD) {
       setDisableValidation(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only reset on type change
   }, [declarationType]);
 
   return (
@@ -145,6 +151,7 @@ Declarations.propTypes = {
   addErrors: PropTypes.func.isRequired,
   declarationType: PropTypes.string,
   activeQuestionnaire: PropTypes.object.isRequired,
+  handleDisableValidation: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

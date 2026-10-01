@@ -84,6 +84,7 @@ export const SequenceNewEdit = ({
               showPosition={false}
               errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
               addErrors={addSubformValidationErrors}
+              handleDisableValidation={handleDisableValidation}
             />
           </Tab>
           <Tab
@@ -95,6 +96,7 @@ export const SequenceNewEdit = ({
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
               isRoundabout={true}
+              handleDisableValidation={handleDisableValidation}
             />
           </Tab>
         </Tabs>
@@ -111,6 +113,7 @@ export const SequenceNewEdit = ({
               showPosition={false}
               errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
               addErrors={addSubformValidationErrors}
+              handleDisableValidation={handleDisableValidation}
             />
           </Tab>
           <Tab
@@ -121,6 +124,7 @@ export const SequenceNewEdit = ({
             <Controls
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
+              handleDisableValidation={handleDisableValidation}
             />
           </Tab>
         </Tabs>
