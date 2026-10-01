@@ -16,4 +16,43 @@
     opacity: 1;
     pointer-events: none;
   }
+
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+  }
+
+  &__toolbar-button {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #f7f7f7;
+    color: #333;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.55rem;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__toolbar-prompt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+
+    input {
+      flex: 1 1 12rem;
+      min-width: 10rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 0.25rem 0.4rem;
+    }
+  }
 }

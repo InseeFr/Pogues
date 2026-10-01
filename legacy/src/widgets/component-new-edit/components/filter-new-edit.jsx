@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
-import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 import Input from '../../../forms/controls/input';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { FilterLoopMembers } from './filter-loop-members';
@@ -23,7 +23,7 @@ export const FilterNewEdit = ({
       />
       <Field
         name="filter"
-        component={RichEditorWithVariable}
+        component={SimpleEditorWithVariable}
         label={Dictionary.expression}
         required
         focusOnInit={false}
