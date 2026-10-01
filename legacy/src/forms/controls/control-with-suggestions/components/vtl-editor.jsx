@@ -8,16 +8,23 @@ import {
 } from '@making-sense/vtl-2-1-monaco-tools-ts';
 
 import { filterPoguesDollarCompatibilityErrors } from './vtl-dollar-compatibility';
+import VtlTooltipToolbar from './vtl-tooltip-toolbar';
 
 const VTLEditor = ({
   availableSuggestions,
   label,
   input,
+  meta = {},
   required,
   disabled,
   setDisableValidation,
+  /** When false (labels / markdown), VTL syntax errors do not block VALIDER. */
+  blockOnSyntaxErrors = true,
+  /** Optional Draft-era toolbar config; only LINK_BUTTONS are supported here. */
+  toolbar,
 }) => {
   const [errors, setErrors] = useState([]);
+  const [selection, setSelection] = useState(null);
   const variables = {};
   for (const s of availableSuggestions) {
     variables[s] = { type: 'Variable' };
@@ -33,12 +40,18 @@ const VTLEditor = ({
   };
 
   const { value, onChange, name: id } = input;
+  const { touched, error, submitFailed } = meta;
+  const showFormError = (touched || submitFailed) && error;
+  const showTooltipToolbar = Boolean(
+    toolbar?.display?.includes('LINK_BUTTONS'),
+  );
+  const linkButtons = toolbar?.LINK_BUTTONS;
 
   const handleErrors = (e) => {
     // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
     const blockingErrors = filterPoguesDollarCompatibilityErrors(e, value);
     setErrors(blockingErrors);
-    if (setDisableValidation) {
+    if (setDisableValidation && blockOnSyntaxErrors) {
       setDisableValidation(blockingErrors.length > 0);
     }
   };
@@ -46,7 +59,7 @@ const VTLEditor = ({
   const localOnChange = (e) => {
     onChange(e);
     if (!e) {
-      if (setDisableValidation) {
+      if (setDisableValidation && blockOnSyntaxErrors) {
         setDisableValidation(false);
       }
       setErrors([]);
@@ -60,6 +73,19 @@ const VTLEditor = ({
         {required && <span className="ctrl-required">*</span>}
       </label>
       <div>
+        {showTooltipToolbar && (
+          <VtlTooltipToolbar
+            script={value}
+            selection={selection}
+            disabled={disabled}
+            onChange={localOnChange}
+            labels={{
+              add: linkButtons?.ADD?.label,
+              remove: linkButtons?.REMOVE?.label,
+              placeholder: linkButtons?.ADD?.placeholder,
+            }}
+          />
+        )}
         <div
           className={`editor-container ${disabled ? 'editor-disabled' : ''}`}
         >
@@ -67,6 +93,7 @@ const VTLEditor = ({
             script={value}
             setScript={localOnChange}
             onListErrors={handleErrors}
+            onSelectionChange={setSelection}
             variables={variables}
             variablesInputURLs={[]}
             tools={customTools}
@@ -84,17 +111,20 @@ const VTLEditor = ({
             }}
           />
         </div>
+        {showFormError && <span className="form-error">{error}</span>}
       </div>
-      <div style={{ color: 'red', display: 'inline-block' }}>
-        {value &&
-          !disabled &&
-          errors.map(({ line, column, message }) => (
-            <div key={`${line}_${column}`} style={{ marginBottom: '20px' }}>
-              <div>{`Ligne : ${line} - Colonne : ${column}`}</div>
-              <div>{message}</div>
-            </div>
-          ))}
-      </div>
+      {blockOnSyntaxErrors && (
+        <div style={{ color: 'red', display: 'inline-block' }}>
+          {value &&
+            !disabled &&
+            errors.map(({ line, column, message }) => (
+              <div key={`${line}_${column}`} style={{ marginBottom: '20px' }}>
+                <div>{`Ligne : ${line} - Colonne : ${column}`}</div>
+                <div>{message}</div>
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };

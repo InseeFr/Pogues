@@ -38,6 +38,7 @@ const ComponentNewEdit = ({
   InitialMember = undefined,
   redirectionNeeded = false,
   activeQuestionnaire,
+  missingRequiredIdentity = false,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
@@ -176,7 +177,12 @@ const ComponentNewEdit = ({
           <button
             className="widget-component-new-edit__button-validate"
             type="submit"
-            disabled={isReadonly || submitting || disableValidation}
+            disabled={
+              isReadonly ||
+              submitting ||
+              disableValidation ||
+              missingRequiredIdentity
+            }
             ref={buttonRef}
           >
             {Dictionary.validate}
@@ -271,6 +277,7 @@ ComponentNewEdit.propTypes = {
   form: PropTypes.string,
   redirectionNeeded: PropTypes.bool,
   activeQuestionnaire: PropTypes.object.isRequired,
+  missingRequiredIdentity: PropTypes.bool,
 };
 
 export default ComponentNewEdit;
