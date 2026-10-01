@@ -43,6 +43,16 @@ describe('vtl-tooltip-utils', () => {
     );
   });
 
+  it('leaves non-tooltip selections unchanged on unwrap', () => {
+    const script = 'Mon libellé';
+    const selection = {
+      text: 'libellé',
+      startLine: 1,
+      startColumn: 5,
+    };
+    expect(unwrapSelectionTooltip(script, selection)).toBe(script);
+  });
+
   it('leaves the script unchanged when there is no selection', () => {
     expect(wrapSelectionAsTooltip('abc', null, 'x')).toBe('abc');
     expect(unwrapSelectionTooltip('abc', { text: '' })).toBe('abc');

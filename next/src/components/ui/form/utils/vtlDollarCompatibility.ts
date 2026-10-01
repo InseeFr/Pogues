@@ -12,7 +12,7 @@ type VtlErrorLike = {
 }
 
 const DOLLAR_ERROR_MESSAGE =
-  /(?:token recognition error at|extraneous input|mismatched input):\s*'\$'/i
+  /(?:token recognition error at|extraneous input|mismatched input)[:\s]+'\$'/i
 
 function getCharAtError(
   script: string,

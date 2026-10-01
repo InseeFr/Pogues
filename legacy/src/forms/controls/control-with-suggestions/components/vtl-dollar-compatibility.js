@@ -6,7 +6,7 @@
  */
 
 const DOLLAR_ERROR_MESSAGE =
-  /(?:token recognition error at|extraneous input|mismatched input):\s*'\$'/i;
+  /(?:token recognition error at|extraneous input|mismatched input)[:\s]+'\$'/i;
 
 function getCharAtError(script, line, column) {
   if (typeof line !== 'number' || typeof column !== 'number' || !script) {

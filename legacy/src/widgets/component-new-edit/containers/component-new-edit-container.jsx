@@ -8,6 +8,7 @@ import {
 } from '../../../actions/errors';
 import { TABS_PATHS } from '../../../constants/pogues-constants';
 import ComponentNewEdit from '../components/component-new-edit';
+import { isMissingRequiredIdentity } from '../utils/component-identity';
 
 // Utils
 
@@ -57,10 +58,6 @@ const mapStateToProps = (state, { componentId = '' }) => {
   const selector = formValueSelector('component');
   const label = selector(state, 'label') || '';
   const name = selector(state, 'name') || '';
-  // Mirror validate-rules `required`: empty / whitespace-only / punctuation-only
-  // must keep VALIDER disabled (antlr-editor ≥ 2.9.4 no longer errors on empty).
-  const isBlankRequiredField = (value) =>
-    value.trim().replace(/[^\w\s]/gi, '') === '';
 
   return {
     InitialMember: selector(state, 'initialMember'),
@@ -70,8 +67,7 @@ const mapStateToProps = (state, { componentId = '' }) => {
     redirectionNeeded:
       state.appState.activeQuestionnaire.dynamiqueSpecified !== 'Filtres',
     activeQuestionnaire: state.appState.activeQuestionnaire,
-    missingRequiredIdentity:
-      isBlankRequiredField(label) || isBlankRequiredField(name),
+    missingRequiredIdentity: isMissingRequiredIdentity(label, name),
   };
 };
 
