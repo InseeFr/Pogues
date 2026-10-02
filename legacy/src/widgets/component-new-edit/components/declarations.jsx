@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -46,15 +46,6 @@ const Declarations = ({
   declarationType = DECLARATION_TYPES.HELP,
   activeQuestionnaire,
 }) => {
-  const [disableValidation, setDisableValidation] = useState(false);
-
-  useEffect(() => {
-    // Reset validation state when switching to code card, since we don't keep VTL editor
-    if (declarationType === DECLARATION_TYPES.CODE_CARD) {
-      setDisableValidation(false);
-    }
-  }, [declarationType]);
-
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -64,7 +55,6 @@ const Declarations = ({
         errors={errors}
         validateForm={validateForm(addErrors, validateDeclarationForm)}
         resetObject={defaultCustum(activeQuestionnaire, defaultDeclaration)}
-        disableValidation={disableValidation}
       >
         <Field
           name="declarationType"
@@ -100,7 +90,6 @@ const Declarations = ({
             component={RichEditorWithVariable}
             label={Dictionary.declaration_label}
             required
-            setDisableValidation={setDisableValidation}
           />
         )}
 

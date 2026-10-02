@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 import { FieldArray } from 'redux-form';
 
 import { domSelectorForModal } from '../../../constants/dom-constants';
+import { DEFAULT_FORM_NAME } from '../../../constants/pogues-constants';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../utils/widget-utils';
@@ -38,21 +39,21 @@ const ListWithInputPanel = ({
   arrayPush,
   arrayRemove,
   arrayInsert,
-  formName,
-  selectorPath,
+  formName = DEFAULT_FORM_NAME,
+  selectorPath = '',
   name,
-  canAddNew,
+  canAddNew = true,
   resetObject,
   change,
-  errors,
+  errors = [],
   componentId,
   removeIntegrityError,
   children,
-  canRemove,
-  canDuplicate,
+  canRemove = true,
+  canDuplicate = true,
   validateForm,
   clearSubformValidationErrors,
-  disableValidation,
+  disableValidation = false,
 }) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(undefined);
   const [showPopup, setShowPopup] = useState(false);
@@ -155,16 +156,18 @@ const ListWithInputPanel = ({
     }
   };
 
-  const childrenWithDisabledProp = Children.map(children, (child) => {
-    return child
-      ? cloneElement(child, {
-          ...child.props,
-          disabled:
-            child.props.disabled ||
-            (!canAddNew && selectedItemIndex === undefined),
-        })
-      : child;
-  }).filter((child) => child);
+  const childrenWithDisabledProp = (
+    Children.map(children, (child) => {
+      return child
+        ? cloneElement(child, {
+            ...child.props,
+            disabled:
+              child.props.disabled ||
+              (!canAddNew && selectedItemIndex === undefined),
+          })
+        : child;
+    }) || []
+  ).filter((child) => child);
 
   return (
     <div className="widget-list-with-input-panel">
@@ -303,15 +306,6 @@ ListWithInputPanel.propTypes = {
   clearSubformValidationErrors: PropTypes.func.isRequired,
   removeIntegrityError: PropTypes.func.isRequired,
   disableValidation: PropTypes.bool,
-};
-
-ListWithInputPanel.defaultProps = {
-  errors: [],
-  canAddNew: true,
-  canRemove: true,
-  canDuplicate: true,
-  componentsStore: {},
-  disableValidation: false,
 };
 
 export default ListWithInputPanel;

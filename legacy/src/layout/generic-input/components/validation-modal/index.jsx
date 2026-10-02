@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 import { domSelectorForModal } from '@/constants/dom-constants';
 import Dictionary from '@/utils/dictionary/dictionary';
 
-const ValidationModal = ({ isOpen, errors, onClose }) => {
+const ValidationModal = ({ isOpen, errors = undefined, onClose }) => {
   return (
     <ReactModal
       parentSelector={domSelectorForModal}
@@ -38,10 +38,6 @@ ValidationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   errors: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func.isRequired,
-};
-
-ValidationModal.defaultProps = {
-  errors: undefined,
 };
 
 export default ValidationModal;

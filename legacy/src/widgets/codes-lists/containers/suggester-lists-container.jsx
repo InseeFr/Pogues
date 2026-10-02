@@ -41,7 +41,11 @@ export const getSuggesterFormValues = (state, selector, basePath) => {
 
 const mapStateToProps = (
   state,
-  { selectorPathParent, selectorPath, formName },
+  {
+    selectorPathParent = '',
+    selectorPath = DEFAULT_NOMENCLATURE_SELECTOR_PATH,
+    formName = DEFAULT_FORM_NAME,
+  },
 ) => {
   const codesListsStore = state.appState.activeCodeListsById;
   const selector = formValueSelector(formName);

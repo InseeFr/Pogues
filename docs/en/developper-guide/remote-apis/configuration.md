@@ -1,3 +1,10 @@
 # Configuration
 
-The visualization and persistence services share the base URL of the API, provided by the `getBaseURI` method. When working on a development server, this URL must be defined in the [.env](https://github.com/InseeFr/Pogues/blob/main/.env) file in the `VITE_API_URL` variable.
+The visualization and persistence services share the base URL of the API, provided by the `VITE_API_URL` variable.
+
+In development:
+
+- front mock: `.env.standalone` (`VITE_USE_MOCK_API=true`)
+- local API without Keycloak: `.env.local-api` (`VITE_API_URL=http://localhost:8081/api`)
+- existing Keycloak + API: `next/.env`
+

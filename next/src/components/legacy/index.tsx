@@ -1,9 +1,14 @@
-// @ts-expect-error import jsx component
-import { Main } from '@pogues-legacy/App'
-import { useBlocker } from '@tanstack/react-router'
+import { Navigate, useBlocker, useParams } from '@tanstack/react-router'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  Suspense,
+  lazy,
+  useMemo,
+  useState,
+} from 'react'
 
 import DirtyStateDialog from '@/components/layout/DirtyStateDialog'
 import ErrorComponent, {
@@ -15,21 +20,49 @@ function PageError({ error }: Readonly<{ error: LegacyPoguesError }>) {
   return <ErrorComponent error={error} />
 }
 
-export const LegacyComponent = () => {
-  const [isDirtyState, setIsDirtyState] = useState<boolean>(false)
+const LegacyMain = lazy(async () => {
+  // @ts-expect-error federated remote
+  const mod = await import('@pogues-legacy/App')
+  return { default: mod.Main }
+})
 
+/** Federated legacy editor. In Vite DEV the remote is stubbed → redirect to details. */
+export const LegacyComponent = () => {
+  const { questionnaireId, versionId } = useParams({ strict: false })
+  const isDev = import.meta.env.DEV
+
+  const [isDirtyState, setIsDirtyState] = useState(false)
   const { decodedIdToken } = useOidc()
 
   const { proceed, reset, status } = useBlocker({
-    enableBeforeUnload: isDirtyState,
-    shouldBlockFn: () => isDirtyState,
+    enableBeforeUnload: !isDev && isDirtyState,
+    shouldBlockFn: () => !isDev && isDirtyState,
     withResolver: true,
   })
 
   const myComponent = useMemo(
     () => legacyApp(setIsDirtyState, decodedIdToken),
-    [setIsDirtyState, decodedIdToken],
+    [decodedIdToken],
   )
+
+  if (isDev && questionnaireId) {
+    if (versionId) {
+      return (
+        <Navigate
+          to="/questionnaire/$questionnaireId/version/$versionId/details"
+          params={{ questionnaireId, versionId }}
+          replace
+        />
+      )
+    }
+    return (
+      <Navigate
+        to="/questionnaire/$questionnaireId/details"
+        params={{ questionnaireId }}
+        replace
+      />
+    )
+  }
 
   return (
     <>
@@ -56,11 +89,13 @@ function legacyApp(
 ) {
   return (
     <ErrorBoundary FallbackComponent={PageError}>
-      <Main
-        setIsDirtyState={setIsDirtyState}
-        getAccessToken={getAccessToken}
-        decodedIdToken={decodedIdToken}
-      />
+      <Suspense fallback={null}>
+        <LegacyMain
+          setIsDirtyState={setIsDirtyState}
+          getAccessToken={getAccessToken}
+          decodedIdToken={decodedIdToken}
+        />
+      </Suspense>
     </ErrorBoundary>
   )
 }

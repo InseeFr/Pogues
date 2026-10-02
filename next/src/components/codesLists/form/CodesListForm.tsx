@@ -361,6 +361,8 @@ function CodesField({
                 name={name}
                 onChange={onChange}
                 required
+                // Modality labels are free text (+ optional `$VAR$`), not VTL formulas.
+                blockOnSyntaxErrors={false}
                 setError={(error) => setError(name, error)}
                 suggestionsVariables={variables}
                 touched={isTouched}
