@@ -7,7 +7,7 @@ import {
 } from '@making-sense/vtl-2-1-monaco-tools-ts'
 import { type ErrorOption } from 'react-hook-form'
 
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 
 import { type Variable } from '@/models/variables'
 
@@ -57,6 +57,17 @@ type Props = {
   onChange: (value: string) => void
   /** Manually set custom error for `react-hook-form` to manage. */
   setError?: (error: ErrorOption) => void
+  /**
+   * Clear a previously set VTL custom error (e.g. `() => clearErrors(name)`).
+   * Used when `blockOnSyntaxErrors` is false (label fields).
+   */
+  clearError?: () => void
+  /**
+   * When false, treat the field as a Pogues label (free text / tooltips / `$VAR$`):
+   * do not push VTL parser errors to the form and hide Monaco squiggles.
+   * Formula fields keep the default `true` (only `$`-only lexer noise is filtered).
+   */
+  blockOnSyntaxErrors?: boolean
 }
 
 /**
@@ -79,21 +90,47 @@ export default function VTLEditor({
   value,
   onChange,
   setError = () => {},
+  clearError = () => {},
+  blockOnSyntaxErrors = true,
 }: Readonly<Props>) {
   /** Whether there are errors on the input. */
   const isInvalid = !!error
   /** Variables that can be suggested for autocompletion. */
-  const antlrVariables = computeAntlrVariables(suggestionsVariables)
+  const antlrVariables = useMemo(
+    () => computeAntlrVariables(suggestionsVariables),
+    [suggestionsVariables],
+  )
   /** Additional tools to improve user experience.
    * `expr` (not `start`): Pogues stores VTL expressions, not full scripts.
    * Full-input validation (EOF + lexer errors) is handled by antlr-editor ≥ 2.9.4.
+   * Memoize: a new tools object each render re-triggers parse in antlr-editor.
    */
-  const customTools: Tools = {
-    ...tools,
-    monarchDefinition,
-    getSuggestionsFromRange,
-    initialRule: 'expr',
-  }
+  const customTools: Tools = useMemo(
+    () => ({
+      ...tools,
+      monarchDefinition,
+      getSuggestionsFromRange,
+      initialRule: 'expr',
+    }),
+    [],
+  )
+
+  const editorOptions = useMemo(
+    () => ({
+      minimap: { enabled: false },
+      lineNumbers: 'off' as const,
+      glyphMargin: false,
+      folding: false,
+      lineDecorationsWidth: 0,
+      renderLineHighlight: 'none' as const,
+      readOnly: disabled,
+      ariaRequired: required,
+      ...(blockOnSyntaxErrors
+        ? {}
+        : { renderValidationDecorations: 'off' as const }),
+    }),
+    [disabled, required, blockOnSyntaxErrors],
+  )
 
   // Manual cleanup for advanced scenarios
   useEffect(() => {
@@ -102,19 +139,39 @@ export default function VTLEditor({
     }
   }, [])
 
-  /** Send VTL errors to `react-hook-form` */
-  function handleVTLErrors(vtlEditorErrors: Error[]) {
-    if (error) return
-    // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
-    const blockingErrors = filterPoguesDollarCompatibilityErrors(
-      vtlEditorErrors,
-      value,
-    )
-    for (const vtlError of blockingErrors) {
-      const message = `[Ln ${vtlError.line}, Col ${vtlError.column}] ${vtlError.message}`
-      setError({ type: 'custom', message })
+  useEffect(() => {
+    if (!blockOnSyntaxErrors) {
+      clearError()
     }
-  }
+  }, [blockOnSyntaxErrors, clearError])
+
+  /** Send VTL errors to `react-hook-form` (formulas only). */
+  const handleVTLErrors = useCallback(
+    (vtlEditorErrors: Error[]) => {
+      if (!blockOnSyntaxErrors) {
+        clearError()
+        return
+      }
+      if (error) return
+      // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+      const blockingErrors = filterPoguesDollarCompatibilityErrors(
+        vtlEditorErrors,
+        value,
+      )
+      for (const vtlError of blockingErrors) {
+        const message = `[Ln ${vtlError.line}, Col ${vtlError.column}] ${vtlError.message}`
+        setError({ type: 'custom', message })
+      }
+    },
+    [blockOnSyntaxErrors, clearError, error, value, setError],
+  )
+
+  const handleScriptChange = useCallback(
+    (next: string) => {
+      onChange(next)
+    },
+    [onChange],
+  )
 
   return (
     <Field
@@ -144,22 +201,13 @@ export default function VTLEditor({
       >
         <AntlrEditor
           script={value}
-          setScript={(value: string) => onChange(value)}
+          setScript={handleScriptChange}
           onListErrors={handleVTLErrors}
           variables={antlrVariables}
           tools={customTools}
           theme="vs-light"
           height="100%"
-          options={{
-            minimap: { enabled: false },
-            lineNumbers: 'off',
-            glyphMargin: false,
-            folding: false,
-            lineDecorationsWidth: 0,
-            renderLineHighlight: 'none',
-            readOnly: disabled,
-            ariaRequired: required,
-          }}
+          options={editorOptions}
           shortcuts={{}}
           displayFooter={false}
         />
