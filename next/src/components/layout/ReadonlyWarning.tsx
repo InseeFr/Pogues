@@ -65,7 +65,11 @@ export default function ReadonlyWarning({
   }
 
   return (
-    <div className="grid grid-cols-[1fr_auto] items-center p-3 border-primary border rounded shadow m-3 bg-default">
+    <div
+      role="status"
+      aria-live="polite"
+      className="grid grid-cols-[1fr_auto] items-center p-3 border-primary border rounded shadow m-3 bg-default"
+    >
       <div>{t('history.questionnaireIsReadonly')}</div>
       {versionId ? (
         <DialogButton

@@ -13,7 +13,8 @@
     "generalQuestion": "For any other questions please contact the general team at: ",
     "contactGeneralTeam": "Contact general team",
     "frequentlyAskedQuestions": "Frequently asked questions",
-    "frequentlyAskedQuestionsLink": "🧐 Frequents issues"
+    "frequentlyAskedQuestionsLink": "🧐 Frequents issues",
+    "sendEmail": "Send email"
   },
   "create": "Create",
   "csvViewer": "Uploaded csv content",
