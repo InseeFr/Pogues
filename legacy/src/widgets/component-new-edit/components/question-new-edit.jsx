@@ -31,6 +31,8 @@ export const QuestionNewEdit = ({
   componentsStore = {},
 }) => {
   const { QUESTION } = COMPONENT_TYPE;
+  // Factory: each panel gets its own disable flag so siblings don't clear errors.
+  const setDisable = handleDisableValidation;
 
   const panels = [
     <Tab
@@ -53,7 +55,6 @@ export const QuestionNewEdit = ({
         showPosition
         errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
         addErrors={addSubformValidationErrors}
-        handleDisableValidation={handleDisableValidation}
       />
     </Tab>,
     <Tab
@@ -64,7 +65,7 @@ export const QuestionNewEdit = ({
       <Controls
         errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
         addErrors={addSubformValidationErrors}
-        handleDisableValidation={handleDisableValidation}
+        handleDisableValidation={setDisable('controls')}
       />
     </Tab>,
     <Tab
@@ -78,7 +79,7 @@ export const QuestionNewEdit = ({
         componentType={QUESTION}
         componentsStore={componentsStore}
         editingComponentId={componentId}
-        handleDisableValidation={handleDisableValidation}
+        handleDisableValidation={setDisable('redirections')}
       />
     </Tab>,
     <Tab
@@ -106,7 +107,6 @@ export const QuestionNewEdit = ({
         onEnter={() => {
           buttonRef.click();
         }}
-        handleDisableValidation={handleDisableValidation}
         targetIsRichTextarea
         targetIsQuestion
       />

@@ -23,7 +23,6 @@ function AssociatedFields({
   targetIsRichTextarea = false,
   targetIsQuestion,
   focusOnInit = false,
-  handleDisableValidation,
   onEnter = undefined,
 }) {
   const onBlur = useCallback(() => {
@@ -56,7 +55,6 @@ function AssociatedFields({
             component={RichEditorWithVariable}
             label={fieldOrigin.label}
             focusOnInit={focusOnInit}
-            setDisableValidation={handleDisableValidation}
           />
         </div>
       ) : (

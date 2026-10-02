@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -45,22 +45,7 @@ const Declarations = ({
   addErrors,
   declarationType = DECLARATION_TYPES.HELP,
   activeQuestionnaire,
-  handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidationLocal] = useState(false);
-  const setDisableValidation = (isDisable) => {
-    setDisableValidationLocal(isDisable);
-    handleDisableValidation?.(isDisable);
-  };
-
-  useEffect(() => {
-    // Reset validation state when switching to code card, since we don't keep VTL editor
-    if (declarationType === DECLARATION_TYPES.CODE_CARD) {
-      setDisableValidation(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only reset on type change
-  }, [declarationType]);
-
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -70,7 +55,6 @@ const Declarations = ({
         errors={errors}
         validateForm={validateForm(addErrors, validateDeclarationForm)}
         resetObject={defaultCustum(activeQuestionnaire, defaultDeclaration)}
-        disableValidation={disableValidation}
       >
         <Field
           name="declarationType"
@@ -106,7 +90,6 @@ const Declarations = ({
             component={RichEditorWithVariable}
             label={Dictionary.declaration_label}
             required
-            setDisableValidation={setDisableValidation}
           />
         )}
 
@@ -151,7 +134,6 @@ Declarations.propTypes = {
   addErrors: PropTypes.func.isRequired,
   declarationType: PropTypes.string,
   activeQuestionnaire: PropTypes.object.isRequired,
-  handleDisableValidation: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

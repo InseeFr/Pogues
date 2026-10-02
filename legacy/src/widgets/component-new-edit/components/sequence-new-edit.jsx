@@ -31,6 +31,7 @@ export const SequenceNewEdit = ({
   scopes = undefined,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
+  const setDisable = handleDisableValidation;
 
   return (
     <>
@@ -43,7 +44,6 @@ export const SequenceNewEdit = ({
         onEnter={() => {
           buttonRef.click();
         }}
-        handleDisableValidation={handleDisableValidation}
         targetIsRichTextarea={false}
         targetIsQuestion={false}
       />
@@ -84,7 +84,6 @@ export const SequenceNewEdit = ({
               showPosition={false}
               errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
               addErrors={addSubformValidationErrors}
-              handleDisableValidation={handleDisableValidation}
             />
           </Tab>
           <Tab
@@ -96,7 +95,7 @@ export const SequenceNewEdit = ({
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
               isRoundabout={true}
-              handleDisableValidation={handleDisableValidation}
+              handleDisableValidation={setDisable('controls')}
             />
           </Tab>
         </Tabs>
@@ -113,7 +112,6 @@ export const SequenceNewEdit = ({
               showPosition={false}
               errors={errorsIntegrityByTab[TABS_PATHS.DECLARATIONS]}
               addErrors={addSubformValidationErrors}
-              handleDisableValidation={handleDisableValidation}
             />
           </Tab>
           <Tab
@@ -124,7 +122,7 @@ export const SequenceNewEdit = ({
             <Controls
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
-              handleDisableValidation={handleDisableValidation}
+              handleDisableValidation={setDisable('controls')}
             />
           </Tab>
         </Tabs>

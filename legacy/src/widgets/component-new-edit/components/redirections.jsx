@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
@@ -13,9 +13,8 @@ import { defaultState } from '../../../model/formToState/component-new-edit/redi
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { validateRedirectionForm } from '../../../utils/validation/validate';
 import { ListWithInputPanel } from '../../list-with-input-panel';
+import { useAggregatedDisableValidation } from '../utils/use-aggregated-disable-validation';
 import { GotoInput } from './goto-input';
-
-// Utils
 
 const validateForm =
   (addErrors, validate, componentsStore, editingComponentId) => (values) => {
@@ -24,8 +23,6 @@ const validateForm =
       editingComponentId,
     });
   };
-
-// Prop types and default props
 
 const propTypes = {
   formName: PropTypes.string,
@@ -38,8 +35,6 @@ const propTypes = {
   handleDisableValidation: PropTypes.func,
 };
 
-// Component
-
 const Redirections = ({
   formName = DEFAULT_FORM_NAME,
   selectorPath = TABS_PATHS.REDIRECTIONS,
@@ -50,11 +45,15 @@ const Redirections = ({
   editingComponentId,
   handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidationLocal] = useState(false);
-  const setDisableValidation = (isDisable) => {
-    setDisableValidationLocal(isDisable);
-    handleDisableValidation?.(isDisable);
-  };
+  const onAggregateChange = useCallback(
+    (any) => {
+      handleDisableValidation?.(any);
+    },
+    [handleDisableValidation],
+  );
+  const { disabled: disableValidation, getSetDisableValidation } =
+    useAggregatedDisableValidation(onAggregateChange);
+
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -84,7 +83,7 @@ const Redirections = ({
           component={SimpleEditorWithVariable}
           label={Dictionary.condition}
           required
-          setDisableValidation={setDisableValidation}
+          setDisableValidation={getSetDisableValidation('condition')}
         />
         <GotoInput
           formName={formName}

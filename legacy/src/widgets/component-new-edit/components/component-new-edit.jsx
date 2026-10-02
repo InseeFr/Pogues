@@ -12,6 +12,7 @@ import GenericOption from '../../../forms/controls/generic-option';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
+import { useAggregatedDisableValidation } from '../utils/use-aggregated-disable-validation';
 import { FilterNewEdit } from './filter-new-edit';
 import LoopNewEdit from './loop-new-edit';
 import { QuestionNewEdit } from './question-new-edit';
@@ -43,8 +44,9 @@ const ComponentNewEdit = ({
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
   const [formData, setFormData] = useState({});
-  const [disableValidation, setDisableValidation] = useState(false);
   const buttonRef = useRef(null);
+  const { disabled: disableValidation, getSetDisableValidation } =
+    useAggregatedDisableValidation();
 
   const isReadonly = useReadonly();
 
@@ -56,10 +58,6 @@ const ComponentNewEdit = ({
   const handleValidate = () => {
     setShowPopup(false);
     onSubmit(formData);
-  };
-
-  const handleDisableValidation = (isDisable) => {
-    setDisableValidation(isDisable);
   };
 
   const checkUnsavedChange = (data) => {
@@ -119,7 +117,7 @@ const ComponentNewEdit = ({
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation}
             activeQuestionnaire={activeQuestionnaire}
           />
         )}
@@ -130,7 +128,7 @@ const ComponentNewEdit = ({
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation}
             redirectionNeeded={redirectionNeeded}
             componentsStore={componentsStore}
             activeQuestionnaire={activeQuestionnaire}
@@ -139,7 +137,7 @@ const ComponentNewEdit = ({
         {componentType === FILTER && (
           <FilterNewEdit
             componentsStore={componentsStore}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation('filter')}
             InitialMember={InitialMember}
           />
         )}
@@ -160,7 +158,7 @@ const ComponentNewEdit = ({
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation}
             componentsStore={componentsStore}
             InitialMember={InitialMember}
             scopes={scopes}
