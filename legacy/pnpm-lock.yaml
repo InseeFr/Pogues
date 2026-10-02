@@ -8,16 +8,13 @@ overrides:
   immutable@<3.8.3: ^3.8.3
   immutable@<4.3.9: ^4.3.9
 
-patchedDependencies:
-  '@making-sense/antlr-editor@2.9.4': 9814c445518b0cf5ab4815c32091eb076b5ad444eda6196a8b0315f640b88664
-
 importers:
 
   .:
     dependencies:
       '@making-sense/antlr-editor':
-        specifier: ^2.9.4
-        version: 2.9.4(patch_hash=9814c445518b0cf5ab4815c32091eb076b5ad444eda6196a8b0315f640b88664)(antlr4ng-cli@2.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@7.2.0)
+        specifier: ^2.9.5
+        version: 2.9.5(antlr4ng-cli@2.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@7.2.0)
       '@making-sense/antlr4ng':
         specifier: ^3.0.16
         version: 3.0.16(antlr4ng-cli@2.0.0)
@@ -555,8 +552,8 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@making-sense/antlr-editor@2.9.4':
-    resolution: {integrity: sha512-rcN2NmqkUBovWZXiKbUy54BzJd9yd8ffQ0+Qt/THilKFLMKx61WjbAxwiIp86t87EKfDtfAY3mKqFsfUnxosgg==}
+  '@making-sense/antlr-editor@2.9.5':
+    resolution: {integrity: sha512-42cMvZH7zH0J2BCs8ZucX4qJryfz/ho/VVIkR3jKCp8f9X0VluLWq9Jib+mxoiU/YcCoE2pR5lfjCavcQpD2RA==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       react: '>=19.0.0'
@@ -3688,7 +3685,7 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@making-sense/antlr-editor@2.9.4(patch_hash=9814c445518b0cf5ab4815c32091eb076b5ad444eda6196a8b0315f640b88664)(antlr4ng-cli@2.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@7.2.0)':
+  '@making-sense/antlr-editor@2.9.5(antlr4ng-cli@2.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@7.2.0)':
     dependencies:
       '@making-sense/antlr4ng': 3.0.16(antlr4ng-cli@2.0.0)
       '@monaco-editor/react': 4.7.0(monaco-editor@0.56.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)

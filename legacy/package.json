@@ -50,7 +50,7 @@
   },
   "packageManager": "pnpm@11.22.0",
   "dependencies": {
-    "@making-sense/antlr-editor": "^2.9.4",
+    "@making-sense/antlr-editor": "^2.9.5",
     "@making-sense/antlr4ng": "^3.0.16",
     "@making-sense/vtl-2-1-antlr-tools-ts": "^1.0.6",
     "@making-sense/vtl-2-1-monaco-tools-ts": "^1.0.2",

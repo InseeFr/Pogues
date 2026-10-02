@@ -6,5 +6,3 @@ minimumReleaseAge: 0
 overrides:
   immutable@<3.8.3: ^3.8.3
   immutable@<4.3.9: ^4.3.9
-patchedDependencies:
-  '@making-sense/antlr-editor@2.9.4': patches/@making-sense__antlr-editor@2.9.4.patch
