@@ -1,4 +1,4 @@
-import { AntlrEditor, cleanupProviders } from '@making-sense/antlr-editor'
+import { AntlrEditor } from '@making-sense/antlr-editor'
 import { Error, Tools } from '@making-sense/antlr-editor/dist/model'
 import * as tools from '@making-sense/vtl-2-1-antlr-tools-ts'
 import {
@@ -7,7 +7,7 @@ import {
 } from '@making-sense/vtl-2-1-monaco-tools-ts'
 import { type ErrorOption } from 'react-hook-form'
 
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { type Variable } from '@/models/variables'
 
@@ -58,12 +58,7 @@ type Props = {
   /** Manually set custom error for `react-hook-form` to manage. */
   setError?: (error: ErrorOption) => void
   /**
-   * Clear a previously set VTL custom error (e.g. `() => clearErrors(name)`).
-   * Used when `blockOnSyntaxErrors` is false (label fields).
-   */
-  clearError?: () => void
-  /**
-   * When false, treat the field as a Pogues label (free text / tooltips / `$VAR$`):
+   * When false, treat the field as a Pogues label (free text / `$VAR$`):
    * do not push VTL parser errors to the form and hide Monaco squiggles.
    * Formula fields keep the default `true` (only `$`-only lexer noise is filtered).
    */
@@ -75,6 +70,9 @@ type Props = {
  *
  * Use `Field` component to handle labeling and validation and has some optional
  * functions if it's in a `react-hook-form`.
+ *
+ * Do not call `cleanupProviders()` from here: providers are shared across Monaco
+ * instances, and codes-list pages mount many editors at once.
  */
 export default function VTLEditor({
   description,
@@ -90,7 +88,6 @@ export default function VTLEditor({
   value,
   onChange,
   setError = () => {},
-  clearError = () => {},
   blockOnSyntaxErrors = true,
 }: Readonly<Props>) {
   /** Whether there are errors on the input. */
@@ -132,26 +129,10 @@ export default function VTLEditor({
     [disabled, required, blockOnSyntaxErrors],
   )
 
-  // Manual cleanup for advanced scenarios
-  useEffect(() => {
-    return () => {
-      cleanupProviders()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!blockOnSyntaxErrors) {
-      clearError()
-    }
-  }, [blockOnSyntaxErrors, clearError])
-
   /** Send VTL errors to `react-hook-form` (formulas only). */
   const handleVTLErrors = useCallback(
     (vtlEditorErrors: Error[]) => {
-      if (!blockOnSyntaxErrors) {
-        clearError()
-        return
-      }
+      if (!blockOnSyntaxErrors) return
       if (error) return
       // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
       const blockingErrors = filterPoguesDollarCompatibilityErrors(
@@ -163,7 +144,7 @@ export default function VTLEditor({
         setError({ type: 'custom', message })
       }
     },
-    [blockOnSyntaxErrors, clearError, error, value, setError],
+    [blockOnSyntaxErrors, error, value, setError],
   )
 
   const handleScriptChange = useCallback(

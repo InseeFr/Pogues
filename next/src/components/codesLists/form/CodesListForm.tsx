@@ -6,7 +6,6 @@ import {
   type SubmitHandler,
   type UseFieldArrayMove,
   type UseFieldArrayRemove,
-  type UseFormClearErrors,
   UseFormSetError,
   UseFormTrigger,
   useFieldArray,
@@ -77,7 +76,6 @@ export default function CodesListForm({
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
     setError,
-    clearErrors,
     trigger,
     watch,
     getValues,
@@ -194,7 +192,6 @@ export default function CodesListForm({
           formulasLanguage={formulasLanguage}
           variables={variables}
           setError={setError}
-          clearErrors={clearErrors}
           trigger={trigger}
         />
       </div>
@@ -209,7 +206,6 @@ interface CodesFieldsProps {
   trigger: UseFormTrigger<FormValues>
   /** Manually set custom error for `react-hook-form` to manage. */
   setError: UseFormSetError<FormValues>
-  clearErrors: UseFormClearErrors<FormValues>
 }
 
 function CodesFields({
@@ -217,7 +213,6 @@ function CodesFields({
   formulasLanguage,
   variables,
   setError,
-  clearErrors,
   trigger,
 }: Readonly<CodesFieldsProps>) {
   const { t } = useTranslation()
@@ -242,7 +237,6 @@ function CodesFields({
           isLast={index === fields.length - 1}
           parentName={name}
           setError={setError}
-          clearErrors={clearErrors}
           trigger={trigger}
         />
       ))}
@@ -271,7 +265,6 @@ interface CodesFieldProps {
   trigger: UseFormTrigger<FormValues>
   /** Manually set custom error for `react-hook-form` to manage. */
   setError: UseFormSetError<FormValues>
-  clearErrors: UseFormClearErrors<FormValues>
 }
 
 function CodesField({
@@ -287,7 +280,6 @@ function CodesField({
   subCodeIteration = 0,
   trigger,
   setError,
-  clearErrors,
 }: Readonly<CodesFieldProps>) {
   const { t } = useTranslation()
   const namePrefix = `${parentName}.${index}`
@@ -369,10 +361,9 @@ function CodesField({
                 name={name}
                 onChange={onChange}
                 required
-                // Modality labels are free text (+ optional `$VAR$` / tooltips), not VTL.
+                // Modality labels are free text (+ optional `$VAR$`), not VTL formulas.
                 blockOnSyntaxErrors={false}
                 setError={(error) => setError(name, error)}
-                clearError={() => clearErrors(name)}
                 suggestionsVariables={variables}
                 touched={isTouched}
                 value={value}
@@ -425,7 +416,6 @@ function CodesField({
           subCodeIteration={subCodeIteration + 1}
           trigger={trigger}
           setError={setError}
-          clearErrors={clearErrors}
         />
       ))}
     </>
