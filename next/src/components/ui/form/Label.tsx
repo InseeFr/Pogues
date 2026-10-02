@@ -14,7 +14,7 @@ export default function Label({
       {...props}
     >
       {children}
-      {required ? '*' : ''}
+      {required ? <span aria-hidden="true">*</span> : null}
     </label>
   )
 }

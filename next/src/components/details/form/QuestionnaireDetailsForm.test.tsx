@@ -3,11 +3,7 @@ import userEvent from '@testing-library/user-event'
 
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
-import {
-  FlowLogics,
-  FormulasLanguages,
-  TargetModes,
-} from '@/models/questionnaires'
+import { TargetModes } from '@/models/questionnaires'
 import type { SerieItem } from '@/models/series'
 import { renderWithRouter } from '@/testing/render'
 
@@ -40,8 +36,7 @@ const validDefaultValues: Partial<FormValues> = {
   serie: 's1',
   agency: 'fr.insee',
   targetModes: [TargetModes.CAPI],
-  flowLogic: FlowLogics.Filter,
-  formulasLanguage: FormulasLanguages.VTL,
+  owner: 'ESQUIE',
 }
 
 describe('QuestionnaireDetailsForm', () => {
@@ -69,7 +64,6 @@ describe('QuestionnaireDetailsForm', () => {
       screen.getByRole('textbox', { name: /ddi agency/i }),
     ).toBeInTheDocument()
     expect(screen.getAllByRole('checkbox')).toHaveLength(4)
-    expect(screen.getAllByRole('radiogroup')).toHaveLength(2)
     expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument()
   })
 
@@ -226,9 +220,23 @@ describe('QuestionnaireDetailsForm', () => {
     await user.clear(titleInput)
 
     await waitFor(() => {
-      expect(screen.getByRole('alert')).toBeInTheDocument()
+      expect(screen.getByText(/must provide a title/i)).toBeInTheDocument()
     })
-    expect(screen.getByText(/must provide a title/i)).toBeInTheDocument()
+  })
+
+  it('displays short name max-length error when default name exceeds 10 characters', async () => {
+    await renderWithRouter(
+      <QuestionnaireDetailsForm
+        series={series}
+        defaultValues={{ ...validDefaultValues, name: 'WAYTOOLONGNAME' }}
+        onSubmit={vi.fn()}
+        submitLabel="Edit"
+      />,
+    )
+
+    await waitFor(() => {
+      expect(screen.getByText(/10 characters or less/i)).toBeInTheDocument()
+    })
   })
 
   it('clears selected serie when delete button is clicked', async () => {

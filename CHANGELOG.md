@@ -7,14 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-21
+## [3.8.7](https://github.com/InseeFr/Pogues/releases/tag/3.8.7) - 2026-09-25
+
+### Added
+
+- Added stamp (owner) field in questionnaire details form
+- Removed flow logic and formula fields in questionnaire details form
+
+### Fixed
+
+- Fix a bug in the detail form when the user quickly leaves and go back after form validation
+
+## [3.8.6](https://github.com/InseeFr/Pogues/releases/tag/3.8.6) - 2026-09-23
+
+### Fixed
+
+- Small improvements in form accessibility (add some missing aria-labels and improve required field labels for screen readers)
+
+### Changed
+
+- Details form now display an error message directly if the short name is longer than 10 characters (when opening an existing questionnaire)
+- Only display selected target modes are available in the release form
+
+## [3.8.5](https://github.com/InseeFr/Pogues/releases/tag/3.8.5) - 2026-09-22
+
+### Changed
+
+- Prevent the user to create a release when there is already a request or a release for the same questionnaire version
+
+## [3.8.4](https://github.com/InseeFr/Pogues/releases/tag/3.8.4) - 2026-09-21
+
+### Changed
 
 - Swap the “Personalization” and “Releases” items in the sidebar
 - Release form no longer display when the serie is not defined in the questionnaire details
 
-### Changed
-
-## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.2) - 2026-09-17
+## [3.8.3](https://github.com/InseeFr/Pogues/releases/tag/3.8.3) - 2026-09-17
 
 ### Changed
 

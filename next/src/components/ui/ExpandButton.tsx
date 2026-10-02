@@ -18,6 +18,7 @@ export default function ExpandButton({
   return (
     <button
       className="cursor-pointer mt-[0.5rem]"
+      type="button"
       onClick={(e) => {
         e.stopPropagation()
         setIsExpanded((v) => !v)
