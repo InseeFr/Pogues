@@ -4,3 +4,4 @@ dist
 .mf/
 *.local
 .DS_Store
+.pnpm-store
