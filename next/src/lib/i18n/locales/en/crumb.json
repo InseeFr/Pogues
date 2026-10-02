@@ -13,5 +13,6 @@
   "variable": "Variable {{id}}",
   "variables": "Variables",
   "version": "Version {{id}}",
-  "articulation": "Roundabout summary"
+  "articulation": "Roundabout summary",
+  "loops": "Loops"
 }

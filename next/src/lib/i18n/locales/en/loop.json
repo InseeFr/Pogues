@@ -1,0 +1,29 @@
+{
+  "create": {
+    "title": "New loop"
+  },
+  "form": {
+    "name": "Loop name",
+    "mustProvideName": "You must provide a name",
+    "basedOn": "Based on",
+    "basedOnPlaceholder": "Specify a scope",
+    "filter": "Occurrences filter",
+    "isFixedLength": "Number of maximum occurrences identical to min",
+    "size": "Occurrences number",
+    "singlePage": "Display all occurrences on a single page",
+    "singlePageWarning": "Reminder: for business surveys, all occurrences must be displayed on a single page.",
+    "minMaxWarning": "Reminder: for business surveys, the min and max number of occurrences of a loop must be equal.",
+    "minimum": "Minimum number of occurrences",
+    "maximum": "Maximum number of occurrences",
+    "addButtonLabel": "Add button label",
+    "initialMember": "Start",
+    "initialMemberPlaceholder": "Specify initial member",
+    "finalMember": "End",
+    "finalMemberPlaceholder": "Specify final member",
+    "mustProvideInitialMember": "You must provide an initial member",
+    "mustProvideFinalMember": "You must provide a final member",
+    "mustProvideSize": "You must provide a number of occurrences",
+    "mustProvideMinimum": "You must provide a minimum number of occurrences",
+    "mustProvideMaximum": "You must provide a maximum number of occurrences"
+  }
+}
