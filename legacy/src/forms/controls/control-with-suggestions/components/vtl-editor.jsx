@@ -83,6 +83,7 @@ const VTLEditor = ({
         return;
       }
       // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+      // Prefer live script from antlr-editor when provided via filterErrors.
       const blockingErrors = filterPoguesDollarCompatibilityErrors(e, value);
       setErrors((prev) =>
         sameVtlErrors(prev, blockingErrors) ? prev : blockingErrors,
@@ -92,6 +93,11 @@ const VTLEditor = ({
       }
     },
     [value, setDisableValidation, blockOnSyntaxErrors],
+  );
+
+  const filterErrors = useCallback(
+    (errors, script) => filterPoguesDollarCompatibilityErrors(errors, script),
+    [],
   );
 
   const localOnChange = useCallback(
@@ -121,6 +127,7 @@ const VTLEditor = ({
             script={value}
             setScript={localOnChange}
             onListErrors={handleErrors}
+            filterErrors={blockOnSyntaxErrors ? filterErrors : () => []}
             variables={variables}
             variablesInputURLs={[]}
             tools={customTools}
