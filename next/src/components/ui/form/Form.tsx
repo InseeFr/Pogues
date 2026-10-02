@@ -10,12 +10,18 @@ import Tooltip from '@/components/ui/Tooltip'
 type Props = {
   /** Form. */
   children?: React.ReactNode
+  /** Aria-label of the form, read by screen readers when navigating fields. */
+  ariaLabel?: string
   /** Set to true after the user modifies any of the inputs. */
   isDirty?: boolean
   /** Set to true after the form is submitted. Will remain true until the reset method is invoked. */
   isSubmitted?: boolean
   /** Set to true if the form doesn't have any errors. */
   isValid?: boolean
+  /** Set to true to disable the submit button even if the form is valid. */
+  isDisabled?: boolean
+  /** Reason displayed when the submit button is disabled via isDisabled. */
+  disabledReason?: string
   /** Override the default validate label (e.g. "modify"). */
   validateLabel?: string
   /**
@@ -36,7 +42,10 @@ export default function Form({
   isDirty,
   isSubmitted,
   isValid,
+  isDisabled = false,
+  disabledReason = '',
   validateLabel = '',
+  ariaLabel,
   onCancel,
   onSubmit,
 }: Readonly<Props>) {
@@ -47,11 +56,14 @@ export default function Form({
     withResolver: true,
   })
 
-  const isSubmitEnabled = isValid && isDirty
+  const isSubmitEnabled = isValid && isDirty && !isDisabled
 
   const getSubmitTooltip = (): string | null => {
     if (isSubmitEnabled) {
       return null
+    }
+    if (isDisabled && disabledReason) {
+      return disabledReason
     }
     if (!isValid) {
       return t('common.form.submitInvalid')
@@ -74,7 +86,7 @@ export default function Form({
 
   return (
     <>
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form onSubmit={onSubmit} aria-label={ariaLabel} className="space-y-4">
         {children}
         <div className="flex gap-x-2 mt-6 justify-end">
           <Button type="button" onClick={onCancel}>
@@ -89,6 +101,9 @@ export default function Form({
           )}
         </div>
       </form>
+      <p className="sr-only" role="status">
+        {submitTooltip}
+      </p>
       {status === 'blocked' ? (
         <DirtyStateDialog onValidate={proceed} onCancel={reset} />
       ) : null}

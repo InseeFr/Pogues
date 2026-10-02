@@ -35,7 +35,7 @@ describe('ArticulationForm', () => {
     })
 
     // When we fill all the inputs
-    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /First Name/i }), {
       target: { value: 'first name formula' },
     })
     await waitFor(() => {
@@ -46,7 +46,7 @@ describe('ArticulationForm', () => {
       expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
-    fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /Gender/i }), {
       target: { value: 'gender formula' },
     })
     await waitFor(() => {
@@ -57,7 +57,7 @@ describe('ArticulationForm', () => {
       expect(submitButton).toHaveAttribute('aria-disabled', 'true')
     })
 
-    fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /Age/i }), {
       target: { value: 'gender formula' },
     })
 
@@ -85,12 +85,12 @@ describe('ArticulationForm', () => {
     await renderWithRouter(
       <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
-    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /First Name/i }), {
       target: { value: 'age formula' },
     })
 
     // When the first name input becomes empty
-    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /First Name/i }), {
       target: { value: '' },
     })
 
@@ -106,12 +106,12 @@ describe('ArticulationForm', () => {
     await renderWithRouter(
       <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
-    fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /Gender/i }), {
       target: { value: 'age formula' },
     })
 
     // When the gender input becomes empty
-    fireEvent.input(screen.getByRole('textbox', { name: 'Gender *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /Gender/i }), {
       target: { value: '' },
     })
 
@@ -127,12 +127,12 @@ describe('ArticulationForm', () => {
     await renderWithRouter(
       <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
-    fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /Age/i }), {
       target: { value: 'age formula' },
     })
 
     // When the age input becomes empty
-    fireEvent.input(screen.getByRole('textbox', { name: 'Age *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /Age/i }), {
       target: { value: '' },
     })
 
@@ -146,7 +146,7 @@ describe('ArticulationForm', () => {
     await renderWithRouter(
       <ArticulationForm questionnaireId="q-id" onSubmit={vi.fn()} />,
     )
-    fireEvent.input(screen.getByRole('textbox', { name: 'First Name *' }), {
+    fireEvent.input(screen.getByRole('textbox', { name: /First Name/i }), {
       target: { value: 'first name formula' },
     })
 

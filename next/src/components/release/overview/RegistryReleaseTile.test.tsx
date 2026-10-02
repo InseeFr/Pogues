@@ -170,15 +170,27 @@ describe('RegistryReleaseTile', () => {
     expect(authorLink).toHaveAttribute('target', '_blank')
   })
 
-  it('renders a copy button for the collection instrument ID when expanded', async () => {
+  it('renders copy buttons for pogues version and for the collection instrument ID when expanded', async () => {
     const user = userEvent.setup()
-    const { getByRole } = renderTile(mockRelease)
+    const { getAllByRole, getByRole } = renderTile(mockRelease)
+
+    const copyButtons = getAllByRole('button', { name: 'Copy to clipboard' })
+    expect(copyButtons).toHaveLength(1)
 
     await user.click(getByRole('button', { name: 'CAPI' }))
 
-    expect(
-      getByRole('button', { name: 'Copy to clipboard' }),
-    ).toBeInTheDocument()
+    const copyButtonsAfterExpand = getAllByRole('button', {
+      name: 'Copy to clipboard',
+    })
+    expect(copyButtonsAfterExpand).toHaveLength(2)
+  })
+
+  it('renders the pogues save id as selectable text', () => {
+    const { getByText } = renderTile(mockRelease)
+
+    const saveId = getByText('550e8400-e29b-41d4-a716-446655440001')
+    expect(saveId).toBeInTheDocument()
+    expect(saveId.closest('button')).toBeNull()
   })
 
   it('shows version date in tooltip on hover', async () => {

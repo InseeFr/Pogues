@@ -15,6 +15,8 @@ export default function NomenclatureAltIcon({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512.001 512.001"
       xmlSpace="preserve"
+      aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <g>

@@ -146,13 +146,17 @@ export function RegistryReleaseTile({
           </div>
         </div>
 
-        <div className="text-sm">
+        <div className="text-sm flex flex-row gap-1">
           <b className="text-gray-500 font-normal">
             {t('release.poguesSave')} :{' '}
           </b>
-          <Tooltip title={version?.day}>
-            <span>{release.poguesVersionId}</span>
+          <Tooltip
+            title={version?.day ? computeDayFromDate(version.day) : undefined}
+            render={<span />}
+          >
+            {release.poguesVersionId}
           </Tooltip>
+          <CopyButton text={release.poguesVersionId} />
         </div>
 
         <div className="space-y-2">

@@ -12,5 +12,7 @@ describe('QuestionnaireSidebar', () => {
     expect(getByText(/Codes lists/i)).toBeInTheDocument()
     expect(getByText(/Nomenclatures/i)).toBeInTheDocument()
     expect(getByText(/History/i)).toBeInTheDocument()
+    expect(getByText(/Personalization/i)).toBeInTheDocument()
+    expect(getByText(/Releases/i)).toBeInTheDocument()
   })
 })

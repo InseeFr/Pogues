@@ -6,17 +6,27 @@ interface TooltipProps {
   children: React.ReactNode
   /** Text to display in the tooltip popup. */
   title: React.ReactNode
+  /**
+   * Element used as the tooltip trigger instead of the default button.
+   * Useful when the trigger content must remain selectable (a button
+   * prevents text selection).
+   */
+  render?: React.ReactElement
 }
 
 /**
  * Display a tooltip when hovering its content. Should be used to display
  * information to sighted users (i.e. display the content of an aria label).
  */
-export default function Tooltip({ children, title }: Readonly<TooltipProps>) {
+export default function Tooltip({
+  children,
+  title,
+  render,
+}: Readonly<TooltipProps>) {
   return (
     <UITooltip.Provider>
       <UITooltip.Root>
-        <UITooltip.Trigger delay={100} className="cursor-help">
+        <UITooltip.Trigger delay={100} className="cursor-help" render={render}>
           {children}
         </UITooltip.Trigger>
         <UITooltip.Portal>
@@ -36,7 +46,15 @@ export default function Tooltip({ children, title }: Readonly<TooltipProps>) {
 
 function ArrowSvg(props: Readonly<React.ComponentProps<'svg'>>) {
   return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+    <svg
+      width="20"
+      height="10"
+      viewBox="0 0 20 10"
+      fill="none"
+      aria-hidden="false"
+      focusable="true"
+      {...props}
+    >
       <path
         d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
         className="fill-[canvas]"

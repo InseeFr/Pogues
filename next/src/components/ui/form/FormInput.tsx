@@ -48,7 +48,12 @@ const FormInput = React.forwardRef<HTMLInputElement, Props>(
         {label ? (
           <Field.Label className="text-sm ml-1">
             {label}
-            {required ? ' *' : ''}
+            {required ? (
+              <>
+                <span aria-hidden="true">*</span>
+                <span className="sr-only">{'(required)'}</span>
+              </>
+            ) : null}
           </Field.Label>
         ) : null}
         <div className="relative w-full">
