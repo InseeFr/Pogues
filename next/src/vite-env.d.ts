@@ -20,14 +20,12 @@ export type ImportMetaEnv = {
   VITE_PERSONALIZATION_URL: string
   VITE_TROMBI_URL: string
   VITE_USE_MOCK_API: string
-  VITE_CONTACT_MAIL_GENERAL: string
-  VITE_ENABLE_DOWNLOAD_PDF_PERSO: string
-  VITE_ENABLE_PAIRING_RECAP: string
   BASE_URL: string
   MODE: string
   DEV: boolean
   PROD: boolean
   APP_VERSION: string
+  VITE_CONTACT_MAIL_GENERAL: string
   // @user-defined-start
   /*
    *  You can use this section to explicitly extend the type definition of `import.meta.env`
