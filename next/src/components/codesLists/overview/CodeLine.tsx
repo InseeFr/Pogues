@@ -15,7 +15,7 @@ export default function CodeLine({
   return (
     <>
       <tr className="bg-default odd:bg-main *:p-4">
-        <td scope="row">
+        <td>
           <div style={{ marginLeft: `${subCodeIteration * 1.5}rem` }}>
             {code.value}
           </div>

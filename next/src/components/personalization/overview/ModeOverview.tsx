@@ -102,7 +102,7 @@ export default function ModeOverview({
           <tbody className="text-default">
             {allDisplayableIds.map((displayableId) => (
               <tr key={displayableId} className="bg-default odd:bg-main *:p-4">
-                <td scope="row">{displayableId}</td>
+                <td>{displayableId}</td>
                 {modeNames.map((mode) => {
                   const interrogation = interrogationData[mode].find(
                     (item: InterrogationModeData) =>
