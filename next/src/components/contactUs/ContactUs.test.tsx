@@ -11,7 +11,7 @@ describe('ContactUs', () => {
     const { getByRole } = await renderWithRouter(<ContactUs />)
 
     expect(
-      getByRole('heading', { name: 'Contact us', level: 1 }),
+      getByRole('heading', { name: 'Contact us', level: 2 }),
     ).toBeInTheDocument()
   })
 
@@ -23,7 +23,7 @@ describe('ContactUs', () => {
     expect(
       getByRole('heading', {
         name: 'Contact conception team',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
 
@@ -42,7 +42,7 @@ describe('ContactUs', () => {
     expect(
       getByRole('heading', {
         name: 'Contact general team',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
 
@@ -61,7 +61,7 @@ describe('ContactUs', () => {
     expect(
       getByRole('heading', {
         name: 'Frequently asked questions',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
 

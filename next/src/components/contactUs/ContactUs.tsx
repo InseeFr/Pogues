@@ -13,12 +13,12 @@ export default function ContactUs() {
     <div className="flex items-center justify-center bg-main p-4">
       <div className="flex w-full max-w-5xl flex-col items-center gap-6 lg:flex-row">
         <div className="flex-1 space-y-8">
-          <h1 className="text-3xl font-bold">{t('common.contactUs.title')}</h1>
+          <h2 className="text-3xl font-bold">{t('common.contactUs.title')}</h2>
 
           <div>
-            <h2 className="text-lg font-semibold">
+            <h3 className="text-lg font-semibold">
               {t('common.contactUs.contactConceptionTeam')}
-            </h2>
+            </h3>
             <p className="text-secondary text-sm">
               {t('common.contactUs.conceptionQuestion')}
             </p>
@@ -32,9 +32,9 @@ export default function ContactUs() {
           </div>
 
           <div className="border-t border-gray-300 pt-8">
-            <h2 className="text-lg font-semibold">
+            <h3 className="text-lg font-semibold">
               {t('common.contactUs.contactGeneralTeam')}
-            </h2>
+            </h3>
             <p className="text-secondary text-sm">
               {t('common.contactUs.generalQuestion')}
             </p>
@@ -48,9 +48,9 @@ export default function ContactUs() {
           </div>
 
           <div className="border-t border-gray-300 pt-8">
-            <h2 className="text-lg font-semibold">
+            <h3 className="text-lg font-semibold">
               {t('common.contactUs.frequentlyAskedQuestions')}
-            </h2>
+            </h3>
             <a
               className="flex items-center gap-x-1 hover:underline"
               href={faqLink}
