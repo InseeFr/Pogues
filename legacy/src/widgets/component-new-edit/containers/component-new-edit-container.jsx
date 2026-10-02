@@ -46,7 +46,7 @@ export const propTypes = {
 
 // Container
 
-const mapStateToProps = (state, { componentId = '' }) => {
+const mapStateToProps = (state, { componentId = '', componentType }) => {
   const errorsIntegrity = state.errors.errorsIntegrity[componentId];
   const externalLoopsAvailable =
     state.metadataByType.externalQuestionnairesLoops || {};
@@ -67,7 +67,11 @@ const mapStateToProps = (state, { componentId = '' }) => {
     redirectionNeeded:
       state.appState.activeQuestionnaire.dynamiqueSpecified !== 'Filtres',
     activeQuestionnaire: state.appState.activeQuestionnaire,
-    missingRequiredIdentity: isMissingRequiredIdentity(label, name),
+    missingRequiredIdentity: isMissingRequiredIdentity(
+      label,
+      name,
+      componentType,
+    ),
   };
 };
 
