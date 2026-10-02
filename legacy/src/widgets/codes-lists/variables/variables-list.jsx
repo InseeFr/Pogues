@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
+import {
+  DEFAULT_FORM_NAME,
+  DEFAULT_VARIABLE_SELECTOR_PATH,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Dictionary from '../../../utils/dictionary/dictionary';
@@ -36,9 +40,9 @@ export const defaultProps = {
  * Allow to select a variable and display the related variable informations.
  */
 const Variables = ({
-  selectorPath,
-  selectorPathParent,
-  formName,
+  selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH,
+  selectorPathParent = '',
+  formName = DEFAULT_FORM_NAME,
   path,
   currentId = '',
   variablesStore = {},

@@ -22,7 +22,7 @@ const defaultProps = {
 
 // Component
 
-function GotoInput({ targets }) {
+function GotoInput({ targets = [] }) {
   return (
     <Field
       className="widget-goto-input"
@@ -42,6 +42,5 @@ function GotoInput({ targets }) {
 }
 
 GotoInput.propTypes = propTypes;
-GotoInput.defaultProps = defaultProps;
 
 export default GotoInput;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,7 +11,10 @@ import {
   QUESTION_TYPE_ENUM,
   TABS_PATHS,
 } from '../../../constants/pogues-constants';
-import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import {
+  RichEditorWithVariable,
+  SimpleEditorWithVariable,
+} from '../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Textarea from '../../../forms/controls/textarea';
@@ -19,20 +22,30 @@ import { defaultState } from '../../../model/formToState/component-new-edit/cont
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { validateControlForm } from '../../../utils/validation/validate';
 import { ListWithInputPanel } from '../../list-with-input-panel';
+import { useAggregatedDisableValidation } from '../utils/use-aggregated-disable-validation';
 
 const validateForm = (addErrors, validate) => (values) => {
   return validate(values, addErrors);
 };
 
 const Controls = ({
-  formName,
-  selectorPath,
-  errors,
+  formName = DEFAULT_FORM_NAME,
+  selectorPath = TABS_PATHS.CONTROLS,
+  errors = [],
   addErrors,
-  isDynamicArray,
-  isRoundabout,
+  isDynamicArray = false,
+  isRoundabout = false,
+  handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidation] = useState(false);
+  const onAggregateChange = useCallback(
+    (any) => {
+      handleDisableValidation?.(any);
+    },
+    [handleDisableValidation],
+  );
+  const { disabled: disableValidation, getSetDisableValidation } =
+    useAggregatedDisableValidation(onAggregateChange);
+
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -56,14 +69,13 @@ const Controls = ({
           component={SimpleEditorWithVariable}
           label={Dictionary.expression}
           required
-          setDisableValidation={setDisableValidation}
+          setDisableValidation={getSetDisableValidation('condition')}
         />
         <Field
           name="message"
-          component={SimpleEditorWithVariable}
+          component={RichEditorWithVariable}
           label={Dictionary.control_message}
           required
-          setDisableValidation={setDisableValidation}
         />
         <Field
           name="criticity"
@@ -137,13 +149,6 @@ Controls.propTypes = {
   addErrors: PropTypes.func.isRequired,
   isDynamicArray: PropTypes.bool,
   isRoundabout: PropTypes.bool,
+  handleDisableValidation: PropTypes.func,
 };
-Controls.defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.CONTROLS,
-  errors: [],
-  isDynamicArray: false,
-  isRoundabout: false,
-};
-
 export default connect(mapStateToProps)(Controls);

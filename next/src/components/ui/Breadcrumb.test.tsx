@@ -123,10 +123,10 @@ describe('Breadcrumb', () => {
       name: 'Questionnaires',
     })
     expect(questionnairesLink).toHaveAttribute('href', '/questionnaires')
-    expect(LinkMock).toHaveBeenCalledWith(
-      expect.objectContaining({ to: '/questionnaires' }),
-      expect.anything(),
-    )
+    expect(LinkMock.mock.calls.map(([props]) => props.to)).toEqual([
+      '/',
+      '/questionnaires',
+    ])
   })
 
   it('renders the last crumb as the current page', () => {

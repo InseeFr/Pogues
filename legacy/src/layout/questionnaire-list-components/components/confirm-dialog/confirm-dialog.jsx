@@ -9,7 +9,7 @@ import Dictionary from '../../../../utils/dictionary/dictionary';
 const ConfirmDialog = (props) => {
   const cancelButtonRef = useRef(null);
   const [showConfirmModal, setShowConfirmModal] = useState(
-    props.showConfirmModal,
+    props.showConfirmModal ?? false,
   );
 
   useEffect(() => {
@@ -77,10 +77,6 @@ ConfirmDialog.propTypes = {
   confirm: PropTypes.func.isRequired,
   showConfirmModal: PropTypes.bool,
   closePopup: PropTypes.func.isRequired,
-};
-
-ConfirmDialog.defaultProps = {
-  showConfirmModal: false,
 };
 
 export default ConfirmDialog;

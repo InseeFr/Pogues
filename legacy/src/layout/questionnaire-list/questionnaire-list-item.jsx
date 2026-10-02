@@ -8,12 +8,12 @@ import Dictionary from '../../utils/dictionary/dictionary';
 function QuestionnaireListItem({
   id,
   label,
-  lastUpdatedDate,
+  lastUpdatedDate = '',
   isHome,
   handleAction,
   actionLabel,
-  activeQuestionnaireTargetMode,
-  questionnaireTargetMode,
+  activeQuestionnaireTargetMode = [],
+  questionnaireTargetMode = [],
   sameFormulaLanguage,
   sameDynamic,
 }) {
@@ -102,12 +102,6 @@ QuestionnaireListItem.propTypes = {
   actionLabel: PropTypes.string.isRequired,
   activeQuestionnaireTargetMode: PropTypes.arrayOf(PropTypes.string),
   questionnaireTargetMode: PropTypes.arrayOf(PropTypes.string),
-};
-
-QuestionnaireListItem.defaultProps = {
-  lastUpdatedDate: '',
-  activeQuestionnaireTargetMode: [],
-  questionnaireTargetMode: [],
 };
 
 export default QuestionnaireListItem;

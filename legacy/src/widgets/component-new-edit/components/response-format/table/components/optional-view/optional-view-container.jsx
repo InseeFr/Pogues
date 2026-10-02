@@ -22,7 +22,15 @@ export const defaultProps = {
 
 // Container
 
-const mapStateToProps = (state, { selectorPath, name, formName, checkbox }) => {
+const mapStateToProps = (
+  state,
+  {
+    selectorPath,
+    name,
+    formName = DEFAULT_FORM_NAME,
+    checkbox,
+  },
+) => {
   const selector = formValueSelector(formName);
   return {
     active: checkbox

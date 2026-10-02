@@ -8,6 +8,7 @@ import {
 } from '../../../actions/errors';
 import { TABS_PATHS } from '../../../constants/pogues-constants';
 import ComponentNewEdit from '../components/component-new-edit';
+import { isMissingRequiredIdentity } from '../utils/component-identity';
 
 // Utils
 
@@ -43,13 +44,9 @@ export const propTypes = {
   componentId: PropTypes.string,
 };
 
-export const defaultProps = {
-  componentId: '',
-};
-
 // Container
 
-const mapStateToProps = (state, { componentId }) => {
+const mapStateToProps = (state, { componentId = '', componentType }) => {
   const errorsIntegrity = state.errors.errorsIntegrity[componentId];
   const externalLoopsAvailable =
     state.metadataByType.externalQuestionnairesLoops || {};
@@ -59,6 +56,9 @@ const mapStateToProps = (state, { componentId }) => {
     .filter((key) => externalQuestionnnairesId.includes(key))
     .reduce((acc, key) => [...acc, ...externalLoopsAvailable[key].loops], []);
   const selector = formValueSelector('component');
+  const label = selector(state, 'label') || '';
+  const name = selector(state, 'name') || '';
+
   return {
     InitialMember: selector(state, 'initialMember'),
     errorsIntegrityByTab: getErrorsIntegrityByTab(errorsIntegrity),
@@ -67,6 +67,11 @@ const mapStateToProps = (state, { componentId }) => {
     redirectionNeeded:
       state.appState.activeQuestionnaire.dynamiqueSpecified !== 'Filtres',
     activeQuestionnaire: state.appState.activeQuestionnaire,
+    missingRequiredIdentity: isMissingRequiredIdentity(
+      label,
+      name,
+      componentType,
+    ),
   };
 };
 
@@ -81,6 +86,5 @@ const ComponentNewEditContainer = connect(
 )(ComponentNewEdit);
 
 ComponentNewEditContainer.propTypes = propTypes;
-ComponentNewEditContainer.defaultProps = defaultProps;
 
 export default ComponentNewEditContainer;

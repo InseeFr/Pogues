@@ -1,6 +1,5 @@
 import { applyMiddleware, createStore } from 'redux';
-import { persistState } from 'redux-devtools';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
@@ -27,11 +26,6 @@ const createDirtyStateMiddleware =
     return result;
   };
 
-function getDebugSessionKey() {
-  const matches = window.location.href.match(/[?&]debug_session=([^&#]+)\b/);
-  return matches && matches.length > 0 ? matches[1] : null;
-}
-
 export default function configureStore(init, setIsDirtyState) {
   return createStore(
     rootReducer,
@@ -42,7 +36,6 @@ export default function configureStore(init, setIsDirtyState) {
         loggerMiddleware,
         createDirtyStateMiddleware(setIsDirtyState),
       ),
-      persistState(getDebugSessionKey()),
     ),
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 import { Field, FormSection } from 'redux-form';
@@ -13,9 +13,8 @@ import { defaultState } from '../../../model/formToState/component-new-edit/redi
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { validateRedirectionForm } from '../../../utils/validation/validate';
 import { ListWithInputPanel } from '../../list-with-input-panel';
+import { useAggregatedDisableValidation } from '../utils/use-aggregated-disable-validation';
 import { GotoInput } from './goto-input';
-
-// Utils
 
 const validateForm =
   (addErrors, validate, componentsStore, editingComponentId) => (values) => {
@@ -25,8 +24,6 @@ const validateForm =
     });
   };
 
-// Prop types and default props
-
 const propTypes = {
   formName: PropTypes.string,
   selectorPath: PropTypes.string,
@@ -35,26 +32,28 @@ const propTypes = {
   errors: PropTypes.array,
   addErrors: PropTypes.func.isRequired,
   componentsStore: PropTypes.object.isRequired,
+  handleDisableValidation: PropTypes.func,
 };
-
-const defaultProps = {
-  formName: DEFAULT_FORM_NAME,
-  selectorPath: TABS_PATHS.REDIRECTIONS,
-  errors: [],
-};
-
-// Component
 
 const Redirections = ({
-  formName,
-  selectorPath,
+  formName = DEFAULT_FORM_NAME,
+  selectorPath = TABS_PATHS.REDIRECTIONS,
   componentType,
-  errors,
+  errors = [],
   addErrors,
   componentsStore,
   editingComponentId,
+  handleDisableValidation,
 }) => {
-  const [disableValidation, setDisableValidation] = useState(false);
+  const onAggregateChange = useCallback(
+    (any) => {
+      handleDisableValidation?.(any);
+    },
+    [handleDisableValidation],
+  );
+  const { disabled: disableValidation, getSetDisableValidation } =
+    useAggregatedDisableValidation(onAggregateChange);
+
   return (
     <FormSection name={selectorPath}>
       <ListWithInputPanel
@@ -84,7 +83,7 @@ const Redirections = ({
           component={SimpleEditorWithVariable}
           label={Dictionary.condition}
           required
-          setDisableValidation={setDisableValidation}
+          setDisableValidation={getSetDisableValidation('condition')}
         />
         <GotoInput
           formName={formName}
@@ -97,6 +96,4 @@ const Redirections = ({
 };
 
 Redirections.propTypes = propTypes;
-Redirections.defaultProps = defaultProps;
-
 export default Redirections;
