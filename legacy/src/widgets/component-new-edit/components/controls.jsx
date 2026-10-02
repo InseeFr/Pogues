@@ -18,7 +18,6 @@ import {
 import GenericOption from '../../../forms/controls/generic-option';
 import Select from '../../../forms/controls/select';
 import Textarea from '../../../forms/controls/textarea';
-import { toolbarConfigTooltip } from '../../../forms/controls/rich-textarea';
 import { defaultState } from '../../../model/formToState/component-new-edit/control';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { validateControlForm } from '../../../utils/validation/validate';
@@ -76,7 +75,6 @@ const Controls = ({
           name="message"
           component={RichEditorWithVariable}
           label={Dictionary.control_message}
-          toolbar={toolbarConfigTooltip}
           required
         />
         <Field

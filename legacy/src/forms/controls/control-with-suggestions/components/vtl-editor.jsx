@@ -8,7 +8,6 @@ import {
 } from '@making-sense/vtl-2-1-monaco-tools-ts';
 
 import { filterPoguesDollarCompatibilityErrors } from './vtl-dollar-compatibility';
-import VtlTooltipToolbar from './vtl-tooltip-toolbar';
 
 function sameVtlErrors(a = [], b = []) {
   if (a === b) return true;
@@ -31,11 +30,8 @@ const VTLEditor = ({
   setDisableValidation,
   /** When false (labels / markdown), VTL syntax errors do not block VALIDER. */
   blockOnSyntaxErrors = true,
-  /** Optional Draft-era toolbar config; only LINK_BUTTONS are supported here. */
-  toolbar,
 }) => {
   const [errors, setErrors] = useState([]);
-  const [selection, setSelection] = useState(null);
 
   const variables = useMemo(() => {
     const next = {};
@@ -79,10 +75,6 @@ const VTLEditor = ({
   const { value, onChange, name: id } = input;
   const { touched, error, submitFailed } = meta;
   const showFormError = (touched || submitFailed) && error;
-  const showTooltipToolbar = Boolean(
-    toolbar?.display?.includes('LINK_BUTTONS'),
-  );
-  const linkButtons = toolbar?.LINK_BUTTONS;
 
   const handleErrors = useCallback(
     (e) => {
@@ -122,19 +114,6 @@ const VTLEditor = ({
         {required && <span className="ctrl-required">*</span>}
       </label>
       <div>
-        {showTooltipToolbar && (
-          <VtlTooltipToolbar
-            script={value}
-            selection={selection}
-            disabled={disabled}
-            onChange={localOnChange}
-            labels={{
-              add: linkButtons?.ADD?.label,
-              remove: linkButtons?.REMOVE?.label,
-              placeholder: linkButtons?.ADD?.placeholder,
-            }}
-          />
-        )}
         <div
           className={`editor-container ${disabled ? 'editor-disabled' : ''}`}
         >
@@ -142,7 +121,6 @@ const VTLEditor = ({
             script={value}
             setScript={localOnChange}
             onListErrors={handleErrors}
-            onSelectionChange={setSelection}
             variables={variables}
             variablesInputURLs={[]}
             tools={customTools}

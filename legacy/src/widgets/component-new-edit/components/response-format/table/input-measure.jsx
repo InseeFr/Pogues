@@ -9,7 +9,6 @@ import {
 } from '../../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import ListRadios from '../../../../../forms/controls/list-radios';
-import { toolbarConfigTooltip } from '../../../../../forms/controls/rich-textarea';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { SelectorView, View } from '../../../../selector-view';
 import ResponseFormatSimple from '../simple/response-format-simple';
@@ -38,7 +37,6 @@ function InputMeasure({
         name="label"
         component={RichEditorWithVariable}
         label={Dictionary.measureLabel}
-        toolbar={toolbarConfigTooltip}
         required
       />
       <SelectorView label={Dictionary.typeMeasure} selectorPath={selectorPath}>

@@ -11,7 +11,6 @@ import { RichEditorWithVariable } from '../../../../forms/controls/control-with-
 import GenericOption from '../../../../forms/controls/generic-option';
 import Input from '../../../../forms/controls/input';
 import ListRadios from '../../../../forms/controls/list-radios';
-import { toolbarConfigTooltip } from '../../../../forms/controls/rich-textarea';
 import { defaultState } from '../../../../model/formToState/component-new-edit/collected-variable';
 import Dictionary from '../../../../utils/dictionary/dictionary';
 import { validateCollectedVariableForm } from '../../../../utils/validation/validate';
@@ -112,7 +111,6 @@ function CollectedVariables({
           <Field
             name="alternativeLabel"
             component={RichEditorWithVariable}
-            toolbar={toolbarConfigTooltip}
             label={Dictionary.alternativeLabel}
           />
         </div>
