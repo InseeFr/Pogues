@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { AntlrEditor } from '@making-sense/antlr-editor';
 import * as tools from '@making-sense/vtl-2-1-antlr-tools-ts';
@@ -9,6 +9,17 @@ import {
 
 import { filterPoguesDollarCompatibilityErrors } from './vtl-dollar-compatibility';
 import VtlTooltipToolbar from './vtl-tooltip-toolbar';
+
+function sameVtlErrors(a = [], b = []) {
+  if (a === b) return true;
+  if (a.length !== b.length) return false;
+  return a.every(
+    (error, index) =>
+      error.line === b[index].line &&
+      error.column === b[index].column &&
+      error.message === b[index].message,
+  );
+}
 
 const VTLEditor = ({
   availableSuggestions,
@@ -25,19 +36,45 @@ const VTLEditor = ({
 }) => {
   const [errors, setErrors] = useState([]);
   const [selection, setSelection] = useState(null);
-  const variables = {};
-  for (const s of availableSuggestions) {
-    variables[s] = { type: 'Variable' };
-  }
+
+  const variables = useMemo(() => {
+    const next = {};
+    for (const s of availableSuggestions) {
+      next[s] = { type: 'Variable' };
+    }
+    return next;
+  }, [availableSuggestions]);
 
   // expr: Pogues stores VTL expressions (not full scripts). EOF leftover
   // tokens / empty input are handled by @making-sense/antlr-editor ≥ 2.9.4.
-  const customTools = {
-    ...tools,
-    monarchDefinition,
-    getSuggestionsFromRange,
-    initialRule: 'expr',
-  };
+  // Memoize: a new tools object each render re-triggers parse in antlr-editor.
+  const customTools = useMemo(
+    () => ({
+      ...tools,
+      monarchDefinition,
+      getSuggestionsFromRange,
+      initialRule: 'expr',
+    }),
+    [],
+  );
+
+  const editorOptions = useMemo(
+    () => ({
+      minimap: { enabled: false },
+      lineNumbers: 'off',
+      glyphMargin: false,
+      folding: false,
+      lineDecorationsWidth: 0,
+      lineNumbersMinChars: 0,
+      renderLineHighlight: 'none',
+      readOnly: disabled,
+      // Labels are not VTL expressions: hide Monaco squiggles from the parser.
+      ...(blockOnSyntaxErrors
+        ? {}
+        : { renderValidationDecorations: 'off' }),
+    }),
+    [disabled, blockOnSyntaxErrors],
+  );
 
   const { value, onChange, name: id } = input;
   const { touched, error, submitFailed } = meta;
@@ -47,24 +84,36 @@ const VTLEditor = ({
   );
   const linkButtons = toolbar?.LINK_BUTTONS;
 
-  const handleErrors = (e) => {
-    // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
-    const blockingErrors = filterPoguesDollarCompatibilityErrors(e, value);
-    setErrors(blockingErrors);
-    if (setDisableValidation && blockOnSyntaxErrors) {
-      setDisableValidation(blockingErrors.length > 0);
-    }
-  };
-
-  const localOnChange = (e) => {
-    onChange(e);
-    if (!e) {
-      if (setDisableValidation && blockOnSyntaxErrors) {
-        setDisableValidation(false);
+  const handleErrors = useCallback(
+    (e) => {
+      if (!blockOnSyntaxErrors) {
+        setErrors((prev) => (prev.length === 0 ? prev : []));
+        return;
       }
-      setErrors([]);
-    }
-  };
+      // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+      const blockingErrors = filterPoguesDollarCompatibilityErrors(e, value);
+      setErrors((prev) =>
+        sameVtlErrors(prev, blockingErrors) ? prev : blockingErrors,
+      );
+      if (setDisableValidation) {
+        setDisableValidation(blockingErrors.length > 0);
+      }
+    },
+    [value, setDisableValidation, blockOnSyntaxErrors],
+  );
+
+  const localOnChange = useCallback(
+    (e) => {
+      onChange(e);
+      if (!e) {
+        if (setDisableValidation && blockOnSyntaxErrors) {
+          setDisableValidation(false);
+        }
+        setErrors([]);
+      }
+    },
+    [onChange, setDisableValidation, blockOnSyntaxErrors],
+  );
 
   return (
     <div className="ctrl-vtl-editor">
@@ -99,16 +148,7 @@ const VTLEditor = ({
             tools={customTools}
             height="100px"
             theme="vs-light"
-            options={{
-              minimap: { enabled: false },
-              lineNumbers: 'off',
-              glyphMargin: false,
-              folding: false,
-              lineDecorationsWidth: 0,
-              lineNumbersMinChars: 0,
-              renderLineHighlight: 'none',
-              readOnly: disabled,
-            }}
+            options={editorOptions}
           />
         </div>
         {showFormError && <span className="form-error">{error}</span>}

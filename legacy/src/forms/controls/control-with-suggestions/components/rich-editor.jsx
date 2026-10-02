@@ -8,8 +8,9 @@ import VTLEditor from './vtl-editor';
 const { XPATH, VTL } = FORMULA_LANGUAGE;
 
 /**
- * Label / declaration editors: free text + markdown tooltips (+ optional VTL).
- * VTL syntax errors block VALIDER (same as formula fields).
+ * Label / declaration editors: free text + markdown tooltips (+ optional `$VAR$`).
+ * Not strict VTL — do not block VALIDER / show parser noise on French labels.
+ * Real VTL formulas use SimpleEditor (blockOnSyntaxErrors stays true).
  */
 const RichEditor = ({
   formulasLanguage,
@@ -17,7 +18,13 @@ const RichEditor = ({
   ...props
 }) => {
   if (formulasLanguage === VTL) {
-    return <VTLEditor {...props} toolbar={toolbar} />;
+    return (
+      <VTLEditor
+        {...props}
+        toolbar={toolbar}
+        blockOnSyntaxErrors={false}
+      />
+    );
   }
   if (formulasLanguage === XPATH) {
     return <TextareaWithSuggestions {...props} />;
