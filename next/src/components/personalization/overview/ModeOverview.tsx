@@ -84,11 +84,16 @@ export default function ModeOverview({
         }}
       >
         <table className="border border-default w-full min-w-max shadow-sm">
+          <caption className="sr-only">
+            {t('personalization.overview.title')}
+          </caption>
           <thead className="bg-accent sticky top-0 ">
             <tr className="*:font-semibold *:p-4 text-left">
-              <th className="text-default">ID</th>
+              <th scope="col" className="text-default">
+                ID
+              </th>
               {modeNames.map((mode) => (
-                <th key={mode} className="text-default">
+                <th scope="col" key={mode} className="text-default">
                   {mode}
                 </th>
               ))}
@@ -97,7 +102,7 @@ export default function ModeOverview({
           <tbody className="text-default">
             {allDisplayableIds.map((displayableId) => (
               <tr key={displayableId} className="bg-default odd:bg-main *:p-4">
-                <td>{displayableId}</td>
+                <td scope="row">{displayableId}</td>
                 {modeNames.map((mode) => {
                   const interrogation = interrogationData[mode].find(
                     (item: InterrogationModeData) =>
@@ -111,6 +116,9 @@ export default function ModeOverview({
                             href={interrogation.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`${t(
+                              'personalization.overview.visualiseInterrogations',
+                            )} (${t('common.opensInNewWindow')})`}
                           >
                             <OpenInNewIcon />
                           </a>

@@ -25,6 +25,7 @@ export default function ContactUs() {
             <a
               href={`mailto:${conceptionMail}`}
               className="mt-1 block underline"
+              aria-label={`${conceptionMail} (${t('common.contactUs.sendEmail')})`}
             >
               {conceptionMail}
             </a>
@@ -37,7 +38,11 @@ export default function ContactUs() {
             <p className="text-secondary text-sm">
               {t('common.contactUs.generalQuestion')}
             </p>
-            <a href={`mailto:${generalMail}`} className="mt-1 block underline">
+            <a
+              href={`mailto:${generalMail}`}
+              aria-label={` ${generalMail} (${t('common.contactUs.sendEmail')})`}
+              className="mt-1 block underline"
+            >
               {generalMail}
             </a>
           </div>
@@ -51,6 +56,7 @@ export default function ContactUs() {
               href={faqLink}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${t('common.contactUs.frequentlyAskedQuestionsLink')} (${t('common.opensInNewWindow')})`}
             >
               {t('common.contactUs.frequentlyAskedQuestionsLink')}
               <div>

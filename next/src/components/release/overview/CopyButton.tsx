@@ -26,9 +26,14 @@ export function CopyButton({ text }: Readonly<{ text: string }>) {
       title={
         copied ? t('release.copy.copiedTooltip') : t('release.copy.tooltip')
       }
+      aria-label={
+        copied ? t('release.copy.copiedTooltip') : t('release.copy.tooltip')
+      }
     >
       {copied ? (
-        <p className="text-xs">{t('release.copy.copiedLabel')}</p>
+        <span role="status" aria-live="polite" className="text-xs">
+          {t('release.copy.copiedLabel')}
+        </span>
       ) : (
         <CopyIcon width="14" height="14" />
       )}
