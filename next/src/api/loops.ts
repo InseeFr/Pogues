@@ -3,6 +3,7 @@ import { queryOptions } from '@tanstack/react-query'
 import type { InitialLoopMember } from '@/models/loops'
 
 import { instance } from './instance'
+import type { LoopDTO } from './models/loopDTO'
 
 export const loopsKeys = {
   all: ['loops'] as const,
@@ -36,4 +37,14 @@ export async function getLoopMembers(
     .then(({ data }: { data: InitialLoopMember[] }) => {
       return data
     })
+}
+
+/** Create a new loop, or update the loop with the same id. */
+export async function postLoop(
+  questionnaireId: string,
+  loop: LoopDTO,
+): Promise<Response> {
+  return instance.post(`/questionnaires/${questionnaireId}/loop`, loop, {
+    headers: { 'Content-Type': 'application/json' },
+  })
 }

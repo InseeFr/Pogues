@@ -1,6 +1,7 @@
 {
   "create": {
-    "title": "Nouvelle boucle"
+    "title": "Nouvelle boucle",
+    "success": "La boucle {{name}} a été créée"
   },
   "form": {
     "name": "Nom de la boucle",

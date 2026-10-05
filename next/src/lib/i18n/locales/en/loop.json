@@ -1,6 +1,7 @@
 {
   "create": {
-    "title": "New loop"
+    "title": "New loop",
+    "success": "Loop {{name}} has been created"
   },
   "form": {
     "name": "Loop name",
