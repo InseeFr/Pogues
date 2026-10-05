@@ -7,6 +7,14 @@
     "title": "Modifier la boucle : {{name}}",
     "success": "La boucle {{name}} a été modifiée"
   },
+  "delete": {
+    "dialogTitle": "Supprimer la boucle : {{name}}",
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette boucle ?",
+    "disabled": {
+      "usedByLoops": "Cette boucle ne peut pas être supprimée car elle est utilisée comme référence par les boucles : {{loops}}"
+    },
+    "success": "La boucle {{name}} a été supprimée"
+  },
   "form": {
     "name": "Nom de la boucle",
     "mustProvideName": "Vous devez renseigner un nom",

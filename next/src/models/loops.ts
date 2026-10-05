@@ -12,6 +12,8 @@ export type Loop = {
   initialMember: string
   /** Id of the last component repeated by the loop. */
   finalMember: string
+  /** Names of the loops using this loop as reference, which prevent its deletion. */
+  relatedLoopNames?: string[]
 } & (
   | {
       /** Id of the scope whose occurrences are repeated. */

@@ -4,8 +4,8 @@ import type { LoopDTO } from '../models/loopDTO'
 
 /** Compute loop that can be used in our app from API data. */
 export function computeLoop(loopDTO: LoopDTO): Loop {
-  const { id, name, initialMember, finalMember } = loopDTO
-  const loop = { id, name, initialMember, finalMember }
+  const { id, name, initialMember, finalMember, relatedLoopNames } = loopDTO
+  const loop = { id, name, initialMember, finalMember, relatedLoopNames }
 
   if (isBasedOn(loopDTO)) {
     return { ...loop, basedOn: loopDTO.basedOn, filter: loopDTO.filter }

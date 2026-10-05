@@ -7,6 +7,14 @@
     "title": "Edit loop: {{name}}",
     "success": "Loop {{name}} has been edited"
   },
+  "delete": {
+    "dialogTitle": "Delete loop: {{name}}",
+    "dialogConfirm": "Are you sure you want to delete this loop?",
+    "disabled": {
+      "usedByLoops": "This loop cannot be deleted since it is used as reference by the loops: {{loops}}"
+    },
+    "success": "Loop {{name}} has been deleted"
+  },
   "form": {
     "name": "Loop name",
     "mustProvideName": "You must provide a name",

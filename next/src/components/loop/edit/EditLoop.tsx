@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
-import { loopsKeys, postLoop } from '@/api/loops'
+import { deleteLoop, loopsKeys, postLoop } from '@/api/loops'
 import { questionnairesKeys } from '@/api/questionnaires'
 import { scopesKeys } from '@/api/scopes'
 import { variablesKeys } from '@/api/variables'
@@ -29,7 +29,7 @@ type Props = {
 /** Edit an existing loop. */
 export default function EditLoop({
   questionnaireId,
-  loop: { id: loopId, ...initialValues },
+  loop: { id: loopId, relatedLoopNames = [], ...initialValues },
   scopes,
   loopMembers,
   variables,
@@ -37,6 +37,9 @@ export default function EditLoop({
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+
+  // The loop cannot be deleted while other loops use it as reference.
+  const hasRelatedLoops = relatedLoopNames.length > 0
 
   const mutation = useMutation({
     mutationFn: ({
@@ -71,6 +74,59 @@ export default function EditLoop({
       ]),
   })
 
+  const deleteMutation = useMutation({
+    mutationFn: ({
+      loopId,
+      questionnaireId,
+    }: {
+      loopId: string
+      questionnaireId: string
+    }) => {
+      return deleteLoop(questionnaireId, loopId)
+    },
+    onSuccess: (_, { questionnaireId, loopId }) => {
+      queryClient.removeQueries({
+        queryKey: loopsKeys.one(questionnaireId, loopId),
+      })
+      return Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: loopsKeys.all(questionnaireId),
+        }),
+        // The loop could be a scope of the variables of the questions it
+        // repeats.
+        queryClient.invalidateQueries({
+          queryKey: scopesKeys.detail(questionnaireId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: variablesKeys.all(questionnaireId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: questionnairesKeys.detail(questionnaireId),
+        }),
+      ])
+    },
+  })
+
+  const onDelete = () => {
+    const promise = deleteMutation.mutateAsync(
+      { loopId, questionnaireId },
+      {
+        onSuccess: () =>
+          navigate({
+            to: '/questionnaire/$questionnaireId',
+            params: { questionnaireId },
+            // The user may have modified the form before deleting the loop.
+            ignoreBlocker: true,
+          }),
+      },
+    )
+    toast.promise(promise, {
+      loading: t('common.loading'),
+      success: t('loop.delete.success', { name: initialValues.name }),
+      error: (err: Error) => err.toString(),
+    })
+  }
+
   const submitForm = async (formValues: FormValues) => {
     // Keep the id of the loop so that the API updates it.
     const loop: Loop = { id: loopId, ...formValues }
@@ -101,6 +157,18 @@ export default function EditLoop({
         variables={variables}
         onSubmit={submitForm}
         submitLabel={t('common.edit')}
+        deleteButton={{
+          dialogTitle: t('loop.delete.dialogTitle', {
+            name: initialValues.name,
+          }),
+          dialogBody: t('loop.delete.dialogConfirm'),
+          onDelete,
+          disabledTooltip: hasRelatedLoops
+            ? t('loop.delete.disabled.usedByLoops', {
+                loops: relatedLoopNames.join(', '),
+              })
+            : undefined,
+        }}
       />
     </div>
   )

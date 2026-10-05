@@ -79,3 +79,11 @@ export async function postLoop(
     },
   )
 }
+
+/** Delete a loop of a questionnaire. */
+export async function deleteLoop(
+  questionnaireId: string,
+  loopId: string,
+): Promise<Response> {
+  return instance.delete(`/questionnaires/${questionnaireId}/loops/${loopId}`)
+}

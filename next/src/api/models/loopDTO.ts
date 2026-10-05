@@ -10,6 +10,11 @@ export type LoopDTO = {
   initialMember: string
   /** Id of the last component repeated by the loop. */
   finalMember: string
+  /**
+   * Names of the loops using this loop as reference, which prevent its
+   * deletion. Only returned when retrieving a loop.
+   */
+  relatedLoopNames?: string[]
 } & (
   | {
       /** Id of the scope whose occurrences are repeated. */

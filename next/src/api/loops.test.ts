@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { type InitialLoopMember, LoopMemberType } from '@/models/loops'
 
-import { getLoop, getLoopMembers, postLoop } from './loops'
+import { deleteLoop, getLoop, getLoopMembers, postLoop } from './loops'
 import type { LoopDTO } from './models/loopDTO'
 
 vi.mock('@/lib/auth/oidc')
@@ -36,6 +36,7 @@ it('Get loop works', async () => {
     finalMember: 'E1',
     basedOn: 'my-scope',
     filter: 'true',
+    relatedLoopNames: ['OTHER_LOOP'],
   }
 
   nock('https://mock-api')
@@ -63,4 +64,13 @@ it('Post loop works', async () => {
 
   const res = await postLoop('my-questionnaire', loop)
   expect(res.status).toEqual(201)
+})
+
+it('Delete loop works', async () => {
+  nock('https://mock-api')
+    .delete('/questionnaires/my-questionnaire/loops/my-loop')
+    .reply(204)
+
+  const res = await deleteLoop('my-questionnaire', 'my-loop')
+  expect(res.status).toEqual(204)
 })

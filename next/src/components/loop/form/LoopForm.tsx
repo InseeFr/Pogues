@@ -9,7 +9,7 @@ import {
 } from 'react-hook-form'
 
 import Field from '@/components/ui/form/Field'
-import Form from '@/components/ui/form/Form'
+import Form, { type DeleteButtonProps } from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
@@ -28,6 +28,8 @@ type Props = {
   onSubmit: SubmitHandler<FormValues>
   /** Label to display on the submit button. */
   submitLabel?: string
+  /** If provided, display a delete button (e.g. when editing a loop). */
+  deleteButton?: DeleteButtonProps
   /** Available scopes with the mapping between id and name. */
   scopes: Scopes
   /**
@@ -58,6 +60,7 @@ export default function LoopForm({
   },
   onSubmit,
   submitLabel,
+  deleteButton,
   scopes,
   loopMembers,
   variables = [],
@@ -107,6 +110,7 @@ export default function LoopForm({
       isValid={isValid}
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
+      deleteButton={deleteButton}
     >
       <Controller
         name="name"
