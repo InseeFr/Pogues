@@ -23,6 +23,7 @@ export default function ButtonIcon({
   return (
     <button
       title={title}
+      aria-label={title || undefined}
       type="button"
       className={`${className} enabled:cursor-pointer enabled:hover:bg-slate-200 w-fit p-0.5 rounded
         ${
@@ -34,7 +35,7 @@ export default function ButtonIcon({
       onClick={onClick}
       {...props}
     >
-      <Icon />
+      <Icon aria-hidden="false" focusable="true" />
     </button>
   )
 }

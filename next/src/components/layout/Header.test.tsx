@@ -48,7 +48,7 @@ describe('Header', () => {
     await renderWithRouter(<Header user={user} />)
 
     const docLink = screen.getByRole('link', {
-      name: 'Documentation',
+      name: 'Documentation (Open in new window)',
     })
     expect(docLink).toBeInTheDocument()
     expect(docLink).toHaveAttribute(

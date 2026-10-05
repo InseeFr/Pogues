@@ -2,14 +2,9 @@ import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import toast from 'react-hot-toast'
 
-import { FlowLogicEnum, FormulasLanguageEnum } from '@/api/models/poguesModel'
 import type { QuestionnaireDetailsDTO } from '@/api/models/questionnaireDetailsDTO'
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
-import {
-  FlowLogics,
-  FormulasLanguages,
-  TargetModes,
-} from '@/models/questionnaires'
+import { TargetModes } from '@/models/questionnaires'
 import type { SerieItem } from '@/models/series'
 import { renderWithRouter } from '@/testing/render'
 
@@ -60,8 +55,6 @@ vi.mock('./form/QuestionnaireDetailsForm', () => ({
             serie: 's1',
             agency: 'fr.insee',
             targetModes: [TargetModes.CAPI],
-            flowLogic: FlowLogics.Filter,
-            formulasLanguage: FormulasLanguages.VTL,
           })
         }
       >
@@ -77,8 +70,6 @@ const questionnaireDetails: QuestionnaireDetailsDTO = {
   id: 'q123',
   name: 'MNABSOLUTE',
   label: '[mn] absolute cinema',
-  flowLogic: FlowLogicEnum.Filter,
-  formulasLanguage: FormulasLanguageEnum.VTL,
   targetMode: ['CAPI'],
   agency: 'fr.insee',
   owner: 'ESQUIE',
@@ -91,6 +82,7 @@ const mockSerieDetail: SerieDetailDTO = {
   id: 's1',
   uri: 'http://example.com/s1',
   label: 'Serie 1',
+  altLabel: 'altLabel',
 }
 
 describe('QuestionnaireDetailsOverview', () => {

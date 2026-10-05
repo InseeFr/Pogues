@@ -3,6 +3,8 @@
 exports[`VariableIcon renders correctly 1`] = `
 <DocumentFragment>
   <svg
+    aria-hidden="true"
+    focusable="false"
     height="24px"
     viewBox="0 -960 960 960"
     width="24px"

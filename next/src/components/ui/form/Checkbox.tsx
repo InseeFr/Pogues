@@ -39,7 +39,7 @@ export default function Checkbox({
         className="size-[1.125rem] p-2 flex items-center justify-center hover:shadow-sm rounded-xs outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary data-checked:bg-primary border-2 border-default hover:border-primary data-checked:border-primary"
       >
         <BaseUICheckbox.Indicator className="flex text-negative data-unchecked:hidden">
-          <CheckIcon className="size-3" />
+          <CheckIcon className="size-3" aria-hidden="false" focusable="true" />
         </BaseUICheckbox.Indicator>
       </BaseUICheckbox.Root>
       <span className="text-base font-normal">{label}</span>

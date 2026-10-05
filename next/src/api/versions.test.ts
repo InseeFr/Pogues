@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { Version } from '@/models/version'
 
-import { getAllVersions, restoreVersion } from './versions'
+import { getAllVersions, getLatestVersion, restoreVersion } from './versions'
 
 vi.mock('@/lib/auth/oidc')
 
@@ -23,6 +23,15 @@ it('Get versions works', async () => {
 
   const res = await getAllVersions('my-questionnaire')
   expect(res).toEqual([version])
+})
+
+it('Get latest version works', async () => {
+  nock('https://mock-api')
+    .get('/persistence/questionnaire/my-questionnaire/version/last')
+    .reply(200, version)
+
+  const res = await getLatestVersion('my-questionnaire')
+  expect(res).toEqual(version)
 })
 
 it('Restore version works', async () => {
