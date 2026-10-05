@@ -4,11 +4,10 @@ import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
 import { postLoop } from '@/api/loops'
-import type { LoopDTO } from '@/api/models/loopDTO'
 import { questionnairesKeys } from '@/api/questionnaires'
 import { scopesKeys } from '@/api/scopes'
 import { variablesKeys } from '@/api/variables'
-import type { InitialLoopMember } from '@/models/loops'
+import type { InitialLoopMember, Loop } from '@/models/loops'
 import type { Scopes } from '@/models/scopes'
 import type { Variable } from '@/models/variables'
 import { uid } from '@/utils/utils'
@@ -42,7 +41,7 @@ export default function CreateLoop({
       loop,
       questionnaireId,
     }: {
-      loop: LoopDTO
+      loop: Loop
       questionnaireId: string
     }) => {
       return postLoop(questionnaireId, loop)
@@ -64,7 +63,7 @@ export default function CreateLoop({
   })
 
   const submitForm = async (formValues: FormValues) => {
-    const loop: LoopDTO = { id: uid(), ...formValues }
+    const loop: Loop = { id: uid(), ...formValues }
     const promise = mutation.mutateAsync(
       { loop, questionnaireId },
       {
