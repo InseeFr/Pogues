@@ -6,17 +6,20 @@ import ReactModal from 'react-modal';
 import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
 import Dictionary from '../../../utils/dictionary/dictionary';
+import { isNextLoopPageEnabled, useNextPages } from '../../../utils/next-pages';
 import { ComponentEdit } from '../../component-edit';
 
 const { LOOP } = COMPONENT_TYPE;
 
 function NavLoop({
   componentsStore,
+  questionnaire,
   editingComponentId,
   removeComponent,
   setEditingComponentId,
 }) {
   const [showComponentModal, setShowComponentModal] = useState(false);
+  const { navigateToEditLoopPage } = useNextPages();
 
   const handleDeleteComponent = useCallback(() => {
     removeComponent(editingComponentId);
@@ -28,6 +31,10 @@ function NavLoop({
   }
 
   function handleEditComponent(id) {
+    if (isNextLoopPageEnabled()) {
+      navigateToEditLoopPage(questionnaire.id, id);
+      return;
+    }
     setEditingComponentId(id);
     handleOpenComponentDetail();
   }
@@ -87,6 +94,7 @@ function NavLoop({
 
 NavLoop.propTypes = {
   componentsStore: PropTypes.object.isRequired,
+  questionnaire: PropTypes.object.isRequired,
   removeComponent: PropTypes.func.isRequired,
 };
 
