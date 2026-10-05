@@ -74,4 +74,30 @@ describe('computeLoopDTO', () => {
   it.each(cases)('computes a loop $label', ({ loop }) => {
     expect(computeLoopDTO(loop)).toEqual(loop)
   })
+
+  it.each([undefined, ''])(
+    'computes a loop not based on a scope with basedOn: %j',
+    (basedOn) => {
+      const loop = {
+        id: 'my-loop',
+        name: 'MY_LOOP',
+        initialMember: 'S1',
+        finalMember: 'S1',
+        basedOn,
+        isFixedLength: true,
+        size: '$NBHAB$',
+        shouldSplitIterations: false,
+      } as Loop
+
+      expect(computeLoopDTO(loop)).toStrictEqual({
+        id: 'my-loop',
+        name: 'MY_LOOP',
+        initialMember: 'S1',
+        finalMember: 'S1',
+        isFixedLength: true,
+        size: '$NBHAB$',
+        shouldSplitIterations: false,
+      })
+    },
+  )
 })
