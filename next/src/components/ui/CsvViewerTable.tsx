@@ -1,4 +1,5 @@
 import { ParseResult } from 'papaparse'
+import { useTranslation } from 'react-i18next'
 
 interface CsvViewerTableProps {
   parsedCsv: ParseResult<unknown>
@@ -12,6 +13,7 @@ export default function CsvViewerTable({
   hasHeader = false,
   defaultHeader = [],
 }: Readonly<CsvViewerTableProps>) {
+  const { t } = useTranslation()
   // Used to check if the parsed csv is in a right object format (with manually added header ("Code", and "Label"))
   const metaFields = parsedCsv.meta?.fields
   const isObjectRows = metaFields && metaFields.length > 0
@@ -53,6 +55,7 @@ export default function CsvViewerTable({
         }`}
       >
         <table className="border border-default w-full min-w-max shadow-sm">
+          <caption className="sr-only">{t('common.csvViewer')}</caption>
           <thead className="bg-accent sticky top-0">
             <tr className="*:font-semibold *:p-4 text-left">
               {headers.map((header) => (

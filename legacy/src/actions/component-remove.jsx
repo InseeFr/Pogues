@@ -1,7 +1,4 @@
-import find from 'lodash.find';
-import sortBy from 'lodash.sortby';
-import takeRight from 'lodash.takeright';
-import takeWhile from 'lodash.takewhile';
+import { find, sortBy, takeRight, takeWhile } from 'lodash';
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import {

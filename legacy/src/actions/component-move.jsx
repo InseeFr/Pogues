@@ -1,4 +1,4 @@
-import sortBy from 'lodash.sortby';
+import { sortBy } from 'lodash';
 
 import { getDragnDropLevel } from '../utils/component/component-dragndrop-utils';
 import {

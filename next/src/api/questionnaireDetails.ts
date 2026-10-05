@@ -16,6 +16,7 @@ export const questionnaireDetailsQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: detailsKeys.detail(questionnaireId),
     queryFn: () => getQuestionnaireDetails(questionnaireId),
+    staleTime: Infinity,
   })
 
 /**

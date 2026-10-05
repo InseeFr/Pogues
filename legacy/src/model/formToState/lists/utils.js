@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
-import merge from 'lodash.merge';
+import { cloneDeep, merge } from 'lodash';
 
 export function createListFactory(
   defaultState,

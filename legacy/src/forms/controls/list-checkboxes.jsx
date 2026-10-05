@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import isEqual from 'lodash.isequal';
+import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
 import { fieldInputPropTypes, fieldMetaPropTypes } from 'redux-form';

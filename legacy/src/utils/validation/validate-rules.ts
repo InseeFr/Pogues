@@ -1,7 +1,7 @@
 /*
 Common business rules logic to be applied to the form's values.
 */
-import cloneDeep from 'lodash.clonedeep';
+import { cloneDeep } from 'lodash';
 
 import Dictionary from '@/utils/dictionary/dictionary';
 import { getComponentsTargetsByComponent } from '@/utils/model/redirections-utils';

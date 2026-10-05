@@ -10,10 +10,13 @@ export enum ERROR_CODES {
 
 export const versionsKeys = {
   all: (questionnaireId: string) => ['versions', questionnaireId] as const,
+  one: (versionId: string) => ['version', versionId] as const,
+  latest: (questionnaireId: string) =>
+    ['version', questionnaireId, 'latest'] as const,
 }
 
 /**
- * Used to retrieve version of a questionnaire.
+ * Used to retrieve versions of a questionnaire.
  *
  * @see {@link getAllVersions}
  */
@@ -21,6 +24,28 @@ export const versionsQueryOptions = (questionnaireId: string) =>
   queryOptions({
     queryKey: versionsKeys.all(questionnaireId),
     queryFn: () => getAllVersions(questionnaireId),
+  })
+
+/**
+ * Used to retrieve a specific version of a questionnaire.
+ *
+ * @see {@link getAllVersions}
+ */
+export const versionQueryOptions = (versionId: string) =>
+  queryOptions({
+    queryKey: versionsKeys.one(versionId),
+    queryFn: () => getVersion(versionId),
+  })
+
+/**
+ * Used to retrieve the latest version of a questionnaire.
+ *
+ * @see {@link getLatestVersion}
+ */
+export const latestVersionQueryOptions = (questionnaireId: string) =>
+  queryOptions({
+    queryKey: versionsKeys.latest(questionnaireId),
+    queryFn: () => getLatestVersion(questionnaireId),
   })
 
 /** Retrieve all versions of a questionnaire. */
@@ -36,6 +61,29 @@ export async function getAllVersions(
     })
 }
 
+/** Retrieve specific version of a questionnaire. */
+export async function getVersion(versionId: string): Promise<Version> {
+  return instance
+    .get(`/persistence/version/${versionId}`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: Version }) => {
+      return data
+    })
+}
+
+/** Retrieve latest version of a questionnaire. */
+export async function getLatestVersion(
+  questionnaireId: string,
+): Promise<Version> {
+  return instance
+    .get(`/persistence/questionnaire/${questionnaireId}/version/last`, {
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: Version }) => {
+      return data
+    })
+}
 /** Restore a version. */
 export async function restoreVersion(versionId: string): Promise<Response> {
   return instance.post(`/persistence/questionnaire/restore/${versionId}`)

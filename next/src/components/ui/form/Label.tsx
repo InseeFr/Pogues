@@ -10,11 +10,11 @@ export default function Label({
 }: Readonly<LabelProps>) {
   return (
     <label
-      className={`text-sm font-semibold mb-1 ml-1 ${className}`}
+      className={`text-base font-semibold mb-1 ml-1 ${className}`}
       {...props}
     >
       {children}
-      {required ? '*' : ''}
+      {required ? <span aria-hidden="true">*</span> : null}
     </label>
   )
 }

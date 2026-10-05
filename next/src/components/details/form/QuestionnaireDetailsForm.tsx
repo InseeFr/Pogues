@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import type { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import { getSerieById } from '@/api/series'
@@ -12,12 +12,11 @@ import Autocomplete from '@/components/ui/form/Autocomplete'
 import Form from '@/components/ui/form/Form'
 import FormField from '@/components/ui/form/FormField'
 import Input from '@/components/ui/form/Input'
-import RadioGroup from '@/components/ui/form/RadioGroup'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
-import { FlowLogics, FormulasLanguages } from '@/models/questionnaires'
 import { SerieItem } from '@/models/series'
+import { Stamp } from '@/models/stamps'
 
 import { type FormValues, schema } from './schema'
 
@@ -26,6 +25,7 @@ type Props = {
   onSubmit: SubmitHandler<FormValues>
   submitLabel: string
   series?: SerieItem[]
+  stamps?: Stamp[]
   readOnly?: boolean
 }
 
@@ -34,14 +34,14 @@ export default function QuestionnaireDetailsForm({
     name: '',
     title: '',
     targetModes: [],
-    flowLogic: FlowLogics.Filter,
-    formulasLanguage: FormulasLanguages.VTL,
     agency: 'fr.insee',
+    owner: '',
     serie: '',
   },
   onSubmit,
   submitLabel,
   series,
+  stamps,
   readOnly = false,
 }: Readonly<Props>) {
   const { t } = useTranslation()
@@ -52,15 +52,37 @@ export default function QuestionnaireDetailsForm({
     setValue,
     watch,
     reset,
+    trigger,
   } = useForm<FormValues>({
     mode: 'onChange',
     defaultValues,
     resolver: zodResolver(schema),
   })
 
+  useEffect(() => {
+    if (readOnly) {
+      return
+    }
+    trigger()
+  }, [readOnly, trigger])
+
+  //  Did that to force refresh the form when quickly go back to the form after validation
+  //  (due to multiples request made at the same time when opening the form)
+  const previousDefaultValuesRef = useRef(JSON.stringify(defaultValues))
+
+  useEffect(() => {
+    const nextKey = JSON.stringify(defaultValues)
+    if (nextKey === previousDefaultValuesRef.current) {
+      return
+    }
+    previousDefaultValuesRef.current = nextKey
+    reset(defaultValues)
+  }, [defaultValues, reset])
+
   const selectedSerie = watch('serie')
 
   const [isSerieOpen, setIsSerieOpen] = useState(false)
+  const [isStampOpen, setIsStampOpen] = useState(false)
   const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
 
   useEffect(() => {
@@ -78,6 +100,10 @@ export default function QuestionnaireDetailsForm({
   const seriesOptions: { label: string; value: string }[] = (series ?? []).map(
     (s: SerieItem) => ({ label: s.label, value: s.id }),
   )
+
+  const stampsOptions: { label: string; value: string }[] = [
+    ...(stamps?.map((s) => ({ label: s.label, value: s.id })) || []),
+  ].sort((a, b) => a.label.localeCompare(b.label, undefined, { numeric: true }))
 
   const handleFormSubmit = (data: FormValues) => {
     const submittedData = { ...data, name: data.name.toUpperCase() }
@@ -143,6 +169,7 @@ export default function QuestionnaireDetailsForm({
                     onChange(serieValue)
                     handleSerieChange(serieValue)
                   }}
+                  placeholder={t('details.seriesSearch')}
                 />
               </div>
               {value ? (
@@ -203,8 +230,37 @@ export default function QuestionnaireDetailsForm({
         {({ field: { onChange } }) => (
           <Input value={'fr.insee'} onValueChange={onChange} disabled />
         )}
-      </FormField>
-      <FormField
+      />
+      <Controller
+        name="owner"
+        control={control}
+        render={({
+          field: { name, value, onChange },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <Field
+            dirty={isDirty}
+            error={error}
+            invalid={invalid}
+            label={t('details.stamp')}
+            name={name}
+            touched={isTouched}
+            disabled={readOnly}
+          >
+            <Autocomplete
+              options={stampsOptions}
+              value={value || undefined}
+              disabled={readOnly}
+              open={isStampOpen}
+              onOpenChange={setIsStampOpen}
+              onChange={onChange}
+              placeholder={t('details.stampSearch')}
+            />
+          </Field>
+        )}
+      />
+      <Controller
+        name="targetModes"
         control={control}
         name="targetModes"
         rules={{ required: true }}
@@ -219,53 +275,7 @@ export default function QuestionnaireDetailsForm({
             error={error?.message}
           />
         )}
-      </FormField>
-      <div>
-        <FormField
-          control={control}
-          name="flowLogic"
-          label={t('questionnaire.common.dynamicField')}
-          required
-          rules={{ required: true }}
-          disabled={readOnly}
-        >
-          {({ field: { value, onBlur, onChange } }) => (
-            <RadioGroup
-              options={[
-                { label: 'Filtre', value: FlowLogics.Filter },
-                { label: 'Redirection', value: FlowLogics.Redirection },
-              ]}
-              value={value}
-              onBlur={onBlur}
-              onValueChange={onChange}
-              disabled={readOnly}
-            />
-          )}
-        </FormField>
-      </div>
-      <div>
-        <FormField
-          control={control}
-          name="formulasLanguage"
-          label={t('questionnaire.common.formulaField')}
-          required
-          rules={{ required: true }}
-          disabled={readOnly}
-        >
-          {({ field: { value, onBlur, onChange } }) => (
-            <RadioGroup
-              options={[
-                { label: 'VTL', value: FormulasLanguages.VTL },
-                { label: 'XPath', value: FormulasLanguages.XPath },
-              ]}
-              value={value}
-              onBlur={onBlur}
-              onValueChange={onChange}
-              disabled={readOnly}
-            />
-          )}
-        </FormField>
-      </div>
+      />
     </>
   )
 
@@ -281,6 +291,7 @@ export default function QuestionnaireDetailsForm({
       isValid={isValid}
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
+      ariaLabel="questionnaire-details-form"
     >
       {formFields}
     </Form>

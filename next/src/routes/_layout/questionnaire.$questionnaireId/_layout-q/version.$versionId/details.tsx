@@ -48,5 +48,15 @@ function RouteComponent() {
 }
 
 function CustomLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <DetailsOverviewLayout>{children}</DetailsOverviewLayout>
+  const { questionnaireId, versionId } = Route.useParams()
+
+  return (
+    <DetailsOverviewLayout
+      isReadonly
+      questionnaireId={questionnaireId}
+      versionId={versionId}
+    >
+      {children}
+    </DetailsOverviewLayout>
+  )
 }

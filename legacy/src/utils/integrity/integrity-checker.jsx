@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
-import uniq from 'lodash.uniq';
+import { cloneDeep, uniq } from 'lodash';
 
 /**
  * Enhance a reducer by adding integrity checks based on the current state

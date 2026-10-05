@@ -250,6 +250,7 @@ export const duplicateQuestionnaire =
       question.Label[0] += ' Copie';
       return postQuestionnaire(question, token)
         .then(() => {
+          window.open(`/questionnaire/${question.id}`, '_blank');
           return dispatch(
             createQuestionnaireSuccess(
               question.id,

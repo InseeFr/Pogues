@@ -1,8 +1,10 @@
 import { Combobox } from '@base-ui/react/combobox'
+import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 
 import ArrowDownIcon from '../icons/ArrowDownIcon'
+import { filterOptions } from './utils/filterOptions'
 
 type Props<T> = {
   onChange?: (value: T) => void
@@ -11,6 +13,7 @@ type Props<T> = {
   disabled?: boolean
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  placeholder?: string
 }
 
 export default function Autocomplete<T extends string>({
@@ -19,12 +22,12 @@ export default function Autocomplete<T extends string>({
   value,
   open,
   onOpenChange,
+  placeholder,
 }: Readonly<Props<T>>) {
+  const { t } = useTranslation()
   const [inputValue, setInputValue] = useState('')
 
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(inputValue.toLowerCase()),
-  )
+  const filteredOptions = filterOptions(options, inputValue)
 
   return (
     <Combobox.Root
@@ -51,7 +54,7 @@ export default function Autocomplete<T extends string>({
             focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-primary
             data-disabled:cursor-not-allowed data-disabled:opacity-50
           `}
-          placeholder="Search..."
+          placeholder={placeholder ? placeholder : t('common.search')}
         />
         <Combobox.Trigger className="absolute right-3 top-1/2 -translate-y-1/2 flex data-disabled:hidden">
           <Combobox.Icon className="flex">

@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { questionnaireDetailsQueryOptions } from '@/api/questionnaireDetails'
 import { seriesQueryOptions } from '@/api/series'
+import { stampsQueryOptions } from '@/api/stamps'
 import DetailsOverview from '@/components/details/QuestionnaireDetailsOverview'
 import DetailsOverviewLayout from '@/components/details/QuestionnaireDetailsOverviewLayout'
 import ErrorComponent from '@/components/layout/ErrorComponent'
@@ -23,9 +24,11 @@ export const Route = createFileRoute(
     const questionnaireDetails = await queryClient.fetchQuery(
       questionnaireDetailsQueryOptions(questionnaireId),
     )
+    const stamps = await queryClient.fetchQuery(stampsQueryOptions())
     return {
       series,
       questionnaireDetails,
+      stamps,
       //agencies
     }
   },
@@ -33,7 +36,7 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const questionnaireId = Route.useParams().questionnaireId
-  const { questionnaireDetails, series } = Route.useLoaderData()
+  const { questionnaireDetails, series, stamps } = Route.useLoaderData()
 
   return (
     <CustomLayout>
@@ -41,6 +44,7 @@ function RouteComponent() {
         questionnaireId={questionnaireId}
         questionnaireDetails={questionnaireDetails}
         series={series}
+        stamps={stamps}
       />
     </CustomLayout>
   )

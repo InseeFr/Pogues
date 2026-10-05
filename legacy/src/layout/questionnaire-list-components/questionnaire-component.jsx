@@ -2,21 +2,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ClassSet from 'react-classset';
-import { DragSource, DropTarget } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
-import { compose } from 'redux';
 
 import { domSelectorForModal } from '../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import { markdownVtlToString } from '../../forms/controls/rich-textarea';
 import { useReadonly } from '../../hooks/useReadonly';
-import {
-  PropType,
-  cardTarget,
-  collect,
-  componentSource,
-} from '../../utils/component/component-dragndrop';
+import { PropType } from '../../utils/component/component-dragndrop';
 import {
   calculateMargin,
   getDragnDropLevel,
@@ -41,12 +35,7 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 const QuestionnaireComponent = (props) => {
   const {
     component,
-    connectDragSource,
     integrityErrorsByType,
-    connectDropTarget,
-    draggedItem,
-    canDrop,
-    isOver,
     selected,
     children,
     parentType,
@@ -58,6 +47,7 @@ const QuestionnaireComponent = (props) => {
     duplicateComponentAndVariables,
     removeComponent,
     removeQuestionnaireRef,
+    moveComponent,
   } = props;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
@@ -65,6 +55,39 @@ const QuestionnaireComponent = (props) => {
   const myRef = useRef(null);
 
   const isReadonly = useReadonly();
+
+  const [{ isOver, draggedItem, canDrop }, drop] = useDrop({
+    accept: PropType,
+    canDrop: (item) => {
+      return (
+        component.parent !== item.id &&
+        item.children.indexOf(component.parent) < 0
+      );
+    },
+    drop: (item, monitor) => {
+      if (monitor.isOver({ shallow: false })) {
+        moveComponent(component.id, item.id);
+      }
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver({ shallow: true }),
+      draggedItem: monitor.getItem(),
+      canDrop: monitor.canDrop(),
+    }),
+  });
+
+  const [, drag] = useDrag({
+    type: PropType,
+    item: {
+      id: component.id,
+      type: component.type,
+      parent: component.parent,
+      children: component.children,
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
   const ensureSelected = useCallback(() => {
     scrollToRef(myRef);
@@ -120,13 +143,11 @@ const QuestionnaireComponent = (props) => {
   const componentHeader = Dictionary[`componentEdit${FILTER}`] || '';
 
   return (
-    <DNDWrapper
-      isReadonly={isReadonly}
-      connectDragSource={connectDragSource}
-      connectDropTarget={connectDropTarget}
+    <div
+      className="questionnaire-component"
+      ref={isReadonly ? undefined : (node) => drag(drop(node))}
     >
-      <div className="questionnaire-component">
-        <div
+      <div
           className={ClassSet({
             'questionnaire-element': true,
             selected: selected,
@@ -289,25 +310,12 @@ const QuestionnaireComponent = (props) => {
           </div>
         </ReactModal>
       </div>
-    </DNDWrapper>
   );
 };
-
-function DNDWrapper({
-  children,
-  isReadonly,
-  connectDragSource,
-  connectDropTarget,
-}) {
-  return isReadonly ? children : connectDragSource(connectDropTarget(children));
-}
 
 QuestionnaireComponent.propTypes = {
   component: PropTypes.object.isRequired,
   integrityErrorsByType: PropTypes.object,
-  draggedItem: PropTypes.object,
-  connectDragSource: PropTypes.func.isRequired,
-  connectDropTarget: PropTypes.func.isRequired,
   setSelectedComponentId: PropTypes.func.isRequired,
   setEditingComponentId: PropTypes.func.isRequired,
   duplicateComponentAndVariables: PropTypes.func.isRequired,
@@ -316,8 +324,6 @@ QuestionnaireComponent.propTypes = {
   removeQuestionnaireRef: PropTypes.func.isRequired,
   children: PropTypes.array,
   selected: PropTypes.bool.isRequired,
-  isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool,
   parentType: PropTypes.string.isRequired,
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
@@ -326,17 +332,7 @@ QuestionnaireComponent.propTypes = {
 
 QuestionnaireComponent.defaultProps = {
   children: [],
-  draggedItem: {},
   integrityErrorsByType: {},
-  canDrop: true,
 };
 
-export default compose(
-  DropTarget(PropType, cardTarget, (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver({ shallow: true }),
-    draggedItem: monitor.getItem(),
-    canDrop: monitor.canDrop(),
-  })),
-  DragSource(PropType, componentSource, collect),
-)(QuestionnaireComponent);
+export default QuestionnaireComponent;

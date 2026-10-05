@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
-import sortBy from 'lodash.sortby';
+import { cloneDeep, sortBy } from 'lodash';
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import {

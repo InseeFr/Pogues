@@ -84,7 +84,7 @@ export default function PersonalizationCheckPanel({
           className="bg-orange-100 border border-orange-300 text-orange-800 rounded px-4 py-3"
         >
           <div className="flex flex-row mb-2 items-center">
-            <WarningIcon className="w-6 h-6 text-orange-800 mr-3 flex-shrink-0" />
+            <WarningIcon className="w-6 h-6 text-orange-800 mr-3 shrink-0" />
             <h4 className="text-lg font-semibold">
               {t('personalization.overview.syncErrorTitle')}
             </h4>

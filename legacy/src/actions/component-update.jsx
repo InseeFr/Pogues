@@ -1,4 +1,4 @@
-import sortBy from 'lodash.sortby';
+import { sortBy } from 'lodash';
 
 import { COMPONENT_TYPE } from '../constants/pogues-constants';
 import { toComponents, toId } from '../utils/component/component-utils';

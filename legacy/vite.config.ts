@@ -1,9 +1,13 @@
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
 import { oidcSpa } from 'oidc-spa/vite-plugin';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import { type UserConfig, defineConfig } from 'vite';
 import { viteEnvs } from 'vite-envs';
 import tsconfigPaths from 'vite-tsconfig-paths';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 const defaultPlugin = [
@@ -40,6 +44,14 @@ export const buildViteConf = (
           }),
         ]
       : defaultPlugin,
+    resolve: {
+      alias: {
+        'monaco-editor': resolve(
+          __dirname,
+          'node_modules/monaco-editor/esm/vs/index.js',
+        ),
+      },
+    },
     build: {
       target: 'esnext',
     },

@@ -15,6 +15,8 @@ export function PlusIcon({
       stroke="currentcolor"
       strokeWidth="1.6"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path d="M0 5H5M10 5H5M5 5V0M5 5V10" />

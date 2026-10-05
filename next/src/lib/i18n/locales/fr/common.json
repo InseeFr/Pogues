@@ -1,10 +1,22 @@
 {
   "all": "Tous",
   "appName": "Pogues",
+  "breadcrumb": "Fil d'ariane",
   "cancel": "Annuler",
   "clearInput": "Effacer la recherche",
+  "close": "Fermer",
   "collapse": "Réduire",
+  "contactUs": {
+    "title": "Nous contacter",
+    "conceptionQuestion": "Pour les question sur la conception de questionnaires veuillez contacter l'atelier de conception à l'adresse:",
+    "contactConceptionTeam": "Contacter l'atelier de conception",
+    "generalQuestion": "Pour toute autre question, veuillez contacter la filière à l'adresse:",
+    "contactGeneralTeam": "Contacter la filière",
+    "frequentlyAskedQuestions": "Questions fréquemment posées",
+    "frequentlyAskedQuestionsLink": "🧐 Problèmes les plus fréquents sur Pogues"
+  },
   "create": "Créer",
+  "csvViewer": "Contenu du fichier csv téléchargé",
   "date": "Date",
   "delete": "Supprimer",
   "documentation": "Documentation",
@@ -16,6 +28,8 @@
   "login": "Se connecter",
   "pleaseLogin": "Vous devez vous connecter pour accéder à l'application.",
   "logout": "Déconnexion",
+  "opensInNewWindow": "Ouvrir dans une nouvelle fenêtre",
+  "navigation": "Menu de navigation",
   "new": "Nouveau",
   "notUsedByQuestions": "Utilisé par aucune question.",
   "question": "{{count}} question",
@@ -23,6 +37,7 @@
   "question_zero": "{{count}} question",
   "questionnaire": "Questionnaire",
   "questionnaires": "Questionnaires",
+  "search": "Rechercher...",
   "title": "Titre",
   "unsavedModification": {
     "body": "Vous n'avez pas enregistré vos modifications. Êtes-vous sûr de vouloir quitter ?",
@@ -31,6 +46,8 @@
   "usedByQuestion": "Utilisé dans la question :",
   "usedByQuestion_other": "Utilisé dans les questions :",
   "validate": "Valider",
+  "yes": "Oui",
+  "no": "Non",
   "form": {
     "submitInvalid": "Veuillez corriger les erreurs du formulaire avant de valider",
     "submitUnchanged": "Aucune modification à enregistrer"

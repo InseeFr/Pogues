@@ -1,5 +1,4 @@
-import get from 'lodash.get';
-import merge from 'lodash.merge';
+import { get, merge } from 'lodash';
 
 type Form = {
   [k: string]: unknown;

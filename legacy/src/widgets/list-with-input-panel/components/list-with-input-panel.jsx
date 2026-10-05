@@ -1,6 +1,6 @@
 import { Children, cloneElement, useEffect, useState } from 'react';
 
-import cloneDeep from 'lodash.clonedeep';
+import { cloneDeep } from 'lodash';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { FieldArray } from 'redux-form';
