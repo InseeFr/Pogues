@@ -3,6 +3,10 @@
     "title": "New loop",
     "success": "Loop {{name}} has been created"
   },
+  "edit": {
+    "title": "Edit loop: {{name}}",
+    "success": "Loop {{name}} has been edited"
+  },
   "form": {
     "name": "Loop name",
     "mustProvideName": "You must provide a name",

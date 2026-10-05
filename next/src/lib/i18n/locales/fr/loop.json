@@ -3,6 +3,10 @@
     "title": "Nouvelle boucle",
     "success": "La boucle {{name}} a été créée"
   },
+  "edit": {
+    "title": "Modifier la boucle : {{name}}",
+    "success": "La boucle {{name}} a été modifiée"
+  },
   "form": {
     "name": "Nom de la boucle",
     "mustProvideName": "Vous devez renseigner un nom",

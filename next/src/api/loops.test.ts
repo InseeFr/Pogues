@@ -2,7 +2,7 @@ import nock from 'nock'
 
 import { type InitialLoopMember, LoopMemberType } from '@/models/loops'
 
-import { getLoopMembers, postLoop } from './loops'
+import { getLoop, getLoopMembers, postLoop } from './loops'
 import type { LoopDTO } from './models/loopDTO'
 
 vi.mock('@/lib/auth/oidc')
@@ -26,6 +26,24 @@ it('Get loop members works', async () => {
 
   const res = await getLoopMembers('my-questionnaire')
   expect(res).toEqual(members)
+})
+
+it('Get loop works', async () => {
+  const loop: LoopDTO = {
+    id: 'my-loop',
+    name: 'MY_LOOP',
+    initialMember: 'S1',
+    finalMember: 'E1',
+    basedOn: 'my-scope',
+    filter: 'true',
+  }
+
+  nock('https://mock-api')
+    .get('/questionnaires/my-questionnaire/loops/my-loop')
+    .reply(200, loop)
+
+  const res = await getLoop('my-questionnaire', 'my-loop')
+  expect(res).toEqual(loop)
 })
 
 it('Post loop works', async () => {
