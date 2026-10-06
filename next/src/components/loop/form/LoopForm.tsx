@@ -80,6 +80,9 @@ export default function LoopForm({
     // cast is needed since the form state holds fields of every options of the
     // schema at the same time.
     defaultValues: {
+      isFixedLength: false,
+      minimum: '',
+      maximum: '',
       shouldSplitIterations: false,
       ...loop,
     } as DefaultValues<FormInputValues>,

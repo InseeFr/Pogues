@@ -171,6 +171,60 @@ describe('LoopForm occurrences', () => {
     ).toBeChecked()
   })
 
+  it('allows to remove the scope of a loop based on a scope', async () => {
+    const user = userEvent.setup()
+    const submitFn = vi.fn()
+
+    await renderWithRouter(
+      <LoopForm
+        questionnaireId="q1"
+        scopes={new Map([['scope1', 'Scope One']])}
+        loopMembers={loopMembers}
+        loop={
+          {
+            name: 'my loop',
+            basedOn: 'scope1',
+            // Hidden field, filled so that the mocked editors' native
+            // validation does not prevent the submission.
+            size: '3',
+            initialMember: 'S1',
+            finalMember: 'S2',
+          } as FormValues
+        }
+        onSubmit={submitFn}
+      />,
+    )
+
+    const basedOn = screen.getAllByRole('combobox')[0]
+    await selectOption(basedOn, 'Specify a scope')
+    const [isFixedLengthGroup] = await screen.findAllByRole('radiogroup')
+    expect(
+      within(within(isFixedLengthGroup).getByText('No')).getByRole('radio'),
+    ).toBeChecked()
+
+    await user.type(screen.getByLabelText(/Minimum number of occurrences/), '1')
+    await user.type(screen.getByLabelText(/Maximum number of occurrences/), '2')
+    await waitFor(() =>
+      expect(screen.getByTestId('form-submit-button')).toBeEnabled(),
+    )
+    await user.click(screen.getByTestId('form-submit-button'))
+
+    await waitFor(() =>
+      expect(submitFn).toHaveBeenCalledWith(
+        {
+          name: 'my loop',
+          basedOn: '',
+          isFixedLength: false,
+          minimum: '1',
+          maximum: '2',
+          initialMember: 'S1',
+          finalMember: 'S2',
+        },
+        expect.anything(),
+      ),
+    )
+  })
+
   it('displays all occurrences on a single page by default', async () => {
     const user = userEvent.setup()
 
