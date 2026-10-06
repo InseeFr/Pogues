@@ -9,8 +9,8 @@ import {
   personalizationKeys,
 } from '@/api/personalization'
 import { createInterrogationFile } from '@/api/utils/personalization'
+import Banner, { BannerStyle } from '@/components/ui/Banner'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
-import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import ResetIcon from '@/components/ui/icons/ResetIcon'
 import WarningIcon from '@/components/ui/icons/WarningIcon'
 import {
@@ -109,18 +109,16 @@ export default function PersonalizationCheckPanel({
       {interrogationData &&
         Object.keys(interrogationData).length > 0 &&
         !hasValidInterrogationData && (
-          <UploadMessageTile
-            messages={{
-              message: t('personalization.overview.dataInterrogationError'),
-              details: [
-                {
-                  message: t(
-                    'personalization.overview.dataInterrogationErrorDetails',
-                  ),
-                },
-              ],
-            }}
-            isErrorUpload={true}
+          <Banner
+            type={BannerStyle.Error}
+            message={t('personalization.overview.dataInterrogationError')}
+            details={[
+              {
+                message: t(
+                  'personalization.overview.dataInterrogationErrorDetails',
+                ),
+              },
+            ]}
           />
         )}
     </>

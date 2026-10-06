@@ -12,11 +12,11 @@ import {
   personalizationKeys,
 } from '@/api/personalization'
 import { getFileFromParseResult } from '@/api/utils/personalization'
+import Banner, { BannerStyle } from '@/components/ui/Banner'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
 import DialogButton from '@/components/ui/DialogButton'
-import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import Field from '@/components/ui/form/Field'
 import FormInput from '@/components/ui/form/FormInput'
 import RadioGroup from '@/components/ui/form/RadioGroup'
@@ -281,9 +281,10 @@ export default function PersonalizationForm({
           {t('personalization.create.expectedFileSchema')}
         </Button>
         {uploadMessage && uploadMessage.message && (
-          <UploadMessageTile
-            messages={uploadMessage}
-            isErrorUpload={isErrorUpload}
+          <Banner
+            message={uploadMessage.message}
+            details={uploadMessage.details}
+            type={isErrorUpload ? BannerStyle.Error : BannerStyle.Info}
           />
         )}
         {fileType.value === 'text/csv' &&
