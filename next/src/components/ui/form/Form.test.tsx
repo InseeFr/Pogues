@@ -118,4 +118,64 @@ describe('Form component', () => {
     // Then it triggers the onCancel action
     expect(foo).toHaveBeenCalledOnce()
   })
+
+  it('does not display a delete button by default', async () => {
+    await renderWithRouter(<Form onCancel={vi.fn()} onSubmit={vi.fn()} />)
+
+    expect(
+      screen.queryByRole('button', { name: 'Delete' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('allows to delete after confirmation', async () => {
+    // Given a form with a delete button
+    const user = userEvent.setup()
+    const onDelete = vi.fn()
+    const onSubmit = vi.fn()
+    await renderWithRouter(
+      <Form
+        onCancel={vi.fn()}
+        onSubmit={onSubmit}
+        deleteButton={{
+          dialogTitle: 'Delete my element',
+          dialogBody: 'Are you sure?',
+          onDelete,
+        }}
+      />,
+    )
+
+    // When we click on the delete button and confirm
+    await user.click(screen.getByRole('button', { name: 'Delete' }))
+    expect(screen.getByText('Delete my element')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Validate' }))
+
+    // Then it triggers the onDelete action without submitting the form
+    expect(onDelete).toHaveBeenCalledOnce()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
+  it('disables the delete button when a disabled tooltip is provided', async () => {
+    // Given a form with a delete button that cannot be used
+    const user = userEvent.setup()
+    await renderWithRouter(
+      <Form
+        onCancel={vi.fn()}
+        onSubmit={vi.fn()}
+        deleteButton={{
+          dialogTitle: 'Delete my element',
+          dialogBody: 'Are you sure?',
+          onDelete: vi.fn(),
+          disabledTooltip: 'Cannot be deleted',
+        }}
+      />,
+    )
+
+    // Then the delete button is disabled (the tooltip trigger wraps it)
+    const button = screen.getByText('Delete')
+    expect(button).toBeDisabled()
+
+    // When we hover it, then the reason is displayed
+    await user.hover(button)
+    expect(await screen.findByText('Cannot be deleted')).toBeInTheDocument()
+  })
 })

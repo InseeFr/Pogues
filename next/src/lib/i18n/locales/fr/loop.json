@@ -1,0 +1,42 @@
+{
+  "create": {
+    "title": "Nouvelle boucle",
+    "success": "La boucle {{name}} a été créée"
+  },
+  "edit": {
+    "title": "Modifier la boucle : {{name}}",
+    "success": "La boucle {{name}} a été modifiée"
+  },
+  "delete": {
+    "dialogTitle": "Supprimer la boucle : {{name}}",
+    "dialogConfirm": "Êtes-vous sûr de vouloir supprimer cette boucle ?",
+    "disabled": {
+      "usedByLoops": "Cette boucle ne peut pas être supprimée car elle est utilisée comme référence par les boucles : {{loops}}"
+    },
+    "success": "La boucle {{name}} a été supprimée"
+  },
+  "form": {
+    "name": "Nom de la boucle",
+    "mustProvideName": "Vous devez renseigner un nom",
+    "basedOn": "Basée sur",
+    "basedOnPlaceholder": "Spécifier un scope",
+    "filter": "Filtre d'occurences",
+    "isFixedLength": "Nombre d'occurrences max identique à min",
+    "size": "Nombre d’occurrences",
+    "singlePage": "Afficher toutes les occurrences sur une seule page",
+    "singlePageWarning": "Rappel : pour les enquêtes en contexte entreprises, toutes les occurrences doivent être affichées sur une seule page.",
+    "minMaxWarning": "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
+    "minimum": "Nombre d'occurrences minimum",
+    "maximum": "Nombre d'occurrences maximum",
+    "addButtonLabel": "Libellé du bouton d'ajout",
+    "initialMember": "Début",
+    "initialMemberPlaceholder": "Spécifier Membre initial",
+    "finalMember": "Fin",
+    "finalMemberPlaceholder": "Spécifier Membre final",
+    "mustProvideInitialMember": "Vous devez renseigner un membre initial",
+    "mustProvideFinalMember": "Vous devez renseigner un membre final",
+    "mustProvideSize": "Vous devez renseigner un nombre d'occurrences",
+    "mustProvideMinimum": "Vous devez renseigner un nombre d'occurrences minimum",
+    "mustProvideMaximum": "Vous devez renseigner un nombre d'occurrences maximum"
+  }
+}

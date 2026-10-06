@@ -10,6 +10,7 @@ import { domSelectorForModal } from '../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../constants/pogues-constants';
 import { useReadonly } from '../../hooks/useReadonly';
 import Dictionary from '../../utils/dictionary/dictionary';
+import { isNextLoopPageEnabled, useNextPages } from '../../utils/next-pages';
 import { VisualizeDropdown } from '../../widgets/visualize-dropdown';
 import { ComponentNew } from '../component-new';
 import Loader from '../loader';
@@ -113,6 +114,7 @@ function GenericInput(props) {
   const [typeNewComponent, setTypeNewComponent] = useState('');
 
   const { getAccessToken } = useContext(AuthContext);
+  const { navigateToNewLoopPage } = useNextPages();
 
   const isReadonly = useReadonly();
 
@@ -231,7 +233,11 @@ function GenericInput(props) {
           id="add-loop"
           className="btn-white"
           disabled={isReadonly || !placeholders[LOOP]}
-          onClick={() => handleOpenNewComponent(LOOP)}
+          onClick={() =>
+            isNextLoopPageEnabled()
+              ? navigateToNewLoopPage(activeQuestionnaire.id)
+              : handleOpenNewComponent(LOOP)
+          }
         >
           <span className="glyphicon glyphicon-plus" />
           {Dictionary.loop}
