@@ -71,7 +71,12 @@ export default function Dialog({
           </UIDialog.Description>
           <div className={`flex gap-4 ${actionsClassName}`}>
             {onCancel ? (
-              <Button onClick={onCancel}>
+              <Button
+                onClick={() => {
+                  setOpen(false)
+                  onCancel()
+                }}
+              >
                 {closeButtonTitle ? closeButtonTitle : t('common.cancel')}
               </Button>
             ) : (

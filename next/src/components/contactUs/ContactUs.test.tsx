@@ -11,7 +11,7 @@ describe('ContactUs', () => {
     const { getByRole } = await renderWithRouter(<ContactUs />)
 
     expect(
-      getByRole('heading', { name: 'Contact us', level: 1 }),
+      getByRole('heading', { name: 'Contact us', level: 2 }),
     ).toBeInTheDocument()
   })
 
@@ -23,14 +23,14 @@ describe('ContactUs', () => {
     expect(
       getByRole('heading', {
         name: 'Contact conception team',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
 
     expect(getByText('conception@example.com')).toBeInTheDocument()
 
     expect(
-      getByRole('link', { name: 'conception@example.com' }),
+      getByRole('link', { name: 'conception@example.com (Send email)' }),
     ).toHaveAttribute('href', 'mailto:conception@example.com')
   })
 
@@ -42,16 +42,15 @@ describe('ContactUs', () => {
     expect(
       getByRole('heading', {
         name: 'Contact general team',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
 
     expect(getByText('general@example.com')).toBeInTheDocument()
 
-    expect(getByRole('link', { name: 'general@example.com' })).toHaveAttribute(
-      'href',
-      'mailto:general@example.com',
-    )
+    expect(
+      getByRole('link', { name: 'general@example.com (Send email)' }),
+    ).toHaveAttribute('href', 'mailto:general@example.com')
   })
 
   it('renders the FAQ link', async () => {
@@ -62,7 +61,7 @@ describe('ContactUs', () => {
     expect(
       getByRole('heading', {
         name: 'Frequently asked questions',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
 

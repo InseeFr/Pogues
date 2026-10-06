@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added captions & roles to tables
+- Added more information to action buttons (open in new tab, send email, etc.) in aria attribute
+  Added document title to pages (need to be reviewed by our business team)
+
+### Fixed
+
+- Dialogs can now be closed with the Esc key
+- Render a proper link to the modal to edit a variable
+- Sidebar not being displayed to screen readers
+- Fixed some pages hierarchy (h1, h2, etc...)
+
 ## [3.8.7](https://github.com/InseeFr/Pogues/releases/tag/3.8.7) - 2026-09-25
 
 ### Added
