@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'react-hot-toast'
+import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 import { deleteReleaseRequest, releasesKeys } from '@/api/releases'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
 
 import type { RegistryRelease, ReleaseRequest } from '../../models/releases'
 import { RegistryReleaseTile } from './overview/RegistryReleaseTile'
@@ -33,31 +33,28 @@ export default function ReleaseOverview({
 
   const hasAnyContent = pendingRequests.length > 0 || publications.length > 0
 
-  const deleteMutation = useMutation({
+  const { remove } = useDeleteMutation({
     mutationFn: ({
       questionnaireId,
       trackerId,
     }: {
       questionnaireId: string
       trackerId: number
-    }) => {
-      return deleteReleaseRequest(questionnaireId, trackerId)
-    },
-    onSuccess: (_, { questionnaireId }) =>
+    }) => deleteReleaseRequest(questionnaireId, trackerId),
+    successMessage: ({ trackerId }) =>
+      t('release.deleteRequestSuccess', { label: trackerId }),
+    errorMessage: t('release.deleteRequestError'),
+    onSuccess: (_, { questionnaireId }) => {
       queryClient.invalidateQueries({
         queryKey: releasesKeys.pending(questionnaireId),
-      }),
+      })
+    },
   })
 
   function onDelete(trackerId: number) {
-    const promise = deleteMutation.mutateAsync({
+    return remove({
       questionnaireId: pendingRequests[0].poguesId,
-      trackerId: trackerId,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('release.deleteRequestSuccess', { label: trackerId }),
-      error: t('release.deleteRequestError'),
+      trackerId,
     })
   }
 

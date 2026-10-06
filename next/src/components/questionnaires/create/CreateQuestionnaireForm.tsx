@@ -1,14 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
 import { postQuestionnaire, questionnairesKeys } from '@/api/questionnaires'
-import { type Questionnaire } from '@/models/questionnaires'
+import { useFormSubmit } from '@/hooks/form/useFormSubmit'
 import { uid } from '@/utils/utils'
 
 import QuestionnaireForm from '../form/QuestionnaireForm'
-import { type FormValues } from '../form/schema'
+import { type FormValues, schema } from '../form/schema'
 
 interface CreateQuestionnaireFormProps {
   /** Stamp to add the questionnaire to. */
@@ -20,56 +17,25 @@ export default function CreateQuestionnaireForm({
   stamp,
 }: Readonly<CreateQuestionnaireFormProps>) {
   const { t } = useTranslation()
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
-  const mutation = useMutation({
-    mutationFn: ({
-      questionnaire,
-      stamp,
-    }: {
-      questionnaire: Questionnaire
-      stamp: string
-    }) => {
-      return postQuestionnaire(questionnaire, stamp)
+  const { submit } = useFormSubmit({
+    mutationFn: async (values: FormValues): Promise<string> => {
+      const id = uid()
+      await postQuestionnaire({ id, ...values }, stamp)
+      return id
     },
-    onSuccess: (_, { stamp }) =>
-      queryClient.invalidateQueries({
-        queryKey: questionnairesKeys.allByStamp(stamp),
-      }),
+    schema,
+    invalidateKeys: [questionnairesKeys.allByStamp(stamp)],
+    successMessage: (values) =>
+      t('questionnaire.create.success', { title: values.title }),
+    navigateFunction: (questionnaireId) => ({
+      to: '/questionnaire/$questionnaireId',
+      params: { questionnaireId },
+    }),
   })
 
-  const onSubmit = async ({
-    title,
-    targetModes,
-    flowLogic,
-    formulasLanguage,
-  }: FormValues) => {
-    const id = uid()
-    const questionnaire = {
-      id,
-      title,
-      targetModes,
-      flowLogic,
-      formulasLanguage,
-    }
-    const promise = mutation.mutateAsync(
-      { questionnaire, stamp },
-      {
-        onSuccess: () =>
-          navigate({
-            to: '/questionnaire/$questionnaireId',
-            params: { questionnaireId: id },
-          }),
-      },
-    )
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('questionnaire.create.success', {
-        title,
-      }),
-      error: (err: Error) => err.toString(),
-    })
+  const onSubmit = (values: FormValues) => {
+    return submit(values)
   }
 
   return (

@@ -1,13 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
 import React from 'react'
 
 import { articulationKeys, deleteArticulation } from '@/api/articulation'
 import ButtonLink from '@/components/ui/ButtonLink'
-import DialogButton from '@/components/ui/DialogButton'
+import DeleteButton from '@/components/ui/DeleteButton'
 import InlineCode from '@/components/ui/InlineCode'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
 import { ArticulationItems } from '@/models/articulation'
 
 import ArticulationVariableLabel from '../ArticulationVariableLabel'
@@ -32,27 +31,14 @@ export function ArticulationOverviewDetails({
 }: Readonly<ArticulationOverviewDetailsProps>) {
   const { t } = useTranslation()
 
-  const queryClient = useQueryClient()
-
-  const deleteMutation = useMutation({
-    mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
-      return deleteArticulation(questionnaireId)
-    },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: articulationKeys.all(questionnaireId),
-      }),
+  const { remove } = useDeleteMutation({
+    mutationFn: (id: string) => deleteArticulation(id),
+    invalidateKeys: [articulationKeys.all(questionnaireId)],
+    successMessage: t('articulation.delete.success'),
   })
 
   function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      questionnaireId,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('articulation.delete.success'),
-      error: (err: Error) => err.toString(),
-    })
+    return remove(questionnaireId)
   }
 
   return (
@@ -76,11 +62,10 @@ export function ArticulationOverviewDetails({
           >
             {t('common.edit')}
           </ButtonLink>
-          <DialogButton
-            label={t('common.delete')}
+          <DeleteButton
             title={t('articulation.delete.dialogTitle')}
             body={t('articulation.delete.dialogConfirm')}
-            onValidate={onDelete}
+            onConfirm={onDelete}
           />
         </div>
       )}

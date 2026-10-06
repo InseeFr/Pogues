@@ -1,11 +1,11 @@
-import { useBlocker } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
 import React, { FormEventHandler } from 'react'
 
-import DirtyStateDialog from '@/components/layout/DirtyStateDialog'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import Tooltip from '@/components/ui/Tooltip'
+
+import DirtyStateStatus from './DirtyStateStatus'
 
 type Props = {
   /** Form. */
@@ -50,11 +50,6 @@ export default function Form({
   onSubmit,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-
-  const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => !!isDirty && !isSubmitted,
-    withResolver: true,
-  })
 
   const isSubmitEnabled = isValid && isDirty && !isDisabled
 
@@ -104,9 +99,7 @@ export default function Form({
       <p className="sr-only" role="status">
         {submitTooltip}
       </p>
-      {status === 'blocked' ? (
-        <DirtyStateDialog onValidate={proceed} onCancel={reset} />
-      ) : null}
+      <DirtyStateStatus isDirty={!!isDirty} isSubmitted={isSubmitted} />
     </>
   )
 }

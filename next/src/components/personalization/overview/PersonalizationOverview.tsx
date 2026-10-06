@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import type { ParseResult } from 'papaparse'
 import toast from 'react-hot-toast'
@@ -12,7 +12,8 @@ import PersonalizationContentTile from '@/components/personalization/overview/Pe
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import ButtonLink from '@/components/ui/ButtonLink'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
-import DialogButton from '@/components/ui/DialogButton'
+import DeleteButton from '@/components/ui/DeleteButton'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
 import {
   InterrogationModeDataResponse,
   PersonalizationQuestionnaire,
@@ -38,7 +39,6 @@ export default function PersonalizationOverview({
   interrogationData,
 }: Readonly<PersonalizationOverviewProps>) {
   const { t } = useTranslation()
-  const queryClient = useQueryClient()
   const navigate = useNavigate()
 
   const downloadMutation = useMutation({
@@ -67,15 +67,13 @@ export default function PersonalizationOverview({
     },
   })
 
-  const deleteMutation = useMutation({
-    mutationFn: ({ data }: { data: PersonalizationQuestionnaire }) => {
-      return deleteQuestionnaireData(data.poguesId)
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries({
-        queryKey: personalizationKeys.fromPogues(questionnaireId),
-      })
-      navigate({
+  const { remove } = useDeleteMutation({
+    mutationFn: (questionnaire: PersonalizationQuestionnaire) =>
+      deleteQuestionnaireData(questionnaire.poguesId),
+    invalidateKeys: [personalizationKeys.fromPogues(questionnaireId)],
+    successMessage: t('personalization.overview.deleteSuccess'),
+    onSuccess: () => {
+      return navigate({
         to: '/questionnaire/$questionnaireId/personalization/new',
         params: { questionnaireId },
       })
@@ -83,14 +81,7 @@ export default function PersonalizationOverview({
   })
 
   function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      data,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('personalization.overview.deleteSuccess'),
-      error: (err: Error) => err.toString(),
-    })
+    return remove(data)
   }
 
   const hasValidInterrogationData =
@@ -129,13 +120,12 @@ export default function PersonalizationOverview({
           >
             {t('common.edit')}
           </ButtonLink>
-          <DialogButton
-            label={t('common.delete')}
+          <DeleteButton
             title={t('personalization.overview.deleteDialogTitle', {
               label: data.label,
             })}
             body={t('personalization.overview.deleteDialogConfirm')}
-            onValidate={onDelete}
+            onConfirm={onDelete}
           />
         </div>
         {typeof fileData !== 'string' && 'data' in fileData ? (
