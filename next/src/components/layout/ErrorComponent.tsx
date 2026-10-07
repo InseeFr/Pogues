@@ -122,7 +122,11 @@ export default function ErrorComponent({
                 {showContactEmail && contactEmail && (
                   <>
                     {' '}
-                    <a href={`mailto:${contactEmail}`} className="underline">
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="underline"
+                      aria-label={`${contactEmail} (${t('common.contactUs.sendEmail')})`}
+                    >
                       {contactEmail}
                     </a>
                   </>

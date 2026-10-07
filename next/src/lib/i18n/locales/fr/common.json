@@ -13,7 +13,8 @@
     "generalQuestion": "Pour toute autre question, veuillez contacter la filière à l'adresse:",
     "contactGeneralTeam": "Contacter la filière",
     "frequentlyAskedQuestions": "Questions fréquemment posées",
-    "frequentlyAskedQuestionsLink": "🧐 Problèmes les plus fréquents sur Pogues"
+    "frequentlyAskedQuestionsLink": "🧐 Problèmes les plus fréquents sur Pogues",
+    "sendEmail": "Envoyer un email"
   },
   "create": "Créer",
   "csvViewer": "Contenu du fichier csv téléchargé",

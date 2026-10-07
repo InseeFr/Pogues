@@ -1,4 +1,6 @@
 import { useNavigate } from '@tanstack/react-router'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
@@ -27,6 +29,7 @@ export default function VariableLineActions({
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false)
 
@@ -44,18 +47,14 @@ export default function VariableLineActions({
   if (variable.type === VariableType.Collected) return null
 
   return (
-    <>
+    <div>
       <Menu
         label="Open variable action menu"
         items={[
           {
             disabled: readonly,
             label: t('common.edit'),
-            onClick: () =>
-              navigate({
-                to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
-                params: { questionnaireId, variableId: variable.id },
-              }),
+            link: `/questionnaire/${questionnaireId}/variables/variable/${variable.id}`,
           },
           {
             disabled: readonly,
@@ -72,6 +71,6 @@ export default function VariableLineActions({
         onCancel={() => setOpenDeleteDialog(false)}
         onValidate={onDelete}
       />
-    </>
+    </div>
   )
 }

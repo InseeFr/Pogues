@@ -121,6 +121,7 @@ export function RegistryReleaseTile({
                 href={`${trombiUrl}/${release.author}`}
                 target="_blank"
                 className="text-action-primary fill-action-primary inline-flex items-center gap-1 hover:underline"
+                aria-label={`${trombiUrl}/${release.author} (${t('common.opensInNewWindow')})`}
               >
                 {release.author}
                 <OpenInNewIcon height="14" width="14" />
