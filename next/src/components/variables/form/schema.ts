@@ -42,10 +42,10 @@ const datatypeSchema = z.discriminatedUnion('typeName', [
 const baseVariableSchema = z.object({
   name: z
     .string()
-    .min(1, { message: i18next.t('variable.form.mustProvideName') }),
+    .min(1, { error: i18next.t('variable.form.mustProvideName') }),
   description: z
     .string()
-    .min(1, { message: i18next.t('variable.form.mustProvideDescription') }),
+    .min(1, { error: i18next.t('variable.form.mustProvideDescription') }),
   scope: z.string().optional(),
   datatype: datatypeSchema,
 })
@@ -58,7 +58,7 @@ export const schema = z.discriminatedUnion('type', [
     type: variableTypeEnum.extract(['Calculated']),
     formula: z
       .string()
-      .min(1, { message: i18next.t('variable.form.mustProvideFormula') }),
+      .min(1, { error: i18next.t('variable.form.mustProvideFormula') }),
   }),
   z.object({
     ...baseVariableSchema.shape,

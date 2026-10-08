@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +9,7 @@ import { deleteVariable, variablesKeys } from '@/api/variables'
 import Dialog from '@/components/ui/Dialog'
 import Menu from '@/components/ui/Menu'
 import { MenuItemType } from '@/components/ui/consts/menuItemVariants'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
 import { type Variable, VariableType } from '@/models/variables'
 
 interface Props {
@@ -26,36 +28,20 @@ export default function VariableLineActions({
   readonly = false,
 }: Readonly<Props>) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false)
 
-  const deleteMutation = useMutation({
-    mutationFn: ({
-      questionnaireId,
-      variableId,
-    }: {
-      questionnaireId: string
-      variableId: string
-    }) => {
-      return deleteVariable(questionnaireId, variableId)
-    },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: variablesKeys.all(questionnaireId),
-      }),
+  const { remove } = useDeleteMutation({
+    mutationFn: (variableId: string) =>
+      deleteVariable(questionnaireId, variableId),
+    invalidateKeys: [variablesKeys.all(questionnaireId)],
+    successMessage: t('variable.delete.success', { name: variable.name }),
   })
 
   function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      questionnaireId,
-      variableId: variable.id,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('variable.delete.success', { name: variable.name }),
-      error: (err: Error) => err.toString(),
-    })
+    return remove(variable.id)
   }
 
   if (variable.type === VariableType.Collected) return null

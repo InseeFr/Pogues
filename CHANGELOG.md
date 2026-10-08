@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Create hooks (submit, cancel, delete, toast handling) and create shared form components (controlled fields, VTL editor field, dirty state warning, delete and duplicate buttons) to avoid code duplication and increase maintenability
+
 ### Added
 
 - Added captions & roles to tables

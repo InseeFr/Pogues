@@ -1,3 +1,4 @@
+import FormComponent from '@/components/ui/form/FormComponent'
 import type { Variable } from '@/models/variables'
 
 import EditVariableForm from './EditVariableForm'
@@ -25,13 +26,13 @@ export default function EditVariable({
   }
 
   return (
-    <div className="bg-default p-4 border border-default shadow-xl">
+    <FormComponent>
       <EditVariableForm
         variable={variable}
         questionnaireId={questionnaireId}
         scopes={scopes}
         variables={variables}
       />
-    </div>
+    </FormComponent>
   )
 }

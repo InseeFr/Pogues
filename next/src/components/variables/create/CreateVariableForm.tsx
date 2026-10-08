@@ -1,14 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
 import { postVariable, variablesKeys } from '@/api/variables'
+import { useFormSubmit } from '@/hooks/form/useFormSubmit'
 import { Variable } from '@/models/variables'
 import { uid } from '@/utils/utils'
 
 import VariableForm from '../form/VariableForm'
-import type { FormValues } from '../form/schema'
+import { type FormValues, schema } from '../form/schema'
 
 type Props = {
   /** Questionnaire to add the variable to. */
@@ -26,43 +24,22 @@ export default function CreateVariableForm({
   variables,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
-  const mutation = useMutation({
-    mutationFn: ({
-      variable,
-      questionnaireId,
-    }: {
-      variable: Variable
-      questionnaireId: string
-    }) => {
-      return postVariable(questionnaireId, variable)
+  const { submit } = useFormSubmit({
+    mutationFn: (formValues: FormValues) =>
+      postVariable(questionnaireId, { id: uid(), ...formValues }),
+    schema,
+    invalidateKeys: [variablesKeys.all(questionnaireId)],
+    successMessage: (formValues) =>
+      t('variable.create.success', { name: formValues.name }),
+    navigateFunction: {
+      to: '/questionnaire/$questionnaireId/variables',
+      params: { questionnaireId },
     },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: variablesKeys.all(questionnaireId),
-      }),
   })
 
-  const onSubmit = async (formValues: FormValues) => {
-    const id = uid()
-    const variable = { id, ...formValues }
-    const promise = mutation.mutateAsync(
-      { variable, questionnaireId },
-      {
-        onSuccess: () =>
-          navigate({
-            to: '/questionnaire/$questionnaireId/variables',
-            params: { questionnaireId },
-          }),
-      },
-    )
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('variable.create.success', { name }),
-      error: (err: Error) => err.toString(),
-    })
+  const onSubmit = (formValues: FormValues) => {
+    return submit(formValues)
   }
 
   return (
