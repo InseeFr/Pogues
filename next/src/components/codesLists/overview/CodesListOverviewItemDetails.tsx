@@ -104,7 +104,6 @@ export default function CodesListOverviewItemDetails({
             {t('common.edit')}
           </ButtonLink>
           <DuplicateButton
-            label={t('codesList.duplicate.label')}
             title={t('codesList.duplicate.dialogTitle', {
               label: codesList.label,
             })}
