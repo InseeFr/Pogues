@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import { domSelectorForModal } from '../../../constants/dom-constants';
-import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
+import {
+  COMPONENT_TYPE,
+  DEFAULT_FORM_NAME,
+} from '../../../constants/pogues-constants';
 import GenericOption from '../../../forms/controls/generic-option';
 import { useReadonly } from '../../../hooks/useReadonly';
 import Dictionary from '../../../utils/dictionary/dictionary';
 import { checkVariableNumberStart } from '../utils/component-new-edit-utils';
+import { useAggregatedDisableValidation } from '../utils/use-aggregated-disable-validation';
 import { FilterNewEdit } from './filter-new-edit';
 import LoopNewEdit from './loop-new-edit';
 import { QuestionNewEdit } from './question-new-edit';
@@ -20,27 +24,29 @@ const { QUESTION, LOOP, SEQUENCE, SUBSEQUENCE, FILTER, ROUNDABOUT } =
 
 const ComponentNewEdit = ({
   componentType,
-  componentId,
+  componentId = '',
   addSubformValidationErrors,
-  componentsStore,
-  errorsIntegrityByTab,
+  componentsStore = {},
+  errorsIntegrityByTab = {},
   handleSubmit,
   submitting,
-  form,
+  form = DEFAULT_FORM_NAME,
   onCancel,
-  deleteComponent,
+  deleteComponent = undefined,
   onSubmit,
   clearSubformValidationErrors,
   externalLoopsStore,
-  InitialMember,
-  redirectionNeeded,
+  InitialMember = undefined,
+  redirectionNeeded = false,
   activeQuestionnaire,
+  missingRequiredIdentity = false,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [integerVariable, setIntegerVariable] = useState(false);
   const [formData, setFormData] = useState({});
-  const [disableValidation, setDisableValidation] = useState(false);
   const buttonRef = useRef(null);
+  const { disabled: disableValidation, getSetDisableValidation } =
+    useAggregatedDisableValidation();
 
   const isReadonly = useReadonly();
 
@@ -52,10 +58,6 @@ const ComponentNewEdit = ({
   const handleValidate = () => {
     setShowPopup(false);
     onSubmit(formData);
-  };
-
-  const handleDisableValidation = (isDisable) => {
-    setDisableValidation(isDisable);
   };
 
   const checkUnsavedChange = (data) => {
@@ -115,7 +117,7 @@ const ComponentNewEdit = ({
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation}
             activeQuestionnaire={activeQuestionnaire}
           />
         )}
@@ -126,7 +128,7 @@ const ComponentNewEdit = ({
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation}
             redirectionNeeded={redirectionNeeded}
             componentsStore={componentsStore}
             activeQuestionnaire={activeQuestionnaire}
@@ -135,7 +137,7 @@ const ComponentNewEdit = ({
         {componentType === FILTER && (
           <FilterNewEdit
             componentsStore={componentsStore}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation('filter')}
             InitialMember={InitialMember}
           />
         )}
@@ -156,7 +158,7 @@ const ComponentNewEdit = ({
             errorsIntegrityByTab={errorsIntegrityByTab}
             addSubformValidationErrors={addSubformValidationErrors}
             buttonRef={buttonRef}
-            handleDisableValidation={handleDisableValidation}
+            handleDisableValidation={getSetDisableValidation}
             componentsStore={componentsStore}
             InitialMember={InitialMember}
             scopes={scopes}
@@ -173,7 +175,12 @@ const ComponentNewEdit = ({
           <button
             className="widget-component-new-edit__button-validate"
             type="submit"
-            disabled={isReadonly || submitting || disableValidation}
+            disabled={
+              isReadonly ||
+              submitting ||
+              disableValidation ||
+              missingRequiredIdentity
+            }
             ref={buttonRef}
           >
             {Dictionary.validate}
@@ -268,15 +275,7 @@ ComponentNewEdit.propTypes = {
   form: PropTypes.string,
   redirectionNeeded: PropTypes.bool,
   activeQuestionnaire: PropTypes.object.isRequired,
-};
-
-ComponentNewEdit.defaultProps = {
-  errorsIntegrityByTab: {},
-  componentsStore: {},
-  deleteComponent: undefined,
-  InitialMember: undefined,
-  form: undefined,
-  redirectionNeeded: false,
+  missingRequiredIdentity: PropTypes.bool,
 };
 
 export default ComponentNewEdit;

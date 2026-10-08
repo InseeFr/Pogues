@@ -18,31 +18,31 @@ import QuestionnaireListItem from './questionnaire-list-item';
 
 const { EXTERNAL_ELEMENT, SEQUENCE } = COMPONENT_TYPE;
 
-const QuestionnaireList = (props) => {
-  const {
-    activeQuestionnaire,
-    selectedComponentId,
-    questionnaires,
-    duplicateQuestionnaire,
-    isFusion,
-    isComposition,
-    isTcm,
-    handleCloseNewQuestionnaire,
-    mergeQuestionnaires,
-    loadQuestionnaireList,
-    deleteQuestionnaireList,
-    selectedStamp,
-    setSelectedStamp,
-    createComponent,
-    updateParentChildren,
-    orderComponents,
-    componentsStore,
-    codesListsStore,
-    calculatedVariablesStore,
-    externalVariablesStore,
-    collectedVariablesStore,
-    handleNewChildQuestionnaireRef,
-  } = props;
+const QuestionnaireList = ({
+  activeQuestionnaire,
+  selectedComponentId = undefined,
+  questionnaires = [],
+  duplicateQuestionnaire,
+  isFusion = false,
+  isComposition = false,
+  isTcm = false,
+  handleCloseNewQuestionnaire = undefined,
+  mergeQuestionnaires = undefined,
+  loadQuestionnaireList,
+  deleteQuestionnaireList = undefined,
+  selectedStamp = 'FAKEPERMISSION',
+  setSelectedStamp = undefined,
+  createComponent = undefined,
+  updateParentChildren = undefined,
+  orderComponents = undefined,
+  componentsStore = {},
+  codesListsStore = {},
+  calculatedVariablesStore = {},
+  externalVariablesStore = {},
+  collectedVariablesStore = {},
+  handleNewChildQuestionnaireRef = undefined,
+}) => {
+
 
   const { getAccessToken, decodedIdToken } = useContext(AuthContext);
   const stamp =
@@ -321,25 +321,4 @@ QuestionnaireList.propTypes = {
   collectedVariablesStore: PropTypes.object,
 };
 
-QuestionnaireList.defaultProps = {
-  selectedComponentId: undefined,
-  questionnaires: [],
-  selectedStamp: 'FAKEPERMISSION',
-  isFusion: false,
-  isComposition: false,
-  isTcm: false,
-  handleNewChildQuestionnaireRef: undefined,
-  handleCloseNewQuestionnaire: undefined,
-  mergeQuestionnaires: undefined,
-  deleteQuestionnaireList: undefined,
-  setSelectedStamp: undefined,
-  createComponent: undefined,
-  updateParentChildren: undefined,
-  orderComponents: undefined,
-  componentsStore: {},
-  codesListsStore: {},
-  calculatedVariablesStore: {},
-  externalVariablesStore: {},
-  collectedVariablesStore: {},
-};
 export default QuestionnaireList;

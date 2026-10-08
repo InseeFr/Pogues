@@ -24,6 +24,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sidebar not being displayed to screen readers
 - Fixed some pages hierarchy (h1, h2, etc...)
 
+## [3.9.1](https://github.com/InseeFr/Pogues/releases/tag/3.9.1) - 2026-10-08
+
+### Fixed
+
+- Fix cves in Docker by upgrading nginx to `1.31.6-alpine`
+
+## [3.9.0](https://github.com/InseeFr/Pogues/releases/tag/3.9.0) - 2026-10-08
+
+### Changed
+
+- legacy is now in React v19 !
+- include a new version of the VTL editor
+
 ## [3.8.7](https://github.com/InseeFr/Pogues/releases/tag/3.8.7) - 2026-09-25
 
 ### Added

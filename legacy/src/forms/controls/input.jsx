@@ -53,11 +53,12 @@ class Input extends Component {
       input,
       // eslint-disable-next-line no-unused-vars
       focusOnInit,
-      meta: { touched, error },
+      meta: { touched, error, submitFailed },
       onEnter,
       ...otherProps
     } = this.props;
     const id = getControlId('input', input.name);
+    const showError = (touched || submitFailed) && error;
     return (
       <div className={`ctrl-input ${className}`}>
         <label htmlFor={id}>
@@ -83,7 +84,7 @@ class Input extends Component {
             }}
           />
 
-          {touched && error && <span className="form-error">{error}</span>}
+          {showError && <span className="form-error">{error}</span>}
         </div>
       </div>
     );

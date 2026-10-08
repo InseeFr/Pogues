@@ -42,9 +42,4 @@ ComponentNewContainer.propTypes = {
   onSuccess: PropTypes.func.isRequired,
 };
 
-ComponentNewContainer.defaultProps = {
-  parentId: undefined,
-  weight: undefined,
-};
-
 export default ComponentNewContainer;

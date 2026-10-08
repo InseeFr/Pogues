@@ -21,12 +21,12 @@ const enableRecap = import.meta.env.VITE_ENABLE_PAIRING_RECAP === 'true';
 
 /** Form to create a pairwise. */
 function ResponseFormatPairing({
-  selectorPathParent,
-  componentsStore,
-  collectedVariablesStore,
-  allowPrecision,
-  allowFilter,
-  displayRecap,
+  selectorPathParent = undefined,
+  componentsStore = {},
+  collectedVariablesStore = {},
+  allowPrecision = true,
+  allowFilter = true,
+  displayRecap = false,
 }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${PAIRING}`
@@ -166,15 +166,6 @@ ResponseFormatPairing.propTypes = {
   allowPrecision: PropTypes.bool,
   allowFilter: PropTypes.bool,
   displayRecap: PropTypes.bool,
-};
-
-ResponseFormatPairing.defaultProps = {
-  selectorPathParent: undefined,
-  componentsStore: {},
-  collectedVariablesStore: {},
-  allowPrecision: true,
-  allowFilter: true,
-  displayRecap: false,
 };
 
 const mapStateToProps = (state, { selectorPathParent }) => {
