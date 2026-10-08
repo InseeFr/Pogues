@@ -1,4 +1,4 @@
-import { Navigate, useBlocker, useParams } from '@tanstack/react-router'
+import { useBlocker } from '@tanstack/react-router'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import {
@@ -28,41 +28,20 @@ const LegacyMain = lazy(async () => {
 
 /** Federated legacy editor. In Vite DEV the remote is stubbed → redirect to details. */
 export const LegacyComponent = () => {
-  const { questionnaireId, versionId } = useParams({ strict: false })
-  const isDev = import.meta.env.DEV
+  const [isDirtyState, setIsDirtyState] = useState<boolean>(false)
 
-  const [isDirtyState, setIsDirtyState] = useState(false)
   const { decodedIdToken } = useOidc()
 
   const { proceed, reset, status } = useBlocker({
-    enableBeforeUnload: !isDev && isDirtyState,
-    shouldBlockFn: () => !isDev && isDirtyState,
+    enableBeforeUnload: isDirtyState,
+    shouldBlockFn: () => isDirtyState,
     withResolver: true,
   })
 
   const myComponent = useMemo(
     () => legacyApp(setIsDirtyState, decodedIdToken),
-    [decodedIdToken],
+    [setIsDirtyState, decodedIdToken],
   )
-
-  if (isDev && questionnaireId) {
-    if (versionId) {
-      return (
-        <Navigate
-          to="/questionnaire/$questionnaireId/version/$versionId/details"
-          params={{ questionnaireId, versionId }}
-          replace
-        />
-      )
-    }
-    return (
-      <Navigate
-        to="/questionnaire/$questionnaireId/details"
-        params={{ questionnaireId }}
-        replace
-      />
-    )
-  }
 
   return (
     <>
