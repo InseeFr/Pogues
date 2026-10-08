@@ -1,5 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { useEffect, useRef, useState } from 'react'
@@ -9,12 +8,13 @@ import { getSerieById } from '@/api/series'
 import ButtonIcon from '@/components/ui/ButtonIcon'
 import Tooltip from '@/components/ui/Tooltip'
 import Autocomplete from '@/components/ui/form/Autocomplete'
-import Field from '@/components/ui/form/Field'
+import ControlledField from '@/components/ui/form/ControlledField'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm'
 import { SerieItem } from '@/models/series'
 import { Stamp } from '@/models/stamps'
 
@@ -53,10 +53,9 @@ export default function QuestionnaireDetailsForm({
     watch,
     reset,
     trigger,
-  } = useForm<FormValues>({
-    mode: 'onChange',
+  } = useReactHookfForm<FormValues>({
     defaultValues,
-    resolver: zodResolver(schema),
+    schema,
   })
 
   useEffect(() => {
@@ -122,88 +121,64 @@ export default function QuestionnaireDetailsForm({
 
   const formFields = (
     <>
-      <Controller
+      <ControlledField
+        control={control}
         name="title"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('details.questionnaireTitle')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input
-              autoFocus
-              value={value}
-              onValueChange={onChange}
-              disabled={readOnly}
-            />
-          </Field>
-        )}
-      />
-      <Controller
-        name="name"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('details.questionnaireName')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input value={value} onValueChange={onChange} disabled={readOnly} />
-          </Field>
-        )}
-      />
-      <Controller
-        name="serie"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('details.serie')}
-            name={name}
-            touched={isTouched}
+        label={t('details.questionnaireTitle')}
+        required
+      >
+        {(field) => (
+          <Input
+            autoFocus
+            value={field.value}
+            onValueChange={field.onChange}
             disabled={readOnly}
-          >
+          />
+        )}
+      </ControlledField>
+      <ControlledField
+        control={control}
+        name="name"
+        label={t('details.questionnaireName')}
+        required
+      >
+        {(field) => (
+          <Input
+            value={field.value}
+            onValueChange={field.onChange}
+            disabled={readOnly}
+          />
+        )}
+      </ControlledField>
+      <ControlledField
+        control={control}
+        name="serie"
+        label={t('details.serie')}
+        disabled={readOnly}
+      >
+        {(field) => (
+          <>
             <div className="flex items-center gap-1">
               <div className="flex-1">
                 <Autocomplete
                   options={seriesOptions}
-                  value={value || undefined}
+                  value={field.value || undefined}
                   disabled={readOnly}
                   open={isSerieOpen}
                   onOpenChange={setIsSerieOpen}
                   onChange={(serieValue = '') => {
-                    onChange(serieValue)
+                    field.onChange(serieValue)
                     handleSerieChange(serieValue)
                   }}
                   placeholder={t('details.seriesSearch')}
                 />
               </div>
-              {value ? (
+              {field.value ? (
                 <ButtonIcon
                   Icon={DeleteIcon}
                   title={t('common.delete')}
                   onClick={() => {
-                    onChange('')
+                    field.onChange('')
                     handleSerieChange('')
                     setIsSerieOpen(false)
                   }}
@@ -215,86 +190,66 @@ export default function QuestionnaireDetailsForm({
                 <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.altLabel ?? t('details.altLabelUndefined')}`}</div>
               </div>
             ) : null}
-          </Field>
+          </>
         )}
-      />
-      <Controller
+      </ControlledField>
+      <ControlledField
+        control={control}
         name="agency"
-        control={control}
-        render={({
-          field: { name, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={
-              <div className="flex items-bottom gap-1">
-                <i> {t('details.agency')}</i>
+        label={
+          <div className="flex items-bottom gap-1">
+            <i> {t('details.agency')}</i>
 
-                <Tooltip
-                  title={
-                    <div className="flex flex-row">
-                      <div>{t('details.agencyTooltip')}</div>
-                      <a
-                        href={t('details.agencyDetailLink')}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <i className="text-blue-5">
-                          {t('details.agencyDetailLink')}
-                        </i>
-                      </a>
-                    </div>
-                  }
-                >
-                  <InfoIcon
-                    height="12"
-                    width="12"
-                    className="cursor-help"
-                    role="img"
-                    aria-label={`${t('details.agencyTooltip')} ${t('details.agencyDetailLink')}`}
-                  />
-                </Tooltip>
-              </div>
-            }
-            name={name}
-            touched={isTouched}
-            disabled
-          >
-            <Input value={'fr.insee'} onValueChange={onChange} disabled />
-          </Field>
+            <Tooltip
+              title={
+                <div className="flex flex-row">
+                  <div>{t('details.agencyTooltip')}</div>
+                  <a
+                    href={t('details.agencyDetailLink')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="text-blue-5">
+                      {t('details.agencyDetailLink')}
+                    </i>
+                  </a>
+                </div>
+              }
+            >
+              <InfoIcon
+                height="12"
+                width="12"
+                className="cursor-help"
+                role="img"
+                aria-label={`${t('details.agencyTooltip')} ${t('details.agencyDetailLink')}`}
+              />
+            </Tooltip>
+          </div>
+        }
+        disabled
+      >
+        {(field) => (
+          <Input value={'fr.insee'} onValueChange={field.onChange} disabled />
         )}
-      />
-      <Controller
-        name="owner"
+      </ControlledField>
+      <ControlledField
         control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('details.stamp')}
-            name={name}
-            touched={isTouched}
+        name="owner"
+        label={t('details.stamp')}
+        disabled={readOnly}
+      >
+        {(field) => (
+          <Autocomplete
+            options={stampsOptions}
+            value={field.value || undefined}
             disabled={readOnly}
-          >
-            <Autocomplete
-              options={stampsOptions}
-              value={value || undefined}
-              disabled={readOnly}
-              open={isStampOpen}
-              onOpenChange={setIsStampOpen}
-              onChange={onChange}
-              placeholder={t('details.stampSearch')}
-            />
-          </Field>
+            open={isStampOpen}
+            onOpenChange={setIsStampOpen}
+            onChange={field.onChange}
+            placeholder={t('details.stampSearch')}
+          />
         )}
-      />
+      </ControlledField>
       <Controller
         name="targetModes"
         control={control}

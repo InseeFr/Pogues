@@ -13,13 +13,15 @@
     "generalQuestion": "For any other questions please contact the general team at: ",
     "contactGeneralTeam": "Contact general team",
     "frequentlyAskedQuestions": "Frequently asked questions",
-    "frequentlyAskedQuestionsLink": "🧐 Frequents issues"
+    "frequentlyAskedQuestionsLink": "🧐 Frequents issues",
+    "sendEmail": "Send email"
   },
   "create": "Create",
   "csvViewer": "Uploaded csv content",
   "date": "Date",
   "delete": "Delete",
   "documentation": "Documentation",
+  "duplicate": "Duplicate",
   "edit": "Edit",
   "expand": "Expand",
   "home": "Home",

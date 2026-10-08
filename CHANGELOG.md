@@ -7,13 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Create hooks (submit, cancel, delete, toast handling) and create shared form components (controlled fields, VTL editor field, dirty state warning, delete and duplicate buttons) to avoid code duplication and increase maintenability
+
+### Added
+
+- Added captions & roles to tables
+- Added more information to action buttons (open in new tab, send email, etc.) in aria attribute
+  Added document title to pages (need to be reviewed by our business team)
+
+### Fixed
+
+- Dialogs can now be closed with the Esc key
+- Render a proper link to the modal to edit a variable
+- Sidebar not being displayed to screen readers
+- Fixed some pages hierarchy (h1, h2, etc...)
 
 ## [3.9.1](https://github.com/InseeFr/Pogues/releases/tag/3.9.1) - 2026-10-08
 
 ### Fixed
 
 - Fix cves in Docker by upgrading nginx to `1.31.6-alpine`
-
 
 ## [3.9.0](https://github.com/InseeFr/Pogues/releases/tag/3.9.0) - 2026-10-08
 

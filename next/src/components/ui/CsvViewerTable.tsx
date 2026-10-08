@@ -59,7 +59,7 @@ export default function CsvViewerTable({
           <thead className="bg-accent sticky top-0">
             <tr className="*:font-semibold *:p-4 text-left">
               {headers.map((header) => (
-                <th key={header} className="text-default">
+                <th scope="col" key={header} className="text-default">
                   {header}
                 </th>
               ))}

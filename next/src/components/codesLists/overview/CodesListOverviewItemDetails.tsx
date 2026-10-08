@@ -1,6 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import toast from 'react-hot-toast'
+import { isAxiosError } from 'axios'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -12,7 +10,10 @@ import {
   putCodesList,
 } from '@/api/codesLists'
 import ButtonLink from '@/components/ui/ButtonLink'
-import DialogButton from '@/components/ui/DialogButton'
+import DeleteButton from '@/components/ui/DeleteButton'
+import DuplicateButton from '@/components/ui/DuplicateButton'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
+import { useMutationWithToast } from '@/hooks/form/useMutationWithToast'
 import type { CodesList } from '@/models/codesLists'
 import { uid } from '@/utils/utils'
 
@@ -31,43 +32,47 @@ export default function CodesListOverviewItemDetails({
   readonly = false,
 }: Readonly<CodesListOverviewItemDetailsProps>) {
   const { t } = useTranslation()
-  const queryClient = useQueryClient()
 
   const hasRelatedQuestion =
     codesList.relatedQuestionNames && codesList.relatedQuestionNames.length > 0
 
-  const duplicateMutation = useMutation({
+  const { submit: duplicate } = useMutationWithToast({
     mutationFn: ({
       questionnaireId,
-      codesListId,
       codesList,
     }: {
       questionnaireId: string
-      codesListId: string
       codesList: CodesList
-    }) => {
-      return putCodesList(questionnaireId, codesListId, codesList)
-    },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: codesListsKeys.all(questionnaireId),
-      }),
+    }) => putCodesList(questionnaireId, codesList.id, codesList),
+    invalidateKeys: [codesListsKeys.all(questionnaireId)],
+    successMessage: t('codesList.duplicate.success', {
+      label: codesList.label,
+    }),
   })
 
-  const deleteMutation = useMutation({
+  const { remove } = useDeleteMutation({
     mutationFn: ({
       questionnaireId,
       codesListId,
     }: {
       questionnaireId: string
       codesListId: string
-    }) => {
-      return deleteCodesList(questionnaireId, codesListId)
+    }) => deleteCodesList(questionnaireId, codesListId),
+    invalidateKeys: [codesListsKeys.all(questionnaireId)],
+    successMessage: t('codesList.delete.success', { label: codesList.label }),
+    errorMessage: (error) => {
+      if (
+        isAxiosError<CodeListError>(error) &&
+        error.response?.data.errorCode === ERROR_CODES.RELATED_QUESTION_NAMES
+      ) {
+        const { relatedQuestionNames } = error.response
+          .data as CodeListRelatedQuestionError
+        return t('codesList.delete.error.usedByQuestions', {
+          questions: relatedQuestionNames.join('\n'),
+        })
+      }
+      return error.toString()
     },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: codesListsKeys.all(questionnaireId),
-      }),
   })
 
   function onDuplicate() {
@@ -78,39 +83,11 @@ export default function CodesListOverviewItemDetails({
       label: `${codesList.label} (copie)`,
     }
 
-    const promise = duplicateMutation.mutateAsync({
-      questionnaireId,
-      codesListId: id,
-      codesList: newCodesList,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('codesList.duplicate.success', { label: codesList.label }),
-      error: (err: Error) => err.toString(),
-    })
+    return duplicate({ questionnaireId, codesList: newCodesList })
   }
 
   function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      questionnaireId,
-      codesListId: codesList.id,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('codesList.delete.success', { label: codesList.label }),
-      error: (err: AxiosError<CodeListError>) => {
-        if (
-          err.response?.data.errorCode === ERROR_CODES.RELATED_QUESTION_NAMES
-        ) {
-          const { relatedQuestionNames } = err.response
-            .data as CodeListRelatedQuestionError
-          return t('codesList.delete.error.usedByQuestions', {
-            questions: relatedQuestionNames.join('\n'),
-          })
-        }
-        return err.toString()
-      },
-    })
+    return remove({ questionnaireId, codesListId: codesList.id })
   }
 
   return (
@@ -126,21 +103,19 @@ export default function CodesListOverviewItemDetails({
           >
             {t('common.edit')}
           </ButtonLink>
-          <DialogButton
-            label={t('codesList.duplicate.label')}
+          <DuplicateButton
             title={t('codesList.duplicate.dialogTitle', {
               label: codesList.label,
             })}
             body={t('codesList.duplicate.dialogConfirm')}
-            onValidate={onDuplicate}
+            onConfirm={onDuplicate}
           />
-          <DialogButton
-            label={t('common.delete')}
+          <DeleteButton
             title={t('codesList.delete.dialogTitle', {
               label: codesList.label,
             })}
             body={t('codesList.delete.dialogConfirm')}
-            onValidate={onDelete}
+            onConfirm={onDelete}
             buttonTitle={
               hasRelatedQuestion
                 ? t('codesList.delete.disabled.usedByQuestions')

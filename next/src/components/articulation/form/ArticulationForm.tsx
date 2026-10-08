@@ -1,9 +1,9 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler } from 'react-hook-form'
 
+import ControlledVTLEditor from '@/components/ui/form/ControlledVTLEditor'
 import Form from '@/components/ui/form/Form'
-import VTLEditor from '@/components/ui/form/VTLEditor'
+import { useFormCancel } from '@/hooks/form/useFormCancel'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm'
 import {
   type ArticulationItems,
   defaultArticulationItems,
@@ -26,59 +26,42 @@ export default function ArticulationForm({
   variables = [],
   onSubmit,
 }: Readonly<ArticulationFormProps>) {
-  const navigate = useNavigate()
+  const cancel = useFormCancel()
 
   const {
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
     setError,
-  } = useForm<FormValues>({
-    mode: 'onChange',
-    resolver: zodResolver(schema),
+  } = useReactHookfForm<FormValues>({
+    schema,
     defaultValues: { items: defaultArticulationItems },
     values: { items: articulationItems },
   })
 
-  const handleCancel = () => {
-    navigate({
-      to: '/questionnaire/$questionnaireId/articulation',
-      params: { questionnaireId },
-      ignoreBlocker: true,
-    })
-  }
-
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      onCancel={handleCancel}
+      onCancel={() =>
+        cancel({
+          to: '/questionnaire/$questionnaireId/articulation',
+          params: { questionnaireId },
+        })
+      }
       isDirty={isDirty}
       isValid={isValid}
       isSubmitted={isSubmitted}
     >
       {articulationItems.map((item, index) => (
-        <Controller
+        <ControlledVTLEditor
           key={item.label}
-          name={`items.${index as 0 | 1 | 2}.value`} // not clean, but by default it does not understand there are only those 3 index values
           control={control}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <VTLEditor
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={<ArticulationVariableLabel label={item.label} />}
-              name={name}
-              onChange={onChange}
-              required
-              setError={(error) => setError(name, error)}
-              suggestionsVariables={variables}
-              touched={isTouched}
-              value={value}
-            />
-          )}
+          // not clean, but by default it does not understand there are only those 3 index values
+          name={`items.${index as 0 | 1 | 2}.value`}
+          label={<ArticulationVariableLabel label={item.label} />}
+          required
+          setError={setError}
+          suggestionsVariables={variables}
         />
       ))}
     </Form>

@@ -1,20 +1,20 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
-import { t } from 'i18next'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import Field from '@/components/ui/form/Field'
+import ControlledField from '@/components/ui/form/ControlledField'
+import ControlledVTLEditor from '@/components/ui/form/ControlledVTLEditor'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
-import NumberField from '@/components/ui/form/NumberField'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
 import Switch from '@/components/ui/form/Switch'
-import VTLEditor from '@/components/ui/form/VTLEditor'
-import { DatatypeType, DateFormat } from '@/models/datatype'
+import { useFormCancel } from '@/hooks/form/useFormCancel'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm'
+import { DatatypeType } from '@/models/datatype'
 import { type Variable, VariableType } from '@/models/variables'
 
-import { datatypeOptions, dateFormatOptions } from './consts'
+import VariableDatatypeFields from './VariableDatatypeFields'
+import { datatypeOptions } from './consts'
 import { type FormValues, schema } from './schema'
 import { convertToValidName } from './utils/name'
 
@@ -55,7 +55,8 @@ export default function VariableForm({
   scopes,
   variables = [],
 }: Readonly<Props>) {
-  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const cancel = useFormCancel()
 
   const {
     control,
@@ -63,10 +64,9 @@ export default function VariableForm({
     formState: { isDirty, isSubmitted, isValid },
     setError,
     watch,
-  } = useForm<FormValues>({
-    mode: 'onChange',
+  } = useReactHookfForm<FormValues>({
     defaultValues: variable,
-    resolver: zodResolver(schema),
+    schema,
   })
 
   const selectedType = watch('type')
@@ -87,347 +87,126 @@ export default function VariableForm({
     return datatypeOptions
   })()
 
-  /** Ignore dirty state and return to the variables page. */
-  const handleCancel = () => {
-    navigate({
-      to: '/questionnaire/$questionnaireId/variables',
-      params: { questionnaireId },
-      ignoreBlocker: true,
-    })
-  }
-
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      onCancel={handleCancel}
+      onCancel={() =>
+        cancel({
+          to: '/questionnaire/$questionnaireId/variables',
+          params: { questionnaireId },
+        })
+      }
       isDirty={isDirty}
       isValid={isValid}
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
     >
       <div>
-        <Controller
-          name="type"
+        <ControlledField
           control={control}
+          name="type"
+          label={t('variable.type.label')}
+          required
           rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('variable.type.label')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={[
-                  {
-                    label: t('variable.type.external'),
-                    value: VariableType.External,
-                  },
-                  {
-                    label: t('variable.type.calculated'),
-                    value: VariableType.Calculated,
-                  },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
+        >
+          {(field) => (
+            <RadioGroup
+              options={[
+                {
+                  label: t('variable.type.external'),
+                  value: VariableType.External,
+                },
+                {
+                  label: t('variable.type.calculated'),
+                  value: VariableType.Calculated,
+                },
+              ]}
+              value={field.value}
+              onBlur={field.onBlur}
+              onValueChange={field.onChange}
+            />
           )}
-        />
+        </ControlledField>
       </div>
       {selectedType === VariableType.External ? (
-        <Controller
+        <ControlledField
+          control={control}
           name="isDeletedOnReset"
-          control={control}
-          render={({
-            field: { ref, name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('variable.isDeletedOnReset')}
-              name={name}
-              touched={isTouched}
-            >
-              <Switch
-                checked={value}
-                inputRef={ref}
-                onBlur={onBlur}
-                onCheckedChange={onChange}
-              />
-            </Field>
+          label={t('variable.isDeletedOnReset')}
+        >
+          {(field) => (
+            <Switch
+              checked={field.value}
+              inputRef={field.ref}
+              onBlur={field.onBlur}
+              onCheckedChange={field.onChange}
+            />
           )}
-        />
+        </ControlledField>
       ) : null}
-      <Controller
+      <ControlledField
+        control={control}
         name="name"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('variable.name')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input
-              placeholder={t('variable.form.name.placeholder')}
-              value={value}
-              onValueChange={(v) => onChange(convertToValidName(v))}
-            />
-          </Field>
+        label={t('variable.name')}
+        required
+      >
+        {(field) => (
+          <Input
+            placeholder={t('variable.form.name.placeholder')}
+            value={field.value}
+            onValueChange={(value) => field.onChange(convertToValidName(value))}
+          />
         )}
-      />
-      <Controller
+      </ControlledField>
+      <ControlledField
+        control={control}
         name="description"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('variable.description')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input value={value} onValueChange={onChange} />
-          </Field>
+        label={t('variable.description')}
+        required
+      >
+        {(field) => (
+          <Input value={field.value} onValueChange={field.onChange} />
         )}
-      />
+      </ControlledField>
       {selectedType === VariableType.Calculated ? (
-        <Controller
+        <ControlledVTLEditor
+          control={control}
           name="formula"
-          control={control}
-          rules={{ required: true }}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <VTLEditor
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('variable.formula')}
-              name={name}
-              onChange={onChange}
-              required
-              setError={(error) => setError(name, error)}
-              suggestionsVariables={variables}
-              touched={isTouched}
-              value={value}
-            />
-          )}
+          label={t('variable.formula')}
+          required
+          setError={setError}
+          suggestionsVariables={variables}
         />
       ) : null}
-      <Controller
+      <ControlledField
+        control={control}
         name="scope"
-        control={control}
+        label={t('variable.scope')}
+        required
         rules={{ required: true }}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('variable.scope')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Select<string>
-              options={[
-                { label: t('common.questionnaire'), value: '' },
-                ...Array.from(scopes ?? new Map<string, string>()).map(
-                  ([id, name]) => ({
-                    label: name,
-                    value: id,
-                  }),
-                ),
-              ]}
-              value={value}
-              onChange={onChange}
-            />
-          </Field>
+      >
+        {(field) => (
+          <Select<string>
+            options={[
+              { label: t('common.questionnaire'), value: '' },
+              ...Array.from(scopes ?? new Map<string, string>()).map(
+                ([id, name]) => ({
+                  label: name,
+                  value: id,
+                }),
+              ),
+            ]}
+            value={field.value}
+            onChange={field.onChange}
+          />
         )}
-      />
-      <Controller
-        name="datatype.typeName"
+      </ControlledField>
+      <VariableDatatypeFields
         control={control}
-        rules={{ required: true }}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('variable.datatype.label')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Select<DatatypeType>
-              options={datatypeTypeNameOptions}
-              value={value}
-              onChange={onChange}
-              disabled={isDatatypeTypeNameDisabled}
-            />
-          </Field>
-        )}
+        datatypeTypeNameOptions={datatypeTypeNameOptions}
+        isDatatypeTypeNameDisabled={isDatatypeTypeNameDisabled}
+        selectedTypeName={selectedTypeName}
       />
-      {selectedTypeName === DatatypeType.Date ? (
-        <Controller
-          name="datatype.format"
-          control={control}
-          rules={{ required: true }}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('variable.format')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <Select<DateFormat>
-                options={dateFormatOptions}
-                value={value as DateFormat | undefined}
-                onChange={onChange}
-              />
-            </Field>
-          )}
-        />
-      ) : null}
-      {selectedTypeName === DatatypeType.Numeric ? (
-        <>
-          <Controller
-            name="datatype.minimum"
-            control={control}
-            rules={{ required: true }}
-            render={({
-              field: { ref, name, value, onChange },
-              fieldState: { invalid, isTouched, isDirty, error },
-            }) => (
-              <Field
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                label={t('variable.minimum')}
-                name={name}
-                required
-                touched={isTouched}
-              >
-                <NumberField
-                  value={value as number | undefined}
-                  inputRef={ref}
-                  onValueChange={onChange}
-                />
-              </Field>
-            )}
-          />
-          <Controller
-            name="datatype.maximum"
-            control={control}
-            rules={{ required: true }}
-            render={({
-              field: { ref, name, value, onChange },
-              fieldState: { invalid, isTouched, isDirty, error },
-            }) => (
-              <Field
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                label={t('variable.maximum')}
-                name={name}
-                required
-                touched={isTouched}
-              >
-                <NumberField
-                  value={value as number | undefined}
-                  inputRef={ref}
-                  onValueChange={onChange}
-                />
-              </Field>
-            )}
-          />
-          <Controller
-            name="datatype.decimals"
-            control={control}
-            defaultValue={0}
-            render={({
-              field: { ref, name, value, onChange },
-              fieldState: { invalid, isTouched, isDirty, error },
-            }) => (
-              <Field
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                label={t('variable.precision')}
-                name={name}
-                touched={isTouched}
-              >
-                <NumberField
-                  value={value}
-                  inputRef={ref}
-                  onValueChange={onChange}
-                />
-              </Field>
-            )}
-          />
-        </>
-      ) : null}
-      {selectedTypeName === DatatypeType.Text ? (
-        <Controller
-          name="datatype.maxLength"
-          control={control}
-          defaultValue={249}
-          render={({
-            field: { ref, name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('variable.maxLength')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <NumberField
-                value={value}
-                inputRef={ref}
-                onValueChange={onChange}
-              />
-            </Field>
-          )}
-        />
-      ) : null}
     </Form>
   )
 }
