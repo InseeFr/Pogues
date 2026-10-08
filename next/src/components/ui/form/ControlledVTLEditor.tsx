@@ -30,8 +30,6 @@ export type ControlledVTLEditorProps<
 /**
  * Specific controlled form component for VTL editor
  */
-
-//TODO: check if its compatible with react-19 pull request
 export default function ControlledVTLEditor<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
