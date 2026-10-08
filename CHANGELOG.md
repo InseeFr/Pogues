@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- legacy is now in React v19 !
+- include a new version of the VTL editor
+
 ## [3.8.7](https://github.com/InseeFr/Pogues/releases/tag/3.8.7) - 2026-09-25
 
 ### Added

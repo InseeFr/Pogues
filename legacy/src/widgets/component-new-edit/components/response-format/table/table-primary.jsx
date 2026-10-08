@@ -22,7 +22,7 @@ const { CODES_LIST, LIST } = DIMENSION_FORMATS;
  * number or a VTL formula. For PAPI, in the first case it will have a size of
  * max+1, in the second case it will have an arbitrary size of 6.
  */
-function ResponseFormatTablePrincipal({ selectorPathParent }) {
+function ResponseFormatTablePrincipal({ selectorPathParent = undefined }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -56,8 +56,5 @@ ResponseFormatTablePrincipal.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatTablePrincipal.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatTablePrincipal;
