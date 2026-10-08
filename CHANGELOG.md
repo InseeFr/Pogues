@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.9.0](https://github.com/InseeFr/Pogues/releases/tag/3.9.0) - 2026-10-08
+
 ### Changed
 
 - legacy is now in React v19 !
