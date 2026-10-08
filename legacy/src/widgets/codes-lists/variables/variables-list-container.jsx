@@ -34,7 +34,12 @@ export const defaultProps = {
 
 export const mapStateToProps = (
   state,
-  { selectorPathParent, selectorPath, formName, scope },
+  {
+    selectorPathParent = '',
+    selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH,
+    formName = DEFAULT_FORM_NAME,
+    scope = '',
+  },
 ) => {
   const selector = formValueSelector(formName);
   const path = `${getCurrentSelectorPath(selectorPathParent)}${selectorPath}.`;

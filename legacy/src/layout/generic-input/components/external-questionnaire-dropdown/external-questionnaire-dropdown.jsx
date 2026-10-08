@@ -12,7 +12,7 @@ import Dictionary from '../../../../utils/dictionary/dictionary';
  * with a dropdown behavior with links to different
  * visualizations of the PDF : WEB, PDF or ODT
  */
-function ExternalQuestionnaireDropdown({ questionnaireId, disabled, top }) {
+function ExternalQuestionnaireDropdown({ questionnaireId = undefined, disabled = false, top = true }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -104,12 +104,6 @@ ExternalQuestionnaireDropdown.propTypes = {
   questionnaireId: PropTypes.string,
   disabled: PropTypes.bool,
   top: PropTypes.bool,
-};
-
-ExternalQuestionnaireDropdown.defaultProps = {
-  disabled: false,
-  questionnaireId: undefined,
-  top: true,
 };
 
 export default ExternalQuestionnaireDropdown;

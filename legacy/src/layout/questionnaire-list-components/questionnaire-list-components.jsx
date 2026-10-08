@@ -28,21 +28,22 @@ function withForwardRef(Component) {
   return forwardRef(WrappedComponent);
 }
 
-const QuestionnaireListComponents = (props) => {
+const QuestionnaireListComponents = (rawProps) => {
   const {
     duplicateQuestionnaire,
     isQuestionnaireModified,
     forwardedRef,
     questionnaire,
-    componentsStore,
+    componentsStore = {},
     editingComponentId,
-    errorsIntegrity,
+    errorsIntegrity = {},
     setSelectedComponentId,
-    activeCalculatedVariables,
-    calculatedVariables,
+    activeCalculatedVariables = {},
+    calculatedVariables = {},
     removeQuestionnaire,
     navigate,
-  } = props;
+  } = rawProps;
+  const props = { ...rawProps, componentsStore, errorsIntegrity, activeCalculatedVariables, calculatedVariables };
 
   const isReadonly = useReadonly();
 
@@ -301,13 +302,6 @@ QuestionnaireListComponents.propTypes = {
   calculatedVariables: PropTypes.object,
 };
 
-QuestionnaireListComponents.defaultProps = {
-  token: '',
-  componentsStore: {},
-  errorsIntegrity: {},
-  activeCalculatedVariables: {},
-  calculatedVariables: {},
-};
 
 const ForwardedQuestionnaireListComponents = withForwardRef(
   QuestionnaireListComponents,
