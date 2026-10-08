@@ -24,6 +24,7 @@ export type ControlledVTLEditorProps<
   setError: UseFormSetError<TFieldValues>
   suggestionsVariables?: Variable[]
   testId?: string
+  blockOnSyntaxErrors?: boolean
 }
 
 /**
@@ -43,6 +44,7 @@ export default function ControlledVTLEditor<
   setError,
   suggestionsVariables = [],
   testId,
+  blockOnSyntaxErrors,
 }: Readonly<ControlledVTLEditorProps<TFieldValues, TName>>) {
   return (
     <Controller
@@ -62,6 +64,7 @@ export default function ControlledVTLEditor<
           name={fieldName}
           onChange={onChange}
           required={required}
+          blockOnSyntaxErrors={blockOnSyntaxErrors}
           setError={(errorOption) => setError(name, errorOption)}
           suggestionsVariables={suggestionsVariables}
           touched={isTouched}

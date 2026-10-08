@@ -160,6 +160,7 @@ function CodesField({
             control={control}
             name={`${namePrefix}.label` as `codes.${number}.label`}
             required
+            blockOnSyntaxErrors={false}
             setError={setError}
             suggestionsVariables={variables}
             testId={`${namePrefix}.label`}
