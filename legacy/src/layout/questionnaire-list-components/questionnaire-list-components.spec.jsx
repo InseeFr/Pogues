@@ -105,8 +105,6 @@ describe('QuestionnaireListComponents', () => {
     duplicateQuestionnaire: vi.fn().mockResolvedValue(),
     removeQuestionnaire: vi.fn().mockResolvedValue(),
     navigate: vi.fn(),
-    activeCalculatedVariables: {},
-    calculatedVariables: {},
   };
 
   beforeEach(() => {
