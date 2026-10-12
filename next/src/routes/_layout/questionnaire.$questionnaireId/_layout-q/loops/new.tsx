@@ -23,8 +23,10 @@ export const Route = createFileRoute(
     context: { queryClient, t },
     params: { questionnaireId },
   }) => {
-    queryClient.ensureQueryData(scopesQueryOptions(questionnaireId))
-    queryClient.ensureQueryData(loopMembersQueryOptions(questionnaireId))
+    await Promise.all([
+      queryClient.ensureQueryData(scopesQueryOptions(questionnaireId)),
+      queryClient.ensureQueryData(loopMembersQueryOptions(questionnaireId)),
+    ])
     return { crumb: t('crumb.new') }
   },
 })

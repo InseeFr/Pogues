@@ -1,6 +1,6 @@
 // @ts-expect-error import jsx component
 import { Main } from '@pogues-legacy/App'
-import { useBlocker, useRouter } from '@tanstack/react-router'
+import { useBlocker, useNavigate } from '@tanstack/react-router'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
@@ -19,7 +19,7 @@ export const LegacyComponent = () => {
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false)
 
   const { decodedIdToken } = useOidc()
-  const router = useRouter()
+  const navigate = useNavigate()
 
   const { proceed, reset, status } = useBlocker({
     enableBeforeUnload: isDirtyState,
@@ -29,10 +29,10 @@ export const LegacyComponent = () => {
 
   const myComponent = useMemo(
     () =>
-      legacyApp(setIsDirtyState, decodedIdToken, (path: string) =>
-        router.history.push(path),
-      ),
-    [setIsDirtyState, decodedIdToken, router],
+      legacyApp(setIsDirtyState, decodedIdToken, (path: string) => {
+        navigate({ to: path })
+      }),
+    [setIsDirtyState, decodedIdToken, navigate],
   )
 
   return (
