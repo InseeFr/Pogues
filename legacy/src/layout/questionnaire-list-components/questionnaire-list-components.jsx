@@ -38,8 +38,6 @@ const QuestionnaireListComponents = (rawProps) => {
     editingComponentId,
     errorsIntegrity = {},
     setSelectedComponentId,
-    activeCalculatedVariables = {},
-    calculatedVariables = {},
     removeQuestionnaire,
     navigate,
   } = rawProps;
@@ -47,8 +45,6 @@ const QuestionnaireListComponents = (rawProps) => {
     ...rawProps,
     componentsStore,
     errorsIntegrity,
-    activeCalculatedVariables,
-    calculatedVariables,
   };
 
   const isReadonly = useReadonly();
@@ -63,17 +59,6 @@ const QuestionnaireListComponents = (rawProps) => {
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
     useState(false);
-  const [showWarning, setShowWarning] = useState(false);
-
-  // Temporary : to help diagnose calculated variables bug
-  useEffect(() => {
-    if (questionnaire.id && calculatedVariables[questionnaire.id]) {
-      setShowWarning(
-        Object.keys(activeCalculatedVariables).length === 0 &&
-          Object.keys(calculatedVariables[questionnaire.id]).length !== 0,
-      );
-    }
-  }, [activeCalculatedVariables, calculatedVariables, questionnaire]);
 
   const handleOpenComponentDetail = () => setShowComponentModal(true);
 
@@ -166,44 +151,6 @@ const QuestionnaireListComponents = (rawProps) => {
                 </button>
               </div>
             </div>
-
-            {/* Temporary warning to help diagnose the bug concerning disappearing of calculated variables */}
-            {showWarning && (
-              <div id="errors-integrity">
-                <div className="errors-integrity__inner">
-                  <div
-                    className="errors-integrity__alert"
-                    style={{ marginTop: '2.5em' }}
-                  >
-                    <div className="alert-icon big">
-                      <div className="alert-triangle" />!
-                    </div>
-                  </div>
-                  <div className="errors-integrity__list">
-                    <ul>
-                      <li>
-                        Il n'y a plus de variables calculées dans votre
-                        questionnaire.{' '}
-                        <strong>
-                          Si ce n'est pas une action voulue de votre part
-                        </strong>
-                        , il s'agit probablement d'une erreur de l'application.
-                        Dans ce cas, veuillez contacter au plus vite{' '}
-                        <a href="mailto:atelier-conception-enquetes@insee.fr;service-numerique-atelier-conception-enquetes@insee.fr">
-                          l'équipe de l'atelier de conception
-                        </a>{' '}
-                        pour que nous corrigions ce problème.
-                      </li>
-                      <li>
-                        Par ailleurs, si vous quittez votre questionnaire
-                        maintenant sans le sauvegarder, vous retrouverez les
-                        variables calculées en retournant sur le questionnaire.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
 
             <ErrorsIntegrityPanel
               errorsIntegrity={errorsIntegrity}
@@ -304,8 +251,6 @@ QuestionnaireListComponents.propTypes = {
   duplicateQuestionnaire: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
-  activeCalculatedVariables: PropTypes.object,
-  calculatedVariables: PropTypes.object,
 };
 
 const ForwardedQuestionnaireListComponents = withForwardRef(
