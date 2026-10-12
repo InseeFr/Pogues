@@ -24,6 +24,11 @@ type Props = {
   loopMembers: InitialLoopMember[]
   /** List of variables used for auto-completion in VTL editors. */
   variables?: Variable[]
+  /**
+   * If provided, the loop comes from this older version of the questionnaire
+   * and can be neither updated nor deleted.
+   */
+  versionId?: string
 }
 
 /** Edit an existing loop. */
@@ -33,6 +38,7 @@ export default function EditLoop({
   scopes,
   loopMembers,
   variables,
+  versionId,
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -40,6 +46,16 @@ export default function EditLoop({
 
   // The loop cannot be deleted while other loops use it as reference.
   const hasRelatedLoops = relatedLoopNames.length > 0
+
+  const getDeleteDisabledTooltip = (): string | undefined => {
+    if (versionId) return t('history.questionnaireIsReadonly')
+    if (hasRelatedLoops) {
+      return t('loop.delete.disabled.usedByLoops', {
+        loops: relatedLoopNames.join(', '),
+      })
+    }
+    return undefined
+  }
 
   const mutation = useMutation({
     mutationFn: ({
@@ -155,6 +171,7 @@ export default function EditLoop({
         scopes={scopes}
         loopMembers={loopMembers}
         variables={variables}
+        versionId={versionId}
         onSubmit={submitForm}
         submitLabel={t('common.edit')}
         deleteButton={{
@@ -163,11 +180,7 @@ export default function EditLoop({
           }),
           dialogBody: t('loop.delete.dialogConfirm'),
           onDelete,
-          disabledTooltip: hasRelatedLoops
-            ? t('loop.delete.disabled.usedByLoops', {
-                loops: relatedLoopNames.join(', '),
-              })
-            : undefined,
+          disabledTooltip: getDeleteDisabledTooltip(),
         }}
       />
     </div>

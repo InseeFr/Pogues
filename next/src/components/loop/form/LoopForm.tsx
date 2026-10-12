@@ -39,6 +39,11 @@ type Props = {
   loopMembers: InitialLoopMember[]
   /** List of variables used for auto-completion in VTL editors. */
   variables?: Variable[]
+  /**
+   * If provided, the loop comes from this older version of the questionnaire
+   * and is displayed in readonly.
+   */
+  versionId?: string
 }
 
 /**
@@ -64,8 +69,12 @@ export default function LoopForm({
   scopes,
   loopMembers,
   variables = [],
+  versionId,
 }: Readonly<Props>) {
   const navigate = useNavigate()
+
+  // A loop of an older version of the questionnaire can only be displayed.
+  const isReadonly = !!versionId
 
   const {
     control,
@@ -98,6 +107,14 @@ export default function LoopForm({
     loopMembers.find(({ id }) => id === initialMember)?.finalMembers ?? []
 
   const handleCancel = () => {
+    if (versionId) {
+      navigate({
+        to: '/questionnaire/$questionnaireId/version/$versionId',
+        params: { questionnaireId, versionId },
+        ignoreBlocker: true,
+      })
+      return
+    }
     navigate({
       to: '/questionnaire/$questionnaireId',
       params: { questionnaireId },
@@ -112,6 +129,8 @@ export default function LoopForm({
       isDirty={isDirty}
       isValid={isValid}
       isSubmitted={isSubmitted}
+      isDisabled={isReadonly}
+      disabledReason={isReadonly ? t('history.questionnaireIsReadonly') : ''}
       validateLabel={submitLabel}
       deleteButton={deleteButton}
     >
@@ -123,6 +142,7 @@ export default function LoopForm({
           fieldState: { invalid, isTouched, isDirty, error },
         }) => (
           <Field
+            disabled={isReadonly}
             dirty={isDirty}
             error={error}
             invalid={invalid}
@@ -131,7 +151,11 @@ export default function LoopForm({
             required
             touched={isTouched}
           >
-            <Input value={value} onValueChange={onChange} />
+            <Input
+              disabled={isReadonly}
+              value={value}
+              onValueChange={onChange}
+            />
           </Field>
         )}
       />
@@ -143,6 +167,7 @@ export default function LoopForm({
           fieldState: { invalid, isTouched, isDirty, error },
         }) => (
           <Field
+            disabled={isReadonly}
             dirty={isDirty}
             error={error}
             invalid={invalid}
@@ -152,6 +177,7 @@ export default function LoopForm({
           >
             <div className="flex items-center gap-2 w-full">
               <Select<string>
+                disabled={isReadonly}
                 options={[
                   { label: t('loop.form.basedOnPlaceholder'), value: '' },
                   ...Array.from(scopes).map(([id, name]) => ({
@@ -175,6 +201,7 @@ export default function LoopForm({
             fieldState: { invalid, isTouched, isDirty, error },
           }) => (
             <VTLEditor
+              disabled={isReadonly}
               dirty={isDirty}
               error={error}
               invalid={invalid}
@@ -198,6 +225,7 @@ export default function LoopForm({
               fieldState: { invalid, isTouched, isDirty, error },
             }) => (
               <Field
+                disabled={isReadonly}
                 dirty={isDirty}
                 error={error}
                 invalid={invalid}
@@ -207,6 +235,7 @@ export default function LoopForm({
                 touched={isTouched}
               >
                 <RadioGroup
+                  disabled={isReadonly}
                   options={[
                     { label: t('common.yes'), value: true },
                     { label: t('common.no'), value: false },
@@ -235,6 +264,7 @@ export default function LoopForm({
                 fieldState: { invalid, isTouched, isDirty, error },
               }) => (
                 <VTLEditor
+                  disabled={isReadonly}
                   dirty={isDirty}
                   error={error}
                   invalid={invalid}
@@ -257,6 +287,7 @@ export default function LoopForm({
                 fieldState: { invalid, isTouched, isDirty, error },
               }) => (
                 <Field
+                  disabled={isReadonly}
                   dirty={isDirty}
                   error={error}
                   invalid={invalid}
@@ -270,6 +301,7 @@ export default function LoopForm({
                    * single page, which is the opposite of splitting them.
                    */}
                   <RadioGroup
+                    disabled={isReadonly}
                     options={[
                       { label: t('common.yes'), value: false },
                       { label: t('common.no'), value: true },
@@ -297,6 +329,7 @@ export default function LoopForm({
                 fieldState: { invalid, isTouched, isDirty, error },
               }) => (
                 <VTLEditor
+                  disabled={isReadonly}
                   dirty={isDirty}
                   error={error}
                   invalid={invalid}
@@ -319,6 +352,7 @@ export default function LoopForm({
                 fieldState: { invalid, isTouched, isDirty, error },
               }) => (
                 <VTLEditor
+                  disabled={isReadonly}
                   dirty={isDirty}
                   error={error}
                   invalid={invalid}
@@ -341,6 +375,7 @@ export default function LoopForm({
                 fieldState: { invalid, isTouched, isDirty, error },
               }) => (
                 <Field
+                  disabled={isReadonly}
                   dirty={isDirty}
                   error={error}
                   invalid={invalid}
@@ -348,7 +383,11 @@ export default function LoopForm({
                   name={name}
                   touched={isTouched}
                 >
-                  <Input value={value} onValueChange={onChange} />
+                  <Input
+                    disabled={isReadonly}
+                    value={value}
+                    onValueChange={onChange}
+                  />
                 </Field>
               )}
             />
@@ -363,6 +402,7 @@ export default function LoopForm({
           fieldState: { invalid, isTouched, isDirty, error },
         }) => (
           <Field
+            disabled={isReadonly}
             dirty={isDirty}
             error={error}
             invalid={invalid}
@@ -372,6 +412,7 @@ export default function LoopForm({
             touched={isTouched}
           >
             <Select<string>
+              disabled={isReadonly}
               options={[
                 { label: t('loop.form.initialMemberPlaceholder'), value: '' },
                 ...loopMembers.map(({ id, name }) => ({
@@ -400,6 +441,7 @@ export default function LoopForm({
           fieldState: { invalid, isTouched, isDirty, error },
         }) => (
           <Field
+            disabled={isReadonly}
             dirty={isDirty}
             error={error}
             invalid={invalid}
@@ -418,7 +460,7 @@ export default function LoopForm({
               ]}
               value={value}
               onChange={onChange}
-              disabled={!initialMember}
+              disabled={isReadonly || !initialMember}
             />
           </Field>
         )}

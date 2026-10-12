@@ -319,3 +319,39 @@ describe('LoopForm occurrences', () => {
     },
   )
 })
+
+describe('LoopForm version', () => {
+  it('is readonly when the loop comes from a version', async () => {
+    await renderWithRouter(
+      <LoopForm
+        questionnaireId="q1"
+        scopes={new Map()}
+        loopMembers={loopMembers}
+        loop={{
+          name: 'my loop',
+          isFixedLength: false,
+          minimum: '1',
+          maximum: '2',
+          initialMember: 'S1',
+          finalMember: 'S1',
+        }}
+        onSubmit={async () => {}}
+        versionId="v1"
+      />,
+    )
+
+    for (const textbox of screen.getAllByRole('textbox')) {
+      expect(textbox).toBeDisabled()
+    }
+    for (const combobox of screen.getAllByRole('combobox')) {
+      expect(combobox).toHaveAttribute('data-disabled')
+    }
+    for (const radio of screen.getAllByRole('radio')) {
+      expect(radio).toHaveAttribute('data-disabled')
+    }
+    expect(screen.getByTestId('form-submit-button')).toBeDisabled()
+    expect(
+      screen.getByText('This save of the survey is on readonly.'),
+    ).toBeInTheDocument()
+  })
+})

@@ -10,7 +10,11 @@ export const loopsKeys = {
   all: (questionnaireId: string) => ['loops', questionnaireId] as const,
   one: (questionnaireId: string, loopId: string) =>
     ['one', questionnaireId, loopId] as const,
+  version: (questionnaireId: string, versionId: string, loopId: string) =>
+    ['loopVersion', questionnaireId, versionId, loopId] as const,
   members: (questionnaireId: string) => ['members', questionnaireId] as const,
+  membersVersion: (questionnaireId: string, versionId: string) =>
+    ['membersVersion', questionnaireId, versionId] as const,
 }
 
 /**
@@ -39,6 +43,38 @@ export async function getLoop(
 }
 
 /**
+ * Used to retrieve a loop of an older version of a questionnaire.
+ *
+ * @see {@link getLoopFromVersion}
+ */
+export const loopFromVersionQueryOptions = (
+  questionnaireId: string,
+  versionId: string,
+  loopId: string,
+) =>
+  queryOptions({
+    queryKey: loopsKeys.version(questionnaireId, versionId, loopId),
+    queryFn: () => getLoopFromVersion(questionnaireId, versionId, loopId),
+    staleTime: Infinity,
+  })
+
+/** Retrieve a loop of an older version of a questionnaire by its id. */
+export async function getLoopFromVersion(
+  questionnaireId: string,
+  versionId: string,
+  loopId: string,
+): Promise<Loop> {
+  return instance
+    .get(
+      `/questionnaires/${questionnaireId}/version/${versionId}/loops/${loopId}`,
+      { headers: { Accept: 'application/json' } },
+    )
+    .then(({ data }: { data: LoopDTO }) => {
+      return computeLoop(data)
+    })
+}
+
+/**
  * Used to retrieve the components that can be the boundaries of a loop in a
  * questionnaire.
  *
@@ -61,6 +97,41 @@ export async function getLoopMembers(
     .get(`/questionnaires/${questionnaireId}/loops/members`, {
       headers: { Accept: 'application/json' },
     })
+    .then(({ data }: { data: InitialLoopMember[] }) => {
+      return data
+    })
+}
+
+/**
+ * Used to retrieve the components that could be the boundaries of a loop in an
+ * older version of a questionnaire.
+ *
+ * @see {@link getLoopMembersFromVersion}
+ */
+export const loopMembersFromVersionQueryOptions = (
+  questionnaireId: string,
+  versionId: string,
+) =>
+  queryOptions({
+    queryKey: loopsKeys.membersVersion(questionnaireId, versionId),
+    queryFn: () => getLoopMembersFromVersion(questionnaireId, versionId),
+    staleTime: Infinity,
+  })
+
+/**
+ * Retrieve the components that could be the initial member of a loop in an
+ * older version of a questionnaire, each with the components that could then
+ * be used as its final member.
+ */
+export async function getLoopMembersFromVersion(
+  questionnaireId: string,
+  versionId: string,
+): Promise<InitialLoopMember[]> {
+  return instance
+    .get(
+      `/questionnaires/${questionnaireId}/version/${versionId}/loops/members`,
+      { headers: { Accept: 'application/json' } },
+    )
     .then(({ data }: { data: InitialLoopMember[] }) => {
       return data
     })

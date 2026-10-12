@@ -44,6 +44,11 @@ describe('next pages', () => {
     expect(navigate).toHaveBeenLastCalledWith(
       '/questionnaire/q1/loops/loop/loop1',
     );
+
+    result.current.navigateToEditLoopPage('q1', 'loop1', 'v1');
+    expect(navigate).toHaveBeenLastCalledWith(
+      '/questionnaire/q1/version/v1/loops/loop/loop1',
+    );
   });
 
   it('loads the page when no navigation is provided', () => {

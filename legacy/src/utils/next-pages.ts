@@ -31,10 +31,19 @@ export function useNextPages() {
       /** Navigate to the page of the new application for creating a loop. */
       navigateToNewLoopPage: (questionnaireId: string) =>
         navigateToNextPage(`/questionnaire/${questionnaireId}/loops/new`),
-      /** Navigate to the page of the new application for editing a loop. */
-      navigateToEditLoopPage: (questionnaireId: string, loopId: string) =>
+      /**
+       * Navigate to the page of the new application for editing a loop, or for
+       * displaying it if it comes from an older version of the questionnaire.
+       */
+      navigateToEditLoopPage: (
+        questionnaireId: string,
+        loopId: string,
+        versionId?: string,
+      ) =>
         navigateToNextPage(
-          `/questionnaire/${questionnaireId}/loops/loop/${loopId}`,
+          versionId
+            ? `/questionnaire/${questionnaireId}/version/${versionId}/loops/loop/${loopId}`
+            : `/questionnaire/${questionnaireId}/loops/loop/${loopId}`,
         ),
     }),
     [navigateToNextPage],

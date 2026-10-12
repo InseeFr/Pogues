@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
+import { useParams } from 'react-router-dom';
 
 import { domSelectorForModal } from '../../../constants/dom-constants';
 import { COMPONENT_TYPE } from '../../../constants/pogues-constants';
@@ -20,6 +21,8 @@ function NavLoop({
 }) {
   const [showComponentModal, setShowComponentModal] = useState(false);
   const { navigateToEditLoopPage } = useNextPages();
+  // Defined when displaying an older version of the questionnaire.
+  const { versionId } = useParams();
 
   const handleDeleteComponent = useCallback(() => {
     removeComponent(editingComponentId);
@@ -32,7 +35,7 @@ function NavLoop({
 
   function handleEditComponent(id) {
     if (isNextLoopPageEnabled()) {
-      navigateToEditLoopPage(questionnaire.id, id);
+      navigateToEditLoopPage(questionnaire.id, id, versionId);
       return;
     }
     setEditingComponentId(id);

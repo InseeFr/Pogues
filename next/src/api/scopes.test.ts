@@ -3,7 +3,7 @@ import nock from 'nock'
 import type { Scopes } from '@/models/scopes'
 
 import { VariableScope } from './models/variableDTO'
-import { getScopes } from './scopes'
+import { getScopes, getScopesFromVersion } from './scopes'
 
 vi.mock('@/lib/auth/oidc')
 
@@ -22,5 +22,16 @@ it('Get scopes works', async () => {
     .reply(200, questionnaireScopeApi)
 
   const res = await getScopes('my-questionnaire-id')
+  expect(res).toEqual(questionnaireScope)
+})
+
+it('Get scopes from version works', async () => {
+  nock('https://mock-api')
+    .get(
+      '/persistence/questionnaire/my-questionnaire-id/version/my-version/variables-scopes',
+    )
+    .reply(200, questionnaireScopeApi)
+
+  const res = await getScopesFromVersion('my-questionnaire-id', 'my-version')
   expect(res).toEqual(questionnaireScope)
 })
