@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { loopMembersQueryOptions, loopQueryOptions } from '@/api/loops'
 import { scopesQueryOptions } from '@/api/scopes'
+import { variablesQueryOptions } from '@/api/variables'
 import ErrorComponent from '@/components/layout/ErrorComponent'
 import EditLoop from '@/components/loop/edit/EditLoop'
 import EditLoopLayout from '@/components/loop/edit/EditLoopLayout'
@@ -40,6 +41,9 @@ function RouteComponent() {
   const { data: loopMembers } = useSuspenseQuery(
     loopMembersQueryOptions(questionnaireId),
   )
+  const { data: variables } = useSuspenseQuery(
+    variablesQueryOptions(questionnaireId),
+  )
 
   return (
     <EditLoopLayout loop={loop}>
@@ -48,6 +52,7 @@ function RouteComponent() {
         loop={loop}
         scopes={scopes}
         loopMembers={loopMembers}
+        variables={variables}
       />
     </EditLoopLayout>
   )
