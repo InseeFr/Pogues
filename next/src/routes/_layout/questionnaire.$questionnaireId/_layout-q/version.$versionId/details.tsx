@@ -33,10 +33,12 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const { questionnaireDetails, series } = Route.useLoaderData()
+  const { questionnaireId } = Route.useParams()
 
   return (
     <CustomLayout>
       <QuestionnaireDetailsForm
+        questionnaireId={questionnaireId}
         series={series}
         defaultValues={computeQuestionnaireDetails(questionnaireDetails)}
         onSubmit={() => {}}

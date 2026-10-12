@@ -10,6 +10,16 @@ import { renderWithRouter } from '@/testing/render'
 import QuestionnaireDetailsForm from './QuestionnaireDetailsForm'
 import type { FormValues } from './schema'
 
+const mockNavigate = vi.fn()
+
+vi.mock('@tanstack/react-router', async () => {
+  const actual = await vi.importActual('@tanstack/react-router')
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
+
 vi.mock('@/api/series', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/api/series')>()
   return {
@@ -48,6 +58,7 @@ describe('QuestionnaireDetailsForm', () => {
   it('renders all form fields with correct labels', async () => {
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         onSubmit={vi.fn()}
         submitLabel="Edit"
@@ -70,6 +81,7 @@ describe('QuestionnaireDetailsForm', () => {
   it('disables submit button when form is invalid', async () => {
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         onSubmit={vi.fn()}
         submitLabel="Edit"
@@ -83,6 +95,7 @@ describe('QuestionnaireDetailsForm', () => {
     const user = userEvent.setup()
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         defaultValues={validDefaultValues}
         onSubmit={vi.fn()}
@@ -106,6 +119,7 @@ describe('QuestionnaireDetailsForm', () => {
     const onSubmit = vi.fn()
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         defaultValues={validDefaultValues}
         onSubmit={onSubmit}
@@ -133,10 +147,11 @@ describe('QuestionnaireDetailsForm', () => {
     )
   })
 
-  it('resets form to initial values on cancel', async () => {
+  it('redirects to the questionnaire page on cancel', async () => {
     const user = userEvent.setup()
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         onSubmit={vi.fn()}
         submitLabel="Edit"
@@ -149,16 +164,18 @@ describe('QuestionnaireDetailsForm', () => {
     await user.clear(titleInput)
     await user.type(titleInput, 'Modified title')
 
-    expect(titleInput).toHaveValue('Modified title')
-
     await user.click(screen.getByRole('button', { name: /cancel/i }))
 
-    expect(titleInput).toHaveValue('')
+    expect(mockNavigate).toHaveBeenCalledWith({
+      to: '/questionnaire/$questionnaireId',
+      params: { questionnaireId: 'my-questionnaire' },
+    })
   })
 
   it('renders in readOnly mode without form buttons', async () => {
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         onSubmit={vi.fn()}
         submitLabel="Edit"
@@ -177,6 +194,7 @@ describe('QuestionnaireDetailsForm', () => {
 
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         defaultValues={validDefaultValues}
         onSubmit={vi.fn()}
@@ -192,6 +210,7 @@ describe('QuestionnaireDetailsForm', () => {
   it('does not fetch serie details when serie is empty', async () => {
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         onSubmit={vi.fn()}
         submitLabel="Edit"
@@ -207,6 +226,7 @@ describe('QuestionnaireDetailsForm', () => {
     const user = userEvent.setup()
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         onSubmit={vi.fn()}
         submitLabel="Edit"
@@ -227,6 +247,7 @@ describe('QuestionnaireDetailsForm', () => {
   it('displays short name max-length error when default name exceeds 10 characters', async () => {
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         defaultValues={{ ...validDefaultValues, name: 'WAYTOOLONGNAME' }}
         onSubmit={vi.fn()}
@@ -244,6 +265,7 @@ describe('QuestionnaireDetailsForm', () => {
     const onSubmit = vi.fn()
     await renderWithRouter(
       <QuestionnaireDetailsForm
+        questionnaireId="my-questionnaire"
         series={series}
         defaultValues={validDefaultValues}
         onSubmit={onSubmit}

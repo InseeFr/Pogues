@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router'
 import { Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -21,6 +22,7 @@ import { Stamp } from '@/models/stamps'
 import { type FormValues, schema } from './schema'
 
 type Props = {
+  questionnaireId: string
   defaultValues?: Partial<FormValues>
   onSubmit: SubmitHandler<FormValues>
   submitLabel: string
@@ -30,6 +32,7 @@ type Props = {
 }
 
 export default function QuestionnaireDetailsForm({
+  questionnaireId,
   defaultValues = {
     name: '',
     title: '',
@@ -45,6 +48,7 @@ export default function QuestionnaireDetailsForm({
   readOnly = false,
 }: Readonly<Props>) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const {
     control,
     handleSubmit,
@@ -82,18 +86,30 @@ export default function QuestionnaireDetailsForm({
 
   const [isSerieOpen, setIsSerieOpen] = useState(false)
   const [isStampOpen, setIsStampOpen] = useState(false)
-  const [serieDetails, setSerieDetails] = useState<SerieDetailDTO | null>(null)
+  const [serieDetails, setSerieDetails] = useState<{
+    serieId: string
+    details: SerieDetailDTO
+  } | null>(null)
 
   useEffect(() => {
     if (!selectedSerie) {
-      setSerieDetails(null)
       return
     }
+    let isActive = true
     getSerieById(selectedSerie)
-      .then(setSerieDetails)
-      .catch(() => {
-        setSerieDetails(null)
+      .then((details) => {
+        if (isActive) {
+          setSerieDetails({ serieId: selectedSerie, details })
+        }
       })
+      .catch(() => {
+        if (isActive) {
+          setSerieDetails(null)
+        }
+      })
+    return () => {
+      isActive = false
+    }
   }, [selectedSerie])
 
   const seriesOptions: { label: string; value: string }[] = (series ?? []).map(
@@ -111,7 +127,10 @@ export default function QuestionnaireDetailsForm({
   }
 
   const handleCancel = () => {
-    reset()
+    navigate({
+      to: '/questionnaire/$questionnaireId',
+      params: { questionnaireId },
+    })
   }
 
   const handleSerieChange = (value: string) => {
@@ -185,9 +204,9 @@ export default function QuestionnaireDetailsForm({
                 />
               ) : null}
             </div>
-            {serieDetails ? (
+            {serieDetails && serieDetails.serieId === selectedSerie ? (
               <div className="ml-4 mt-3 text-sm border-l-2 border-gray-300 pl-3">
-                <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.altLabel ?? t('details.altLabelUndefined')}`}</div>
+                <div className="m-2 text-stone-500 italic">{`${t('details.altLabel')} : ${serieDetails.details.altLabel ?? t('details.altLabelUndefined')}`}</div>
               </div>
             ) : null}
           </>

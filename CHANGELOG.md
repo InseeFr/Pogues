@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Render a proper link to the modal to edit a variable
 - Sidebar not being displayed to screen readers
 - Fixed some pages hierarchy (h1, h2, etc...)
+- Cancel button in questionnaire details form now redirect the user to the questionnaire page
 
 ## [3.9.1](https://github.com/InseeFr/Pogues/releases/tag/3.9.1) - 2026-10-08
 
