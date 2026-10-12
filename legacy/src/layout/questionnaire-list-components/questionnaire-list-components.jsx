@@ -252,7 +252,7 @@ const QuestionnaireListComponents = (rawProps) => {
 
             <ConfirmDialog
               showConfirmModal={showDuplicateModal}
-              closePopup={() => setShowRemoveQuestionnaireDialog(false)}
+              closePopup={() => setShowDuplicateModal(false)}
               confirm={() =>
                 getAccessToken().then((accessToken) =>
                   duplicateQuestionnaire(questionnaire.id, accessToken).then(
