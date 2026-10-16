@@ -37,7 +37,7 @@ export default function SidebarItemGroup({
       <NavigationMenu.Root className="2xl:hidden">
         <NavigationMenu.List className="relative flex">
           <NavigationMenu.Item className="w-full">
-            <NavigationMenu.Trigger className="w-full">
+            <NavigationMenu.Trigger className="w-full" aria-label={label}>
               <SidebarIcon
                 Icon={Icon}
                 iconClassName={iconClassName}

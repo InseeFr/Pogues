@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, FormSection, change, formValueSelector } from 'redux-form';
 
 import { DATATYPE_NAME } from '../../../../../constants/pogues-constants';
-import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
+import { SimpleEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import Input from '../../../../../forms/controls/input';
 import ListRadios from '../../../../../forms/controls/list-radios';
@@ -87,7 +87,7 @@ function ResponseFormatDatatypeNumeric({
             {isDynamicUnit ? (
               <Field
                 name="unit"
-                component={RichEditorWithVariable}
+                component={SimpleEditorWithVariable}
                 label={Dictionary.dynamicUnitFormula}
                 disabled={readOnly}
               />

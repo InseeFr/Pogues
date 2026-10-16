@@ -20,12 +20,21 @@ export default function VariablesTable({
 
   return (
     <table className="border border-default w-full shadow-sm">
+      <caption className="sr-only">{t('variables.title')}</caption>
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
-          <th className="w-1/6">{t('variable.name')}</th>
-          <th className="w-3/6">{t('variable.description')}</th>
-          <th className="w-1/6">{t('variable.datatype.label')}</th>
-          <th className="w-1/6">{t('variable.type.label')}</th>
+          <th scope="col" className="w-1/6">
+            {t('variable.name')}
+          </th>
+          <th scope="col" className="w-3/6">
+            {t('variable.description')}
+          </th>
+          <th scope="col" className="w-1/6">
+            {t('variable.datatype.label')}
+          </th>
+          <th scope="col" className="w-1/6">
+            {t('variable.type.label')}
+          </th>
           <th />
         </tr>
       </thead>

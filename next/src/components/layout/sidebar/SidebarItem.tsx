@@ -32,23 +32,25 @@ export default function SidebarItem({
 
   if (isHidden) return null
 
+  const isActive =
+    !!matchRoute({ to: path }) ||
+    innerPaths.some((path) => !!matchRoute({ to: path }))
+
   return (
     <li>
       <Link
         to={path}
         params={{ questionnaireId, versionId }}
-        aria-disabled={isDisabled}
-        className={`w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none`}
+        aria-current={isActive ? 'true' : undefined}
+        aria-disabled={isDisabled || undefined}
+        className="group w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none"
+        tabIndex={isDisabled ? -1 : undefined}
       >
         <SidebarIcon
           Icon={Icon}
           iconClassName={iconClassName}
           label={label}
           onIconClick={onIconClick}
-          active={
-            !!matchRoute({ to: path }) ||
-            innerPaths.some((path) => !!matchRoute({ to: path }))
-          }
         />
       </Link>
     </li>

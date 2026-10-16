@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 type Props = {
   children: React.ReactNode
 }
@@ -23,8 +25,12 @@ type Props = {
  * ```
  */
 export default function Sidebar({ children }: Readonly<Props>) {
+  const { t } = useTranslation()
   return (
-    <nav className="sticky top-0 w-18 2xl:w-52 max-h-[calc(100vh-var(--header-height))] divide-y *:py-3">
+    <nav
+      aria-label={t('common.navigation')}
+      className="sticky top-0 w-18 2xl:w-52 max-h-[calc(100vh-var(--header-height))] divide-y *:py-3"
+    >
       {children}
     </nav>
   )

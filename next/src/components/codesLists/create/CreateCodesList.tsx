@@ -1,3 +1,4 @@
+import FormComponent from '@/components/ui/form/FormComponent'
 import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
 
@@ -16,12 +17,12 @@ export default function CreateCodesList({
   variables,
 }: Readonly<CreateCodesListProps>) {
   return (
-    <div className="bg-default p-4 border border-default shadow-xl">
+    <FormComponent>
       <CreateCodesListForm
         questionnaireId={questionnaireId}
         formulasLanguage={formulasLanguage}
         variables={variables}
       />
-    </div>
+    </FormComponent>
   )
 }

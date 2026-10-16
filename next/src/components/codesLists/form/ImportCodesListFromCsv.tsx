@@ -8,9 +8,9 @@ import {
   convertCsvToFormValues,
   validateCodeListCsvFile,
 } from '@/components/codesLists/form/utils/csvValidation'
+import Banner, { BannerStyle } from '@/components/ui/Banner'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
-import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import Input from '@/components/ui/form/Input'
 
 import { type FormValues } from '../form/schema'
@@ -96,21 +96,23 @@ export default function ImportCodesListFromCsv({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-default">
+      <span className="text-xl font-semibold text-default">
         {t('codesList.import.title')}
-      </h3>
+      </span>
 
-      <div className="border border-default rounded-lg p-4 bg-accent">
+      <div className="border border-default rounded-lg p-4 bg-accent mt-4">
         <p className="font-medium mb-2">{t('codesList.import.instructions')}</p>
         <ul className="list-disc list-inside space-y-1 text-default">
           <li>{t('codesList.import.columnNumber')}</li>
           <li>{t('codesList.import.separator')}</li>
           <li>{t('codesList.import.encodingNote')}</li>
-          <ul>
-            <li>
-              <i>{t('codesList.import.csvExample')}</i>
-            </li>
-          </ul>
+          <li>
+            <ul>
+              <li>
+                <i>{t('codesList.import.csvExample')}</i>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
 
@@ -145,9 +147,7 @@ export default function ImportCodesListFromCsv({
           <div className="text-action-primary">{t('common.loading')}...</div>
         )}
 
-        {parseError && (
-          <UploadMessageTile message={parseError} isError={true} />
-        )}
+        {parseError && <Banner message={parseError} type={BannerStyle.Error} />}
 
         {parsedData && !parseError && (
           <CsvViewerTable

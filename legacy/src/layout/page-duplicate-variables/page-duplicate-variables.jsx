@@ -8,12 +8,12 @@ import { questionnaireDuplicateVariables } from './utils/duplicate-variables-uti
 
 export function PageDuplicateVariables({
   id,
-  collectedVariableByQuestion,
-  activeExternalVariablesById,
-  activeCalculatedVariablesById,
-  activeQuestionnaire,
-  externalQuestionnairesVariables,
-  activeComponentsById,
+  collectedVariableByQuestion = {},
+  activeExternalVariablesById = {},
+  activeCalculatedVariablesById = {},
+  activeQuestionnaire = {},
+  externalQuestionnairesVariables = {},
+  activeComponentsById = {},
 }) {
   const history = useHistory();
   const routeBackToQuestionnaire = useCallback(() => {
@@ -87,11 +87,3 @@ PageDuplicateVariables.propTypes = {
   activeComponentsById: PropTypes.object,
 };
 
-PageDuplicateVariables.defaultProps = {
-  collectedVariableByQuestion: {},
-  activeExternalVariablesById: {},
-  activeCalculatedVariablesById: {},
-  activeQuestionnaire: {},
-  externalQuestionnairesVariables: {},
-  activeComponentsById: {},
-};

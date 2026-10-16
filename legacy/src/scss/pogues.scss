@@ -1,3 +1,8 @@
+// Point at package fonts so Vite resolves them at build time (avoids ../fonts warnings).
+// Public copies under public/fonts remain available for direct /legacy/fonts URLs if needed.
+$icon-font-path: 'bootstrap-sass/assets/fonts/bootstrap/';
+$fa-font-path: 'font-awesome/fonts';
+
 #pogues-legacy {
   font-family: sans-serif;
 

@@ -1,4 +1,4 @@
-import { AntlrEditor, cleanupProviders } from '@making-sense/antlr-editor'
+import { AntlrEditor } from '@making-sense/antlr-editor'
 import { Error, Tools } from '@making-sense/antlr-editor/dist/model'
 import * as tools from '@making-sense/vtl-2-1-antlr-tools-ts'
 import {
@@ -7,12 +7,13 @@ import {
 } from '@making-sense/vtl-2-1-monaco-tools-ts'
 import { type ErrorOption } from 'react-hook-form'
 
-import { useEffect } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { type Variable } from '@/models/variables'
 
 import Field, { type Props as FieldProps } from './Field'
 import { computeAntlrVariables } from './utils/vtlEditor'
+import { filterPoguesDollarCompatibilityErrors } from './utils/vtlDollarCompatibility'
 
 type Props = {
   /** Additional information about the field. */
@@ -56,6 +57,12 @@ type Props = {
   onChange: (value: string) => void
   /** Manually set custom error for `react-hook-form` to manage. */
   setError?: (error: ErrorOption) => void
+  /**
+   * When false, treat the field as a Pogues label (free text / `$VAR$`):
+   * do not push VTL parser errors to the form and hide Monaco squiggles.
+   * Formula fields keep the default `true` (only `$`-only lexer noise is filtered).
+   */
+  blockOnSyntaxErrors?: boolean
 }
 
 /**
@@ -63,6 +70,9 @@ type Props = {
  *
  * Use `Field` component to handle labeling and validation and has some optional
  * functions if it's in a `react-hook-form`.
+ *
+ * Do not call `cleanupProviders()` from here: providers are shared across Monaco
+ * instances, and codes-list pages mount many editors at once.
  */
 export default function VTLEditor({
   description,
@@ -78,35 +88,78 @@ export default function VTLEditor({
   value,
   onChange,
   setError = () => {},
+  blockOnSyntaxErrors = true,
 }: Readonly<Props>) {
   /** Whether there are errors on the input. */
   const isInvalid = !!error
   /** Variables that can be suggested for autocompletion. */
-  const antlrVariables = computeAntlrVariables(suggestionsVariables)
-  /** Additional tools to improve user experience. */
-  const customTools: Tools = {
-    ...tools,
-    monarchDefinition,
-    getSuggestionsFromRange,
-    initialRule: 'expr',
-  }
+  const antlrVariables = useMemo(
+    () => computeAntlrVariables(suggestionsVariables),
+    [suggestionsVariables],
+  )
+  /** Additional tools to improve user experience.
+   * `expr` (not `start`): Pogues stores VTL expressions, not full scripts.
+   * Full-input validation (EOF + lexer errors) is handled by antlr-editor ≥ 2.9.4.
+   * Memoize: a new tools object each render re-triggers parse in antlr-editor.
+   */
+  const customTools: Tools = useMemo(
+    () => ({
+      ...tools,
+      monarchDefinition,
+      getSuggestionsFromRange,
+      initialRule: 'expr',
+    }),
+    [],
+  )
 
-  // Manual cleanup for advanced scenarios
-  useEffect(() => {
-    return () => {
-      cleanupProviders()
-    }
-  }, [])
+  const editorOptions = useMemo(
+    () => ({
+      minimap: { enabled: false },
+      lineNumbers: 'off' as const,
+      glyphMargin: false,
+      folding: false,
+      lineDecorationsWidth: 0,
+      renderLineHighlight: 'none' as const,
+      readOnly: disabled,
+      ariaRequired: required,
+      ...(blockOnSyntaxErrors
+        ? {}
+        : { renderValidationDecorations: 'off' as const }),
+    }),
+    [disabled, required, blockOnSyntaxErrors],
+  )
 
-  /** Send VTL errors to `react-hook-form` */
-  function handleVTLErrors(vtlEditorErrors: Error[], value?: string) {
-    if (!value) return
-    if (error) return
-    for (const error of vtlEditorErrors) {
-      const message = `[Ln ${error.line}, Col ${error.column}] ${error.message}`
-      setError({ type: 'custom', message })
-    }
-  }
+  /** Send VTL errors to `react-hook-form` (formulas only). */
+  const handleVTLErrors = useCallback(
+    (vtlEditorErrors: Error[]) => {
+      if (!blockOnSyntaxErrors) return
+      if (error) return
+      // Temporary: keep `$VAR$` for DDI/XSLT; ignore `$`-only lexer errors.
+      // Prefer errors already filtered by AntlrEditor.filterErrors when available.
+      const blockingErrors = filterPoguesDollarCompatibilityErrors(
+        vtlEditorErrors,
+        value,
+      )
+      for (const vtlError of blockingErrors) {
+        const message = `[Ln ${vtlError.line}, Col ${vtlError.column}] ${vtlError.message}`
+        setError({ type: 'custom', message })
+      }
+    },
+    [blockOnSyntaxErrors, error, value, setError],
+  )
+
+  const filterErrors = useCallback(
+    (errors: Error[], script: string) =>
+      filterPoguesDollarCompatibilityErrors(errors, script),
+    [],
+  )
+
+  const handleScriptChange = useCallback(
+    (next: string) => {
+      onChange(next)
+    },
+    [onChange],
+  )
 
   return (
     <Field
@@ -136,22 +189,14 @@ export default function VTLEditor({
       >
         <AntlrEditor
           script={value}
-          setScript={(value: string) => onChange(value)}
-          onListErrors={(e) => handleVTLErrors(e, value)}
+          setScript={handleScriptChange}
+          onListErrors={handleVTLErrors}
+          filterErrors={blockOnSyntaxErrors ? filterErrors : () => []}
           variables={antlrVariables}
           tools={customTools}
           theme="vs-light"
           height="100%"
-          options={{
-            minimap: { enabled: false },
-            lineNumbers: 'off',
-            glyphMargin: false,
-            folding: false,
-            lineDecorationsWidth: 0,
-            renderLineHighlight: 'none',
-            readOnly: disabled,
-            ariaRequired: required,
-          }}
+          options={editorOptions}
           shortcuts={{}}
           displayFooter={false}
         />

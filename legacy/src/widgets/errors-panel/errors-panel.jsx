@@ -12,7 +12,7 @@ const defaultProps = {
 
 // Component
 
-function ErrrosPanel({ errors }) {
+function ErrrosPanel({ errors = [] }) {
   return (
     <div className="widget-errors-panel">
       {errors.length > 0 ? (
@@ -27,6 +27,5 @@ function ErrrosPanel({ errors }) {
 }
 
 ErrrosPanel.propTypes = propTypes;
-ErrrosPanel.defaultProps = defaultProps;
 
 export default ErrrosPanel;

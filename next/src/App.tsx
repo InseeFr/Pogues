@@ -11,6 +11,12 @@ import { routeTree } from './routeTree.gen'
 
 const queryClient = new QueryClient()
 
+//Handle translation for browser detection and screen reader
+document.documentElement.lang = i18next.language
+i18next.on('languageChanged', (lang) => {
+  document.documentElement.lang = lang
+})
+
 // Create a new router instance
 const router = createRouter({
   scrollRestoration: true,

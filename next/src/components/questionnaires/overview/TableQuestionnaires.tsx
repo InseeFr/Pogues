@@ -15,10 +15,11 @@ export default function TableQuestionnaires({
   const { t } = useTranslation()
   return (
     <table className="table-auto border border-default w-full shadow-xl">
+      <caption className="sr-only">{t('questionnaires.title')}</caption>
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
-          <th>{t('questionnaires.title')}</th>
-          <th>{t('common.lastUpdated')}</th>
+          <th scope="col">{t('questionnaires.title')}</th>
+          <th scope="col">{t('common.lastUpdated')}</th>
           <th className="w-0" />
         </tr>
       </thead>

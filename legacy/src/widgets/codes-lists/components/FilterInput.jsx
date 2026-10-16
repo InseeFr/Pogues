@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { WIDGET_CODES_LISTS } from '../../../constants/dom-constants';
-import { RichEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
+import { SimpleEditorWithVariable } from '../../../forms/controls/control-with-suggestions';
 import Dictionary from '../../../utils/dictionary/dictionary';
 
 const {
@@ -85,7 +85,7 @@ function FilterInput({
       <div className={CODE_INPUT_ERRORS_CLASS} />
       <div className="w-2/3 m-auto">
         <div className={`${CODE_INPUT_CODE_CLASS_PRECISION} !w-full`}>
-          <RichEditorWithVariable
+          <SimpleEditorWithVariable
             label={Dictionary.filtre}
             input={{ value, onChange: setValue, name: 'condition-filter' }}
           />
