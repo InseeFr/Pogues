@@ -9,11 +9,11 @@ import { useState } from 'react'
 import { questionnairesKeys } from '@/api/questionnaires'
 import { postRelease } from '@/api/releases'
 import { computeCreateReleaseDTO } from '@/api/utils/releases'
+import Banner, { BannerStyle } from '@/components/ui/Banner.tsx'
 import type { TargetModes } from '@/models/questionnaires'
 
 import ReleaseForm from '../form/ReleaseForm'
 import { type FormValues } from '../form/schema'
-import DuplicateReleaseBanner from './DuplicateReleaseBanner.tsx'
 
 type Props = {
   questionnaireId: string
@@ -80,7 +80,12 @@ export default function CreateReleaseForm({
 
   return (
     <>
-      {isAlreadyPublished ? <DuplicateReleaseBanner /> : null}
+      {isAlreadyPublished ? (
+        <Banner
+          message={t('release.create.alreadyPublished')}
+          type={BannerStyle.Error}
+        />
+      ) : null}
       <ReleaseForm
         questionnaireId={questionnaireId}
         seriesId={seriesId}

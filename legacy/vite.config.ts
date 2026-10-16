@@ -1,13 +1,30 @@
+import { createRequire } from 'node:module';
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
 import { oidcSpa } from 'oidc-spa/vite-plugin';
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
 import { type UserConfig, defineConfig } from 'vite';
 import { viteEnvs } from 'vite-envs';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+
+/** antlr-editor is CJS → force monaco ESM (AMD min build breaks under Vite). */
+function resolveMonacoEsm(): string {
+  const requireFromAntlr = createRequire(
+    require.resolve('@making-sense/antlr-editor/package.json'),
+  );
+  const cjsEntry = requireFromAntlr.resolve('monaco-editor');
+  const esmEntry = cjsEntry.replace(
+    /min[/\\]vs[/\\](?:index|editor[/\\]editor\.main)\.js$/,
+    'esm/vs/index.js',
+  );
+  if (esmEntry === cjsEntry) {
+    throw new Error(
+      `Unable to map monaco-editor CJS entry to ESM: ${cjsEntry}`,
+    );
+  }
+  return esmEntry;
+}
 
 // https://vite.dev/config/
 const defaultPlugin = [
@@ -22,8 +39,8 @@ const defaultPlugin = [
 ];
 
 const mFSharedConfig = {
-  react: { singleton: true, requiredVersion: '^18.3.1' },
-  'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
+  react: { singleton: true, requiredVersion: '^19.0.0' },
+  'react-dom': { singleton: true, requiredVersion: '^19.0.0' },
 };
 
 export const buildViteConf = (
@@ -40,20 +57,33 @@ export const buildViteConf = (
             exposes: {
               './App': './src/main.tsx',
             },
+            // Host types the remote locally; MF DTS fails on transitive .d.ts (e.g. zod).
+            dts: false,
             shared: mode === 'development' ? [] : mFSharedConfig,
           }),
         ]
       : defaultPlugin,
     resolve: {
       alias: {
-        'monaco-editor': resolve(
-          __dirname,
-          'node_modules/monaco-editor/esm/vs/index.js',
-        ),
+        'monaco-editor': resolveMonacoEsm(),
       },
     },
     build: {
       target: 'esnext',
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // bootstrap-sass / font-awesome still use legacy Sass syntax
+          quietDeps: true,
+          silenceDeprecations: [
+            'slash-div',
+            'import',
+            'global-builtin',
+            'color-functions',
+          ],
+        },
+      },
     },
     define: {
       global: 'window',
@@ -62,11 +92,10 @@ export const buildViteConf = (
     experimental: {
       renderBuiltUrl(_filename, { hostType }) {
         /**
-         * For js files,
-         * We need the urls to be relative not absolute (fix issue when we load directly /questionnaire/{id}),
-         * But as for the rest, it must remain absolute to allow application works in legacy and with the new application.
+         * Relative URLs so assets work both standalone and under /legacy/ (MFE).
+         * Absolute /assets/... would 404 when the host serves legacy from /legacy/.
          */
-        if (hostType === 'js') return { relative: true };
+        if (hostType === 'js' || hostType === 'css') return { relative: true };
       },
     },
   };

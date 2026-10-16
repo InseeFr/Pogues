@@ -26,12 +26,13 @@ export default function VersionTile({
 
   return (
     <table className="border border-default w-full shadow-sm">
+      <caption className="sr-only">{t('history.title')}</caption>
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
-          <th>{t('history.id')}</th>
-          <th>{t('common.lastUpdated')}</th>
-          <th>{t('common.date')}</th>
-          <th>{t('history.author')}</th>
+          <th scope="col">{t('history.id')}</th>
+          <th scope="col">{t('common.lastUpdated')}</th>
+          <th scope="col">{t('common.date')}</th>
+          <th scope="col">{t('history.author')}</th>
           <th />
         </tr>
       </thead>
@@ -55,6 +56,7 @@ export default function VersionTile({
                 href={`${trombiUrl}/${version.author}`}
                 target="_blank"
                 className="text-action-primary fill-action-primary inline-flex items-center space-x-1"
+                aria-label={`${trombiUrl}/${version.author} (${t('common.opensInNewWindow')})`}
               >
                 <span className="hover:underline">{version.author}</span>
                 <div>

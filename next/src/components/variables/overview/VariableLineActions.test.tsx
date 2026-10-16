@@ -7,18 +7,8 @@ import { renderWithRouter } from '@/testing/render'
 
 import VariableLineActions from './VariableLineActions'
 
-const mockNavigate = vi.fn()
-// Mock useNavigate from @tanstack/react-router
-vi.mock('@tanstack/react-router', async () => {
-  const actual = await vi.importActual('@tanstack/react-router')
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  }
-})
-
 describe('VariableLineActions', () => {
-  it('allow to edit an external variable', async () => {
+  it('allow to edit an external variable through a real link', async () => {
     // Given an external variable
     const user = userEvent.setup()
     await renderWithRouter(
@@ -40,14 +30,12 @@ describe('VariableLineActions', () => {
     )
     await screen.findByRole('menu')
 
-    // Then we can edit the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument()
-    await user.click(screen.getByRole('menuitem', { name: 'Edit' }))
-
-    expect(mockNavigate).toHaveBeenCalledWith({
-      to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
-      params: { questionnaireId: 'q-id', variableId: 'my-id' },
-    })
+    const editLink = screen.getByRole('menuitem', { name: 'Edit' })
+    expect(editLink.tagName).toBe('A')
+    expect(editLink).toHaveAttribute(
+      'href',
+      '/questionnaire/q-id/variables/variable/my-id',
+    )
   })
 
   it('allow to delete an external variable', async () => {
@@ -81,8 +69,8 @@ describe('VariableLineActions', () => {
     expect(screen.getByText('Delete variable: MY_VAR')).toBeInTheDocument()
   })
 
-  it('allow to edit a calculated variable', async () => {
-    // Given an calculated variable
+  it('allow to edit a calculated variable through a real link', async () => {
+    // Given a calculated variable
     const user = userEvent.setup()
     await renderWithRouter(
       <VariableLineActions
@@ -92,7 +80,7 @@ describe('VariableLineActions', () => {
           name: 'MY_VAR',
           description: 'This var likes strawberries',
           datatype: { typeName: DatatypeType.Text },
-          type: VariableType.External,
+          type: VariableType.Calculated,
         }}
       />,
     )
@@ -103,14 +91,12 @@ describe('VariableLineActions', () => {
     )
     await screen.findByRole('menu')
 
-    // Then we can edit the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument()
-    await user.click(screen.getByRole('menuitem', { name: 'Edit' }))
-
-    expect(mockNavigate).toHaveBeenCalledWith({
-      to: '/questionnaire/$questionnaireId/variables/variable/$variableId',
-      params: { questionnaireId: 'q-id', variableId: 'my-id' },
-    })
+    const editLink = screen.getByRole('menuitem', { name: 'Edit' })
+    expect(editLink.tagName).toBe('A')
+    expect(editLink).toHaveAttribute(
+      'href',
+      '/questionnaire/q-id/variables/variable/my-id',
+    )
   })
 
   it('allows to delete a calculated variable', async () => {
@@ -189,9 +175,9 @@ describe('VariableLineActions', () => {
     await screen.findByRole('menu')
 
     // Then we cannot edit or delete the variable
-    expect(screen.getByRole('menuitem', { name: 'Edit' })).toHaveAttribute(
-      'data-disabled',
-    )
+    const editLink = screen.getByRole('link', { name: 'Edit' })
+    expect(editLink).toHaveAttribute('aria-disabled', 'true')
+    expect(editLink).not.toHaveAttribute('href')
     expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveAttribute(
       'data-disabled',
     )

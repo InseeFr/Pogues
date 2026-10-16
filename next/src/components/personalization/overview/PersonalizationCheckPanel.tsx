@@ -9,8 +9,8 @@ import {
   personalizationKeys,
 } from '@/api/personalization'
 import { createInterrogationFile } from '@/api/utils/personalization'
+import Banner, { BannerStyle } from '@/components/ui/Banner'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
-import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import ResetIcon from '@/components/ui/icons/ResetIcon'
 import WarningIcon from '@/components/ui/icons/WarningIcon'
 import {
@@ -85,9 +85,9 @@ export default function PersonalizationCheckPanel({
         >
           <div className="flex flex-row mb-2 items-center">
             <WarningIcon className="w-6 h-6 text-orange-800 mr-3 shrink-0" />
-            <h4 className="text-lg font-semibold">
+            <span className="text-lg font-semibold">
               {t('personalization.overview.syncErrorTitle')}
-            </h4>
+            </span>
           </div>
           <div className="w-full flex flex-row items-center mb-2 justify-between">
             {t('personalization.overview.syncErrorContent')}
@@ -109,18 +109,16 @@ export default function PersonalizationCheckPanel({
       {interrogationData &&
         Object.keys(interrogationData).length > 0 &&
         !hasValidInterrogationData && (
-          <UploadMessageTile
-            messages={{
-              message: t('personalization.overview.dataInterrogationError'),
-              details: [
-                {
-                  message: t(
-                    'personalization.overview.dataInterrogationErrorDetails',
-                  ),
-                },
-              ],
-            }}
-            isErrorUpload={true}
+          <Banner
+            type={BannerStyle.Error}
+            message={t('personalization.overview.dataInterrogationError')}
+            details={[
+              {
+                message: t(
+                  'personalization.overview.dataInterrogationErrorDetails',
+                ),
+              },
+            ]}
           />
         )}
     </>

@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next'
 
 import { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
-import WarningIcon from '@/components/ui/icons/WarningIcon'
+import Banner, { BannerStyle } from '@/components/ui/Banner.tsx'
+import FormComponent from '@/components/ui/form/FormComponent'
 import { TargetModes } from '@/models/questionnaires'
 
 import CreateReleaseForm from './CreateReleaseForm'
-import DuplicateReleaseBanner from './DuplicateReleaseBanner.tsx'
 
 type Props = {
   questionnaireId: string
@@ -26,13 +26,19 @@ export default function CreateRelease({
   const { t } = useTranslation()
   return (
     <div>
-      {isPublishDisabled ? <DuplicateReleaseBanner /> : null}
+      {isPublishDisabled ? (
+        <Banner
+          message={t('release.create.alreadyPublished')}
+          type={BannerStyle.Error}
+        />
+      ) : null}
       {hasPublishableMode(targetModes) ? (
-        <div>
-          <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
-            <div>{t('release.form.introduction')}</div>
-          </div>
-          <div className="bg-default p-4 border border-default shadow-xl">
+        <div className="grid gap-3">
+          <Banner
+            message={t('release.form.introduction')}
+            type={BannerStyle.Info}
+          />
+          <FormComponent>
             <CreateReleaseForm
               questionnaireId={questionnaireId}
               seriesId={serie ? serie.label : ''}
@@ -40,18 +46,13 @@ export default function CreateRelease({
               targetModes={targetModes}
               isPublishDisabled={isPublishDisabled}
             />
-          </div>
+          </FormComponent>
         </div>
       ) : (
-        <div
-          role="alert"
-          className="bg-orange-100 border border-orange-300 text-orange-800 text-sm rounded p-3 mb-6 flex items-center gap-1"
-        >
-          <WarningIcon className="w-6 h-6 text-orange-800 mr-3 flex-shrink-0" />
-          <div className="text-orange-800">
-            {t('release.form.collectMode.noMatch')}
-          </div>
-        </div>
+        <Banner
+          message={t('release.form.collectMode.noMatch')}
+          type={BannerStyle.Warning}
+        />
       )}
     </div>
   )

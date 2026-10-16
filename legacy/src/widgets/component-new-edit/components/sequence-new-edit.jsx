@@ -3,6 +3,7 @@ import { Field } from 'redux-form';
 
 import {
   COMPONENT_TYPE,
+  DEFAULT_FORM_NAME,
   TABS_PATHS,
   TargetMode,
 } from '../../../constants/pogues-constants';
@@ -17,19 +18,20 @@ import Declarations from './declarations';
 import LoopNewEdit from './loop-new-edit';
 
 export const SequenceNewEdit = ({
-  form,
+  form = DEFAULT_FORM_NAME,
   componentType,
-  componentId,
+  componentId = '',
   errorsIntegrityByTab,
   addSubformValidationErrors,
   buttonRef,
   handleDisableValidation,
   activeQuestionnaire,
-  componentsStore,
-  InitialMember,
-  scopes,
+  componentsStore = {},
+  InitialMember = undefined,
+  scopes = undefined,
 }) => {
   const { ROUNDABOUT } = COMPONENT_TYPE;
+  const setDisable = handleDisableValidation;
 
   return (
     <>
@@ -42,7 +44,6 @@ export const SequenceNewEdit = ({
         onEnter={() => {
           buttonRef.click();
         }}
-        handleDisableValidation={handleDisableValidation}
         targetIsRichTextarea={false}
         targetIsQuestion={false}
       />
@@ -94,6 +95,7 @@ export const SequenceNewEdit = ({
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
               isRoundabout={true}
+              handleDisableValidation={setDisable('controls')}
             />
           </Tab>
         </Tabs>
@@ -120,6 +122,7 @@ export const SequenceNewEdit = ({
             <Controls
               errors={errorsIntegrityByTab[TABS_PATHS.CONTROLS]}
               addErrors={addSubformValidationErrors}
+              handleDisableValidation={setDisable('controls')}
             />
           </Tab>
         </Tabs>
@@ -142,10 +145,3 @@ SequenceNewEdit.propTypes = {
   form: PropTypes.string,
 };
 
-SequenceNewEdit.defaultProps = {
-  componentId: '',
-  componentsStore: {},
-  InitialMember: undefined,
-  scopes: undefined,
-  form: undefined,
-};

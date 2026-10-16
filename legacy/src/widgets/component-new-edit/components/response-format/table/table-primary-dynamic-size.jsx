@@ -20,8 +20,8 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
  * In PAPI it will be 6 regardless of the provided value.
  */
 export function ResponseFormatTablePrincipalDynamicSize({
-  type,
-  selectorPathParent,
+  type = NUMBER,
+  selectorPathParent = '',
 }) {
   const selectorPath = type;
   const selectorPathComposed = selectorPathParent
@@ -57,9 +57,5 @@ ResponseFormatTablePrincipalDynamicSize.propTypes = {
   type: PropTypes.oneOf([FORMULA, NUMBER]),
 };
 
-ResponseFormatTablePrincipalDynamicSize.defaultProps = {
-  selectorPathParent: '',
-  type: NUMBER,
-};
 
 export default ResponseFormatTablePrincipalDynamicSize;

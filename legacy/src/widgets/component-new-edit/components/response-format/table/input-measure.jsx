@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { Field, change, formValueSelector } from 'redux-form';
 
 import { QUESTION_TYPE_ENUM } from '../../../../../constants/pogues-constants';
-import { RichEditorWithVariable } from '../../../../../forms/controls/control-with-suggestions';
+import {
+  RichEditorWithVariable,
+  SimpleEditorWithVariable,
+} from '../../../../../forms/controls/control-with-suggestions';
 import GenericOption from '../../../../../forms/controls/generic-option';
 import ListRadios from '../../../../../forms/controls/list-radios';
-import { toolbarConfigTooltip } from '../../../../../forms/controls/rich-textarea';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { SelectorView, View } from '../../../../selector-view';
 import ResponseFormatSimple from '../simple/response-format-simple';
@@ -35,7 +37,6 @@ function InputMeasure({
         name="label"
         component={RichEditorWithVariable}
         label={Dictionary.measureLabel}
-        toolbar={toolbarConfigTooltip}
         required
       />
       <SelectorView label={Dictionary.typeMeasure} selectorPath={selectorPath}>
@@ -83,9 +84,8 @@ function InputMeasure({
           {hasFilter && (
             <Field
               name="conditionFilter"
-              component={RichEditorWithVariable}
+              component={SimpleEditorWithVariable}
               label={Dictionary.conditionFilter}
-              toolbar={toolbarConfigTooltip}
             />
           )}
         </>
@@ -111,9 +111,8 @@ function InputMeasure({
           {isReadOnly && (
             <Field
               name="conditionReadOnly"
-              component={RichEditorWithVariable}
+              component={SimpleEditorWithVariable}
               label={Dictionary.conditionReadOnly}
-              toolbar={toolbarConfigTooltip}
             />
           )}
         </>

@@ -1,9 +1,14 @@
-// @ts-expect-error import jsx component
-import { Main } from '@pogues-legacy/App'
 import { useBlocker, useNavigate } from '@tanstack/react-router'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  Suspense,
+  lazy,
+  useMemo,
+  useState,
+} from 'react'
 
 import DirtyStateDialog from '@/components/layout/DirtyStateDialog'
 import ErrorComponent, {
@@ -15,6 +20,13 @@ function PageError({ error }: Readonly<{ error: LegacyPoguesError }>) {
   return <ErrorComponent error={error} />
 }
 
+const LegacyMain = lazy(async () => {
+  // @ts-expect-error federated remote
+  const mod = await import('@pogues-legacy/App')
+  return { default: mod.Main }
+})
+
+/** Federated legacy editor. In Vite DEV the remote is stubbed → redirect to details. */
 export const LegacyComponent = () => {
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false)
 
@@ -61,12 +73,14 @@ function legacyApp(
 ) {
   return (
     <ErrorBoundary FallbackComponent={PageError}>
-      <Main
-        setIsDirtyState={setIsDirtyState}
-        getAccessToken={getAccessToken}
-        decodedIdToken={decodedIdToken}
-        navigateToNext={navigateToNext}
-      />
+      <Suspense fallback={null}>
+        <LegacyMain
+          setIsDirtyState={setIsDirtyState}
+          getAccessToken={getAccessToken}
+          decodedIdToken={decodedIdToken}
+          navigateToNext={navigateToNext}
+        />
+      </Suspense>
     </ErrorBoundary>
   )
 }

@@ -7,7 +7,7 @@ export default function Login({ login }: { login: () => void }) {
 
   return (
     <div className="text-center space-y-3">
-      <p>{t('common.pleaseLogin')}</p>
+      <h1 className="text-base font-normal">{t('common.pleaseLogin')}</h1>
       <Button onClick={login} buttonStyle={ButtonStyle.Primary}>
         {t('common.login')}
       </Button>

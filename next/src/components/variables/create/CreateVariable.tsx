@@ -1,3 +1,4 @@
+import FormComponent from '@/components/ui/form/FormComponent'
 import { Variable } from '@/models/variables'
 
 import CreateVariableForm from './CreateVariableForm'
@@ -23,12 +24,12 @@ export default function CreateVariable({
   variables,
 }: Readonly<Props>) {
   return (
-    <div className="bg-default p-4 border border-default shadow-xl">
+    <FormComponent>
       <CreateVariableForm
         questionnaireId={questionnaireId}
         scopes={scopes}
         variables={variables}
       />
-    </div>
+    </FormComponent>
   )
 }
