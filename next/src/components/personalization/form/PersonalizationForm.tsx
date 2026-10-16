@@ -12,11 +12,11 @@ import {
   personalizationKeys,
 } from '@/api/personalization'
 import { getFileFromParseResult } from '@/api/utils/personalization'
+import Banner, { BannerStyle } from '@/components/ui/Banner'
 import Button, { ButtonStyle } from '@/components/ui/Button'
 import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
 import DialogButton from '@/components/ui/DialogButton'
-import UploadMessageTile from '@/components/ui/UploadMessageTile'
 import DirtyStateStatus from '@/components/ui/form/DirtyStateStatus'
 import Field from '@/components/ui/form/Field'
 import Input from '@/components/ui/form/Input'
@@ -47,7 +47,7 @@ export default function PersonalizationForm({
   questionnaire,
   setQuestionnaire,
   fileData = null,
-  handleSubmit = () => {},
+  handleSubmit = () => { },
 }: Readonly<PersonalizationFormProps>) {
   const { t } = useTranslation()
   const emptyFileInputRef = useRef<HTMLInputElement>(null)
@@ -292,9 +292,10 @@ export default function PersonalizationForm({
           {t('personalization.create.expectedFileSchema')}
         </Button>
         {uploadMessage && uploadMessage.message && (
-          <UploadMessageTile
-            messages={uploadMessage}
-            isErrorUpload={isErrorUpload}
+          <Banner
+            message={uploadMessage.message}
+            details={uploadMessage.details}
+            type={isErrorUpload ? BannerStyle.Error : BannerStyle.Info}
           />
         )}
         {fileType.value === 'text/csv' &&

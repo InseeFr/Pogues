@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add a new shared banner component to display warning, informations or error messages to the user
+
 ## [3.9.2](https://github.com/InseeFr/Pogues/releases/tag/3.9.2) - 2026-10-16
 
 ### Changed
