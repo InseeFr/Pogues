@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The questionnaire duplication modal were not closed when clicking on "Cancel" button
+
 ## [3.9.3](https://github.com/InseeFr/Pogues/releases/tag/3.9.3) - 2026-10-19
 
 ### Changed
