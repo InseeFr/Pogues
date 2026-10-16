@@ -1,4 +1,4 @@
-import { useBlocker } from '@tanstack/react-router'
+import { useBlocker, useNavigate } from '@tanstack/react-router'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import {
@@ -31,6 +31,7 @@ export const LegacyComponent = () => {
   const [isDirtyState, setIsDirtyState] = useState<boolean>(false)
 
   const { decodedIdToken } = useOidc()
+  const navigate = useNavigate()
 
   const { proceed, reset, status } = useBlocker({
     enableBeforeUnload: isDirtyState,
@@ -39,8 +40,11 @@ export const LegacyComponent = () => {
   })
 
   const myComponent = useMemo(
-    () => legacyApp(setIsDirtyState, decodedIdToken),
-    [setIsDirtyState, decodedIdToken],
+    () =>
+      legacyApp(setIsDirtyState, decodedIdToken, (path: string) => {
+        navigate({ to: path })
+      }),
+    [setIsDirtyState, decodedIdToken, navigate],
   )
 
   return (
@@ -65,6 +69,7 @@ export const LegacyComponent = () => {
 function legacyApp(
   setIsDirtyState: Dispatch<SetStateAction<boolean>>,
   decodedIdToken: DecodedIdTokenType,
+  navigateToNext: (path: string) => void,
 ) {
   return (
     <ErrorBoundary FallbackComponent={PageError}>
@@ -73,6 +78,7 @@ function legacyApp(
           setIsDirtyState={setIsDirtyState}
           getAccessToken={getAccessToken}
           decodedIdToken={decodedIdToken}
+          navigateToNext={navigateToNext}
         />
       </Suspense>
     </ErrorBoundary>

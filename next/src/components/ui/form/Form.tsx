@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 import React, { FormEventHandler } from 'react'
 
 import Button, { ButtonStyle } from '@/components/ui/Button'
+import DeleteButton, {
+  type DeleteButtonProps,
+} from '@/components/ui/DeleteButton'
 import Tooltip from '@/components/ui/Tooltip'
 
 import DirtyStateStatus from './DirtyStateStatus'
@@ -24,6 +27,8 @@ type Props = {
   disabledReason?: string
   /** Override the default validate label (e.g. "modify"). */
   validateLabel?: string
+  /** If provided, display a delete button on the left of the form buttons. */
+  deleteButton?: DeleteButtonProps
   /**
    * Action executed when the user click on Cancel button. Should redirect to
    * previous page.
@@ -45,6 +50,7 @@ export default function Form({
   isDisabled = false,
   disabledReason = '',
   validateLabel = '',
+  deleteButton,
   ariaLabel,
   onCancel,
   onSubmit,
@@ -84,6 +90,11 @@ export default function Form({
       <form onSubmit={onSubmit} aria-label={ariaLabel} className="space-y-4">
         {children}
         <div className="flex gap-x-2 mt-6 justify-end">
+          {deleteButton ? (
+            <div className="mr-auto">
+              <DeleteButton {...deleteButton} />
+            </div>
+          ) : null}
           <Button type="button" onClick={onCancel}>
             {t('common.cancel')}
           </Button>

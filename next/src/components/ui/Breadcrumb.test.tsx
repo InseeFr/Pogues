@@ -10,7 +10,7 @@ interface CrumbMatch {
   id: string
   fullPath: string
   status: string
-  loaderData: { crumb?: string }
+  loaderData: { crumb?: string; disableCrumbLink?: boolean }
 }
 
 interface MockLinkProps {
@@ -40,11 +40,12 @@ const createMatch = (
   fullPath: string,
   crumb?: string,
   status = 'success',
+  disableCrumbLink?: boolean,
 ): CrumbMatch => ({
   id,
   fullPath,
   status,
-  loaderData: { crumb },
+  loaderData: { crumb, disableCrumbLink },
 })
 
 const renderLinkMock = ({ children, className, to }: MockLinkProps) => (
@@ -57,7 +58,13 @@ describe('Breadcrumb', () => {
   beforeEach(() => {
     isMatchMock.mockReset()
     isMatchMock.mockImplementation(
-      (match: CrumbMatch) => match.loaderData?.crumb != null,
+      (
+        match: CrumbMatch,
+        path: 'loaderData.crumb' | 'loaderData.disableCrumbLink',
+      ) =>
+        match.loaderData[
+          path.split('.')[1] as keyof CrumbMatch['loaderData']
+        ] != null,
     )
     LinkMock.mockReset()
     LinkMock.mockImplementation(renderLinkMock)
@@ -127,6 +134,22 @@ describe('Breadcrumb', () => {
       '/',
       '/questionnaires',
     ])
+  })
+
+  it('renders intermediate crumbs without link when disableCrumbLink is set', () => {
+    useMatchesMock.mockReturnValue([
+      createMatch('root', '/', 'Home'),
+      createMatch('loops', '/loops', 'Loops', 'success', true),
+      createMatch('loop', '/loops/loop/1', 'Loop 1'),
+    ])
+
+    renderWithI18n(<Breadcrumb />)
+
+    expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument()
+    expect(
+      screen.queryByRole('link', { name: 'Loops' }),
+    ).not.toBeInTheDocument()
+    expect(screen.getByText('Loops')).not.toHaveAttribute('aria-current')
   })
 
   it('renders the last crumb as the current page', () => {

@@ -13,5 +13,7 @@
   "variable": "Variable {{id}}",
   "variables": "Variables",
   "version": "Version {{id}}",
-  "articulation": "Récapitulatif de rond-point"
+  "articulation": "Récapitulatif de rond-point",
+  "loop": "Boucle {{id}}",
+  "loops": "Boucles"
 }

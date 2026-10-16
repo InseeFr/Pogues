@@ -9,15 +9,19 @@ import './index.css';
 import { DecodedIdTokenType } from './lib/auth/oidc';
 import Router from './router';
 import configureStore from './store/configure-store';
+import { NextNavigationContext } from './utils/next-pages';
 
 export const Main = ({
   setIsDirtyState,
   getAccessToken,
   decodedIdToken,
+  navigateToNext = (path) => window.location.assign(path),
 }: {
   setIsDirtyState: () => void;
   getAccessToken: () => Promise<string | undefined>;
   decodedIdToken: DecodedIdTokenType;
+  /** Navigate to a page of the new application without reloading it. */
+  navigateToNext?: (path: string) => void;
 }) => {
   const contextValue = useMemo(() => ({ getAccessToken, decodedIdToken }), []);
 
@@ -25,11 +29,13 @@ export const Main = ({
 
   return (
     <AuthContext.Provider value={contextValue}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </Provider>
+      <NextNavigationContext.Provider value={navigateToNext}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </Provider>
+      </NextNavigationContext.Provider>
     </AuthContext.Provider>
   );
 };
