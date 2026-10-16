@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.9.2](https://github.com/InseeFr/Pogues/releases/tag/3.9.2) - 2026-10-16
+
 ### Changed
 
 - Create hooks (submit, cancel, delete, toast handling) and create shared form components (controlled fields, VTL editor field, dirty state warning, delete and duplicate buttons) to avoid code duplication and increase maintenability
