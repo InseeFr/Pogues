@@ -1,3 +1,4 @@
+import FormComponent from '@/components/ui/form/FormComponent'
 import { CodesList } from '@/models/codesLists'
 import { FormulasLanguages } from '@/models/questionnaires'
 import { Variable } from '@/models/variables'
@@ -21,13 +22,13 @@ export default function EditCodesList({
   return !codesList ? (
     <div>Not found</div>
   ) : (
-    <div className="bg-default p-4 border border-default shadow-xl">
+    <FormComponent>
       <EditCodesListForm
         codesList={codesList}
         questionnaireId={questionnaireId}
         formulasLanguage={formulasLanguage}
         variables={variables}
       />
-    </div>
+    </FormComponent>
   )
 }

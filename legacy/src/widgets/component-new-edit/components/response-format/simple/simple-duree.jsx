@@ -20,9 +20,9 @@ function ResponseFormatDatatypeDuree({
   type,
   formatTableList,
   formatTable,
-  name,
-  required,
-  readOnly,
+  name = DURATION,
+  required = true,
+  readOnly = false,
 }) {
   const formatInit = type === 'TABLE' ? formatTableList || formatTable : format;
   const isDuration = formatInit === 'PTnHnM' || formatInit === 'PnYnM';
@@ -171,11 +171,6 @@ function ResponseFormatDatatypeDuree({
   );
 }
 
-ResponseFormatDatatypeDuree.defaultProps = {
-  name: DURATION,
-  readOnly: false,
-  required: true,
-};
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('component');

@@ -15,7 +15,7 @@ import { CodesLists } from '../../../../codes-lists';
 const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 const { CODES_LIST: selectorPath } = DIMENSION_FORMATS;
 
-function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent }) {
+function ResponseFormatMultipleMeasureCodeslist({ selectorPathParent = undefined }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -47,8 +47,5 @@ ResponseFormatMultipleMeasureCodeslist.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatMultipleMeasureCodeslist.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatMultipleMeasureCodeslist;

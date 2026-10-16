@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
 import Banner, { BannerStyle } from '@/components/ui/Banner.tsx'
+import FormComponent from '@/components/ui/form/FormComponent'
 import { TargetModes } from '@/models/questionnaires'
 
 import CreateReleaseForm from './CreateReleaseForm'
@@ -38,13 +39,18 @@ export default function CreateRelease({
             type={BannerStyle.Info}
           />
           <div className="bg-default p-4 border border-default shadow-xl mt-3">
-            <CreateReleaseForm
-              questionnaireId={questionnaireId}
-              seriesId={serie ? serie.label : ''}
-              seriesLabel={serie ? serie.altLabel : ''}
-              targetModes={targetModes}
-              isPublishDisabled={isPublishDisabled}
-            />
+            <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
+              <div>{t('release.form.introduction')}</div>
+            </div>
+            <FormComponent>
+              <CreateReleaseForm
+                questionnaireId={questionnaireId}
+                seriesId={serie ? serie.label : ''}
+                seriesLabel={serie ? serie.altLabel : ''}
+                targetModes={targetModes}
+                isPublishDisabled={isPublishDisabled}
+              />
+            </FormComponent>
           </div>
         </div>
       ) : (

@@ -32,12 +32,12 @@ const {
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
-const QuestionnaireComponent = (props) => {
+const QuestionnaireComponent = (rawProps) => {
   const {
     component,
-    integrityErrorsByType,
+    integrityErrorsByType = {},
     selected,
-    children,
+    children = [],
     parentType,
     componentFiltersInitial,
     componentFiltersFinal,
@@ -48,7 +48,8 @@ const QuestionnaireComponent = (props) => {
     removeComponent,
     removeQuestionnaireRef,
     moveComponent,
-  } = props;
+  } = rawProps;
+  const props = rawProps;
 
   const [showComponentModal, setShowComponentModal] = useState(false);
 
@@ -328,11 +329,6 @@ QuestionnaireComponent.propTypes = {
   actions: PropTypes.shape({
     handleOpenComponentDetail: PropTypes.func.isRequired,
   }).isRequired,
-};
-
-QuestionnaireComponent.defaultProps = {
-  children: [],
-  integrityErrorsByType: {},
 };
 
 export default QuestionnaireComponent;

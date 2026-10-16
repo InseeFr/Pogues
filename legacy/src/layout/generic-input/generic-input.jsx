@@ -90,22 +90,21 @@ export const customModalbuttonStyles = {
  * Display a navbar on top of the questionnaire which allow to add elements to
  * the questionnaire, save the questionnaire and visualize it.
  */
-function GenericInput(props) {
-  const {
-    activeQuestionnaire,
-    isLoadingVisualization,
-    isLoopsValid,
-    isQuestionnaireModified,
-    isQuestionnaireValid,
-    isQuestionnaireHaveError,
-    placeholders,
-    selectedComponent,
-    removeVisualizationError,
-    removeValidationAtSaveError,
-    saveActiveQuestionnaire,
-    showVisualizationErrorPopup,
-    showValidationAtSaveErrorPopup,
-  } = props;
+function GenericInput({
+  activeQuestionnaire = {},
+  isLoadingVisualization = false,
+  isLoopsValid,
+  isQuestionnaireModified = false,
+  isQuestionnaireValid,
+  isQuestionnaireHaveError = false,
+  placeholders,
+  selectedComponent = undefined,
+  removeVisualizationError = undefined,
+  removeValidationAtSaveError = undefined,
+  saveActiveQuestionnaire,
+  showVisualizationErrorPopup = '',
+  showValidationAtSaveErrorPopup = undefined,
+}) {
 
   const [showNewComponentModal, setShowNewComponentModal] = useState(false);
   const [showNewUnsavedModal, setShowNewUnsavedModal] = useState(false);
@@ -363,6 +362,5 @@ function GenericInput(props) {
 }
 
 GenericInput.propTypes = propTypes;
-GenericInput.defaultProps = defaultProps;
 
 export default GenericInput;

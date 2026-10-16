@@ -15,7 +15,7 @@ const { NUMBER, FORMULA } = DIMENSION_CALCULATION;
 /**
  * In a dynamic table, the user can specify min and max.
  */
-export function ResponseFormatTablePrincipalDynamicArray({ type }) {
+export function ResponseFormatTablePrincipalDynamicArray({ type = NUMBER }) {
   const fieldType = type === FORMULA ? 'text' : 'number';
   const FieldComponent =
     type === FORMULA ? InputWithVariableAutoCompletion : Input;
@@ -44,8 +44,5 @@ ResponseFormatTablePrincipalDynamicArray.propTypes = {
   type: PropTypes.oneOf([NUMBER, FORMULA]),
 };
 
-ResponseFormatTablePrincipalDynamicArray.defaultProps = {
-  type: NUMBER,
-};
 
 export default ResponseFormatTablePrincipalDynamicArray;

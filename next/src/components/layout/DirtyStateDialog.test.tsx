@@ -5,7 +5,7 @@ import { renderWithRouter } from '@/testing/render'
 import DirtyStateDialog from './DirtyStateDialog'
 
 describe('DirtyStateDialog', () => {
-  it('displays information about dirty state and triggers appropriate actions on click', async () => {
+  it('displays information about dirty state and triggers validate action on click', async () => {
     // Given the dirty state dialog
     const onValidateMock = vi.fn()
     const onCancelMock = vi.fn()
@@ -27,8 +27,15 @@ describe('DirtyStateDialog', () => {
     // Then it triggers validate action
     expect(onValidateMock).toHaveBeenCalledOnce()
     expect(onCancelMock).not.toHaveBeenCalled()
+  })
 
-    onValidateMock.mockClear()
+  it('triggers cancel action on click', async () => {
+    // Given the dirty state dialog
+    const onValidateMock = vi.fn()
+    const onCancelMock = vi.fn()
+    const { getByRole } = await renderWithRouter(
+      <DirtyStateDialog onValidate={onValidateMock} onCancel={onCancelMock} />,
+    )
 
     // When we click on 'cancel' button
     fireEvent.click(getByRole('button', { name: /cancel/i }))

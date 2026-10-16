@@ -101,6 +101,7 @@ export default function DetailsOverview({
       <div className="relative bg-default border border-default shadow-md p-4">
         <div className="mt-3">
           <QuestionnaireDetailsForm
+            questionnaireId={questionnaireId}
             series={series}
             defaultValues={computeQuestionnaireDetails(questionnaireDetails)}
             onSubmit={onSubmit}

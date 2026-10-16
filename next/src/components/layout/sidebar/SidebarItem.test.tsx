@@ -99,7 +99,7 @@ describe('SidebarItem', () => {
     render(<SidebarItem {...defaultProps} />)
 
     const link = screen.getByRole('link', { name: 'Questionnaire' })
-    expect(link).toHaveAttribute('aria-current', 'false')
+    expect(link).not.toHaveAttribute('aria-current')
   })
 
   it('sets aria-disabled and removes the item from keyboard navigation when disabled', () => {

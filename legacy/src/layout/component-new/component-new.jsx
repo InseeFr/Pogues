@@ -104,9 +104,9 @@ function validateAndSubmit(
 // Component
 
 function ComponentNew({
-  codesListsStore,
-  calculatedVariablesStore,
-  externalVariablesStore,
+  codesListsStore = {},
+  calculatedVariablesStore = {},
+  externalVariablesStore = {},
   onCancel,
   onSuccess,
   setValidationErrors,
@@ -117,9 +117,9 @@ function ComponentNew({
   parentId,
   weight,
   type,
-  activeQuestionnaire,
+  activeQuestionnaire = {},
   removeComponent,
-  selectedComponent,
+  selectedComponent = undefined,
 }) {
   const validateQuestion =
     (setValidationErrorsAction, codesLists) => (values) =>
@@ -177,6 +177,5 @@ function ComponentNew({
 }
 
 ComponentNew.propTypes = propTypes;
-ComponentNew.defaultProps = defaultProps;
 
 export default ComponentNew;

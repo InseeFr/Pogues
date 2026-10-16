@@ -14,10 +14,15 @@ export default function CodesTable({ codesList }: Readonly<CodesTableProps>) {
 
   return (
     <table className="border border-default w-full shadow-sm">
+      <caption className="sr-only">{t('codesLists.title')}</caption>
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
-          <th className="w-1/4">{t('codesList.common.codeValue')}</th>
-          <th className="w-3/4">{t('codesList.common.codeLabel')}</th>
+          <th scope="col" className="w-1/4">
+            {t('codesList.common.codeValue')}
+          </th>
+          <th scope="col" className="w-3/4">
+            {t('codesList.common.codeLabel')}
+          </th>
         </tr>
       </thead>
       <tbody className="text-default">

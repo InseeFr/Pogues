@@ -25,10 +25,10 @@ const { CHECKBOX, RADIO, DROPDOWN } = DATATYPE_VIS_HINT;
 const selectorPath = DEFAULT_VARIABLE_SELECTOR_PATH;
 
 function ResponseFormatSingleVariable({
-  selectorPathParent,
-  selectedScope,
-  componentsStore,
-  externalLoopsStore,
+  selectorPathParent = undefined,
+  selectedScope = '',
+  componentsStore = {},
+  externalLoopsStore = {},
   allowFilter = false,
 }) {
   const scopes = getQuestionnaireScope(componentsStore, externalLoopsStore);
@@ -98,14 +98,6 @@ ResponseFormatSingleVariable.propTypes = {
   componentsStore: PropTypes.object,
   externalLoopsStore: PropTypes.object,
   allowFilter: PropTypes.bool,
-};
-
-ResponseFormatSingleVariable.defaultProps = {
-  selectorPathParent: undefined,
-  selectedScope: '',
-  componentsStore: {},
-  externalLoopsStore: {},
-  allowFilter: false,
 };
 
 const mapStateToProps = (state, { selectorPathParent }) => {

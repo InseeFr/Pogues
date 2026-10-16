@@ -94,6 +94,7 @@ describe('EditCodesListForm', () => {
       expect(mockNavigate).toHaveBeenCalledWith({
         to: '/questionnaire/$questionnaireId/codes-lists',
         params: { questionnaireId: 'q-id' },
+        ignoreBlocker: true,
       })
     })
 
@@ -164,6 +165,7 @@ describe('EditCodesListForm', () => {
       expect(mockNavigate).toHaveBeenCalledWith({
         to: '/questionnaire/$questionnaireId/codes-lists',
         params: { questionnaireId: 'q-id' },
+        ignoreBlocker: true,
       })
     })
   })

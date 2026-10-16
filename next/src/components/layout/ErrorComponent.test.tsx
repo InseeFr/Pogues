@@ -254,7 +254,9 @@ describe('ErrorComponent', () => {
       <ErrorComponent error={mockAxiosError(403)} />,
     )
 
-    const emailLink = getByRole('link', { name: 'support@example.com' })
+    const emailLink = getByRole('link', {
+      name: 'support@example.com (Send email)',
+    })
     expect(emailLink).toBeInTheDocument()
     expect(emailLink).toHaveAttribute('href', 'mailto:support@example.com')
   })

@@ -88,10 +88,10 @@ function validateAndSubmit(
 
 function ComponentEdit({
   component,
-  calculatedVariablesStore,
-  externalVariablesStore,
-  collectedVariablesStore,
-  codesListsStore,
+  calculatedVariablesStore = {},
+  externalVariablesStore = {},
+  collectedVariablesStore = {},
+  codesListsStore = {},
   updateComponent,
   deleteComponent,
   onCancel,
@@ -154,6 +154,5 @@ function ComponentEdit({
 }
 
 ComponentEdit.propTypes = propTypes;
-ComponentEdit.defaultProps = defaultProps;
 
 export default ComponentEdit;

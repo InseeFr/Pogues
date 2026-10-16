@@ -1,11 +1,9 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import Tooltip from '@/components/ui/Tooltip'
 import Checkbox from '@/components/ui/form/Checkbox'
-import Field from '@/components/ui/form/Field'
+import ControlledField from '@/components/ui/form/ControlledField'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
@@ -13,6 +11,8 @@ import Select from '@/components/ui/form/Select'
 import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
 import InfoIcon from '@/components/ui/icons/InfoIcon'
 import WarningIcon from '@/components/ui/icons/WarningIcon.tsx'
+import { useFormCancel } from '@/hooks/form/useFormCancel.ts'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm.ts'
 import { TargetModes } from '@/models/questionnaires'
 
 import { CONTEXTE_OPTIONS, NUMEROTATION_OPTIONS } from './consts.tsx'
@@ -38,7 +38,7 @@ export default function ReleaseForm({
   isPublishDisabled,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const navigate = useNavigate()
+  const cancel = useFormCancel()
 
   const availableModes = targetModes.filter((mode) => mode !== TargetModes.PAPI)
 
@@ -47,8 +47,7 @@ export default function ReleaseForm({
     handleSubmit,
     formState: { isDirty, isSubmitted, isValid },
     watch,
-  } = useForm<FormValues>({
-    mode: 'onChange',
+  } = useReactHookfForm<FormValues>({
     defaultValues: {
       releaseDescription: '',
       modes: [],
@@ -58,7 +57,7 @@ export default function ReleaseForm({
         questionNumberingMode: 'SEQUENCE',
       },
     },
-    resolver: zodResolver(schema),
+    schema,
   })
 
   const contextValue = watch('context')
@@ -66,14 +65,6 @@ export default function ReleaseForm({
 
   const isSeriesMissing = !seriesId || !seriesLabel
   const isFormValid = isValid && !isSeriesMissing
-
-  const handleCancel = () => {
-    navigate({
-      to: '/questionnaire/$questionnaireId/releases',
-      params: { questionnaireId },
-      ignoreBlocker: true,
-    })
-  }
 
   const guardedSubmit = handleSubmit((values, event) => {
     if (!isPublishDisabled) {
@@ -84,7 +75,12 @@ export default function ReleaseForm({
   return (
     <Form
       onSubmit={guardedSubmit}
-      onCancel={handleCancel}
+      onCancel={() =>
+        cancel({
+          to: '/questionnaire/$questionnaireId/releases',
+          params: { questionnaireId },
+        })
+      }
       isDirty={isDirty}
       isValid={isFormValid}
       isSubmitted={isSubmitted}
@@ -135,32 +131,22 @@ export default function ReleaseForm({
       </div>
       {seriesId && seriesLabel && (
         <div className="space-y-6 mt-6">
-          <Controller
-            name="releaseDescription"
+          <ControlledField
             control={control}
-            render={({
-              field: { name, value, onChange },
-              fieldState: { invalid, isTouched, isDirty, error },
-            }) => (
-              <Field
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                label={t('release.form.description.label')}
-                name={name}
-                required
-                touched={isTouched}
-                description={t('release.form.description.example')}
-              >
-                <Input
-                  placeholder={t('release.form.description.placeholder')}
-                  value={value}
-                  onValueChange={onChange}
-                  maxLength={249}
-                />
-              </Field>
+            name="releaseDescription"
+            label={t('release.form.description.label')}
+            description={t('release.form.description.example')}
+            required
+          >
+            {(field) => (
+              <Input
+                placeholder={t('release.form.description.placeholder')}
+                value={field.value}
+                onValueChange={field.onChange}
+                maxLength={249}
+              />
             )}
-          />
+          </ControlledField>
 
           <Controller
             name="modes"
@@ -192,32 +178,22 @@ export default function ReleaseForm({
             )}
           />
 
-          <Controller
-            name="context"
+          <ControlledField
             control={control}
+            name="context"
+            label={t('release.form.contexte.label')}
+            required
             rules={{ required: true }}
-            render={({
-              field: { name, value, onBlur, onChange },
-              fieldState: { invalid, isTouched, isDirty, error },
-            }) => (
-              <Field
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                label={t('release.form.contexte.label')}
-                name={name}
-                required
-                touched={isTouched}
-              >
-                <RadioGroup
-                  options={CONTEXTE_OPTIONS}
-                  value={value}
-                  onBlur={onBlur}
-                  onValueChange={onChange}
-                />
-              </Field>
+          >
+            {(field) => (
+              <RadioGroup
+                options={CONTEXTE_OPTIONS}
+                value={field.value}
+                onBlur={field.onBlur}
+                onValueChange={field.onChange}
+              />
             )}
-          />
+          </ControlledField>
 
           {contextValue === 'BUSINESS' && targetMode.includes('CAWI') ? (
             <div className="border-l-2 border-gray-300 pl-4 space-y-4">
@@ -247,33 +223,23 @@ export default function ReleaseForm({
               </div>
 
               <div>
-                <Controller
-                  name="overrideGenerationParameters.questionNumberingMode"
+                <ControlledField
                   control={control}
-                  render={({
-                    field: { name, value, onChange },
-                    fieldState: { invalid, isTouched, isDirty, error },
-                  }) => (
-                    <Field
-                      dirty={isDirty}
-                      error={error}
-                      invalid={invalid}
-                      label={
-                        <span className="font-normal">
-                          {t('release.form.questionNumbering.label')}
-                        </span>
-                      }
-                      name={name}
-                      touched={isTouched}
-                    >
-                      <Select<string>
-                        options={NUMEROTATION_OPTIONS}
-                        value={value}
-                        onChange={onChange}
-                      />
-                    </Field>
+                  name="overrideGenerationParameters.questionNumberingMode"
+                  label={
+                    <span className="font-normal">
+                      {t('release.form.questionNumbering.label')}
+                    </span>
+                  }
+                >
+                  {(field) => (
+                    <Select<string>
+                      options={NUMEROTATION_OPTIONS}
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
                   )}
-                />
+                </ControlledField>
               </div>
             </div>
           ) : null}

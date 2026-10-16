@@ -2,7 +2,10 @@ import MarkdownParser from '../lib/markdown-vtl-parser';
 import stateFromMarkdownVtl from '../lib/state-from-markdown-vtl';
 
 export function removeVtlFromMarkdown(markdownVtl) {
-  return markdownVtl.replace(/##{"label":\s*"(.+?)".+#end/g, '$1');
+  return String(markdownVtl || '').replace(
+    /##{"label":\s*"(.+?)".+#end/g,
+    '$1',
+  );
 }
 
 export function markdownVtlToHtml(markdownVtl) {

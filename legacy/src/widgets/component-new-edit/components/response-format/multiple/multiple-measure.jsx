@@ -14,7 +14,7 @@ import ResponseFormatMultipleMeasureCodeslist from './multiple-measure-codeslist
 const { MEASURE: selectorPath } = DIMENSION_TYPE;
 const { CODES_LIST, BOOL } = DIMENSION_FORMATS;
 
-function ResponseFormatMultipleMeasure({ selectorPathParent }) {
+function ResponseFormatMultipleMeasure({ selectorPathParent = undefined }) {
   const selectorPathComposed = selectorPathParent
     ? `${selectorPathParent}.${selectorPath}`
     : selectorPath;
@@ -41,8 +41,5 @@ ResponseFormatMultipleMeasure.propTypes = {
   selectorPathParent: PropTypes.string,
 };
 
-ResponseFormatMultipleMeasure.defaultProps = {
-  selectorPathParent: undefined,
-};
 
 export default ResponseFormatMultipleMeasure;

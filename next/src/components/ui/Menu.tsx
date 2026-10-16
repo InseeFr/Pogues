@@ -1,4 +1,5 @@
 import { Menu as UIMenu } from '@base-ui/react/menu'
+import { Link } from '@tanstack/react-router'
 
 import { MenuItemType } from './consts/menuItemVariants'
 import MenuIcon from './icons/MenuIcon'
@@ -9,11 +10,13 @@ type MenuItem = {
   disabled?: boolean
   /** Optional icon to display next to the action label. */
   Icon?: React.ReactNode
+  /** Optional path to navigate on click. */
+  link?: string
   /** Readable text about the action the user can click on. */
   label: string
   type?: MenuItemType
   /** Function that will happen on action click. */
-  onClick: () => void
+  onClick?: () => void
 }
 
 type Props = {
@@ -51,29 +54,53 @@ export default function Menu({ children, items, label }: Readonly<Props>) {
             <UIMenu.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
               <ArrowSvg />
             </UIMenu.Arrow>
-            {items.map((item) => (
-              <UIMenu.Item
-                key={item.label}
-                className={`
-                  flex items-center py-2 pr-8 pl-4
-                  text-sm leading-4
-                  outline-hidden
-                  cursor-pointer select-none
-                  ${item.type === MenuItemType.Delete ? 'text-delete' : ''}
-                  data-disabled:cursor-not-allowed data-disabled:text-gray-500 data-disabled:bg-transparent data-disabled:opacity-50
-                  data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200
-                `}
-                onClick={item.onClick}
-                disabled={item.disabled}
-              >
-                {item.Icon && (
-                  <span className="mr-1 data-disabled:bg-transparent data-disabled:opacity-50">
-                    {item.Icon}
-                  </span>
-                )}
-                {item.label}
-              </UIMenu.Item>
-            ))}
+            {items.map((item) => {
+              const itemContent = (
+                <>
+                  {item.Icon && (
+                    <span className="mr-1 data-disabled:bg-transparent data-disabled:opacity-50">
+                      {item.Icon}
+                    </span>
+                  )}
+                  {item.label}
+                </>
+              )
+              const itemClassName = `
+                flex items-center py-2 pr-8 pl-4
+                text-sm leading-4
+                outline-hidden
+                cursor-pointer select-none
+                ${item.type === MenuItemType.Delete ? 'text-delete' : ''}
+                data-disabled:cursor-not-allowed data-disabled:text-gray-500 data-disabled:bg-transparent data-disabled:opacity-50
+                aria-disabled:cursor-not-allowed aria-disabled:text-gray-500 aria-disabled:opacity-50
+                data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-xs data-highlighted:before:bg-slate-200
+              `
+
+              if (item.link) {
+                return (
+                  <UIMenu.LinkItem
+                    key={item.label}
+                    className={itemClassName}
+                    closeOnClick
+                    label={item.label}
+                    render={<Link to={item.link} disabled={item.disabled} />}
+                  >
+                    {itemContent}
+                  </UIMenu.LinkItem>
+                )
+              }
+
+              return (
+                <UIMenu.Item
+                  key={item.label}
+                  className={itemClassName}
+                  onClick={item.onClick}
+                  disabled={item.disabled}
+                >
+                  {itemContent}
+                </UIMenu.Item>
+              )
+            })}
           </UIMenu.Popup>
         </UIMenu.Positioner>
       </UIMenu.Portal>

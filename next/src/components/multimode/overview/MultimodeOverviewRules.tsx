@@ -1,12 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
 import { deleteMultimode, multimodeKeys } from '@/api/multimode'
 import ButtonLink from '@/components/ui/ButtonLink'
 import Card from '@/components/ui/Card'
-import DialogButton from '@/components/ui/DialogButton'
+import DeleteButton from '@/components/ui/DeleteButton'
 import InlineCode from '@/components/ui/InlineCode'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
 import type { MultimodeIsMovedRules } from '@/models/multimode'
 
 interface Props {
@@ -30,27 +29,14 @@ export default function MultimodeOverviewRules({
 }: Readonly<Props>) {
   const { t } = useTranslation()
 
-  const queryClient = useQueryClient()
-
-  const deleteMutation = useMutation({
-    mutationFn: ({ questionnaireId }: { questionnaireId: string }) => {
-      return deleteMultimode(questionnaireId)
-    },
-    onSuccess: (_, { questionnaireId }) =>
-      queryClient.invalidateQueries({
-        queryKey: multimodeKeys.all(questionnaireId),
-      }),
+  const { remove } = useDeleteMutation({
+    mutationFn: (id: string) => deleteMultimode(id),
+    invalidateKeys: [multimodeKeys.all(questionnaireId)],
+    successMessage: t('multimode.delete.success'),
   })
 
   function onDelete() {
-    const promise = deleteMutation.mutateAsync({
-      questionnaireId,
-    })
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('multimode.delete.success'),
-      error: (err: Error) => err.toString(),
-    })
+    return remove(questionnaireId)
   }
 
   return (
@@ -79,11 +65,10 @@ export default function MultimodeOverviewRules({
           >
             {t('common.edit')}
           </ButtonLink>
-          <DialogButton
-            label={t('common.delete')}
+          <DeleteButton
             title={t('multimode.delete.dialogTitle')}
             body={t('multimode.delete.dialogConfirm')}
-            onValidate={onDelete}
+            onConfirm={onDelete}
           />
         </div>
       )}

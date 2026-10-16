@@ -16,7 +16,7 @@ export const defaultProps = {
 
 // Component
 
-function SelectorViewView({ value, label, children }) {
+function SelectorViewView({ value, label, children = undefined }) {
   return (
     <div data-value={value} data-label={label}>
       {children}
@@ -25,6 +25,5 @@ function SelectorViewView({ value, label, children }) {
 }
 
 SelectorViewView.propTypes = propTypes;
-SelectorViewView.defaultProps = defaultProps;
 
 export default SelectorViewView;

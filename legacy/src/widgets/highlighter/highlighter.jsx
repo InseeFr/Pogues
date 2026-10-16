@@ -16,7 +16,7 @@ export const defaultProps = {
 
 // Component
 
-function HighLighter({ children, highlight, caseSensitive }) {
+function HighLighter({ children, highlight, caseSensitive = true }) {
   const flags = caseSensitive ? 'g' : 'gi';
   const regex = new RegExp(highlight, flags);
 
@@ -31,6 +31,5 @@ function HighLighter({ children, highlight, caseSensitive }) {
 }
 
 HighLighter.propTypes = propTypes;
-HighLighter.defaultProps = defaultProps;
 
 export default HighLighter;
