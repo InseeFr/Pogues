@@ -33,25 +33,20 @@ export default function CreateRelease({
         />
       ) : null}
       {hasPublishableMode(targetModes) ? (
-        <div>
+        <div className="grid gap-3">
           <Banner
             message={t('release.form.introduction')}
             type={BannerStyle.Info}
           />
-          <div className="bg-default p-4 border border-default shadow-xl mt-3">
-            <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
-              <div>{t('release.form.introduction')}</div>
-            </div>
-            <FormComponent>
-              <CreateReleaseForm
-                questionnaireId={questionnaireId}
-                seriesId={serie ? serie.label : ''}
-                seriesLabel={serie ? serie.altLabel : ''}
-                targetModes={targetModes}
-                isPublishDisabled={isPublishDisabled}
-              />
-            </FormComponent>
-          </div>
+          <FormComponent>
+            <CreateReleaseForm
+              questionnaireId={questionnaireId}
+              seriesId={serie ? serie.label : ''}
+              seriesLabel={serie ? serie.altLabel : ''}
+              targetModes={targetModes}
+              isPublishDisabled={isPublishDisabled}
+            />
+          </FormComponent>
         </div>
       ) : (
         <Banner
