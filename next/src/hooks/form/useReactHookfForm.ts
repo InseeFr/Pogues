@@ -19,17 +19,31 @@ type Props<TFieldValues extends FieldValues> = {
 
 /**
  * Uses the useForm of react-hook-form (with zod schema)
+ *
+ * `TTransformedValues` can be provided when the schema transforms the values
+ * edited by the user (e.g. trimmed or prefaulted values) before submission.
  */
-export function useReactHookfForm<TFieldValues extends FieldValues>({
+export function useReactHookfForm<
+  TFieldValues extends FieldValues,
+  TTransformedValues = TFieldValues,
+>({
   defaultValues,
   mode = 'onChange',
   schema,
   values,
-}: Props<TFieldValues>): UseFormReturn<TFieldValues> {
-  return useForm<TFieldValues>({
+}: Props<TFieldValues>): UseFormReturn<
+  TFieldValues,
+  unknown,
+  TTransformedValues
+> {
+  return useForm<TFieldValues, unknown, TTransformedValues>({
     mode,
     defaultValues,
     values,
-    resolver: zodResolver(schema) as Resolver<TFieldValues>,
+    resolver: zodResolver(schema) as Resolver<
+      TFieldValues,
+      unknown,
+      TTransformedValues
+    >,
   })
 }

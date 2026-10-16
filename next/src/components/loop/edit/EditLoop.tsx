@@ -1,18 +1,20 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import toast from 'react-hot-toast'
+import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 import { deleteLoop, loopsKeys, postLoop } from '@/api/loops'
 import { questionnairesKeys } from '@/api/questionnaires'
 import { scopesKeys } from '@/api/scopes'
 import { variablesKeys } from '@/api/variables'
+import FormComponent from '@/components/ui/form/FormComponent'
+import { useDeleteMutation } from '@/hooks/form/useDeleteMutation'
+import { useFormCancel } from '@/hooks/form/useFormCancel'
+import { useFormSubmit } from '@/hooks/form/useFormSubmit'
 import type { InitialLoopMember, Loop } from '@/models/loops'
 import type { Scopes } from '@/models/scopes'
 import type { Variable } from '@/models/variables'
 
 import LoopForm from '../form/LoopForm'
-import { type FormValues } from '../form/schema'
+import { type FormValues, schema } from '../form/schema'
 
 type Props = {
   questionnaireId: string
@@ -42,12 +44,12 @@ export default function EditLoop({
 }: Readonly<Props>) {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
+  const navigate = useFormCancel()
 
   // The loop cannot be deleted while other loops use it as reference.
   const hasRelatedLoops = relatedLoopNames.length > 0
 
-  const getDeleteDisabledTooltip = (): string | undefined => {
+  const getDeleteDisabledReason = (): string | undefined => {
     if (versionId) return t('history.questionnaireIsReadonly')
     if (hasRelatedLoops) {
       return t('loop.delete.disabled.usedByLoops', {
@@ -56,115 +58,62 @@ export default function EditLoop({
     }
     return undefined
   }
+  const deleteDisabledReason = getDeleteDisabledReason()
 
-  const mutation = useMutation({
-    mutationFn: ({
-      loop,
-      questionnaireId,
-    }: {
-      loop: Loop
-      questionnaireId: string
-    }) => {
-      return postLoop(questionnaireId, loop)
+  // The loop can be a scope and changes the scope of the variables of the
+  // questions it repeats.
+  const loopDependentKeys = [
+    loopsKeys.all(questionnaireId),
+    scopesKeys.detail(questionnaireId),
+    variablesKeys.all(questionnaireId),
+    questionnairesKeys.detail(questionnaireId),
+  ]
+
+  const { submit } = useFormSubmit({
+    // Keep the id of the loop so that the API updates it.
+    mutationFn: (formValues: FormValues) =>
+      postLoop(questionnaireId, { id: loopId, ...formValues }),
+    schema,
+    invalidateKeys: [
+      ...loopDependentKeys,
+      loopsKeys.one(questionnaireId, loopId),
+    ],
+    successMessage: (formValues) =>
+      t('loop.edit.success', { name: formValues.name }),
+    navigateFunction: {
+      to: '/questionnaire/$questionnaireId',
+      params: { questionnaireId },
     },
-    onSuccess: (_, { questionnaireId, loop }) =>
-      Promise.all([
-        // Refresh the edited loop and the possible members of the loops.
-        queryClient.invalidateQueries({
-          queryKey: loopsKeys.all(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: loopsKeys.one(questionnaireId, loop.id),
-        }),
-        // The loop can become a scope and changes the scope of the variables
-        // of the questions it repeats.
-        queryClient.invalidateQueries({
-          queryKey: scopesKeys.detail(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: variablesKeys.all(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: questionnairesKeys.detail(questionnaireId),
-        }),
-      ]),
   })
 
-  const deleteMutation = useMutation({
-    mutationFn: ({
-      loopId,
-      questionnaireId,
-    }: {
-      loopId: string
-      questionnaireId: string
-    }) => {
-      return deleteLoop(questionnaireId, loopId)
-    },
-    onSuccess: (_, { questionnaireId, loopId }) => {
+  const { remove } = useDeleteMutation({
+    mutationFn: () => deleteLoop(questionnaireId, loopId),
+    invalidateKeys: loopDependentKeys,
+    onSuccess: () =>
       queryClient.removeQueries({
         queryKey: loopsKeys.one(questionnaireId, loopId),
-      })
-      return Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: loopsKeys.all(questionnaireId),
-        }),
-        // The loop could be a scope of the variables of the questions it
-        // repeats.
-        queryClient.invalidateQueries({
-          queryKey: scopesKeys.detail(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: variablesKeys.all(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: questionnairesKeys.detail(questionnaireId),
-        }),
-      ])
-    },
+      }),
+    successMessage: t('loop.delete.success', { name: initialValues.name }),
   })
 
-  const onDelete = () => {
-    const promise = deleteMutation.mutateAsync(
-      { loopId, questionnaireId },
-      {
-        onSuccess: () =>
-          navigate({
-            to: '/questionnaire/$questionnaireId',
-            params: { questionnaireId },
-            // The user may have modified the form before deleting the loop.
-            ignoreBlocker: true,
-          }),
-      },
-    )
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('loop.delete.success', { name: initialValues.name }),
-      error: (err: Error) => err.toString(),
-    })
+  const onSubmit = (formValues: FormValues) => {
+    return submit(formValues)
   }
 
-  const submitForm = async (formValues: FormValues) => {
-    // Keep the id of the loop so that the API updates it.
-    const loop: Loop = { id: loopId, ...formValues }
-    const promise = mutation.mutateAsync(
-      { loop, questionnaireId },
-      {
-        onSuccess: () =>
-          navigate({
-            to: '/questionnaire/$questionnaireId',
-            params: { questionnaireId },
-          }),
-      },
-    )
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('loop.edit.success', { name: loop.name }),
-      error: (err: Error) => err.toString(),
+  const onDelete = () => {
+    return remove(undefined, {
+      // The user may have modified the form before deleting the loop, which is
+      // why the navigation ignores the dirty state blocker.
+      onSuccess: () =>
+        navigate({
+          to: '/questionnaire/$questionnaireId',
+          params: { questionnaireId },
+        }),
     })
   }
 
   return (
-    <div className="bg-default p-4 border border-default shadow-xl">
+    <FormComponent>
       <LoopForm
         questionnaireId={questionnaireId}
         loop={initialValues}
@@ -172,17 +121,16 @@ export default function EditLoop({
         loopMembers={loopMembers}
         variables={variables}
         versionId={versionId}
-        onSubmit={submitForm}
+        onSubmit={onSubmit}
         submitLabel={t('common.edit')}
         deleteButton={{
-          dialogTitle: t('loop.delete.dialogTitle', {
-            name: initialValues.name,
-          }),
-          dialogBody: t('loop.delete.dialogConfirm'),
-          onDelete,
-          disabledTooltip: getDeleteDisabledTooltip(),
+          title: t('loop.delete.dialogTitle', { name: initialValues.name }),
+          body: t('loop.delete.dialogConfirm'),
+          onConfirm: onDelete,
+          buttonTitle: deleteDisabledReason,
+          disabled: !!deleteDisabledReason,
         }}
       />
-    </div>
+    </FormComponent>
   )
 }

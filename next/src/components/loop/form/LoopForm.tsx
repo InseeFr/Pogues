@@ -1,19 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
-import { t } from 'i18next'
-import {
-  Controller,
-  type DefaultValues,
-  type SubmitHandler,
-  useForm,
-} from 'react-hook-form'
+import { type DefaultValues, type SubmitHandler } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-import Field from '@/components/ui/form/Field'
-import Form, { type DeleteButtonProps } from '@/components/ui/form/Form'
+import { type DeleteButtonProps } from '@/components/ui/DeleteButton'
+import ControlledField from '@/components/ui/form/ControlledField'
+import ControlledVTLEditor from '@/components/ui/form/ControlledVTLEditor'
+import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import Select from '@/components/ui/form/Select'
-import VTLEditor from '@/components/ui/form/VTLEditor'
+import { useFormCancel } from '@/hooks/form/useFormCancel'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm'
 import type { InitialLoopMember } from '@/models/loops'
 import type { Scopes } from '@/models/scopes'
 import type { Variable } from '@/models/variables'
@@ -71,7 +67,8 @@ export default function LoopForm({
   variables = [],
   versionId,
 }: Readonly<Props>) {
-  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const cancel = useFormCancel()
 
   // A loop of an older version of the questionnaire can only be displayed.
   const isReadonly = !!versionId
@@ -83,8 +80,7 @@ export default function LoopForm({
     setError,
     setValue,
     watch,
-  } = useForm<FormInputValues, unknown, FormValues>({
-    mode: 'onChange',
+  } = useReactHookfForm<FormInputValues>({
     // Default value of the hidden fields, used if the user displays them. The
     // cast is needed since the form state holds fields of every options of the
     // schema at the same time.
@@ -95,7 +91,7 @@ export default function LoopForm({
       shouldSplitIterations: false,
       ...loop,
     } as DefaultValues<FormInputValues>,
-    resolver: zodResolver(schema),
+    schema,
   })
 
   const basedOn = watch('basedOn')
@@ -108,17 +104,14 @@ export default function LoopForm({
 
   const handleCancel = () => {
     if (versionId) {
-      navigate({
+      return cancel({
         to: '/questionnaire/$questionnaireId/version/$versionId',
         params: { questionnaireId, versionId },
-        ignoreBlocker: true,
       })
-      return
     }
-    navigate({
+    return cancel({
       to: '/questionnaire/$questionnaireId',
       params: { questionnaireId },
-      ignoreBlocker: true,
     })
   }
 
@@ -134,119 +127,75 @@ export default function LoopForm({
       validateLabel={submitLabel}
       deleteButton={deleteButton}
     >
-      <Controller
+      <ControlledField
+        control={control}
         name="name"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
+        label={t('loop.form.name')}
+        disabled={isReadonly}
+        required
+      >
+        {(field) => (
+          <Input
             disabled={isReadonly}
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('loop.form.name')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input
-              disabled={isReadonly}
-              value={value}
-              onValueChange={onChange}
-            />
-          </Field>
+            value={field.value}
+            onValueChange={field.onChange}
+          />
         )}
-      />
-      <Controller
+      </ControlledField>
+      <ControlledField
+        control={control}
         name="basedOn"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            disabled={isReadonly}
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('loop.form.basedOn')}
-            name={name}
-            touched={isTouched}
-          >
-            <div className="flex items-center gap-2 w-full">
-              <Select<string>
-                disabled={isReadonly}
-                options={[
-                  { label: t('loop.form.basedOnPlaceholder'), value: '' },
-                  ...Array.from(scopes).map(([id, name]) => ({
-                    label: name,
-                    value: id,
-                  })),
-                ]}
-                value={value}
-                onChange={onChange}
-              />
-            </div>
-          </Field>
-        )}
-      />
-      {basedOn ? (
-        <Controller
-          name="filter"
-          control={control}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <VTLEditor
+        label={t('loop.form.basedOn')}
+        disabled={isReadonly}
+      >
+        {(field) => (
+          <div className="flex items-center gap-2 w-full">
+            <Select<string>
               disabled={isReadonly}
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('loop.form.filter')}
-              name={name}
-              onChange={onChange}
-              setError={(error) => setError(name, error)}
-              suggestionsVariables={variables}
-              touched={isTouched}
-              value={value}
+              options={[
+                { label: t('loop.form.basedOnPlaceholder'), value: '' },
+                ...Array.from(scopes).map(([id, name]) => ({
+                  label: name,
+                  value: id,
+                })),
+              ]}
+              value={field.value}
+              onChange={field.onChange}
             />
-          )}
+          </div>
+        )}
+      </ControlledField>
+      {basedOn ? (
+        <ControlledVTLEditor
+          control={control}
+          name="filter"
+          label={t('loop.form.filter')}
+          disabled={isReadonly}
+          setError={setError}
+          suggestionsVariables={variables}
         />
       ) : (
         <>
-          <Controller
-            name="isFixedLength"
+          <ControlledField
             control={control}
-            render={({
-              field: { name, value, onBlur, onChange },
-              fieldState: { invalid, isTouched, isDirty, error },
-            }) => (
-              <Field
+            name="isFixedLength"
+            label={t('loop.form.isFixedLength')}
+            disabled={isReadonly}
+            required
+          >
+            {(field) => (
+              <RadioGroup
                 disabled={isReadonly}
-                dirty={isDirty}
-                error={error}
-                invalid={invalid}
-                label={t('loop.form.isFixedLength')}
-                name={name}
-                required
-                touched={isTouched}
-              >
-                <RadioGroup
-                  disabled={isReadonly}
-                  options={[
-                    { label: t('common.yes'), value: true },
-                    { label: t('common.no'), value: false },
-                  ]}
-                  value={value}
-                  onBlur={onBlur}
-                  onValueChange={onChange}
-                />
-              </Field>
+                options={[
+                  { label: t('common.yes'), value: true },
+                  { label: t('common.no'), value: false },
+                ]}
+                value={field.value}
+                onBlur={field.onBlur}
+                onValueChange={field.onChange}
+              />
             )}
-          />
+          </ControlledField>
           {/*
            * Both branches stay mounted at all times (toggled with `hidden`
            * instead of being conditionally rendered): unmounting a VTLEditor
@@ -256,63 +205,37 @@ export default function LoopForm({
            * If you find a better solution, we take it !
            */}
           <div hidden={!isFixedLength} className="space-y-4">
-            <Controller
-              name="size"
+            <ControlledVTLEditor
               control={control}
-              render={({
-                field: { name, value, onChange },
-                fieldState: { invalid, isTouched, isDirty, error },
-              }) => (
-                <VTLEditor
+              name="size"
+              label={t('loop.form.size')}
+              disabled={isReadonly}
+              required
+              setError={setError}
+              suggestionsVariables={variables}
+            />
+            <ControlledField
+              control={control}
+              name="shouldSplitIterations"
+              label={t('loop.form.singlePage')}
+              disabled={isReadonly}
+              required
+            >
+              {(field) => (
+                // The user is asked whether to display all occurrences on a
+                // single page, which is the opposite of splitting them.
+                <RadioGroup
                   disabled={isReadonly}
-                  dirty={isDirty}
-                  error={error}
-                  invalid={invalid}
-                  label={t('loop.form.size')}
-                  name={name}
-                  onChange={onChange}
-                  required
-                  setError={(error) => setError(name, error)}
-                  suggestionsVariables={variables}
-                  touched={isTouched}
-                  value={value}
+                  options={[
+                    { label: t('common.yes'), value: false },
+                    { label: t('common.no'), value: true },
+                  ]}
+                  value={field.value}
+                  onBlur={field.onBlur}
+                  onValueChange={field.onChange}
                 />
               )}
-            />
-            <Controller
-              name="shouldSplitIterations"
-              control={control}
-              render={({
-                field: { name, value, onBlur, onChange },
-                fieldState: { invalid, isTouched, isDirty, error },
-              }) => (
-                <Field
-                  disabled={isReadonly}
-                  dirty={isDirty}
-                  error={error}
-                  invalid={invalid}
-                  label={t('loop.form.singlePage')}
-                  name={name}
-                  required
-                  touched={isTouched}
-                >
-                  {/*
-                   * The user is asked whether to display all occurrences on a
-                   * single page, which is the opposite of splitting them.
-                   */}
-                  <RadioGroup
-                    disabled={isReadonly}
-                    options={[
-                      { label: t('common.yes'), value: false },
-                      { label: t('common.no'), value: true },
-                    ]}
-                    value={value}
-                    onBlur={onBlur}
-                    onValueChange={onChange}
-                  />
-                </Field>
-              )}
-            />
+            </ControlledField>
             {shouldSplitIterations ? (
               <p className="text-sm text-error">
                 {t('loop.form.singlePageWarning')}
@@ -321,150 +244,92 @@ export default function LoopForm({
           </div>
           <div hidden={!!isFixedLength} className="space-y-4">
             <p className="text-sm text-error">{t('loop.form.minMaxWarning')}</p>
-            <Controller
+            <ControlledVTLEditor
+              control={control}
               name="minimum"
-              control={control}
-              render={({
-                field: { name, value, onChange },
-                fieldState: { invalid, isTouched, isDirty, error },
-              }) => (
-                <VTLEditor
-                  disabled={isReadonly}
-                  dirty={isDirty}
-                  error={error}
-                  invalid={invalid}
-                  label={t('loop.form.minimum')}
-                  name={name}
-                  onChange={onChange}
-                  required
-                  setError={(error) => setError(name, error)}
-                  suggestionsVariables={variables}
-                  touched={isTouched}
-                  value={value}
-                />
-              )}
+              label={t('loop.form.minimum')}
+              disabled={isReadonly}
+              required
+              setError={setError}
+              suggestionsVariables={variables}
             />
-            <Controller
+            <ControlledVTLEditor
+              control={control}
               name="maximum"
+              label={t('loop.form.maximum')}
+              disabled={isReadonly}
+              required
+              setError={setError}
+              suggestionsVariables={variables}
+            />
+            <ControlledField
               control={control}
-              render={({
-                field: { name, value, onChange },
-                fieldState: { invalid, isTouched, isDirty, error },
-              }) => (
-                <VTLEditor
+              name="addButtonLabel"
+              label={t('loop.form.addButtonLabel')}
+              disabled={isReadonly}
+            >
+              {(field) => (
+                <Input
                   disabled={isReadonly}
-                  dirty={isDirty}
-                  error={error}
-                  invalid={invalid}
-                  label={t('loop.form.maximum')}
-                  name={name}
-                  onChange={onChange}
-                  required
-                  setError={(error) => setError(name, error)}
-                  suggestionsVariables={variables}
-                  touched={isTouched}
-                  value={value}
+                  value={field.value}
+                  onValueChange={field.onChange}
                 />
               )}
-            />
-            <Controller
-              name="addButtonLabel"
-              control={control}
-              render={({
-                field: { name, value, onChange },
-                fieldState: { invalid, isTouched, isDirty, error },
-              }) => (
-                <Field
-                  disabled={isReadonly}
-                  dirty={isDirty}
-                  error={error}
-                  invalid={invalid}
-                  label={t('loop.form.addButtonLabel')}
-                  name={name}
-                  touched={isTouched}
-                >
-                  <Input
-                    disabled={isReadonly}
-                    value={value}
-                    onValueChange={onChange}
-                  />
-                </Field>
-              )}
-            />
+            </ControlledField>
           </div>
         </>
       )}
-      <Controller
+      <ControlledField
+        control={control}
         name="initialMember"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
+        label={t('loop.form.initialMember')}
+        disabled={isReadonly}
+        required
+      >
+        {(field) => (
+          <Select<string>
             disabled={isReadonly}
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('loop.form.initialMember')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Select<string>
-              disabled={isReadonly}
-              options={[
-                { label: t('loop.form.initialMemberPlaceholder'), value: '' },
-                ...loopMembers.map(({ id, name }) => ({
-                  label: name,
-                  value: id,
-                })),
-              ]}
-              value={value}
-              onChange={(newValue) => {
-                onChange(newValue)
-                // The possible final members depend on the initial member.
-                setValue('finalMember', '', {
-                  shouldDirty: true,
-                  shouldValidate: true,
-                })
-              }}
-            />
-          </Field>
+            options={[
+              { label: t('loop.form.initialMemberPlaceholder'), value: '' },
+              ...loopMembers.map(({ id, name }) => ({
+                label: name,
+                value: id,
+              })),
+            ]}
+            value={field.value}
+            onChange={(newValue) => {
+              field.onChange(newValue)
+              // The possible final members depend on the initial member.
+              setValue('finalMember', '', {
+                shouldDirty: true,
+                shouldValidate: true,
+              })
+            }}
+          />
         )}
-      />
-      <Controller
+      </ControlledField>
+      <ControlledField
+        control={control}
         name="finalMember"
-        control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            disabled={isReadonly}
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('loop.form.finalMember')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Select<string>
-              options={[
-                { label: t('loop.form.finalMemberPlaceholder'), value: '' },
-                ...finalMembers.map(({ id, name }) => ({
-                  label: name,
-                  value: id,
-                })),
-              ]}
-              value={value}
-              onChange={onChange}
-              disabled={isReadonly || !initialMember}
-            />
-          </Field>
+        label={t('loop.form.finalMember')}
+        disabled={isReadonly}
+        required
+      >
+        {(field) => (
+          <Select<string>
+            options={[
+              { label: t('loop.form.finalMemberPlaceholder'), value: '' },
+              ...finalMembers.map(({ id, name }) => ({
+                label: name,
+                value: id,
+              })),
+            ]}
+            value={field.value}
+            onChange={field.onChange}
+            disabled={isReadonly || !initialMember}
+          />
         )}
-      />
+      </ControlledField>
     </Form>
   )
 }

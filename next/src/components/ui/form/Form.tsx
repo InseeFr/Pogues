@@ -3,24 +3,12 @@ import { useTranslation } from 'react-i18next'
 import React, { FormEventHandler } from 'react'
 
 import Button, { ButtonStyle } from '@/components/ui/Button'
-import DialogButton from '@/components/ui/DialogButton'
+import DeleteButton, {
+  type DeleteButtonProps,
+} from '@/components/ui/DeleteButton'
 import Tooltip from '@/components/ui/Tooltip'
 
 import DirtyStateStatus from './DirtyStateStatus'
-
-export type DeleteButtonProps = {
-  /** Title of the confirmation dialog. */
-  dialogTitle: React.ReactNode
-  /** Body of the confirmation dialog. */
-  dialogBody: React.ReactNode
-  /** Action executed when the user confirms the deletion. */
-  onDelete: () => void
-  /**
-   * If provided, the button is disabled and this content explains why in a
-   * tooltip.
-   */
-  disabledTooltip?: React.ReactNode
-}
 
 type Props = {
   /** Form. */
@@ -104,7 +92,7 @@ export default function Form({
         <div className="flex gap-x-2 mt-6 justify-end">
           {deleteButton ? (
             <div className="mr-auto">
-              <FormDeleteButton {...deleteButton} />
+              <DeleteButton {...deleteButton} />
             </div>
           ) : null}
           <Button type="button" onClick={onCancel}>
@@ -124,39 +112,5 @@ export default function Form({
       </p>
       <DirtyStateStatus isDirty={!!isDirty} isSubmitted={isSubmitted} />
     </>
-  )
-}
-
-/**
- * Button opening a confirmation dialog before deleting the edited element, or
- * disabled with a tooltip explaining why the element cannot be deleted.
- */
-function FormDeleteButton({
-  dialogTitle,
-  dialogBody,
-  onDelete,
-  disabledTooltip,
-}: Readonly<DeleteButtonProps>) {
-  const { t } = useTranslation()
-
-  if (disabledTooltip) {
-    return (
-      <Tooltip title={disabledTooltip}>
-        <span className="inline-block">
-          <Button type="button" disabled>
-            {t('common.delete')}
-          </Button>
-        </span>
-      </Tooltip>
-    )
-  }
-
-  return (
-    <DialogButton
-      label={t('common.delete')}
-      title={dialogTitle}
-      body={dialogBody}
-      onValidate={onDelete}
-    />
   )
 }

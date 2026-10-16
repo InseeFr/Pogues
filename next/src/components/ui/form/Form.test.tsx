@@ -137,9 +137,9 @@ describe('Form component', () => {
         onCancel={vi.fn()}
         onSubmit={onSubmit}
         deleteButton={{
-          dialogTitle: 'Delete my element',
-          dialogBody: 'Are you sure?',
-          onDelete,
+          title: 'Delete my element',
+          body: 'Are you sure?',
+          onConfirm: onDelete,
         }}
       />,
     )
@@ -152,30 +152,5 @@ describe('Form component', () => {
     // Then it triggers the onDelete action without submitting the form
     expect(onDelete).toHaveBeenCalledOnce()
     expect(onSubmit).not.toHaveBeenCalled()
-  })
-
-  it('disables the delete button when a disabled tooltip is provided', async () => {
-    // Given a form with a delete button that cannot be used
-    const user = userEvent.setup()
-    await renderWithRouter(
-      <Form
-        onCancel={vi.fn()}
-        onSubmit={vi.fn()}
-        deleteButton={{
-          dialogTitle: 'Delete my element',
-          dialogBody: 'Are you sure?',
-          onDelete: vi.fn(),
-          disabledTooltip: 'Cannot be deleted',
-        }}
-      />,
-    )
-
-    // Then the delete button is disabled (the tooltip trigger wraps it)
-    const button = screen.getByText('Delete')
-    expect(button).toBeDisabled()
-
-    // When we hover it, then the reason is displayed
-    await user.hover(button)
-    expect(await screen.findByText('Cannot be deleted')).toBeInTheDocument()
   })
 })

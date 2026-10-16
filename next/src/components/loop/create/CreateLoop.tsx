@@ -1,19 +1,18 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 
-import { postLoop } from '@/api/loops'
+import { loopsKeys, postLoop } from '@/api/loops'
 import { questionnairesKeys } from '@/api/questionnaires'
 import { scopesKeys } from '@/api/scopes'
 import { variablesKeys } from '@/api/variables'
-import type { InitialLoopMember, Loop } from '@/models/loops'
+import FormComponent from '@/components/ui/form/FormComponent'
+import { useFormSubmit } from '@/hooks/form/useFormSubmit'
+import type { InitialLoopMember } from '@/models/loops'
 import type { Scopes } from '@/models/scopes'
 import type { Variable } from '@/models/variables'
 import { uid } from '@/utils/utils'
 
 import LoopForm from '../form/LoopForm'
-import { type FormValues } from '../form/schema'
+import { type FormValues, schema } from '../form/schema'
 
 type Props = {
   questionnaireId: string
@@ -33,64 +32,40 @@ export default function CreateLoop({
   variables,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
-  const mutation = useMutation({
-    mutationFn: ({
-      loop,
-      questionnaireId,
-    }: {
-      loop: Loop
-      questionnaireId: string
-    }) => {
-      return postLoop(questionnaireId, loop)
+  const { submit } = useFormSubmit({
+    mutationFn: (formValues: FormValues) =>
+      postLoop(questionnaireId, { id: uid(), ...formValues }),
+    schema,
+    invalidateKeys: [
+      loopsKeys.all(questionnaireId),
+      // The loop can become a scope and changes the scope of affected variables
+      scopesKeys.detail(questionnaireId),
+      variablesKeys.all(questionnaireId),
+      questionnairesKeys.detail(questionnaireId),
+    ],
+    successMessage: (formValues) =>
+      t('loop.create.success', { name: formValues.name }),
+    navigateFunction: {
+      to: '/questionnaire/$questionnaireId',
+      params: { questionnaireId },
     },
-    onSuccess: (_, { questionnaireId }) =>
-      Promise.all([
-        // The loop can become a scope and changes the scope of the variables
-        // of the questions it repeats.
-        queryClient.invalidateQueries({
-          queryKey: scopesKeys.detail(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: variablesKeys.all(questionnaireId),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: questionnairesKeys.detail(questionnaireId),
-        }),
-      ]),
   })
 
-  const submitForm = async (formValues: FormValues) => {
-    const loop: Loop = { id: uid(), ...formValues }
-    const promise = mutation.mutateAsync(
-      { loop, questionnaireId },
-      {
-        onSuccess: () =>
-          navigate({
-            to: '/questionnaire/$questionnaireId',
-            params: { questionnaireId },
-          }),
-      },
-    )
-    toast.promise(promise, {
-      loading: t('common.loading'),
-      success: t('loop.create.success', { name: loop.name }),
-      error: (err: Error) => err.toString(),
-    })
+  const onSubmit = (formValues: FormValues) => {
+    return submit(formValues)
   }
 
   return (
-    <div className="bg-default p-4 border border-default shadow-xl">
+    <FormComponent>
       <LoopForm
         questionnaireId={questionnaireId}
         scopes={scopes}
         loopMembers={loopMembers}
         variables={variables}
-        onSubmit={submitForm}
+        onSubmit={onSubmit}
         submitLabel={t('common.create')}
       />
-    </div>
+    </FormComponent>
   )
 }
