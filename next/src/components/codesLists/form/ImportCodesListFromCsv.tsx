@@ -96,21 +96,23 @@ export default function ImportCodesListFromCsv({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold text-default">
+      <span className="text-xl font-semibold text-default">
         {t('codesList.import.title')}
-      </h3>
+      </span>
 
-      <div className="border border-default rounded-lg p-4 bg-accent">
+      <div className="border border-default rounded-lg p-4 bg-accent mt-4">
         <p className="font-medium mb-2">{t('codesList.import.instructions')}</p>
         <ul className="list-disc list-inside space-y-1 text-default">
           <li>{t('codesList.import.columnNumber')}</li>
           <li>{t('codesList.import.separator')}</li>
           <li>{t('codesList.import.encodingNote')}</li>
-          <ul>
-            <li>
-              <i>{t('codesList.import.csvExample')}</i>
-            </li>
-          </ul>
+          <li>
+            <ul>
+              <li>
+                <i>{t('codesList.import.csvExample')}</i>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
 

@@ -1,6 +1,6 @@
-import i18next from 'i18next'
 import { z } from 'zod'
 
+import i18next from '@/lib/i18n'
 import {
   FlowLogics,
   FormulasLanguages,

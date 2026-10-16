@@ -27,7 +27,7 @@ export function AccordionItem({
     <UIAccordion.Item className="[&:not(:last-child)]:border-b border-default">
       <UIAccordion.Header>
         <UIAccordion.Trigger className="group flex w-full cursor-pointer items-baseline justify-between gap-4 py-2 text-left font-medium focus-visible:outline focus-visible:outline-blue-800">
-          <h3>{title}</h3>
+          <span className="text-lg">{title}</span>
           <PlusIcon
             className="mr-2 size-3 shrink-0 transition-all ease-out group-data-panel-open:scale-110 group-data-panel-open:rotate-45"
             aria-hidden="false"

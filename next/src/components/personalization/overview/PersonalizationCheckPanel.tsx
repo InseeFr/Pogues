@@ -85,9 +85,9 @@ export default function PersonalizationCheckPanel({
         >
           <div className="flex flex-row mb-2 items-center">
             <WarningIcon className="w-6 h-6 text-orange-800 mr-3 shrink-0" />
-            <h4 className="text-lg font-semibold">
+            <span className="text-lg font-semibold">
               {t('personalization.overview.syncErrorTitle')}
-            </h4>
+            </span>
           </div>
           <div className="w-full flex flex-row items-center mb-2 justify-between">
             {t('personalization.overview.syncErrorContent')}

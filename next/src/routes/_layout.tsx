@@ -1,14 +1,8 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router'
-import { Toaster } from 'react-hot-toast'
+import { createFileRoute } from '@tanstack/react-router'
 
-import Layout from '@/components/layout/Layout'
+import LayoutRoute from '../components/layout/LayoutRoute'
 
 /** Display the global layout of the app, available on every pages. */
 export const Route = createFileRoute('/_layout')({
-  component: () => (
-    <Layout>
-      <Outlet />
-      <Toaster />
-    </Layout>
-  ),
+  component: LayoutRoute,
 })

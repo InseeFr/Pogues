@@ -24,20 +24,21 @@ export default function SidebarSubmenuItem({
 
   if (isHidden) return null
 
+  const isActive =
+    !!matchRoute({ to: path }) ||
+    innerPaths.some((path) => !!matchRoute({ to: path }))
+
   return (
     <li>
       <Link
         to={path}
         params={{ questionnaireId, versionId }}
-        aria-disabled={isDisabled}
-        className={`w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none`}
+        aria-current={isActive ? 'true' : undefined}
+        aria-disabled={isDisabled || undefined}
+        className="group w-full aria-disabled:opacity-25 aria-disabled:pointer-events-none"
       >
         <div
-          aria-current={
-            !!matchRoute({ to: path }) ||
-            innerPaths.some((path) => !!matchRoute({ to: path }))
-          }
-          className="2xl:grid 2xl:grid-cols-[auto_1fr] items-center p-2 gap-x-3 cursor-pointer hover:text-blue-600 hover:fill-blue-600 hover:bg-blue-50 aria-current:text-blue-600 aria-current:fill-blue-600 aria-current:bg-blue-200 disabled:bg-disabled"
+          className="2xl:grid 2xl:grid-cols-[auto_1fr] items-center p-2 gap-x-3 cursor-pointer hover:text-blue-600 hover:fill-blue-600 hover:bg-blue-50 group-aria-current:text-blue-600 group-aria-current:fill-blue-600 group-aria-current:bg-blue-200"
           title={label}
         >
           <span className="text-left">{label}</span>

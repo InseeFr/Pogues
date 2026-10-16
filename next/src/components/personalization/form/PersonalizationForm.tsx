@@ -17,8 +17,9 @@ import ButtonIcon, { ButtonIconStyle } from '@/components/ui/ButtonIcon'
 import CsvViewerTable from '@/components/ui/CsvViewerTable'
 import DialogButton from '@/components/ui/DialogButton'
 import UploadMessageTile from '@/components/ui/UploadMessageTile'
+import DirtyStateStatus from '@/components/ui/form/DirtyStateStatus'
 import Field from '@/components/ui/form/Field'
-import FormInput from '@/components/ui/form/FormInput'
+import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
 import DeleteIcon from '@/components/ui/icons/DeleteIcon'
 import {
@@ -53,6 +54,8 @@ export default function PersonalizationForm({
   const queryClient = useQueryClient()
   const [isErrorUpload, setIsErrorUpload] = useState<boolean>(false)
   const [uploadMessage, setUploadMessage] = useState<UploadMessage | null>(null)
+  const [isDirty, setIsDirty] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const surveyContext: SurveyContext[] = [
     {
@@ -120,6 +123,7 @@ export default function PersonalizationForm({
   })
 
   const onContextChange = (context: SurveyContext) => {
+    setIsDirty(true)
     setQuestionnaire({
       ...questionnaire,
       context: {
@@ -136,6 +140,7 @@ export default function PersonalizationForm({
   }
 
   const onRemoveFile = () => {
+    setIsDirty(true)
     setParsedFileData(null)
     setQuestionnaire({
       ...questionnaire,
@@ -153,6 +158,7 @@ export default function PersonalizationForm({
       return
     }
     onRemoveFile()
+    setIsDirty(true)
     const file = fileList[0]
 
     if (file.type !== fileType.value) {
@@ -202,6 +208,11 @@ export default function PersonalizationForm({
     })
   }
 
+  function onSubmit() {
+    setIsSubmitted(true)
+    handleSubmit(questionnaire)
+  }
+
   return (
     <div className="flex flex-col min-h-[400px]">
       <div className="overflow-hidden space-y-3 my-2">
@@ -243,10 +254,10 @@ export default function PersonalizationForm({
           </Field>
         </div>
         <div className="flex flex-row gap-x-2 mt-2 items-center">
-          <FormInput
+          <Input
             type="file"
             ref={emptyFileInputRef}
-            style={{ display: 'none' }}
+            className="hidden"
             onChange={onInterrogationDataChange}
             accept={fileType.value}
             data-testid="file-upload"
@@ -307,7 +318,7 @@ export default function PersonalizationForm({
             label: questionnaire.label,
           })}
           body={t('personalization.create.createQuestionnaireDescription')}
-          onValidate={() => handleSubmit(questionnaire)}
+          onValidate={onSubmit}
           buttonTitle={t('personalization.create.createQuestionnaire')}
           disabled={
             !questionnaire.interrogationData ||
@@ -316,6 +327,7 @@ export default function PersonalizationForm({
           }
         />
       </div>
+      <DirtyStateStatus isDirty={isDirty} isSubmitted={isSubmitted} />
     </div>
   )
 }

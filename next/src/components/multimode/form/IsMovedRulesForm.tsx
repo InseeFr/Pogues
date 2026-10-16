@@ -1,11 +1,11 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
+import ControlledVTLEditor from '@/components/ui/form/ControlledVTLEditor'
 import Form from '@/components/ui/form/Form'
 import Label from '@/components/ui/form/Label'
-import VTLEditor from '@/components/ui/form/VTLEditor'
+import { useFormCancel } from '@/hooks/form/useFormCancel'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm'
 import type { MultimodeIsMovedRules } from '@/models/multimode'
 import { Variable } from '@/models/variables'
 
@@ -33,79 +33,48 @@ export default function MultimodeIsMovedRulesForm({
   onSubmit,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const navigate = useNavigate()
+  const cancel = useFormCancel()
 
   const {
     control,
     handleSubmit,
     formState: { isDirty, isValid, isSubmitted },
     setError,
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+  } = useReactHookfForm<FormValues>({
+    schema,
     defaultValues: isMovedRules,
   })
-
-  const handleCancel = () => {
-    navigate({
-      to: '/questionnaire/$questionnaireId/multimode',
-      params: { questionnaireId },
-      ignoreBlocker: true,
-    })
-  }
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      onCancel={handleCancel}
+      onCancel={() =>
+        cancel({
+          to: '/questionnaire/$questionnaireId/multimode',
+          params: { questionnaireId },
+        })
+      }
       isDirty={isDirty}
       isValid={isValid}
       isSubmitted={isSubmitted}
     >
-      <Controller
-        name="questionnaireFormula"
+      <ControlledVTLEditor
         control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <VTLEditor
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('multimode.form.questionnaireFormula')}
-            name={name}
-            onChange={onChange}
-            setError={(error) => setError(name, error)}
-            suggestionsVariables={variables}
-            touched={isTouched}
-            value={value}
-          />
-        )}
+        name="questionnaireFormula"
+        label={t('multimode.form.questionnaireFormula')}
+        setError={setError}
+        suggestionsVariables={variables}
       />
       {roundaboutVariables.length > 0 ? (
-        <Controller
-          name="leafFormula"
+        <ControlledVTLEditor
           control={control}
-          render={({
-            field: { name, value, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <VTLEditor
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('multimode.form.leafFormula')}
-              name={name}
-              onChange={onChange}
-              setError={(error) => setError(name, error)}
-              // Warning : it should be roundaboutVariables but currently VTLEditor can't be rendered twice
-              // with different suggestionsVariables else every field has the suggestionsVariables of the last field.
-              // Until we find a solution, we prefer to use the questionnaire variables.
-              suggestionsVariables={variables}
-              touched={isTouched}
-              value={value}
-            />
-          )}
+          name="leafFormula"
+          label={t('multimode.form.leafFormula')}
+          setError={setError}
+          // Warning : it should be roundaboutVariables but currently VTLEditor can't be rendered twice
+          // with different suggestionsVariables else every field has the suggestionsVariables of the last field.
+          // Until we find a solution, we prefer to use the questionnaire variables.
+          suggestionsVariables={variables}
         />
       ) : (
         <div>

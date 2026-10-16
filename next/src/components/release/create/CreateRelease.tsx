@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { SerieDetailDTO } from '@/api/models/questionnaireDetailsDTO'
+import FormComponent from '@/components/ui/form/FormComponent'
 import WarningIcon from '@/components/ui/icons/WarningIcon'
 import { TargetModes } from '@/models/questionnaires'
 
@@ -32,7 +33,7 @@ export default function CreateRelease({
           <div className="items-center p-3 border-primary border rounded shadow mb-3 bg-default">
             <div>{t('release.form.introduction')}</div>
           </div>
-          <div className="bg-default p-4 border border-default shadow-xl">
+          <FormComponent>
             <CreateReleaseForm
               questionnaireId={questionnaireId}
               seriesId={serie ? serie.label : ''}
@@ -40,7 +41,7 @@ export default function CreateRelease({
               targetModes={targetModes}
               isPublishDisabled={isPublishDisabled}
             />
-          </div>
+          </FormComponent>
         </div>
       ) : (
         <div

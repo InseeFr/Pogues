@@ -1,19 +1,19 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from '@tanstack/react-router'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, type SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import Field from '@/components/ui/form/Field'
+import ControlledField from '@/components/ui/form/ControlledField'
 import Form from '@/components/ui/form/Form'
 import Input from '@/components/ui/form/Input'
 import RadioGroup from '@/components/ui/form/RadioGroup'
+import SelectTargetMode from '@/components/ui/form/SelectTargetMode'
+import { useFormCancel } from '@/hooks/form/useFormCancel'
+import { useReactHookfForm } from '@/hooks/form/useReactHookfForm'
 import {
   FlowLogics,
   FormulasLanguages,
   type Questionnaire,
 } from '@/models/questionnaires'
 
-import SelectTargetMode from '../../ui/form/SelectTargetMode'
 import { type FormValues, schema } from './schema'
 
 type Props = {
@@ -26,13 +26,12 @@ type Props = {
 }
 
 /**
- * Create or edit a codes list.
+ * Create or edit a questionnaire.
  *
- * A code list has a label and codes (defined by a label and value).
+ * A questionnaire has a title, target modes, a flow logic and a language
+ * formula.
  *
- * A code can have subcodes.
- *
- * {@link CodesList}
+ * {@link Questionnaire}
  */
 export default function QuestionnaireForm({
   questionnaire = {
@@ -45,54 +44,36 @@ export default function QuestionnaireForm({
   submitLabel,
 }: Readonly<Props>) {
   const { t } = useTranslation()
-  const navigate = useNavigate()
+  const cancel = useFormCancel()
 
   const {
     control,
     handleSubmit,
     formState: { isDirty, isSubmitted, isValid },
-  } = useForm<FormValues>({
-    mode: 'onChange',
+  } = useReactHookfForm<FormValues>({
     defaultValues: questionnaire,
-    resolver: zodResolver(schema),
+    schema,
   })
-
-  const handleCancel = () => {
-    navigate({
-      to: '/questionnaires',
-      ignoreBlocker: true,
-    })
-  }
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      onCancel={handleCancel}
+      onCancel={() => cancel({ to: '/questionnaires' })}
       isDirty={isDirty}
       isValid={isValid}
       isSubmitted={isSubmitted}
       validateLabel={submitLabel}
     >
-      <Controller
-        name="title"
+      <ControlledField
         control={control}
-        render={({
-          field: { name, value, onChange },
-          fieldState: { invalid, isTouched, isDirty, error },
-        }) => (
-          <Field
-            dirty={isDirty}
-            error={error}
-            invalid={invalid}
-            label={t('common.title')}
-            name={name}
-            required
-            touched={isTouched}
-          >
-            <Input autoFocus value={value} onValueChange={onChange} />
-          </Field>
+        name="title"
+        label={t('common.title')}
+        required
+      >
+        {(field) => (
+          <Input autoFocus value={field.value} onValueChange={field.onChange} />
         )}
-      />
+      </ControlledField>
       <Controller
         name="targetModes"
         control={control}
@@ -107,66 +88,46 @@ export default function QuestionnaireForm({
         )}
       />
       <div>
-        <Controller
-          name="flowLogic"
+        <ControlledField
           control={control}
+          name="flowLogic"
+          label={t('questionnaire.common.dynamicField')}
+          required
           rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('questionnaire.common.dynamicField')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={[
-                  { label: 'Filtre', value: FlowLogics.Filter },
-                  { label: 'Redirection', value: FlowLogics.Redirection },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
+        >
+          {(field) => (
+            <RadioGroup
+              options={[
+                { label: 'Filtre', value: FlowLogics.Filter },
+                { label: 'Redirection', value: FlowLogics.Redirection },
+              ]}
+              value={field.value}
+              onBlur={field.onBlur}
+              onValueChange={field.onChange}
+            />
           )}
-        />
+        </ControlledField>
       </div>
       <div>
-        <Controller
-          name="formulasLanguage"
+        <ControlledField
           control={control}
+          name="formulasLanguage"
+          label={t('questionnaire.common.formulaField')}
+          required
           rules={{ required: true }}
-          render={({
-            field: { name, value, onBlur, onChange },
-            fieldState: { invalid, isTouched, isDirty, error },
-          }) => (
-            <Field
-              dirty={isDirty}
-              error={error}
-              invalid={invalid}
-              label={t('questionnaire.common.formulaField')}
-              name={name}
-              required
-              touched={isTouched}
-            >
-              <RadioGroup
-                options={[
-                  { label: 'VTL', value: FormulasLanguages.VTL },
-                  { label: 'XPath', value: FormulasLanguages.XPath },
-                ]}
-                value={value}
-                onBlur={onBlur}
-                onValueChange={onChange}
-              />
-            </Field>
+        >
+          {(field) => (
+            <RadioGroup
+              options={[
+                { label: 'VTL', value: FormulasLanguages.VTL },
+                { label: 'XPath', value: FormulasLanguages.XPath },
+              ]}
+              value={field.value}
+              onBlur={field.onBlur}
+              onValueChange={field.onChange}
+            />
           )}
-        />
+        </ControlledField>
       </div>
     </Form>
   )

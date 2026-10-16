@@ -64,12 +64,13 @@ export function ReleaseRequestTile({
 
   const statusBadge = (
     <div
-      className={`inline-flex items-center gap-1 px-3 py-1 rounded text-sm font-medium ${request.status === 'FAILED'
+      className={`inline-flex items-center gap-1 px-3 py-1 rounded text-sm font-medium ${
+        request.status === 'FAILED'
           ? 'bg-red-50 text-red-600'
           : request.status === 'COMPLETED'
             ? 'bg-green-50 text-green-600'
             : 'bg-gray-100 text-gray-500'
-        }`}
+      }`}
     >
       {getStatusLabel(request.status, t)}
     </div>
@@ -148,6 +149,7 @@ export function ReleaseRequestTile({
                   href={`${trombiUrl}/${request.author}`}
                   target="_blank"
                   className="text-action-primary fill-action-primary inline-flex items-center gap-1 hover:underline"
+                  aria-label={`${trombiUrl}/${request.author} (${t('common.opensInNewWindow')})`}
                 >
                   {request.author}
                   <OpenInNewIcon height="14" width="14" />
