@@ -41,6 +41,7 @@
     "i18next": "^26.4.2",
     "i18next-browser-languagedetector": "^8.2.1",
     "oidc-spa": "^10.2.15",
+    "papaparse": "^5.6.0",
     "prismjs": "^1.30.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
