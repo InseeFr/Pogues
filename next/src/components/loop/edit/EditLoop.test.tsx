@@ -117,7 +117,6 @@ describe('EditLoop', () => {
           isFixedLength: false,
           minimum: '1',
           maximum: '5',
-          addButtonLabel: 'Add a person',
         }}
         scopes={scopes}
         loopMembers={loopMembers}
@@ -136,9 +135,6 @@ describe('EditLoop', () => {
     )
     expect(screen.getByLabelText(/Maximum number of occurrences/)).toHaveValue(
       '5',
-    )
-    expect(screen.getByLabelText(/Add button label/)).toHaveValue(
-      'Add a person',
     )
     expect(screen.getByLabelText(/Occurrences number/)).not.toBeVisible()
     expect(initialMember).toHaveTextContent('Sequence 1')

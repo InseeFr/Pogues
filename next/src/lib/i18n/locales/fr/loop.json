@@ -28,7 +28,6 @@
     "minMaxWarning": "Rappel : pour les enquêtes en contexte entreprises, le nombre d'occurrences minimum et maximum d'une boucle doivent être égaux.",
     "minimum": "Nombre d'occurrences minimum",
     "maximum": "Nombre d'occurrences maximum",
-    "addButtonLabel": "Libellé du bouton d'ajout",
     "initialMember": "Début",
     "initialMemberPlaceholder": "Spécifier membre initial",
     "finalMember": "Fin",

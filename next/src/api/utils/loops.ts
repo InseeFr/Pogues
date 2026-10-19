@@ -25,7 +25,6 @@ export function computeLoop(loopDTO: LoopDTO): Loop {
     isFixedLength: false,
     minimum: loopDTO.minimum,
     maximum: loopDTO.maximum,
-    addButtonLabel: loopDTO.addButtonLabel,
   }
 }
 
@@ -52,7 +51,6 @@ export function computeLoopDTO(loop: Loop): LoopDTO {
     isFixedLength: false,
     minimum: loop.minimum,
     maximum: loop.maximum,
-    addButtonLabel: loop.addButtonLabel,
   }
 }
 

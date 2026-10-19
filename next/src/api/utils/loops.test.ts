@@ -39,7 +39,6 @@ const cases: { label: string; loop: Loop }[] = [
       isFixedLength: false,
       minimum: '1',
       maximum: '5',
-      addButtonLabel: 'Add',
     },
   },
 ]

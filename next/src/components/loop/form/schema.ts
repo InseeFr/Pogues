@@ -68,7 +68,6 @@ const occurrencesLoopSchema = z.discriminatedUnion('isFixedLength', [
       .trim()
       .min(1, { error: i18next.t('loop.form.mustProvideMaximum') })
       .prefault(''),
-    addButtonLabel: z.string().optional(),
   }),
 ])
 

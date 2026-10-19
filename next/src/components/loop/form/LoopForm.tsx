@@ -262,20 +262,6 @@ export default function LoopForm({
               setError={setError}
               suggestionsVariables={variables}
             />
-            <ControlledField
-              control={control}
-              name="addButtonLabel"
-              label={t('loop.form.addButtonLabel')}
-              disabled={isReadonly}
-            >
-              {(field) => (
-                <Input
-                  disabled={isReadonly}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
-            </ControlledField>
           </div>
         </>
       )}

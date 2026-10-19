@@ -11,7 +11,6 @@ const formValues = {
   shouldSplitIterations: true,
   minimum: '1',
   maximum: '2',
-  addButtonLabel: 'Add',
 }
 
 const common = { name: 'my loop', initialMember: 'S1', finalMember: 'S2' }
@@ -51,7 +50,6 @@ describe('loop schema', () => {
       isFixedLength: false,
       minimum: '1',
       maximum: '2',
-      addButtonLabel: 'Add',
     })
   })
 

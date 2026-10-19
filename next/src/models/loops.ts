@@ -34,7 +34,6 @@ export type Loop = {
       minimum: string
       /** VTL formula of the maximum number of occurrences. */
       maximum: string
-      addButtonLabel?: string
     }
 )
 
