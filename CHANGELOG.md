@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change json viewer library (from _prismjs_ to _react-json-view_) in personalization panel
+
 ### Added
 
 - Add a new shared banner component to display warning, informations or error messages to the user
