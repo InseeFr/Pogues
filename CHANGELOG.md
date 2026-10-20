@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.10.0](https://github.com/InseeFr/Pogues/releases/tag/3.10.0) - 2026-10-20
+
 ### Changed
 
 - Creating, editing and deleting loops is now done in a dedicated page (the legacy app redirects to it)
