@@ -118,4 +118,39 @@ describe('Form component', () => {
     // Then it triggers the onCancel action
     expect(foo).toHaveBeenCalledOnce()
   })
+
+  it('does not display a delete button by default', async () => {
+    await renderWithRouter(<Form onCancel={vi.fn()} onSubmit={vi.fn()} />)
+
+    expect(
+      screen.queryByRole('button', { name: 'Delete' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('allows to delete after confirmation', async () => {
+    // Given a form with a delete button
+    const user = userEvent.setup()
+    const onDelete = vi.fn()
+    const onSubmit = vi.fn()
+    await renderWithRouter(
+      <Form
+        onCancel={vi.fn()}
+        onSubmit={onSubmit}
+        deleteButton={{
+          title: 'Delete my element',
+          body: 'Are you sure?',
+          onConfirm: onDelete,
+        }}
+      />,
+    )
+
+    // When we click on the delete button and confirm
+    await user.click(screen.getByRole('button', { name: 'Delete' }))
+    expect(screen.getByText('Delete my element')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Validate' }))
+
+    // Then it triggers the onDelete action without submitting the form
+    expect(onDelete).toHaveBeenCalledOnce()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
 })

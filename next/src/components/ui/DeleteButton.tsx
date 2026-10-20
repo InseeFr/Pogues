@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import DialogButton from '@/components/ui/DialogButton'
 
-type Props = {
+export type DeleteButtonProps = {
   body: string
   disabled?: boolean
   label?: string
@@ -18,7 +18,7 @@ export default function DeleteButton({
   label,
   onConfirm,
   title,
-}: Readonly<Props>) {
+}: Readonly<DeleteButtonProps>) {
   const { t } = useTranslation()
 
   return (

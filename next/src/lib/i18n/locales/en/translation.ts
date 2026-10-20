@@ -7,6 +7,7 @@ import details from './details.json'
 import error from './error.json'
 import filter from './filter.json'
 import history from './history.json'
+import loop from './loop.json'
 import multimode from './multimode.json'
 import nomenclatures from './nomenclatures.json'
 import personalization from './personalization.json'
@@ -27,6 +28,7 @@ export const translation = {
   error,
   filter,
   history,
+  loop,
   multimode,
   nomenclatures,
   personalization,
