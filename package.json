@@ -1,9 +1,10 @@
 {
   "name": "pogues",
-  "version": "3.10.0",
+  "version": "3.10.2",
   "description": "Outil de conception et de test de questionnaires.",
   "scripts": {
     "install:all": "pnpm install && pnpm --dir next install && pnpm --dir legacy install",
+    "prebuild": "pnpm install:all",
     "test:next": "cd next && pnpm test",
     "test:legacy": "cd legacy && pnpm test",
     "build:next": "cd next && pnpm build",
@@ -22,7 +23,8 @@
     "dev:api": "pnpm --dir next dev:api",
     "prepreview:api": "node scripts/ensure-installed.cjs",
     "build:api": "cd next && pnpm build:api && cd ../legacy && pnpm build:api && cd .. && node scripts/postbuild.cjs",
-    "preview:api": "pnpm build:api && node --env-file=.env.local-api ./node_modules/vite/bin/vite.js preview"
+    "preview:api": "pnpm build:api && node --env-file=.env.local-api ./node_modules/vite/bin/vite.js preview",
+    "prepare": "husky"
   },
   "license": "MIT",
   "engines": {
@@ -38,7 +40,7 @@
     "eslint-plugin-react-refresh": "^0.5.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.9",
-    "vite": "^8.3.1"
+    "vite": "^8.3.5"
   },
   "lint-staged": {
     "next/**/*.{js,jsx,ts,tsx}": [
@@ -50,5 +52,8 @@
       "prettier --write --list-different"
     ],
     "!(*.js|*.jsx|*.ts|*.tsx)": "prettier --write --ignore-unknown --list-different"
+  },
+  "dependencies": {
+    "husky": "^9.1.7"
   }
 }

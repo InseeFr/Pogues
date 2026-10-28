@@ -33,9 +33,9 @@
     "@making-sense/antlr4ng": "^3.0.16",
     "@making-sense/vtl-2-1-antlr-tools-ts": "^1.0.6",
     "@making-sense/vtl-2-1-monaco-tools-ts": "^1.0.2",
-    "@uiw/react-json-view": "2.0.0-alpha.43",
     "@tanstack/react-query": "^5.104.1",
     "@tanstack/react-router": "^1.170.41",
+    "@uiw/react-json-view": "2.0.0-alpha.43",
     "axios": "^1.20.0",
     "dayjs": "^1.11.23",
     "i18next": "^26.4.2",
@@ -50,7 +50,7 @@
     "react-hot-toast": "^2.6.1",
     "react-i18next": "^17.0.15",
     "vite-envs": "^4.7.2",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -80,7 +80,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.71.0",
-    "vite": "^8.3.2",
+    "vite": "^8.3.5",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.11"
   }

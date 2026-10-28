@@ -38,12 +38,14 @@ const QuestionnaireListComponents = (rawProps) => {
     editingComponentId,
     errorsIntegrity = {},
     setSelectedComponentId,
-    activeCalculatedVariables = {},
-    calculatedVariables = {},
     removeQuestionnaire,
     navigate,
   } = rawProps;
-  const props = { ...rawProps, componentsStore, errorsIntegrity, activeCalculatedVariables, calculatedVariables };
+  const props = {
+    ...rawProps,
+    componentsStore,
+    errorsIntegrity,
+  };
 
   const isReadonly = useReadonly();
 
@@ -57,17 +59,6 @@ const QuestionnaireListComponents = (rawProps) => {
   const [showComponentModal, setShowComponentModal] = useState(false);
   const [showRemoveQuestionnaireDialog, setShowRemoveQuestionnaireDialog] =
     useState(false);
-  const [showWarning, setShowWarning] = useState(false);
-
-  // Temporary : to help diagnose calculated variables bug
-  useEffect(() => {
-    if (questionnaire.id && calculatedVariables[questionnaire.id]) {
-      setShowWarning(
-        Object.keys(activeCalculatedVariables).length === 0 &&
-          Object.keys(calculatedVariables[questionnaire.id]).length !== 0,
-      );
-    }
-  }, [activeCalculatedVariables, calculatedVariables, questionnaire]);
 
   const handleOpenComponentDetail = () => setShowComponentModal(true);
 
@@ -140,141 +131,103 @@ const QuestionnaireListComponents = (rawProps) => {
           <div>
             {/* Questionnaire edit */}
 
-          <div id="questionnaire-head">
-            <h4>{questionnaire.label}</h4>
-            <div>
-              <button
-                className="btn-yellow"
-                disabled={isQuestionnaireModified}
-                onClick={() => setShowDuplicateModal(true)}
-              >
-                {Dictionary.duplicate}
-              </button>
-              <button
-                className="btn-yellow"
-                disabled={isReadonly}
-                onClick={() => setShowRemoveQuestionnaireDialog(true)}
-              >
-                {Dictionary.remove}
-                <span className="glyphicon glyphicon-trash" />
-              </button>
-            </div>
-          </div>
-
-          {/* Temporary warning to help diagnose the bug concerning disappearing of calculated variables */}
-          {showWarning && (
-            <div id="errors-integrity">
-              <div className="errors-integrity__inner">
-                <div
-                  className="errors-integrity__alert"
-                  style={{ marginTop: '2.5em' }}
-                >
-                  <div className="alert-icon big">
-                    <div className="alert-triangle" />!
-                  </div>
-                </div>
-                <div className="errors-integrity__list">
-                  <ul>
-                    <li>
-                      Il n'y a plus de variables calculées dans votre
-                      questionnaire.{' '}
-                      <strong>
-                        Si ce n'est pas une action voulue de votre part
-                      </strong>
-                      , il s'agit probablement d'une erreur de l'application.
-                      Dans ce cas, veuillez contacter au plus vite{' '}
-                      <a href="mailto:atelier-conception-enquetes@insee.fr;service-numerique-atelier-conception-enquetes@insee.fr">
-                        l'équipe de l'atelier de conception
-                      </a>{' '}
-                      pour que nous corrigions ce problème.
-                    </li>
-                    <li>
-                      Par ailleurs, si vous quittez votre questionnaire
-                      maintenant sans le sauvegarder, vous retrouverez les
-                      variables calculées en retournant sur le questionnaire.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <ErrorsIntegrityPanel
-            errorsIntegrity={errorsIntegrity}
-            componentsStore={componentsStore}
-            setSelectedComponentId={setSelectedComponentId}
-          />
-
-          {/* Questionnaire components */}
-
-          <div id="questionnaire-items">
-            {renderComponentsByParent(questionnaire.id, props, {
-              handleOpenComponentDetail: handleOpenComponentDetail,
-            })}
-          </div>
-
-          {/* Component edit */}
-
-          <ReactModal
-            parentSelector={domSelectorForModal}
-            ariaHideApp={false}
-            shouldCloseOnOverlayClick={false}
-            isOpen={showComponentModal}
-            onRequestClose={() => setShowComponentModal(false)}
-            contentLabel={componentHeader}
-          >
-            <div className="popup">
-              <div className="popup-header">
-                <h3>{componentHeader}</h3>
+            <div id="questionnaire-head">
+              <h4>{questionnaire.label}</h4>
+              <div>
                 <button
-                  type="button"
-                  onClick={() => setShowComponentModal(false)}
+                  className="btn-yellow"
+                  disabled={isQuestionnaireModified}
+                  onClick={() => setShowDuplicateModal(true)}
                 >
-                  <span>X</span>
+                  {Dictionary.duplicate}
+                </button>
+                <button
+                  className="btn-yellow"
+                  disabled={isReadonly}
+                  onClick={() => setShowRemoveQuestionnaireDialog(true)}
+                >
+                  {Dictionary.remove}
+                  <span className="glyphicon glyphicon-trash" />
                 </button>
               </div>
-              <div className="popup-body">
-                <ComponentEdit
-                  onCancel={() => setShowComponentModal(false)}
-                  onSuccess={() => setShowComponentModal(false)}
-                />
-              </div>
             </div>
-          </ReactModal>
 
-          {/* Duplicate */}
+            <ErrorsIntegrityPanel
+              errorsIntegrity={errorsIntegrity}
+              componentsStore={componentsStore}
+              setSelectedComponentId={setSelectedComponentId}
+            />
 
-          <ConfirmDialog
-            showConfirmModal={showDuplicateModal}
-            closePopup={() => setShowRemoveQuestionnaireDialog(false)}
-            confirm={() =>
-              getAccessToken().then((accessToken) =>
-                duplicateQuestionnaire(questionnaire.id, accessToken).then(() =>
-                  setShowDuplicateModal(false),
-                ),
-              )
-            }
-            title={Dictionary.dupliquate}
-            message={`${Dictionary.duplicateQuestion}${questionnaire.label}`}
-          />
+            {/* Questionnaire components */}
 
-          {/* Remove dialog */}
+            <div id="questionnaire-items">
+              {renderComponentsByParent(questionnaire.id, props, {
+                handleOpenComponentDetail: handleOpenComponentDetail,
+              })}
+            </div>
 
-          <ConfirmDialog
-            showConfirmModal={showRemoveQuestionnaireDialog}
-            closePopup={() => setShowRemoveQuestionnaireDialog(false)}
-            confirm={() =>
-              getAccessToken().then((accessToken) =>
-                removeQuestionnaire(questionnaire.id, accessToken).then(() =>
-                  navigate('/'),
-                ),
-              )
-            }
-            title={Dictionary.confirmBodyTitle}
-            message={Dictionary.confirmBodyMessage}
-          />
-        </div>
-      )}
+            {/* Component edit */}
+
+            <ReactModal
+              parentSelector={domSelectorForModal}
+              ariaHideApp={false}
+              shouldCloseOnOverlayClick={false}
+              isOpen={showComponentModal}
+              onRequestClose={() => setShowComponentModal(false)}
+              contentLabel={componentHeader}
+            >
+              <div className="popup">
+                <div className="popup-header">
+                  <h3>{componentHeader}</h3>
+                  <button
+                    type="button"
+                    onClick={() => setShowComponentModal(false)}
+                  >
+                    <span>X</span>
+                  </button>
+                </div>
+                <div className="popup-body">
+                  <ComponentEdit
+                    onCancel={() => setShowComponentModal(false)}
+                    onSuccess={() => setShowComponentModal(false)}
+                  />
+                </div>
+              </div>
+            </ReactModal>
+
+            {/* Duplicate */}
+
+            <ConfirmDialog
+              showConfirmModal={showDuplicateModal}
+              closePopup={() => setShowDuplicateModal(false)}
+              confirm={() =>
+                getAccessToken().then((accessToken) =>
+                  duplicateQuestionnaire(questionnaire.id, accessToken).then(
+                    () => setShowDuplicateModal(false),
+                  ),
+                )
+              }
+              title={Dictionary.dupliquate}
+              message={`${Dictionary.duplicateQuestion}${questionnaire.label}`}
+            />
+
+            {/* Remove dialog */}
+
+            <ConfirmDialog
+              showConfirmModal={showRemoveQuestionnaireDialog}
+              closePopup={() => setShowRemoveQuestionnaireDialog(false)}
+              confirm={() =>
+                getAccessToken().then((accessToken) =>
+                  removeQuestionnaire(questionnaire.id, accessToken).then(() =>
+                    navigate('/'),
+                  ),
+                )
+              }
+              title={Dictionary.confirmBodyTitle}
+              message={Dictionary.confirmBodyMessage}
+            />
+          </div>
+        )}
       </div>
     </DndProvider>
   );
@@ -298,10 +251,7 @@ QuestionnaireListComponents.propTypes = {
   duplicateQuestionnaire: PropTypes.func.isRequired,
   removeQuestionnaire: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
-  activeCalculatedVariables: PropTypes.object,
-  calculatedVariables: PropTypes.object,
 };
-
 
 const ForwardedQuestionnaireListComponents = withForwardRef(
   QuestionnaireListComponents,

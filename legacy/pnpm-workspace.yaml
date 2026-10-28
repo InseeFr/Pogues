@@ -4,5 +4,10 @@ allowBuilds:
   esbuild: true
 minimumReleaseAge: 0
 overrides:
+  adm-zip@<0.6.1: ^0.6.1
+  adm-zip@<=0.6.0: ^0.6.1
+  dompurify@<=3.4.16: ^3.4.17
+  dompurify@>=3.4.4 <=3.4.16: ^3.4.17
   immutable@<3.8.3: ^3.8.3
   immutable@<4.3.9: ^4.3.9
+  undici@>=7.0.0 <7.30.1: ^7.30.1

@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.10.2](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.10.2) - 2026-10-26
+
+### Changed
+
+- Base DockerFile `nginxinc/nginx-unprivileged` to `nginx/nginx-unprivileged`
+
+### Fixed
+
+- The questionnaire duplication modal were not closed when clicking on "Cancel" button
+- dependencies: Fix high/critical cves
+- Fix cves in Docker by upgrading nginx to `1.31.8-alpine`
+
+## [3.10.1](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.10.1) - 2026-10-20
+
+### Changed
+
+- change the CI due to migration on Gitlab.
+
 ## [3.10.0](https://github.com/InseeFr/Pogues/releases/tag/3.10.0) - 2026-10-20
 
 ### Changed
