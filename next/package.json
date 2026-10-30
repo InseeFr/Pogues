@@ -35,7 +35,7 @@
     "@making-sense/vtl-2-1-monaco-tools-ts": "^1.0.2",
     "@tanstack/react-query": "^5.104.1",
     "@tanstack/react-router": "^1.170.41",
-    "@uiw/react-json-view": "2.0.0-alpha.43",
+    "@uiw/react-json-view": "2.0.0-alpha.44",
     "axios": "^1.20.0",
     "dayjs": "^1.11.23",
     "i18next": "^26.4.2",
