@@ -9,7 +9,7 @@ import {
 import {
   getQuestionnaire,
   getQuestionnaires,
-  postQuestionnaire,
+  getQuestionnairesByStampOrSeries,
   putQuestionnaire,
 } from './questionnaires'
 
@@ -46,6 +46,31 @@ it('Get questionnaires works', async () => {
   expect(res).toEqual([questionnaire])
 })
 
+it('Get questionnaires by stamp or series works', async () => {
+  const questionnaires = [
+    {
+      id: 'id',
+      label: 'title',
+      lastUpdatedDate: '2024-11-19T11:36:56Z',
+      owner: 'my-stamp',
+      serie: {
+        id: 'serie-id',
+        uri: 'serie-uri',
+        label: 'Serie label',
+        altLabel: 'Serie alt label',
+      },
+    },
+  ]
+
+  nock('https://mock-api')
+    .get('/questionnaires')
+    .query({ owner: 'my-stamp', serieId: 'serie-id' })
+    .reply(200, questionnaires)
+
+  const res = await getQuestionnairesByStampOrSeries('my-stamp', 'serie-id')
+  expect(res).toEqual(questionnaires)
+})
+
 it('Get questionnaire works', async () => {
   nock('https://mock-api')
     .get('/persistence/questionnaire/id')
@@ -53,13 +78,6 @@ it('Get questionnaire works', async () => {
 
   const res = await getQuestionnaire('id')
   expect(res).toEqual(questionnaire)
-})
-
-it('Post questionnaire works', async () => {
-  nock('https://mock-api').post('/persistence/questionnaires').reply(201)
-
-  const res = await postQuestionnaire(questionnaire, 'my-stamp')
-  expect(res.status).toEqual(201)
 })
 
 it('Put questionnaire works', async () => {

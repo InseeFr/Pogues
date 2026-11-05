@@ -20,6 +20,7 @@ export default function Autocomplete<T extends string>({
   onChange,
   options = [],
   value,
+  disabled = false,
   open,
   onOpenChange,
   placeholder,
@@ -32,6 +33,7 @@ export default function Autocomplete<T extends string>({
   return (
     <Combobox.Root
       value={value ?? null}
+      disabled={disabled}
       open={open}
       onOpenChange={onOpenChange}
       onValueChange={(v) => onChange?.((v ?? '') as T)}

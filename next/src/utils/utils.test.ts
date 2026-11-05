@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest'
 
 import {
+  createQuestionnaireNameFromLabel,
   getCurrentUri,
   getStampFromEmail,
   getUrlFromCriteria,
-  nameFromLabel,
 } from './utils'
 
 describe('Utils', () => {
@@ -23,11 +23,11 @@ describe('Utils', () => {
   })
 
   test.each([
-    ['mon label', 'MONLABEL'],
-    ['mon label est un peu trop long', 'MONLABELES'],
-    ['mon 1er läbél', 'MON1ERLBL'],
-  ])('nameFromLabel (%s) -> %s', (label, expected) => {
-    expect(nameFromLabel(label)).toEqual(expected)
+    ['mon label', 'MON_LABEL'],
+    ['mon label est un peu trop long', 'MON_LABEL_'],
+    ['mon 1er läbél', 'MON_1ER_LB'],
+  ])('createQuestionnaireNameFromLabel (%s) -> %s', (label, expected) => {
+    expect(createQuestionnaireNameFromLabel(label)).toEqual(expected)
   })
 })
 

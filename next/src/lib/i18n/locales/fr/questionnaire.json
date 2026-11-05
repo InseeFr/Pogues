@@ -9,8 +9,24 @@
     "title": "Nouveau questionnaire"
   },
   "form": {
+    "altLabel": "Libellé court",
+    "altLabelUndefined": "Non défini",
+    "agency": "Agence",
+    "mustProvideSerie": "Vous devez fournir une série",
+    "mustProvideAgency": "Vous devez fournir une agency",
+    "mustProvideName": "Vous devez fournir un nom",
+    "mustProvideStamp": "Vous devez sélectionner un timbre",
+    "nameMaxLength": "Le nom doit comporter 10 caractères maximum",
+    "nameInvalidChars": "Le nom doit contenir uniquement des lettres, chiffres et underscores",
+    "nameHintLabel": "Le nom doit comporter 10 caractères maximum et ne contenir que des lettres, chiffres et underscores",
     "mustProvideTarget": "Vous devez sélectionner au moins un mode de collecte",
-    "mustProvideTitle": "Vous devez renseigner un titre"
+    "mustProvideTitle": "Vous devez renseigner un titre",
+    "questionnaireTitle": "Titre du questionnaire",
+    "questionnaireName": "Nom court",
+    "serie": "Série",
+    "seriesSearch": "Rechercher une série...",
+    "stamp": "Timbre",
+    "stampSearch": "Rechercher un timbre..."
   },
   "title": "Questionnaire"
 }

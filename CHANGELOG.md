@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.11.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.11.0) - 2026-11-04
+
+### Added
+
+- Added a new serie column in the questionnaires list page to display the serie of the questionnaire if present
+- User can now select a serie and a stamp directly when creating a new questionnaire
+
+### Changed 
+
+- Now requires conception-questionnaire-api v5.8.0
+
 ## [3.10.2](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.10.2) - 2026-10-26
 
 ### Changed

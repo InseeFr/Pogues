@@ -47,7 +47,7 @@ export async function getQuestionnaireDetails(
     })
 }
 
-/** Retrieve codes lists associated to an older version of the questionnaire. */
+/** Retrieve questionnaire details associated to an older version of the questionnaire. */
 export async function getQuestionnaireDetailsFromVersion(
   questionnaireId: string,
   versionId: string,
@@ -60,6 +60,15 @@ export async function getQuestionnaireDetailsFromVersion(
     .then(({ data }: { data: QuestionnaireDetailsDTO }) => {
       return data
     })
+}
+
+/** Used to create a questionnaire */
+export async function postQuestionnaireDetail(
+  data: QuestionnaireDetailsDTO,
+): Promise<Response> {
+  return instance.post('/persistence/questionnaires/details', data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
 }
 
 export async function putQuestionnaireDetail(

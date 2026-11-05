@@ -6,8 +6,8 @@ import RadioGroup from '@/components/ui/form/RadioGroup'
 import { TargetModes } from '@/models/questionnaires'
 
 type Props = {
-  value: Set<TargetModes> | TargetModes[]
-  onChange: (value: Set<TargetModes> | TargetModes[]) => void
+  value: Set<TargetModes>
+  onChange: (value: Set<TargetModes>) => void
   multiple: boolean
   disabled?: boolean
   error?: string
@@ -32,7 +32,6 @@ export default function SelectTargetMode({
   const { t } = useTranslation()
 
   const modes = ALL_TARGET_MODES.filter((m) => availableModes.includes(m.value))
-  const isSet = value instanceof Set
 
   if (multiple) {
     return (
@@ -43,25 +42,17 @@ export default function SelectTargetMode({
             <Checkbox
               key={label}
               label={label}
-              checked={isSet ? value.has(modeValue) : value.includes(modeValue)}
+              checked={value.has(modeValue)}
               disabled={disabled}
               onChange={(checked) => {
-                if (isSet) {
-                  const set = value as Set<TargetModes>
-                  const next = new Set(set)
-                  if (checked) {
-                    next.add(modeValue)
-                  } else {
-                    next.delete(modeValue)
-                  }
-                  onChange(next)
+                const set = value as Set<TargetModes>
+                const next = new Set(set)
+                if (checked) {
+                  next.add(modeValue)
                 } else {
-                  const arr = value as TargetModes[]
-                  const next = checked
-                    ? [...arr, modeValue]
-                    : arr.filter((m) => m !== modeValue)
-                  onChange(next)
+                  next.delete(modeValue)
                 }
+                onChange(next)
               }}
             />
           ))}
@@ -71,11 +62,7 @@ export default function SelectTargetMode({
     )
   }
 
-  const radioValue = isSet
-    ? value.values().next().value
-    : value.length > 0
-      ? value[0]
-      : undefined
+  const radioValue = value.values().next().value
 
   return (
     <>
@@ -87,11 +74,7 @@ export default function SelectTargetMode({
         disabled={disabled}
         onValueChange={(newValue) => {
           const modeValue = newValue as TargetModes
-          if (isSet) {
-            onChange(new Set([modeValue]))
-          } else {
-            onChange([modeValue])
-          }
+          onChange(new Set([modeValue]))
         }}
       />
       {error ? <div className="text-sm text-error ml-1">{error}</div> : null}

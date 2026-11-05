@@ -1,10 +1,12 @@
 import { Link } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
+import { QuestionnaireDTO } from '@/api/models/questionnaireDTO'
+import Tooltip from '@/components/ui/Tooltip'
 import ChevronRightIcon from '@/components/ui/icons/ChevronRightIcon'
-import type { Questionnaire } from '@/models/questionnaires'
 
 interface QuestionnaireProps {
-  questionnaire: Questionnaire
+  questionnaire: QuestionnaireDTO
 }
 
 /**
@@ -15,6 +17,8 @@ interface QuestionnaireProps {
 export default function QuestionnaireLine({
   questionnaire,
 }: Readonly<QuestionnaireProps>) {
+  const { t } = useTranslation()
+
   return (
     <Link
       className="table-row bg-default odd:bg-main *:p-4 cursor-pointer hover:bg-accent"
@@ -22,10 +26,25 @@ export default function QuestionnaireLine({
       params={{ questionnaireId: questionnaire.id }}
     >
       <td>
-        <div>{questionnaire.title}</div>
+        <div>{questionnaire.label}</div>
       </td>
       <td>
-        <div>{questionnaire.lastUpdatedDate?.toLocaleDateString()}</div>
+        <div>
+          <Tooltip title={questionnaire.serie?.label}>
+            {questionnaire.serie?.altLabel ? (
+              questionnaire.serie.altLabel
+            ) : questionnaire.serie?.label ? (
+              t('questionnaires.notAvailable')
+            ) : (
+              <em>{t('questionnaires.toBeFilled')}</em>
+            )}
+          </Tooltip>
+        </div>
+      </td>
+      <td>
+        <div>
+          {new Date(questionnaire.lastUpdatedDate).toLocaleDateString()}
+        </div>
       </td>
       <td>
         <ChevronRightIcon />

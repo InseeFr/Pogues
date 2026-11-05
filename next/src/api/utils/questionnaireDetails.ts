@@ -1,10 +1,6 @@
 import { TargetModes } from '@/models/questionnaires'
 
-import { SurveyModeEnum } from '../models/poguesModel'
-import type {
-  QuestionnaireDetailsDTO,
-  SerieDetailDTO,
-} from '../models/questionnaireDetailsDTO'
+import type { QuestionnaireDetailsDTO } from '../models/questionnaireDetailsDTO'
 import { computeTargetModes } from './targetModes'
 
 export type FormDetails = {
@@ -12,7 +8,7 @@ export type FormDetails = {
   title: string
   serie?: string
   agency: string
-  targetModes: TargetModes[]
+  targetModes: Set<TargetModes>
   owner: string
 }
 
@@ -28,43 +24,7 @@ export function computeQuestionnaireDetails(
     title: dto.label,
     serie: computeSerieId(dto),
     agency: dto.agency,
-    targetModes: Array.from(
-      computeTargetModes(dto.targetMode as SurveyModeEnum[]),
-    ),
+    targetModes: computeTargetModes(dto.targetMode),
     owner: dto.owner,
   }
-}
-
-export function computeQuestionnaireDetailsDTO(
-  formDetails: FormDetails,
-  existingDto: QuestionnaireDetailsDTO,
-  serieDetails?: SerieDetailDTO,
-): QuestionnaireDetailsDTO {
-  const base = {
-    ...existingDto,
-    dataCollection: undefined,
-    name: formDetails.name,
-    label: formDetails.title,
-    targetMode: formDetails.targetModes.map(
-      (mode) => TargetModes[mode as number] as string,
-    ),
-    agency: formDetails.agency,
-    owner: formDetails.owner,
-  }
-
-  if (serieDetails) {
-    return {
-      ...base,
-      dataCollection: {
-        serie: {
-          id: serieDetails.id,
-          uri: serieDetails.uri,
-          label: serieDetails.label,
-          altLabel: serieDetails.altLabel,
-        },
-      },
-    }
-  }
-
-  return base
 }

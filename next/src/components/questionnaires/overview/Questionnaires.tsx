@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 
+import { QuestionnaireDTO } from '@/api/models/questionnaireDTO'
 import Field from '@/components/ui/form/Field'
 import Input from '@/components/ui/form/Input'
-import { Questionnaire } from '@/models/questionnaires'
 import { Stamp } from '@/models/stamps'
 
 import StampsSelector from './StampsSelector'
@@ -14,7 +14,7 @@ import TableQuestionnaires from './TableQuestionnaires'
 interface QuestionnairesProps {
   selectedStamp: string
   stamps?: Stamp[]
-  questionnaires?: Questionnaire[]
+  questionnaires?: QuestionnaireDTO[]
 }
 
 /** Display the page with the questionnaires and various filters options. */
@@ -60,7 +60,7 @@ export default function Questionnaires({
         <TableQuestionnaires
           questionnaires={questionnaires.filter((q) => {
             return (
-              q.title.toLowerCase().includes(filter.toLowerCase()) ||
+              q.label.toLowerCase().includes(filter.toLowerCase()) ||
               q.id.toLowerCase().includes(filter.toLowerCase())
             )
           })}

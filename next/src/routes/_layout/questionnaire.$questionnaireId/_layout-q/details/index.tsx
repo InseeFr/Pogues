@@ -3,9 +3,9 @@ import { createFileRoute } from '@tanstack/react-router'
 import { questionnaireDetailsQueryOptions } from '@/api/questionnaireDetails'
 import { seriesQueryOptions } from '@/api/series'
 import { stampsQueryOptions } from '@/api/stamps'
-import DetailsOverview from '@/components/details/QuestionnaireDetailsOverview'
-import DetailsOverviewLayout from '@/components/details/QuestionnaireDetailsOverviewLayout'
 import ErrorComponent from '@/components/layout/ErrorComponent'
+import EditQuestionnaireDetails from '@/components/questionnaires/editDetails/EditQuestionnaireDetails'
+import DetailsOverviewLayout from '@/components/questionnaires/editDetails/EditQuestionnaireDetailsLayout'
 
 //import { agencyQueryOptions } from '@/api/agency'
 
@@ -40,7 +40,7 @@ function RouteComponent() {
 
   return (
     <CustomLayout>
-      <DetailsOverview
+      <EditQuestionnaireDetails
         questionnaireId={questionnaireId}
         questionnaireDetails={questionnaireDetails}
         series={series}

@@ -2,5 +2,8 @@
   "create": "Créer un questionnaire",
   "search": "Rechercher un questionnaire",
   "stamp": "Timbre",
+  "series": "Série",
+  "notAvailable": "Non disponible",
+  "toBeFilled": "À renseigner",
   "title": "Questionnaires"
 }

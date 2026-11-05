@@ -1,5 +1,4 @@
 import {
-  FlowLogics,
   FormulasLanguages,
   Questionnaire,
   TargetModes,
@@ -12,9 +11,11 @@ import {
   Questionnaire as PoguesQuestionnaire,
   SurveyModeEnum,
 } from '../models/poguesModel'
+import { QuestionnaireDetailsDTO } from '../models/questionnaireDetailsDTO'
+import { FormDetails } from './questionnaireDetails'
 import {
-  computeNewPoguesQuestionnaire,
   computeQuestionnaire,
+  computeQuestionnaireDetailsDTO,
 } from './questionnaires'
 
 it('computeQuestionnaire works', () => {
@@ -73,78 +74,103 @@ it('computeQuestionnaire works', () => {
   expect(computeQuestionnaire(poguesQuestionnaire)).toEqual(questionnaire)
 })
 
-describe('computeNewPoguesQuestionnaire', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-    const date = new Date(2000, 1, 1, 13)
-    vi.setSystemTime(date)
-  })
-
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
-  const poguesQuestionnaire: PoguesQuestionnaire = {
-    id: 'id',
-    Name: 'TITLE',
-    Label: ['title'],
-    TargetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
-    DataCollection: [],
-    Variables: { Variable: [] },
+describe('computeQuestionnaireDetailsDTO', () => {
+  const existingDto: QuestionnaireDetailsDTO = {
+    id: 'q123',
+    name: 'original',
+    label: 'Original',
+    targetMode: [SurveyModeEnum.CAPI],
     agency: 'fr.insee',
-    childQuestionnaireRef: [],
-    genericName: GenericNameEnum.Questionnaire,
-    owner: 'my-stamp',
-    FlowControl: [],
-    ComponentGroup: [],
-    Child: [
-      {
-        Name: 'QUESTIONNAIRE_END',
-        Label: ['QUESTIONNAIRE_END'],
-        id: 'idendquest',
-        type: 'SequenceType',
-        depth: 1,
-        TargetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
-        genericName: GenericNameEnum.Module,
-      },
-    ],
-    CodeLists: { CodeList: [] },
-    lastUpdatedDate: '2000-02-01T13:00:00.000Z',
+    owner: 'ESQUIE',
   }
 
-  it('works', () => {
-    expect(
-      computeNewPoguesQuestionnaire(
-        {
-          id: 'id',
-          title: 'title',
-          targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
-          flowLogic: FlowLogics.Redirection,
-          formulasLanguage: FormulasLanguages.XPath,
-        },
-        'my-stamp',
-      ),
-    ).toEqual({
-      ...poguesQuestionnaire,
-      flowLogic: FlowLogicEnum.Redirection,
-      formulasLanguage: FormulasLanguageEnum.XPath,
-    })
+  const serieDetails = {
+    id: 's1004',
+    uri: 'http://example.fr/esquie',
+    label: 'Enquête Esquie',
+    altLabel: 'EL',
+  }
+
+  it('builds a questionnaire detail dto from form details', () => {
+    const formDetails: FormDetails = {
+      name: 'NEW_NAME',
+      title: 'New Title',
+      serie: 's1004',
+      agency: 'fr.insee',
+      targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
+      owner: 'MONOCO',
+    }
+
+    const result = computeQuestionnaireDetailsDTO(
+      formDetails,
+      existingDto,
+      serieDetails,
+    )
+
+    expect(result.id).toBe('q123')
+    expect(result.owner).toBe('MONOCO')
+    expect(result.name).toBe('NEW_NAME')
+    expect(result.label).toBe('New Title')
+    expect(result.agency).toBe('fr.insee')
+    expect(result.targetMode).toEqual(['CAPI', 'PAPI'])
+    expect(result.dataCollection?.serie).toEqual(serieDetails)
   })
 
-  it('sets default values', () => {
-    expect(
-      computeNewPoguesQuestionnaire(
-        {
-          id: 'id',
-          title: 'title',
-          targetModes: new Set([TargetModes.CAPI, TargetModes.PAPI]),
-        },
-        'my-stamp',
-      ),
-    ).toEqual({
-      ...poguesQuestionnaire,
-      flowLogic: FlowLogicEnum.Filter,
-      formulasLanguage: FormulasLanguageEnum.VTL,
-    })
+  it('preserves the original DTO fields that are not overwritten', () => {
+    const formDetails: FormDetails = {
+      name: 'NEW_NAME',
+      title: 'New Title',
+      serie: 's1004',
+      agency: 'fr.insee',
+      targetModes: new Set(),
+      owner: 'ESQUIE',
+    }
+
+    const result = computeQuestionnaireDetailsDTO(
+      formDetails,
+      existingDto,
+      serieDetails,
+    )
+
+    expect(result.id).toBe('q123')
+    expect(result.owner).toBe('ESQUIE')
+  })
+
+  it('maps targetModes Set to SurveyModeEnum string array', () => {
+    const formDetails: FormDetails = {
+      name: 'test',
+      title: 'Test',
+      serie: 's1004',
+      agency: 'fr.insee',
+      targetModes: new Set([TargetModes.CAWI, TargetModes.CATI]),
+      owner: 'ESQUIE',
+    }
+
+    const result = computeQuestionnaireDetailsDTO(
+      formDetails,
+      existingDto,
+      serieDetails,
+    )
+
+    expect(result.targetMode).toEqual(['CAWI', 'CATI'])
+  })
+
+  it('produces an empty targetMode array for an empty array', () => {
+    const formDetails: FormDetails = {
+      name: 'test',
+      title: 'Test',
+      serie: 's1004',
+      agency: 'fr.insee',
+      targetModes: new Set(),
+      owner: 'ESQUIE',
+    }
+
+    const result = computeQuestionnaireDetailsDTO(
+      formDetails,
+      existingDto,
+      serieDetails,
+    )
+
+    expect(result.targetMode).toEqual([])
   })
 })

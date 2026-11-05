@@ -2,5 +2,8 @@
   "create": "Create a questionnaire",
   "search": "Search for a questionnaire",
   "stamp": "Stamp",
+  "series": "Serie (short name)",
+  "notAvailable": "Not available",
+  "toBeFilled": "To be filled",
   "title": "Questionnaires"
 }

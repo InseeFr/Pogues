@@ -2,10 +2,9 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { questionnaireDetailsFromVersionQueryOptions } from '@/api/questionnaireDetails'
 import { seriesQueryOptions } from '@/api/series'
-import { computeQuestionnaireDetails } from '@/api/utils/questionnaireDetails'
-import DetailsOverviewLayout from '@/components/details/QuestionnaireDetailsOverviewLayout'
-import QuestionnaireDetailsForm from '@/components/details/form/QuestionnaireDetailsForm'
 import ErrorComponent from '@/components/layout/ErrorComponent'
+import EditQuestionnaireDetails from '@/components/questionnaires/editDetails/EditQuestionnaireDetails'
+import DetailsOverviewLayout from '@/components/questionnaires/editDetails/EditQuestionnaireDetailsLayout'
 
 export const Route = createFileRoute(
   '/_layout/questionnaire/$questionnaireId/_layout-q/version/$versionId/details',
@@ -37,12 +36,10 @@ function RouteComponent() {
 
   return (
     <CustomLayout>
-      <QuestionnaireDetailsForm
+      <EditQuestionnaireDetails
         questionnaireId={questionnaireId}
+        questionnaireDetails={questionnaireDetails}
         series={series}
-        defaultValues={computeQuestionnaireDetails(questionnaireDetails)}
-        onSubmit={() => {}}
-        submitLabel=""
         readOnly
       />
     </CustomLayout>

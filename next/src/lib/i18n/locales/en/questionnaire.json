@@ -9,8 +9,23 @@
     "title": "New questionnaire"
   },
   "form": {
+    "altLabel": "Short label",
+    "altLabelUndefined": "Not defined",
+    "agency": "Agency",
+    "mustProvideName": "You must provide a name",
+    "mustProvideStamp": "You must select a stamp",
+    "mustProvideAgency": "Vous must select an agency",
+    "nameMaxLength": "Name must be 10 characters or less",
+    "nameInvalidChars": "Name must only contain letters, numbers and underscores",
+    "nameHintLabel": "Name must be 10 characters or less and only contain letters, numbers and underscores",
     "mustProvideTarget": "You must select at least one target mode",
-    "mustProvideTitle": "You must provide a title"
+    "mustProvideTitle": "You must provide a title",
+    "questionnaireTitle": "Questionnaire Title",
+    "questionnaireName": "Short name",
+    "serie": "Serie",
+    "seriesSearch": "Search for series...",
+    "stamp": "Stamp",
+    "stampSearch": "Search for stamp..."
   },
   "title": "Questionnaire"
 }

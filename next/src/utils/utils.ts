@@ -32,15 +32,19 @@ export function uid() {
 }
 
 /** A label is made of 10 uppercased alphanumeric characters. */
-export function nameFromLabel(label: string): string {
+export function createQuestionnaireNameFromLabel(label: string): string {
   return label
-    .replace(/[^a-z0-9_]/gi, '')
+    .replaceAll(' ', '_')
+    .replaceAll(/[^a-z0-9_]/gi, '')
     .toUpperCase()
     .slice(0, 10)
 }
 
 export const getCurrentUri = (): string | undefined => {
-  const uri = globalThis.location.href.replace(globalThis.location.origin, '')
+  const uri = globalThis.location.href.replaceAll(
+    globalThis.location.origin,
+    '',
+  )
   if (uri === '/') return undefined
   return uri
 }

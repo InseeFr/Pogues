@@ -24,8 +24,16 @@ export const Route = createFileRoute('/_layout/questionnaires/')({
   loader: async ({ context: { queryClient, user }, deps: { stamp } }) => {
     const selectedStamp = stamp ?? user!.stamp ?? ''
 
-    queryClient.ensureQueryData(questionnairesQueryOptions(selectedStamp))
-    queryClient.ensureQueryData(stampsQueryOptions())
+    await Promise.all([
+      queryClient.query({
+        ...questionnairesQueryOptions(selectedStamp),
+        staleTime: 'static',
+      }),
+      queryClient.query({
+        ...stampsQueryOptions(),
+        staleTime: 'static',
+      }),
+    ])
 
     return { selectedStamp }
   },

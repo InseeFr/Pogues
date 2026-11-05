@@ -16,7 +16,7 @@ import type { TypedValueType } from './poguesModelTypeUtils'
  *
  * All these concepts are created outside of Pogues.
  */
-type DataCollection = {
+export type DataCollection = {
   /** Datacollection name (label). Exemple : "Enquête sectorielle annuelle 2018" */
   Name: string
   /** Datacollection Id. */
@@ -28,9 +28,7 @@ type DataCollection = {
 }
 
 export type Variable =
-  | CollectedVariableType
-  | CalculatedVariableType
-  | ExternalVariableType
+  CollectedVariableType | CalculatedVariableType | ExternalVariableType
 
 export type VariablesObject = {
   Variable?: Variable[]

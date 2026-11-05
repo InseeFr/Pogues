@@ -4,15 +4,13 @@ import type { Questionnaire } from '@/models/questionnaires'
 
 import { instance } from './instance'
 import type { Questionnaire as PoguesQuestionnaire } from './models/poguesModel'
-import {
-  computeNewPoguesQuestionnaire,
-  computeQuestionnaire,
-} from './utils/questionnaires'
+import { QuestionnaireDTO } from './models/questionnaireDTO'
+import { computeQuestionnaire } from './utils/questionnaires'
 
 export const questionnairesKeys = {
   all: ['questionnaires'] as const,
-  allByStamp: (stamp: string) =>
-    [...questionnairesKeys.all, { stamp }] as const,
+  allByStampOrSerie: (stamp: string, serieId?: string) =>
+    [...questionnairesKeys.all, { stamp, serieId }] as const,
   detail: (id: string) => [...questionnairesKeys.all, 'detail', id] as const,
 }
 
@@ -21,10 +19,10 @@ export const questionnairesKeys = {
  *
  * @see {@link getQuestionnaires}
  */
-export const questionnairesQueryOptions = (stamp: string) =>
+export const questionnairesQueryOptions = (stamp: string, serieId?: string) =>
   queryOptions({
-    queryKey: questionnairesKeys.allByStamp(stamp),
-    queryFn: () => getQuestionnaires(stamp),
+    queryKey: questionnairesKeys.allByStampOrSerie(stamp, serieId),
+    queryFn: () => getQuestionnairesByStampOrSeries(stamp, serieId),
   })
 
 /**
@@ -40,6 +38,7 @@ export const questionnaireQueryOptions = (questionnaireId: string) =>
 
 /**
  * Retrieve questionnaires associated to the provided stamp (e.g. "DR59-SNDI59").
+ * @deprecated use `getQuestionnairesByStampOrSeries` instead
  */
 export async function getQuestionnaires(
   stamp: string,
@@ -58,6 +57,23 @@ export async function getQuestionnaires(
     })
 }
 
+/**
+ * Retrieve questionnaires associated to the provided stamp or serie.
+ */
+export async function getQuestionnairesByStampOrSeries(
+  stamp?: string,
+  serieId?: string,
+): Promise<QuestionnaireDTO[]> {
+  return instance
+    .get('/questionnaires', {
+      params: { owner: stamp, serieId: serieId },
+      headers: { Accept: 'application/json' },
+    })
+    .then(({ data }: { data: QuestionnaireDTO[] }) => {
+      return data
+    })
+}
+
 /** Retrieve a questionnaire by id. */
 export async function getQuestionnaire(id: string): Promise<Questionnaire> {
   return instance
@@ -69,21 +85,9 @@ export async function getQuestionnaire(id: string): Promise<Questionnaire> {
     })
 }
 
-/** Create a new questionnaire. */
-export async function postQuestionnaire(
-  qr: Omit<Questionnaire, 'scopes'>,
-  stamp: string,
-): Promise<Response> {
-  return instance.post(
-    '/persistence/questionnaires',
-    computeNewPoguesQuestionnaire(qr, stamp),
-    {
-      headers: { 'Content-Type': 'application/json' },
-    },
-  )
-}
-
-/** Update a questionnaire by id. */
+/** Update a questionnaire by id.
+ * @deprecated
+ */
 export async function putQuestionnaire(
   id: string,
   qr: PoguesQuestionnaire,

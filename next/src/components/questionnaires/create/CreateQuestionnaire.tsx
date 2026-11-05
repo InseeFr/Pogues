@@ -1,10 +1,14 @@
 import FormComponent from '@/components/ui/form/FormComponent'
+import type { SerieItem } from '@/models/series'
+import type { Stamp } from '@/models/stamps'
 
 import CreateQuestionnaireForm from './CreateQuestionnaireForm'
 
 interface CreateQuestionnaireProps {
   /** Stamp of the user who creates a questionnaire. */
   userStamp: string
+  series: SerieItem[]
+  stamps: Stamp[]
 }
 
 /**
@@ -17,10 +21,16 @@ interface CreateQuestionnaireProps {
  */
 export default function CreateQuestionnaire({
   userStamp,
+  series,
+  stamps,
 }: Readonly<CreateQuestionnaireProps>) {
   return (
     <FormComponent>
-      <CreateQuestionnaireForm stamp={userStamp} />
+      <CreateQuestionnaireForm
+        defaultStamp={userStamp}
+        series={series}
+        stamps={stamps}
+      />
     </FormComponent>
   )
 }

@@ -1,14 +1,11 @@
 import nock from 'nock'
 
-import {
-  FlowLogicEnum,
-  FormulasLanguageEnum,
-  SurveyModeEnum,
-} from './models/poguesModel'
+import { SurveyModeEnum } from './models/poguesModel'
 import type { QuestionnaireDetailsDTO } from './models/questionnaireDetailsDTO'
 import {
   getQuestionnaireDetails,
   getQuestionnaireDetailsFromVersion,
+  postQuestionnaireDetail,
   putQuestionnaireDetail,
 } from './questionnaireDetails'
 
@@ -18,8 +15,6 @@ const questionnaireDetail: QuestionnaireDetailsDTO = {
   id: 'q123',
   name: 'MNABSOLUTE',
   label: '[mn] absolute cinema',
-  flowLogic: FlowLogicEnum.Filter,
-  formulasLanguage: FormulasLanguageEnum.VTL,
   targetMode: [SurveyModeEnum.CAPI, SurveyModeEnum.PAPI],
   agency: 'fr.insee',
   owner: 'ESQUIE',
@@ -49,6 +44,15 @@ it('Get questionnaire details from version works', async () => {
 
   const res = await getQuestionnaireDetailsFromVersion('q123', 'v456')
   expect(res).toEqual(questionnaireDetail)
+})
+
+it('Post questionnaire detail works', async () => {
+  nock('https://mock-api')
+    .post('/persistence/questionnaires/details', questionnaireDetail)
+    .reply(201, { status: 'ok' })
+
+  const res = await postQuestionnaireDetail(questionnaireDetail)
+  expect(res.status).toEqual(201)
 })
 
 it('Put questionnaire detail works', async () => {

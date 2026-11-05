@@ -1,6 +1,6 @@
 import { renderWithRouter } from '@/testing/render'
 
-import DetailsOverviewLayout from './QuestionnaireDetailsOverviewLayout'
+import DetailsOverviewLayout from './EditQuestionnaireDetailsLayout'
 
 describe('DetailsOverviewLayout', () => {
   it('displays title and children', async () => {

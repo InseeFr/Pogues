@@ -1,5 +1,6 @@
 import type { Articulation } from './articulation'
 import type { CodesList } from './codesLists'
+import { DataCollectionSerie } from './series'
 
 export type Questionnaire = {
   id: string
@@ -12,6 +13,7 @@ export type Questionnaire = {
   Articulation?: Articulation
   /** Scopes of the questionnaire with the mapping between id and name. */
   scopes: Map<string, string>
+  dataCollectionSerie?: DataCollectionSerie
   iterations?: Iteration[]
 }
 

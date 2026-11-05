@@ -1,21 +1,20 @@
-import { type Questionnaire } from '@/models/questionnaires'
-import { nameFromLabel } from '@/utils/utils'
+import type { Questionnaire } from '@/models/questionnaires'
 
+import type { Questionnaire as PoguesQuestionnaire } from '../models/poguesModel'
 import {
-  GenericNameEnum,
-  type Questionnaire as PoguesQuestionnaire,
-  SurveyModeEnum,
-} from '../models/poguesModel'
+  QuestionnaireDetailsDTO,
+  SerieDetailDTO,
+} from '../models/questionnaireDetailsDTO'
 import { computeCodesLists } from './codesLists'
-import { computePoguesFlowLogic } from './flowLogic'
-import {
-  computeFormulasLanguage,
-  computePoguesFormulasLanguage,
-} from './formulasLanguage'
+import { computeDataCollection } from './dataCollection'
+import { computeFormulasLanguage } from './formulasLanguage'
+import { FormDetails } from './questionnaireDetails'
 import { computeScopes } from './scopes'
 import { computePoguesTargetModes, computeTargetModes } from './targetModes'
 
-/** Compute a questionnaire that can be used in our app from API data. */
+/** Compute a questionnaire that can be used in our app from API data.
+ * @deprecated use `computeQuestionnaireDetailsDTO` instead
+ */
 export function computeQuestionnaire(
   datum: PoguesQuestionnaire,
 ): Questionnaire {
@@ -29,49 +28,38 @@ export function computeQuestionnaire(
     codesLists: computeCodesLists(datum.CodeLists?.CodeList),
     formulasLanguage: computeFormulasLanguage(datum.formulasLanguage),
     scopes: computeScopes(datum),
+    dataCollectionSerie: datum.DataCollection
+      ? computeDataCollection(datum.DataCollection)
+      : undefined,
   }
 }
 
-/** Create a new questionnaire that can be sent to the API from our app data. */
-export function computeNewPoguesQuestionnaire(
-  datum: Omit<Questionnaire, 'scopes'>,
-  stamp: string,
-) {
-  const targetModes = computePoguesTargetModes(datum.targetModes)
+/** Compute a questionnaire from the new questionnaire form. */
+export function computeQuestionnaireDetailsDTO(
+  formDetails: FormDetails,
+  existingDto: QuestionnaireDetailsDTO,
+  serieDetails?: SerieDetailDTO,
+): QuestionnaireDetailsDTO {
   return {
-    Name: nameFromLabel(datum.title),
-    Label: [datum.title],
-    TargetMode: targetModes,
-    id: datum.id,
-    owner: stamp,
-    flowLogic: computePoguesFlowLogic(datum.flowLogic),
-    formulasLanguage: computePoguesFormulasLanguage(datum.formulasLanguage),
-    lastUpdatedDate: new Date().toISOString(),
-    CodeLists: { CodeList: [] },
-    ...computeLegacyPoguesParameters(targetModes),
-  }
-}
+    ...existingDto,
+    dataCollection: undefined,
+    name: formDetails.name,
+    label: formDetails.title,
+    targetMode: computePoguesTargetModes(formDetails.targetModes),
+    agency: formDetails.agency,
+    owner: formDetails.owner,
 
-/** Add legacy parameters for questionnaire. */
-function computeLegacyPoguesParameters(targetModes: SurveyModeEnum[]) {
-  return {
-    agency: 'fr.insee',
-    genericName: GenericNameEnum.Questionnaire,
-    DataCollection: [],
-    Child: [
-      {
-        Name: 'QUESTIONNAIRE_END',
-        Label: ['QUESTIONNAIRE_END'],
-        id: 'idendquest',
-        type: 'SequenceType',
-        depth: 1,
-        TargetMode: targetModes,
-        genericName: GenericNameEnum.Module,
-      },
-    ],
-    childQuestionnaireRef: [],
-    FlowControl: [],
-    ComponentGroup: [],
-    Variables: { Variable: [] },
+    ...(serieDetails
+      ? {
+          dataCollection: {
+            serie: {
+              id: serieDetails.id,
+              uri: serieDetails.uri,
+              label: serieDetails.label,
+              altLabel: serieDetails.altLabel,
+            },
+          },
+        }
+      : {}),
   }
 }

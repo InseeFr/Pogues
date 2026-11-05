@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next'
 
-import type { Questionnaire } from '@/models/questionnaires'
+import { QuestionnaireDTO } from '@/api/models/questionnaireDTO'
 
 import QuestionnaireLine from './QuestionnaireLine'
 
 interface TableQuestionnaireProps {
-  questionnaires: Questionnaire[]
+  questionnaires: QuestionnaireDTO[]
 }
 
 /** Display questionnaires in a table format. */
@@ -19,6 +19,7 @@ export default function TableQuestionnaires({
       <thead className="bg-accent">
         <tr className="*:font-semibold *:p-4 text-left">
           <th scope="col">{t('questionnaires.title')}</th>
+          <th scope="col">{t('questionnaires.series')}</th>
           <th scope="col">{t('common.lastUpdated')}</th>
           <th className="w-0" />
         </tr>
@@ -27,7 +28,7 @@ export default function TableQuestionnaires({
         {questionnaires
           .toSorted((a, b) => {
             return b.lastUpdatedDate && a.lastUpdatedDate
-              ? b.lastUpdatedDate.getTime() - a.lastUpdatedDate.getTime()
+              ? Date.parse(b.lastUpdatedDate) - Date.parse(a.lastUpdatedDate)
               : 0
           })
           .map((questionnaire) => (

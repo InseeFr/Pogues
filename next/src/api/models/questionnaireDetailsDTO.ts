@@ -1,3 +1,5 @@
+import type { SurveyModeEnum } from './poguesModel'
+
 export type QuestionnaireDetailsDTO = {
   id: string
   name: string
@@ -5,14 +7,14 @@ export type QuestionnaireDetailsDTO = {
   dataCollection?: {
     serie: SerieDetailDTO
   }
-  targetMode: string[]
+  targetMode: SurveyModeEnum[]
   agency: string
   owner: string
 }
 
 export type SerieDTO = {
   id: string
-  uri: string
+  uri?: string
   label: string
 }
 
@@ -23,5 +25,5 @@ export type OperationDTO = {
 }
 
 export type SerieDetailDTO = SerieDTO & {
-  altLabel: string
+  altLabel?: string
 }
