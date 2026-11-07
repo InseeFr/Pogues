@@ -8,7 +8,7 @@ import { getStampFromEmail } from '@/utils/utils';
 
 import { getStampsList } from '../../api/questionnaires';
 import { domSelectorForModal } from '../../constants/dom-constants';
-import { COMPONENT_TYPE, TCM } from '../../constants/pogues-constants';
+import { COMPONENT_TYPE, TCM_SERIE_ID } from '../../constants/pogues-constants';
 import { formatDate, getState } from '../../utils/component/component-utils';
 import { getWeight } from '../../utils/component/generic-input-utils';
 import Dictionary from '../../utils/dictionary/dictionary';
@@ -42,8 +42,6 @@ const QuestionnaireList = ({
   collectedVariablesStore = {},
   handleNewChildQuestionnaireRef = undefined,
 }) => {
-
-
   const { getAccessToken, decodedIdToken } = useContext(AuthContext);
   const stamp =
     decodedIdToken.timbre ?? getStampFromEmail(decodedIdToken.email);
@@ -125,16 +123,18 @@ const QuestionnaireList = ({
   }, [getAccessToken]);
 
   useEffect(() => {
-    setSelectedStamp(isTcm ? TCM.owner : stamp || 'FAKEPERMISSION');
+    setSelectedStamp(stamp || 'FAKEPERMISSION');
   }, []);
 
   // TODO: Find why 2 calls
   useEffect(() => {
-    if (selectedStamp)
+    if (selectedStamp || isTcm)
       getAccessToken().then((token) =>
-        loadQuestionnaireList(selectedStamp, token).then(() =>
-          setLoading(false),
-        ),
+        loadQuestionnaireList(
+          isTcm ? null : selectedStamp,
+          isTcm ? TCM_SERIE_ID : null,
+          token,
+        ).then(() => setLoading(false)),
       );
     else deleteQuestionnaireList();
   }, [
@@ -142,6 +142,7 @@ const QuestionnaireList = ({
     getAccessToken,
     loadQuestionnaireList,
     deleteQuestionnaireList,
+    isTcm,
   ]);
 
   const updateFilter = (value) => {
@@ -161,7 +162,7 @@ const QuestionnaireList = ({
   const handleSubmit = async () => {
     const accessToken = await getAccessToken();
     duplicateQuestionnaire(questionId, accessToken);
-    loadQuestionnaireList(stamp, accessToken);
+    loadQuestionnaireList(stamp, null, accessToken);
     setShowPopup(false);
   };
 
@@ -170,7 +171,6 @@ const QuestionnaireList = ({
       return (
         activeQuestionnaire.id !== q.id &&
         !activeQuestionnaire.childQuestionnaireRef?.includes(q.id) &&
-        !isTcm &&
         (filter === '' ||
           (q.label &&
             q.label.toLowerCase().indexOf(filter.toLowerCase()) >= 0) ||
@@ -225,16 +225,24 @@ const QuestionnaireList = ({
         </div>
       )}
       <div className="box home-questionnaires">
-        <h5 style={{ fontWeight: 'bold' }}>{Dictionary.homeStampChoice}</h5>
-        <Dropdown
-          onChange={setSelectedStamp}
-          value={selectedStamp}
-          options={options}
-        />
-        <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
-        <h4>
-          {Dictionary.stamp} {stamp}
-        </h4>
+        {!isTcm && (
+          <>
+            <h5 style={{ fontWeight: 'bold' }}>{Dictionary.homeStampChoice}</h5>
+            <Dropdown
+              onChange={setSelectedStamp}
+              value={selectedStamp}
+              options={options}
+            />
+            <h3>{Dictionary.homeQuestionnairesInProgress}</h3>
+            <h4>
+              {Dictionary.stamp} {stamp}
+            </h4>
+          </>
+        )}
+        {isTcm && (
+          <h5 style={{ fontWeight: 'bold' }}>{Dictionary.tcmReference}</h5>
+        )}
+
         {loading ? (
           <Loader />
         ) : (

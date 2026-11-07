@@ -6,14 +6,30 @@ const pathQuestionnaire = 'persistence/questionnaire';
 const pathQuestionnaireList = 'persistence/questionnaires';
 const pathQuestionnaireVersion = 'persistence/version';
 
+const getUrlWithSearchMetaParams = (
+  baseUrl: string,
+  stamp: string | null,
+  serieId: string | null,
+) => {
+  if (stamp && serieId) return `${baseUrl}?owner=${stamp}&serieId=${serieId}`;
+  if (stamp) return `${baseUrl}?owner=${stamp}`;
+  if (serieId) return `${baseUrl}?serieId=${serieId}`;
+  return baseUrl;
+};
+
 /**
  * Retrieve questionnaires associated to the provided stamp (e.g. "DR59-SNDI59")
  */
 export async function getQuestionnaireList(
-  stamp: string,
+  stamp: string | null,
+  serieId: string | null,
   token: string,
 ): Promise<unknown[]> {
-  const url = `${getBaseURI()}/${pathQuestionnaireList}/search/meta?owner=${stamp}`;
+  const url = getUrlWithSearchMetaParams(
+    `${getBaseURI()}/${pathQuestionnaireList}/search/meta`,
+    stamp,
+    serieId,
+  );
   const headers = new Headers();
   headers.append('Accept', 'application/json');
   headers.append('Authorization', computeAuthorizationHeader(token));

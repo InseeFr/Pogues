@@ -49,20 +49,21 @@ export const loadQuestionnaireListFailure = (err) => ({
  *
  * @return  {function}  Thunk which may dispatch LOAD_QLIST_SUCCESS or LOAD_QLIST_FAILURE
  */
-export const loadQuestionnaireList = (stamp, token) => async (dispatch) => {
-  dispatch({
-    type: LOAD_QLIST,
-    payload: null,
-  });
-  try {
-    const qrList = await getQuestionnaireList(stamp, token);
-    return dispatch(
-      loadQuestionnaireListSuccess(questionnaireListRemoteToStores(qrList)),
-    );
-  } catch (err) {
-    return dispatch(loadQuestionnaireListFailure(err));
-  }
-};
+export const loadQuestionnaireList =
+  (stamp, serieId, token) => async (dispatch) => {
+    dispatch({
+      type: LOAD_QLIST,
+      payload: null,
+    });
+    try {
+      const qrList = await getQuestionnaireList(stamp, serieId, token);
+      return dispatch(
+        loadQuestionnaireListSuccess(questionnaireListRemoteToStores(qrList)),
+      );
+    } catch (err) {
+      return dispatch(loadQuestionnaireListFailure(err));
+    }
+  };
 
 export const deleteQuestionnaireList = () => (dispatch) => {
   dispatch({

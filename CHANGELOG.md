@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- restore TCM composition by using `serieId` instead of `owner`/`stamp`
 - dependencies: Fix high/medium cves
 
 ## [3.11.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.11.0) - 2026-11-04

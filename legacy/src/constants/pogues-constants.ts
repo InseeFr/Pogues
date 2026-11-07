@@ -174,7 +174,7 @@ export enum CHOICE_TYPE {
   CODE_LIST = 'CODE_LIST',
   VARIABLE = 'VARIABLE',
   SUGGESTER = 'SUGGESTER',
-};
+}
 
 export const SEARCH_CRITERIAS = {
   QUESTIONNAIRE: [
@@ -301,9 +301,4 @@ export const FORMULA_LANGUAGE = {
   VTL: 'VTL',
 };
 
-export const TCM = {
-  id: 'TCM',
-  value: 'TCM',
-  label: 'TCM',
-  owner: 'DG75-L120',
-};
+export const TCM_SERIE_ID = 'pogues_TCM';

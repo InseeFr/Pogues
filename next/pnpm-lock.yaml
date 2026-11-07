@@ -9,16 +9,6 @@ overrides:
   adm-zip@<=0.6.0: ^0.6.1
   dompurify@<=3.4.16: ^3.4.17
   dompurify@>=3.4.4 <=3.4.16: ^3.4.17
-  fast-uri@>=3.0.0 <3.1.3: ^3.1.3
-  fast-uri@>=3.0.0 <3.1.5: ^3.1.5
-  fast-uri@>=3.0.0 <3.1.6: ^3.1.6
-  fast-uri@>=3.0.0 <3.1.7: ^3.1.7
-  fast-uri@>=3.0.0 <=3.1.0: ^3.1.1
-  fast-uri@>=3.0.0 <=3.1.1: ^3.1.2
-  fast-uri@>=3.0.0 <=3.1.3: ^3.1.4
-  fast-uri@>=3.1.2 <3.1.6: ^3.1.6
-  fast-uri@>=3.1.3 <3.1.6: ^3.1.6
-  rollup@>=4.0.0 <4.59.0: ^4.59.0
   undici@>=7.0.0 <7.30.1: ^7.30.1
 
 importers:
@@ -4152,7 +4142,7 @@ packages:
       bun-types-no-globals: '*'
       esbuild: '*'
       rolldown: '*'
-      rollup: ^4.59.0
+      rollup: '*'
       unloader: '*'
       vite: '*'
       webpack: '*'
