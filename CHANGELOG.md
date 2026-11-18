@@ -7,12 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.12.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.12.0) - 2026-11-17
+
+### Added
+
+- Added missing HTTP headers to improve security (CSP, X-Frame-Options, Cross-Origin-Resource-Policy, X-Content-Type-Options, Referrer-Policy, Strict-Transport-Security)
+
 ## [3.11.1](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.11.1) - 2026-11-10
 
 ### Fixed
 
 - restore TCM composition by using `serieId` instead of `owner`/`stamp`
 - dependencies: Fix high/medium cves
+
 
 ## [3.11.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.11.0) - 2026-11-04
 

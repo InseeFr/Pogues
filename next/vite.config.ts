@@ -7,8 +7,10 @@ import { parseEnv } from 'node:util'
 import { oidcSpa } from 'oidc-spa/vite-plugin'
 import { defineConfig, loadEnv } from 'vite'
 import { viteEnvs } from 'vite-envs'
+import csp from 'vite-plugin-csp-guard'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+import { type CspPolicy, createCspPolicy } from '../scripts/csp-policy.cjs'
 import { mockApiPlugin } from './mock-api/vite-plugin.ts'
 
 /**
@@ -62,13 +64,27 @@ function resolveMonacoEsm(): string {
     .replace(/min[/\\]vs[/\\]index\.js$/, 'esm/vs/index.js')
 }
 
+function serializeCspPolicy(policy: CspPolicy): string {
+  const directives = Object.keys(policy) as (keyof CspPolicy)[]
+
+  return directives
+    .map((directive) => `${directive} ${policy[directive].join(' ')}`)
+    .join('; ')
+}
+
 // https://vite.dev/config/
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const useMockApi =
     process.env.VITE_USE_MOCK_API === 'true' || env.VITE_USE_MOCK_API === 'true'
+  const cspPolicy = createCspPolicy(env, 5173, command === 'serve')
 
   return {
+    server: {
+      headers: {
+        'Content-Security-Policy': serializeCspPolicy(cspPolicy),
+      },
+    },
     resolve: {
       alias: {
         'monaco-editor': resolveMonacoEsm(),
@@ -126,6 +142,20 @@ export default defineConfig(({ mode, command }) => {
         },
       }),
       react(),
+      // Use server headers for dev CSP & skip build policy transformation.
+      csp({
+        // Inject csp policies in the <meta> head component (useful for local testing)
+        // Use dev: true to enable it
+        dev: {
+          run: false,
+        },
+        build: {
+          override: true,
+        },
+        policy: cspPolicy,
+        transformPolicy: (_policy, { command }) =>
+          command === 'build' ? null : undefined,
+      }),
       tsconfigPaths({
         projects: [
           './tsconfig.json', // To avoid tsconfigPaths read website tsconfig path
@@ -134,6 +164,12 @@ export default defineConfig(({ mode, command }) => {
     ],
     build: {
       target: 'esnext',
+      assetsInlineLimit: (filePath) => {
+        if (filePath.endsWith('editorWebWorkerMain.js')) {
+          // To avoid having multiple csp warning in dev mode (only related to VTL editor (AntlrEditor))
+          return false
+        }
+      },
     },
   }
 })

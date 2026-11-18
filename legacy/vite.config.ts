@@ -1,6 +1,6 @@
-import { createRequire } from 'node:module';
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
+import { createRequire } from 'node:module';
 import { oidcSpa } from 'oidc-spa/vite-plugin';
 import { type UserConfig, defineConfig } from 'vite';
 import { viteEnvs } from 'vite-envs';
@@ -70,6 +70,11 @@ export const buildViteConf = (
     },
     build: {
       target: 'esnext',
+      assetsInlineLimit: (filePath) => {
+        if (filePath.endsWith('editorWebWorkerMain.js')) {
+          return false;
+        }
+      },
     },
     css: {
       preprocessorOptions: {

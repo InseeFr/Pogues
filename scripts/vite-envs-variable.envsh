@@ -1,0 +1,8 @@
+#!/bin/sh
+
+/usr/share/nginx/html/vite-envs.sh
+
+# Ensure that URL variables are defined for the Nginx image's envsubst hook when applying the template.
+export VITE_API_URL="${VITE_API_URL:-}"
+export VITE_OIDC_ISSUER="${VITE_OIDC_ISSUER:-}"
+export VITE_PERSONALIZATION_URL="${VITE_PERSONALIZATION_URL:-}"
