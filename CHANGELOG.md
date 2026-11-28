@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Error hint message is now different if the user is trying to release a questionnaire with a serie without short label
+
+## [3.13.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.12.0) - 2026-11-27
+
+### Changed
+
+- Update nginx/nginx-unprivileged version
+
+### Added
+
+- Allow users to mark suggester-based ucq as mandatory
+
 ## [3.12.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.12.0) - 2026-11-17
 
 ### Added
@@ -19,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - restore TCM composition by using `serieId` instead of `owner`/`stamp`
 - dependencies: Fix high/medium cves
-
 
 ## [3.11.0](https://gitlab.insee.fr/filiere-enquete/concevoir-traiter/applications/concevoir/conception-questionnaires-ui/-/releases/3.11.0) - 2026-11-04
 

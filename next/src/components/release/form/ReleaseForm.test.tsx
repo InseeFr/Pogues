@@ -292,6 +292,31 @@ describe('ReleaseForm', () => {
     })
   })
 
+  it('should show the missing label message when series id is present', async () => {
+    await renderReleaseForm({ seriesLabel: undefined })
+
+    expect(
+      screen.getByText(
+        'The short label is missing, please contact the Insee quality unit to define one.',
+      ),
+    ).toBeInTheDocument()
+  })
+
+  it('should keep the missing series id message when both series values are absent', async () => {
+    await renderReleaseForm({ seriesId: undefined, seriesLabel: undefined })
+
+    expect(
+      screen.getByText(
+        'The series is missing, please choose one in the detail of the questionnaire.',
+      ),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText(
+        'The short label is missing, please contact the Insee quality unit to define one.',
+      ),
+    ).not.toBeInTheDocument()
+  })
+
   it('should keep submit button disabled when publishing is blocked', async () => {
     const user = userEvent.setup()
 

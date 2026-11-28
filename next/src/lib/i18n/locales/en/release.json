@@ -67,7 +67,7 @@
       "label": "Short label of the series",
       "missingId": "The series is missing, please choose one in the detail of the questionnaire.",
       "missingIdTooltip": "If the series you look for is not in the list, please contact the quality team.",
-      "missingLabel": "The short label is missing, please choose one in the detail of the questionnaire.",
+      "missingLabel": "The short label is missing, please contact the Insee quality unit to define one.",
       "missingLabelTooltip": "If the short label you look for is not in the list, please contact the quality team."
     },
     "description": {

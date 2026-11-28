@@ -2,20 +2,18 @@ import { useEffect, useRef } from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, FormSection, change, formValueSelector } from 'redux-form';
+import { FormSection, change, formValueSelector } from 'redux-form';
 
 import {
   CHOICE_TYPE,
   DATATYPE_VIS_HINT,
   QUESTION_TYPE_ENUM,
 } from '../../../../../constants/pogues-constants';
-import GenericOption from '../../../../../forms/controls/generic-option';
-import ListRadios from '../../../../../forms/controls/list-radios';
 import Dictionary from '../../../../../utils/dictionary/dictionary';
 import { getCurrentSelectorPath } from '../../../../../utils/widget-utils';
-import SuggesterLists from '../../../../codes-lists/containers/suggester-lists-container';
 import { SelectorView, View } from '../../../../selector-view';
 import ResponseFormatSingleCodeslist from './response-format-single-code-list';
+import ResponseFormatSingleSuggester from './response-format-single-suggester';
 import ResponseFormatSingleVariable from './response-format-single-variable';
 
 const { SINGLE_CHOICE } = QUESTION_TYPE_ENUM;
@@ -73,22 +71,10 @@ function ResponseFormatSingle({
           value={suggesterType}
           label={Dictionary.suggester}
         >
-          <SuggesterLists selectorPathParent={selectorPathComposed} />
-          {!disableSetArbitrary && (
-            <Field
-              name="allowArbitraryResponse"
-              component={ListRadios}
-              label={Dictionary.allowArbitraryResponse}
-              required
-              // Convert string "true"/"false" to boolean true/false when storing in Redux form
-              parse={(value) => value === 'true'}
-              // Convert true/false/undefined to string "true"/"false" when displaying the form
-              format={(value) => (value === true ? 'true' : 'false')}
-            >
-              <GenericOption value="true">{Dictionary.yes}</GenericOption>
-              <GenericOption value="false">{Dictionary.no}</GenericOption>
-            </Field>
-          )}
+          <ResponseFormatSingleSuggester
+            selectorPathParent={selectorPathComposed}
+            disableSetArbitrary={disableSetArbitrary}
+          />
         </View>
         <View key={VARIABLE} value={VARIABLE} label={Dictionary.variable}>
           <ResponseFormatSingleVariable

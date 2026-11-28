@@ -43,8 +43,7 @@ export function formToState(form, transformers) {
   return {
     id,
     allowArbitraryResponse,
-    // for suggester we do not handle mandatory question
-    mandatory: choiceType === SUGGESTER ? false : mandatory,
+    mandatory: mandatory,
     choiceType,
     // for suggester we force visHint to "SUGGESTER" for not breaking the model
     visHint: choiceType === SUGGESTER ? SUGGESTER : visHint,
